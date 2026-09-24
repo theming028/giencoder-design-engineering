@@ -1,4 +1,9 @@
 # gaps.log — 设计系统 Token 缺口记录
 # 以下硬编码值未找到对应的设计系统 token，需手动补充
 
-base.html:86 — CSS 硬编码色值 #1F1，应使用设计系统变量 var(--color-*)
+automation.html:60 — 硬编码字号 11px，应使用 var(--font-size-*)
+avatar.html:60 — 硬编码字号 11px，应使用 var(--font-size-*)
+base.html:63 — 硬编码字号 11px，应使用 var(--font-size-*)
+dev.html:60 — 硬编码字号 11px，应使用 var(--font-size-*)
+settings.html:60 — 硬编码字号 11px，应使用 var(--font-size-*)
+skills.html:60 — 硬编码字号 11px，应使用 var(--font-size-*)
