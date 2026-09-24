@@ -1,0 +1,177 @@
+{
+ "schemaVersion": 3,
+ "slug": "tabs",
+ "name": "Tabs",
+ "category": "navigation",
+ "giencoderSource": {
+  "component": "Tabs",
+  "version": "2.66.16"
+ },
+ "summary": "标签页：以标签组织多个内容面板，支持线型/卡片/按钮等多种形态、滚动与可编辑关闭。",
+ "variants": [
+  {
+   "name": "line",
+   "description": "线型（默认），激活标签底部主色横线",
+   "whenToUse": "常规内容分区"
+  },
+  {
+   "name": "card",
+   "description": "卡片型，标签为独立卡片，标签高度 36px",
+   "whenToUse": "后台内容卡分区",
+   "spec": {
+    "height": "36px（含 1px 边框，border-box）"
+   }
+  },
+  {
+   "name": "subtle",
+   "description": "Subtle 轻量 Pill 样式，无下划线，激活项为浅灰圆角 pill 填充（映射自 Fluid Functionalism TabsSubtle）",
+   "whenToUse": "极简内容切换/工具栏筛选，背景与凹槽反差小、视觉更安静"
+  },
+  {
+   "name": "button",
+   "description": "按钮型，激活标签为按钮填充",
+   "whenToUse": "工具栏式切换"
+  },
+  {
+   "name": "capsule",
+   "description": "胶囊型，激活项胶囊填充",
+   "whenToUse": "紧凑分组切换"
+  },
+  {
+   "name": "text",
+   "description": "纯文字型，激活项加粗主色",
+   "whenToUse": "极简轻量切换"
+  }
+ ],
+ "sizes": [
+  {
+   "name": "default",
+   "value": "默认尺寸",
+   "usage": "无尺寸变体，使用组件默认尺寸"
+  }
+ ],
+ "states": [
+  {
+   "name": "default",
+   "description": "未激活标签",
+   "visual": "文字 --color-text-2"
+  },
+  {
+   "name": "hover",
+   "description": "标签悬停",
+   "visual": "文字加深 --color-text-1，背景 --color-fill-2；subtle 型 hover 背景 --color-fill-1"
+  },
+  {
+   "name": "active",
+   "description": "激活标签",
+   "visual": "line 型主色下划线 + 主色文字；card 型白底卡片 + 主色文字；subtle 型 fill-2 圆角 pill 背景 + 深色加粗文字"
+  },
+  {
+   "name": "disabled",
+   "description": "禁用标签",
+   "visual": "文字 --color-text-4，不可切换"
+  }
+ ],
+ "anatomy": [
+  {
+   "part": "TabList",
+   "element": "div[role=tablist]",
+   "description": "标签列表容器，溢出时可横向滚动"
+  },
+  {
+   "part": "Tab 标签",
+   "element": "div[role=tab]",
+   "description": "单个标签，aria-controls 关联面板"
+  },
+  {
+   "part": "TabPane 面板",
+   "element": "div[role=tabpanel]",
+   "description": "标签对应内容面板"
+  },
+  {
+   "part": "指示条",
+   "element": "span",
+   "description": "line 型激活标签下的滑动指示线"
+  },
+  {
+   "part": "关闭/新增按钮",
+   "element": "button",
+   "description": "editable 模式的关闭图标与新增按钮"
+  }
+ ],
+ "interaction": {
+  "hover": "标签悬停文字加深、背景 --color-fill-2；关闭图标 hover 变主色",
+  "focus": "标签获得焦点显示焦点环，左右方向键移动（roving tabindex）",
+  "keyboard": [
+   "ArrowLeft/ArrowRight: 在标签间移动焦点",
+   "Home: 跳到第一个标签",
+   "End: 跳到最后一个标签",
+   "Enter/Space: 激活聚焦的标签",
+   "Delete/Backspace: 关闭可关闭的标签（editable 时）"
+  ],
+  "motion": {
+   "duration": "0.2s",
+   "easing": "standard",
+   "description": "指示条滑动切换；面板切换轻微淡入"
+  },
+  "behaviorNotes": "标签溢出时可横向滚动；editable 支持新增/删除标签；受控 activeKey + onChange。"
+ },
+ "a11y": {
+  "role": "tablist（标签容器）/ tab（标签）/ tabpanel（面板）",
+  "ariaAttrs": [
+   "aria-selected（激活标签）",
+   "aria-controls（tab 关联 panel id）",
+   "aria-labelledby（panel 关联 tab id）",
+   "aria-orientation=\"horizontal|vertical\"",
+   "aria-disabled（禁用标签）"
+  ],
+  "contrastNote": "激活文字 --color-primary-6 与面板背景对比度满足 AA",
+  "focusNote": "roving tabindex：激活标签在 Tab 序中，方向键在标签间移动"
+ },
+ "usage": [
+  "分区内容相互独立且需快速切换时使用",
+  "标签文案简短，避免换行",
+  "editable 仅用于可动态增删的场景",
+  "嵌套 Tabs 层级不超过 2 层"
+ ],
+ "doNotInvent": [
+  "不虚构标签拖拽排序能力（源启无内置排序，需自实现）",
+  "不虚构标签溢出折叠/更多菜单（溢出仅滚动）",
+  "不虚构面板懒加载之外的预加载策略"
+ ],
+ "tokensConsumed": [
+  "--color-primary-6",
+  "--color-text-1",
+  "--color-text-2",
+  "--color-text-4",
+  "--color-fill-2",
+  "--color-border-2",
+  "--color-bg-2",
+  "--color-fill-1",
+  "--border-radius-large"
+ ],
+ "assetsConsumed": [],
+ "propsIndex": {
+  "interface": "TabsProps",
+  "props": [
+   "activeTab",
+   "animation",
+   "children",
+   "className",
+   "closable",
+   "defaultActiveTab",
+   "destroyOnHide",
+   "disabled",
+   "inkBar",
+   "isActive",
+   "lazyload",
+   "paneChildren",
+   "prefixCls",
+   "style",
+   "tabPane",
+   "title"
+  ],
+  "total": 16,
+  "syncDate": "2026/08/28"
+ }
+}

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>触发器 Trigger</title>
+  <link rel="stylesheet" href="preview-scaffold.css">
+  <link rel="stylesheet" href="../colors_and_type.css">
+  <link rel="stylesheet" href="../components.css">
+  <style>
+    /* Trigger 预览局部样式 */
+    /* === 交互动效用：弹层展开/收起（opacity 0→1 + scale(0.96→1) + translateY(4px→0)，收起 .15s / 展开 .2s standard 曲线；translate/scale 与既有内联 transform 定位组合） === */
+    .giencoder-trigger-popup {
+      opacity: 0;
+      visibility: hidden;
+      translate: 0 4px;
+      scale: 0.96;
+      transform-origin: top center;
+      transition: opacity .15s cubic-bezier(0.34, 0.69, 0.1, 1), translate .15s cubic-bezier(0.34, 0.69, 0.1, 1), scale .15s cubic-bezier(0.34, 0.69, 0.1, 1), visibility 0s .15s;
+    }
+    .giencoder-trigger-popup.giencoder-popup-open {
+      opacity: 1;
+      visibility: visible;
+      translate: 0 0;
+      scale: 1;
+      transition: opacity .2s cubic-bezier(0.34, 0.69, 0.1, 1), translate .2s var(--transition-timing-function-spring), scale .2s var(--transition-timing-function-spring), visibility 0s;
+    }
+  </style>
+</head>
+<body>
+  <div class="pv-layout">
+    <aside class="pv-sidebar">
+      <div class="pv-nav">
+        <div class="pv-menu-group">入口</div>
+        <a href="../home.html">首页</a>
+        <a href="../../GETTING-STARTED.html">使用说明书</a>
+        <div class="pv-menu-group">组件</div>
+        <a href="../index.html#general">通用</a>
+        <a href="../index.html#layout">布局</a>
+        <a href="../index.html#navigation">导航</a>
+        <a href="../index.html#data-entry">数据录入</a>
+        <a href="../index.html#data-display">数据展示</a>
+        <a href="../index.html#feedback">反馈</a>
+        <a href="../index.html#other" class="active">其他</a>
+        <div class="pv-menu-group">资源</div>
+        <a href="../index.html#uikits">页面样板</a>
+        <a href="../index.html#docs">规范文档</a>
+      </div>
+    </aside>
+    <main class="pv-content">
+  <a class="pv-back" href="../index.html#other">← 返回组件库</a>
+  <div class="pv-header">
+    <h1>Trigger 触发器</h1>
+    <p>源启触发器：为任意元素绑定弹层，支持 hover / click / focus 三种触发方式。</p>
+  </div>
+
+  <!-- ============ 变体：三种触发方式 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Trigger Types 三种触发方式</div>
+    <div class="pv-section__sub">弹层使用 --color-bg-5 底色与 --shadow2-down 阴影，带箭头指向触发元素。</div>
+    <div class="row" style="gap:var(--spacing-16); align-items:flex-start; padding:var(--spacing-8) 0;">
+      <!-- hover -->
+      <div class="giencoder-trigger" data-component="trigger" data-variant="hover" data-state="open" style="position:relative; width:260px; text-align:center; padding-bottom:var(--spacing-16);">
+        <button class="giencoder-btn giencoder-btn-secondary giencoder-btn-size-default">悬浮触发</button>
+        <div class="giencoder-trigger-popup" style="position:absolute; top:calc(100% + 12px); left:50%; transform:translateX(-50%); z-index:10; white-space:nowrap; background:var(--color-bg-5); border:1px solid var(--color-border-2); border-radius:8px; box-shadow:var(--shadow2-down); padding:var(--spacing-6) var(--spacing-8); font-size:var(--font-size-body-2); color:var(--color-text-1);">
+          <span class="giencoder-trigger-arrow" style="position:absolute; bottom:calc(100% + 1px); left:50%; z-index:1; margin-left:-6px; width:0; height:0; border-left:6px solid transparent; border-right:6px solid transparent; border-bottom:6px solid var(--color-border-2);"><span style="position:absolute; top:2px; left:-5px; width:0; height:0; border-left:5px solid transparent; border-right:5px solid transparent; border-bottom:5px solid var(--color-bg-5);"></span></span>
+          <div style="font-weight:500;">Hover 悬浮触发</div>
+          <div style="color:var(--color-text-3); margin-top:2px;">鼠标移入触发器后显示弹层</div>
+        </div>
+      </div>
+      <!-- click -->
+      <div class="giencoder-trigger" data-component="trigger" data-variant="click" data-state="open" style="position:relative; width:260px; text-align:center; padding-bottom:var(--spacing-16);">
+        <button class="giencoder-btn giencoder-btn-secondary giencoder-btn-size-default">点击触发</button>
+        <div class="giencoder-trigger-popup" style="position:absolute; top:calc(100% + 12px); left:50%; transform:translateX(-50%); z-index:10; white-space:nowrap; background:var(--color-bg-5); border:1px solid var(--color-border-2); border-radius:8px; box-shadow:var(--shadow2-down); padding:var(--spacing-6) var(--spacing-8); font-size:var(--font-size-body-2); color:var(--color-text-1);">
+          <span class="giencoder-trigger-arrow" style="position:absolute; bottom:calc(100% + 1px); left:50%; z-index:1; margin-left:-6px; width:0; height:0; border-left:6px solid transparent; border-right:6px solid transparent; border-bottom:6px solid var(--color-border-2);"><span style="position:absolute; top:2px; left:-5px; width:0; height:0; border-left:5px solid transparent; border-right:5px solid transparent; border-bottom:5px solid var(--color-bg-5);"></span></span>
+          <div style="font-weight:500;">Click 点击触发</div>
+          <div style="color:var(--color-text-3); margin-top:2px;">点击触发器显示，再次点击或点外部关闭</div>
+        </div>
+      </div>
+      <!-- focus -->
+      <div class="giencoder-trigger" data-component="trigger" data-variant="focus" data-state="open" style="position:relative; width:260px; text-align:center; padding-bottom:var(--spacing-16);">
+        <div class="giencoder-input-wrapper" style="min-width:160px;">
+          <input class="giencoder-input" placeholder="聚焦触发" aria-label="聚焦触发" style="width:160px;">
+        </div>
+        <div class="giencoder-trigger-popup" style="position:absolute; top:calc(100% + 12px); left:50%; transform:translateX(-50%); z-index:10; white-space:nowrap; background:var(--color-bg-5); border:1px solid var(--color-border-2); border-radius:8px; box-shadow:var(--shadow2-down); padding:var(--spacing-6) var(--spacing-8); font-size:var(--font-size-body-2); color:var(--color-text-1);">
+          <span class="giencoder-trigger-arrow" style="position:absolute; bottom:calc(100% + 1px); left:50%; z-index:1; margin-left:-6px; width:0; height:0; border-left:6px solid transparent; border-right:6px solid transparent; border-bottom:6px solid var(--color-border-2);"><span style="position:absolute; top:2px; left:-5px; width:0; height:0; border-left:5px solid transparent; border-right:5px solid transparent; border-bottom:5px solid var(--color-bg-5);"></span></span>
+          <div style="font-weight:500;">Focus 聚焦触发</div>
+          <div style="color:var(--color-text-3); margin-top:2px;">输入框获得焦点时显示弹层</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+  (function () {
+    'use strict';
+    /* component-trigger — 交互清单：
+     * 1. 点击每个示例的触发器：切换对应弹层显隐（互斥，同时只开一个）
+     * 2. 点击外部收起全部弹层
+     */
+    var triggers = Array.prototype.slice.call(document.querySelectorAll('.giencoder-trigger'));
+    triggers.forEach(function (block) {
+      var popup = block.querySelector('.giencoder-trigger-popup');
+      if (!popup) return;
+      var triggerEl = block.querySelector('.giencoder-btn') || block.querySelector('.giencoder-input');
+      if (!triggerEl) return;
+
+      /* —— 交互动效：展开 = display + rAF 加 .giencoder-popup-open；收起 = 移除 class + setTimeout 延迟隐藏 —— */
+      function isPopupOpen(p) { return !!p && p.classList.contains('giencoder-popup-open'); }
+      function openPopup(p) {
+        if (!p) { return; }
+        if (p._closeTimer) { clearTimeout(p._closeTimer); p._closeTimer = null; }
+        p.style.display = '';
+        var token = (p._animToken = (p._animToken || 0) + 1);
+        requestAnimationFrame(function () {
+          if (!p.isConnected || p._animToken !== token) { return; } /* 元素已移除或状态已变则跳过 */
+          p.classList.add('giencoder-popup-open');
+        });
+      }
+      function closePopup(p) {
+        if (!p) { return; }
+        var token = (p._animToken = (p._animToken || 0) + 1);
+        p.classList.remove('giencoder-popup-open');
+        if (p._closeTimer) { clearTimeout(p._closeTimer); }
+        p._closeTimer = setTimeout(function () {
+          p._closeTimer = null;
+          if (!p.isConnected || p._animToken !== token) { return; } /* 元素已移除或已重新展开则跳过 */
+          p.style.display = 'none';
+        }, 200);
+      }
+      function isOpen() { return isPopupOpen(popup); }
+
+      triggerEl.addEventListener('click', function (ev) {
+        ev.stopPropagation();
+        if (isOpen()) {
+          closePopup(popup);
+        } else {
+          triggers.forEach(function (b) {
+            var p = b.querySelector('.giencoder-trigger-popup');
+            if (p) closePopup(p);
+          });
+          openPopup(popup);
+        }
+      });
+    });
+
+    document.addEventListener('click', function () {
+      triggers.forEach(function (b) {
+        var p = b.querySelector('.giencoder-trigger-popup');
+        if (p) closePopup(p);
+      });
+    });
+    /* 初始同步：模板 data-state="open" 的弹层直接置为展开态（避免加载动画） */
+    triggers.forEach(function (b) {
+      var p = b.querySelector('.giencoder-trigger-popup');
+      if (p) { p.classList.add('giencoder-popup-open'); }
+    });
+  })();
+  </script>
+    </main>
+  </div>
+<script src="preview-copy.js"></script>
+</body>
+</html>

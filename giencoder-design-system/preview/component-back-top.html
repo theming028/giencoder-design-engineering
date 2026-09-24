@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>回到顶部 BackTop</title>
+  <link rel="stylesheet" href="preview-scaffold.css">
+  <link rel="stylesheet" href="../colors_and_type.css">
+  <link rel="stylesheet" href="../components.css">
+  <style>
+    /* BackTop 预览局部样式（Token 驱动，无硬编码色值） */
+    .giencoder-backtop { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; padding: 0; border: none; border-radius: var(--border-radius-circle); background: var(--color-primary-6); color: var(--color-white); cursor: pointer; box-shadow: var(--shadow2-down); transition: background var(--transition-duration-1); }
+    .giencoder-backtop:hover, .giencoder-backtop-hover { background: var(--color-primary-5); }
+    /* 交互脚本用：已回到顶部瞬时反馈 */
+    .giencoder-backtop-done { background: var(--color-success-6); }
+  </style>
+</head>
+<body>
+  <div class="pv-layout">
+    <aside class="pv-sidebar">
+      <div class="pv-nav">
+        <div class="pv-menu-group">入口</div>
+        <a href="../home.html">首页</a>
+        <a href="../../GETTING-STARTED.html">使用说明书</a>
+        <div class="pv-menu-group">组件</div>
+        <a href="../index.html#general">通用</a>
+        <a href="../index.html#layout">布局</a>
+        <a href="../index.html#navigation">导航</a>
+        <a href="../index.html#data-entry">数据录入</a>
+        <a href="../index.html#data-display">数据展示</a>
+        <a href="../index.html#feedback">反馈</a>
+        <a href="../index.html#other" class="active">其他</a>
+        <div class="pv-menu-group">资源</div>
+        <a href="../index.html#uikits">页面样板</a>
+        <a href="../index.html#docs">规范文档</a>
+      </div>
+    </aside>
+    <main class="pv-content">
+  <a class="pv-back" href="../index.html#other">← 返回组件库</a>
+  <div class="pv-header">
+    <h1>BackTop 回到顶部</h1>
+    <p>源启回到顶部：40px 圆形按钮，品牌蓝底白色上箭头图标，悬停变浅一档。</p>
+  </div>
+
+  <!-- ============ 变体：右下角固定示例 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Fixed 右下角固定位置示例</div>
+    <div class="row">
+      <p class="pv-section__sub" style="width:100%;">页面滚动超过阈值后，按钮固定在视口右下角（模拟 position: fixed 定位）。</p>
+    </div>
+    <button class="giencoder-backtop" data-component="back-top" data-variant="fixed" data-state="default" style="position:fixed; right:24px; bottom:48px; z-index:20;" aria-label="回到顶部">
+      <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10l4-4 4 4"/></svg>
+    </button>
+  </div>
+
+  <!-- ============ 变体：状态 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">States 状态（default 默认 / hover 悬停）</div>
+    <div class="row" style="gap:24px; align-items:center;">
+      <div class="giencoder-backtop" data-component="back-top" data-variant="states" data-state="default" aria-label="回到顶部">
+        <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10l4-4 4 4"/></svg>
+      </div>
+      <span style="font-size:var(--font-size-body-2); color:var(--color-text-3);">default 默认：--color-primary-6</span>
+      <div class="giencoder-backtop giencoder-backtop-hover" data-component="back-top" data-variant="states" data-state="hover" aria-label="回到顶部">
+        <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10l4-4 4 4"/></svg>
+      </div>
+      <span style="font-size:var(--font-size-body-2); color:var(--color-text-3);">hover 悬停：--color-primary-5</span>
+    </div>
+  </div>
+  <script>
+  (function () {
+    'use strict';
+    /* component-back-top：交互清单
+       1. 点击：页面可滚动则 window.scrollTo({top:0, behavior:'smooth'}) 模拟回顶
+       2. 页面不可滚动则显示"已回到顶部"瞬时反馈（.giencoder-backtop-done 成功色），约 800ms 恢复 */
+    var DONE = 'giencoder-backtop-done';
+    function pageScrollable() {
+      var doc = document.documentElement;
+      return !!doc && doc.scrollHeight > doc.clientHeight;
+    }
+    document.querySelectorAll('.giencoder-backtop').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        if (pageScrollable()) {
+          if (window.scrollTo) { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+          return;
+        }
+        btn.classList.add(DONE);
+        setTimeout(function () {
+          if (btn.classList) { btn.classList.remove(DONE); }
+        }, 800);
+      });
+    });
+  })();
+  </script>
+    </main>
+  </div>
+<script src="preview-copy.js"></script>
+</body>
+</html>

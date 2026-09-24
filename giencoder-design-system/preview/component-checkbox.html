@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>Checkbox 复选框</title>
+  <link rel="stylesheet" href="preview-scaffold.css">
+  <link rel="stylesheet" href="../colors_and_type.css">
+  <link rel="stylesheet" href="../components.css">
+  <style>
+    /* 交互动效用：勾选/取消过渡（mask 背景/边框 0.15s + 勾勾 scale 出现 0.15s） */
+    .giencoder-checkbox-mask {
+      transition: background-color 0.15s var(--transition-timing-function-standard),
+                  border-color 0.15s var(--transition-timing-function-standard);
+    }
+    @keyframes giencoder-checkbox-check-pop {
+      from { transform: translate(-50%, -55%) rotate(45deg) scale(0); }
+      to   { transform: translate(-50%, -55%) rotate(45deg) scale(1); }
+    }
+    .giencoder-checkbox-checked.giencoder-checkbox-anim .giencoder-checkbox-mask::after {
+      animation: giencoder-checkbox-check-pop 0.15s var(--transition-timing-function-spring);
+    }
+  </style>
+</head>
+<body>
+  <div class="pv-layout">
+    <aside class="pv-sidebar">
+      <div class="pv-nav">
+        <div class="pv-menu-group">入口</div>
+        <a href="../home.html">首页</a>
+        <a href="../../GETTING-STARTED.html">使用说明书</a>
+        <div class="pv-menu-group">组件</div>
+        <a href="../index.html#general">通用</a>
+        <a href="../index.html#layout">布局</a>
+        <a href="../index.html#navigation">导航</a>
+        <a href="../index.html#data-entry" class="active">数据录入</a>
+        <a href="../index.html#data-display">数据展示</a>
+        <a href="../index.html#feedback">反馈</a>
+        <a href="../index.html#other">其他</a>
+        <div class="pv-menu-group">资源</div>
+        <a href="../index.html#uikits">页面样板</a>
+        <a href="../index.html#docs">规范文档</a>
+      </div>
+    </aside>
+    <main class="pv-content">
+  <a class="pv-back" href="../index.html#data-entry">← 返回组件库</a>
+  <div class="pv-header">
+    <h1>Checkbox 复选框</h1>
+    <p>源启复选框：选中/半选/禁用，组合与全选场景。</p>
+  </div>
+
+  <!-- ============ 变体：基础 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Default 基础复选框</div>
+    <div class="row" style="gap:24px; align-items:center;">
+      <label class="giencoder-checkbox giencoder-checkbox-checked" data-component="checkbox" data-variant="default" data-state="checked">
+        <input type="checkbox" class="giencoder-checkbox-input" checked>
+        <span class="giencoder-checkbox-mask"></span>
+        <span class="giencoder-checkbox-text">已选中</span>
+      </label>
+      <label class="giencoder-checkbox" data-component="checkbox" data-variant="default" data-state="default">
+        <input type="checkbox" class="giencoder-checkbox-input">
+        <span class="giencoder-checkbox-mask"></span>
+        <span class="giencoder-checkbox-text">未选中</span>
+      </label>
+      <label class="giencoder-checkbox giencoder-checkbox-indeterminate" data-component="checkbox" data-variant="default" data-state="indeterminate">
+        <input type="checkbox" class="giencoder-checkbox-input" aria-checked="mixed">
+        <span class="giencoder-checkbox-mask"></span>
+        <span class="giencoder-checkbox-text">半选</span>
+      </label>
+      <label class="giencoder-checkbox giencoder-checkbox-disabled" data-component="checkbox" data-variant="default" data-state="disabled">
+        <input type="checkbox" class="giencoder-checkbox-input" disabled>
+        <span class="giencoder-checkbox-mask"></span>
+        <span class="giencoder-checkbox-text">禁用</span>
+      </label>
+    </div>
+  </div>
+
+  <!-- ============ 变体：全选组 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Group 全选组</div>
+    <div class="row" style="flex-direction:column; gap:12px; align-items:stretch;">
+      <label class="giencoder-checkbox giencoder-checkbox-checked" data-component="checkbox" data-variant="group" data-state="checked">
+        <input type="checkbox" class="giencoder-checkbox-input" checked>
+        <span class="giencoder-checkbox-mask"></span>
+        <span class="giencoder-checkbox-text">全选</span>
+      </label>
+      <div style="display:flex; gap:20px; margin-left:24px;">
+        <label class="giencoder-checkbox giencoder-checkbox-checked">
+          <input type="checkbox" class="giencoder-checkbox-input" checked>
+          <span class="giencoder-checkbox-mask"></span>
+          <span class="giencoder-checkbox-text">选项 A</span>
+        </label>
+        <label class="giencoder-checkbox giencoder-checkbox-checked">
+          <input type="checkbox" class="giencoder-checkbox-input" checked>
+          <span class="giencoder-checkbox-mask"></span>
+          <span class="giencoder-checkbox-text">选项 B</span>
+        </label>
+        <label class="giencoder-checkbox">
+          <input type="checkbox" class="giencoder-checkbox-input">
+          <span class="giencoder-checkbox-mask"></span>
+          <span class="giencoder-checkbox-text">选项 C</span>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* 源启交互脚本 — checkbox
+     * 1. 点击 label/checkbox 切换勾选：giencoder-checkbox-checked class 切换 + input.checked 同步
+     * 2. indeterminate（半选）示例点击后变全选
+     * 3. disabled 点击无效
+     */
+    (function () {
+      'use strict';
+      var labels = document.querySelectorAll('label.giencoder-checkbox');
+      labels.forEach(function (label) {
+        label.addEventListener('click', function (e) {
+          if (label.classList.contains('giencoder-checkbox-disabled')) { return; }
+          var input = label.querySelector('.giencoder-checkbox-input');
+          if (!input || input.disabled) { return; }
+          e.preventDefault();
+          var checked = !input.checked;
+          input.checked = checked;
+          label.classList.remove('giencoder-checkbox-indeterminate');
+          label.classList.toggle('giencoder-checkbox-checked', checked);
+          /* 动效：勾选时勾勾 scale 出现（重触发动画，取消时不触发） */
+          if (checked) {
+            label.classList.remove('giencoder-checkbox-anim');
+            void label.offsetWidth;
+            label.classList.add('giencoder-checkbox-anim');
+          }
+        });
+      });
+    })();
+  </script>
+    </main>
+  </div>
+<script src="preview-copy.js"></script>
+</body>
+</html>

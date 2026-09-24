@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>资源管理 · 列表页样板</title>
+  <link rel="stylesheet" href="../../colors_and_type.css">
+  <link rel="stylesheet" href="../../components.css">
+  <link rel="stylesheet" href="../ui-controls.css">
+  <style>
+    /* ═══ 页面级布局样式（仅用 Design Token，禁止硬编码 hex） ═══ */
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    button { font-family: var(--font-family); }
+
+    /* ---- PageHeader 页头 ---- */
+    .giencoder-page-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: var(--spacing-7); flex-wrap: wrap; gap: var(--spacing-4);
+    }
+    .giencoder-page-header-title { font-size: var(--font-size-title-2); font-weight: 600; color: var(--color-text-1); margin: 0; }
+    .giencoder-page-header-subtitle { font-size: var(--font-size-body-3); color: var(--color-text-3); margin: 0; }
+    /* 标题 + 副标题横向组合：副标题置于主标题右侧，间距 12px（--spacing-6） */
+    .giencoder-page-header > div:first-child { display: flex; align-items: baseline; gap: var(--spacing-6); }
+    .giencoder-page-header-extra { display: flex; align-items: center; gap: var(--spacing-4); }
+
+    /* ---- 筛选栏 ---- */
+    .giencoder-filter-bar {
+      display: flex; align-items: center; flex-wrap: wrap; gap: var(--spacing-4);
+      padding: var(--spacing-7); margin-bottom: var(--spacing-7);
+      background: var(--color-bg-2); border: 1px solid var(--color-border-2);
+      border-radius: var(--border-radius-medium);
+    }
+    .giencoder-filter-item { display: inline-flex; flex-direction: column; gap: var(--spacing-2); }
+    .giencoder-filter-label { font-size: var(--font-size-body-1); color: var(--color-text-3); }
+    .giencoder-filter-actions { display: inline-flex; gap: var(--spacing-3); margin-left: auto; align-items: flex-end; }
+
+    /* ---- 操作列 ---- */
+    .giencoder-table-operation { white-space: nowrap; text-align: left; }
+  </style>
+</head>
+<body>
+<div style="width:100%; height:100vh; overflow:hidden; display:flex; flex-direction:column;">
+  <header class="giencoder-top-nav" style="height:48px; background:var(--color-bg-2); box-shadow:var(--shadow1-down); display:flex; align-items:center; justify-content:space-between; padding:0 16px;">
+    <div style="display:flex; align-items:center; gap:12px;">
+      <strong style="font-size:15px; color:var(--color-text-1);">源启</strong>
+      <span style="color:var(--color-text-3); font-size:12px;">中电金信 · 云服务平台</span>
+    </div>
+    <div style="display:flex; align-items:center; gap:16px; font-size:12px; color:var(--color-text-2);">
+      <span>帮助</span><span>通知</span>
+      <span style="width:24px;height:24px;border-radius:50%;background:var(--color-primary-6);color:var(--color-white);display:flex;align-items:center;justify-content:center;font-size:12px;">张</span>
+    </div>
+  </header>
+  <div style="display:flex; flex:1; overflow:hidden;">
+    <aside class="giencoder-sidenav" style="width:200px; background:var(--color-menu-light-bg); border-right:1px solid var(--color-border-1); padding:8px 0; overflow-y:auto;">
+      <div class="giencoder-menu giencoder-menu-vertical">
+        <div class="giencoder-menu-group-title">总览</div>
+        <div class="giencoder-menu-item">工作台</div>
+        <div class="giencoder-menu-item giencoder-menu-item-selected">资源管理</div>
+        <div class="giencoder-menu-item">监控告警</div>
+        <div class="giencoder-menu-group-title">系统</div>
+        <div class="giencoder-menu-item">系统设置</div>
+      </div>
+    </aside>
+    <main style="flex:1; overflow-y:auto; background:var(--color-bg-1); padding:20px;">
+
+      <!-- ============ PageHeader：标题 + 新建按钮 ============ -->
+      <div class="giencoder-page-header">
+        <div>
+          <h2 class="giencoder-page-header-title">资源管理</h2>
+          <div class="giencoder-page-header-subtitle">管理云上资源实例，支持搜索、筛选与批量操作</div>
+        </div>
+        <div class="giencoder-page-header-extra">
+          <button class="giencoder-btn giencoder-btn-primary giencoder-btn-size-default">
+            <svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6 1v10M1 6h10"/></svg>
+            新建资源
+          </button>
+        </div>
+      </div>
+
+      <!-- ============ 筛选栏：搜索 + 状态 + 时间 + 查询/重置 ============ -->
+      <div class="giencoder-filter-bar">
+        <div class="giencoder-filter-item">
+          <span class="giencoder-filter-label">资源名称</span>
+          <div class="giencoder-input-wrapper" style="width:220px;">
+            <span class="giencoder-input-prefix">
+              <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="7" cy="7" r="4.5"/><path d="M10.5 10.5L14 14"/></svg>
+            </span>
+            <input class="giencoder-input" placeholder="请输入资源名称" value="云资源">
+          </div>
+        </div>
+        <div class="giencoder-filter-item">
+          <span class="giencoder-filter-label">状态</span>
+          <div class="giencoder-select" data-component="select" data-variant="single" data-state="default" style="width:160px;">
+            <div class="giencoder-select-view" tabindex="0" role="combobox" aria-expanded="false" aria-haspopup="listbox">
+              <span class="giencoder-select-view-text">运行中</span>
+              <span class="giencoder-select-suffix">
+                <svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 4l4 4 4-4"/></svg>
+              </span>
+            </div>
+            <div class="giencoder-select-popup" style="display:none;">
+              <ul class="giencoder-select-option-list" role="listbox">
+                <li class="giencoder-select-option giencoder-select-option-selected" role="option" aria-selected="true">运行中</li>
+                <li class="giencoder-select-option" role="option" aria-selected="false">已停止</li>
+                <li class="giencoder-select-option" role="option" aria-selected="false">异常</li>
+                <li class="giencoder-select-option" role="option" aria-selected="false">已归档</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="giencoder-filter-item">
+          <span class="giencoder-filter-label">创建时间</span>
+          <div class="giencoder-date-picker" data-component="date-picker" data-variant="range" data-state="default" style="width:280px;">
+            <div class="giencoder-input-wrapper" role="combobox" aria-expanded="false" tabindex="0">
+              <input class="giencoder-input" value="2026/07/15 ~ 2026/08/10" readonly>
+              <span class="giencoder-input-suffix">
+                <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="3.5" width="12" height="10.5" rx="1.5"/><path d="M2 7h12M5.5 2v3M10.5 2v3"/></svg>
+              </span>
+            </div>
+            <div class="giencoder-date-picker-popup">
+              <div class="giencoder-date-picker-panels">
+                <div class="giencoder-calendar">
+                  <div class="giencoder-calendar-header">
+                    <button class="giencoder-calendar-nav" type="button" aria-label="上个月">
+                      <svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M7.5 2l-4 4 4 4"/></svg>
+                    </button>
+                    <span class="giencoder-calendar-title">2026年7月</span>
+                    <button class="giencoder-calendar-nav" type="button" aria-label="下个月">
+                      <svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M4.5 2l4 4-4 4"/></svg>
+                    </button>
+                  </div>
+                  <div class="giencoder-calendar-weekdays"><span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span></div>
+                  <div class="giencoder-calendar-grid">
+                    <span class="giencoder-calendar-cell giencoder-calendar-cell-other">28</span>
+                    <span class="giencoder-calendar-cell giencoder-calendar-cell-other">29</span>
+                    <span class="giencoder-calendar-cell giencoder-calendar-cell-other">30</span>
+                    <span class="giencoder-calendar-cell">1</span>
+                    <span class="giencoder-calendar-cell">2</span>
+                    <span class="giencoder-calendar-cell">3</span>
+                    <span class="giencoder-calendar-cell">4</span>
+                    <span class="giencoder-calendar-cell">5</span>
+                    <span class="giencoder-calendar-cell">6</span>
+                    <span class="giencoder-calendar-cell">7</span>
+                    <span class="giencoder-calendar-cell">8</span>
+                    <span class="giencoder-calendar-cell">9</span>
+                    <span class="giencoder-calendar-cell">10</span>
+                    <span class="giencoder-calendar-cell">11</span>
+                    <span class="giencoder-calendar-cell">12</span>
+                    <span class="giencoder-calendar-cell">13</span>
+                    <span class="giencoder-calendar-cell">14</span>
+                    <span class="giencoder-calendar-cell giencoder-calendar-cell-range-start">15</span>
+                    <span class="giencoder-calendar-cell giencoder-calendar-cell-in-range">16</span>
+                    <span class="giencoder-calendar-cell giencoder-calendar-cell-in-range">17</span>
+                    <span class="giencoder-calendar-cell giencoder-calendar-cell-in-range">18</span>
+                    <span class="giencoder-calendar-cell giencoder-calendar-cell-in-range">19</span>
+                    <span class="giencoder-calendar-cell giencoder-calendar-cell-in-range">20</span>
+                    <span class="giencoder-calendar-cell giencoder-calendar-cell-in-range">21</span>
+                    <span class="giencoder-calendar-cell giencoder-calendar-cell-in-range">22</span>
+                    <span class="giencoder-calendar-cell giencoder-calendar-cell-in-range">23</span>
+                    <span class="giencoder-calendar-cell giencoder-calendar-cell-in-range">24</span>
+                    <span class="giencoder-calendar-cell giencoder-calendar-cell-in-range">25</span>
+                    <span class="giencoder-calendar-cell giencoder-calendar-cell-in-range">26</span>
+                    <span class="giencoder-calendar-cell giencoder-calendar-cell-in-range">27</span>
+                    <span class="giencoder-calendar-cell giencoder-calendar-cell-in-range">28</span>
+                    <span class="giencoder-calendar-cell giencoder-calendar-cell-in-range">29</span>
+                    <span class="giencoder-calendar-cell giencoder-calendar-cell-in-range">30</span>
+                    <span class="giencoder-calendar-cell giencoder-calendar-cell-in-range">31</span>
+                    <span class="giencoder-calendar-cell giencoder-calendar-cell-empty"></span>
+                  </div>
+                </div>
+                <div class="giencoder-calendar">
+                  <div class="giencoder-calendar-header">
+                    <button class="giencoder-calendar-nav" type="button" aria-label="上个月">
+                      <svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M7.5 2l-4 4 4 4"/></svg>
+                    </button>
+                    <span class="giencoder-calendar-title">2026年8月</span>
+                    <button class="giencoder-calendar-nav" type="button" aria-label="下个月">
+                      <svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M4.5 2l4 4-4 4"/></svg>
+                    </button>
+                  </div>
+                  <div class="giencoder-calendar-weekdays"><span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span></div>
+                  <div class="giencoder-calendar-grid">
+                    <span class="giencoder-calendar-cell giencoder-calendar-cell-other">26</span>
+                    <span class="giencoder-calendar-cell giencoder-calendar-cell-other">27</span>
+                    <span class="giencoder-calendar-cell giencoder-calendar-cell-other">28</span>
+                    <span class="giencoder-calendar-cell giencoder-calendar-cell-other">29</span>
+                    <span class="giencoder-calendar-cell giencoder-calendar-cell-other">30</span>
+                    <span class="giencoder-calendar-cell giencoder-calendar-cell-other">31</span>
+                    <span class="giencoder-calendar-cell giencoder-calendar-cell-in-range">1</span>
+                    <span class="giencoder-calendar-cell giencoder-calendar-cell-in-range">2</span>
+                    <span class="giencoder-calendar-cell giencoder-calendar-cell-in-range">3</span>
+                    <span class="giencoder-calendar-cell giencoder-calendar-cell-in-range">4</span>
+                    <span class="giencoder-calendar-cell giencoder-calendar-cell-in-range">5</span>
+                    <span class="giencoder-calendar-cell giencoder-calendar-cell-in-range">6</span>
+                    <span class="giencoder-calendar-cell giencoder-calendar-cell-in-range">7</span>
+                    <span class="giencoder-calendar-cell giencoder-calendar-cell-in-range">8</span>
+                    <span class="giencoder-calendar-cell giencoder-calendar-cell-in-range">9</span>
+                    <span class="giencoder-calendar-cell giencoder-calendar-cell-range-end">10</span>
+                    <span class="giencoder-calendar-cell">11</span>
+                    <span class="giencoder-calendar-cell">12</span>
+                    <span class="giencoder-calendar-cell">13</span>
+                    <span class="giencoder-calendar-cell">14</span>
+                    <span class="giencoder-calendar-cell">15</span>
+                    <span class="giencoder-calendar-cell">16</span>
+                    <span class="giencoder-calendar-cell">17</span>
+                    <span class="giencoder-calendar-cell">18</span>
+                    <span class="giencoder-calendar-cell">19</span>
+                    <span class="giencoder-calendar-cell">20</span>
+                    <span class="giencoder-calendar-cell">21</span>
+                    <span class="giencoder-calendar-cell">22</span>
+                    <span class="giencoder-calendar-cell">23</span>
+                    <span class="giencoder-calendar-cell">24</span>
+                    <span class="giencoder-calendar-cell">25</span>
+                    <span class="giencoder-calendar-cell">26</span>
+                    <span class="giencoder-calendar-cell">27</span>
+                    <span class="giencoder-calendar-cell giencoder-calendar-cell-today">28</span>
+                    <span class="giencoder-calendar-cell">29</span>
+                    <span class="giencoder-calendar-cell">30</span>
+                    <span class="giencoder-calendar-cell">31</span>
+                    <span class="giencoder-calendar-cell giencoder-calendar-cell-other">1</span>
+                    <span class="giencoder-calendar-cell giencoder-calendar-cell-other">2</span>
+                    <span class="giencoder-calendar-cell giencoder-calendar-cell-other">3</span>
+                    <span class="giencoder-calendar-cell giencoder-calendar-cell-other">4</span>
+                    <span class="giencoder-calendar-cell giencoder-calendar-cell-other">5</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="giencoder-filter-actions">
+          <button class="giencoder-btn giencoder-btn-primary giencoder-btn-size-default">查询</button>
+          <button class="giencoder-btn giencoder-btn-secondary giencoder-btn-size-default">重置</button>
+        </div>
+      </div>
+
+      <!-- ============ Table：勾选 / 名称 / 状态 / 负责人 / 操作 ============ -->
+      <div class="giencoder-card">
+        <div class="giencoder-card-header">
+          <span class="giencoder-card-header-title">资源列表</span>
+          <span style="font-size:var(--font-size-body-1); color:var(--color-text-3);">共 42 条</span>
+        </div>
+        <div class="giencoder-table-container" style="padding:0 16px;">
+          <table class="giencoder-table-content">
+            <thead>
+              <tr class="giencoder-table-tr">
+                <th class="giencoder-table-th giencoder-table-checkbox" style="width:40px;">
+                  <label class="giencoder-checkbox"><input type="checkbox" class="giencoder-checkbox-input"><span class="giencoder-checkbox-mask"></span></label>
+                </th>
+                <th class="giencoder-table-th">名称</th>
+                <th class="giencoder-table-th">状态</th>
+                <th class="giencoder-table-th">负责人</th>
+                <th class="giencoder-table-th giencoder-table-operation">操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="giencoder-table-tr">
+                <td class="giencoder-table-td giencoder-table-checkbox">
+                  <label class="giencoder-checkbox"><input type="checkbox" class="giencoder-checkbox-input"><span class="giencoder-checkbox-mask"></span></label>
+                </td>
+                <td class="giencoder-table-td">订单中心微服务</td>
+                <td class="giencoder-table-td"><span class="giencoder-tag giencoder-tag-light giencoder-tag-success">运行中</span></td>
+                <td class="giencoder-table-td">张三</td>
+                <td class="giencoder-table-td giencoder-table-operation">
+                  <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-mini">编辑</button>
+                  <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-mini">详情</button>
+                  <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-mini giencoder-btn-danger-text">删除</button>
+                </td>
+              </tr>
+              <tr class="giencoder-table-tr">
+                <td class="giencoder-table-td giencoder-table-checkbox">
+                  <label class="giencoder-checkbox"><input type="checkbox" class="giencoder-checkbox-input"><span class="giencoder-checkbox-mask"></span></label>
+                </td>
+                <td class="giencoder-table-td">用户画像数据仓库</td>
+                <td class="giencoder-table-td"><span class="giencoder-tag giencoder-tag-light giencoder-tag-warning">待处理</span></td>
+                <td class="giencoder-table-td">李四</td>
+                <td class="giencoder-table-td giencoder-table-operation">
+                  <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-mini">编辑</button>
+                  <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-mini">详情</button>
+                  <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-mini giencoder-btn-danger-text">删除</button>
+                </td>
+              </tr>
+              <tr class="giencoder-table-tr">
+                <td class="giencoder-table-td giencoder-table-checkbox">
+                  <label class="giencoder-checkbox"><input type="checkbox" class="giencoder-checkbox-input"><span class="giencoder-checkbox-mask"></span></label>
+                </td>
+                <td class="giencoder-table-td">智能运维告警平台</td>
+                <td class="giencoder-table-td"><span class="giencoder-tag giencoder-tag-light giencoder-tag-danger">已停止</span></td>
+                <td class="giencoder-table-td">王五</td>
+                <td class="giencoder-table-td giencoder-table-operation">
+                  <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-mini">编辑</button>
+                  <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-mini">详情</button>
+                  <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-mini giencoder-btn-danger-text">删除</button>
+                </td>
+              </tr>
+              <tr class="giencoder-table-tr">
+                <td class="giencoder-table-td giencoder-table-checkbox">
+                  <label class="giencoder-checkbox"><input type="checkbox" class="giencoder-checkbox-input"><span class="giencoder-checkbox-mask"></span></label>
+                </td>
+                <td class="giencoder-table-td">支付网关集群</td>
+                <td class="giencoder-table-td"><span class="giencoder-tag giencoder-tag-light giencoder-tag-success">运行中</span></td>
+                <td class="giencoder-table-td">赵六</td>
+                <td class="giencoder-table-td giencoder-table-operation">
+                  <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-mini">编辑</button>
+                  <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-mini">详情</button>
+                  <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-mini giencoder-btn-danger-text">删除</button>
+                </td>
+              </tr>
+              <tr class="giencoder-table-tr">
+                <td class="giencoder-table-td giencoder-table-checkbox">
+                  <label class="giencoder-checkbox"><input type="checkbox" class="giencoder-checkbox-input"><span class="giencoder-checkbox-mask"></span></label>
+                </td>
+                <td class="giencoder-table-td">日志采集服务</td>
+                <td class="giencoder-table-td"><span class="giencoder-tag giencoder-tag-light giencoder-tag-warning">待处理</span></td>
+                <td class="giencoder-table-td">张三</td>
+                <td class="giencoder-table-td giencoder-table-operation">
+                  <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-mini">编辑</button>
+                  <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-mini">详情</button>
+                  <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-mini giencoder-btn-danger-text">删除</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!--
+          空态说明：当筛选条件无匹配数据时，隐藏上述 tbody 内容，
+          在此位置渲染 Empty 空态组件：
+            <div class="giencoder-empty">
+              <div class="giencoder-empty-image"><svg .../></div>
+              <div class="giencoder-empty-description" style="color:var(--color-text-3);">暂无资源，请调整筛选条件或新建资源</div>
+              <div class="giencoder-empty-action"><button class="giencoder-btn giencoder-btn-primary giencoder-btn-size-default">新建资源</button></div>
+            </div>
+        -->
+        <div class="giencoder-table-pagination" style="padding:16px;">
+          <div class="giencoder-pagination">
+            <button class="giencoder-pagination-item" aria-label="上一页">
+              <svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M7.5 2l-4 4 4 4"/></svg>
+            </button>
+            <button class="giencoder-pagination-item giencoder-pagination-item-active">1</button>
+            <button class="giencoder-pagination-item">2</button>
+            <button class="giencoder-pagination-item">3</button>
+            <button class="giencoder-pagination-item giencoder-pagination-item-ellipsis">…</button>
+            <button class="giencoder-pagination-item">9</button>
+            <button class="giencoder-pagination-item" aria-label="下一页">
+              <svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M4.5 2l4 4-4 4"/></svg>
+            </button>
+            <span class="giencoder-pagination-jumper">共 42 条</span>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+<script src="../ui-controls.js"></script>
+</body>
+</html>
+<!-- 模板说明: 本页面为 list-page 页面样板，生成新页面时复制此文件修改内容区 -->

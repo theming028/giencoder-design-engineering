@@ -1,0 +1,198 @@
+{
+  "schemaVersion": 3,
+  "slug": "transfer",
+  "name": "Transfer",
+  "category": "data-entry",
+  "giencoderSource": {
+    "component": "Transfer",
+    "version": "2.66.16"
+  },
+  "summary": "穿梭框：左右两栏列表间批量迁移选项，支持搜索、单向与拖拽排序。",
+  "variants": [
+    {
+      "name": "default",
+      "description": "左右两栏穿梭，中间操作按钮迁移",
+      "whenToUse": "选项在两个集合间批量迁移"
+    },
+    {
+      "name": "search",
+      "description": "showSearch 两栏内置搜索过滤",
+      "whenToUse": "选项数量多、需快速定位"
+    },
+    {
+      "name": "one-way",
+      "description": "oneWay 单向穿梭，仅源到目标",
+      "whenToUse": "只允许加入不允许移除的场景"
+    },
+    {
+      "name": "simple",
+      "description": "simple 简化模式，隐藏复杂操作",
+      "whenToUse": "轻量列表迁移场景"
+    },
+    {
+      "name": "sortable",
+      "description": "draggable 目标列表拖拽排序",
+      "whenToUse": "迁移后还需控制目标项顺序"
+    }
+  ],
+  "sizes": [
+    {
+      "name": "default",
+      "value": "面板高度固定、宽度自适应容器",
+      "usage": "无尺寸档位，两栏等宽"
+    }
+  ],
+  "states": [
+    {
+      "name": "default",
+      "description": "未交互态",
+      "visual": "白底列表，分割线 --color-border-1"
+    },
+    {
+      "name": "hover",
+      "description": "列表项悬停",
+      "visual": "项底色 --color-fill-1，0.1s"
+    },
+    {
+      "name": "selected",
+      "description": "项选中态",
+      "visual": "复选框勾选主色，项底色微染主色浅底"
+    },
+    {
+      "name": "disabled",
+      "description": "禁用项",
+      "visual": "文字 --color-text-4，复选框不可勾选"
+    },
+    {
+      "name": "empty",
+      "description": "空列表",
+      "visual": "面板内显示空态提示"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "source-list",
+      "element": "div",
+      "description": "源列表（左侧）"
+    },
+    {
+      "part": "target-list",
+      "element": "div",
+      "description": "目标列表（右侧）"
+    },
+    {
+      "part": "operations",
+      "element": "div",
+      "description": "中间迁移操作按钮区，文案可自定义"
+    },
+    {
+      "part": "item",
+      "element": "li",
+      "description": "列表项，含标题与复选框"
+    },
+    {
+      "part": "search-input",
+      "element": "input",
+      "description": "栏内搜索框（showSearch）"
+    },
+    {
+      "part": "header-checkbox",
+      "element": "span",
+      "description": "列表头部全选/取消全选复选框"
+    }
+  ],
+  "interaction": {
+    "hover": "列表项底色 --color-fill-1；操作按钮 hover 主色，0.1s",
+    "focus": "列表项与操作按钮可见焦点环",
+    "keyboard": [
+      "ArrowUp/ArrowDown: 列表内移动焦点",
+      "Space: 选中/取消焦点项",
+      "Enter: 将选中项迁移到对侧列表",
+      "Tab: 在源列表/操作按钮/目标列表间移动焦点"
+    ],
+    "motion": {
+      "duration": "0.1s~0.2s",
+      "easing": "standard",
+      "description": "项 hover 0.1s，迁移后列表滚动定位 0.2s"
+    },
+    "behaviorNotes": "头部复选框支持全选/取消全选；oneWay 仅保留源到目标方向；draggable 目标列表可拖拽排序；selectedKeys/targetKeys 受控；titles 自定义两栏标题"
+  },
+  "a11y": {
+    "role": "listbox",
+    "ariaAttrs": [
+      "aria-multiselectable",
+      "aria-activedescendant",
+      "aria-label",
+      "aria-disabled"
+    ],
+    "contrastNote": "选中主色 #3770F7 与白底对比达标；禁用项 --color-text-4 属预期降级",
+    "focusNote": "两栏列表可见焦点环，方向键在项间移动，操作按钮可 Tab 到达"
+  },
+  "usage": [
+    "大量选项在两个集合间批量迁移",
+    "一对多归属设置（如角色授权）",
+    "单向授权场景用 oneWay",
+    "选项多时开 showSearch",
+    "需要目标顺序用 draggable 拖拽排序"
+  ],
+  "doNotInvent": [
+    "不得虚构树形穿梭（层级选择用 TreeSelect 多选）",
+    "不得新增官方不存在的跨列表批量拖拽",
+    "不得在 disabled 项上提供交互",
+    "不得自定义迁移动画脱离 源启动效规范"
+  ],
+  "tokensConsumed": [
+    "--color-primary-6",
+    "--color-fill-1",
+    "--color-border-1",
+    "--color-border-2",
+    "--color-text-1",
+    "--color-text-3",
+    "--color-text-4",
+    "--color-bg-2",
+    "--border-radius-medium"
+  ],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "TransferProps",
+    "props": [
+      "allowClear",
+      "children",
+      "className",
+      "dataSource",
+      "defaultSelectedKeys",
+      "defaultTargetKeys",
+      "disabled",
+      "droppable",
+      "filteredItems",
+      "handleRemove",
+      "handleSelect",
+      "item",
+      "listType",
+      "onDrop",
+      "onItemRemove",
+      "onItemSelect",
+      "onItemSelectAll",
+      "oneWay",
+      "operationTexts",
+      "pagination",
+      "prefixCls",
+      "renderHeaderUnit",
+      "renderList",
+      "retainSelectedItems",
+      "searchPlaceholder",
+      "selectedDisabledKeys",
+      "selectedKeys",
+      "showFooter",
+      "showSearch",
+      "simple",
+      "style",
+      "targetKeys",
+      "title",
+      "titleTexts",
+      "validKeys"
+    ],
+    "total": 35,
+    "syncDate": "2026/08/28"
+  }
+}

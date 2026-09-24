@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>气泡卡片 Popover</title>
+  <link rel="stylesheet" href="preview-scaffold.css">
+  <link rel="stylesheet" href="../colors_and_type.css">
+  <link rel="stylesheet" href="../components.css">
+  <style>
+    /* Popover 预览局部样式（Token 驱动，无硬编码色值） */
+    .giencoder-popover { position: relative; display: inline-block; }
+    .giencoder-popover-popup { position: absolute; top: calc(100% + 10px); left: 50%; transform: translateX(-50%); min-width: 240px; background: var(--color-bg-5); border: 1px solid var(--color-border-2); border-radius: 12px; box-shadow: var(--shadow2-down); z-index: 10; }
+    .giencoder-popover-title { padding: 10px 16px 0; font-size: var(--font-size-body-3); font-weight: 600; color: var(--color-text-1); }
+    .giencoder-popover-content { padding: 8px 16px 12px; font-size: var(--font-size-body-3); color: var(--color-text-2); line-height: 1.6; }
+    .giencoder-popover-footer { display: flex; justify-content: flex-end; gap: 8px; padding: 0 16px 12px; }
+    .giencoder-popover-arrow { position: absolute; top: -5px; left: 50%; transform: translateX(-50%) rotate(45deg); width: 8px; height: 8px; background: var(--color-bg-5); border-left: 1px solid var(--color-border-2); border-top: 1px solid var(--color-border-2); }
+    /* === 交互动效用：弹层展开/收起（opacity 0→1 + scale(0.96→1) + translateY(4px→0)，收起 .15s / 展开 .2s standard 曲线；translate/scale 与既有 translateX(-50%) 定位组合） === */
+    .giencoder-popover-popup {
+      opacity: 0;
+      visibility: hidden;
+      translate: 0 4px;
+      scale: 0.96;
+      transform-origin: top center;
+      transition: opacity .15s cubic-bezier(0.34, 0.69, 0.1, 1), translate .15s cubic-bezier(0.34, 0.69, 0.1, 1), scale .15s cubic-bezier(0.34, 0.69, 0.1, 1), visibility 0s .15s;
+    }
+    .giencoder-popover-popup.giencoder-popup-open {
+      opacity: 1;
+      visibility: visible;
+      translate: 0 0;
+      scale: 1;
+      transition: opacity .2s cubic-bezier(0.34, 0.69, 0.1, 1), translate .2s var(--transition-timing-function-spring), scale .2s var(--transition-timing-function-spring), visibility 0s;
+    }
+  </style>
+</head>
+<body>
+  <div class="pv-layout">
+    <aside class="pv-sidebar">
+      <div class="pv-nav">
+        <div class="pv-menu-group">入口</div>
+        <a href="../home.html">首页</a>
+        <a href="../../GETTING-STARTED.html">使用说明书</a>
+        <div class="pv-menu-group">组件</div>
+        <a href="../index.html#general">通用</a>
+        <a href="../index.html#layout">布局</a>
+        <a href="../index.html#navigation">导航</a>
+        <a href="../index.html#data-entry">数据录入</a>
+        <a href="../index.html#data-display" class="active">数据展示</a>
+        <a href="../index.html#feedback">反馈</a>
+        <a href="../index.html#other">其他</a>
+        <div class="pv-menu-group">资源</div>
+        <a href="../index.html#uikits">页面样板</a>
+        <a href="../index.html#docs">规范文档</a>
+      </div>
+    </aside>
+    <main class="pv-content">
+  <a class="pv-back" href="../index.html#data-display">← 返回组件库</a>
+  <div class="pv-header">
+    <h1>Popover 气泡卡片</h1>
+    <p>源启气泡卡片：区别于 Tooltip，可承载标题、说明文本与底部操作按钮，hover / click 均可触发。</p>
+  </div>
+
+  <!-- ============ 变体：标题 + 内容 + 操作 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Content 标题 + 内容 + 操作区</div>
+    <div class="row" style="justify-content:center;">
+      <div class="giencoder-popover" data-component="popover" data-variant="content" data-state="open" style="margin:8px 0 130px;">
+        <button class="giencoder-btn giencoder-btn-secondary giencoder-btn-size-default">删除项目</button>
+        <div class="giencoder-popover-popup" role="dialog" aria-label="删除确认">
+          <span class="giencoder-popover-arrow"></span>
+          <div class="giencoder-popover-title">确认删除该项目？</div>
+          <div class="giencoder-popover-content">删除后将无法恢复，该操作会同时移除项目下所有关联配置与历史记录。</div>
+          <div class="giencoder-popover-footer">
+            <button class="giencoder-btn giencoder-btn-secondary giencoder-btn-size-small">取消</button>
+            <button class="giencoder-btn giencoder-btn-danger giencoder-btn-size-small">删除</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 变体：触发方式 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Trigger 触发方式（hover 悬停 / click 点击）</div>
+    <div class="row" style="justify-content:center; gap:64px;">
+      <div class="giencoder-popover" data-component="popover" data-variant="hover" data-state="open" style="margin:8px 0 110px;">
+        <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-default">悬停查看</button>
+        <div class="giencoder-popover-popup" role="tooltip">
+          <span class="giencoder-popover-arrow"></span>
+          <div class="giencoder-popover-title">温馨提示</div>
+          <div class="giencoder-popover-content">鼠标悬停触发器即显示气泡卡片，移开后自动隐藏。</div>
+        </div>
+      </div>
+      <div class="giencoder-popover" data-component="popover" data-variant="click" data-state="open" style="margin:8px 0 130px;">
+        <button class="giencoder-btn giencoder-btn-secondary giencoder-btn-size-default">点击查看</button>
+        <div class="giencoder-popover-popup" role="dialog" aria-label="操作确认">
+          <span class="giencoder-popover-arrow"></span>
+          <div class="giencoder-popover-title">发布确认</div>
+          <div class="giencoder-popover-content">发布后所有终端将立即生效，是否继续？</div>
+          <div class="giencoder-popover-footer">
+            <button class="giencoder-btn giencoder-btn-secondary giencoder-btn-size-small">取消</button>
+            <button class="giencoder-btn giencoder-btn-primary giencoder-btn-size-small">确认发布</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="pv-section__sub">弹层背景 --color-bg-5 + --shadow2-down 阴影，圆角 4px；气泡卡片支持标题、文本内容与底部按钮区。</p>
+  </div>
+
+  <script>
+  /* popover：触发器点击展开/收起气泡卡片；弹层内按钮点击或外部点击收起；多示例互斥 */
+  (function () {
+    'use strict';
+
+    function findAll(sel, root) {
+      return Array.prototype.slice.call((root || document).querySelectorAll(sel));
+    }
+
+    var items = findAll('.giencoder-popover');
+    if (!items.length) return;
+
+    /* —— 交互动效：展开 = display + rAF 加 .giencoder-popup-open；收起 = 移除 class + setTimeout 延迟隐藏 —— */
+    function isPopupOpen(popup) {
+      return !!popup && popup.classList.contains('giencoder-popup-open');
+    }
+    function openPopup(popup) {
+      if (!popup) { return; }
+      if (popup._closeTimer) { clearTimeout(popup._closeTimer); popup._closeTimer = null; }
+      popup.style.display = '';
+      var token = (popup._animToken = (popup._animToken || 0) + 1);
+      requestAnimationFrame(function () {
+        if (!popup.isConnected || popup._animToken !== token) { return; } /* 元素已移除或状态已变则跳过 */
+        popup.classList.add('giencoder-popup-open');
+      });
+    }
+    function closePopup(popup) {
+      if (!popup) { return; }
+      var token = (popup._animToken = (popup._animToken || 0) + 1);
+      popup.classList.remove('giencoder-popup-open');
+      if (popup._closeTimer) { clearTimeout(popup._closeTimer); }
+      popup._closeTimer = setTimeout(function () {
+        popup._closeTimer = null;
+        if (!popup.isConnected || popup._animToken !== token) { return; } /* 元素已移除或已重新展开则跳过 */
+        popup.style.display = 'none';
+      }, 200);
+    }
+    function setOpen(item, open) {
+      var popup = item.querySelector('.giencoder-popover-popup');
+      if (!popup) { return; }
+      if (open) { openPopup(popup); } else { closePopup(popup); }
+    }
+    function isOpen(item) {
+      return isPopupOpen(item.querySelector('.giencoder-popover-popup'));
+    }
+
+    function closeAll(except) {
+      items.forEach(function (item) {
+        if (item !== except) setOpen(item, false);
+      });
+    }
+
+    items.forEach(function (item) {
+      var trigger = item.querySelector(':scope > .giencoder-btn');
+      var popup = item.querySelector('.giencoder-popover-popup');
+      if (!trigger || !popup) return;
+
+      trigger.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var wasOpen = isOpen(item);
+        closeAll(item);
+        setOpen(item, !wasOpen);
+      });
+
+      // 弹层内按钮（取消/删除/确认发布）→ 收起
+      findAll('.giencoder-btn', popup).forEach(function (btn) {
+        btn.addEventListener('click', function (e) {
+          e.stopPropagation();
+          setOpen(item, false);
+        });
+      });
+    });
+
+    // 外部点击 → 收起（判断是否在触发器/弹层内）
+    document.addEventListener('click', function (e) {
+      items.forEach(function (item) {
+        var popup = item.querySelector('.giencoder-popover-popup');
+        if (popup && isPopupOpen(popup) && !item.contains(e.target)) {
+          setOpen(item, false);
+        }
+      });
+    });
+    /* 初始同步：模板 data-state="open" 的弹层直接置为展开态（避免加载动画） */
+    items.forEach(function (item) {
+      var popup = item.querySelector('.giencoder-popover-popup');
+      if (popup) { popup.classList.add('giencoder-popup-open'); }
+    });
+  })();
+  </script>
+    </main>
+  </div>
+<script src="preview-copy.js"></script>
+</body>
+</html>

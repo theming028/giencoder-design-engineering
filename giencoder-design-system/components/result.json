@@ -1,0 +1,157 @@
+{
+  "schemaVersion": 3,
+  "slug": "result",
+  "name": "Result",
+  "category": "feedback",
+  "giencoderSource": {
+    "component": "Result",
+    "version": "2.66.16"
+  },
+  "summary": "结果页，用于表单提交、任务完成或异常页面的整页状态展示（成功/错误/信息/警告/404/403/500）。",
+  "variants": [
+    {
+      "name": "success",
+      "description": "成功状态：绿色对勾图标",
+      "whenToUse": "操作完成后的成功页"
+    },
+    {
+      "name": "error",
+      "description": "错误状态：红色叉号图标",
+      "whenToUse": "操作失败页"
+    },
+    {
+      "name": "info",
+      "description": "信息状态：弧蓝感叹号图标（默认）",
+      "whenToUse": "中性说明页"
+    },
+    {
+      "name": "warning",
+      "description": "警告状态：橙色感叹号图标",
+      "whenToUse": "警示性结果页"
+    },
+    {
+      "name": "404",
+      "description": "404 页面：插画式图标",
+      "whenToUse": "资源不存在页面"
+    },
+    {
+      "name": "403",
+      "description": "403 页面：插画式图标",
+      "whenToUse": "无权限访问页面"
+    },
+    {
+      "name": "500",
+      "description": "500 页面：插画式图标",
+      "whenToUse": "服务异常页面"
+    }
+  ],
+  "sizes": [
+    {
+      "name": "default",
+      "value": "图标约 92px（--size-23），内容自适应",
+      "usage": "官方无尺寸档位"
+    }
+  ],
+  "states": [
+    {
+      "name": "default",
+      "description": "按 status 渲染对应图标/标题/副标题",
+      "visual": "状态图标 + 标题 + 副标题 + 操作区"
+    },
+    {
+      "name": "error",
+      "description": "错误类状态视觉（error/500）",
+      "visual": "红色系图标强调"
+    },
+    {
+      "name": "warning",
+      "description": "警告类状态视觉（warning）",
+      "visual": "橙色系图标强调"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "container",
+      "element": "div.giencoder-result",
+      "description": "结果页容器"
+    },
+    {
+      "part": "icon",
+      "element": "div.giencoder-result-icon",
+      "description": "状态图标/插画（status=null 时通过 icon 自定义）"
+    },
+    {
+      "part": "title",
+      "element": "div.giencoder-result-title",
+      "description": "标题文字（--font-size-body-3）"
+    },
+    {
+      "part": "subTitle",
+      "element": "div.giencoder-result-subtitle",
+      "description": "副标题/说明文字"
+    },
+    {
+      "part": "extra",
+      "element": "div.giencoder-result-extra",
+      "description": "操作区（返回、重试等按钮）"
+    }
+  ],
+  "interaction": {
+    "hover": "无（纯展示组件；操作区按钮由 Button 提供反馈）",
+    "focus": "无（组件本身不可聚焦）",
+    "keyboard": [
+      "无键盘交互（纯展示）"
+    ],
+    "motion": {
+      "duration": "0.1s",
+      "easing": "linear",
+      "description": "静态展示，无内置动效"
+    },
+    "behaviorNotes": "纯展示组件；操作通过 extra 内嵌 Button 等实现；status=null 时需通过 icon 自定义图标，且无默认背景与图标色"
+  },
+  "a11y": {
+    "role": "status",
+    "ariaAttrs": [
+      "aria-label（状态图标可访问名，建议）"
+    ],
+    "contrastNote": "标题 --color-text-1 对比度 ≥ 4.5:1；状态图标色 --color-*-6 用于强调",
+    "focusNote": "组件本身无需焦点；extra 内交互元素需可见焦点环"
+  },
+  "usage": [
+    "status 仅 success/error/info/warning/404/403/500/null 七种（默认 info）",
+    "404/403/500 使用官方插画式图标，勿用自定义图片替换",
+    "extra 放置主要操作（返回首页、重试）",
+    "图标色对应语义：success/error/warning/info → --color-success-6/--color-danger-6/--color-warning-6/--color-primary-6"
+  ],
+  "doNotInvent": [
+    "不得虚构其他 status 枚举",
+    "不得用自定义图片替换 404/403/500 官方插画",
+    "不得硬编码颜色 hex，使用语义 token"
+  ],
+  "tokensConsumed": [
+    "--color-success-6",
+    "--color-danger-6",
+    "--color-warning-6",
+    "--color-primary-6",
+    "--color-text-1",
+    "--color-text-2",
+    "--font-size-body-3",
+    "--spacing-9",
+    "--spacing-10"
+  ],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "ResultProps",
+    "props": [
+      "className",
+      "extra",
+      "icon",
+      "status",
+      "style",
+      "subTitle",
+      "title"
+    ],
+    "total": 7,
+    "syncDate": "2026/08/28"
+  }
+}

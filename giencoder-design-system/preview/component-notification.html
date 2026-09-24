@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>通知提醒 Notification</title>
+  <link rel="stylesheet" href="preview-scaffold.css">
+  <link rel="stylesheet" href="../colors_and_type.css">
+  <link rel="stylesheet" href="../components.css">
+  <style>
+    /* 交互动效用：Notification 过渡动效
+       出现：淡入 + 从右上滑入（translateY(-8px)→0），0.3s standard（入场由脚本 rAF 触发）
+       关闭：淡出 + 上滑（translateY(0)→-8px）+ 微缩 scale(1→0.98)，0.2s，完成后由脚本移除 */
+    .giencoder-notification {
+      transition: opacity var(--transition-duration-3) var(--transition-timing-function-standard),
+                  transform var(--transition-duration-3) var(--transition-timing-function-spring);
+    }
+    .giencoder-notification.pv-enter-start {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+    .giencoder-notification.pv-leave {
+      opacity: 0;
+      transform: translateY(-8px) scale(0.98);
+      transition: opacity var(--transition-duration-2) var(--transition-timing-function-standard),
+                  transform var(--transition-duration-2) var(--transition-timing-function-standard);
+    }
+    .giencoder-notification-action .giencoder-btn { font-size: var(--font-size-body-3); }
+  </style>
+</head>
+<body>
+  <div class="pv-layout">
+    <aside class="pv-sidebar">
+      <div class="pv-nav">
+        <div class="pv-menu-group">入口</div>
+        <a href="../home.html">首页</a>
+        <a href="../../GETTING-STARTED.html">使用说明书</a>
+        <div class="pv-menu-group">组件</div>
+        <a href="../index.html#general">通用</a>
+        <a href="../index.html#layout">布局</a>
+        <a href="../index.html#navigation">导航</a>
+        <a href="../index.html#data-entry">数据录入</a>
+        <a href="../index.html#data-display">数据展示</a>
+        <a href="../index.html#feedback" class="active">反馈</a>
+        <a href="../index.html#other">其他</a>
+        <div class="pv-menu-group">资源</div>
+        <a href="../index.html#uikits">页面样板</a>
+        <a href="../index.html#docs">规范文档</a>
+      </div>
+    </aside>
+    <main class="pv-content">
+  <a class="pv-back" href="../index.html#feedback">← 返回组件库</a>
+  <div class="pv-header">
+    <h1>Notification 通知提醒</h1>
+    <p>源启通知提醒：右上角弹窗卡片，标题 + 内容 + 关闭按钮 + 类型图标，支持底部操作。</p>
+  </div>
+
+  <!-- ============ 变体：四种类型 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Types 四种类型</div>
+    <div class="row" style="gap:var(--spacing-8);">
+      <!-- info -->
+      <div class="giencoder-notification" data-component="notification" data-variant="info" data-state="default" role="status" style="width:320px; display:flex; gap:var(--spacing-6); padding:var(--spacing-6); background:var(--color-bg-2); border:1px solid var(--color-border-2); border-radius:8px; box-shadow:var(--shadow3-down);">
+        <span class="giencoder-notification-icon" style="flex-shrink:0; color:var(--color-primary-6); display:flex; margin-top:1px;">
+          <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="8" cy="8" r="6.5"/><path d="M8 4.5v4M8 11.5h.01"/></svg>
+        </span>
+        <div style="flex:1; min-width:0;">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:var(--spacing-4);">
+            <span style="font-size:var(--font-size-body-3); font-weight:500; color:var(--color-text-1);">普通通知</span>
+            <button class="giencoder-notification-close-btn" aria-label="关闭" style="border:none; background:none; cursor:pointer; color:var(--color-text-3); display:flex; padding:2px;">
+              <svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 3l6 6M9 3l-6 6"/></svg>
+            </button>
+          </div>
+          <div style="font-size:var(--font-size-body-1); color:var(--color-text-2); line-height:1.6; margin-top:var(--spacing-2);">这是一条普通的提示通知消息。</div>
+        </div>
+      </div>
+      <!-- success -->
+      <div class="giencoder-notification" data-component="notification" data-variant="success" data-state="default" role="status" style="width:320px; display:flex; gap:var(--spacing-6); padding:var(--spacing-6); background:var(--color-bg-2); border:1px solid var(--color-border-2); border-radius:8px; box-shadow:var(--shadow3-down);">
+        <span class="giencoder-notification-icon" style="flex-shrink:0; color:var(--color-success-6); display:flex; margin-top:1px;">
+          <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="8" cy="8" r="6.5"/><path d="M5 8.5l2 2 4-4.5"/></svg>
+        </span>
+        <div style="flex:1; min-width:0;">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:var(--spacing-4);">
+            <span style="font-size:var(--font-size-body-3); font-weight:500; color:var(--color-text-1);">发布成功</span>
+            <button class="giencoder-notification-close-btn" aria-label="关闭" style="border:none; background:none; cursor:pointer; color:var(--color-text-3); display:flex; padding:2px;">
+              <svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 3l6 6M9 3l-6 6"/></svg>
+            </button>
+          </div>
+          <div style="font-size:var(--font-size-body-1); color:var(--color-text-2); line-height:1.6; margin-top:var(--spacing-2);">文档已成功发布到线上环境。</div>
+        </div>
+      </div>
+      <!-- warning -->
+      <div class="giencoder-notification" data-component="notification" data-variant="warning" data-state="default" role="alert" style="width:320px; display:flex; gap:var(--spacing-6); padding:var(--spacing-6); background:var(--color-bg-2); border:1px solid var(--color-border-2); border-radius:8px; box-shadow:var(--shadow3-down);">
+        <span class="giencoder-notification-icon" style="flex-shrink:0; color:var(--color-warning-6); display:flex; margin-top:1px;">
+          <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M8 2l6 11H2L8 2z"/><path d="M8 6.5v3M8 11.5h.01"/></svg>
+        </span>
+        <div style="flex:1; min-width:0;">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:var(--spacing-4);">
+            <span style="font-size:var(--font-size-body-3); font-weight:500; color:var(--color-text-1);">空间不足</span>
+            <button class="giencoder-notification-close-btn" aria-label="关闭" style="border:none; background:none; cursor:pointer; color:var(--color-text-3); display:flex; padding:2px;">
+              <svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 3l6 6M9 3l-6 6"/></svg>
+            </button>
+          </div>
+          <div style="font-size:var(--font-size-body-1); color:var(--color-text-2); line-height:1.6; margin-top:var(--spacing-2);">存储空间即将用尽，请及时清理。</div>
+        </div>
+      </div>
+      <!-- error -->
+      <div class="giencoder-notification" data-component="notification" data-variant="error" data-state="default" role="alert" style="width:320px; display:flex; gap:var(--spacing-6); padding:var(--spacing-6); background:var(--color-bg-2); border:1px solid var(--color-border-2); border-radius:8px; box-shadow:var(--shadow3-down);">
+        <span class="giencoder-notification-icon" style="flex-shrink:0; color:var(--color-danger-6); display:flex; margin-top:1px;">
+          <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="8" cy="8" r="6.5"/><path d="M5.5 5.5l5 5M10.5 5.5l-5 5"/></svg>
+        </span>
+        <div style="flex:1; min-width:0;">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:var(--spacing-4);">
+            <span style="font-size:var(--font-size-body-3); font-weight:500; color:var(--color-text-1);">同步失败</span>
+            <button class="giencoder-notification-close-btn" aria-label="关闭" style="border:none; background:none; cursor:pointer; color:var(--color-text-3); display:flex; padding:2px;">
+              <svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 3l6 6M9 3l-6 6"/></svg>
+            </button>
+          </div>
+          <div style="font-size:var(--font-size-body-1); color:var(--color-text-2); line-height:1.6; margin-top:var(--spacing-2);">网络异常，数据同步未完成。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 变体：底部操作 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">With Action 底部操作</div>
+    <div class="row">
+      <div class="giencoder-notification" data-component="notification" data-variant="action" data-state="default" role="status" style="width:320px; display:flex; gap:var(--spacing-6); padding:var(--spacing-6); background:var(--color-bg-2); border:1px solid var(--color-border-2); border-radius:8px; box-shadow:var(--shadow3-down);">
+        <span class="giencoder-notification-icon" style="flex-shrink:0; color:var(--color-primary-6); display:flex; margin-top:1px;">
+          <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="8" cy="8" r="6.5"/><path d="M8 4.5v4M8 11.5h.01"/></svg>
+        </span>
+        <div style="flex:1; min-width:0;">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:var(--spacing-4);">
+            <span style="font-size:var(--font-size-body-3); font-weight:500; color:var(--color-text-1);">版本更新</span>
+            <button class="giencoder-notification-close-btn" aria-label="关闭" style="border:none; background:none; cursor:pointer; color:var(--color-text-3); display:flex; padding:2px;">
+              <svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 3l6 6M9 3l-6 6"/></svg>
+            </button>
+          </div>
+          <div style="font-size:var(--font-size-body-1); color:var(--color-text-2); line-height:1.6; margin-top:var(--spacing-2);">检测到新版本 v2.4.0，包含性能优化与缺陷修复。</div>
+          <div class="giencoder-notification-action" style="display:flex; gap:var(--spacing-8); margin-top:var(--spacing-6); padding-top:var(--spacing-4); border-top:1px solid var(--color-border-1);">
+            <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-mini">查看详情</button>
+            <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-mini" style="color:var(--color-text-3);">稍后再说</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 变体：右上角定位 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Placement 右上角定位</div>
+    <div class="demo-box" style="position:relative; height:300px; overflow:hidden;">
+      <!-- 模拟页面内容 -->
+      <div style="display:flex; align-items:center; gap:var(--spacing-6);">
+        <div style="width:24px; height:24px; border-radius:var(--border-radius-circle); background:var(--color-fill-3);"></div>
+        <div style="width:120px; height:12px; border-radius:var(--border-radius-small); background:var(--color-fill-2);"></div>
+        <div style="flex:1;"></div>
+        <div style="width:64px; height:28px; border-radius:var(--border-radius-medium); background:var(--color-fill-2);"></div>
+      </div>
+      <div style="margin-top:var(--spacing-8); display:flex; gap:var(--spacing-8);">
+        <div style="flex:1; height:140px; border:1px solid var(--color-border-2); border-radius:var(--border-radius-medium); background:var(--color-bg-2);"></div>
+        <div style="flex:1; height:140px; border:1px solid var(--color-border-2); border-radius:var(--border-radius-medium); background:var(--color-bg-2);"></div>
+      </div>
+      <!-- 右上角通知卡片 -->
+      <div class="giencoder-notification" data-component="notification" data-variant="top-right" data-state="default" role="status" style="position:absolute; top:16px; right:16px; width:320px; display:flex; gap:var(--spacing-6); padding:var(--spacing-6); background:var(--color-bg-2); border:1px solid var(--color-border-2); border-radius:8px; box-shadow:var(--shadow3-down);">
+        <span class="giencoder-notification-icon" style="flex-shrink:0; color:var(--color-success-6); display:flex; margin-top:1px;">
+          <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="8" cy="8" r="6.5"/><path d="M5 8.5l2 2 4-4.5"/></svg>
+        </span>
+        <div style="flex:1; min-width:0;">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:var(--spacing-4);">
+            <span style="font-size:var(--font-size-body-3); font-weight:500; color:var(--color-text-1);">保存成功</span>
+            <button class="giencoder-notification-close-btn" aria-label="关闭" style="border:none; background:none; cursor:pointer; color:var(--color-text-3); display:flex; padding:2px;">
+              <svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 3l6 6M9 3l-6 6"/></svg>
+            </button>
+          </div>
+          <div style="font-size:var(--font-size-body-1); color:var(--color-text-2); line-height:1.6; margin-top:var(--spacing-2);">通知默认挂载于页面右上角，多条通知纵向堆叠展示。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  /* notification：交互动效（出现 = 淡入 + 右上滑入 0.3s；关闭 = 上滑淡出 + 微缩 0.2s 后移除）+ 关闭按钮移除卡片；"查看详情"点击显示"已打开详情"反馈 */
+  (function () {
+    'use strict';
+
+    var LEAVE_DURATION = 200; // 与 CSS 关闭过渡 0.2s 对应
+
+    function findAll(sel, root) {
+      return Array.prototype.slice.call((root || document).querySelectorAll(sel));
+    }
+
+    // 出现：置为滑入前状态 → 强制回流确立起始态 → rAF 移除 → 触发 0.3s 淡入 + translateY(-8px)→0
+    function playEnter(cards) {
+      cards.forEach(function (card) {
+        card.classList.add('pv-enter-start');
+      });
+      if (cards.length) void cards[0].offsetWidth; // 强制回流，确保入场过渡从起始态开始
+      requestAnimationFrame(function () {
+        cards.forEach(function (card) {
+          if (card) card.classList.remove('pv-enter-start');
+        });
+      });
+    }
+
+    // 关闭：加 leave class（淡出 + 上滑 + 微缩 0.2s），结束后移除卡片（元素可能已移除，先判存在）
+    function removeCard(card) {
+      if (!card || card._removed) return;
+      card._removed = true;
+      card.classList.add('pv-leave');
+      setTimeout(function () {
+        if (card.parentNode) card.parentNode.removeChild(card);
+      }, LEAVE_DURATION);
+    }
+
+    var cards = findAll('.giencoder-notification');
+    playEnter(cards);
+
+    cards.forEach(function (card) {
+      // 关闭按钮 → 移除卡片
+      var closeBtn = card.querySelector('.giencoder-notification-close-btn');
+      if (closeBtn) {
+        closeBtn.addEventListener('click', function () { removeCard(card); });
+      }
+      // "查看详情" → 临时反馈文字
+      findAll('.giencoder-btn', card).forEach(function (btn) {
+        if (btn.textContent.indexOf('查看详情') >= 0) {
+          btn.addEventListener('click', function () {
+            var original = btn.textContent;
+            btn.textContent = '已打开详情';
+            if (btn._timer) clearTimeout(btn._timer);
+            btn._timer = setTimeout(function () { btn.textContent = original; }, 1500);
+          });
+        }
+      });
+    });
+  })();
+  </script>
+    </main>
+  </div>
+<script src="preview-copy.js"></script>
+</body>
+</html>

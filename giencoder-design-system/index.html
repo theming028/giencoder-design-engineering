@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-page-node-id="JZkaWQEDAkYkjyCgFwSG6A">
+<head data-page-node-id="uQYnsGxPkM1WvqHKd1eSb9">
+  <meta charset="UTF-8" data-page-node-id="HMX7C5dQX4nqF1CwfKsiCE">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" data-page-node-id="t70KicEbqaXPF0hlrncdNS">
+  <title>GienCoder 设计系统 — 组件库</title>
+  <link rel="stylesheet" href="colors_and_type.css" data-page-node-id="XVFemgrWGRnHS5RWsGqZGt">
+  <link rel="stylesheet" href="components.css" data-page-node-id="tMTzE0gxEZ33CpBj255VdD">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: var(--font-family); background: var(--color-bg-1); color: var(--color-text-1); }
+    .layout { display: flex; align-items: flex-start; }
+    .sidebar {
+      width: 232px; flex-shrink: 0; position: sticky; top: 0; height: 100vh;
+      overflow-y: auto; border-right: 1px solid var(--color-border-1);
+      background: var(--color-bg-1); padding: 24px 16px 48px;
+    }
+    .menu-group-title { font-size: 12px; color: var(--color-text-3); padding: 10px 14px 6px; letter-spacing: 0.5px; }
+    .nav { display: flex; flex-direction: column; gap: 2px; }
+    .nav a {
+      display: block; color: var(--color-text-2); text-decoration: none;
+      font-size: 14px; padding: 8px 14px; border-radius: 6px; transition: all 0.15s;
+    }
+    .nav a:hover { background: var(--color-fill-1); color: var(--color-text-1); }
+    .nav a.active { background: var(--color-primary-1); color: var(--color-primary-7); font-weight: 500; }
+    .content { flex: 1; min-width: 0; }
+    .section { padding: 32px 40px 8px; }
+    @media (max-width: 860px) {
+      .layout { display: block; }
+      .sidebar { width: auto; height: auto; position: static; border-right: none; border-bottom: 1px solid var(--color-border-1); padding: 12px 16px; }
+      .nav { flex-direction: row; flex-wrap: wrap; }
+    }
+    .section h2 { font-size: 20px; font-weight: 600; margin-bottom: 4px; }
+    .section .desc { font-size: 13px; color: var(--color-text-3); margin-bottom: 20px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+    .card {
+      display: block; background: var(--color-bg-2); border: 1px solid var(--color-border-2);
+      border-radius: 8px; padding: 16px; text-decoration: none; transition: all 0.2s;
+      color: var(--color-text-1);
+    }
+    .card:hover { border-color: var(--color-primary-6); box-shadow: var(--shadow2-down); transform: translateY(-2px); }
+    .card .name { font-size: 14px; font-weight: 500; }
+    .card .cn { font-size: 12px; color: var(--color-text-3); margin-top: 2px; }
+    .card .status { display: inline-block; margin-top: 10px; font-size: 11px; padding: 2px 8px; border-radius: 4px; }
+    .status-ok { background: var(--color-success-light-1); color: var(--color-success-6); }
+    .status-todo { background: var(--color-fill-1); color: var(--color-text-3); }
+    .footer { padding: 32px 40px; color: var(--color-text-3); font-size: 12px; border-top: 1px solid var(--color-border-1); margin-top: 40px; }
+  </style>
+</head>
+<body data-page-node-id="3eXqCBUz2Jp85ERMhGaoCz">
+  <div class="layout" data-page-node-id="vGTMniIzpVywrkhCIqyS6j">
+    <aside class="sidebar" data-page-node-id="EA4PUs5E9GtmFsNLKEVO9R">
+      <div class="nav" id="top" data-page-node-id="ugTD8G47GrKHHOZQ95R7Qz">
+        <div class="menu-group-title" data-page-node-id="2VOayhpbBTJ7T8MoYXjsx4">入口</div>
+        <a href="home.html" data-page-node-id="L3osyRMHnQBlCXWvL3KoLE">首页</a>
+        <a href="../GETTING-STARTED.html" data-page-node-id="PV07Id34s3jO9CS9UuQfg3">使用说明书</a>
+        <div class="menu-group-title" data-page-node-id="L9MR6I5z3fVpaClYyj9D6S">组件</div>
+        <a href="#general" data-page-node-id="StxRJeCCi0ZpfDbQMj05M1">通用</a>
+        <a href="#layout" data-page-node-id="A2M3eY74QmOjS5BcWDuQzb">布局</a>
+        <a href="#navigation" data-page-node-id="HFEQ2PdLHSozD2BhtD4CYw">导航</a>
+        <a href="#data-entry" data-page-node-id="E9NZ6P6bpzL59fQYIupXyY">数据录入</a>
+        <a href="#data-display" data-page-node-id="OUMdkGU9emcxrhilclOIvi">数据展示</a>
+        <a href="#feedback" data-page-node-id="R7CBFVGFdP08cTBje6cf4L">反馈</a>
+        <a href="#other" data-page-node-id="4QiQ8AKjJMig8RDUijwIVr">其他</a>
+        <div class="menu-group-title" data-page-node-id="9Z2euKJkkn6uwlYX9NwWN1">资源</div>
+        <a href="#uikits" data-page-node-id="HvppCHvGInMZ2MqdtTG9Td">页面样板</a>
+        <a href="#docs" data-page-node-id="yrdpQYLjpPwuexXv6dkNux">规范文档</a>
+      </div>
+    </aside>
+    <main class="content" data-page-node-id="m0pM12e6JLFHDY83BDanFe">
+
+  <div class="section" id="general" data-page-node-id="jDUn5usSQTzvMmeSQ91JIK">
+    <h2 data-page-node-id="etlHN0PrQFKtwCxlgWEVKe">通用 General</h2>
+    <p class="desc" data-page-node-id="vMggvHz5zMBbCB5FKLryvu">按钮、图标、排版等基础元素</p>
+    <div class="grid" data-page-node-id="p8yqM5Jpa5jpDrsyuZuwqk">
+      <a class="card" href="preview/component-button.html" data-page-node-id="1jhQpfJwwPou5vvPmbYauh"><div class="name" data-page-node-id="MwdHD18Z2NAl2cT0TtFx10">Button</div><div class="cn" data-page-node-id="RvLwfsldGWDvgn6QGTZZO1">按钮</div><span class="status status-ok" data-page-node-id="s9aA659Bso2f0RzRzDcEaq">模板就绪</span></a>
+      <a class="card" href="preview/component-icon.html" data-page-node-id="RwtDUsFjmATU4p9sIq2UXs"><div class="name" data-page-node-id="BwiWY353hhZIYtLoRXrPKu">Icon</div><div class="cn" data-page-node-id="EppfY6TU0uEuqHGN3vxrhE">图标</div><span class="status status-ok" data-page-node-id="Z9E1M0kAM16c2Mb4IhjNvO">模板就绪</span></a>
+      <a class="card" href="preview/component-typography.html" data-page-node-id="L44UOFweFTknnmEKVEe4yR"><div class="name" data-page-node-id="Z2CEYU9mLHzdru6TuJdeZT">Typography</div><div class="cn" data-page-node-id="m3zQ0d7ljFO2QViXDucwuD">排版</div><span class="status status-ok" data-page-node-id="k3dZI997rsRHLasfBBsL48">模板就绪</span></a>
+      <a class="card" href="preview/component-divider.html" data-page-node-id="9hmrFdi6UxIl8iZ9NtuJAf"><div class="name" data-page-node-id="HYH8SvI9U8aTdQ18NdjhFR">Divider</div><div class="cn" data-page-node-id="mBAdnq8VnjgLiq0JVOuYAW">分割线</div><span class="status status-ok" data-page-node-id="yWRGrrBr6QETSG1zJSQDXY">模板就绪</span></a>
+      <a class="card" href="preview/component-grid.html" data-page-node-id="D5XQDxjbFyApsEtWSfdXqh"><div class="name" data-page-node-id="jYu62Wimt2bcQFNFdf51Q1">Grid</div><div class="cn" data-page-node-id="3ZHUWPfVIlAAK2nOa3QikK">栅格</div><span class="status status-ok" data-page-node-id="2Cf1xWHEPQLM6U1W75EGgx">模板就绪</span></a>
+      <a class="card" href="preview/component-space.html" data-page-node-id="9LBFkJZeNe7LEDcLV5pdTX"><div class="name" data-page-node-id="nemk5EfhxCnfM1XoHkD2nF">Space</div><div class="cn" data-page-node-id="Mq2VobqrSUU2IdhxzmC9DF">间距</div><span class="status status-ok" data-page-node-id="fgaoJouTGrk0zjnUwIiO1i">模板就绪</span></a>
+      <a class="card" href="preview/component-link.html" data-page-node-id="FxuY3Raz7V67zFb4i3S9Yp"><div class="name" data-page-node-id="4k0dBAC7EmfEi8u7FZ7s1E">Link</div><div class="cn" data-page-node-id="0zliHtWWBxXS6NTpM12nb5">链接</div><span class="status status-ok" data-page-node-id="iVsnWVS8ILMW3W49eSD3FJ">模板就绪</span></a>
+    </div>
+  </div>
+
+  <div class="section" id="layout" data-page-node-id="PR7OzxSz4I9aa6IYbIt5Y3">
+    <h2 data-page-node-id="0iiZj17tj8ZsnKqB48LcMk">布局 Layout</h2>
+    <p class="desc" data-page-node-id="boDqVGFttBCFIGVGQ4vmR5">页面骨架与栅格系统</p>
+    <div class="grid" data-page-node-id="FIVwQDt7oEDsspUHSRNfkE">
+      <a class="card" href="preview/component-layout.html" data-page-node-id="3pX1cdMJ6uBolkYVxthAvs"><div class="name" data-page-node-id="j3JExHO8IqzK0WIP818kCc">Layout</div><div class="cn" data-page-node-id="zMiaxCUr161wuzqqAFBX2C">布局骨架</div><span class="status status-ok" data-page-node-id="Xf7nRtCdocwjVZodJQ06hl">模板就绪</span></a>
+    </div>
+  </div>
+
+  <div class="section" id="navigation" data-page-node-id="GsQVZeAy35A4jCpPqYED8r">
+    <h2 data-page-node-id="qWtof5mWKA7tULvqVMEAbS">导航 Navigation</h2>
+    <p class="desc" data-page-node-id="GzExvmUwBr28Z2GN9M0pBK">页面导航与定位</p>
+    <div class="grid" data-page-node-id="ZZuSQ2OGsBryewoAdNkPjo">
+      <a class="card" href="preview/component-affix.html" data-page-node-id="zll0qEBTpbizHFHU8SPpxL"><div class="name" data-page-node-id="KUKWHo1kQbgZKOQTGiDPkw">Affix</div><div class="cn" data-page-node-id="PKHH4V5dUW5dLqzOY7sPyh">固钉</div><span class="status status-ok" data-page-node-id="Z6MZsA1gooDuD9cbIOf72w">模板就绪</span></a>
+      <a class="card" href="preview/component-anchor.html" data-page-node-id="90vUqMhFlMYruZLRhD4ztA"><div class="name" data-page-node-id="aM15GbgwZfNKR1mkpLBPM9">Anchor</div><div class="cn" data-page-node-id="7fpYuK1aE1HYdLh38tWwSL">锚点</div><span class="status status-ok" data-page-node-id="3tqrr9oWovhnt50eDlHNbx">模板就绪</span></a>
+      <a class="card" href="preview/component-breadcrumb.html" data-page-node-id="ZYiclA4HQWVGbCpGpHNf8Y"><div class="name" data-page-node-id="NlB8IpgyPHNmhauF1YM0NS">Breadcrumb</div><div class="cn" data-page-node-id="fJ5LN8baaYD9yhbBIZ24bW">面包屑</div><span class="status status-ok" data-page-node-id="cyRKJuK1KWXXvBOVFbYFhD">模板就绪</span></a>
+      <a class="card" href="preview/component-dropdown.html" data-page-node-id="ucn512shHs4pE6li2wiEBo"><div class="name" data-page-node-id="Eai6PfYtqYtgN7ZsV2suNf">Dropdown</div><div class="cn" data-page-node-id="lSpYIMN1pqzxcdiqIDCZTk">下拉菜单</div><span class="status status-ok" data-page-node-id="hxG0FjVCYEMzf0vsbQlG0H">模板就绪</span></a>
+      <a class="card" href="preview/component-menu.html" data-page-node-id="SB1EjwOyl31jzHrzNlpaFx"><div class="name" data-page-node-id="wNvZt1ZRLvlSQTcgEvWEHS">Menu</div><div class="cn" data-page-node-id="nAoulfEuqIBZ25QhLLqLYR">菜单</div><span class="status status-ok" data-page-node-id="pSlCaSsdIbxjukJEVp0YzC">模板就绪</span></a>
+      <a class="card" href="preview/component-page-header.html" data-page-node-id="F7NMzJKhDbLWXOnucWHHsK"><div class="name" data-page-node-id="52bcs0MQkAPsr1ZKpWvZcO">PageHeader</div><div class="cn" data-page-node-id="yySRaU1PJPIOND48YGqXYV">页头</div><span class="status status-ok" data-page-node-id="otHZhSVEUS6nMv3y1B8kBL">模板就绪</span></a>
+      <a class="card" href="preview/component-pagination.html" data-page-node-id="GU40VRZsX6v3NkmvvgqbWp"><div class="name" data-page-node-id="iNl6IIh1Le0CeIdR57PFPh">Pagination</div><div class="cn" data-page-node-id="8SwChWeWZoCKP1AdeRF3za">分页</div><span class="status status-ok" data-page-node-id="QWHsuZuR4YRqQ1gWw1kxC2">模板就绪</span></a>
+      <a class="card" href="preview/component-steps.html" data-page-node-id="sKQzWyIhVuWcFU4jQWzXba"><div class="name" data-page-node-id="omlB7ukjEH594vBAdvcMoW">Steps</div><div class="cn" data-page-node-id="zD1btD4l1TwzwpjD0kbaWf">步骤条</div><span class="status status-ok" data-page-node-id="0JhElTsP5zH3jB8K0rFbGI">模板就绪</span></a>
+      <a class="card" href="preview/component-tabs.html" data-page-node-id="rG3lxVCfoVP0GGAcJXJLfW"><div class="name" data-page-node-id="Hso0iD4ETNccSZwMoMUsHp">Tabs</div><div class="cn" data-page-node-id="HmvrMVCqK2HxrOWJtsVrs7">标签页</div><span class="status status-ok" data-page-node-id="PWtoCidAiJrQE7CD9xLUDG">模板就绪</span></a>
+    </div>
+  </div>
+
+  <div class="section" id="data-entry" data-page-node-id="LNK70RnHVnloTKzy4UVmXe">
+    <h2 data-page-node-id="qFUFvFNZGW2RxL39vJwAHA">数据录入 Data Entry</h2>
+    <p class="desc" data-page-node-id="X78MfgQb71KXqT1NYgmvpd">表单与输入控件</p>
+    <div class="grid" data-page-node-id="vPYt9xtZQMK6MzLacd6OoC">
+      <a class="card" href="preview/component-auto-complete.html" data-page-node-id="iCYTJruCVn6lLsvHBMoQ1F"><div class="name" data-page-node-id="1lwtIdYtuZNnVW8tf05gqi">AutoComplete</div><div class="cn" data-page-node-id="6qqMSAfTl3XtD8nClqnN4Q">自动补全</div><span class="status status-ok" data-page-node-id="3Qf8e7BdfM4LsmUEMtZKTr">模板就绪</span></a>
+      <a class="card" href="preview/component-cascader.html" data-page-node-id="cfn0B5t8nnAXvr9VQHgTjT"><div class="name" data-page-node-id="Sjz9tK7ZGePUNyUsA9S1Mt">Cascader</div><div class="cn" data-page-node-id="59CyHSc16lO1AKpkqb5jtW">级联选择</div><span class="status status-ok" data-page-node-id="YyeTimuJ7N9gzbFTBfZPpv">模板就绪</span></a>
+      <a class="card" href="preview/component-checkbox.html" data-page-node-id="5x1XwmkSZvnP98nyBJUIUu"><div class="name" data-page-node-id="fAxITZDXQCbGvoVO9HamDr">Checkbox</div><div class="cn" data-page-node-id="HTTPeQU6cyoyuyUeio2huk">复选框</div><span class="status status-ok" data-page-node-id="aLw0VBjNFzHUJxzYwaGfZ5">模板就绪</span></a>
+      <a class="card" href="preview/component-color-picker.html" data-page-node-id="QD4XfzWWQPqDUFA8Ve3lxj"><div class="name" data-page-node-id="F2JK12hjDX6dxRV4uDhAaG">ColorPicker</div><div class="cn" data-page-node-id="OC7niEowznRi1cWeaxLnn2">取色器</div><span class="status status-ok" data-page-node-id="LovCjI3ArOfYaYgdATdTJX">模板就绪</span></a>
+      <a class="card" href="preview/component-date-picker.html" data-page-node-id="iywgUKdI5Zl8nYB7gwYsvl"><div class="name" data-page-node-id="A92b2s57dhvtTqEeoEr3gH">DatePicker</div><div class="cn" data-page-node-id="DCciYOaeUO4qJWEBqJHTU6">日期选择</div><span class="status status-ok" data-page-node-id="u7OIF6XaVDG6zXxadArpFa">模板就绪</span></a>
+      <a class="card" href="preview/component-form.html" data-page-node-id="oeaAAz8Jt2Acic6cNDxkBH"><div class="name" data-page-node-id="X78DwC1BAyXdmkDbBI64wq">Form</div><div class="cn" data-page-node-id="siybq8jfblyUZrlpDpA46S">表单</div><span class="status status-ok" data-page-node-id="HPXOLOosel6zXs0ADU07tW">模板就绪</span></a>
+      <a class="card" href="preview/component-input.html" data-page-node-id="00qXPblYSRJWSO90Clyniv"><div class="name" data-page-node-id="0QjAuEnD7iSn2g8AKDDXwo">Input</div><div class="cn" data-page-node-id="c2jN8htj0MGuoGh6e8o9eE">输入框</div><span class="status status-ok" data-page-node-id="O9FXgAfJGYQHj24AECuoSD">模板就绪</span></a>
+      <a class="card" href="preview/component-input-number.html" data-page-node-id="hCIQO9wWYkBDE7HWHzaArr"><div class="name" data-page-node-id="U307a74OZajsWL5ZqxgIEG">InputNumber</div><div class="cn" data-page-node-id="2um9g3aX1MIXz894s56nbH">数字输入</div><span class="status status-ok" data-page-node-id="a2VPCkemDbHsgyVTUduDZv">模板就绪</span></a>
+      <a class="card" href="preview/component-input-tag.html" data-page-node-id="WrObAdKI50xoyl7lioxfnk"><div class="name" data-page-node-id="OJIh4bXktGSNls0Jl7Tq4r">InputTag</div><div class="cn" data-page-node-id="qpiwMMsCp2z8JQ8VFBJClQ">标签输入</div><span class="status status-ok" data-page-node-id="lkM73tvh6zCxzR8XjMN0IT">模板就绪</span></a>
+      <a class="card" href="preview/component-mentions.html" data-page-node-id="AJvzGyjDg9mUAtQLrcd0Cw"><div class="name" data-page-node-id="RonmBuP4jGBTsVvqaXdpOL">Mentions</div><div class="cn" data-page-node-id="PnIspfvOEa7dmntF2BRxKO">提及</div><span class="status status-ok" data-page-node-id="ZlchGMBf72qmu5xrxugYmR">模板就绪</span></a>
+      <a class="card" href="preview/component-radio.html" data-page-node-id="LyO3ctK7ejPjChPHnQNNNh"><div class="name" data-page-node-id="bzicr9NGLyLF1j6DmtE12m">Radio</div><div class="cn" data-page-node-id="5kGZqevAvMJ0UEySPXs04X">单选框</div><span class="status status-ok" data-page-node-id="FALOs4zJCdxQPhhJEl0izA">模板就绪</span></a>
+      <a class="card" href="preview/component-rate.html" data-page-node-id="uUuRZdv032abycGJjl5oEZ"><div class="name" data-page-node-id="EDiHixalOPpAHPNhXBCs0m">Rate</div><div class="cn" data-page-node-id="tyg0RQqKA7EDmvWyUOle8U">评分</div><span class="status status-ok" data-page-node-id="tQ5tBj0po9MOAuizna2huF">模板就绪</span></a>
+      <a class="card" href="preview/component-select.html" data-page-node-id="Eo3neNnwGSWNhJeQJ5IHDR"><div class="name" data-page-node-id="1adSypR1BKgrW6fqES5Ja0">Select</div><div class="cn" data-page-node-id="lFqur208jmVWjpu4474HPO">选择器</div><span class="status status-ok" data-page-node-id="aoD8CgGJhb3vAUZCxOWI6x">模板就绪</span></a>
+      <a class="card" href="preview/component-slider.html" data-page-node-id="CSWEBmddzNp0Jg2dAqC10P"><div class="name" data-page-node-id="EzKxlBpHPsoIPzBENBVGzX">Slider</div><div class="cn" data-page-node-id="IYKZTngvXu62VLNZAHtbMr">滑动条</div><span class="status status-ok" data-page-node-id="1Ma8r6IDjpsRf4XUnVyED1">模板就绪</span></a>
+      <a class="card" href="preview/component-switch.html" data-page-node-id="RNiIjL2d786QjOFjF3UGMB"><div class="name" data-page-node-id="V18lSJ0L9AAPtfXYIQYCFu">Switch</div><div class="cn" data-page-node-id="bhdUbH4UgLytkL2X5oZjYB">开关</div><span class="status status-ok" data-page-node-id="FPUZy1vZ7lwKRAiE1k4t6e">模板就绪</span></a>
+      <a class="card" href="preview/component-time-picker.html" data-page-node-id="fgTDXpcDP7gSiIzLugEHZg"><div class="name" data-page-node-id="nU3a2ZPIa5K7KUCqCiTrwE">TimePicker</div><div class="cn" data-page-node-id="caOZAt3BfpCe5jdEC3mOj9">时间选择</div><span class="status status-ok" data-page-node-id="Fy1LnWsDErrL0xxgi2rsND">模板就绪</span></a>
+      <a class="card" href="preview/component-transfer.html" data-page-node-id="BerGbVoHC2EDfksh1EMbs3"><div class="name" data-page-node-id="13XaT65FpuCtt416DFIpBJ">Transfer</div><div class="cn" data-page-node-id="IY48hOUBJmIJjeblirGkLN">穿梭框</div><span class="status status-ok" data-page-node-id="w1484gYD35Vz1BAZDzS0yZ">模板就绪</span></a>
+      <a class="card" href="preview/component-tree-select.html" data-page-node-id="97gWtgLDLdxjt8LcYSUblj"><div class="name" data-page-node-id="JLDebc5Mt2XqnoiwtaOUzg">TreeSelect</div><div class="cn" data-page-node-id="bHMbtBx1rK21DY3GVA9H5Z">树选择</div><span class="status status-ok" data-page-node-id="ASdnJBid34QC7F3iB9oE4V">模板就绪</span></a>
+      <a class="card" href="preview/component-upload.html" data-page-node-id="9nQRwTArTW2xsWruo5mYUv"><div class="name" data-page-node-id="u0bhPXeKV8oDjdLlQVbO3b">Upload</div><div class="cn" data-page-node-id="EDS5njTbQ3zLKqFne2tvlN">上传</div><span class="status status-ok" data-page-node-id="yXXZYd8jMlq83a3Ni3KXHG">模板就绪</span></a>
+      <a class="card" href="preview/component-verification-code.html" data-page-node-id="w3PyQd1nif69NsNfpoBAKw"><div class="name" data-page-node-id="xfma7qrF548YDq7J6IGsIB">VerificationCode</div><div class="cn" data-page-node-id="OnII44HVrBh2ytT9RDcukg">验证码</div><span class="status status-ok" data-page-node-id="xq0jUWn5U5pIfvgEZRnobn">模板就绪</span></a>
+    </div>
+  </div>
+
+  <div class="section" id="data-display" data-page-node-id="IkTeiFCi90E3ZdNuC2qNrZ">
+    <h2 data-page-node-id="9lgNGNqeHbXd0zl0y1GAyw">数据展示 Data Display</h2>
+    <p class="desc" data-page-node-id="nqO2DTiVEdmUFrmDjKNB0Z">数据呈现与内容展示</p>
+    <div class="grid" data-page-node-id="Q2WyMGw79glEgef3MqKcfs">
+      <a class="card" href="preview/component-avatar.html" data-page-node-id="dqVUNi2oIC0XmSO4GDNN4D"><div class="name" data-page-node-id="Wf8E53KZovZFwbTupqR8Iz">Avatar</div><div class="cn" data-page-node-id="iOd8lF28zf3GKWTzqarREY">头像</div><span class="status status-ok" data-page-node-id="Uz65IWEyfoUY6MeCQfe3pN">模板就绪</span></a>
+      <a class="card" href="preview/component-badge.html" data-page-node-id="V8Ke3UuQ5yCYrNgxvHqcie"><div class="name" data-page-node-id="zqTXaVej5bPjiXL1N1bFCX">Badge</div><div class="cn" data-page-node-id="oFEofRcwXhVZhnHOkspH1H">徽标</div><span class="status status-ok" data-page-node-id="vWiGSComU3tdqie1VBIeU3">模板就绪</span></a>
+      <a class="card" href="preview/component-calendar.html" data-page-node-id="bbN73rDYY9XrCqnpfjSMq8"><div class="name" data-page-node-id="KklVe7N1iGieH1WReiv3jk">Calendar</div><div class="cn" data-page-node-id="4U3WA5ylF87NqcsLuq4chL">日历</div><span class="status status-ok" data-page-node-id="KftP2uZlZ5BqRuWIGGOLxD">模板就绪</span></a>
+      <a class="card" href="preview/component-card.html" data-page-node-id="iZAys5TtJDQZDtuROHxQEv"><div class="name" data-page-node-id="I8Aq7AyRUHc6ODnJCZemws">Card</div><div class="cn" data-page-node-id="qBSEXj20ZMeEj4ZuHwd3wJ">卡片</div><span class="status status-ok" data-page-node-id="CCEVORXvxFw0CEYMr9CKzk">模板就绪</span></a>
+      <a class="card" href="preview/component-carousel.html" data-page-node-id="NT95yWLizdG87ppzNFx6JF"><div class="name" data-page-node-id="BPviu02R57oQzNHAsIt0BT">Carousel</div><div class="cn" data-page-node-id="N5r0xdr8mBKUBG3ENGMEd8">轮播</div><span class="status status-ok" data-page-node-id="ot3kQD32mPcPy9OCHfDMBO">模板就绪</span></a>
+      <a class="card" href="preview/component-collapse.html" data-page-node-id="O6r4s2Z3XEsQuvBPKaYoS6"><div class="name" data-page-node-id="tsF5QRCd9H3V3GGiFwUuFR">Collapse</div><div class="cn" data-page-node-id="vJqc57KnZ43TqHgP9wtgBp">折叠面板</div><span class="status status-ok" data-page-node-id="CfxU1QkWm1sMp7NnaWOYes">模板就绪</span></a>
+      <a class="card" href="preview/component-comment.html" data-page-node-id="U1gmdUfaKXwRGc88o57o0P"><div class="name" data-page-node-id="u7GTRcBhhlf0iD2UVWLlAi">Comment</div><div class="cn" data-page-node-id="4aDlNP1dMQKMb6fV7OxOOM">评论</div><span class="status status-ok" data-page-node-id="MU88Nz8J3tNMfgJRvYVJBe">模板就绪</span></a>
+      <a class="card" href="preview/component-descriptions.html" data-page-node-id="aaAhMFNhQEPbUu05U5XaNO"><div class="name" data-page-node-id="Herc6ukaOGBRG7YpT3KczY">Descriptions</div><div class="cn" data-page-node-id="zoTQVjzCmtFPsGYKLDxvTW">描述列表</div><span class="status status-ok" data-page-node-id="ltgGGJD4JSXxADw8GUl742">模板就绪</span></a>
+      <a class="card" href="preview/component-empty.html" data-page-node-id="KFqmiMFhDM4HEXpceupT5P"><div class="name" data-page-node-id="1eHm8n6zYjRuEoUH9l4kKH">Empty</div><div class="cn" data-page-node-id="Y3FFrMtkMJM6RwW8je3LZF">空状态</div><span class="status status-ok" data-page-node-id="EZDLdUNon49fAMnybzRVfe">模板就绪</span></a>
+      <a class="card" href="preview/component-image.html" data-page-node-id="I5rhe1Rr4I4BCKhO5dbocU"><div class="name" data-page-node-id="OYh9FQX0DEffdFDxFWPhsF">Image</div><div class="cn" data-page-node-id="L1TCnKDzP2AkgRbBrXB6Bg">图片</div><span class="status status-ok" data-page-node-id="70HHFLl7uubQ47RvMl6qkS">模板就绪</span></a>
+      <a class="card" href="preview/component-list.html" data-page-node-id="noptMhzloqpXR61D5AErjp"><div class="name" data-page-node-id="3Kehtlw3G1vqnOvqn8TGUJ">List</div><div class="cn" data-page-node-id="rVGYoOpuxobXGXAgsv0cys">列表</div><span class="status status-ok" data-page-node-id="wGdiC1judzRXxa672SJvKB">模板就绪</span></a>
+      <a class="card" href="preview/component-popover.html" data-page-node-id="7krbPZa6ADG9nktsmMvzW0"><div class="name" data-page-node-id="8OAxOuBJSIMcyozAoV4mfB">Popover</div><div class="cn" data-page-node-id="aCMCHqumxFzFr4oHhxCQIc">气泡卡片</div><span class="status status-ok" data-page-node-id="7v5tlohN90GHhtO4eDXtKN">模板就绪</span></a>
+      <a class="card" href="preview/component-progress.html" data-page-node-id="8sAtHLVwijWLqt6TgZV4ip"><div class="name" data-page-node-id="LinD7PBov10xy1NTaBzBdx">Progress</div><div class="cn" data-page-node-id="CAWA7gZkpx8fqnJFDjsJsJ">进度条</div><span class="status status-ok" data-page-node-id="m8SwFwwFtoSP2Q3QZuHkkH">模板就绪</span></a>
+      <a class="card" href="preview/component-skeleton.html" data-page-node-id="qcf4hNcM2A8PegMCH6CfBl"><div class="name" data-page-node-id="Rn2ip4yEzSHxhiZTC4gGVu">Skeleton</div><div class="cn" data-page-node-id="EElRJevG2MdcAHgDUiFZkV">骨架屏</div><span class="status status-ok" data-page-node-id="FN226hVOMBj5qdCGayaMAw">模板就绪</span></a>
+      <a class="card" href="preview/component-statistic.html" data-page-node-id="2pkF3FnvbAVFtWvwTrFxhv"><div class="name" data-page-node-id="m46bHAJmJae1t1dEnFICAP">Statistic</div><div class="cn" data-page-node-id="3ayxijHWYaxyYTIEDr7vCL">统计数值</div><span class="status status-ok" data-page-node-id="IdppBQGD3Szxd0GzEb8DbA">模板就绪</span></a>
+      <a class="card" href="preview/component-table.html" data-page-node-id="FLRC25WTTE2BJ983C1VHjT"><div class="name" data-page-node-id="XwA1Hujplto4Izd54A15JJ">Table</div><div class="cn" data-page-node-id="ypqHrABEbLu4QbV2mDdhL5">表格</div><span class="status status-ok" data-page-node-id="X1hVsCzHZ5m6BqE7JR0jj8">模板就绪</span></a>
+      <a class="card" href="preview/component-tag.html" data-page-node-id="Fi7QNJM89NjDcToXBEU9br"><div class="name" data-page-node-id="c5QSURv2sZXpamlol4faN7">Tag</div><div class="cn" data-page-node-id="tojrLF7onoHlcjExxBsaOv">标签</div><span class="status status-ok" data-page-node-id="E6nDg05vK7QIaTCl6bF5AJ">模板就绪</span></a>
+      <a class="card" href="preview/component-timeline.html" data-page-node-id="yZ6zao4qCPS7fBfXGPygmr"><div class="name" data-page-node-id="iIShq8ByiDMOeMWa4Kzfmr">Timeline</div><div class="cn" data-page-node-id="TCQJN0Zyo8K9DwW7CHcstp">时间轴</div><span class="status status-ok" data-page-node-id="DESJf4JPNccvaRGAFzKeA0">模板就绪</span></a>
+      <a class="card" href="preview/component-tooltip.html" data-page-node-id="PYR6fb6eLa4Gqqom7hVLxD"><div class="name" data-page-node-id="siZchJo7vvMLO01WHsbHhJ">Tooltip</div><div class="cn" data-page-node-id="DwOv64bVj2aBI3zQLx0INu">文字气泡</div><span class="status status-ok" data-page-node-id="UGi7BRja5RsKzqeXiZKMIa">模板就绪</span></a>
+      <a class="card" href="preview/component-tree.html" data-page-node-id="28CH2AqHuuucwpdHdinMxm"><div class="name" data-page-node-id="CX4dGhtpfxjJnrhCA175yd">Tree</div><div class="cn" data-page-node-id="K8Awor0SGR7cZHmZAkHiGJ">树形控件</div><span class="status status-ok" data-page-node-id="3o5aqRNnI46IeGr2tVgZU6">模板就绪</span></a>
+    </div>
+  </div>
+
+  <div class="section" id="feedback" data-page-node-id="RwHGqaIleclnu45tIGgrqb">
+    <h2 data-page-node-id="iQ76rbBzG7mDRShk0rtLsE">反馈 Feedback</h2>
+    <p class="desc" data-page-node-id="qfmYjANkBGeXuoVECC87Im">操作反馈与状态提示</p>
+    <div class="grid" data-page-node-id="XGzF55DC4XFDLut0LDHeth">
+      <a class="card" href="preview/component-alert.html" data-page-node-id="a9LCBOmkFOhB1C8z6uwsSH"><div class="name" data-page-node-id="9FDdkabEBpFNXJwlIyT5hJ">Alert</div><div class="cn" data-page-node-id="wLZbtO2hV1SQ0hOaRyCjet">警告提示</div><span class="status status-ok" data-page-node-id="yB3r2XpwuBhUrbjHQXZSAg">模板就绪</span></a>
+      <a class="card" href="preview/component-drawer.html" data-page-node-id="GkXnyIC6aihsdzl5URRUjj"><div class="name" data-page-node-id="y6p6VgxypIqAegpAz1zF36">Drawer</div><div class="cn" data-page-node-id="eWys7JaHxhYsrB8xcEBbzG">抽屉</div><span class="status status-ok" data-page-node-id="2CetQITvvSsYrpPcF342H5">模板就绪</span></a>
+      <a class="card" href="preview/component-message.html" data-page-node-id="4MLzu70DFuNzyEwetLWpIa"><div class="name" data-page-node-id="Zy0Ml3FetkoVgNL1Ble0De">Message</div><div class="cn" data-page-node-id="xGikdHHMVMbOeqyDRzCF6T">全局消息</div><span class="status status-ok" data-page-node-id="sOFsrMl7dgmENv35T7bxMJ">模板就绪</span></a>
+      <a class="card" href="preview/component-modal.html" data-page-node-id="YBvd7wTFoDDPuA4jFaWd11"><div class="name" data-page-node-id="AHfsrNmVD5XmT09ASVNllr">Modal</div><div class="cn" data-page-node-id="QuBgmKCbiFMFJeUYzJ7EOa">对话框</div><span class="status status-ok" data-page-node-id="ophwpF7IDt32egYooB4hGz">模板就绪</span></a>
+      <a class="card" href="preview/component-notification.html" data-page-node-id="0G9gkzKsNmBOBFSKLMUSdX"><div class="name" data-page-node-id="4uU4Ah01p05VYG7YGLs1Av">Notification</div><div class="cn" data-page-node-id="F9pN7Hi2lkfxPwF6JDcHcR">通知提醒</div><span class="status status-ok" data-page-node-id="EJojjhchOyacxiqs5YOlGF">模板就绪</span></a>
+      <a class="card" href="preview/component-popconfirm.html" data-page-node-id="TlD2i2VNZlTuEA8FCxgwiG"><div class="name" data-page-node-id="rZZIueAD6eTcinQL0qOXlH">Popconfirm</div><div class="cn" data-page-node-id="FIw15XGUheveSXY4JFDtjl">气泡确认</div><span class="status status-ok" data-page-node-id="LGUKcH28ma0Y3eHd4GirC6">模板就绪</span></a>
+      <a class="card" href="preview/component-result.html" data-page-node-id="igSMcMtYncrR31TZlqAVW1"><div class="name" data-page-node-id="DQJq1KwN7EsguzU9AMogr2">Result</div><div class="cn" data-page-node-id="aXWZWl9BUZNsddpSEXNHvx">结果页</div><span class="status status-ok" data-page-node-id="XfjjAxFyGH5Lcop40mEUIB">模板就绪</span></a>
+      <a class="card" href="preview/component-spin.html" data-page-node-id="TOTPw2V5Ky4UvInZlA81gE"><div class="name" data-page-node-id="mvBxAEwI6v6ZoTPAGE3uVi">Spin</div><div class="cn" data-page-node-id="CCkUBquGLL0bmI2fk9SkEX">加载中</div><span class="status status-ok" data-page-node-id="SsKBf4eQ0hNqfcRcsI4VSa">模板就绪</span></a>
+    </div>
+  </div>
+
+  <div class="section" id="other" data-page-node-id="KPWZbICdYuXwRQliNhWEzY">
+    <h2 data-page-node-id="JuBEEmBut9PlVnoSiQMIA8">其他 Other</h2>
+    <p class="desc" data-page-node-id="Yqsbzx26DnDpN7JZ50nDCj">基础设施与工具组件</p>
+    <div class="grid" data-page-node-id="PFCCLkIvocdiPpBI6sdBCW">
+      <a class="card" href="preview/component-back-top.html" data-page-node-id="6YE9HUGoQzizTCTv3yT57x"><div class="name" data-page-node-id="BSgmrAh8w45YeoGF6mKpUu">BackTop</div><div class="cn" data-page-node-id="I2PevmJunlflwibOydId4H">回到顶部</div><span class="status status-ok" data-page-node-id="fC3us03rujAP3yBhLJjpya">模板就绪</span></a>
+      <a class="card" href="preview/component-config-provider.html" data-page-node-id="UGH9SFGT3S3fu58dDkhREJ"><div class="name" data-page-node-id="07E5WR0t3SSlODJgaGJIQ3">ConfigProvider</div><div class="cn" data-page-node-id="4kfdHqgc5TSvJCGKRCWYSC">全局配置</div><span class="status status-ok" data-page-node-id="xqv4gFSRQXpCy0RWbAY6dr">模板就绪</span></a>
+      <a class="card" href="preview/component-portal.html" data-page-node-id="HEXRQovtMjCQL5aMKFtjvC"><div class="name" data-page-node-id="aLXfy3DHZa1WPVRSzepc8U">Portal</div><div class="cn" data-page-node-id="xoNKUH5PaeHvQzfjp1OH2E">传送门</div><span class="status status-ok" data-page-node-id="6J1it0Pc6oP4GgGaR4EzfT">模板就绪</span></a>
+      <a class="card" href="preview/component-resize-box.html" data-page-node-id="P0mDCXgbCzU1C2N8I2CyqG"><div class="name" data-page-node-id="DkZpX7y6hsIFrTo19AEFjY">ResizeBox</div><div class="cn" data-page-node-id="CyJLEKzDgs12euBfF8xn9R">调整框</div><span class="status status-ok" data-page-node-id="Ui2NbPwwcDtqDmVFIGj8oC">模板就绪</span></a>
+      <a class="card" href="preview/component-trigger.html" data-page-node-id="PkFdQuxnJmgpMdpc6pFRtG"><div class="name" data-page-node-id="pMOXU0irV1kh7RJUCJAFm9">Trigger</div><div class="cn" data-page-node-id="7dkOE9MTDl5GkCdELxz2sz">触发器</div><span class="status status-ok" data-page-node-id="QFK1lP471drB3T5FkAHiCT">模板就绪</span></a>
+      <a class="card" href="preview/component-watermark.html" data-page-node-id="ZiUmV2MC1NEeAJu6Gu4spR"><div class="name" data-page-node-id="FnjwzsTuM98dHmhHGxv0Xe">Watermark</div><div class="cn" data-page-node-id="UoGhZAM9A6KReHEbY0jSB6">水印</div><span class="status status-ok" data-page-node-id="GXDgxzvHrtACd3aAFgLXut">模板就绪</span></a>
+    </div>
+  </div>
+
+  <div class="section" id="uikits" data-page-node-id="LnBuqq1E27bwkRXdN6ejDT">
+    <h2 data-page-node-id="NrHHra5gBd27Gw6xkSBkHT">页面样板 UI Kits</h2>
+    <p class="desc" data-page-node-id="JfC9w7t2AN8qllcgC6Ki2n">企业级后台六大页面模式</p>
+    <div class="grid" data-page-node-id="VwCtuVsjB6llYNni2FeiWl">
+      <a class="card" href="gienx-templates/list-page/index.html" data-page-node-id="qXlUud5rJTHZpYAx4U53jV"><div class="name" data-page-node-id="wvC5O5ZBn45k4zwQnjnLPi">列表页</div><div class="cn" data-page-node-id="ikkzJXRHaA5R95ruKrCvuk">PageHeader + 筛选 + Table + 分页</div></a>
+      <a class="card" href="gienx-templates/detail-page/index.html" data-page-node-id="3mZaCPmMhEFcKR4l9wbae8"><div class="name" data-page-node-id="v2dua9xI3yfNoYjacAVcCB">详情页</div><div class="cn" data-page-node-id="Uzv1dj4OSfB79NLkB88w2k">Breadcrumb + Tabs + Descriptions</div></a>
+      <a class="card" href="gienx-templates/form-page/index.html" data-page-node-id="dB0mOYJjJ2LL1l3vLp3XsL"><div class="name" data-page-node-id="o10y6I4SaTSOaDemd6JjI8">表单页</div><div class="cn" data-page-node-id="xDUB2dZro8b92Dh0LXzaxj">Form 分组 + 校验</div></a>
+      <a class="card" href="gienx-templates/dashboard/index.html" data-page-node-id="N0RiorzAUEUW6hO7bidAqM"><div class="name" data-page-node-id="njB1MGYtg98Ypunevo2aU9">数据看板</div><div class="cn" data-page-node-id="KYNgW6Qrw7uAr0cLBlNlOu">Statistic 指标卡 + 图表 + 明细</div></a>
+      <a class="card" href="gienx-templates/config-page/index.html" data-page-node-id="dccgWApmKXNBm001wYUBym"><div class="name" data-page-node-id="qsTnEzpQ3J47pjryM840Bz">配置页</div><div class="cn" data-page-node-id="ogfk4YHxYA5vPS97CaHPVV">Tabs + Switch 配置项</div></a>
+      <a class="card" href="gienx-templates/result-page/index.html" data-page-node-id="MFgGZeKG9OGc8cyckPpI5T"><div class="name" data-page-node-id="cDy7qMOkoCzZ7mXLU6Bcb1">结果页</div><div class="cn" data-page-node-id="jap1bki74sZdDhOeeWkZoq">Result 状态反馈</div></a>
+    </div>
+  </div>
+
+  <div class="section" id="docs" data-page-node-id="XbyGy1RgPx2CGHPYAkoBop">
+    <h2 data-page-node-id="GYDCnPnUoaHVbnBBAzPYRG">规范文档</h2>
+    <p class="desc" data-page-node-id="ZNolNscCeaXzI3CyNJvxiT">设计系统权威规范（机器可读 + 人类可读）</p>
+    <div class="grid" data-page-node-id="NUDiGCMmyEDe3wGG0UWmX6">
+      <a class="card" href="../GETTING-STARTED.html" data-page-node-id="X6mBozuLHHPNNjIVL0QAfC"><div class="name" data-page-node-id="rn8sxnHk5O8lnjpBiBJHs3">使用说明书</div><div class="cn" data-page-node-id="8L6BSdMoarjl6aY5lZfvi7">新手指南 · 7 步生成高保真 UI</div></a>
+      <a class="card" href="component-registry.json" data-page-node-id="e0v2KnkPViAF7X2oN5Em4H"><div class="name" data-page-node-id="HcxS0EU1H107c7orHrlA4m">组件注册表</div><div class="cn" data-page-node-id="dE33E07XITI7cokxhykQL9">71 组件 · 分类/状态/映射</div></a>
+      <a class="card" href="tokens-visual.html" data-page-node-id="7SgQMAKUMMWFpgwT6XaZpr"><div class="name" data-page-node-id="abzN65pPRqiabRU1sLxjhc">Token 可视化画廊</div><div class="cn" data-page-node-id="Et4oXgmHKdYcJ7E4otFudD">色板/字体/间距/圆角/阴影/动效 交互浏览</div></a>
+      <a class="card" href="tokens.md" data-page-node-id="6owDFxlGTqD1brfn5ivbEk"><div class="name" data-page-node-id="PzM3XEZonpyPhB9TnlhcSA">Design Token</div><div class="cn" data-page-node-id="ON3B2J8uL7qSoFjWP2EGE1">色板/字体/间距/圆角/阴影/动效</div></a>
+      <a class="card" href="components/index.json" data-page-node-id="PerWKuMzmWVspJfGlSrGaH"><div class="name" data-page-node-id="8cmdaIqyfboYvOUcI6IiCZ">组件契约索引</div><div class="cn" data-page-node-id="KWgSPgKfp5uiHfwbLyJF4S">71 份契约 · interaction/a11y/props</div></a>
+      <a class="card" href="patterns.md" data-page-node-id="sNigVwpJgzRQfeHrlQjAPS"><div class="name" data-page-node-id="fDsRrifnBWt8DLI84o2xqD">页面模式</div><div class="cn" data-page-node-id="ej7yYRKmFkQiwJEQKKvCPv">6 大模式组合规则</div></a>
+      <a class="card" href="a11y.md" data-page-node-id="oeRJR47LgjOaGUF2ovAvqn"><div class="name" data-page-node-id="DXDhCeRlpnUIgHpSiUTRES">无障碍规范</div><div class="cn" data-page-node-id="BTmuXxyAOBuFvMZbyHU7pv">WCAG 2.1 AA</div></a>
+      <a class="card" href="schema-contract.md" data-page-node-id="U0YuCS2jHlaZ9vV06mt3ui"><div class="name" data-page-node-id="kAmkDOZ6Q5ZHbDNiGKtSfB">契约 Schema</div><div class="cn" data-page-node-id="bldKx1RODtBsSEZnRFBd15">v3 契约编写规范</div></a>
+      <a class="card" href="SKILL.md" data-page-node-id="5Q5iGto9rPLA5Sr2PozNda"><div class="name" data-page-node-id="WJfGgXn02Pwpnc3sBOWCrs">AI 协作规范</div><div class="cn" data-page-node-id="bTJpKEtxPbGRxGhwKJU2V9">SKILL.md · 触发词/硬规则</div></a>
+      <a class="card" href="README.md" data-page-node-id="qEbRABdc3xY04OeV9QOjGj"><div class="name" data-page-node-id="h00spHHC4bg3mCWu5qLwYx">目录说明</div><div class="cn" data-page-node-id="QFDvE7sAHO7cSNnxEJnAqG">README · 目录结构/使用</div></a>
+    </div>
+  </div>
+
+    </main>
+  </div>
+
+  <div class="footer" data-page-node-id="LpMFka9TMq4Qf5eGykyEwA">
+    GienCoder 设计系统 v3 ｜ 中电金信（GienTech） ｜ 2026/08/28
+  </div>
+  <script>
+    (function () {
+      var nav = document.querySelector('.nav');
+      if (!nav) return;
+      var links = Array.prototype.slice.call(nav.querySelectorAll('a'));
+      var sections = [];
+      links.forEach(function (a) {
+        var href = a.getAttribute('href');
+        if (href && href.charAt(0) === '#') {
+          var el = document.getElementById(href.slice(1));
+          if (el) sections.push({ id: href.slice(1), a: a, el: el });
+        }
+      });
+      function show(id) {
+        sections.forEach(function (s) {
+          var on = (s.id === id);
+          s.el.style.display = on ? '' : 'none';
+          s.a.classList.toggle('active', on);
+        });
+        window.scrollTo(0, 0);
+      }
+      if (sections.length) {
+        var h = location.hash ? location.hash.slice(1) : '';
+        var hit = false;
+        if (h) {
+          for (var i = 0; i < sections.length; i++) {
+            if (sections[i].id === h) { show(h); hit = true; break; }
+          }
+        }
+        if (!hit) show(sections[0].id);
+      }
+      sections.forEach(function (s) {
+        s.a.addEventListener('click', function (e) {
+          e.preventDefault();
+          show(s.id);
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

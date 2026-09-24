@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>系统设置 · 配置页样板</title>
+  <link rel="stylesheet" href="../../colors_and_type.css">
+  <link rel="stylesheet" href="../../components.css">
+  <style>
+    /* ═══ 页面级布局样式（仅用 Design Token，禁止硬编码 hex） ═══ */
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    button { font-family: var(--font-family); }
+
+    /* ---- PageHeader 页头 ---- */
+    .giencoder-page-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: var(--spacing-7); flex-wrap: wrap; gap: var(--spacing-4);
+    }
+    .giencoder-page-header-title { font-size: var(--font-size-title-2); font-weight: 600; color: var(--color-text-1); margin: 0; }
+    .giencoder-page-header-subtitle { font-size: var(--font-size-body-3); color: var(--color-text-3); margin: 0; }
+    /* 标题 + 副标题横向组合：副标题置于主标题右侧，间距 12px（--spacing-6） */
+    .giencoder-page-header > div:first-child { display: flex; align-items: baseline; gap: var(--spacing-6); }
+    .giencoder-page-header-extra { display: flex; align-items: center; gap: var(--spacing-3); }
+
+    /* ---- 配置页主体布局 ---- */
+    .giencoder-config-body { max-width: 840px; display: flex; flex-direction: column; gap: var(--spacing-7); }
+
+    /* ---- 分区卡片 ---- */
+    .giencoder-config-section .giencoder-card-body { padding: 0; }
+    .giencoder-config-item {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      gap: var(--spacing-9); padding: var(--spacing-7);
+      border-bottom: 1px solid var(--color-border-1);
+    }
+    .giencoder-config-item:last-child { border-bottom: none; }
+    .giencoder-config-item-title { font-size: var(--font-size-body-3); font-weight: 600; color: var(--color-text-1); }
+    .giencoder-config-item-desc { font-size: var(--font-size-body-1); color: var(--color-text-3); margin-top: var(--spacing-2); line-height: 1.6; }
+
+    /* ---- 危险区域 ---- */
+    .giencoder-danger-section { border: 1px solid var(--color-danger-light-2); border-radius: var(--border-radius-medium); background: var(--color-danger-light-1); }
+    .giencoder-danger-body { padding: var(--spacing-7); display: flex; align-items: center; justify-content: space-between; gap: var(--spacing-9); }
+    .giencoder-danger-title { font-size: var(--font-size-body-3); font-weight: 600; color: var(--color-danger-6); }
+    .giencoder-danger-desc { font-size: var(--font-size-body-1); color: var(--color-text-3); margin-top: var(--spacing-2); line-height: 1.6; }
+  </style>
+</head>
+<body>
+<div style="width:100%; height:100vh; overflow:hidden; display:flex; flex-direction:column;">
+  <header class="giencoder-top-nav" style="height:48px; background:var(--color-bg-2); box-shadow:var(--shadow1-down); display:flex; align-items:center; justify-content:space-between; padding:0 16px;">
+    <div style="display:flex; align-items:center; gap:12px;">
+      <strong style="font-size:15px; color:var(--color-text-1);">源启</strong>
+      <span style="color:var(--color-text-3); font-size:12px;">中电金信 · 云服务平台</span>
+    </div>
+    <div style="display:flex; align-items:center; gap:16px; font-size:12px; color:var(--color-text-2);">
+      <span>帮助</span><span>通知</span>
+      <span style="width:24px;height:24px;border-radius:50%;background:var(--color-primary-6);color:var(--color-white);display:flex;align-items:center;justify-content:center;font-size:12px;">张</span>
+    </div>
+  </header>
+  <div style="display:flex; flex:1; overflow:hidden;">
+    <aside class="giencoder-sidenav" style="width:200px; background:var(--color-menu-light-bg); border-right:1px solid var(--color-border-1); padding:8px 0; overflow-y:auto;">
+      <div class="giencoder-menu giencoder-menu-vertical">
+        <div class="giencoder-menu-group-title">总览</div>
+        <div class="giencoder-menu-item">工作台</div>
+        <div class="giencoder-menu-item">资源管理</div>
+        <div class="giencoder-menu-item">监控告警</div>
+        <div class="giencoder-menu-group-title">系统</div>
+        <div class="giencoder-menu-item giencoder-menu-item-selected">系统设置</div>
+      </div>
+    </aside>
+    <main style="flex:1; overflow-y:auto; background:var(--color-bg-1); padding:20px;">
+
+      <!-- ============ PageHeader：标题 + 保存 ============ -->
+      <div class="giencoder-page-header">
+        <div>
+          <h2 class="giencoder-page-header-title">系统设置</h2>
+          <div class="giencoder-page-header-subtitle">配置平台运行参数，保存后立即生效</div>
+        </div>
+        <div class="giencoder-page-header-extra">
+          <button class="giencoder-btn giencoder-btn-primary giencoder-btn-size-default">保存</button>
+        </div>
+      </div>
+
+      <div class="giencoder-config-body">
+        <!-- ============ Tabs：基础配置 / 高级配置 ============ -->
+        <div class="giencoder-tabs">
+          <div class="giencoder-tabs-header">
+            <div class="giencoder-tabs-tab giencoder-tabs-tab-active">基础配置</div>
+            <div class="giencoder-tabs-tab">高级配置</div>
+            <div class="giencoder-tabs-ink" style="left:16px; width:48px;"></div>
+          </div>
+          <div class="giencoder-tabs-content" style="padding:16px 0 0;">
+
+            <!-- ============ 分区卡片：通知与提醒 ============ -->
+            <div class="giencoder-card giencoder-config-section" style="margin-bottom:var(--spacing-7);">
+              <div class="giencoder-card-header">
+                <span class="giencoder-card-header-title">通知与提醒</span>
+              </div>
+              <div class="giencoder-card-body">
+                <div class="giencoder-config-item">
+                  <div>
+                    <div class="giencoder-config-item-title">站内消息通知</div>
+                    <div class="giencoder-config-item-desc">任务执行、审批流转等关键事件通过站内信通知相关成员</div>
+                  </div>
+                  <button class="giencoder-switch giencoder-switch-checked" role="switch" aria-checked="true" type="button">
+                    <span class="giencoder-switch-text">开</span>
+                    <span class="giencoder-switch-handle"></span>
+                  </button>
+                </div>
+                <div class="giencoder-config-item">
+                  <div>
+                    <div class="giencoder-config-item-title">邮件提醒</div>
+                    <div class="giencoder-config-item-desc">每日 09:00 将前一日运行报告发送至管理员邮箱</div>
+                  </div>
+                  <button class="giencoder-switch giencoder-switch-checked" role="switch" aria-checked="true" type="button">
+                    <span class="giencoder-switch-text">开</span>
+                    <span class="giencoder-switch-handle"></span>
+                  </button>
+                </div>
+                <div class="giencoder-config-item">
+                  <div>
+                    <div class="giencoder-config-item-title">告警升级</div>
+                    <div class="giencoder-config-item-desc">P1 级告警 15 分钟未处理时自动升级至值班负责人</div>
+                  </div>
+                  <button class="giencoder-switch" role="switch" aria-checked="false" type="button">
+                    <span class="giencoder-switch-handle"></span>
+                  </button>
+                </div>
+                <div class="giencoder-config-item">
+                  <div>
+                    <div class="giencoder-config-item-title">每周摘要</div>
+                    <div class="giencoder-config-item-desc">每周一生成平台运营周报并推送至项目群</div>
+                  </div>
+                  <button class="giencoder-switch" role="switch" aria-checked="false" type="button">
+                    <span class="giencoder-switch-handle"></span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- ============ 分区卡片：数据与备份 ============ -->
+            <div class="giencoder-card giencoder-config-section" style="margin-bottom:var(--spacing-7);">
+              <div class="giencoder-card-header">
+                <span class="giencoder-card-header-title">数据与备份</span>
+              </div>
+              <div class="giencoder-card-body">
+                <div class="giencoder-config-item">
+                  <div>
+                    <div class="giencoder-config-item-title">自动备份</div>
+                    <div class="giencoder-config-item-desc">每日 02:00 自动备份全部配置与元数据，保留最近 30 天</div>
+                  </div>
+                  <button class="giencoder-switch giencoder-switch-checked" role="switch" aria-checked="true" type="button">
+                    <span class="giencoder-switch-text">开</span>
+                    <span class="giencoder-switch-handle"></span>
+                  </button>
+                </div>
+                <div class="giencoder-config-item">
+                  <div>
+                    <div class="giencoder-config-item-title">审计日志</div>
+                    <div class="giencoder-config-item-desc">记录所有管理操作与配置变更，日志保留 180 天</div>
+                  </div>
+                  <button class="giencoder-switch giencoder-switch-checked" role="switch" aria-checked="true" type="button">
+                    <span class="giencoder-switch-text">开</span>
+                    <span class="giencoder-switch-handle"></span>
+                  </button>
+                </div>
+                <div class="giencoder-config-item">
+                  <div>
+                    <div class="giencoder-config-item-title">敏感信息脱敏</div>
+                    <div class="giencoder-config-item-desc">日志与监控中的密钥、Token 等敏感字段自动脱敏展示</div>
+                  </div>
+                  <button class="giencoder-switch giencoder-switch-checked" role="switch" aria-checked="true" type="button">
+                    <span class="giencoder-switch-text">开</span>
+                    <span class="giencoder-switch-handle"></span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- ============ 危险区域：重置按钮 + Popconfirm 说明 ============ -->
+            <div class="giencoder-danger-section">
+              <div class="giencoder-danger-body">
+                <div>
+                  <div class="giencoder-danger-title">危险区域</div>
+                  <div class="giencoder-danger-desc">
+                    重置将清除全部自定义配置并恢复出厂默认值，此操作不可撤销。
+                    <!--
+                      Popconfirm 实现说明：点击「重置全部配置」时渲染确认浮层（基于 Tooltip 弹层），
+                      结构如下：
+                      <div class="giencoder-tooltip-popup" style="position:absolute; ...; background:var(--color-bg-popup); border:1px solid var(--color-border-2); border-radius:var(--border-radius-medium); box-shadow:var(--shadow2-down); padding:12px 16px;">
+                        <div style="font-size: 14px; color:var(--color-text-1);">确认重置全部配置？此操作不可恢复。</div>
+                        <div style="display:flex; gap:8px; justify-content:flex-end; margin-top:12px;">
+                          <button class="giencoder-btn giencoder-btn-secondary giencoder-btn-size-mini">取消</button>
+                          <button class="giencoder-btn giencoder-btn-danger giencoder-btn-size-mini">确定重置</button>
+                        </div>
+                      </div>
+                    -->
+                  </div>
+                </div>
+                <button class="giencoder-btn giencoder-btn-danger giencoder-btn-size-default">重置全部配置</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+</body>
+</html>
+<!-- 模板说明: 本页面为 config-page 页面样板，生成新页面时复制此文件修改内容区 -->

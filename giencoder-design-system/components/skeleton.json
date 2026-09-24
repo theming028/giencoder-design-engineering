@@ -1,0 +1,158 @@
+{
+  "schemaVersion": 3,
+  "slug": "skeleton",
+  "name": "Skeleton",
+  "category": "data-display",
+  "giencoderSource": {
+    "component": "Skeleton",
+    "version": "2.66.16"
+  },
+  "summary": "骨架屏：内容加载完成前以灰色占位块勾勒页面结构，降低等待焦虑",
+  "variants": [
+    {
+      "name": "paragraph",
+      "description": "段落骨架：text/paragraph 渲染多行文本占位",
+      "whenToUse": "详情页、列表页正文加载"
+    },
+    {
+      "name": "title",
+      "description": "标题骨架：title 渲染标题行占位",
+      "whenToUse": "页面标题或卡片标题加载"
+    },
+    {
+      "name": "avatar",
+      "description": "头像骨架：avatar 渲染圆形头像占位",
+      "whenToUse": "用户信息、评论列表加载"
+    },
+    {
+      "name": "image",
+      "description": "图片骨架：image 渲染方形/圆形图片占位",
+      "whenToUse": "图片卡片、画廊加载"
+    },
+    {
+      "name": "custom",
+      "description": "自定义组合：通过 text/title/avatar/image 属性组合自定义占位布局",
+      "whenToUse": "复杂页面按真实结构定制骨架"
+    }
+  ],
+  "sizes": [
+    {
+      "name": "small",
+      "value": "头像 28px / 文本行小号",
+      "usage": "紧凑占位"
+    },
+    {
+      "name": "medium",
+      "value": "头像 40px / 文本行默认",
+      "usage": "默认占位"
+    },
+    {
+      "name": "large",
+      "value": "头像 56px / 文本行大号",
+      "usage": "强调型占位"
+    }
+  ],
+  "states": [
+    {
+      "name": "default",
+      "description": "loading=true 显示骨架占位",
+      "visual": "--color-fill-2 占位块 + 高光扫过动画"
+    },
+    {
+      "name": "loading",
+      "description": "加载中（骨架即为加载态）",
+      "visual": "占位块持续循环扫光动画"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "skeleton",
+      "element": "div.giencoder-skeleton",
+      "description": "骨架容器，可包裹多个占位元素"
+    },
+    {
+      "part": "title",
+      "element": "div.giencoder-skeleton-title",
+      "description": "标题占位行"
+    },
+    {
+      "part": "paragraph",
+      "element": "div.giencoder-skeleton-paragraph",
+      "description": "段落占位：多行文本块"
+    },
+    {
+      "part": "avatar",
+      "element": "div.giencoder-skeleton-avatar",
+      "description": "头像占位：圆形/方形"
+    },
+    {
+      "part": "image",
+      "element": "div.giencoder-skeleton-image",
+      "description": "图片占位：方形区块"
+    },
+    {
+      "part": "children",
+      "element": "真实内容",
+      "description": "loading=false 时渲染的真实内容（由 children 提供）"
+    }
+  ],
+  "interaction": {
+    "hover": "无悬停反馈（纯展示）",
+    "focus": "不接收焦点（纯展示）",
+    "keyboard": [
+      "无键盘交互（纯展示）"
+    ],
+    "motion": {
+      "duration": "0.5s",
+      "easing": "linear",
+      "description": "占位块扫光动画线性循环（循环周期对应 --transition-duration-loading 1s）"
+    },
+    "behaviorNotes": "animation=false 可关闭扫光动画；loading=false 时渲染 children 真实内容完成骨架到内容的切换；Skeleton 仅作加载占位，不承载数据请求逻辑"
+  },
+  "a11y": {
+    "role": "status",
+    "ariaAttrs": [
+      "aria-busy=\"true\" (加载中)",
+      "aria-label (可描述正在加载的区域)"
+    ],
+    "contrastNote": "占位块 --color-fill-2 与背景对比度低（约 1.4:1），符合装饰性占位要求",
+    "focusNote": "纯展示不接收焦点；加载完成后 aria-busy 应置回 false"
+  },
+  "usage": [
+    "页面或区块首次加载时使用，避免空白闪烁",
+    "骨架结构尽量贴近真实内容布局，减少加载完成后的跳动",
+    "加载时间极短（<300ms）的请求可不显示骨架",
+    "loading=false 时通过 children 渲染真实内容"
+  ],
+  "doNotInvent": [
+    "不得虚构骨架屏的点击、拖拽等交互",
+    "不得新增官方不存在的占位形态（如表格骨架行）——用组合属性实现",
+    "不得用 外部 CSS 框架/Lucide 替代组件与图标体系"
+  ],
+  "tokensConsumed": [
+    "--color-fill-2",
+    "--color-fill-1",
+    "--border-radius-small",
+    "--border-radius-medium"
+  ],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "SkeletonProps",
+    "props": [
+      "animation",
+      "className",
+      "image",
+      "loading",
+      "position",
+      "prefixCls",
+      "rows",
+      "shape",
+      "size",
+      "style",
+      "text",
+      "width"
+    ],
+    "total": 12,
+    "syncDate": "2026/08/28"
+  }
+}

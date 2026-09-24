@@ -1,0 +1,136 @@
+{
+  "schemaVersion": 3,
+  "slug": "link",
+  "name": "Link",
+  "category": "general",
+  "giencoderSource": {
+    "component": "Link",
+    "version": "2.66.16"
+  },
+  "summary": "页面内/外部跳转的文本链接，支持悬停、禁用与前置图标。",
+  "variants": [
+    {
+      "name": "default",
+      "description": "默认链接（--color-link-6）",
+      "whenToUse": "站内/站外跳转"
+    },
+    {
+      "name": "with-icon",
+      "description": "带前置图标（icon 属性）",
+      "whenToUse": "下载/外链等语义动作"
+    },
+    {
+      "name": "hoverable-off",
+      "description": "hoverable=false 关闭悬停态",
+      "whenToUse": "静态引用场景"
+    }
+  ],
+  "sizes": [
+    {
+      "name": "default",
+      "value": "继承文本字号",
+      "usage": "与上下文排版一致，无独立尺寸变体"
+    }
+  ],
+  "states": [
+    {
+      "name": "default",
+      "description": "静止",
+      "visual": "--color-link-6 蓝色文字"
+    },
+    {
+      "name": "hover",
+      "description": "悬停",
+      "visual": "--color-link-5 + 下划线"
+    },
+    {
+      "name": "active",
+      "description": "按下",
+      "visual": "--color-link-7 加深"
+    },
+    {
+      "name": "focus",
+      "description": "键盘聚焦",
+      "visual": "可见焦点环"
+    },
+    {
+      "name": "disabled",
+      "description": "禁用",
+      "visual": "--color-text-4 弱化，不响应"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "root",
+      "element": "a",
+      "description": "链接本体（href/target）"
+    },
+    {
+      "part": "prefix-icon",
+      "element": "span > svg",
+      "description": "可选前置图标"
+    },
+    {
+      "part": "content",
+      "element": "文本节点",
+      "description": "链接文案"
+    }
+  ],
+  "interaction": {
+    "hover": "颜色变浅（--color-link-5）并出现下划线",
+    "focus": "Tab 聚焦显示焦点环",
+    "keyboard": [
+      "Tab: 进入焦点",
+      "Enter: 触发导航（原生 <a>）",
+      "Shift+Tab: 移出焦点"
+    ],
+    "motion": {
+      "duration": "0.1s~0.2s",
+      "easing": "linear",
+      "description": "颜色与下划线过渡（--transition-duration-1）"
+    },
+    "behaviorNotes": "disabled 时不触发导航且不响应键盘；hoverable=false 关闭悬停样式；外部链接建议 target=_blank"
+  },
+  "a11y": {
+    "role": "link（原生 <a> 自带）",
+    "ariaAttrs": [
+      "aria-disabled（disabled 时）",
+      "aria-label（无可见文本时）"
+    ],
+    "contrastNote": "--color-link-6 与背景需 ≥4.5:1；下划线作为辅助区分，不单靠颜色",
+    "focusNote": "键盘可聚焦，焦点环必须可见"
+  },
+  "usage": [
+    "仅用于真实跳转（有 href）",
+    "纯动作用 Button text 变体而非 Link",
+    "文案简洁直述目标",
+    "disabled 时从视觉与语义双重禁用"
+  ],
+  "doNotInvent": [
+    "不虚构默认常驻下划线（默认仅 hover 显示）",
+    "不为纯动作杜撰 href",
+    "不新增链接风格变体（如按钮式链接）"
+  ],
+  "tokensConsumed": [
+    "--color-link-6",
+    "--color-link-5",
+    "--color-link-7",
+    "--color-link-1",
+    "--color-text-4",
+    "--transition-duration-1"
+  ],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "LinkProps",
+    "props": [
+      "className",
+      "disabled",
+      "hoverable",
+      "icon",
+      "status",
+      "style"
+    ],
+    "total": 6,
+    "syncDate": "2026/08/28"
+  }
+}

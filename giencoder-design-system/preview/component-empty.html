@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>Empty 空状态</title>
+  <link rel="stylesheet" href="preview-scaffold.css">
+  <link rel="stylesheet" href="../colors_and_type.css">
+  <link rel="stylesheet" href="../components.css">
+</head>
+<body>
+  <div class="pv-layout">
+    <aside class="pv-sidebar">
+      <div class="pv-nav">
+        <div class="pv-menu-group">入口</div>
+        <a href="../home.html">首页</a>
+        <a href="../../GETTING-STARTED.html">使用说明书</a>
+        <div class="pv-menu-group">组件</div>
+        <a href="../index.html#general">通用</a>
+        <a href="../index.html#layout">布局</a>
+        <a href="../index.html#navigation">导航</a>
+        <a href="../index.html#data-entry">数据录入</a>
+        <a href="../index.html#data-display" class="active">数据展示</a>
+        <a href="../index.html#feedback">反馈</a>
+        <a href="../index.html#other">其他</a>
+        <div class="pv-menu-group">资源</div>
+        <a href="../index.html#uikits">页面样板</a>
+        <a href="../index.html#docs">规范文档</a>
+      </div>
+    </aside>
+    <main class="pv-content">
+  <a class="pv-back" href="../index.html#data-display">← 返回组件库</a>
+  <div class="pv-header">
+    <h1>Empty 空状态</h1>
+    <p>源启空状态：图标/文案/操作按钮，用于列表、筛选结果为空场景。</p>
+  </div>
+
+  <!-- ============ 变体：基础空状态 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Default 基础空状态</div>
+    <div class="row">
+      <div class="giencoder-empty" data-component="empty" data-variant="default" data-state="default" style="padding:48px 0; text-align:center; width:100%;">
+        <div class="giencoder-empty-image">
+          <svg viewBox="0 0 80 80" width="80" height="80" fill="none">
+            <circle cx="40" cy="40" r="32" stroke="var(--color-fill-3)" stroke-width="2" stroke-dasharray="4 4"/>
+            <path d="M28 40h24M40 28v24" stroke="var(--color-fill-3)" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="giencoder-empty-description" style="color:var(--color-text-3); font-size: 14px; margin-top:16px;">暂无数据</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 变体：带操作 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">With Action 带操作空状态</div>
+    <div class="row">
+      <div class="giencoder-empty" data-component="empty" data-variant="action" data-state="default" style="padding:48px 0; text-align:center; width:100%;">
+        <div class="giencoder-empty-image">
+          <svg viewBox="0 0 80 80" width="80" height="80" fill="none">
+            <circle cx="40" cy="40" r="32" stroke="var(--color-fill-3)" stroke-width="2" stroke-dasharray="4 4"/>
+            <path d="M28 40h24M40 28v24" stroke="var(--color-fill-3)" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="giencoder-empty-description" style="color:var(--color-text-3); font-size: 14px; margin-top:16px;">还没有创建任何项目</div>
+        <div class="giencoder-empty-action" style="margin-top:16px;">
+          <button class="giencoder-btn giencoder-btn-primary giencoder-btn-size-default">新建项目</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 变体：筛选无结果 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Search Empty 筛选无结果</div>
+    <div class="row">
+      <div class="giencoder-empty" data-component="empty" data-variant="search" data-state="default" style="padding:48px 0; text-align:center; width:100%;">
+        <div class="giencoder-empty-image">
+          <svg viewBox="0 0 80 80" width="80" height="80" fill="none">
+            <circle cx="34" cy="34" r="20" stroke="var(--color-fill-3)" stroke-width="2"/>
+            <path d="M48 48l14 14" stroke="var(--color-fill-3)" stroke-width="2" stroke-linecap="round"/>
+            <path d="M28 34h12M34 28v12" stroke="var(--color-fill-4)" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="giencoder-empty-description" style="color:var(--color-text-3); font-size: 14px; margin-top:16px;">未找到匹配"关键词"的结果</div>
+        <div class="giencoder-empty-action" style="margin-top:16px;">
+          <button class="giencoder-btn giencoder-btn-secondary giencoder-btn-size-default">清除筛选</button>
+        </div>
+      </div>
+    </div>
+  </div>
+    </main>
+  </div>
+<script src="preview-copy.js"></script>
+</body>
+</html>

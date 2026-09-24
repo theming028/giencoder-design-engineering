@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>资源详情 · 详情页样板</title>
+  <link rel="stylesheet" href="../../colors_and_type.css">
+  <link rel="stylesheet" href="../../components.css">
+  <style>
+    /* ═══ 页面级布局样式（仅用 Design Token，禁止硬编码 hex） ═══ */
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    button { font-family: var(--font-family); }
+
+    /* ---- PageHeader 页头 ---- */
+    .giencoder-page-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin: var(--spacing-7) 0; flex-wrap: wrap; gap: var(--spacing-4);
+    }
+    .giencoder-page-header-left { display: flex; align-items: center; gap: var(--spacing-4); }
+    .giencoder-page-header-back {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 28px; height: 28px; border-radius: var(--border-radius-medium);
+      color: var(--color-text-2); cursor: pointer; border: none; background: transparent;
+      transition: background var(--transition-duration-1);
+    }
+    .giencoder-page-header-back:hover { background: var(--color-fill-1); color: var(--color-text-1); }
+    .giencoder-page-header-title { font-size: var(--font-size-title-2); font-weight: 600; color: var(--color-text-1); margin: 0; }
+    .giencoder-page-header-extra { display: flex; align-items: center; gap: var(--spacing-3); }
+
+    /* ---- 详情主体布局：左侧主区 + 右侧信息卡 ---- */
+    .giencoder-detail-layout { display: flex; gap: var(--spacing-7); align-items: flex-start; }
+    .giencoder-detail-main { flex: 1; min-width: 0; }
+    .giencoder-detail-aside { width: 280px; flex-shrink: 0; }
+
+    /* ---- 信息卡 ---- */
+    .giencoder-info-card .giencoder-card-body { padding: var(--spacing-7); }
+    .giencoder-info-row { display: flex; justify-content: space-between; padding: var(--spacing-4) 0; border-bottom: 1px solid var(--color-border-1); }
+    .giencoder-info-row:last-child { border-bottom: none; }
+    .giencoder-info-label { color: var(--color-text-3); font-size: var(--font-size-body-3); }
+    .giencoder-info-value { color: var(--color-text-1); font-size: var(--font-size-body-3); text-align: right; }
+
+    /* ---- 日志时间轴 ---- */
+    .giencoder-log-list { list-style: none; margin: 0; padding: 0; }
+    .giencoder-log-item { display: flex; gap: var(--spacing-4); position: relative; padding-bottom: var(--spacing-7); }
+    .giencoder-log-item:not(:last-child)::before {
+      content: ''; position: absolute; left: 4px; top: 14px; bottom: 0; width: 1px; background: var(--color-border-2);
+    }
+    .giencoder-log-dot { width: 9px; height: 9px; border-radius: 50%; margin-top: 5px; flex-shrink: 0; }
+    .giencoder-log-dot-primary { background: var(--color-primary-6); }
+    .giencoder-log-dot-success { background: var(--color-success-6); }
+    .giencoder-log-dot-warning { background: var(--color-warning-6); }
+    .giencoder-log-content { flex: 1; }
+    .giencoder-log-title { color: var(--color-text-1); font-size: var(--font-size-body-3); }
+    .giencoder-log-time { color: var(--color-text-3); font-size: var(--font-size-body-1); margin-top: var(--spacing-1); }
+  </style>
+</head>
+<body>
+<div style="width:100%; height:100vh; overflow:hidden; display:flex; flex-direction:column;">
+  <header class="giencoder-top-nav" style="height:48px; background:var(--color-bg-2); box-shadow:var(--shadow1-down); display:flex; align-items:center; justify-content:space-between; padding:0 16px;">
+    <div style="display:flex; align-items:center; gap:12px;">
+      <strong style="font-size:15px; color:var(--color-text-1);">源启</strong>
+      <span style="color:var(--color-text-3); font-size:12px;">中电金信 · 云服务平台</span>
+    </div>
+    <div style="display:flex; align-items:center; gap:16px; font-size:12px; color:var(--color-text-2);">
+      <span>帮助</span><span>通知</span>
+      <span style="width:24px;height:24px;border-radius:50%;background:var(--color-primary-6);color:var(--color-white);display:flex;align-items:center;justify-content:center;font-size:12px;">张</span>
+    </div>
+  </header>
+  <div style="display:flex; flex:1; overflow:hidden;">
+    <aside class="giencoder-sidenav" style="width:200px; background:var(--color-menu-light-bg); border-right:1px solid var(--color-border-1); padding:8px 0; overflow-y:auto;">
+      <div class="giencoder-menu giencoder-menu-vertical">
+        <div class="giencoder-menu-group-title">总览</div>
+        <div class="giencoder-menu-item">工作台</div>
+        <div class="giencoder-menu-item giencoder-menu-item-selected">资源管理</div>
+        <div class="giencoder-menu-item">监控告警</div>
+        <div class="giencoder-menu-group-title">系统</div>
+        <div class="giencoder-menu-item">系统设置</div>
+      </div>
+    </aside>
+    <main style="flex:1; overflow-y:auto; background:var(--color-bg-1); padding:20px;">
+
+      <!-- ============ Breadcrumb 面包屑 ============ -->
+      <div class="giencoder-breadcrumb">
+        <span class="giencoder-breadcrumb-item"><a class="giencoder-breadcrumb-item-link" href="#">首页</a></span>
+        <span class="giencoder-breadcrumb-item-separator">/</span>
+        <span class="giencoder-breadcrumb-item"><a class="giencoder-breadcrumb-item-link" href="#">资源管理</a></span>
+        <span class="giencoder-breadcrumb-item-separator">/</span>
+        <span class="giencoder-breadcrumb-item giencoder-breadcrumb-item-current">资源详情</span>
+      </div>
+
+      <!-- ============ PageHeader：返回 + 标题 + 编辑按钮 ============ -->
+      <div class="giencoder-page-header">
+        <div class="giencoder-page-header-left">
+          <button class="giencoder-page-header-back" aria-label="返回">
+            <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M10 3L5 8l5 5"/></svg>
+          </button>
+          <div>
+            <h2 class="giencoder-page-header-title">订单中心微服务</h2>
+            <div style="display:flex; align-items:center; gap:var(--spacing-3); margin-top:var(--spacing-2);">
+              <span class="giencoder-tag giencoder-tag-light giencoder-tag-success">运行中</span>
+              <span style="font-size:var(--font-size-body-1); color:var(--color-text-3);">资源 ID：res-20260828-001</span>
+            </div>
+          </div>
+        </div>
+        <div class="giencoder-page-header-extra">
+          <button class="giencoder-btn giencoder-btn-secondary giencoder-btn-size-default">更多</button>
+          <button class="giencoder-btn giencoder-btn-primary giencoder-btn-size-default">
+            <svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M8.5 1.5l2 2L4 10H2V8l6.5-6.5z"/></svg>
+            编辑
+          </button>
+        </div>
+      </div>
+
+      <div class="giencoder-detail-layout">
+        <!-- ============ 左侧主区：Tabs ============ -->
+        <div class="giencoder-detail-main">
+          <div class="giencoder-card">
+            <div class="giencoder-tabs">
+              <div class="giencoder-tabs-header">
+                <div class="giencoder-tabs-tab giencoder-tabs-tab-active">概览</div>
+                <div class="giencoder-tabs-tab">参数</div>
+                <div class="giencoder-tabs-tab">日志</div>
+                <div class="giencoder-tabs-ink" style="left:16px; width:40px;"></div>
+              </div>
+              <div class="giencoder-tabs-content" style="padding:16px;">
+
+                <!-- Tab 1：概览 · Descriptions 描述列表（2 列 6 项） -->
+                <div style="margin-bottom:var(--spacing-7);">
+                  <div style="font-size:var(--font-size-title-1); font-weight:600; color:var(--color-text-1); margin-bottom:var(--spacing-4);">基本信息</div>
+                  <table class="giencoder-descriptions-table" style="border-collapse:collapse;">
+                    <tbody>
+                      <tr>
+                        <td class="giencoder-descriptions-item-label" style="padding:10px 0; width:16%;">资源名称</td>
+                        <td class="giencoder-descriptions-item-value" style="padding:10px 24px; width:34%;">订单中心微服务</td>
+                        <td class="giencoder-descriptions-item-label" style="padding:10px 0; width:16%;">负责人</td>
+                        <td class="giencoder-descriptions-item-value" style="padding:10px 24px; width:34%;">张三</td>
+                      </tr>
+                      <tr>
+                        <td class="giencoder-descriptions-item-label" style="padding:10px 0;">所属部门</td>
+                        <td class="giencoder-descriptions-item-value" style="padding:10px 24px;">交易平台部</td>
+                        <td class="giencoder-descriptions-item-label" style="padding:10px 0;">环境</td>
+                        <td class="giencoder-descriptions-item-value" style="padding:10px 24px;">生产环境</td>
+                      </tr>
+                      <tr>
+                        <td class="giencoder-descriptions-item-label" style="padding:10px 0;">部署地域</td>
+                        <td class="giencoder-descriptions-item-value" style="padding:10px 24px;">华北 2（北京）</td>
+                        <td class="giencoder-descriptions-item-label" style="padding:10px 0;">实例规格</td>
+                        <td class="giencoder-descriptions-item-value" style="padding:10px 24px;">ecs.g6.2xlarge</td>
+                      </tr>
+                      <tr>
+                        <td class="giencoder-descriptions-item-label" style="padding:10px 0;">资源描述</td>
+                        <td class="giencoder-descriptions-item-value" style="padding:10px 24px; color:var(--color-text-2);" colspan="3">支撑全平台订单交易与履约流程的核心微服务，包含下单、支付回调与库存预占能力。</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============ 右侧信息卡片：创建信息 ============ -->
+        <aside class="giencoder-detail-aside">
+          <div class="giencoder-card giencoder-info-card">
+            <div class="giencoder-card-header">
+              <span class="giencoder-card-header-title">创建信息</span>
+            </div>
+            <div class="giencoder-card-body">
+              <div class="giencoder-info-row">
+                <span class="giencoder-info-label">创建人</span>
+                <span class="giencoder-info-value">张三</span>
+              </div>
+              <div class="giencoder-info-row">
+                <span class="giencoder-info-label">创建时间</span>
+                <span class="giencoder-info-value">2026/08/28 09:30</span>
+              </div>
+              <div class="giencoder-info-row">
+                <span class="giencoder-info-label">最近更新</span>
+                <span class="giencoder-info-value">2026/08/28 10:12</span>
+              </div>
+              <div class="giencoder-info-row">
+                <span class="giencoder-info-label">更新人</span>
+                <span class="giencoder-info-value">李四</span>
+              </div>
+              <div class="giencoder-info-row">
+                <span class="giencoder-info-label">版本</span>
+                <span class="giencoder-info-value">v2.4.1</span>
+              </div>
+              <div class="giencoder-info-row">
+                <span class="giencoder-info-label">状态</span>
+                <span class="giencoder-info-value"><span class="giencoder-tag giencoder-tag-light giencoder-tag-success">运行中</span></span>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <!-- ============ 说明：参数 / 日志 Tab 内容 ============ -->
+      <!-- 参数 Tab：渲染实例规格、网络、存储等只读参数表（复用 Descriptions 布局） -->
+      <!-- 日志 Tab：渲染操作记录时间轴（giencoder-log-list 结构见下方示例） -->
+      <!--
+        <ul class="giencoder-log-list">
+          <li class="giencoder-log-item">
+            <span class="giencoder-log-dot giencoder-log-dot-primary"></span>
+            <div class="giencoder-log-content">
+              <div class="giencoder-log-title">张三 更新了实例配置</div>
+              <div class="giencoder-log-time">2026/08/28 10:12</div>
+            </div>
+          </li>
+          <li class="giencoder-log-item">
+            <span class="giencoder-log-dot giencoder-log-dot-success"></span>
+            <div class="giencoder-log-content">
+              <div class="giencoder-log-title">系统 自动扩容完成</div>
+              <div class="giencoder-log-time">2026/08/28 09:45</div>
+            </div>
+          </li>
+        </ul>
+      -->
+
+    </main>
+  </div>
+</div>
+</body>
+</html>
+<!-- 模板说明: 本页面为 detail-page 页面样板，生成新页面时复制此文件修改内容区 -->

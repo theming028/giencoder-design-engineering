@@ -1,0 +1,201 @@
+{
+  "schemaVersion": 3,
+  "slug": "button",
+  "name": "Button",
+  "category": "general",
+  "giencoderSource": {
+    "component": "Button",
+    "version": "2.66.16"
+  },
+  "summary": "触发即时操作的按钮，覆盖主/次/描边/虚线/文本五档视觉层级与四种尺寸。",
+  "variants": [
+    {
+      "name": "primary",
+      "description": "实心品牌色填充（--color-primary-6）",
+      "whenToUse": "页面主操作（CTA），每屏至多一个"
+    },
+    {
+      "name": "secondary",
+      "description": "白色表面填充（--color-bg-5）+ 浅投影（0 1px 2px rgba(15,23,42,.04)）",
+      "whenToUse": "与主操作同组的次要操作"
+    },
+    {
+      "name": "outline",
+      "description": "透明底 + 主题色描边",
+      "whenToUse": "卡片内等需弱化边框强调的独立操作"
+    },
+    {
+      "name": "dashed",
+      "description": "虚线边框（--color-border-2/3），低强调",
+      "whenToUse": "添加/上传等次要创建操作"
+    },
+    {
+      "name": "text",
+      "description": "无边框无底色，仅主题色文字（--color-primary-6）",
+      "whenToUse": "表格行内等低层级操作"
+    }
+  ],
+  "sizes": [
+    {
+      "name": "mini",
+      "value": "24px 高度",
+      "usage": "紧凑表格/工具栏"
+    },
+    {
+      "name": "small",
+      "value": "28px 高度",
+      "usage": "表单与紧凑场景"
+    },
+    {
+      "name": "medium",
+      "value": "32px 高度",
+      "usage": "默认尺寸"
+    },
+    {
+      "name": "large",
+      "value": "36px 高度",
+      "usage": "首屏主操作/触屏目标"
+    }
+  ],
+  "states": [
+    {
+      "name": "default",
+      "description": "静止态",
+      "visual": "按变体显示底色/边框/文字"
+    },
+    {
+      "name": "hover",
+      "description": "鼠标悬停",
+      "visual": "primary 变浅至 --color-primary-5，描边/虚线/文本浮现浅色底；secondary 变灰底（--color-fill-1）+ 边框加深"
+    },
+    {
+      "name": "active",
+      "description": "按下瞬间",
+      "visual": "表面层内缩 1px：primary/secondary/danger/warning/success 同色 spread 收起；outline 描边环外 1px → inset 1px（圆环内移）；dashed/text 填充同色 spread 收起（内缩 1px）。颜色：primary 加深至 --color-primary-7，secondary 回白底，outline/dashed 填充加深至 --color-primary-light-2，text 填充 --color-fill-2，danger/warning/success 回原色档"
+    },
+    {
+      "name": "focus",
+      "description": "键盘聚焦",
+      "visual": "可见焦点环（outline/box-shadow）"
+    },
+    {
+      "name": "disabled",
+      "description": "禁用",
+      "visual": "--color-text-4 文字 + --color-fill-2 底，无交互"
+    },
+    {
+      "name": "loading",
+      "description": "加载中",
+      "visual": "内容替换为旋转 Loading 图标，禁点"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "root",
+      "element": "button（href 时渲染 a）",
+      "description": "承载变体/尺寸/状态"
+    },
+    {
+      "part": "prefix-icon",
+      "element": "span > svg",
+      "description": "前置图标（icon 属性）"
+    },
+    {
+      "part": "content",
+      "element": "span",
+      "description": "按钮文案"
+    },
+    {
+      "part": "suffix-icon",
+      "element": "span > svg",
+      "description": "后置图标（children 内嵌）"
+    },
+    {
+      "part": "loading-icon",
+      "element": "span > svg（旋转）",
+      "description": "loading 时替代内容"
+    }
+  ],
+  "interaction": {
+    "hover": "背景/边框色向同色系浅档过渡（如 primary-6 → primary-5），outline 浮现 --color-primary-light-1，dashed 浮现 light-1 并 spread 同色补齐，text 浮现 --color-fill-1 并 spread 同色补齐；danger-text（status=danger 的 text 变体）默认主色文字 --color-primary-6，hover 转 --color-danger-6",
+    "focus": "键盘 Tab 聚焦显示焦点环；鼠标点击聚焦不显示",
+    "keyboard": [
+      "Enter: 触发点击",
+      "Space: 触发点击",
+      "Tab: 焦点进入/移出"
+    ],
+    "motion": {
+      "duration": "按压 80ms / 释放 180ms",
+      "easing": "release: cubic-bezier(0.23,1,0.32,1)；press: 80ms ease",
+      "description": "点击动效参考 FF Button，各变体均实现 1px 按压内缩：实心变体（primary/secondary/danger/warning/success）以同色 box-shadow spread 1px 补齐表面层，按压收起 spread → 表面每边内缩 1px；outline 描边环以「外 1px + inset 0px」常驻、按压切「外 0px + inset 1px」→ 圆环随表面内移；dashed/text 填充表面用同色 spread 补齐、按压收起（text 静止态为透明 spread 不显形）。均不用 scale 避免宽按钮变形；背景/边框色 80ms ease 过渡，box-shadow 释放 180ms cubic-bezier(0.23,1,0.32,1)"
+    },
+    "behaviorNotes": "loading 与 disabled 均屏蔽点击；iconOnly 时须提供 aria-label；传 href 时渲染为链接按钮"
+  },
+  "a11y": {
+    "role": "button（原生 <button> 自带）",
+    "ariaAttrs": [
+      "aria-disabled（disabled/loading 时）",
+      "aria-busy（loading 时）",
+      "aria-label（iconOnly 必填）"
+    ],
+    "contrastNote": "primary 白字 vs --color-primary-6 满足 ≥4.5:1；text 变体文字须与背景保持对比",
+    "focusNote": "键盘聚焦须可见焦点环，不得以 outline:none 且无替代"
+  },
+  "usage": [
+    "主操作（primary）每屏仅一个",
+    "同组操作按 primary → secondary → outline → text 降级",
+    "loading 时以 Loading 图标替代内容并禁用点击",
+    "文案用短动词直述动作，避免长句"
+  ],
+  "doNotInvent": [
+    "不虚构圆角/胶囊等额外 shape 变体（源启仅 square/circle）",
+    "不新增第五档之外的颜色变体",
+    "不为 text 变体杜撰 hover 下划线"
+  ],
+  "tokensConsumed": [
+    "--color-primary-6",
+    "--color-primary-5",
+    "--color-primary-7",
+    "--color-secondary",
+    "--color-bg-2",
+    "--color-bg-3",
+    "--color-bg-4",
+    "--color-bg-5",
+    "--color-text-1",
+    "--color-text-2",
+    "--color-text-3",
+    "--color-text-4",
+    "--color-border-1",
+    "--color-border-2",
+    "--color-border-3",
+    "--color-fill-1",
+    "--color-fill-2",
+    "--border-radius-small",
+    "--transition-duration-1"
+  ],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "ButtonProps",
+    "props": [
+      "anchorProps",
+      "children",
+      "className",
+      "disabled",
+      "href",
+      "icon",
+      "iconOnly",
+      "loading",
+      "loadingFixedWidth",
+      "long",
+      "onClick",
+      "shape",
+      "size",
+      "status",
+      "style",
+      "target",
+      "type"
+    ],
+    "total": 17,
+    "syncDate": "2026/08/28"
+  }
+}

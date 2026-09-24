@@ -1,0 +1,128 @@
+{
+  "schemaVersion": 3,
+  "slug": "badge",
+  "name": "Badge",
+  "category": "data-display",
+  "giencoderSource": {
+    "component": "Badge",
+    "version": "2.66.16"
+  },
+  "summary": "徽标，以数字、圆点或状态色标记在元素角落，提示数量、状态或新消息。",
+  "variants": [
+    {
+      "name": "数字徽标",
+      "description": "count 数字徽标，超过 maxCount（默认 99）显示为 maxCount+",
+      "whenToUse": "提示未读消息数、购物车数量等数值信息"
+    },
+    {
+      "name": "圆点徽标",
+      "description": "dot 纯圆点，不显示数字",
+      "whenToUse": "仅提示存在新内容，无需精确数量"
+    },
+    {
+      "name": "状态徽标",
+      "description": "status 状态徽标（success/processing/error/warning/default），可搭配 text",
+      "whenToUse": "展示运行状态或健康度，如服务在线/离线"
+    },
+    {
+      "name": "自定义颜色",
+      "description": "通过 color 属性设置徽标颜色",
+      "whenToUse": "需要与品牌色或语义色对齐的场景"
+    },
+    {
+      "name": "位置偏移",
+      "description": "通过 position（top-right 等）与 offset 控制徽标挂载位置",
+      "whenToUse": "调整徽标相对容器的贴边位置"
+    }
+  ],
+  "sizes": [
+    {
+      "name": "default",
+      "value": "16px 高（count）/ 6px 直径（dot）",
+      "usage": "数字徽标固定高度与圆点徽标直径"
+    }
+  ],
+  "states": [
+    {
+      "name": "default",
+      "description": "常规展示态",
+      "visual": "count 徽标红底白字（--color-danger-6），dot 为纯色圆点"
+    },
+    {
+      "name": "hover",
+      "description": "鼠标悬停",
+      "visual": "徽标本身无交互反馈"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "徽标本体",
+      "element": "sup.giencoder-badge",
+      "description": "悬浮于子元素右上角的数字/圆点/状态标记"
+    },
+    {
+      "part": "子元素容器",
+      "element": "span.giencoder-badge-wrapper",
+      "description": "包裹被标记内容的容器"
+    },
+    {
+      "part": "状态文字",
+      "element": "span.giencoder-badge-status-text",
+      "description": "status 模式下与状态点并列的说明文字（text）"
+    }
+  ],
+  "interaction": {
+    "hover": "徽标本身无交互反馈；子元素交互由业务组件自身提供",
+    "focus": "徽标不可聚焦；若子元素可交互，焦点态由子元素提供",
+    "keyboard": [
+      "无键盘交互（纯展示）"
+    ],
+    "motion": {
+      "duration": "0.1s~0.2s",
+      "easing": "standard",
+      "description": "count 变化时的轻量过渡（--transition-duration-1）"
+    },
+    "behaviorNotes": "invisible 可整体隐藏徽标；maxCount 仅对数字徽标生效。"
+  },
+  "a11y": {
+    "role": "status",
+    "ariaAttrs": [
+      "aria-label: 徽标数值或状态说明"
+    ],
+    "contrastNote": "count 徽标白字配 --color-danger-6 红底，对比度满足 WCAG AA；自定义 color 需自行保证对比度",
+    "focusNote": "徽标不可聚焦；数值信息应同步呈现在子元素自身的可访问名称中（如图标按钮的 aria-label）"
+  },
+  "usage": [
+    "数字徽标 maxCount 默认 99，超出显示为 99+，避免数字溢出",
+    "纯装饰性徽标（如无意义圆点）应设置 aria-hidden 或提供可访问名称",
+    "状态徽标建议搭配 text 说明，便于屏幕阅读器理解",
+    "避免在徽标上承载点击等交互，交互应放在子元素上"
+  ],
+  "doNotInvent": [
+    "不虚构 badge 的 hover 浮起、动画跳动等未提供行为",
+    "不杜撰超出 maxCount 之外的展示规则",
+    "不将徽标作为唯一的信息载体而不提供可访问名称"
+  ],
+  "tokensConsumed": [
+    "--color-danger-6",
+    "--color-success-6",
+    "--color-warning-6",
+    "--color-primary-6",
+    "--color-white"
+  ],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "BadgeProps",
+    "props": [
+      "className",
+      "count",
+      "dot",
+      "dotClassName",
+      "dotStyle",
+      "style",
+      "text"
+    ],
+    "total": 7,
+    "syncDate": "2026/08/28"
+  }
+}

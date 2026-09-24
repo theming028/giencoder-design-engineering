@@ -1,0 +1,202 @@
+{
+  "schemaVersion": 3,
+  "slug": "input",
+  "name": "Input",
+  "category": "data-entry",
+  "giencoderSource": {
+    "component": "Input",
+    "version": "2.66.16"
+  },
+  "summary": "文本输入框组件，支持尺寸、前后缀、可清空、密码显隐、多行文本与禁用/错误状态。",
+  "variants": [
+    {
+      "name": "default",
+      "description": "基础单行输入",
+      "whenToUse": "通用文本输入"
+    },
+    {
+      "name": "password",
+      "description": "密码框（眼睛切换显隐）",
+      "whenToUse": "密码/密钥输入"
+    },
+    {
+      "name": "clearable",
+      "description": "可清空（allowClear）",
+      "whenToUse": "输入后需要一键清空，如搜索"
+    },
+    {
+      "name": "affix",
+      "description": "前后缀（prefix/suffix）",
+      "whenToUse": "单位、图标、操作按钮附加在输入框内"
+    },
+    {
+      "name": "textarea",
+      "description": "多行文本域",
+      "whenToUse": "备注、描述等多行内容"
+    }
+  ],
+  "sizes": [
+    {
+      "name": "mini",
+      "value": "24px",
+      "usage": "紧凑表格/筛选"
+    },
+    {
+      "name": "small",
+      "value": "28px",
+      "usage": "紧凑表单"
+    },
+    {
+      "name": "medium",
+      "value": "32px",
+      "usage": "标准（默认）"
+    },
+    {
+      "name": "large",
+      "value": "36px",
+      "usage": "强调/移动端"
+    }
+  ],
+  "states": [
+    {
+      "name": "default",
+      "description": "未交互",
+      "visual": "白底 --color-border-2 边框"
+    },
+    {
+      "name": "hover",
+      "description": "悬停",
+      "visual": "边框 --color-border-3"
+    },
+    {
+      "name": "focus",
+      "description": "聚焦",
+      "visual": "--color-primary-6 边框 + 2px 弧蓝光晕"
+    },
+    {
+      "name": "disabled",
+      "description": "禁用",
+      "visual": "--color-fill-2 背景，--color-text-4 文本，光标禁用"
+    },
+    {
+      "name": "error",
+      "description": "校验失败",
+      "visual": "--color-danger-6 边框 + 光晕"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "输入容器",
+      "element": "div",
+      "description": "包裹 input 与前后缀的外框，承担边框/背景/焦点态"
+    },
+    {
+      "part": "prefix 前缀",
+      "element": "span",
+      "description": "输入框前置内容（图标/单位）"
+    },
+    {
+      "part": "输入元素",
+      "element": "input/textarea",
+      "description": "文本承载元素"
+    },
+    {
+      "part": "suffix 后缀",
+      "element": "span",
+      "description": "输入框后置内容；password 眼睛、clear 图标挂载于此"
+    },
+    {
+      "part": "字数统计",
+      "element": "span",
+      "description": "showWordLimit 时的 maxLength 计数"
+    }
+  ],
+  "interaction": {
+    "hover": "边框加深 --color-border-3",
+    "focus": "弧蓝边框 + 光晕阴影（rgba(0, 100, 250,0.2)）",
+    "keyboard": [
+      "Tab: enter/leave the input",
+      "Enter: submit (onPressEnter / form submit); newline inside textarea",
+      "Shift+Tab: leave backwards",
+      "Backspace/Delete: edit text; clear button clickable while focused (allowClear)"
+    ],
+    "motion": {
+      "duration": "0.1s~0.3s",
+      "easing": "standard",
+      "description": "焦点边框与光晕 0.2s 过渡；clear 图标淡入淡出"
+    },
+    "behaviorNotes": "allowClear 在非空且聚焦/悬停时显示清除按钮；password 通过切换 type 显隐；maxLength 配合 showWordLimit 展示计数；error 态可由 status 或 Form 校验注入"
+  },
+  "a11y": {
+    "role": "textbox",
+    "ariaAttrs": [
+      "aria-invalid",
+      "aria-describedby",
+      "aria-required",
+      "aria-label/aria-labelledby",
+      "aria-placeholder"
+    ],
+    "contrastNote": "默认文本 --color-text-1 对比度充足；placeholder --color-text-3 满足非文本提示要求；错误态红边框配错误文本双通道",
+    "focusNote": "弧蓝焦点边框 + 光晕在浅色背景清晰；错误态焦点环为 --color-danger-6 色"
+  },
+  "usage": [
+    "输入前提供 label 或 aria-label，勿仅依赖 placeholder",
+    "搜索场景搭配 allowClear 与 onPressEnter",
+    "敏感信息使用 password 变体并关闭浏览器自动填充（按需）"
+  ],
+  "doNotInvent": [
+    "不要虚构 resize 以外的 textarea 行为（resize 由组件控制）",
+    "不要虚构字数限制交互（showWordLimit 需配 maxLength）",
+    "不要把 Input 当数字输入（应使用 InputNumber）"
+  ],
+  "tokensConsumed": [
+    "--color-border-2",
+    "--color-border-3",
+    "--color-fill-2",
+    "--color-primary-6",
+    "--color-danger-6",
+    "--color-text-1",
+    "--color-text-3",
+    "--color-text-4",
+    "--transition-duration-2",
+    "--transition-timing-function-standard"
+  ],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "InputProps",
+    "props": [
+      "allowClear",
+      "autoFitWidth",
+      "autoSize",
+      "autoWidth",
+      "className",
+      "compact",
+      "defaultValue",
+      "defaultVisibility",
+      "delay",
+      "disabled",
+      "error",
+      "hasParent",
+      "loading",
+      "maxRows",
+      "maxWidth",
+      "minRows",
+      "minWidth",
+      "onSearch",
+      "onVisibilityChange",
+      "placeholder",
+      "prefixCls",
+      "pure",
+      "readOnly",
+      "searchButton",
+      "status",
+      "style",
+      "value",
+      "visibility",
+      "visibilityToggle",
+      "wrapperStyle"
+    ],
+    "total": 30,
+    "syncDate": "2026/08/28"
+  }
+}

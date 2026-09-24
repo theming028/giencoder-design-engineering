@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>Form 表单</title>
+  <link rel="stylesheet" href="preview-scaffold.css">
+  <link rel="stylesheet" href="../colors_and_type.css">
+  <link rel="stylesheet" href="../components.css">
+</head>
+<body>
+  <div class="pv-layout">
+    <aside class="pv-sidebar">
+      <div class="pv-nav">
+        <div class="pv-menu-group">入口</div>
+        <a href="../home.html">首页</a>
+        <a href="../../GETTING-STARTED.html">使用说明书</a>
+        <div class="pv-menu-group">组件</div>
+        <a href="../index.html#general">通用</a>
+        <a href="../index.html#layout">布局</a>
+        <a href="../index.html#navigation">导航</a>
+        <a href="../index.html#data-entry" class="active">数据录入</a>
+        <a href="../index.html#data-display">数据展示</a>
+        <a href="../index.html#feedback">反馈</a>
+        <a href="../index.html#other">其他</a>
+        <div class="pv-menu-group">资源</div>
+        <a href="../index.html#uikits">页面样板</a>
+        <a href="../index.html#docs">规范文档</a>
+      </div>
+    </aside>
+    <main class="pv-content">
+  <a class="pv-back" href="../index.html#data-entry">← 返回组件库</a>
+  <div class="pv-header">
+    <h1>Form 表单</h1>
+    <p>源启表单：label 布局、校验错误态、必填标记、帮助文字、操作区。</p>
+  </div>
+
+  <!-- ============ 变体：基础表单 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Default 基础表单（含校验态）</div>
+    <div class="row">
+      <form class="giencoder-form" data-component="form" data-variant="default" data-state="default" style="width:420px; display:flex; flex-direction:column; gap:20px;">
+        <div class="giencoder-form-item">
+          <label class="giencoder-form-label giencoder-form-label-required" for="f-name">项目名称</label>
+          <div class="giencoder-form-control">
+            <div class="giencoder-input-wrapper">
+              <input class="giencoder-input" id="f-name" placeholder="请输入项目名称">
+            </div>
+          </div>
+        </div>
+        <div class="giencoder-form-item">
+          <label class="giencoder-form-label" for="f-desc">项目描述</label>
+          <div class="giencoder-form-control">
+            <div class="giencoder-textarea-wrapper">
+              <textarea class="giencoder-textarea" id="f-desc" rows="3" placeholder="请输入项目描述（可选）"></textarea>
+            </div>
+            <div class="giencoder-form-help">最多 200 字</div>
+          </div>
+        </div>
+        <div class="giencoder-form-item">
+          <label class="giencoder-form-label giencoder-form-label-required" for="f-owner">负责人</label>
+          <div class="giencoder-form-control">
+            <div class="giencoder-input-wrapper">
+              <input class="giencoder-input" id="f-owner" value="">
+            </div>
+            <div class="giencoder-form-message giencoder-form-message-error">请输入负责人</div>
+          </div>
+        </div>
+        <div class="giencoder-form-item">
+          <label class="giencoder-form-label" for="f-url">访问域名</label>
+          <div class="giencoder-form-control">
+            <div class="giencoder-input-wrapper giencoder-input-error">
+              <span class="giencoder-input-prefix">https://</span>
+              <input class="giencoder-input" id="f-url" value="invalid domain" aria-invalid="true">
+            </div>
+            <div class="giencoder-form-message giencoder-form-message-error">域名格式不正确</div>
+          </div>
+        </div>
+        <div class="giencoder-form-item">
+          <label class="giencoder-form-label">环境</label>
+          <div class="giencoder-form-control">
+            <div class="giencoder-radio-group giencoder-radio-group-button">
+              <label class="giencoder-radio-button giencoder-radio-button-checked">
+                <input type="radio" class="giencoder-radio-input" name="env" checked>
+                <span class="giencoder-radio-button-text">开发</span>
+              </label>
+              <label class="giencoder-radio-button">
+                <input type="radio" class="giencoder-radio-input" name="env">
+                <span class="giencoder-radio-button-text">测试</span>
+              </label>
+              <label class="giencoder-radio-button">
+                <input type="radio" class="giencoder-radio-input" name="env">
+                <span class="giencoder-radio-button-text">生产</span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="giencoder-form-item">
+          <div class="giencoder-form-control giencoder-form-control-no-label">
+            <div style="display:flex; gap:12px;">
+              <button class="giencoder-btn giencoder-btn-primary giencoder-btn-size-default" type="submit">创建项目</button>
+              <button class="giencoder-btn giencoder-btn-secondary giencoder-btn-size-default" type="button">取消</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+    </main>
+  </div>
+<script src="preview-copy.js"></script>
+</body>
+</html>

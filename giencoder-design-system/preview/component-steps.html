@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>Steps 步骤条</title>
+  <link rel="stylesheet" href="preview-scaffold.css">
+  <link rel="stylesheet" href="../colors_and_type.css">
+  <link rel="stylesheet" href="../components.css">
+</head>
+<body>
+  <div class="pv-layout">
+    <aside class="pv-sidebar">
+      <div class="pv-nav">
+        <div class="pv-menu-group">入口</div>
+        <a href="../home.html">首页</a>
+        <a href="../../GETTING-STARTED.html">使用说明书</a>
+        <div class="pv-menu-group">组件</div>
+        <a href="../index.html#general">通用</a>
+        <a href="../index.html#layout">布局</a>
+        <a href="../index.html#navigation" class="active">导航</a>
+        <a href="../index.html#data-entry">数据录入</a>
+        <a href="../index.html#data-display">数据展示</a>
+        <a href="../index.html#feedback">反馈</a>
+        <a href="../index.html#other">其他</a>
+        <div class="pv-menu-group">资源</div>
+        <a href="../index.html#uikits">页面样板</a>
+        <a href="../index.html#docs">规范文档</a>
+      </div>
+    </aside>
+    <main class="pv-content">
+  <a class="pv-back" href="../index.html#navigation">← 返回组件库</a>
+  <div class="pv-header">
+    <h1>Steps 步骤条</h1>
+    <p>源启步骤条：wait/process/finish/error 状态，水平/垂直方向。</p>
+  </div>
+
+  <!-- ============ 变体：水平四步 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Horizontal 水平步骤条（四态）</div>
+    <div class="row">
+      <div class="giencoder-steps giencoder-steps-horizontal" data-component="steps" data-variant="horizontal" data-state="default" style="width:100%;">
+        <div class="giencoder-steps-item giencoder-steps-item-finish">
+          <div class="giencoder-steps-head">
+            <div class="giencoder-steps-icon giencoder-steps-icon-finish">
+              <svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2.5 6.5l2.5 2.5 4.5-5"/></svg>
+            </div>
+          </div>
+          <div class="giencoder-steps-content">
+            <div class="giencoder-steps-title">填写信息</div>
+            <div class="giencoder-steps-description">已完成</div>
+          </div>
+        </div>
+        <div class="giencoder-steps-item giencoder-steps-item-process">
+          <div class="giencoder-steps-head">
+            <div class="giencoder-steps-icon giencoder-steps-icon-process">2</div>
+          </div>
+          <div class="giencoder-steps-content">
+            <div class="giencoder-steps-title">配置参数</div>
+            <div class="giencoder-steps-description">进行中</div>
+          </div>
+        </div>
+        <div class="giencoder-steps-item giencoder-steps-item-wait">
+          <div class="giencoder-steps-head">
+            <div class="giencoder-steps-icon">3</div>
+          </div>
+          <div class="giencoder-steps-content">
+            <div class="giencoder-steps-title">预览确认</div>
+            <div class="giencoder-steps-description">待处理</div>
+          </div>
+        </div>
+        <div class="giencoder-steps-item giencoder-steps-item-wait">
+          <div class="giencoder-steps-head">
+            <div class="giencoder-steps-icon">4</div>
+          </div>
+          <div class="giencoder-steps-content">
+            <div class="giencoder-steps-title">创建完成</div>
+            <div class="giencoder-steps-description">待处理</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 变体：错误态 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Error 错误态</div>
+    <div class="row">
+      <div class="giencoder-steps giencoder-steps-horizontal" data-component="steps" data-variant="error" data-state="default" style="width:100%;">
+        <div class="giencoder-steps-item giencoder-steps-item-finish">
+          <div class="giencoder-steps-head">
+            <div class="giencoder-steps-icon giencoder-steps-icon-finish">
+              <svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2.5 6.5l2.5 2.5 4.5-5"/></svg>
+            </div>
+          </div>
+          <div class="giencoder-steps-content">
+            <div class="giencoder-steps-title">上传文件</div>
+          </div>
+        </div>
+        <div class="giencoder-steps-item giencoder-steps-item-error">
+          <div class="giencoder-steps-head">
+            <div class="giencoder-steps-icon giencoder-steps-icon-error">!</div>
+          </div>
+          <div class="giencoder-steps-content">
+            <div class="giencoder-steps-title">解析数据</div>
+            <div class="giencoder-steps-description">解析失败，请检查文件格式</div>
+          </div>
+        </div>
+        <div class="giencoder-steps-item giencoder-steps-item-wait">
+          <div class="giencoder-steps-head">
+            <div class="giencoder-steps-icon">3</div>
+          </div>
+          <div class="giencoder-steps-content">
+            <div class="giencoder-steps-title">导入完成</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 变体：垂直 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Vertical 垂直步骤条</div>
+    <div class="row">
+      <div class="giencoder-steps giencoder-steps-vertical" data-component="steps" data-variant="vertical" data-state="default" style="width:280px;">
+        <div class="giencoder-steps-item giencoder-steps-item-finish">
+          <div class="giencoder-steps-head">
+            <div class="giencoder-steps-icon giencoder-steps-icon-finish">
+              <svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2.5 6.5l2.5 2.5 4.5-5"/></svg>
+            </div>
+          </div>
+          <div class="giencoder-steps-content">
+            <div class="giencoder-steps-title">创建项目</div>
+          </div>
+        </div>
+        <div class="giencoder-steps-item giencoder-steps-item-process">
+          <div class="giencoder-steps-head">
+            <div class="giencoder-steps-icon giencoder-steps-icon-process">2</div>
+          </div>
+          <div class="giencoder-steps-content">
+            <div class="giencoder-steps-title">配置环境</div>
+            <div class="giencoder-steps-description">选择运行环境与依赖</div>
+          </div>
+        </div>
+        <div class="giencoder-steps-item giencoder-steps-item-wait">
+          <div class="giencoder-steps-head">
+            <div class="giencoder-steps-icon">3</div>
+          </div>
+          <div class="giencoder-steps-content">
+            <div class="giencoder-steps-title">启动服务</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+  (function () {
+    'use strict';
+    /* component-steps — 交互清单：
+     * 1. 点击步骤项：互斥高亮为 process（giencoder-steps-icon-process + 标题加粗）
+     * 2. 被点击步骤之前的完成/等待项切换为 finish，之后切换为 wait（演示状态切换）；错误态项不被动
+     */
+    document.querySelectorAll('.giencoder-steps').forEach(function (steps) {
+      var items = Array.prototype.slice.call(steps.querySelectorAll('.giencoder-steps-item'));
+      if (!items.length) return;
+      items.forEach(function (item, index) {
+        item.addEventListener('click', function () {
+          items.forEach(function (it, i) {
+            if (it.classList.contains('giencoder-steps-item-error')) return; /* 错误态不动 */
+            var icon = it.querySelector('.giencoder-steps-icon');
+            var title = it.querySelector('.giencoder-steps-title');
+            it.classList.remove('giencoder-steps-item-process', 'giencoder-steps-item-finish', 'giencoder-steps-item-wait');
+            if (icon) icon.classList.remove('giencoder-steps-icon-process', 'giencoder-steps-icon-finish', 'giencoder-steps-icon-error');
+            if (title) title.style.fontWeight = '';
+            if (i < index) {
+              it.classList.add('giencoder-steps-item-finish');
+              if (icon) icon.classList.add('giencoder-steps-icon-finish');
+            } else if (i > index) {
+              it.classList.add('giencoder-steps-item-wait');
+            }
+          });
+          /* 被点击项 → process + 标题加粗 */
+          item.classList.remove('giencoder-steps-item-error', 'giencoder-steps-item-finish', 'giencoder-steps-item-wait');
+          item.classList.add('giencoder-steps-item-process');
+          var icon = item.querySelector('.giencoder-steps-icon');
+          if (icon) {
+            icon.classList.remove('giencoder-steps-icon-error', 'giencoder-steps-icon-finish');
+            icon.classList.add('giencoder-steps-icon-process');
+          }
+          var title = item.querySelector('.giencoder-steps-title');
+          if (title) title.style.fontWeight = '600';
+        });
+      });
+    });
+  })();
+  </script>
+    </main>
+  </div>
+<script src="preview-copy.js"></script>
+</body>
+</html>

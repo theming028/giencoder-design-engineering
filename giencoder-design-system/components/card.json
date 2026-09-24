@@ -1,0 +1,154 @@
+{
+  "schemaVersion": 3,
+  "slug": "card",
+  "name": "Card",
+  "category": "data-display",
+  "giencoderSource": {
+    "component": "Card",
+    "version": "2.66.16"
+  },
+  "summary": "卡片，以容器形式组织标题、内容与操作，支持封面、加载骨架与悬浮效果。",
+  "variants": [
+    {
+      "name": "基础卡片",
+      "description": "标题 + extra 操作区 + 内容区",
+      "whenToUse": "信息分组与页面区块的基础容器"
+    },
+    {
+      "name": "图文卡片",
+      "description": "Card.Meta 组合封面、标题与描述",
+      "whenToUse": "商品、文章、成员等图文并茂的内容卡片"
+    },
+    {
+      "name": "悬浮卡片",
+      "description": "hoverable 开启后悬停浮起",
+      "whenToUse": "可点击选择或需要强调层级的内容卡片"
+    },
+    {
+      "name": "加载卡片",
+      "description": "loading 显示骨架屏占位",
+      "whenToUse": "内容异步加载中的反馈"
+    },
+    {
+      "name": "操作区卡片",
+      "description": "actions 底部按钮区",
+      "whenToUse": "卡片级操作（查看详情、编辑、删除）"
+    },
+    {
+      "name": "无边框卡片",
+      "description": "bordered=false 去除边框",
+      "whenToUse": "嵌入深色或色块背景，弱化容器边界"
+    }
+  ],
+  "sizes": [],
+  "states": [
+    {
+      "name": "default",
+      "description": "常规展示态",
+      "visual": "背景 --color-bg-2，边框 --color-border-2"
+    },
+    {
+      "name": "hover",
+      "description": "鼠标悬停（仅 hoverable）",
+      "visual": "阴影提升至 --shadow2-down，轻微上浮；边框保持 --color-border-2 不加深"
+    },
+    {
+      "name": "loading",
+      "description": "内容加载中",
+      "visual": "内容区替换为骨架屏占位"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "头部",
+      "element": "div.giencoder-card-header",
+      "description": "标题与 extra 操作区所在行"
+    },
+    {
+      "part": "封面",
+      "element": "div.giencoder-card-cover",
+      "description": "顶部封面图区域（cover）"
+    },
+    {
+      "part": "主体",
+      "element": "div.giencoder-card-body",
+      "description": "卡片主要内容区"
+    },
+    {
+      "part": "元信息",
+      "element": "div.giencoder-card-meta",
+      "description": "Card.Meta 的标题、描述与头像组合"
+    },
+    {
+      "part": "操作区",
+      "element": "div.giencoder-card-actions",
+      "description": "底部操作按钮区"
+    }
+  ],
+  "interaction": {
+    "hover": "hoverable 卡片悬停浮起，阴影由 --shadow1-down 提升至 --shadow2-down",
+    "focus": "卡片容器自身不可聚焦；内部按钮等可交互元素提供焦点态",
+    "keyboard": [
+      "Tab: 聚焦卡片内可交互元素（extra 操作区、actions 按钮）",
+      "Enter/Space: 触发聚焦的按钮"
+    ],
+    "motion": {
+      "duration": "0.2s~0.3s",
+      "easing": "standard",
+      "description": "hoverable 悬浮位移与阴影过渡（--transition-duration-2）"
+    },
+    "behaviorNotes": "loading 状态下保留头部与标题结构，仅主体显示骨架；bordered 默认开启。"
+  },
+  "a11y": {
+    "role": "group",
+    "ariaAttrs": [
+      "aria-label: 卡片标题（设置 title 时）",
+      "aria-busy: loading 状态为 true"
+    ],
+    "contrastNote": "卡片背景 --color-bg-2 与页面背景 --color-bg-1 的层级差异结合边框 --color-border-2 保证可辨识",
+    "focusNote": "卡片容器不抢焦点，交互元素各自提供可见焦点环"
+  },
+  "usage": [
+    "标题保持简洁，extra 用于高频操作，actions 用于卡片级低频操作",
+    "loading 时保持卡片尺寸稳定，避免布局跳动",
+    "hoverable 仅用于可交互卡片，纯展示卡片不要开启"
+  ],
+  "doNotInvent": [
+    "不虚构卡片点击整卡跳转的默认行为（需自行实现）",
+    "不杜撰阴影层级以外的浮起规格",
+    "不在 loading 中虚构骨架动画的专有参数"
+  ],
+  "tokensConsumed": [
+    "--color-bg-2",
+    "--color-border-2",
+    "--shadow1-down",
+    "--shadow2-down",
+    "--color-text-1",
+    "--color-text-2"
+  ],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "CardProps",
+    "props": [
+      "actionList",
+      "actions",
+      "avatar",
+      "bodyStyle",
+      "bordered",
+      "children",
+      "className",
+      "cover",
+      "description",
+      "extra",
+      "headerStyle",
+      "hoverable",
+      "id",
+      "loading",
+      "size",
+      "style",
+      "title"
+    ],
+    "total": 17,
+    "syncDate": "2026/08/28"
+  }
+}

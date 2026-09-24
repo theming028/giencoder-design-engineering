@@ -1,0 +1,115 @@
+{
+  "schemaVersion": 3,
+  "slug": "grid",
+  "name": "Grid",
+  "category": "general",
+  "giencoderSource": {
+    "component": "Grid",
+    "version": "2.66.16"
+  },
+  "summary": "24 栅格响应式布局：Row/Col，支持 gutter/offset/order 与 xs~xxl 六档断点。",
+  "variants": [
+    {
+      "name": "row",
+      "description": "Row 行容器（flex）",
+      "whenToUse": "栅格行包裹"
+    },
+    {
+      "name": "col",
+      "description": "Col 列（span 0~24）",
+      "whenToUse": "行内列划分"
+    },
+    {
+      "name": "responsive-col",
+      "description": "Col 断点属性 xs/sm/md/lg/xl/xxl",
+      "whenToUse": "响应式重排"
+    }
+  ],
+  "sizes": [
+    {
+      "name": "default",
+      "value": "24 列栅格",
+      "usage": "span/offset 取值 0~24"
+    }
+  ],
+  "states": [
+    {
+      "name": "default",
+      "description": "常规布局",
+      "visual": "按 span/offset/order 排列"
+    },
+    {
+      "name": "empty",
+      "description": "Col 无内容",
+      "visual": "仍按 span 占据栅格位"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "row",
+      "element": "div（display:flex）",
+      "description": "Row 容器，承载 gutter/justify/align"
+    },
+    {
+      "part": "col",
+      "element": "div",
+      "description": "Col 列，span/offset/order/flex 控制"
+    }
+  ],
+  "interaction": {
+    "hover": "无交互反馈（纯布局）",
+    "focus": "无焦点",
+    "keyboard": [
+      "无键盘交互（纯布局）"
+    ],
+    "motion": {
+      "duration": "0.1s",
+      "easing": "linear",
+      "description": "无内置动效；断点切换即时生效"
+    },
+    "behaviorNotes": "gutter 支持数字/数组/响应式对象；offset 向左偏移、order 调整顺序；Col 可嵌套"
+  },
+  "a11y": {
+    "role": "generic（纯布局容器）",
+    "ariaAttrs": [],
+    "contrastNote": "纯布局不承载信息，无对比度要求",
+    "focusNote": "无焦点（纯布局）"
+  },
+  "usage": [
+    "行内 span 合计 ≤24",
+    "间距用 gutter 而非子元素 margin",
+    "断点从 xs 起逐级覆盖：<576/≥576/≥768/≥992/≥1200/≥1600",
+    "布局与语义分离，容器不承载内容角色"
+  ],
+  "doNotInvent": [
+    "不虚构 12 栅格或 push/pull（源启用 offset/order）",
+    "不新增断点档位",
+    "不为栅格杜撰交互态"
+  ],
+  "tokensConsumed": [],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "GridProps",
+    "props": [
+      "__index__",
+      "children",
+      "className",
+      "colGap",
+      "collapsed",
+      "collapsedRows",
+      "cols",
+      "offset",
+      "order",
+      "overflow",
+      "pull",
+      "push",
+      "rowGap",
+      "span",
+      "style",
+      "suffix",
+      "xs"
+    ],
+    "total": 17,
+    "syncDate": "2026/08/28"
+  }
+}

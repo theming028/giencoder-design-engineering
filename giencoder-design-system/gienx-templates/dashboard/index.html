@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>工作台 · 数据看板样板</title>
+  <link rel="stylesheet" href="../../colors_and_type.css">
+  <link rel="stylesheet" href="../../components.css">
+  <link rel="stylesheet" href="../ui-controls.css">
+  <link rel="stylesheet" href="../ui-statistic.css">
+  <style>
+    /* ═══ 页面级布局样式（仅用 Design Token，禁止硬编码 hex） ═══ */
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    button { font-family: var(--font-family); }
+
+    /* ---- PageHeader 页头 ---- */
+    .giencoder-page-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: var(--spacing-7); flex-wrap: wrap; gap: var(--spacing-4);
+    }
+    .giencoder-page-header-title { font-size: var(--font-size-title-2); font-weight: 600; color: var(--color-text-1); margin: 0; }
+    .giencoder-page-header-subtitle { font-size: var(--font-size-body-3); color: var(--color-text-3); margin: 0; }
+    /* 标题 + 副标题横向组合：副标题置于主标题右侧，间距 12px（--spacing-6） */
+    .giencoder-page-header > div:first-child { display: flex; align-items: baseline; gap: var(--spacing-6); }
+    .giencoder-page-header-extra { display: flex; align-items: center; gap: var(--spacing-3); }
+
+    /* ---- 时间筛选条 ---- */
+    .giencoder-filter-bar { display: flex; align-items: center; gap: var(--spacing-4); margin-bottom: var(--spacing-7); }
+    .giencoder-filter-label { font-size: var(--font-size-body-3); color: var(--color-text-3); }
+    /* Select 走 components.css 标准组件样式，此处不再内联复刻 */
+
+    /* ---- 指标卡栅格 ---- */
+    .giencoder-stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--spacing-7); margin-bottom: var(--spacing-7); }
+    .giencoder-stat-card { padding: var(--spacing-7); }
+    .giencoder-stat-trend { font-size: var(--font-size-body-1); margin-top: var(--spacing-4); }
+    .giencoder-stat-trend-up { color: var(--color-success-6); }
+    .giencoder-stat-trend-down { color: var(--color-danger-6); }
+
+    /* ---- 图表区栅格 ---- */
+    .giencoder-chart-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-7); margin-bottom: var(--spacing-7); }
+    .giencoder-chart-box { height: 240px; display: flex; align-items: flex-end; gap: var(--spacing-3); padding: var(--spacing-7) var(--spacing-7) 0; }
+    .giencoder-chart-bar {
+      flex: 1; border-radius: var(--border-radius-small) var(--border-radius-small) 0 0;
+      /* 渐变模拟柱状图：用 Token 色做渐变，禁止硬编码 hex */
+      background: linear-gradient(180deg, var(--color-primary-4), var(--color-primary-6));
+      min-height: 4px;
+    }
+    .giencoder-chart-bar-accent { background: linear-gradient(180deg, var(--color-success-4), var(--color-success-6)); }
+    .giencoder-chart-legend { display: flex; gap: var(--spacing-7); padding: var(--spacing-4) var(--spacing-7); font-size: var(--font-size-body-1); color: var(--color-text-2); }
+    .giencoder-chart-legend-dot { width: 10px; height: 10px; border-radius: var(--border-radius-small); display: inline-block; margin-right: var(--spacing-2); vertical-align: -1px; }
+    .giencoder-chart-legend-dot-primary { background: var(--color-primary-6); }
+    .giencoder-chart-legend-dot-success { background: var(--color-success-6); }
+
+    /* ---- 环形图（渐变圆锥模拟） ---- */
+    .giencoder-donut { width: 160px; height: 160px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    .giencoder-donut-inner {
+      width: 96px; height: 96px; border-radius: 50%; background: var(--color-bg-2);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+    }
+    .giencoder-donut-value { font-size: var(--font-size-title-2); font-weight: 600; color: var(--color-text-1); }
+    .giencoder-donut-label { font-size: var(--font-size-body-1); color: var(--color-text-3); }
+  </style>
+</head>
+<body>
+<div style="width:100%; height:100vh; overflow:hidden; display:flex; flex-direction:column;">
+  <header class="giencoder-top-nav" style="height:48px; background:var(--color-bg-2); box-shadow:var(--shadow1-down); display:flex; align-items:center; justify-content:space-between; padding:0 16px;">
+    <div style="display:flex; align-items:center; gap:12px;">
+      <strong style="font-size:15px; color:var(--color-text-1);">源启</strong>
+      <span style="color:var(--color-text-3); font-size:12px;">中电金信 · 云服务平台</span>
+    </div>
+    <div style="display:flex; align-items:center; gap:16px; font-size:12px; color:var(--color-text-2);">
+      <span>帮助</span><span>通知</span>
+      <span style="width:24px;height:24px;border-radius:50%;background:var(--color-primary-6);color:var(--color-white);display:flex;align-items:center;justify-content:center;font-size:12px;">张</span>
+    </div>
+  </header>
+  <div style="display:flex; flex:1; overflow:hidden;">
+    <aside class="giencoder-sidenav" style="width:200px; background:var(--color-menu-light-bg); border-right:1px solid var(--color-border-1); padding:8px 0; overflow-y:auto;">
+      <div class="giencoder-menu giencoder-menu-vertical">
+        <div class="giencoder-menu-group-title">总览</div>
+        <div class="giencoder-menu-item giencoder-menu-item-selected">工作台</div>
+        <div class="giencoder-menu-item">资源管理</div>
+        <div class="giencoder-menu-item">监控告警</div>
+        <div class="giencoder-menu-group-title">系统</div>
+        <div class="giencoder-menu-item">系统设置</div>
+      </div>
+    </aside>
+    <main style="flex:1; overflow-y:auto; background:var(--color-bg-1); padding:20px;">
+
+      <!-- ============ PageHeader ============ -->
+      <div class="giencoder-page-header">
+        <div>
+          <h2 class="giencoder-page-header-title">工作台</h2>
+          <div class="giencoder-page-header-subtitle">云服务平台核心运行指标概览</div>
+        </div>
+        <div class="giencoder-page-header-extra">
+          <button class="giencoder-btn giencoder-btn-secondary giencoder-btn-size-default" data-statistic-replay>
+            <svg viewBox="0 0 14 14" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12.5 7a5.5 5.5 0 11-1.6-3.9M12.5 1.5V4H10"/></svg>
+            刷新数据
+          </button>
+        </div>
+      </div>
+
+      <!-- ============ 时间筛选条 ============ -->
+      <div class="giencoder-filter-bar">
+        <span class="giencoder-filter-label">统计周期</span>
+        <div class="giencoder-select" data-component="select" data-variant="single" data-state="default" style="width: 220px; flex-shrink: 0;">
+          <div class="giencoder-select-view" tabindex="0" role="combobox" aria-expanded="false" aria-haspopup="listbox">
+            <span class="giencoder-select-view-text">近 7 天</span>
+            <span class="giencoder-select-suffix">
+              <svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 4l4 4 4-4"/></svg>
+            </span>
+          </div>
+          <div class="giencoder-select-popup" style="display:none;">
+            <ul class="giencoder-select-option-list" role="listbox">
+              <li class="giencoder-select-option giencoder-select-option-selected" role="option" aria-selected="true">近 7 天</li>
+              <li class="giencoder-select-option" role="option" aria-selected="false">近 30 天</li>
+              <li class="giencoder-select-option" role="option" aria-selected="false">近 90 天</li>
+              <li class="giencoder-select-option" role="option" aria-selected="false">本年度</li>
+            </ul>
+          </div>
+        </div>
+        <span class="giencoder-filter-label" style="margin-left:var(--spacing-4);">数据更新于 2026/08/28 10:30</span>
+      </div>
+
+      <!-- ============ 4 个 Statistic 指标卡 ============ -->
+      <div class="giencoder-stat-grid">
+        <div class="giencoder-card giencoder-stat-card">
+          <div class="giencoder-statistic-title">今日任务</div>
+          <div class="giencoder-statistic-content">
+            <span class="giencoder-statistic-value">128</span>
+            <span class="giencoder-statistic-suffix" style="font-size:var(--font-size-body-3); color:var(--color-text-3); margin-left:var(--spacing-2);">个</span>
+          </div>
+          <div class="giencoder-stat-trend giencoder-stat-trend-up">较昨日 ↑ 12.5%</div>
+        </div>
+        <div class="giencoder-card giencoder-stat-card">
+          <div class="giencoder-statistic-title">活跃用户</div>
+          <div class="giencoder-statistic-content">
+            <span class="giencoder-statistic-value">2,847</span>
+            <span class="giencoder-statistic-suffix" style="font-size:var(--font-size-body-3); color:var(--color-text-3); margin-left:var(--spacing-2);">人</span>
+          </div>
+          <div class="giencoder-stat-trend giencoder-stat-trend-up">较昨日 ↑ 8.3%</div>
+        </div>
+        <div class="giencoder-card giencoder-stat-card">
+          <div class="giencoder-statistic-title">本月营收</div>
+          <div class="giencoder-statistic-content">
+            <span class="giencoder-statistic-prefix" style="font-size:var(--font-size-title-1); color:var(--color-text-2); margin-right:var(--spacing-2);">¥</span>
+            <span class="giencoder-statistic-value">1,280,000</span>
+          </div>
+          <div class="giencoder-stat-trend giencoder-stat-trend-down">较上月 ↓ 3.1%</div>
+        </div>
+        <div class="giencoder-card giencoder-stat-card">
+          <div class="giencoder-statistic-title">系统可用性</div>
+          <div class="giencoder-statistic-content" style="color:var(--color-success-6);">
+            <span class="giencoder-statistic-value">99.98</span>
+            <span class="giencoder-statistic-suffix" style="font-size:var(--font-size-body-3); margin-left:var(--spacing-2);">%</span>
+          </div>
+          <div class="giencoder-stat-trend giencoder-stat-trend-up">本月 SLA 达标</div>
+        </div>
+      </div>
+
+      <!-- ============ 图表区：2 个 Card（渐变 div 模拟图表） ============ -->
+      <div class="giencoder-chart-grid">
+        <!-- 柱状图 -->
+        <div class="giencoder-card">
+          <div class="giencoder-card-header">
+            <span class="giencoder-card-header-title">近 7 天任务趋势</span>
+            <span style="font-size:var(--font-size-body-1); color:var(--color-text-3);">单位：个</span>
+          </div>
+          <div class="giencoder-chart-box">
+            <div style="flex:1; display:flex; flex-direction:column; align-items:center; gap:var(--spacing-2);">
+              <div class="giencoder-chart-bar" style="width:100%; height:32%;" title="08-22 周一 38"></div>
+              <span style="font-size:var(--font-size-body-1); color:var(--color-text-3);">08-22</span>
+            </div>
+            <div style="flex:1; display:flex; flex-direction:column; align-items:center; gap:var(--spacing-2);">
+              <div class="giencoder-chart-bar" style="width:100%; height:48%;" title="08-23 周二 56"></div>
+              <span style="font-size:var(--font-size-body-1); color:var(--color-text-3);">08-23</span>
+            </div>
+            <div style="flex:1; display:flex; flex-direction:column; align-items:center; gap:var(--spacing-2);">
+              <div class="giencoder-chart-bar" style="width:100%; height:42%;" title="08-24 周三 49"></div>
+              <span style="font-size:var(--font-size-body-1); color:var(--color-text-3);">08-24</span>
+            </div>
+            <div style="flex:1; display:flex; flex-direction:column; align-items:center; gap:var(--spacing-2);">
+              <div class="giencoder-chart-bar" style="width:100%; height:66%;" title="08-25 周四 78"></div>
+              <span style="font-size:var(--font-size-body-1); color:var(--color-text-3);">08-25</span>
+            </div>
+            <div style="flex:1; display:flex; flex-direction:column; align-items:center; gap:var(--spacing-2);">
+              <div class="giencoder-chart-bar giencoder-chart-bar-accent" style="width:100%; height:82%;" title="08-26 周五 96"></div>
+              <span style="font-size:var(--font-size-body-1); color:var(--color-text-3);">08-26</span>
+            </div>
+            <div style="flex:1; display:flex; flex-direction:column; align-items:center; gap:var(--spacing-2);">
+              <div class="giencoder-chart-bar" style="width:100%; height:58%;" title="08-27 周六 68"></div>
+              <span style="font-size:var(--font-size-body-1); color:var(--color-text-3);">08-27</span>
+            </div>
+            <div style="flex:1; display:flex; flex-direction:column; align-items:center; gap:var(--spacing-2);">
+              <div class="giencoder-chart-bar" style="width:100%; height:72%;" title="08-28 周日 84"></div>
+              <span style="font-size:var(--font-size-body-1); color:var(--color-text-3);">08-28</span>
+            </div>
+          </div>
+          <div class="giencoder-chart-legend">
+            <span><span class="giencoder-chart-legend-dot giencoder-chart-legend-dot-primary"></span>任务完成量</span>
+            <span><span class="giencoder-chart-legend-dot giencoder-chart-legend-dot-success"></span>峰值日（周五）</span>
+          </div>
+        </div>
+
+        <!-- 环形图 + 占比 -->
+        <div class="giencoder-card">
+          <div class="giencoder-card-header">
+            <span class="giencoder-card-header-title">资源分布占比</span>
+          </div>
+          <div class="giencoder-card-body" style="display:flex; align-items:center; gap:var(--spacing-10); padding:var(--spacing-7);">
+            <!-- 渐变圆锥模拟环形图：conic-gradient 使用 Token 色 -->
+            <div class="giencoder-donut" style="background:conic-gradient(var(--color-primary-6) 0 62%, var(--color-success-6) 62% 84%, var(--color-warning-6) 84% 96%, var(--color-fill-2) 96% 100%);">
+              <div class="giencoder-donut-inner">
+                <div class="giencoder-donut-value">62%</div>
+                <div class="giencoder-donut-label">计算资源</div>
+              </div>
+            </div>
+            <div style="flex:1; display:flex; flex-direction:column; gap:var(--spacing-6);">
+              <div>
+                <div style="display:flex; justify-content:space-between; font-size:var(--font-size-body-3); color:var(--color-text-2);">
+                  <span><span class="giencoder-chart-legend-dot" style="background:var(--color-primary-6);"></span>计算资源</span>
+                  <span style="color:var(--color-text-1); font-weight:600;">62%</span>
+                </div>
+              </div>
+              <div>
+                <div style="display:flex; justify-content:space-between; font-size:var(--font-size-body-3); color:var(--color-text-2);">
+                  <span><span class="giencoder-chart-legend-dot" style="background:var(--color-success-6);"></span>存储资源</span>
+                  <span style="color:var(--color-text-1); font-weight:600;">22%</span>
+                </div>
+              </div>
+              <div>
+                <div style="display:flex; justify-content:space-between; font-size:var(--font-size-body-3); color:var(--color-text-2);">
+                  <span><span class="giencoder-chart-legend-dot" style="background:var(--color-warning-6);"></span>网络资源</span>
+                  <span style="color:var(--color-text-1); font-weight:600;">12%</span>
+                </div>
+              </div>
+              <div>
+                <div style="display:flex; justify-content:space-between; font-size:var(--font-size-body-3); color:var(--color-text-2);">
+                  <span><span class="giencoder-chart-legend-dot" style="background:var(--color-fill-3);"></span>其他</span>
+                  <span style="color:var(--color-text-1); font-weight:600;">4%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ Table 明细 ============ -->
+      <div class="giencoder-card">
+        <div class="giencoder-card-header">
+          <span class="giencoder-card-header-title">最近任务明细</span>
+          <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-small">查看全部</button>
+        </div>
+        <div class="giencoder-table-container" style="padding:0 16px;">
+          <table class="giencoder-table-content">
+            <thead>
+              <tr class="giencoder-table-tr">
+                <th class="giencoder-table-th">任务名称</th>
+                <th class="giencoder-table-th">负责人</th>
+                <th class="giencoder-table-th">状态</th>
+                <th class="giencoder-table-th">截止时间</th>
+                <th class="giencoder-table-th">进度</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="giencoder-table-tr">
+                <td class="giencoder-table-td">订单中心灰度发布</td>
+                <td class="giencoder-table-td">张三</td>
+                <td class="giencoder-table-td"><span class="giencoder-tag giencoder-tag-light giencoder-tag-success">进行中</span></td>
+                <td class="giencoder-table-td">2026/08/28 18:00</td>
+                <td class="giencoder-table-td" style="min-width:160px;">
+                  <div class="giencoder-progress-line">
+                    <div class="giencoder-progress-outer"><div class="giencoder-progress-inner"><div class="giencoder-progress-bar giencoder-progress-bar-primary" style="width:68%;"></div></div></div>
+                    <span class="giencoder-progress-text">68%</span>
+                  </div>
+                </td>
+              </tr>
+              <tr class="giencoder-table-tr">
+                <td class="giencoder-table-td">数据仓库每日同步</td>
+                <td class="giencoder-table-td">李四</td>
+                <td class="giencoder-table-td"><span class="giencoder-tag giencoder-tag-light giencoder-tag-warning">排队中</span></td>
+                <td class="giencoder-table-td">2026/08/28 22:00</td>
+                <td class="giencoder-table-td" style="min-width:160px;">
+                  <div class="giencoder-progress-line">
+                    <div class="giencoder-progress-outer"><div class="giencoder-progress-inner"><div class="giencoder-progress-bar giencoder-progress-bar-primary" style="width:0%;"></div></div></div>
+                    <span class="giencoder-progress-text">0%</span>
+                  </div>
+                </td>
+              </tr>
+              <tr class="giencoder-table-tr">
+                <td class="giencoder-table-td">监控告警规则巡检</td>
+                <td class="giencoder-table-td">王五</td>
+                <td class="giencoder-table-td"><span class="giencoder-tag giencoder-tag-light giencoder-tag-success">已完成</span></td>
+                <td class="giencoder-table-td">2026/08/28 09:00</td>
+                <td class="giencoder-table-td" style="min-width:160px;">
+                  <div class="giencoder-progress-line">
+                    <div class="giencoder-progress-outer"><div class="giencoder-progress-inner"><div class="giencoder-progress-bar giencoder-progress-bar-success" style="width:100%;"></div></div></div>
+                    <span class="giencoder-progress-text giencoder-progress-text-success">100%</span>
+                  </div>
+                </td>
+              </tr>
+              <tr class="giencoder-table-tr">
+                <td class="giencoder-table-td">支付网关证书轮换</td>
+                <td class="giencoder-table-td">赵六</td>
+                <td class="giencoder-table-td"><span class="giencoder-tag giencoder-tag-light giencoder-tag-danger">已失败</span></td>
+                <td class="giencoder-table-td">2026/08/27 20:00</td>
+                <td class="giencoder-table-td" style="min-width:160px;">
+                  <div class="giencoder-progress-line">
+                    <div class="giencoder-progress-outer"><div class="giencoder-progress-inner"><div class="giencoder-progress-bar giencoder-progress-bar-danger" style="width:45%;"></div></div></div>
+                    <span class="giencoder-progress-text giencoder-progress-text-danger">45%</span>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+<script src="../ui-controls.js"></script>
+<script src="../ui-statistic.js"></script>
+</body>
+</html>
+<!-- 模板说明: 本页面为 dashboard 页面样板，生成新页面时复制此文件修改内容区 -->

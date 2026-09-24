@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>Modal 对话框</title>
+  <link rel="stylesheet" href="preview-scaffold.css">
+  <link rel="stylesheet" href="../colors_and_type.css">
+  <link rel="stylesheet" href="../components.css">
+  <style>
+    /* 交互动效用：Modal 开关过渡
+       打开：mask 淡入 0.3s standard + 弹窗 scale(0.95→1) 0.3s standard
+       关闭：mask 淡出 0.2s + 弹窗 scale(1→0.95) 0.2s，完成后由脚本 setTimeout 延迟 display:none */
+    .giencoder-modal-mask {
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity var(--transition-duration-2) var(--transition-timing-function-standard),
+                  visibility 0s linear var(--transition-duration-2);
+    }
+    .giencoder-modal-mask .giencoder-modal {
+      transform: scale(0.95);
+      transition: transform var(--transition-duration-2) var(--transition-timing-function-standard);
+    }
+    .giencoder-modal-mask.giencoder-modal-open {
+      opacity: 1;
+      visibility: visible;
+      transition: opacity var(--transition-duration-3) var(--transition-timing-function-standard),
+                  visibility 0s linear 0s;
+    }
+    .giencoder-modal-mask.giencoder-modal-open .giencoder-modal {
+      transform: scale(1);
+      transition: transform var(--transition-duration-3) var(--transition-timing-function-spring);
+    }
+  </style>
+</head>
+<body>
+  <div class="pv-layout">
+    <aside class="pv-sidebar">
+      <div class="pv-nav">
+        <div class="pv-menu-group">入口</div>
+        <a href="../home.html">首页</a>
+        <a href="../../GETTING-STARTED.html">使用说明书</a>
+        <div class="pv-menu-group">组件</div>
+        <a href="../index.html#general">通用</a>
+        <a href="../index.html#layout">布局</a>
+        <a href="../index.html#navigation">导航</a>
+        <a href="../index.html#data-entry">数据录入</a>
+        <a href="../index.html#data-display">数据展示</a>
+        <a href="../index.html#feedback" class="active">反馈</a>
+        <a href="../index.html#other">其他</a>
+        <div class="pv-menu-group">资源</div>
+        <a href="../index.html#uikits">页面样板</a>
+        <a href="../index.html#docs">规范文档</a>
+      </div>
+    </aside>
+    <main class="pv-content">
+  <a class="pv-back" href="../index.html#feedback">← 返回组件库</a>
+  <div class="pv-header">
+    <h1>Modal 对话框</h1>
+    <p>源启对话框：遮罩/标题/内容/底部操作，Esc 关闭、焦点陷阱、遮罩点击关闭。</p>
+  </div>
+
+  <!-- ============ 变体：标准对话框 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Default 标准对话框</div>
+    <div class="row">
+      <div class="giencoder-modal-mask" data-component="modal" data-variant="default" data-state="open" style="position:relative; height:320px; border-radius:4px; overflow:hidden; display:flex; align-items:flex-start; justify-content:center; padding:48px;">
+        <div class="giencoder-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" style="width:480px; background:var(--color-bg-2); box-shadow:var(--shadow3-down);">
+          <div class="giencoder-modal-header">
+            <div class="giencoder-modal-title" id="modal-title">新建项目</div>
+            <button class="giencoder-modal-close-btn" aria-label="关闭">
+              <svg viewBox="0 0 12 12" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 3l6 6M9 3l-6 6"/></svg>
+            </button>
+          </div>
+          <div class="giencoder-modal-content">
+            这是对话框内容区域。包含需要用户确认或录入的信息。
+          </div>
+          <div class="giencoder-modal-footer">
+            <button class="giencoder-btn giencoder-btn-secondary giencoder-btn-size-default">取消</button>
+            <button class="giencoder-btn giencoder-btn-primary giencoder-btn-size-default">确定</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 变体：确认框 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Confirm 确认框（危险操作）</div>
+    <div class="row">
+      <div class="giencoder-modal-mask" data-component="modal" data-variant="confirm" data-state="open" style="position:relative; height:280px; border-radius:4px; overflow:hidden; display:flex; align-items:flex-start; justify-content:center; padding:48px;">
+        <div class="giencoder-modal" role="dialog" aria-modal="true" aria-labelledby="modal-confirm-title" style="width:420px; background:var(--color-bg-2); box-shadow:var(--shadow3-down);">
+          <div class="giencoder-modal-header">
+            <div class="giencoder-modal-title" id="modal-confirm-title" style="display:flex; align-items:center; gap:8px;">
+              <span style="color:var(--color-warning-6);">
+                <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6.5"/><path d="M8 4.5v4M8 11.5h.01"/></svg>
+              </span>
+              确认删除
+            </div>
+            <button class="giencoder-modal-close-btn" aria-label="关闭">
+              <svg viewBox="0 0 12 12" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 3l6 6M9 3l-6 6"/></svg>
+            </button>
+          </div>
+          <div class="giencoder-modal-content">
+            删除后数据不可恢复，确定要删除项目「资源管理」吗？
+          </div>
+          <div class="giencoder-modal-footer">
+            <button class="giencoder-btn giencoder-btn-secondary giencoder-btn-size-default">取消</button>
+            <button class="giencoder-btn giencoder-btn-danger giencoder-btn-size-default">删除</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    /* Modal 预览交互反馈（新增 class，此处定义） */
+    .pv-feedback {
+      display: none;
+      margin-top: 12px;
+      font-size: 14px;
+      color: var(--color-success-6, #00b42a);
+    }
+  </style>
+  <script>
+  /* modal：交互动效（打开 = display + rAF 加 .giencoder-modal-open，mask 淡入 0.3s + 弹窗 scale 放大；
+     关闭 = 移除 open class 触发 0.2s 过渡，setTimeout 后 display:none）+ 关闭按钮/遮罩/取消/Esc 关闭；确定关闭并显示"已确认"反馈 */
+  (function () {
+    'use strict';
+
+    var CLOSE_DURATION = 200; // 与 CSS 关闭过渡 0.2s 对应
+
+    function findAll(sel, root) {
+      return Array.prototype.slice.call((root || document).querySelectorAll(sel));
+    }
+
+    function showFeedback(section, text) {
+      if (!section) return;
+      var fb = section.querySelector('.pv-feedback');
+      if (!fb) {
+        fb = document.createElement('div');
+        fb.className = 'pv-feedback';
+        section.appendChild(fb);
+      }
+      fb.textContent = text;
+      fb.style.display = 'block';
+      if (fb._timer) clearTimeout(fb._timer);
+      fb._timer = setTimeout(function () { fb.style.display = 'none'; }, 2200);
+    }
+
+    // 打开：恢复 display → 强制回流确立起始态（opacity 0 / scale 0.95）→ rAF 加 open class 触发过渡
+    function openMask(mask) {
+      if (!mask || mask.classList.contains('giencoder-modal-open')) return;
+      if (mask._closeTimer) { clearTimeout(mask._closeTimer); mask._closeTimer = null; }
+      mask.style.display = 'flex';
+      void mask.offsetWidth; // 强制回流，确保 display 切换后过渡从起始态开始
+      requestAnimationFrame(function () {
+        if (mask) mask.classList.add('giencoder-modal-open');
+      });
+    }
+
+    // 关闭：移除 open class 触发 0.2s 过渡，结束后再隐藏（元素可能已移除，先判存在）
+    function closeMask(mask) {
+      if (!mask || !mask.classList.contains('giencoder-modal-open')) return;
+      mask.classList.remove('giencoder-modal-open');
+      if (mask._closeTimer) clearTimeout(mask._closeTimer);
+      mask._closeTimer = setTimeout(function () {
+        mask._closeTimer = null;
+        if (mask && !mask.classList.contains('giencoder-modal-open')) {
+          mask.style.display = 'none';
+        }
+      }, CLOSE_DURATION);
+    }
+
+    // Esc 关闭当前打开的弹窗
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' || e.key === 'Esc' || e.keyCode === 27) {
+        findAll('.giencoder-modal-mask.giencoder-modal-open').forEach(function (m) { closeMask(m); });
+      }
+    });
+
+    findAll('.pv-section').forEach(function (section) {
+      var mask = section.querySelector('.giencoder-modal-mask');
+      if (!mask) return;
+      var variant = mask.getAttribute('data-variant') || 'default';
+      var row = section.querySelector('.row');
+
+      // 初始隐藏遮罩，由触发器按钮打开（display 切换）
+      mask.style.display = 'none';
+
+      // 注入"打开弹窗"触发器（动态 DOM：先确认父节点存在）
+      var trigger = document.createElement('button');
+      trigger.type = 'button';
+      trigger.className = 'giencoder-btn giencoder-btn-primary giencoder-btn-size-default';
+      trigger.textContent = '打开弹窗';
+      trigger.style.marginBottom = '16px';
+      trigger.addEventListener('click', function () { openMask(mask); });
+      if (row && row.parentNode) {
+        row.parentNode.insertBefore(trigger, row);
+      } else if (section.parentNode) {
+        section.insertBefore(trigger, section.firstChild);
+      }
+
+      // 关闭按钮 → 关闭
+      var closeBtn = mask.querySelector('.giencoder-modal-close-btn');
+      if (closeBtn) {
+        closeBtn.addEventListener('click', function () { closeMask(mask); });
+      }
+
+      // 遮罩点击（点空白处）→ 关闭
+      mask.addEventListener('click', function (e) {
+        if (e.target === mask) closeMask(mask);
+      });
+
+      // 取消 → 关闭
+      var cancelBtn = mask.querySelector('.giencoder-btn-secondary');
+      if (cancelBtn) {
+        cancelBtn.addEventListener('click', function () { closeMask(mask); });
+      }
+
+      // 确定/删除 → 关闭 + 反馈
+      var okBtn = mask.querySelector('.giencoder-btn-primary, .giencoder-btn-danger');
+      if (okBtn) {
+        okBtn.addEventListener('click', function () {
+          closeMask(mask);
+          showFeedback(section, variant === 'confirm' ? '已确认删除' : '已确认');
+        });
+      }
+    });
+  })();
+  </script>
+    </main>
+  </div>
+<script src="preview-copy.js"></script>
+</body>
+</html>

@@ -1,0 +1,150 @@
+{
+  "schemaVersion": 3,
+  "slug": "collapse",
+  "name": "Collapse",
+  "category": "data-display",
+  "giencoderSource": {
+    "component": "Collapse",
+    "version": "2.66.16"
+  },
+  "summary": "折叠面板，将内容分组收纳，点击标题展开/收起，支持手风琴模式。",
+  "variants": [
+    {
+      "name": "基础折叠",
+      "description": "多个面板可独立展开/收起",
+      "whenToUse": "FAQ、设置项等长内容分组"
+    },
+    {
+      "name": "手风琴",
+      "description": "accordion 模式同一时刻仅展开一项",
+      "whenToUse": "同一层级信息互斥展示，如分类导航"
+    },
+    {
+      "name": "禁用项",
+      "description": "Item 设置 disabled 禁止展开",
+      "whenToUse": "未开放或无权限的面板"
+    },
+    {
+      "name": "图标位置",
+      "description": "expandIconPosition 控制展开图标 left/right",
+      "whenToUse": "按内容与版式调整展开图标方位"
+    },
+    {
+      "name": "额外操作",
+      "description": "Item extra 在标题右侧附加操作区",
+      "whenToUse": "面板级操作（复制链接、删除等）"
+    }
+  ],
+  "sizes": [],
+  "states": [
+    {
+      "name": "default",
+      "description": "收起状态",
+      "visual": "仅显示标题行，面板间分隔线 --color-border-2"
+    },
+    {
+      "name": "expanded",
+      "description": "展开状态",
+      "visual": "标题下方展示内容区，展开图标旋转 90°"
+    },
+    {
+      "name": "hover",
+      "description": "鼠标悬停标题",
+      "visual": "标题背景 --color-fill-1"
+    },
+    {
+      "name": "disabled",
+      "description": "禁用面板",
+      "visual": "标题文字 --color-text-4，不可交互"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "面板容器",
+      "element": "div.giencoder-collapse-item",
+      "description": "单个折叠面板"
+    },
+    {
+      "part": "标题",
+      "element": "div.giencoder-collapse-item-header",
+      "description": "可点击的展开控制区，含展开图标与标题文案"
+    },
+    {
+      "part": "内容区",
+      "element": "div.giencoder-collapse-item-content",
+      "description": "展开时显示的面板内容"
+    },
+    {
+      "part": "额外操作",
+      "element": "div.giencoder-collapse-item-extra",
+      "description": "标题右侧的操作区（extra）"
+    }
+  ],
+  "interaction": {
+    "hover": "标题悬停背景 --color-fill-1",
+    "focus": "标题聚焦显示 --color-primary-6 焦点环",
+    "keyboard": [
+      "Tab: 在面板标题间移动焦点",
+      "Enter/Space: 切换当前面板展开/收起"
+    ],
+    "motion": {
+      "duration": "0.1s~0.3s",
+      "easing": "standard",
+      "description": "内容区展开/收起的高度过渡（--transition-duration-1~2）"
+    },
+    "behaviorNotes": "accordion 模式展开新面板时自动收起当前面板；destroyOnHide 控制收起时是否销毁内容。"
+  },
+  "a11y": {
+    "role": "button",
+    "ariaAttrs": [
+      "aria-expanded: 面板是否展开",
+      "aria-controls: 指向面板内容区 id"
+    ],
+    "contrastNote": "标题文字 --color-text-1 与背景对比度满足 WCAG AA",
+    "focusNote": "标题可聚焦，展开状态通过 aria-expanded 同步给辅助技术"
+  },
+  "usage": [
+    "标题文案应能概括内容，便于快速扫描",
+    "默认展开项不宜过多，避免页面过长",
+    "extra 操作区避免与展开交互冲突"
+  ],
+  "doNotInvent": [
+    "不虚构面板拖拽排序等未提供能力",
+    "不杜撰无边框变体（需自行样式覆盖）",
+    "不在 disabled 面板上保留可聚焦行为"
+  ],
+  "tokensConsumed": [
+    "--color-border-2",
+    "--color-fill-1",
+    "--color-bg-2",
+    "--color-text-1",
+    "--color-text-4",
+    "--color-primary-6"
+  ],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "CollapseProps",
+    "props": [
+      "accordion",
+      "activeKey",
+      "bordered",
+      "className",
+      "contentStyle",
+      "defaultActiveKey",
+      "destroyOnHide",
+      "disabled",
+      "expandIcon",
+      "expandIconPosition",
+      "extra",
+      "header",
+      "lazyload",
+      "name",
+      "onChange",
+      "showExpandIcon",
+      "style",
+      "triggerRegion"
+    ],
+    "total": 18,
+    "syncDate": "2026/08/28"
+  }
+}

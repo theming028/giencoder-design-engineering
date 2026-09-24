@@ -1,0 +1,148 @@
+{
+  "schemaVersion": 3,
+  "slug": "timeline",
+  "name": "Timeline",
+  "category": "data-display",
+  "giencoderSource": {
+    "component": "Timeline",
+    "version": "2.66.16"
+  },
+  "summary": "时间轴：按时间顺序或流程阶段展示事件序列，支持垂直/水平方向、状态节点与自定义节点",
+  "variants": [
+    {
+      "name": "vertical",
+      "description": "垂直时间轴：节点纵向排列，labelPosition 控制内容左右布局",
+      "whenToUse": "订单流转、审核流程、版本历史等时间序列"
+    },
+    {
+      "name": "horizontal",
+      "description": "水平时间轴：节点横向排列",
+      "whenToUse": "横向流程、步骤概览"
+    },
+    {
+      "name": "custom-dot",
+      "description": "自定义节点：customDot 用自定义内容替换默认圆点",
+      "whenToUse": "需要图标、图片等强视觉节点"
+    },
+    {
+      "name": "pending",
+      "description": "幽灵节点：pending 在末尾展示待处理节点",
+      "whenToUse": "流程进行中的最后一步"
+    }
+  ],
+  "sizes": [
+    {
+      "name": "default",
+      "value": "节点圆点 6px、连线宽 1px",
+      "usage": "默认尺寸"
+    }
+  ],
+  "states": [
+    {
+      "name": "default",
+      "description": "已完成节点",
+      "visual": "实心圆点 --color-primary-6，内容 --color-text-1"
+    },
+    {
+      "name": "loading",
+      "description": "pending 幽灵节点",
+      "visual": "节点处显示加载指示（Spin）"
+    },
+    {
+      "name": "empty",
+      "description": "无数据",
+      "visual": "不渲染节点或展示空态"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "timeline",
+      "element": "div.giencoder-timeline",
+      "description": "时间轴容器，direction 控制布局方向"
+    },
+    {
+      "part": "item",
+      "element": "li.giencoder-timeline-item",
+      "description": "单个时间节点条目"
+    },
+    {
+      "part": "dot",
+      "element": "div.giencoder-timeline-item-dot",
+      "description": "节点圆点（dotType hollow/solid 或 customDot）"
+    },
+    {
+      "part": "content",
+      "element": "div.giencoder-timeline-item-content",
+      "description": "事件内容：content 正文 + time 时间"
+    },
+    {
+      "part": "extra",
+      "element": "div.giencoder-timeline-item-extra",
+      "description": "额外内容区（自定义）"
+    }
+  ],
+  "interaction": {
+    "hover": "无悬停反馈（纯展示）",
+    "focus": "不接收焦点（纯展示）",
+    "keyboard": [
+      "无键盘交互（纯展示）"
+    ],
+    "motion": {
+      "duration": "0.2s",
+      "easing": "standard",
+      "description": "无默认动效；内容区内部元素（如图标）动效由业务控制"
+    },
+    "behaviorNotes": "reverse 可倒序排列；dotType 切换实心/空心节点；内容为纯展示，交互（点击等）需由业务在 content 内自建；pending 节点自动渲染在序列末尾"
+  },
+  "a11y": {
+    "role": "list",
+    "ariaAttrs": [
+      "role=listitem (时间节点子项)",
+      "aria-label (时间轴用途说明，可选)"
+    ],
+    "contrastNote": "节点色 --color-primary-6 与背景对比明显；内容文字 --color-text-1 对比度 ≥ 4.5:1",
+    "focusNote": "纯展示不接收焦点；内部若含可交互元素由业务保证焦点可达"
+  },
+  "usage": [
+    "时间序列、流程阶段等有序信息用 Timeline",
+    "节点状态语义（完成/进行中）用实心/空心点区分，必要时配合文字",
+    "方向与数据量匹配：节点多、内容长用垂直，概览类用水平",
+    "自定义节点时保持节点视觉统一，避免喧宾夺主"
+  ],
+  "doNotInvent": [
+    "不得虚构时间轴的点击展开、拖拽排序等官方不存在的交互",
+    "不得新增官方不存在的变体与状态枚举",
+    "不得用 外部 CSS 框架/Lucide 替代组件与图标体系"
+  ],
+  "tokensConsumed": [
+    "--color-primary-6",
+    "--color-border-2",
+    "--color-text-1",
+    "--color-text-2",
+    "--color-fill-2"
+  ],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "TimelineProps",
+    "props": [
+      "autoFixDotSize",
+      "children",
+      "className",
+      "direction",
+      "dot",
+      "dotColor",
+      "dotType",
+      "label",
+      "labelPosition",
+      "lineColor",
+      "lineType",
+      "mode",
+      "pending",
+      "position",
+      "reverse",
+      "style"
+    ],
+    "total": 16,
+    "syncDate": "2026/08/28"
+  }
+}

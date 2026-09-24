@@ -1,0 +1,164 @@
+{
+  "schemaVersion": 3,
+  "slug": "notification",
+  "name": "Notification",
+  "category": "feedback",
+  "giencoderSource": {
+    "component": "Notification",
+    "version": "2.66.16"
+  },
+  "summary": "通知提醒，在屏幕四角弹出卡片式消息，展示标题与正文，支持操作按钮、手动关闭与自动消失。",
+  "variants": [
+    {
+      "name": "info",
+      "description": "信息通知：弧蓝图标",
+      "whenToUse": "中性通知"
+    },
+    {
+      "name": "success",
+      "description": "成功通知：绿色图标",
+      "whenToUse": "异步任务成功通知"
+    },
+    {
+      "name": "error",
+      "description": "错误通知：红色图标",
+      "whenToUse": "任务失败通知"
+    },
+    {
+      "name": "warning",
+      "description": "警告通知：橙色图标",
+      "whenToUse": "需留意的警示通知"
+    },
+    {
+      "name": "normal",
+      "description": "普通通知：无图标（showIcon=false 效果）",
+      "whenToUse": "纯文本通知"
+    }
+  ],
+  "sizes": [
+    {
+      "name": "default",
+      "value": "卡片宽度固定 300px",
+      "usage": "官方固定宽度，无尺寸档位"
+    }
+  ],
+  "states": [
+    {
+      "name": "default",
+      "description": "常规展示",
+      "visual": "白色卡片（--color-bg-2）+ --shadow3-down + 圆角 medium"
+    },
+    {
+      "name": "hover",
+      "description": "卡片悬停",
+      "visual": "阴影常驻，不自动消失"
+    },
+    {
+      "name": "focus",
+      "description": "关闭/操作按钮获得焦点",
+      "visual": "可见焦点环（可聚焦性需使用方保证）"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "notice",
+      "element": "div.giencoder-notification",
+      "description": "通知卡片容器（宽 300px）"
+    },
+    {
+      "part": "icon",
+      "element": "span.giencoder-notification-icon",
+      "description": "类型图标（showIcon 默认 true，24px）"
+    },
+    {
+      "part": "title",
+      "element": "div.giencoder-notification-title",
+      "description": "通知标题（--font-size-title-1）"
+    },
+    {
+      "part": "content",
+      "element": "div.giencoder-notification-content",
+      "description": "通知正文（--font-size-body-3）"
+    },
+    {
+      "part": "btn",
+      "element": "div.giencoder-notification-btn",
+      "description": "底部操作按钮区（btn）"
+    },
+    {
+      "part": "close-icon",
+      "element": "span.giencoder-notification-close-icon",
+      "description": "右上关闭按钮（closable 默认 true）"
+    }
+  ],
+  "interaction": {
+    "hover": "卡片悬停不消失",
+    "focus": "关闭按钮与操作按钮可聚焦并获得可见焦点环",
+    "keyboard": [
+      "Tab: 焦点移至关闭/操作按钮",
+      "Enter: 触发聚焦的按钮",
+      "Space: 触发聚焦的按钮"
+    ],
+    "motion": {
+      "duration": "0.2s~0.3s",
+      "easing": "standard",
+      "description": "卡片从所在方位滑入/淡出"
+    },
+    "behaviorNotes": "非弹层组件，无 focusTrap/escClose/clickOutsideClose；duration 默认 3000ms 自动消失，0 不自动关闭；官方无原生 Esc 关闭能力；position 四角 topLeft/topRight/bottomLeft/bottomRight（默认 topRight）"
+  },
+  "a11y": {
+    "role": "alert",
+    "ariaAttrs": [
+      "aria-live（官方未自动输出，建议由使用方透传）"
+    ],
+    "contrastNote": "标题 --color-text-1 与卡片 --color-bg-2 对比度 ≥ 4.5:1",
+    "focusNote": "关闭/操作按钮需可见焦点环；建议补充 aria-live 以便读屏播报"
+  },
+  "usage": [
+    "通过 Notification.info/success/warning/error/normal 静态方法或 useNotification 调用",
+    "duration 默认 3000ms，0 表示不自动关闭",
+    "btn 在卡片底部放置操作按钮（如「查看」「重试」）",
+    "Notification.remove(id) 主动移除指定通知",
+    "position 四角可选，默认 topRight"
+  ],
+  "doNotInvent": [
+    "不得虚构官方不存在的 type（仅 info/success/error/warning/normal）",
+    "不得声称原生 Esc 关闭（官方未实现）",
+    "不得用 外部 CSS 框架/Lucide 替代 源启图标与 token"
+  ],
+  "tokensConsumed": [
+    "--color-bg-2",
+    "--shadow3-down",
+    "--color-primary-6",
+    "--color-success-6",
+    "--color-warning-6",
+    "--color-danger-6",
+    "--color-text-1",
+    "--color-text-2",
+    "--color-border-2",
+    "--border-radius-medium",
+    "--z-index-notification"
+  ],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "NotificationProps",
+    "props": [
+      "btn",
+      "className",
+      "closable",
+      "closeIcon",
+      "content",
+      "duration",
+      "icon",
+      "id",
+      "onClose",
+      "position",
+      "showIcon",
+      "style",
+      "title",
+      "type"
+    ],
+    "total": 14,
+    "syncDate": "2026/08/28"
+  }
+}

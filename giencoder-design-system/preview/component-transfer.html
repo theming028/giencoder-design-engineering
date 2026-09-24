@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>Transfer 穿梭框</title>
+  <link rel="stylesheet" href="preview-scaffold.css">
+  <link rel="stylesheet" href="../colors_and_type.css">
+  <link rel="stylesheet" href="../components.css">
+</head>
+<body>
+  <div class="pv-layout">
+    <aside class="pv-sidebar">
+      <div class="pv-nav">
+        <div class="pv-menu-group">入口</div>
+        <a href="../home.html">首页</a>
+        <a href="../../GETTING-STARTED.html">使用说明书</a>
+        <div class="pv-menu-group">组件</div>
+        <a href="../index.html#general">通用</a>
+        <a href="../index.html#layout">布局</a>
+        <a href="../index.html#navigation">导航</a>
+        <a href="../index.html#data-entry" class="active">数据录入</a>
+        <a href="../index.html#data-display">数据展示</a>
+        <a href="../index.html#feedback">反馈</a>
+        <a href="../index.html#other">其他</a>
+        <div class="pv-menu-group">资源</div>
+        <a href="../index.html#uikits">页面样板</a>
+        <a href="../index.html#docs">规范文档</a>
+      </div>
+    </aside>
+    <main class="pv-content">
+  <a class="pv-back" href="../index.html#data-entry">← 返回组件库</a>
+  <div class="pv-header">
+    <h1>Transfer 穿梭框</h1>
+    <p>源启穿梭框：左右两栏 200px，头部全选 + 搜索 + 列表复选，中间圆形穿梭按钮，底部全选与计数。</p>
+  </div>
+
+  <!-- ============ 变体：默认 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Default 穿梭框（左 4 项 2 项已选高亮 / 右 2 项）</div>
+    <div class="row" style="gap:12px; align-items:flex-start;">
+      <div class="giencoder-transfer" data-component="transfer" data-variant="default" data-state="default" style="display:flex; gap:12px; align-items:center;">
+        <!-- 左栏 -->
+        <div class="giencoder-transfer-panel" style="width:200px; border:1px solid var(--color-border-2); border-radius:var(--border-radius-medium); background:var(--color-bg-2);">
+          <div class="giencoder-transfer-header" style="display:flex; align-items:center; gap:8px; padding:10px 12px; border-bottom:1px solid var(--color-border-1);">
+            <label class="giencoder-checkbox giencoder-checkbox-indeterminate">
+              <input class="giencoder-checkbox-input" type="checkbox">
+              <span class="giencoder-checkbox-mask"></span>
+            </label>
+            <span style="font-size:var(--font-size-body-3); color:var(--color-text-2);">待选列表</span>
+            <span style="margin-left:auto; font-size:var(--font-size-body-1); color:var(--color-text-4);">2 / 4</span>
+          </div>
+          <div class="giencoder-transfer-search" style="padding:10px 12px; border-bottom:1px solid var(--color-border-1);">
+            <div class="giencoder-input-wrapper" style="width:100%; min-width:0;">
+              <span class="giencoder-input-prefix">
+                <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="7" cy="7" r="4.5"/><path d="M10.5 10.5L14 14"/></svg>
+              </span>
+              <input class="giencoder-input" placeholder="搜索" style="height:28px;">
+            </div>
+          </div>
+          <ul class="giencoder-transfer-list" style="list-style:none; margin:0; padding:4px 0; min-height:132px;">
+            <li class="giencoder-transfer-item giencoder-transfer-item-checked" style="display:flex; align-items:center; height:32px; padding:0 12px; border-radius:var(--border-radius-medium); background:var(--color-primary-light-1); cursor:pointer;">
+              <label class="giencoder-checkbox">
+                <input class="giencoder-checkbox-input" type="checkbox" checked>
+                <span class="giencoder-checkbox-mask"></span>
+                <span style="font-size:var(--font-size-body-3); color:var(--color-text-1);">项目一</span>
+              </label>
+            </li>
+            <li class="giencoder-transfer-item giencoder-transfer-item-checked" style="display:flex; align-items:center; height:32px; padding:0 12px; border-radius:var(--border-radius-medium); background:var(--color-primary-light-1); cursor:pointer;">
+              <label class="giencoder-checkbox">
+                <input class="giencoder-checkbox-input" type="checkbox" checked>
+                <span class="giencoder-checkbox-mask"></span>
+                <span style="font-size:var(--font-size-body-3); color:var(--color-text-1);">项目二</span>
+              </label>
+            </li>
+            <li class="giencoder-transfer-item" style="display:flex; align-items:center; height:32px; padding:0 12px; border-radius:var(--border-radius-medium); cursor:pointer;">
+              <label class="giencoder-checkbox">
+                <input class="giencoder-checkbox-input" type="checkbox">
+                <span class="giencoder-checkbox-mask"></span>
+                <span style="font-size:var(--font-size-body-3); color:var(--color-text-1);">项目三</span>
+              </label>
+            </li>
+            <li class="giencoder-transfer-item" style="display:flex; align-items:center; height:32px; padding:0 12px; border-radius:var(--border-radius-medium); cursor:pointer;">
+              <label class="giencoder-checkbox">
+                <input class="giencoder-checkbox-input" type="checkbox">
+                <span class="giencoder-checkbox-mask"></span>
+                <span style="font-size:var(--font-size-body-3); color:var(--color-text-1);">项目四</span>
+              </label>
+            </li>
+          </ul>
+          <div class="giencoder-transfer-footer" style="display:flex; align-items:center; gap:8px; padding:10px 12px; border-top:1px solid var(--color-border-1);">
+            <span style="font-size:var(--font-size-body-3); color:var(--color-text-2); cursor:pointer;">全选</span>
+            <span style="margin-left:auto; font-size:var(--font-size-body-1); color:var(--color-text-4);">2 / 4</span>
+          </div>
+        </div>
+
+        <!-- 穿梭按钮 -->
+        <div class="giencoder-transfer-operations" style="display:flex; flex-direction:column; gap:8px;">
+          <button class="giencoder-transfer-btn giencoder-transfer-btn-primary" type="button" aria-label="移至右侧" style="width:32px; height:32px; border-radius:50%; border:none; background:var(--color-primary-6); color:var(--color-white); display:inline-flex; align-items:center; justify-content:center; cursor:pointer;">
+            <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </button>
+          <button class="giencoder-transfer-btn" type="button" aria-label="移至左侧" disabled aria-disabled="true" style="width:32px; height:32px; border-radius:50%; border:1px solid var(--color-border-2); background:var(--color-bg-2); color:var(--color-text-4); display:inline-flex; align-items:center; justify-content:center; opacity:0.45; cursor:not-allowed;">
+            <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 8H3M7 4l-4 4 4 4"/></svg>
+          </button>
+        </div>
+
+        <!-- 右栏 -->
+        <div class="giencoder-transfer-panel" style="width:200px; border:1px solid var(--color-border-2); border-radius:var(--border-radius-medium); background:var(--color-bg-2);">
+          <div class="giencoder-transfer-header" style="display:flex; align-items:center; gap:8px; padding:10px 12px; border-bottom:1px solid var(--color-border-1);">
+            <label class="giencoder-checkbox">
+              <input class="giencoder-checkbox-input" type="checkbox" checked>
+              <span class="giencoder-checkbox-mask"></span>
+            </label>
+            <span style="font-size:var(--font-size-body-3); color:var(--color-text-2);">已选列表</span>
+            <span style="margin-left:auto; font-size:var(--font-size-body-1); color:var(--color-text-4);">2 / 2</span>
+          </div>
+          <div class="giencoder-transfer-search" style="padding:10px 12px; border-bottom:1px solid var(--color-border-1);">
+            <div class="giencoder-input-wrapper" style="width:100%; min-width:0;">
+              <span class="giencoder-input-prefix">
+                <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="7" cy="7" r="4.5"/><path d="M10.5 10.5L14 14"/></svg>
+              </span>
+              <input class="giencoder-input" placeholder="搜索" style="height:28px;">
+            </div>
+          </div>
+          <ul class="giencoder-transfer-list" style="list-style:none; margin:0; padding:4px 0; min-height:132px;">
+            <li class="giencoder-transfer-item giencoder-transfer-item-checked" style="display:flex; align-items:center; height:32px; padding:0 12px; border-radius:var(--border-radius-medium); background:var(--color-primary-light-1); cursor:pointer;">
+              <label class="giencoder-checkbox">
+                <input class="giencoder-checkbox-input" type="checkbox" checked>
+                <span class="giencoder-checkbox-mask"></span>
+                <span style="font-size:var(--font-size-body-3); color:var(--color-text-1);">项目五</span>
+              </label>
+            </li>
+            <li class="giencoder-transfer-item giencoder-transfer-item-checked" style="display:flex; align-items:center; height:32px; padding:0 12px; border-radius:var(--border-radius-medium); background:var(--color-primary-light-1); cursor:pointer;">
+              <label class="giencoder-checkbox">
+                <input class="giencoder-checkbox-input" type="checkbox" checked>
+                <span class="giencoder-checkbox-mask"></span>
+                <span style="font-size:var(--font-size-body-3); color:var(--color-text-1);">项目六</span>
+              </label>
+            </li>
+          </ul>
+          <div class="giencoder-transfer-footer" style="display:flex; align-items:center; gap:8px; padding:10px 12px; border-top:1px solid var(--color-border-1);">
+            <span style="font-size:var(--font-size-body-3); color:var(--color-text-2); cursor:pointer;">全选</span>
+            <span style="margin-left:auto; font-size:var(--font-size-body-1); color:var(--color-text-4);">2 / 2</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 变体：穿梭按钮 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Operations 穿梭按钮（圆形，右移启用 / 左移禁用）</div>
+    <div class="row" style="gap:12px; align-items:center;">
+      <div class="giencoder-transfer-operations" data-component="transfer" data-variant="operations" data-state="default" style="display:flex; gap:12px;">
+        <button class="giencoder-transfer-btn giencoder-transfer-btn-primary" type="button" aria-label="移至右侧" style="width:32px; height:32px; border-radius:50%; border:none; background:var(--color-primary-6); color:var(--color-white); display:inline-flex; align-items:center; justify-content:center; cursor:pointer;">
+          <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+        </button>
+        <button class="giencoder-transfer-btn giencoder-transfer-btn-hover" type="button" aria-label="移至右侧" style="width:32px; height:32px; border-radius:50%; border:none; background:var(--color-primary-5); color:var(--color-white); display:inline-flex; align-items:center; justify-content:center; cursor:pointer;">
+          <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+        </button>
+        <button class="giencoder-transfer-btn" type="button" aria-label="移至左侧" style="width:32px; height:32px; border-radius:50%; border:1px solid var(--color-border-2); background:var(--color-bg-2); color:var(--color-text-2); display:inline-flex; align-items:center; justify-content:center; cursor:pointer;">
+          <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 8H3M7 4l-4 4 4 4"/></svg>
+        </button>
+        <button class="giencoder-transfer-btn" type="button" aria-label="移至左侧" disabled aria-disabled="true" style="width:32px; height:32px; border-radius:50%; border:1px solid var(--color-border-2); background:var(--color-bg-2); color:var(--color-text-4); display:inline-flex; align-items:center; justify-content:center; opacity:0.45; cursor:not-allowed;">
+          <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 8H3M7 4l-4 4 4 4"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+<script>
+/* ============================================================
+ * 源启 Transfer 交互脚本（component-transfer）
+ * 1) 右箭头：左侧已选项（checked）克隆移入右侧（保持选中态高亮），左侧移除
+ * 2) 左箭头：右侧已选项移回左侧（还原为未选中候选态）；disabled 按钮不生效
+ * 3) 头部 checkbox / 底部"全选"：切换本侧全选/取消全选
+ * 4) 单项 checkbox：切换该项选中态（含背景高亮）
+ * 5) 计数文本（"N / M"）与头部 checkbox 状态（全选/半选）实时同步
+ * ============================================================ */
+(function () {
+  'use strict';
+
+  function $(sel, root) { return (root || document).querySelector(sel); }
+  function $$(sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); }
+
+  var transfer = $('.giencoder-transfer[data-variant="default"]');
+  if (!transfer) return;
+  var panels = $$('.giencoder-transfer-panel', transfer);
+  if (panels.length < 2) return;
+  var left = panels[0], right = panels[1];
+
+  function listOf(panel) { return $('.giencoder-transfer-list', panel); }
+  function itemsOf(panel) { var l = listOf(panel); return l ? $$('.giencoder-transfer-item', l) : []; }
+  function countsOf(panel) {
+    return {
+      header: $('.giencoder-transfer-header > span:last-child', panel),
+      footer: $('.giencoder-transfer-footer > span:last-child', panel)
+    };
+  }
+  function headerBox(panel) { return $('.giencoder-transfer-header .giencoder-checkbox-input', panel); }
+  function headerLabel(panel) { return $('.giencoder-transfer-header .giencoder-checkbox', panel); }
+
+  // 5) 同步计数与头部 checkbox 状态
+  function updatePanel(panel) {
+    var items = itemsOf(panel);
+    var total = items.length;
+    var checked = 0;
+    items.forEach(function (it) {
+      var cb = $('.giencoder-checkbox-input', it);
+      var on = !!(cb && cb.checked);
+      if (on) checked += 1;
+      it.classList.toggle('giencoder-transfer-item-checked', on);
+      it.style.background = on ? 'var(--color-primary-light-1)' : '';
+    });
+    var text = checked + ' / ' + total;
+    var c = countsOf(panel);
+    if (c.header) c.header.textContent = text;
+    if (c.footer) c.footer.textContent = text;
+    var box = headerBox(panel);
+    if (box) {
+      box.checked = total > 0 && checked === total;
+      box.indeterminate = checked > 0 && checked < total;
+    }
+    if (headerLabel(panel)) {
+      headerLabel(panel).classList.toggle('giencoder-checkbox-indeterminate', checked > 0 && checked < total);
+    }
+  }
+
+  // 1) 2) 移动项（keepChecked 决定目标侧选中态）
+  function moveItems(from, to, keepChecked) {
+    var fl = listOf(from), tl = listOf(to);
+    if (!fl || !tl) return;
+    $$('.giencoder-transfer-item', fl).forEach(function (item) {
+      var cb = $('.giencoder-checkbox-input', item);
+      if (!cb || !cb.checked) return;
+      var clone = item.cloneNode(true);
+      var cloneCb = $('.giencoder-checkbox-input', clone);
+      if (cloneCb) cloneCb.checked = !!keepChecked;
+      clone.classList.toggle('giencoder-transfer-item-checked', !!keepChecked);
+      clone.style.background = keepChecked ? 'var(--color-primary-light-1)' : '';
+      tl.appendChild(clone);
+      item.parentNode.removeChild(item);
+    });
+    updatePanel(from);
+    updatePanel(to);
+  }
+
+  // 穿梭按钮（disabled 不触发）
+  $$('.giencoder-transfer-btn', transfer).forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      if (btn.disabled) return;
+      var label = btn.getAttribute('aria-label') || '';
+      if (label === '移至右侧') moveItems(left, right, true);
+      else if (label === '移至左侧') moveItems(right, left, false);
+    });
+  });
+
+  // 4) 单项切换
+  [left, right].forEach(function (panel) {
+    var list = listOf(panel);
+    if (!list) return;
+    list.addEventListener('change', function (ev) {
+      if (ev.target.classList.contains('giencoder-checkbox-input') &&
+          ev.target.closest('.giencoder-transfer-item')) {
+        updatePanel(panel);
+      }
+    });
+  });
+
+  // 3) 头部全选 checkbox
+  [left, right].forEach(function (panel) {
+    var box = headerBox(panel);
+    if (!box) return;
+    box.addEventListener('change', function () {
+      itemsOf(panel).forEach(function (it) {
+        var cb = $('.giencoder-checkbox-input', it);
+        if (cb) cb.checked = box.checked;
+      });
+      updatePanel(panel);
+    });
+  });
+
+  // 3) 底部"全选"：全选 / 全不选切换
+  [left, right].forEach(function (panel) {
+    var foot = $('.giencoder-transfer-footer', panel);
+    if (!foot) return;
+    var all = foot.firstElementChild;
+    if (!all) return;
+    all.addEventListener('click', function () {
+      var items = itemsOf(panel);
+      var allOn = items.length > 0 && items.every(function (it) {
+        var cb = $('.giencoder-checkbox-input', it);
+        return !!(cb && cb.checked);
+      });
+      items.forEach(function (it) {
+        var cb = $('.giencoder-checkbox-input', it);
+        if (cb) cb.checked = !allOn;
+      });
+      updatePanel(panel);
+    });
+  });
+
+  // 初始化状态
+  updatePanel(left);
+  updatePanel(right);
+})();
+</script>
+    </main>
+  </div>
+<script src="preview-copy.js"></script>
+</body>
+</html>

@@ -1,0 +1,157 @@
+{
+  "schemaVersion": 3,
+  "slug": "popconfirm",
+  "name": "Popconfirm",
+  "category": "feedback",
+  "giencoderSource": {
+    "component": "Popconfirm",
+    "version": "2.66.16"
+  },
+  "summary": "气泡确认框，在触发元素旁弹出确认面板，用于删除、提交等操作的二次确认。",
+  "variants": [
+    {
+      "name": "default",
+      "description": "标准确认：警示图标 + 文案 + 取消/确认按钮",
+      "whenToUse": "常规操作二次确认"
+    },
+    {
+      "name": "danger",
+      "description": "危险确认：确认按钮配 type=danger",
+      "whenToUse": "删除等不可逆危险操作"
+    }
+  ],
+  "sizes": [
+    {
+      "name": "default",
+      "value": "自适应内容宽度",
+      "usage": "官方无尺寸档位"
+    }
+  ],
+  "states": [
+    {
+      "name": "default",
+      "description": "收起状态",
+      "visual": "仅显示触发元素"
+    },
+    {
+      "name": "hover",
+      "description": "trigger=hover 时悬停触发",
+      "visual": "悬停目标显示弹出面板"
+    },
+    {
+      "name": "disabled",
+      "description": "禁用触发（disabled=true）",
+      "visual": "不响应任何触发事件"
+    },
+    {
+      "name": "loading",
+      "description": "onOk 返回 Promise 时确认按钮加载中",
+      "visual": "确认按钮转圈并防重复点击"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "popup",
+      "element": "div[role=tooltip]",
+      "description": "弹出面板（基于 Tooltip，原生 role=\"tooltip\"）"
+    },
+    {
+      "part": "icon",
+      "element": "span",
+      "description": "警示图标（默认 IconExclamationCircleFill）"
+    },
+    {
+      "part": "content",
+      "element": "div",
+      "description": "标题/内容文案（title/content）"
+    },
+    {
+      "part": "cancel-btn",
+      "element": "button",
+      "description": "取消按钮（cancelText）"
+    },
+    {
+      "part": "ok-btn",
+      "element": "button",
+      "description": "确认按钮（okType 默认 primary）"
+    }
+  ],
+  "interaction": {
+    "hover": "trigger=hover 时悬停触发元素显示面板",
+    "focus": "弹出后 autoFocus 聚焦面板内可聚焦元素（focusLock 开启时锁定）",
+    "keyboard": [
+      "Enter: 触发确认按钮（onOk）",
+      "Esc: 关闭面板（需开启 escToClose，官方默认关闭）",
+      "Tab: 焦点在取消/确认按钮间移动",
+      "Shift+Tab: 反向移动"
+    ],
+    "motion": {
+      "duration": "0.2s",
+      "easing": "standard",
+      "description": "面板缩放 + 淡入"
+    },
+    "behaviorNotes": "弹层类组件：focusTrap（focusLock 可选，开启后焦点在面板内循环）；escClose（escToClose 透传 Trigger，官方默认未开启）；clickOutsideClose（trigger=click 时点击外部默认关闭，blurToHide 控制失焦关闭）；position 12 方位（默认 top）"
+  },
+  "a11y": {
+    "role": "tooltip",
+    "ariaAttrs": [
+      "aria-label（触发元素可访问名，建议）"
+    ],
+    "contrastNote": "面板 --color-bg-5 与 --color-text-1 对比度 ≥ 4.5:1",
+    "focusNote": "focusLock 开启时焦点锁定面板内；取消/确认按钮键盘可达"
+  },
+  "usage": [
+    "onOk 返回 Promise 时确认按钮自动 loading 并防止重复提交",
+    "危险场景用 okButtonProps={{type:'danger'}} 配置",
+    "position 12 方位按需选择，默认 top",
+    "popupVisible/defaultPopupVisible 受控/非受控切换",
+    "trigger 默认 click，可配 hover/focus/contextMenu"
+  ],
+  "doNotInvent": [
+    "不得虚构 position 之外的方位或额外变体",
+    "不得声称 Esc 默认关闭（escToClose 官方默认未开启）",
+    "不得用 外部 CSS 框架/Lucide 替代 源启组件与 token"
+  ],
+  "tokensConsumed": [
+    "--color-bg-5",
+    "--color-primary-6",
+    "--color-danger-6",
+    "--color-text-1",
+    "--shadow2-down",
+    "--border-radius-medium"
+  ],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "PopconfirmProps",
+    "props": [
+      "autoFocus",
+      "blurToHide",
+      "cancelButtonProps",
+      "cancelText",
+      "className",
+      "content",
+      "defaultPopupVisible",
+      "disabled",
+      "escToClose",
+      "focusLock",
+      "getPopupContainer",
+      "icon",
+      "okButtonProps",
+      "okText",
+      "okType",
+      "onCancel",
+      "onConfirm",
+      "onOk",
+      "onVisibleChange",
+      "popupVisible",
+      "position",
+      "style",
+      "title",
+      "trigger",
+      "triggerProps",
+      "unmountOnExit"
+    ],
+    "total": 26,
+    "syncDate": "2026/08/28"
+  }
+}

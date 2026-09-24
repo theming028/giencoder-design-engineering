@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>图片 Image</title>
+  <link rel="stylesheet" href="preview-scaffold.css">
+  <link rel="stylesheet" href="../colors_and_type.css">
+  <link rel="stylesheet" href="../components.css">
+  <style>
+    /* 页面级演示样式（preview-format.md §3）：组件样式并入 components.css 后可整体移除 */
+    .giencoder-image { display: inline-block; }
+    .giencoder-image-mask-wrapper { position: relative; overflow: hidden; border-radius: var(--border-radius-large); }
+    .giencoder-image-placeholder { display: flex; align-items: center; justify-content: center; font-size: var(--font-size-body-2); color: var(--color-white); }
+    .giencoder-image-hover-mask { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: var(--spacing-2); background: var(--color-mask-bg); color: var(--color-white); font-size: var(--font-size-body-3); opacity: 0; transition: opacity var(--transition-duration-2); }
+    .giencoder-image-mask-wrapper:hover .giencoder-image-hover-mask { opacity: 1; }
+    .giencoder-image-caption { margin-top: var(--spacing-4); font-size: var(--font-size-body-1); color: var(--color-text-3); text-align: center; }
+    .giencoder-image-error .giencoder-image-mask-wrapper { display: flex; align-items: center; justify-content: center; background: var(--color-fill-2); }
+    .giencoder-image-error-state { display: flex; flex-direction: column; align-items: center; gap: var(--spacing-3); color: var(--color-text-4); }
+    .giencoder-image-error-text { font-size: var(--font-size-body-2); }
+    .giencoder-image-preview { position: relative; width: 560px; height: 380px; }
+    .giencoder-image-preview-mask { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: var(--color-mask-bg); border-radius: var(--border-radius-large); }
+    .giencoder-image-preview-img { display: flex; align-items: center; justify-content: center; width: 420px; height: 260px; border-radius: var(--border-radius-large); color: var(--color-white); font-size: var(--font-size-body-3); }
+    .giencoder-image-preview-close { position: absolute; top: var(--spacing-5); right: var(--spacing-5); }
+    .giencoder-image-preview-zoom { position: absolute; bottom: var(--spacing-5); left: var(--spacing-5); display: flex; gap: var(--spacing-3); }
+    .giencoder-image-preview-btn { width: 28px; height: 28px; border: none; border-radius: var(--border-radius-small); background: rgba(255, 255, 255, 0.2); color: var(--color-white); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background var(--transition-duration-2); }
+    .giencoder-image-preview-btn:hover { background: rgba(255, 255, 255, 0.35); }
+  </style>
+</head>
+<body>
+  <div class="pv-layout">
+    <aside class="pv-sidebar">
+      <div class="pv-nav">
+        <div class="pv-menu-group">入口</div>
+        <a href="../home.html">首页</a>
+        <a href="../../GETTING-STARTED.html">使用说明书</a>
+        <div class="pv-menu-group">组件</div>
+        <a href="../index.html#general">通用</a>
+        <a href="../index.html#layout">布局</a>
+        <a href="../index.html#navigation">导航</a>
+        <a href="../index.html#data-entry">数据录入</a>
+        <a href="../index.html#data-display" class="active">数据展示</a>
+        <a href="../index.html#feedback">反馈</a>
+        <a href="../index.html#other">其他</a>
+        <div class="pv-menu-group">资源</div>
+        <a href="../index.html#uikits">页面样板</a>
+        <a href="../index.html#docs">规范文档</a>
+      </div>
+    </aside>
+    <main class="pv-content">
+  <a class="pv-back" href="../index.html#data-display">← 返回组件库</a>
+  <div class="pv-header">
+    <h1>Image 图片</h1>
+    <p>源启图片：基础图 + 描述、加载失败态（破损图标 + 文字）、预览遮罩（全屏深色遮罩 + 关闭/缩放）。</p>
+  </div>
+
+  <!-- ============ 变体：基础图片 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Default 基础图片（悬停出现预览入口）</div>
+    <div class="row">
+      <div class="giencoder-image" data-component="image" data-variant="default" data-state="default">
+        <div class="giencoder-image-mask-wrapper">
+          <div class="giencoder-image-placeholder" style="width:300px; height:180px; background:linear-gradient(135deg, var(--color-primary-1), var(--color-primary-6));">产品主视觉</div>
+          <div class="giencoder-image-hover-mask">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>
+            预览
+          </div>
+        </div>
+        <div class="giencoder-image-caption">产品主视觉 · 800×480</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 变体：加载失败 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Error 加载失败态</div>
+    <div class="row">
+      <div class="giencoder-image giencoder-image-error" data-component="image" data-variant="error" data-state="error">
+        <div class="giencoder-image-mask-wrapper" style="width:300px; height:180px;">
+          <div class="giencoder-image-error-state">
+            <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.8"/><path d="M3.5 18l4.5-4 3.5 3 4-4.5 5 5.5"/><path d="M14.5 6.5L13 9.5l2.5 1.5-2 3"/></svg>
+            <span class="giencoder-image-error-text">加载失败</span>
+          </div>
+        </div>
+        <div class="giencoder-image-caption">图片加载失败示例</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 变体：预览遮罩 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Preview 预览遮罩示例（全屏深色遮罩 + 中央放大图 + 右上关闭 + 左下缩放）</div>
+    <div class="row">
+      <div class="giencoder-image-preview" data-component="image" data-variant="preview" data-state="open">
+        <div class="giencoder-image-preview-mask">
+          <!-- 右上：关闭 -->
+          <button class="giencoder-image-preview-btn giencoder-image-preview-close" aria-label="关闭预览"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
+          <!-- 左下：缩放 -->
+          <div class="giencoder-image-preview-zoom">
+            <button class="giencoder-image-preview-btn" aria-label="缩小"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14"/></svg></button>
+            <button class="giencoder-image-preview-btn" aria-label="放大"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+          </div>
+          <!-- 中央：放大图 -->
+          <div class="giencoder-image-preview-img" style="background:linear-gradient(135deg, var(--color-primary-3), var(--color-primary-6));">产品主视觉</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <style>
+    /* 交互动效样式（动态预览遮罩容器 + 开合过渡，勿并入 components.css） */
+    /* 交互动效用：预览打开 — 遮罩淡入 0.3s + 图片 scale(0.95→1) 0.3s；关闭反向 0.2s */
+    .giencoder-image-preview-overlay { position: fixed; inset: 0; z-index: 1000; display: none; align-items: center; justify-content: center; background: rgba(0, 0, 0, 0.6); opacity: 0; transition: opacity 0.3s var(--transition-timing-function-standard); }
+    .giencoder-image-preview-overlay.pv-overlay-open { opacity: 1; }
+    /* 关闭阶段：遮罩/图片过渡时长收紧为 0.2s */
+    .giencoder-image-preview-overlay.pv-overlay-closing,
+    .giencoder-image-preview-overlay.pv-overlay-closing .giencoder-image-preview-img { transition-duration: 0.2s; }
+    @keyframes pv-img-in { from { transform: scale(0.95); } to { transform: scale(var(--pv-scale, 1)); } }
+    @keyframes pv-img-out { from { transform: scale(var(--pv-scale, 1)); } to { transform: scale(0.95); } }
+    .pv-img-anim-in { animation: pv-img-in 0.3s var(--transition-timing-function-spring) both; }
+    .pv-img-anim-out { animation: pv-img-out 0.2s var(--transition-timing-function-standard) both; }
+    /* 交互动效用：静态 Preview 示例关闭 — 淡出 + 微缩放 0.2s */
+    .pv-preview-demo-leave { opacity: 0; transform: scale(0.98); transition: opacity 0.2s var(--transition-timing-function-standard), transform 0.2s var(--transition-timing-function-standard); }
+  </style>
+  <script>
+    /* ========== component-image：交互清单 ==========
+       1) 点击基础图片：打开预览遮罩（<body> 下动态创建，复用 giencoder-image-preview-* class）
+       2) 遮罩内：右上关闭按钮 / 左下放大缩小按钮 / 点击遮罩背景 / Esc 关闭
+       3) 静态 Preview 变体：点击关闭按钮或遮罩背景隐藏该示例
+    */
+    (function () {
+      'use strict';
+      var overlay = null;
+      function buildOverlay() {
+        if (overlay) return overlay;
+        overlay = document.createElement('div');
+        overlay.className = 'giencoder-image-preview-overlay';
+        overlay.innerHTML =
+          '<div class="giencoder-image-preview-mask">' +
+            '<button class="giencoder-image-preview-btn giencoder-image-preview-close" aria-label="关闭预览"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"/></svg></button>' +
+            '<div class="giencoder-image-preview-img" style="background:linear-gradient(135deg, var(--color-primary-3), var(--color-primary-6));">产品主视觉</div>' +
+            '<div class="giencoder-image-preview-zoom">' +
+              '<button class="giencoder-image-preview-btn" aria-label="缩小"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14"/></svg></button>' +
+              '<button class="giencoder-image-preview-btn" aria-label="放大"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>' +
+            '</div>' +
+          '</div>';
+        document.body.appendChild(overlay);
+
+        var scale = 1;
+        var img = overlay.querySelector('.giencoder-image-preview-img');
+        var closeBtn = overlay.querySelector('.giencoder-image-preview-close');
+        var zoomBtns = overlay.querySelectorAll('.giencoder-image-preview-zoom .giencoder-image-preview-btn');
+
+        /* 交互动效用：关闭 — 遮罩淡出 + 图片反向缩放（0.2s）后隐藏 */
+        function close() {
+          if (!overlay || overlay._closing || overlay.style.display === 'none') return;
+          overlay._closing = true;
+          if (img) img.style.setProperty('--pv-scale', scale);
+          overlay.classList.add('pv-overlay-closing');
+          overlay.classList.remove('pv-overlay-open');
+          if (img) img.classList.add('pv-img-anim-out');
+          setTimeout(function () {
+            /* 空指针防护：元素可能已被移除 */
+            if (overlay.parentNode) overlay.style.display = 'none';
+            overlay.classList.remove('pv-overlay-open', 'pv-overlay-closing');
+            if (img) img.classList.remove('pv-img-anim-in', 'pv-img-anim-out');
+            overlay._closing = false;
+          }, 240);
+        }
+
+        /* 交互动效用：打开 — 遮罩淡入 + 图片 scale(0.95→1)（0.3s） */
+        function openOverlay() {
+          if (!overlay || overlay._closing || overlay.style.display === 'flex') return;
+          overlay.classList.remove('pv-overlay-closing');
+          overlay.style.display = 'flex';
+          void overlay.offsetHeight; /* 强制回流，使淡入过渡生效 */
+          overlay.classList.add('pv-overlay-open');
+          if (img) {
+            img.style.setProperty('--pv-scale', scale);
+            img.classList.add('pv-img-anim-in');
+            setTimeout(function () {
+              /* 动画结束清理（fill both 需移除，恢复内联缩放态） */
+              if (img && img.classList) img.classList.remove('pv-img-anim-in');
+            }, 340);
+          }
+        }
+
+        if (closeBtn) closeBtn.addEventListener('click', close);
+        /* 点击遮罩背景关闭（mask 铺满全屏，target 为 mask 时视为点背景） */
+        overlay.addEventListener('click', function (e) {
+          if (e.target === overlay || (e.target.classList && e.target.classList.contains('giencoder-image-preview-mask'))) close();
+        });
+        if (zoomBtns.length >= 2) {
+          zoomBtns[0].addEventListener('click', function () {
+            scale = Math.max(0.5, +(scale * 0.8).toFixed(2));
+            if (img) {
+              img.style.transform = 'scale(' + scale + ')';
+              img.style.setProperty('--pv-scale', scale);
+            }
+          });
+          zoomBtns[1].addEventListener('click', function () {
+            scale = Math.min(3, +(scale * 1.25).toFixed(2));
+            if (img) {
+              img.style.transform = 'scale(' + scale + ')';
+              img.style.setProperty('--pv-scale', scale);
+            }
+          });
+        }
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape') close();
+        });
+        /* 暴露开启动画入口，供缩略图点击调用 */
+        overlay.openOverlay = openOverlay;
+        return overlay;
+      }
+
+      /* 1) 基础图片点击 → 打开预览（带动效） */
+      var images = document.querySelectorAll('.giencoder-image[data-variant="default"]');
+      images.forEach(function (image) {
+        var wrapper = image.querySelector('.giencoder-image-mask-wrapper');
+        if (!wrapper) return;
+        wrapper.addEventListener('click', function () {
+          var ov = buildOverlay();
+          if (ov && ov.openOverlay) ov.openOverlay();
+        });
+      });
+
+      /* 3) 静态 Preview 变体：关闭按钮 / 遮罩背景 → 淡出后隐藏示例 */
+      var previewDemo = document.querySelector('.giencoder-image-preview[data-variant="preview"]');
+      if (previewDemo) {
+        var closeBtn = previewDemo.querySelector('.giencoder-image-preview-close');
+        var mask = previewDemo.querySelector('.giencoder-image-preview-mask');
+        function hideDemo() {
+          /* 空指针防护 + 防重复触发 */
+          if (!previewDemo || previewDemo._hidden) return;
+          previewDemo._hidden = true;
+          previewDemo.classList.add('pv-preview-demo-leave');
+          setTimeout(function () {
+            if (previewDemo.parentNode) previewDemo.style.display = 'none';
+          }, 220);
+        }
+        if (closeBtn) closeBtn.addEventListener('click', hideDemo);
+        if (mask) {
+          mask.addEventListener('click', function (e) {
+            if (e.target === mask) hideDemo();
+          });
+        }
+      }
+    })();
+  </script>
+    </main>
+  </div>
+<script src="preview-copy.js"></script>
+</body>
+</html>

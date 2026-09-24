@@ -1,0 +1,156 @@
+{
+  "schemaVersion": 3,
+  "slug": "steps",
+  "name": "Steps",
+  "category": "navigation",
+  "giencoderSource": {
+    "component": "Steps",
+    "version": "2.66.16"
+  },
+  "summary": "步骤条：分步流程引导，展示当前进度与各步骤状态（wait/process/finish/error），支持点击跳转。",
+  "variants": [
+    {
+      "name": "horizontal",
+      "description": "横向步骤条（默认）",
+      "whenToUse": "顶部横向流程引导"
+    },
+    {
+      "name": "vertical",
+      "description": "纵向步骤条",
+      "whenToUse": "空间允许的纵向流程/侧边流程"
+    },
+    {
+      "name": "clickable",
+      "description": "配置 onChange 后步骤可点击（stepClick）",
+      "whenToUse": "允许用户跳转任意步骤"
+    }
+  ],
+  "sizes": [
+    {
+      "name": "default",
+      "value": "节点 24px",
+      "usage": "默认流程引导"
+    },
+    {
+      "name": "small",
+      "value": "节点 20px",
+      "usage": "紧凑场景"
+    }
+  ],
+  "states": [
+    {
+      "name": "wait",
+      "description": "等待态",
+      "visual": "节点空心圆圈，--color-text-4"
+    },
+    {
+      "name": "process",
+      "description": "进行中",
+      "visual": "节点 --color-primary-6 实心，文字加粗"
+    },
+    {
+      "name": "finish",
+      "description": "完成态",
+      "visual": "节点 --color-success-6 对勾图标"
+    },
+    {
+      "name": "error",
+      "description": "异常态",
+      "visual": "节点 --color-danger-6 错误图标"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "Steps 容器",
+      "element": "div[role=list]",
+      "description": "步骤条容器，direction 决定排布"
+    },
+    {
+      "part": "Step 步骤项",
+      "element": "div[role=listitem]",
+      "description": "单个步骤：节点图标 + 标题 + 描述"
+    },
+    {
+      "part": "连接线",
+      "element": "div",
+      "description": "步骤间连线，finish 态显示主色"
+    },
+    {
+      "part": "节点图标",
+      "element": "span",
+      "description": "数字/对勾/错误图标，随状态切换"
+    }
+  ],
+  "interaction": {
+    "hover": "可点击步骤悬停节点边框加深（配置 onChange 时）",
+    "focus": "可点击步骤获得焦点显示焦点环",
+    "keyboard": [
+      "Tab: 聚焦可点击的步骤（仅配置 onChange 时）",
+      "Enter: 触发 stepClick 跳转对应步骤",
+      "（不可点击时无键盘交互，纯展示）"
+    ],
+    "motion": {
+      "duration": "0.2s",
+      "easing": "standard",
+      "description": "状态切换时节点颜色/图标过渡"
+    },
+    "behaviorNotes": "current 控制进行中步骤，status 支持整体状态覆盖；onChange 存在时步骤可点击；labelPlacement 支持文字在上/下布局。"
+  },
+  "a11y": {
+    "role": "list（容器）/ listitem（步骤项）",
+    "ariaAttrs": [
+      "aria-current=\"step\"（当前步骤）",
+      "aria-label（可选，标识流程）"
+    ],
+    "contrastNote": "--color-primary-6/--color-success-6/--color-danger-6 节点与背景对比度满足 AA",
+    "focusNote": "仅可点击步骤进入 Tab 序，纯展示流程不可聚焦"
+  },
+  "usage": [
+    "步骤建议 3~5 步，避免流程过长",
+    "用 status=error 标识失败步骤并配合提示",
+    "可点击模式仅当允许回跳时开启",
+    "垂直模式适合步骤描述较长的场景"
+  ],
+  "doNotInvent": [
+    "不虚构步骤拖拽排序能力",
+    "不虚构自动校验/自动跳步能力（current 由业务驱动）",
+    "不虚构步骤分组变体"
+  ],
+  "tokensConsumed": [
+    "--color-primary-6",
+    "--color-success-6",
+    "--color-danger-6",
+    "--color-text-1",
+    "--color-text-4",
+    "--color-border-2"
+  ],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "StepsProps",
+    "props": [
+      "children",
+      "className",
+      "current",
+      "customDot",
+      "description",
+      "direction",
+      "disabled",
+      "icon",
+      "id",
+      "index",
+      "labelPlacement",
+      "lineless",
+      "nextStepError",
+      "onChange",
+      "onClick",
+      "prefixCls",
+      "size",
+      "status",
+      "style",
+      "title",
+      "type"
+    ],
+    "total": 21,
+    "syncDate": "2026/08/28"
+  }
+}

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>Descriptions 描述列表</title>
+  <link rel="stylesheet" href="preview-scaffold.css">
+  <link rel="stylesheet" href="../colors_and_type.css">
+  <link rel="stylesheet" href="../components.css">
+</head>
+<body>
+  <div class="pv-layout">
+    <aside class="pv-sidebar">
+      <div class="pv-nav">
+        <div class="pv-menu-group">入口</div>
+        <a href="../home.html">首页</a>
+        <a href="../../GETTING-STARTED.html">使用说明书</a>
+        <div class="pv-menu-group">组件</div>
+        <a href="../index.html#general">通用</a>
+        <a href="../index.html#layout">布局</a>
+        <a href="../index.html#navigation">导航</a>
+        <a href="../index.html#data-entry">数据录入</a>
+        <a href="../index.html#data-display" class="active">数据展示</a>
+        <a href="../index.html#feedback">反馈</a>
+        <a href="../index.html#other">其他</a>
+        <div class="pv-menu-group">资源</div>
+        <a href="../index.html#uikits">页面样板</a>
+        <a href="../index.html#docs">规范文档</a>
+      </div>
+    </aside>
+    <main class="pv-content">
+  <a class="pv-back" href="../index.html#data-display">← 返回组件库</a>
+  <div class="pv-header">
+    <h1>Descriptions 描述列表</h1>
+    <p>源启描述列表：垂直/行内布局、边框、列数，只读信息展示。</p>
+  </div>
+
+  <!-- ============ 变体：垂直布局 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Vertical 垂直布局</div>
+    <div class="row">
+      <div class="giencoder-descriptions" data-component="descriptions" data-variant="vertical" data-state="default" style="width:100%;">
+        <table class="giencoder-descriptions-table" style="width:100%; border-collapse:collapse; font-size: 14px;">
+          <tbody>
+            <tr>
+              <td class="giencoder-descriptions-item-label" style="padding:8px 0; color:var(--color-text-3); width:25%;">项目名称</td>
+              <td class="giencoder-descriptions-item-value" style="padding:8px 16px; color:var(--color-text-1); width:25%;">资源管理平台</td>
+              <td class="giencoder-descriptions-item-label" style="padding:8px 0; color:var(--color-text-3); width:25%;">创建时间</td>
+              <td class="giencoder-descriptions-item-value" style="padding:8px 16px; color:var(--color-text-1); width:25%;">2026/08/28 10:00</td>
+            </tr>
+            <tr>
+              <td class="giencoder-descriptions-item-label" style="padding:8px 0; color:var(--color-text-3);">负责人</td>
+              <td class="giencoder-descriptions-item-value" style="padding:8px 16px; color:var(--color-text-1);">张三</td>
+              <td class="giencoder-descriptions-item-label" style="padding:8px 0; color:var(--color-text-3);">状态</td>
+              <td class="giencoder-descriptions-item-value" style="padding:8px 16px; color:var(--color-text-1);">
+                <span class="giencoder-tag giencoder-tag-light giencoder-tag-success">运行中</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 变体：行内 + 边框 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Inline + Bordered 行内边框布局</div>
+    <div class="row">
+      <div class="giencoder-descriptions giencoder-descriptions-bordered" data-component="descriptions" data-variant="bordered" data-state="default" style="width:100%;">
+        <table class="giencoder-descriptions-table" style="width:100%; border-collapse:collapse; font-size: 14px; border:1px solid var(--color-border-2);">
+          <tbody>
+            <tr>
+              <th class="giencoder-descriptions-item-label" style="padding:10px 12px; color:var(--color-text-3); background:var(--color-fill-1); border:1px solid var(--color-border-2); width:20%; text-align:left; font-weight:400;">实例 ID</th>
+              <td class="giencoder-descriptions-item-value" style="padding:10px 12px; color:var(--color-text-1); border:1px solid var(--color-border-2);">i-2ze5x9a1b3c4d5e6</td>
+              <th class="giencoder-descriptions-item-label" style="padding:10px 12px; color:var(--color-text-3); background:var(--color-fill-1); border:1px solid var(--color-border-2); width:20%; text-align:left; font-weight:400;">地域</th>
+              <td class="giencoder-descriptions-item-value" style="padding:10px 12px; color:var(--color-text-1); border:1px solid var(--color-border-2);">华北 2（北京）</td>
+            </tr>
+            <tr>
+              <th class="giencoder-descriptions-item-label" style="padding:10px 12px; color:var(--color-text-3); background:var(--color-fill-1); border:1px solid var(--color-border-2); text-align:left; font-weight:400;">规格</th>
+              <td class="giencoder-descriptions-item-value" style="padding:10px 12px; color:var(--color-text-1); border:1px solid var(--color-border-2);">ecs.g6.2xlarge</td>
+              <th class="giencoder-descriptions-item-label" style="padding:10px 12px; color:var(--color-text-3); background:var(--color-fill-1); border:1px solid var(--color-border-2); text-align:left; font-weight:400;">带宽</th>
+              <td class="giencoder-descriptions-item-value" style="padding:10px 12px; color:var(--color-text-1); border:1px solid var(--color-border-2);">100 Mbps</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+    </main>
+  </div>
+<script src="preview-copy.js"></script>
+</body>
+</html>

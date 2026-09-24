@@ -1,0 +1,138 @@
+{
+  "schemaVersion": 3,
+  "slug": "trigger",
+  "name": "Trigger",
+  "category": "other",
+  "giencoderSource": {
+    "component": "Trigger",
+    "version": "2.66.16"
+  },
+  "summary": "弹层触发器（基础设施）：为任意子元素附加 hover/click/contextMenu/focus 触发、12 方位定位、对齐与显隐控制的弹层能力。",
+  "variants": [
+    {
+      "name": "标准弹层",
+      "description": "白底浮层面板，圆角 4px，阴影 --shadow2-down，可选箭头",
+      "whenToUse": "构建 Tooltip/Dropdown/Popover 等弹层的底层基础设施"
+    },
+    {
+      "name": "鼠标跟随",
+      "description": "alignPoint 模式，弹层锚定鼠标指针位置",
+      "whenToUse": "右键菜单、鼠标跟随提示等场景"
+    }
+  ],
+  "sizes": [
+    {
+      "name": "default",
+      "value": "—",
+      "usage": "无固定尺寸，弹层尺寸由内容决定"
+    }
+  ],
+  "states": [
+    {
+      "name": "default",
+      "description": "弹层关闭",
+      "visual": "不渲染弹层（unmountOnExit 默认卸载 DOM）"
+    },
+    {
+      "name": "hover",
+      "description": "hover 触发型下鼠标悬停子元素",
+      "visual": "弹层展开，--color-bg-popup 背景 + --shadow2-down"
+    },
+    {
+      "name": "focus",
+      "description": "focus 触发型下子元素获得焦点",
+      "visual": "弹层展开"
+    },
+    {
+      "name": "active",
+      "description": "click/contextMenu 触发型下弹层打开",
+      "visual": "弹层展开"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "trigger-child",
+      "element": "被包裹的子元素",
+      "description": "注入 onClick/onMouseEnter/onMouseLeave/onFocus/onBlur/onContextMenu/onKeyDown 等触发事件"
+    },
+    {
+      "part": "popup",
+      "element": "div.giencoder-trigger-popup",
+      "description": "弹层外层定位容器，portal 渲染"
+    },
+    {
+      "part": "popup-inner",
+      "element": "div.giencoder-trigger-popup-inner",
+      "description": "弹层内容容器，白底圆角阴影"
+    },
+    {
+      "part": "arrow",
+      "element": "div.giencoder-trigger-arrow",
+      "description": "可选箭头（showArrow），背景 --color-bg-5"
+    }
+  ],
+  "interaction": {
+    "hover": "hover 触发型：鼠标进入子元素经 mouseEnterDelay（默认 100ms）展开，移出经 mouseLeaveDelay 关闭（popupHoverStay 控制移入弹层是否保留）",
+    "focus": "focus 触发型：子元素获得/失去焦点时展开/关闭（blurToHide 默认开启）",
+    "keyboard": [
+      "Tab: 焦点进入子元素，focus 触发型下展开弹层",
+      "Enter: click/contextMenu 触发型下切换弹层（注入 children 的 onClick）",
+      "Space: 同 Enter",
+      "Esc: escToClose 开启时关闭弹层"
+    ],
+    "motion": {
+      "duration": "0.2s",
+      "easing": "standard",
+      "description": "弹层出入场 0.2s 过渡（classNames 默认 fadeIn，duration 默认 200ms）"
+    },
+    "behaviorNotes": "focusTrap: Trigger 自身无焦点陷阱属性，焦点管理由弹层内容/上层组件承担；escClose: escToClose 属性控制（默认关闭，上层弹层组件常开启）；clickOutsideClose: clickOutsideToClose 默认开启，getDocument 指定点击外部判定的文档范围；clickToClose 控制点击子元素关闭（click/contextMenu 触发默认开启）；position 支持 12 方位，autoFitPosition 自动翻转，popupAlign 微调偏移；unmountOnExit 默认卸载隐藏弹层 DOM。"
+  },
+  "a11y": {
+    "role": "由上层组件语义决定（tooltip/dialog/menu 等），Trigger 自身无固定 role",
+    "ariaAttrs": [
+      "aria-expanded: 弹层展开状态",
+      "aria-haspopup"
+    ],
+    "contrastNote": "弹层 --color-bg-popup 背景与文字对比度满足 AA",
+    "focusNote": "无焦点陷阱，关闭后焦点停留在触发器；focus 触发型下弹层内容可继续 Tab 导航"
+  },
+  "usage": [
+    "作为弹层基础设施，供 Tooltip/Dropdown/Popover/Select 等上层组件消费",
+    "trigger 支持 hover/click/contextMenu/focus 及数组组合",
+    "popupVisible 受控 + onVisibleChange 实现精细显隐控制"
+  ],
+  "doNotInvent": [
+    "不得虚构 Trigger 不存在的触发方式或定位模式",
+    "不得虚构焦点陷阱能力（Trigger 无 focusLock 属性）",
+    "不得用 外部 CSS 框架/Lucide 替代 源启弹层结构与 token"
+  ],
+  "tokensConsumed": [
+    "--color-bg-5",
+    "--color-bg-popup",
+    "--shadow2-down",
+    "--border-radius-medium",
+    "--z-index-popup",
+    "--transition-duration-2"
+  ],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "TriggerProps",
+    "props": [
+      "alignPoint",
+      "appear",
+      "autoAlignPopupMinWidth",
+      "autoAlignPopupWidth",
+      "children",
+      "className",
+      "classNames",
+      "duration",
+      "enter",
+      "exit",
+      "getContainer",
+      "popupStyle",
+      "style"
+    ],
+    "total": 13,
+    "syncDate": "2026/08/28"
+  }
+}

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>Upload 上传</title>
+  <link rel="stylesheet" href="preview-scaffold.css">
+  <link rel="stylesheet" href="../colors_and_type.css">
+  <link rel="stylesheet" href="../components.css">
+  <style>
+    .giencoder-upload-trigger { background: var(--color-bg-2); }
+    .giencoder-upload-trigger:hover { background: var(--color-fill-1); }
+    .giencoder-upload-drag-trigger:hover { background: var(--color-fill-1); }
+  </style>
+</head>
+<body>
+  <div class="pv-layout">
+    <aside class="pv-sidebar">
+      <div class="pv-nav">
+        <div class="pv-menu-group">入口</div>
+        <a href="../home.html">首页</a>
+        <a href="../../GETTING-STARTED.html">使用说明书</a>
+        <div class="pv-menu-group">组件</div>
+        <a href="../index.html#general">通用</a>
+        <a href="../index.html#layout">布局</a>
+        <a href="../index.html#navigation">导航</a>
+        <a href="../index.html#data-entry" class="active">数据录入</a>
+        <a href="../index.html#data-display">数据展示</a>
+        <a href="../index.html#feedback">反馈</a>
+        <a href="../index.html#other">其他</a>
+        <div class="pv-menu-group">资源</div>
+        <a href="../index.html#uikits">页面样板</a>
+        <a href="../index.html#docs">规范文档</a>
+      </div>
+    </aside>
+    <main class="pv-content">
+  <a class="pv-back" href="../index.html#data-entry">← 返回组件库</a>
+  <div class="pv-header">
+    <h1>Upload 上传</h1>
+    <p>源启上传：点击/拖拽上传、文件列表、成功/失败/删除状态。</p>
+  </div>
+
+  <!-- ============ 变体：点击上传 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Click 点击上传</div>
+    <div class="row">
+      <div class="giencoder-upload" data-component="upload" data-variant="click" data-state="default">
+        <button class="giencoder-upload-trigger" style="border:1px dashed var(--color-border-3); border-radius:4px; padding:20px 32px; cursor:pointer; font-size: 14px; color:var(--color-text-2); display:inline-flex; gap:8px; align-items:center;">
+          <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M8 2v8M4.5 5.5L8 2l3.5 3.5"/><path d="M2.5 10v2.5A1.5 1.5 0 004 14h8a1.5 1.5 0 001.5-1.5V10"/></svg>
+          点击上传文件
+        </button>
+        <div class="giencoder-upload-tip" style="font-size:12px; color:var(--color-text-3); margin-top:6px;">支持 .png / .jpg 格式，不超过 10MB</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 变体：拖拽上传 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Drag 拖拽上传</div>
+    <div class="row">
+      <div class="giencoder-upload giencoder-upload-drag" data-component="upload" data-variant="drag" data-state="default" style="width:100%;">
+        <div class="giencoder-upload-drag-trigger" style="border:1px dashed var(--color-border-3); border-radius:4px; padding:40px 20px; text-align:center; background:var(--color-fill-1);">
+          <div style="color:var(--color-primary-6); margin-bottom:8px;">
+            <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 5v10M7.5 9.5L12 5l4.5 4.5"/><path d="M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2"/></svg>
+          </div>
+          <div style="font-size:14px; color:var(--color-text-1);">拖拽文件到此区域上传</div>
+          <div style="font-size:12px; color:var(--color-text-3); margin-top:4px;">或 <span style="color:var(--color-link-6);">点击选择文件</span>，支持批量上传</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 变体：文件列表 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">File List 文件列表（含状态）</div>
+    <div class="row">
+      <div class="giencoder-upload-list" data-component="upload" data-variant="list" data-state="default" style="width:100%; display:flex; flex-direction:column; gap:8px;">
+        <div class="giencoder-upload-list-item" style="display:flex; align-items:center; gap:10px; padding:0 12px; border:1px solid var(--color-border-2); border-radius:4px;">
+          <span style="color:var(--color-primary-6);">
+            <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 2h7l3 3v9H3V2z"/><path d="M10 2v3h3"/></svg>
+          </span>
+          <span style="flex:1; font-size: 14px; color:var(--color-text-1);">design-spec.pdf</span>
+          <span style="font-size:12px; color:var(--color-success-6);">上传成功</span>
+          <button class="giencoder-upload-remove" aria-label="删除" style="border:none; background:none; cursor:pointer; color:var(--color-text-3);">
+            <svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 3l6 6M9 3l-6 6"/></svg>
+          </button>
+        </div>
+        <div class="giencoder-upload-list-item" style="display:flex; align-items:center; gap:10px; padding:0 12px; border:1px solid var(--color-border-2); border-radius:4px;">
+          <span style="color:var(--color-primary-6);">
+            <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 2h7l3 3v9H3V2z"/><path d="M10 2v3h3"/></svg>
+          </span>
+          <span style="flex:1; font-size: 14px; color:var(--color-text-1);">image-assets.zip</span>
+          <div style="width:100px; height:4px; background:var(--color-fill-3); border-radius:2px; overflow:hidden;">
+            <div style="width:60%; height:100%; background:var(--color-primary-6);"></div>
+          </div>
+          <span style="font-size:12px; color:var(--color-text-2);">60%</span>
+        </div>
+        <div class="giencoder-upload-list-item" style="display:flex; align-items:center; gap:10px; padding:0 12px; border:1px solid var(--color-danger-3); border-radius:4px; background:var(--color-danger-light-1);">
+          <span style="color:var(--color-danger-6);">
+            <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 2h7l3 3v9H3V2z"/><path d="M10 2v3h3"/></svg>
+          </span>
+          <span style="flex:1; font-size: 14px; color:var(--color-text-1);">video-demo.mp4</span>
+          <span style="font-size:12px; color:var(--color-danger-6);">上传失败</span>
+          <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-mini">重试</button>
+          <button class="giencoder-upload-remove" aria-label="删除" style="border:none; background:none; cursor:pointer; color:var(--color-text-3);">
+            <svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 3l6 6M9 3l-6 6"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+<script>
+/* ============================================================
+ * 源启 Upload 交互脚本（component-upload）
+ * 1) 点击"点击上传"触发：向列表新增一个文件项（createElement 复用
+ *    giencoder-upload-list-item 结构，含文件名与删除按钮），状态"上传中"→"上传成功"
+ * 2) 拖拽区点击：同样触发新增
+ * 3) 文件项删除按钮：移除该项
+ * 4) "重试"按钮：变"上传中"再变"上传成功"（简单状态演示）
+ * ============================================================ */
+(function () {
+  'use strict';
+
+  function $(sel, root) { return (root || document).querySelector(sel); }
+  function $$(sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); }
+
+  var names = ['design-spec.pdf', 'image-assets.zip', 'video-demo.mp4', 'report-2026.pptx', 'avatar.png', 'screenshot.jpg'];
+  var nameIdx = 0;
+  function nextName() {
+    var n = names[nameIdx % names.length];
+    nameIdx += 1;
+    return n;
+  }
+
+  function buildItem(name) {
+    var item = document.createElement('div');
+    item.className = 'giencoder-upload-list-item';
+    item.style.cssText = 'display:flex; align-items:center; gap:10px; padding:0 12px; border:1px solid var(--color-border-2); border-radius:4px;';
+    item.innerHTML =
+      '<span style="color:var(--color-primary-6);"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 2h7l3 3v9H3V2z"/><path d="M10 2v3h3"/></svg></span>' +
+      '<span style="flex:1; font-size: 14px; color:var(--color-text-1);"></span>' +
+      '<span style="font-size:12px; color:var(--color-text-2);">上传中</span>' +
+      '<button type="button" class="giencoder-upload-remove" aria-label="删除" style="border:none; background:none; cursor:pointer; color:var(--color-text-3);">' +
+      '<svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 3l6 6M9 3l-6 6"/></svg></button>';
+    var nameSpan = item.children[1];
+    if (nameSpan) nameSpan.textContent = name;
+    return item;
+  }
+
+  // 3) 删除按钮（事件委托）
+  function wireRemove(list) {
+    if (!list) return;
+    list.addEventListener('click', function (ev) {
+      var btn = ev.target.closest('.giencoder-upload-remove');
+      if (!btn) return;
+      var item = btn.closest('.giencoder-upload-list-item');
+      if (item && item.parentNode) item.parentNode.removeChild(item);
+    });
+  }
+
+  function ensureList(container) {
+    var list = $('.giencoder-upload-list', container);
+    if (!list) {
+      list = document.createElement('div');
+      list.className = 'giencoder-upload-list';
+      list.style.cssText = 'width:100%; display:flex; flex-direction:column; gap:8px; margin-top:8px;';
+      container.appendChild(list);
+      wireRemove(list);
+    }
+    return list;
+  }
+
+  // 1) 2) 新增文件项
+  function addFile(container) {
+    if (!container) return;
+    var list = ensureList(container);
+    var item = buildItem(nextName());
+    list.appendChild(item);
+    var status = item.children[2];
+    setTimeout(function () {
+      if (!item.isConnected) return;
+      if (status) { status.textContent = '上传成功'; status.style.color = 'var(--color-success-6)'; }
+    }, 1200);
+  }
+  $$('.giencoder-upload[data-variant="click"] .giencoder-upload-trigger').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      addFile(btn.closest('.giencoder-upload'));
+    });
+  });
+  $$('.giencoder-upload[data-variant="drag"] .giencoder-upload-drag-trigger').forEach(function (zone) {
+    zone.addEventListener('click', function () {
+      addFile(zone.closest('.giencoder-upload'));
+    });
+  });
+
+  // 静态列表（File List 展示区）删除按钮
+  $$('.giencoder-upload-list').forEach(wireRemove);
+
+  // 4) 重试按钮：上传中 → 上传成功
+  $$('.giencoder-upload-list-item .giencoder-btn-text').forEach(function (retry) {
+    retry.addEventListener('click', function () {
+      var item = retry.closest('.giencoder-upload-list-item');
+      if (!item) return;
+      var status = item.children[2];
+      if (status) { status.textContent = '上传中'; status.style.color = 'var(--color-text-2)'; }
+      retry.textContent = '上传中…';
+      retry.disabled = true;
+      setTimeout(function () {
+        if (!item.isConnected) return;
+        if (status) { status.textContent = '上传成功'; status.style.color = 'var(--color-success-6)'; }
+        retry.textContent = '上传成功';
+        item.style.borderColor = 'var(--color-border-2)';
+        item.style.background = '';
+      }, 1200);
+    });
+  });
+})();
+</script>
+    </main>
+  </div>
+<script src="preview-copy.js"></script>
+</body>
+</html>

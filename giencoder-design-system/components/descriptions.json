@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 3,
+  "slug": "descriptions",
+  "name": "Descriptions",
+  "category": "data-display",
+  "giencoderSource": {
+    "component": "Descriptions",
+    "version": "2.66.16"
+  },
+  "summary": "描述列表，以键值对形式展示信息，支持水平/内联/垂直布局与多列。",
+  "variants": [
+    {
+      "name": "水平布局",
+      "description": "layout=horizontal 默认，label 在左 value 在右",
+      "whenToUse": "对象属性信息的常规展示"
+    },
+    {
+      "name": "内联布局",
+      "description": "layout=inline 条目连续横向排布",
+      "whenToUse": "紧凑的元信息行（如文件属性）"
+    },
+    {
+      "name": "垂直布局",
+      "description": "layout=vertical label 在上 value 在下",
+      "whenToUse": "强调值内容或空间充裕的场景"
+    },
+    {
+      "name": "带边框",
+      "description": "bordered 表格样式，行列分隔线",
+      "whenToUse": "需要明确边界的信息表格"
+    },
+    {
+      "name": "多列",
+      "description": "column 设置列数并支持响应式断点",
+      "whenToUse": "大屏多列排布、小屏自动收缩"
+    }
+  ],
+  "sizes": [],
+  "states": [
+    {
+      "name": "default",
+      "description": "常规展示态",
+      "visual": "label --color-text-3，value --color-text-1，bordered 时边框 --color-border-2"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "标题",
+      "element": "div.giencoder-descriptions-title",
+      "description": "描述列表的标题（title）"
+    },
+    {
+      "part": "额外区",
+      "element": "div.giencoder-descriptions-extra",
+      "description": "标题右侧的操作/补充区（extra）"
+    },
+    {
+      "part": "条目行",
+      "element": "div.giencoder-descriptions-row",
+      "description": "按列排布的条目行"
+    },
+    {
+      "part": "条目",
+      "element": "div.giencoder-descriptions-item",
+      "description": "单个键值对，含 label 与 value，支持 span 跨列"
+    }
+  ],
+  "interaction": {
+    "hover": "无交互反馈（纯展示）",
+    "focus": "不可聚焦",
+    "keyboard": [
+      "无键盘交互（纯展示）"
+    ],
+    "motion": {
+      "duration": "0.1s",
+      "easing": "linear",
+      "description": "无动效（纯展示组件）"
+    },
+    "behaviorNotes": "column 支持数字或 {xs,sm,md,lg,xl,xxl} 响应式对象；Item span 控制跨列。"
+  },
+  "a11y": {
+    "role": "table",
+    "ariaAttrs": [
+      "aria-label: 描述列表标题（设置 title 时）"
+    ],
+    "contrastNote": "label 使用 --color-text-3 与 value 的 --color-text-1 形成层级但均满足可读对比度",
+    "focusNote": "纯展示不可聚焦"
+  },
+  "usage": [
+    "label 保持简短统一，value 过长时可省略或换行",
+    "bordered 模式注意行间距与内容密度",
+    "数据量少时优先 horizontal，信息密集时用 bordered 多列"
+  ],
+  "doNotInvent": [
+    "不虚构排序、筛选等交互能力",
+    "不杜撰响应式断点之外的列数规则",
+    "不在纯展示组件上添加焦点行为"
+  ],
+  "tokensConsumed": [
+    "--color-border-2",
+    "--color-text-1",
+    "--color-text-3",
+    "--color-bg-2"
+  ],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "DescriptionsProps",
+    "props": [
+      "className",
+      "data",
+      "labelStyle",
+      "style",
+      "valueStyle"
+    ],
+    "total": 5,
+    "syncDate": "2026/08/28"
+  }
+}

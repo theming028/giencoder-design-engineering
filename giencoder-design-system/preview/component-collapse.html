@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>Collapse 折叠面板</title>
+  <link rel="stylesheet" href="preview-scaffold.css">
+  <link rel="stylesheet" href="../colors_and_type.css">
+  <link rel="stylesheet" href="../components.css">
+</head>
+<body>
+  <div class="pv-layout">
+    <aside class="pv-sidebar">
+      <div class="pv-nav">
+        <div class="pv-menu-group">入口</div>
+        <a href="../home.html">首页</a>
+        <a href="../../GETTING-STARTED.html">使用说明书</a>
+        <div class="pv-menu-group">组件</div>
+        <a href="../index.html#general">通用</a>
+        <a href="../index.html#layout">布局</a>
+        <a href="../index.html#navigation">导航</a>
+        <a href="../index.html#data-entry">数据录入</a>
+        <a href="../index.html#data-display" class="active">数据展示</a>
+        <a href="../index.html#feedback">反馈</a>
+        <a href="../index.html#other">其他</a>
+        <div class="pv-menu-group">资源</div>
+        <a href="../index.html#uikits">页面样板</a>
+        <a href="../index.html#docs">规范文档</a>
+      </div>
+    </aside>
+    <main class="pv-content">
+  <a class="pv-back" href="../index.html#data-display">← 返回组件库</a>
+  <div class="pv-header">
+    <h1>Collapse 折叠面板</h1>
+    <p>源启折叠面板：展开/收起、手风琴模式、键盘 Enter/Space 切换。</p>
+  </div>
+
+  <!-- ============ 变体：默认 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Default 基础折叠面板</div>
+    <div class="row">
+      <div class="giencoder-collapse" data-component="collapse" data-variant="default" data-state="default" style="width:100%; border:1px solid var(--color-border-2); border-radius:4px;">
+        <div class="giencoder-collapse-item giencoder-collapse-item-active">
+          <button class="giencoder-collapse-item-header" aria-expanded="true" style="width:100%; display:flex; align-items:center; justify-content:space-between; padding:14px 16px; background:var(--color-bg-2); border:none; cursor:pointer; font-size:14px; color:var(--color-text-1); border-bottom:1px solid var(--color-border-2);">
+            <span>基本配置</span>
+            <span class="giencoder-collapse-arrow" style="transform:rotate(0deg); transition:transform 0.2s var(--transition-timing-function-spring);">
+              <svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 4l4 4 4-4"/></svg>
+            </span>
+          </button>
+          <div class="giencoder-collapse-item-content" style="padding:14px 16px; font-size: 14px; color:var(--color-text-2);">
+            基本配置内容区域，包含项目名称、描述等基础信息设置。
+          </div>
+        </div>
+        <div class="giencoder-collapse-item">
+          <button class="giencoder-collapse-item-header" aria-expanded="false" style="width:100%; display:flex; align-items:center; justify-content:space-between; padding:14px 16px; background:var(--color-bg-2); border:none; cursor:pointer; font-size:14px; color:var(--color-text-1); border-bottom:1px solid var(--color-border-2);">
+            <span>高级设置</span>
+            <span class="giencoder-collapse-arrow" style="transform:rotate(-90deg); transition:transform 0.2s var(--transition-timing-function-spring);">
+              <svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 4l4 4 4-4"/></svg>
+            </span>
+          </button>
+          <div class="giencoder-collapse-item-content" style="padding:14px 16px; font-size:14px; color:var(--color-text-2);">
+            高级设置内容区域，包含缓存策略、性能调优、日志级别等进阶配置。
+          </div>
+        </div>
+        <div class="giencoder-collapse-item">
+          <button class="giencoder-collapse-item-header" aria-expanded="false" style="width:100%; display:flex; align-items:center; justify-content:space-between; padding:14px 16px; background:var(--color-bg-2); border:none; cursor:pointer; font-size:14px; color:var(--color-text-1);">
+            <span>权限管理</span>
+            <span class="giencoder-collapse-arrow" style="transform:rotate(-90deg); transition:transform 0.2s var(--transition-timing-function-spring);">
+              <svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 4l4 4 4-4"/></svg>
+            </span>
+          </button>
+          <div class="giencoder-collapse-item-content" style="padding:14px 16px; font-size:14px; color:var(--color-text-2);">
+            权限管理内容区域，包含角色授权、访问控制、审计日志等安全配置。
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <style>
+    /* 交互动效用（内容区 max-height 0.2s 过渡 + 收起淡出 0.15s + 箭头旋转；!important 用于覆盖模板内联 padding/transform） */
+    .giencoder-collapse-item .giencoder-collapse-item-content {
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      transition: max-height 0.2s var(--transition-timing-function-spring),
+                  opacity 0.15s var(--transition-timing-function-standard),
+                  padding-top 0.2s var(--transition-timing-function-standard),
+                  padding-bottom 0.2s var(--transition-timing-function-standard);
+    }
+    .giencoder-collapse-item-active .giencoder-collapse-arrow { transform: rotate(0deg) !important; }
+    .giencoder-collapse-item:not(.giencoder-collapse-item-active) .giencoder-collapse-arrow { transform: rotate(-90deg) !important; }
+  </style>
+  <script>
+    /* ========== component-collapse：交互清单 ==========
+       1) 点击面板头部：切换展开/收起（内容区 max-height 过渡 0.2s + 收起淡出；箭头旋转由 class 控制）
+       2) 手风琴互斥：同组（同 .giencoder-collapse）内同时只展开一个面板
+       3) 内容区 padding 由脚本以 inline !important 管理，与 max-height 同步过渡
+    */
+    (function () {
+      'use strict';
+      var PADDING = '14px';
+
+      function setPadding(content, value) {
+        if (!content) { return; }
+        content.style.setProperty('padding-top', value, 'important');
+        content.style.setProperty('padding-bottom', value, 'important');
+      }
+
+      /* 初始化：已展开面板显示内容，收起面板 padding 归零（防加载闪动） */
+      function initContent(content, isActive) {
+        if (!content) { return; }
+        content.style.transition = 'none';
+        setPadding(content, isActive ? PADDING : '0px');
+        if (isActive) {
+          content.style.maxHeight = content.scrollHeight + 'px';
+          content.style.opacity = '1';
+        }
+        void content.offsetWidth;
+        content.style.transition = '';
+      }
+
+      /* 展开：先关过渡量出最终高度（含展开态 padding），复位起点后再开启过渡动画到目标 */
+      function expandPanel(content) {
+        if (!content) { return; }
+        content.style.transition = 'none';
+        setPadding(content, PADDING);
+        content.style.maxHeight = 'none';
+        var h = content.scrollHeight;
+        content.style.maxHeight = '0px';
+        setPadding(content, '0px');
+        void content.offsetWidth;
+        content.style.transition = '';
+        content.style.maxHeight = h + 'px';
+        setPadding(content, PADDING);
+        content.style.opacity = '1';
+      }
+
+      /* 收起：max-height 归零 + padding 归零 + 淡出 */
+      function collapsePanel(content) {
+        if (!content) { return; }
+        content.style.maxHeight = '0px';
+        setPadding(content, '0px');
+        content.style.opacity = '0';
+      }
+
+      var collapseWrappers = document.querySelectorAll('.giencoder-collapse');
+      collapseWrappers.forEach(function (wrapper) {
+        var items = wrapper.querySelectorAll('.giencoder-collapse-item');
+        if (!items.length) { return; }
+        items.forEach(function (item) {
+          initContent(item.querySelector('.giencoder-collapse-item-content'),
+            item.classList.contains('giencoder-collapse-item-active'));
+          var header = item.querySelector('.giencoder-collapse-item-header');
+          if (!header) { return; }
+          header.addEventListener('click', function () {
+            var isActive = item.classList.contains('giencoder-collapse-item-active');
+            var willActive = !isActive;
+            /* 2) 手风琴：先收起同组其他面板 */
+            items.forEach(function (other) {
+              if (other !== item) {
+                other.classList.remove('giencoder-collapse-item-active');
+                var otherHeader = other.querySelector('.giencoder-collapse-item-header');
+                if (otherHeader && otherHeader.setAttribute) { otherHeader.setAttribute('aria-expanded', 'false'); }
+                collapsePanel(other.querySelector('.giencoder-collapse-item-content'));
+              }
+            });
+            /* 1) 切换当前面板 */
+            item.classList.toggle('giencoder-collapse-item-active', willActive);
+            if (header.setAttribute) { header.setAttribute('aria-expanded', willActive ? 'true' : 'false'); }
+            if (willActive) { expandPanel(item.querySelector('.giencoder-collapse-item-content')); }
+            else { collapsePanel(item.querySelector('.giencoder-collapse-item-content')); }
+          });
+        });
+      });
+    })();
+  </script>
+    </main>
+  </div>
+<script src="preview-copy.js"></script>
+</body>
+</html>

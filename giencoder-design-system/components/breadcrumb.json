@@ -1,0 +1,133 @@
+{
+  "schemaVersion": 3,
+  "slug": "breadcrumb",
+  "name": "Breadcrumb",
+  "category": "navigation",
+  "giencoderSource": {
+    "component": "Breadcrumb",
+    "version": "2.66.16"
+  },
+  "summary": "面包屑：展示页面层级路径，帮助用户理解当前位置并快速返回上级，当前页不可点击。",
+  "variants": [
+    {
+      "name": "default",
+      "description": "默认样式，分隔符为 /",
+      "whenToUse": "标准层级路径展示"
+    },
+    {
+      "name": "custom-separator",
+      "description": "自定义分隔符（separator 支持任意节点）",
+      "whenToUse": "视觉风格定制，如使用 > 或图标"
+    },
+    {
+      "name": "ellipsis",
+      "description": "maxCount 超出省略，moreIcon 点击展开剩余项",
+      "whenToUse": "路径层级过多时省略中间项"
+    }
+  ],
+  "sizes": [
+    {
+      "name": "default",
+      "value": "默认尺寸",
+      "usage": "无尺寸变体，使用组件默认尺寸"
+    }
+  ],
+  "states": [
+    {
+      "name": "default",
+      "description": "普通路径项",
+      "visual": "文字 --color-text-1，可点击项为链接样式"
+    },
+    {
+      "name": "hover",
+      "description": "可点击项悬停",
+      "visual": "文字变 --color-link-6 并出现下划线"
+    },
+    {
+      "name": "current",
+      "description": "当前页（最后一项）",
+      "visual": "--color-text-1 常规文本，不可点击"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "Breadcrumb 容器",
+      "element": "nav",
+      "description": "路径列表容器"
+    },
+    {
+      "part": "Item 路径项",
+      "element": "a/span",
+      "description": "单个层级项，当前页渲染为 span"
+    },
+    {
+      "part": "分隔符",
+      "element": "span",
+      "description": "项间分隔符，默认 /"
+    }
+  ],
+  "interaction": {
+    "hover": "可点击项悬停变 --color-link-6 加下划线",
+    "focus": "可点击项获得焦点显示焦点环",
+    "keyboard": [
+      "Tab: 聚焦可点击的面包屑项",
+      "Enter: 激活链接项跳转",
+      "（当前页项不可聚焦、不可点击）"
+    ],
+    "motion": {
+      "duration": "0.1s~0.2s",
+      "easing": "standard",
+      "description": "文字颜色/下划线状态过渡"
+    },
+    "behaviorNotes": "最后一项固定为当前页（纯文本不可点击）；maxCount 超出后中间项收敛为 moreIcon，点击展开弹层展示被省略项。"
+  },
+  "a11y": {
+    "role": "navigation",
+    "ariaAttrs": [
+      "aria-label（如 '面包屑'）"
+    ],
+    "contrastNote": "可点击项 hover 使用 --color-link-6，与背景对比度满足 AA",
+    "focusNote": "仅可点击项可聚焦，当前页项跳过 Tab"
+  },
+  "usage": [
+    "首项一般为首页入口，末项为当前页纯文本",
+    "层级建议 2~4 级，避免过深",
+    "可点击项用 href 提供跳转",
+    "省略场景配置 maxCount + moreIcon"
+  ],
+  "doNotInvent": [
+    "不虚构面包屑项的内嵌子菜单（省略展开由 moreIcon 弹层实现）",
+    "不虚构拖拽排序项能力",
+    "不虚构根据路由自动生成路径的能力（需业务维护数据）"
+  ],
+  "tokensConsumed": [
+    "--color-text-1",
+    "--color-text-3",
+    "--color-link-6",
+    "--color-bg-popup",
+    "--shadow2-down"
+  ],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "BreadcrumbProps",
+    "props": [
+      "breadcrumbName",
+      "children",
+      "className",
+      "dropdownProps",
+      "droplist",
+      "href",
+      "itemRender",
+      "maxCount",
+      "onClick",
+      "path",
+      "prefixCls",
+      "routes",
+      "separator",
+      "style",
+      "tagName"
+    ],
+    "total": 15,
+    "syncDate": "2026/08/28"
+  }
+}

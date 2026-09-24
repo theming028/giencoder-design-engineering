@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>Link 链接</title>
+  <link rel="stylesheet" href="preview-scaffold.css">
+  <link rel="stylesheet" href="../colors_and_type.css">
+  <link rel="stylesheet" href="../components.css">
+</head>
+<body>
+  <div class="pv-layout">
+    <aside class="pv-sidebar">
+      <div class="pv-nav">
+        <div class="pv-menu-group">入口</div>
+        <a href="../home.html">首页</a>
+        <a href="../../GETTING-STARTED.html">使用说明书</a>
+        <div class="pv-menu-group">组件</div>
+        <a href="../index.html#general" class="active">通用</a>
+        <a href="../index.html#layout">布局</a>
+        <a href="../index.html#navigation">导航</a>
+        <a href="../index.html#data-entry">数据录入</a>
+        <a href="../index.html#data-display">数据展示</a>
+        <a href="../index.html#feedback">反馈</a>
+        <a href="../index.html#other">其他</a>
+        <div class="pv-menu-group">资源</div>
+        <a href="../index.html#uikits">页面样板</a>
+        <a href="../index.html#docs">规范文档</a>
+      </div>
+    </aside>
+    <main class="pv-content">
+  <a class="pv-back" href="../index.html#general">← 返回组件库</a>
+  <div class="pv-header">
+    <h1>Link 链接</h1>
+    <p>源启链接：默认链接（弧蓝 #3770F7 下划线，hover 加深）、带图标链接、禁用链接与状态色链接，用于页面内跳转与操作入口。</p>
+  </div>
+
+  <!-- ============ 变体：默认链接 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Default 默认链接</div>
+    <div class="pv-section__sub">默认色 --color-link-6（#3770F7）带下划线；hover 加深为 --color-link-hover（#6692F9），transition 时长 0.1s。</div>
+    <div class="row align-center">
+      <a class="giencoder-link" href="#" data-component="link" data-variant="default" data-state="default" style="color:var(--color-link-6); text-decoration:underline; text-underline-offset:3px; font-size:var(--font-size-body-3); cursor:pointer; transition:color var(--transition-duration-1) var(--transition-timing-function-standard);">基础链接</a>
+      <a class="giencoder-link" href="#" data-component="link" data-variant="default" data-state="default" style="color:var(--color-link-6); text-decoration:underline; text-underline-offset:3px; font-size:var(--font-size-body-3); cursor:pointer; transition:color var(--transition-duration-1) var(--transition-timing-function-standard);">查看文档</a>
+      <a class="giencoder-link" href="#" data-component="link" data-variant="default" data-state="default" style="color:var(--color-link-6); text-decoration:underline; text-underline-offset:3px; font-size:var(--font-size-body-3); cursor:pointer; transition:color var(--transition-duration-1) var(--transition-timing-function-standard);">了解更多 →</a>
+    </div>
+  </div>
+
+  <!-- ============ 变体：带图标链接 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Icon 带图标链接</div>
+    <div class="pv-section__sub">前缀内联 SVG 图标（stroke="currentColor" 随链接取色），图标与文字间距 4px；hover 同样加深并保持下划线。</div>
+    <div class="row align-center">
+      <a class="giencoder-link giencoder-link-with-icon" href="#" data-component="link" data-variant="icon" data-state="default" style="display:inline-flex; align-items:center; gap:4px; color:var(--color-link-6); text-decoration:none; font-size:var(--font-size-body-3); cursor:pointer; transition:color var(--transition-duration-1) var(--transition-timing-function-standard);">
+        <svg class="giencoder-icon" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M8 3.2v9.6M3.2 8h9.6"/></svg>
+        <span>新建项目</span>
+      </a>
+      <a class="giencoder-link giencoder-link-with-icon" href="#" data-component="link" data-variant="icon" data-state="default" style="display:inline-flex; align-items:center; gap:4px; color:var(--color-link-6); text-decoration:none; font-size:var(--font-size-body-3); cursor:pointer; transition:color var(--transition-duration-1) var(--transition-timing-function-standard);">
+        <svg class="giencoder-icon" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+        <span>查看详情</span>
+      </a>
+      <a class="giencoder-link giencoder-link-with-icon" href="#" data-component="link" data-variant="icon" data-state="default" style="display:inline-flex; align-items:center; gap:4px; color:var(--color-link-6); text-decoration:none; font-size:var(--font-size-body-3); cursor:pointer; transition:color var(--transition-duration-1) var(--transition-timing-function-standard);">
+        <svg class="giencoder-icon" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2.6v7.4M5.2 7l2.8 2.8L10.8 7M3.4 13.4h9.2"/></svg>
+        <span>下载报表</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- ============ 变体：禁用链接 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Disabled 禁用链接</div>
+    <div class="pv-section__sub">颜色灰化为 --color-text-4，去除下划线，cursor:not-allowed 且 pointer-events:none 不可点击。</div>
+    <div class="row align-center">
+      <a class="giencoder-link giencoder-link-disabled" href="#" aria-disabled="true" data-component="link" data-variant="disabled" data-state="disabled" style="color:var(--color-text-4); text-decoration:none; font-size:var(--font-size-body-3); cursor:not-allowed; pointer-events:none;">禁用的链接</a>
+      <span style="font-size:var(--font-size-body-2); color:var(--color-text-3);">— 不可点击、不可聚焦，用于无权限或无可用操作的场景</span>
+    </div>
+  </div>
+
+  <!-- ============ 变体：状态色链接 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Status 状态色链接</div>
+    <div class="pv-section__sub">status 语义色：success / warning / danger，用于表内操作列与结果反馈。</div>
+    <div class="row align-center">
+      <a class="giencoder-link" href="#" data-component="link" data-variant="status" data-state="success" style="color:var(--color-success-6); text-decoration:none; font-size:var(--font-size-body-3); cursor:pointer; transition:color var(--transition-duration-1);">成功链接</a>
+      <a class="giencoder-link" href="#" data-component="link" data-variant="status" data-state="warning" style="color:var(--color-warning-6); text-decoration:none; font-size:var(--font-size-body-3); cursor:pointer; transition:color var(--transition-duration-1);">警告链接</a>
+      <a class="giencoder-link" href="#" data-component="link" data-variant="status" data-state="danger" style="color:var(--color-danger-6); text-decoration:none; font-size:var(--font-size-body-3); cursor:pointer; transition:color var(--transition-duration-1);">删除该行</a>
+    </div>
+  </div>
+  <script>
+  (function () {
+    'use strict';
+    /* component-link：交互清单
+       1. 可点击链接点击：preventDefault，瞬时切换为 --color-primary-7 并加下划线反馈，1s 后恢复
+       2. disabled（.giencoder-link-disabled / aria-disabled="true"）链接点击无效果（CSS pointer-events:none 天然拦截，脚本再守卫） */
+    document.querySelectorAll('.giencoder-link').forEach(function (link) {
+      link.addEventListener('click', function (e) {
+        if (link.classList.contains('giencoder-link-disabled') || link.getAttribute('aria-disabled') === 'true') {
+          e.preventDefault();
+          return;
+        }
+        e.preventDefault();
+        var origColor = link.style.color || '';
+        var origDeco = link.style.textDecoration || '';
+        link.style.color = 'var(--color-primary-7)';
+        link.style.textDecoration = 'underline';
+        if (link._yqTimer) { clearTimeout(link._yqTimer); }
+        link._yqTimer = setTimeout(function () {
+          link.style.color = origColor;
+          link.style.textDecoration = origDeco;
+          link._yqTimer = null;
+        }, 1000);
+      });
+    });
+  })();
+  </script>
+    </main>
+  </div>
+<script src="preview-copy.js"></script>
+</body>
+</html>

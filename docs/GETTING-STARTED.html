@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-page-node-id="yU9scqnF4uxY2qTmJBmuU4">
+<head data-page-node-id="eYnIHXSjTk0hwUj8wup9oQ">
+<meta charset="UTF-8" data-page-node-id="mWOBERZrMjBQUwZwmW3roD">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" data-page-node-id="FLYeEVk97Y2D0aBZq1MaWY">
+<title>GienCoder 设计系统 · 使用说明书</title>
+<link rel="stylesheet" href="giencoder/colors_and_type.css" data-page-node-id="B7h0449UTvEkpDP72zTuZ9">
+<link rel="stylesheet" href="giencoder/components.css" data-page-node-id="grWOmFNgHQK7KxcHBbkD4F">
+<style>
+  /* ═══ 说明书自身版式（复用源启 Token，禁硬编码 hex） ═══ */
+  * { box-sizing: border-box; }
+  :root {
+    --gs-text-1: var(--color-text-1, #1F1F1F);
+    --gs-text-2: var(--color-text-2, #4E4E4E);
+    --gs-text-3: var(--color-text-3, #868686);
+    --gs-primary: var(--color-primary-6, #3770F7);
+    --gs-primary-soft: var(--color-primary-1, #F5F8FF);
+    --gs-border: var(--color-border-2, #e5e8eb);
+    --gs-fill: var(--color-fill-1, #f5f6f7);
+    --gs-bg: var(--color-bg-1, #fff);
+    --gs-bg-2: var(--color-bg-2, #F7F7F7);
+    --gs-ok: var(--color-success-6, #3BB346);
+    --gs-warn: var(--color-warning-6, #FF7D00);
+    --gs-danger: var(--color-danger-6, #F53F3F);
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; font-family: var(--font-family, -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif);
+    color: var(--gs-text-1); background: var(--gs-bg); line-height: 1.7; font-size: 15px;
+  }
+  a { color: var(--gs-primary); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  a.gs-path { font-family: var(--code-family, "SF Mono", Menlo, Consolas, monospace); font-size: 13px; }
+
+  /* 左右布局：左目录（sticky） + 右内容 */
+  .gs-layout { display: flex; align-items: flex-start; }
+  .gs-sidebar {
+    width: 460px; flex-shrink: 0; position: sticky; top: 0; height: 100vh;
+    overflow-y: auto; border-right: 1px solid var(--gs-border);
+    background: var(--gs-bg); padding: 24px 16px 48px;
+  }
+  .gs-toc { display: flex; flex-direction: column; gap: 2px; }
+  .gs-toc a {
+    display: block; color: var(--gs-text-2); padding: 8px 14px; border-radius: 6px;
+    font-size: 14px; line-height: normal; transition: all .15s;
+  }
+  .gs-toc a:hover { background: var(--gs-fill); color: var(--gs-text-1); text-decoration: none; }
+  .gs-toc a.active { background: var(--gs-primary-soft); color: var(--color-primary-7, #346AE9); font-weight: 500; }
+  .gs-toc-group { font-size: 12px; color: var(--gs-text-3); padding: 10px 14px 6px; letter-spacing: .5px; line-height: normal; }
+  .gs-nav-cols { display: flex; align-items: flex-start; }
+  .gs-nav-cols .gs-main-nav { flex: 1; min-width: 0; border-right: 1px solid var(--gs-border); border-bottom: none; margin-bottom: 0; padding-bottom: 0; padding-right: 14px; margin-right: 14px; }
+  .gs-nav-cols #gs-toc { flex: 1; min-width: 0; }
+
+  .gs-content { flex: 1; min-width: 0; padding: 48px 56px 96px; max-width: 1080px; }
+
+  /* 章节 */
+  .gs-section { margin-bottom: 72px; }
+  .gs-section > h2 {
+    font-size: 26px; font-weight: 600; margin: 0 0 8px; padding-bottom: 14px;
+    border-bottom: 1px solid var(--gs-border);
+  }
+  .gs-section > .gs-lead { color: var(--gs-text-3); margin: 0 0 28px; font-size: 14px; }
+  .gs-section h3 { font-size: 18px; font-weight: 600; margin: 32px 0 12px; }
+  .gs-section h4 { font-size: 15px; font-weight: 600; margin: 20px 0 8px; }
+  .gs-section p { margin: 8px 0; }
+  .gs-section ul, .gs-section ol { padding-left: 22px; margin: 8px 0; }
+  .gs-section li { margin: 4px 0; }
+  .gs-section code {
+    font-family: var(--code-family, "SF Mono", Menlo, Consolas, monospace);
+    background: var(--gs-fill); padding: 1px 6px; border-radius: 4px; font-size: 13px;
+    color: var(--color-primary-7, #346AE9);
+  }
+
+  /* 卡片/提示框 */
+  .gs-card {
+    background: var(--gs-bg); border: 1px solid var(--gs-border); border-radius: 10px;
+    padding: 18px 20px; margin: 16px 0;
+  }
+  .gs-note {
+    border-left: 3px solid var(--gs-primary); background: var(--gs-primary-soft);
+    border-radius: 6px; padding: 12px 16px; margin: 16px 0; font-size: 14px;
+  }
+  .gs-note.ok { border-color: var(--gs-ok); background: var(--color-success-light-1, #ECF7EC); }
+  .gs-note.warn { border-color: var(--gs-warn); background: var(--color-warning-light-1, #FFF7E8); }
+  .gs-note.danger { border-color: var(--gs-danger); background: var(--color-danger-light-1, #FFECE8); }
+  .gs-note b { font-weight: 600; }
+
+  /* 表格 */
+  .gs-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px; }
+  .gs-table th, .gs-table td { border: 1px solid var(--gs-border); padding: 10px 12px; text-align: left; vertical-align: top; }
+  .gs-table th { background: var(--gs-bg-2); font-weight: 600; white-space: nowrap; }
+  .gs-table code { font-size: 12px; }
+
+  /* 代码块 */
+  .gs-code {
+    background: #1F1F1F; color: #e6e8eb; border-radius: 8px; padding: 16px 18px;
+    overflow-x: auto; margin: 14px 0; font-size: 13px; line-height: 1.6;
+  }
+  .gs-code code { background: none; color: inherit; padding: 0; font-size: 13px; }
+  .gs-code .c { color: #7d8590; }
+  .gs-code .k { color: #ff7dab; }
+  .gs-code .s { color: #9ed7a4; }
+  .gs-code .t { color: #79b8ff; }
+  .gs-filename { font-size: 12px; color: var(--gs-text-3); margin: 12px 0 -8px; font-family: var(--code-family, monospace); }
+
+  /* 步骤流 */
+  .gs-steps { counter-reset: step; margin: 20px 0; }
+  .gs-step {
+    position: relative; padding: 14px 18px 14px 64px; margin: 12px 0;
+    border: 1px solid var(--gs-border); border-radius: 10px; background: var(--gs-bg);
+  }
+  .gs-step::before {
+    counter-increment: step; content: counter(step);
+    position: absolute; left: 18px; top: 16px; width: 30px; height: 30px; border-radius: 50%;
+    background: var(--gs-primary); color: var(--color-white, #fff);
+    display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 14px;
+  }
+  .gs-step b { display: block; margin-bottom: 4px; font-size: 15px; }
+  .gs-step p { margin: 4px 0; font-size: 14px; color: var(--gs-text-2); }
+
+  /* 活示例容器 */
+  .gs-demo {
+    border: 1px dashed var(--gs-border); border-radius: 10px; padding: 24px;
+    background: var(--gs-bg-2); margin: 16px 0;
+  }
+  .gs-demo-label { font-size: 12px; color: var(--gs-text-3); margin-bottom: 12px; letter-spacing: .5px; }
+  .gs-demo iframe { width: 100%; height: 520px; border: 1px solid var(--gs-border); border-radius: 8px; background: #fff; }
+
+  /* 反模式对照 */
+  .gs-vs { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0; }
+  .gs-vs-bad, .gs-vs-good { border-radius: 10px; padding: 16px 18px; border: 1px solid; }
+  .gs-vs-bad { border-color: var(--gs-danger); background: var(--color-danger-light-1, #FFECE8); }
+  .gs-vs-good { border-color: var(--gs-ok); background: var(--color-success-light-1, #ECF7EC); }
+  .gs-vs h4 { margin: 0 0 8px; }
+  .gs-vs-bad h4 { color: var(--gs-danger); }
+  .gs-vs-good h4 { color: var(--gs-ok); }
+
+  /* 验收清单 */
+  .gs-check { list-style: none; padding: 0; margin: 16px 0; }
+  .gs-check li {
+    position: relative; padding: 10px 14px 10px 44px; margin: 8px 0;
+    border: 1px solid var(--gs-border); border-radius: 8px; background: var(--gs-bg);
+  }
+  .gs-check li::before {
+    content: "☐"; position: absolute; left: 16px; top: 9px; font-size: 18px;
+    color: var(--gs-primary);
+  }
+  .gs-check li code { font-size: 12px; }
+
+  /* hero */
+  .gs-hero {
+    background: linear-gradient(135deg, var(--color-primary-6, #3770F7), var(--color-primary-8, #2E5ECE));
+    color: var(--color-white, #fff); border-radius: 14px; padding: 40px 44px; margin-bottom: 56px;
+  }
+  .gs-hero h1 { margin: 0 0 10px; font-size: 30px; font-weight: 600; }
+  .gs-hero p { margin: 6px 0; opacity: .92; font-size: 15px; max-width: 640px; }
+  .gs-hero .gs-hero-tags { margin-top: 18px; display: flex; gap: 10px; flex-wrap: wrap; }
+  .gs-hero .gs-hero-tag {
+    background: rgba(255,255,255,.16); border: 1px solid rgba(255,255,255,.3);
+    border-radius: 999px; padding: 3px 14px; font-size: 12px;
+  }
+  .gs-hero-cta {
+    display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
+    margin-top: 22px;
+  }
+  .gs-hero-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--color-white, #fff); color: var(--color-primary-7, #346AE9);
+    padding: 10px 22px; border-radius: 8px; font-size: 15px; font-weight: 600;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, .14); transition: all .18s;
+  }
+  .gs-hero-btn:hover {
+    transform: translateY(-1px); box-shadow: 0 10px 22px rgba(0, 0, 0, .2);
+    text-decoration: none; color: var(--color-primary-8, #2E5ECE);
+  }
+  .gs-hero-btn-arrow { transition: transform .18s; }
+  .gs-hero-btn:hover .gs-hero-btn-arrow { transform: translateX(3px); }
+  .gs-hero-link {
+    color: var(--color-white, #fff); font-size: 14px; border-bottom: 1px solid rgba(255,255,255,.55);
+    padding-bottom: 2px;
+  }
+  .gs-hero-link:hover { text-decoration: none; border-bottom-color: var(--color-white, #fff); }
+
+  @media (max-width: 860px) {
+    .gs-layout { display: block; }
+    .gs-sidebar { width: auto; height: auto; position: static; border-right: none; border-bottom: 1px solid var(--gs-border); padding: 16px; }
+    .gs-toc { flex-direction: row; flex-wrap: wrap; }
+    .gs-nav-cols { flex-direction: column; }
+    .gs-nav-cols .gs-main-nav { border-right: none; padding-right: 0; margin-right: 0; border-bottom: 1px solid var(--gs-border); padding-bottom: 12px; margin-bottom: 12px; }
+    .gs-content { padding: 24px 20px 64px; }
+    .gs-vs { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body data-page-node-id="Vf3MPMeo7xpNSlI5LiGUKT">
+<div class="gs-layout" data-page-node-id="FlpsiFFeNnRwG7frT9Rcce">
+
+  <!-- ════════════ 左侧目录 ════════════ -->
+  <aside class="gs-sidebar" data-page-node-id="FqiTwZeJ4jRDnbJRw4tuRM">
+    <div class="gs-nav-cols" data-page-node-id="WSudNUg2NfILfMoULqdVvj">
+    <nav class="gs-toc gs-main-nav" data-page-node-id="40nBfiPwBe1o2lWrivSXi8">
+      <div class="gs-toc-group" data-page-node-id="CPdv1TXWwQXPIZGubntYUP">入口</div>
+      <a href="giencoder/home.html" data-page-node-id="JQvRuiSoSVIzSHjeelk7F8">首页</a>
+      <a href="GETTING-STARTED.html" data-page-node-id="ql7d5krXQqoOxSaC016rh7">使用说明书</a>
+      <div class="gs-toc-group" data-page-node-id="ntBlxhyodlvkP1z3wuSjUd">组件</div>
+      <a href="giencoder/index.html#general" data-page-node-id="KezZ69NfMXHACcXOAelUu3">通用</a>
+      <a href="giencoder/index.html#layout" data-page-node-id="r2f3bSfLy07LuS5RRiYM7I">布局</a>
+      <a href="giencoder/index.html#navigation" data-page-node-id="BxgAmYAVnn5hRmZod1EaTw">导航</a>
+      <a href="giencoder/index.html#data-entry" data-page-node-id="YQ5qOb9YFmDK0WZ2ju0nrg">数据录入</a>
+      <a href="giencoder/index.html#data-display" data-page-node-id="EFM0ivewhcSWWmk3eOfGia">数据展示</a>
+      <a href="giencoder/index.html#feedback" data-page-node-id="Zq38xmy8TJ1gkfZ7Sgxk4T">反馈</a>
+      <a href="giencoder/index.html#other" data-page-node-id="NBxD3bf40C0PT9vYWxTTVy">其他</a>
+      <div class="gs-toc-group" data-page-node-id="XGZyEB2wkaeP0qY1chD6H5">资源</div>
+      <a href="giencoder/index.html#uikits" data-page-node-id="dRQZZTewwK5EsPBXqRnpgP">页面样板</a>
+      <a href="giencoder/index.html#docs" data-page-node-id="Wu6Z6YRoqX0pDU3WonXG1l">规范文档</a>
+    </nav>
+    <nav class="gs-toc" id="gs-toc" data-page-node-id="QUPHOpt8E0QijhWEAPg91N">
+      <div class="gs-toc-group" data-page-node-id="0zKKsqA5tGxmHnWEWke6iI">入门</div>
+      <a href="#quickstart" class="active" data-page-node-id="AUF30girqrlDwNlSw71OXX">1. 快速上手</a>
+      <a href="#assets" data-page-node-id="1hTzUqhrHsg9QupQRUmR9c">2. 资产地图</a>
+      <a href="#concepts" data-page-node-id="HoVlBmMT6DlLfnp4ZbTDhN">3. 核心概念</a>
+      <div class="gs-toc-group" data-page-node-id="pNq2iuwiyObpUvpkcQ8t3S">动手</div>
+      <a href="#workflow" data-page-node-id="1wlKNUxLjjY9aNDm1dLyhM">4. 标准工作流</a>
+      <a href="#rules" data-page-node-id="CBsTcIm39VKIaaXyLqLbKf">5. 铁律与反模式</a>
+      <a href="#example" data-page-node-id="rR0x4Gm03xKUl2wNB1ysuv">6. 端到端示例</a>
+      <div class="gs-toc-group" data-page-node-id="mGLI1XXWDlFEoqEHdU9zNh">收尾</div>
+      <a href="#checklist" data-page-node-id="0fwMvN6fx6OLjnieJERxdh">7. 验收清单</a>
+    </nav>
+    </div>
+  </aside>
+
+  <!-- ════════════ 右侧内容 ════════════ -->
+  <main class="gs-content" data-page-node-id="c03tyRpP7la8jLqBLDvBls">
+
+    <!-- 封面 -->
+    <div class="gs-hero" data-page-node-id="dcgt5H53Hj0SzkqP0oTDND">
+      <h1 data-page-node-id="dZQCaMrEqKCEGSpe0NHagp">GienCoder 设计系统 · 使用说明书</h1>
+      <p data-page-node-id="Hu2uz6wiFmVaSK6NZSDO91">给新加入的设计师与开发者：拿到这套规范后，如何一步步生成高保真的源启风格 UI 界面。</p>
+      <p data-page-node-id="QmCEOsfdrtuDTFwoHY9YAk">读完并照做，你能独立完成从「选组件」到「交付达标页面」的完整链路。</p>
+      <div class="gs-hero-tags" data-page-node-id="oHaiUWEZZ9uwsQFORIQld9">
+        <span class="gs-hero-tag" data-page-node-id="AGFwo6Ou7LowIEsbGG3PhH">71 个组件契约</span>
+        <span class="gs-hero-tag" data-page-node-id="KvzkHUpeCPgIv35Dk1Llen">Design Token 全量规范</span>
+        <span class="gs-hero-tag" data-page-node-id="ocTXqGv7Ha8y46484nS7rh">6 大页面模式</span>
+        <span class="gs-hero-tag" data-page-node-id="KVY9QisFtRGyt4Hl7ume4o">无障碍 AA</span>
+      </div>
+      <div class="gs-hero-cta" data-page-node-id="a7ILsKf4uqG3CGFwjXETe2">
+        <a class="gs-hero-btn" href="giencoder/index.html" data-page-node-id="1LzEWaATuIMCHAUPhMqEsQ">进入组件库<span class="gs-hero-btn-arrow" data-page-node-id="16oVTw732EL2T3huYhnAC9">→</span></a>
+        <a class="gs-hero-link" href="giencoder/tokens-visual.html" data-page-node-id="YyIk67qGecxG4VaMhSsB0l">查看 Token 可视化</a>
+      </div>
+    </div>
+
+    <!-- ════════════ 1. 快速上手 ════════════ -->
+    <div class="gs-section" id="quickstart" data-page-node-id="sE7KbwBWHqxfcoOS84k0X0">
+      <h2 data-page-node-id="HG4xIguNByLzf4AyfPV58J">1. 快速上手（5 分钟）</h2>
+      <p class="gs-lead" data-page-node-id="NDv2QCg0FQizKZahE4HWxv">先跑起来看到东西，再谈怎么做。整个系统是纯静态文件，无需构建。</p>
+
+      <h3 data-page-node-id="v86gMs5UUt9s7sL2e9xG8j">1.1 打开方式（零配置）</h3>
+      <p data-page-node-id="QcMMzXOOa8iU6e6tnjmDB2">整套系统是<strong data-page-node-id="jjfvJmYABJKGkMTawIAJQT">纯静态文件</strong>：全部 UTF-8 编码，组件库首页、组件预览、Token 规范与本说明书之间都用<strong data-page-node-id="9kKXdz0m2grcnX8EbTiLS0">相对路径</strong>互相串联，<strong data-page-node-id="GdhAcEUoESWmHSRTDs28UU">无需任何本地服务</strong>。</p>
+      <div class="gs-note ok" data-page-node-id="3QIuybYcQVCVo4g1kcZfzn"><b data-page-node-id="hyeyp3NJdmEC8HNfsH5nKz">最快上手</b>：双击根目录的 <code data-page-node-id="kVGk7iB3FXBACoDiz5NA6u">GETTING-STARTED.html</code>，浏览器打开即可。所有跳转、iframe 活预览、CSS 样式在 <code data-page-node-id="JLQN6wgUKHL0lW02V2j9kG">file://</code> 协议下均正常工作。</div>
+      <p data-page-node-id="CiYi46tavF8vU6o3GzBvET">三个高频入口（双击打开任一即可，后续跳转皆为相对路径）：</p>
+      <ul data-page-node-id="ar0jZzjeeVbtOMfEYg9HYA">
+        <li data-page-node-id="XKaYrjLWR5Y7D0yqSDDCbN">使用说明书：<a href="GETTING-STARTED.html" data-page-node-id="zCcv2FJAbchemitLhtzNQa">GETTING-STARTED.html</a>（根目录）</li>
+        <li data-page-node-id="PHNZDgKFFSiMPX2nLscSc3">组件库首页：<a href="giencoder/index.html" data-page-node-id="uan3V8XevDYerZvlUsPoVX">giencoder/index.html</a> — 浏览全部 71 个组件</li>
+        <li data-page-node-id="twPVi2GPAjqWFEaaixNn4u">Token 可视化：<a href="giencoder/tokens-visual.html" data-page-node-id="pmFYsf3QAMNbKH3CtovEuo">giencoder/tokens-visual.html</a> — 看全部色板/字体/间距</li>
+      </ul>
+      <div class="gs-note" data-page-node-id="jnkbDOeALqCFK8MXRhZWoo"><b data-page-node-id="ui4vFNNrbSUVgZ7VZ36G8u">关于 <code data-page-node-id="lkO4nJ1pyxUqHdbHwPE9Qy">serve.py</code></b>：根目录的 <code data-page-node-id="LFY4kuLUcDgCHLRjILhk4L">serve.py</code> 只是一个<strong data-page-node-id="Wb7l45VsSFzVOChlDS7vY2">可选</strong>的本地 HTTP 服务（默认端口 8866），只在跨域调试 / 模块化调试等需要 HTTP 协议行为的场景才需要用。日常浏览、组件预览、契约查阅<strong data-page-node-id="0h7DtPsjfB6fqcbC3Ydg8m">都不需要它</strong>。</div>
+
+      <h3 data-page-node-id="QSIITv3hDJv3f0XxuMz2bO">1.2 三个入口，对应三种需求</h3>
+      <table class="gs-table" data-page-node-id="TzCIshF66DaKq6ad2OCOS4">
+        <tr data-page-node-id="d2lrYhLTMhr4iiBtBgvywM"><th data-page-node-id="0NlZ78ThnzFtR0OXqIoEHE">我想……</th><th data-page-node-id="z5hgXcYKrCLSFKJ36y8UN3">去这里</th></tr>
+        <tr data-page-node-id="ejOwWChLmeTKLPCfMeJgKm"><td data-page-node-id="CRZLcu9pTfFrX5uuWgmQ7Z">看某个组件长什么样、有哪些变体/状态</td><td data-page-node-id="tH8SQPafUInJCkpDs97uJe"><a href="giencoder/index.html" data-page-node-id="JkSbNo9Tn6V4aCuIwb1wni" class="gs-path">index.html</a> → 点进对应组件详情页</td></tr>
+        <tr data-page-node-id="wbcp8ILcWbzUmWDASChA6C"><td data-page-node-id="SfbW8Z8CnwCQAnl4U0mQjF">拿一段能直接复制的组件代码</td><td data-page-node-id="pbttktbiwrX8465DCmttFq">组件详情页右侧即代码模板，或 <a href="giencoder/preview/component-button.html" data-page-node-id="nHPgIrTM8ByoDDUBYNJePR" class="gs-path">preview/component-{slug}.html</a></td></tr>
+        <tr data-page-node-id="Yb68D6KWdi5VIkNoZMeizt"><td data-page-node-id="LYPpEPVZTq9v6QuZ80FcTb">搭一个完整页面</td><td data-page-node-id="Hlkuv8PBuz0uvkZ4cNwnpq"><a href="giencoder/ui_kits/list-page/index.html" data-page-node-id="NUi3hb5irWCC1eMyqgPDPg" class="gs-path">ui_kits/</a> 六大页面样板，复制改内容</td></tr>
+      </table>
+
+      <h3 data-page-node-id="cPOeuWxgX3avuP50YFazBR">1.3 建议的第一次阅读顺序</h3>
+      <ol data-page-node-id="Tzrl2SrB0FxFIEIgAbFXCQ">
+        <li data-page-node-id="xtjbFHsMo6jfqXNcNRYgiG">点开 <a href="giencoder/index.html" data-page-node-id="HAt8MKvV1dzu1aF9nV2jwa" class="gs-path">index.html</a>，随便点 3 个组件看详情（如 Button、Table、Modal）</li>
+        <li data-page-node-id="gBlyQxZtPPfXoYRWF81MLF">打开 <a href="giencoder/tokens-visual.html" data-page-node-id="2E525QBrPF4ph9MW1SIhar" class="gs-path">tokens-visual.html</a>，建立「颜色/字体/间距都有 Token」的直觉</li>
+        <li data-page-node-id="IISYGewG8QjH8RtZmq3I8E">打开 <a href="giencoder/ui_kits/list-page/index.html" data-page-node-id="z8mSKvPyCufa0SorR42pGC" class="gs-path">ui_kits/list-page/index.html</a>，看一个成品页面长什么样</li>
+        <li data-page-node-id="kkNiR4wap1cESQW93270tm">回到本说明书的「核心概念」与「标准工作流」章节</li>
+      </ol>
+    </div>
+
+    <!-- ════════════ 2. 资产地图 ════════════ -->
+    <div class="gs-section" id="assets" data-page-node-id="wboJcb5zGROYtdOWGUqBvJ">
+      <h2 data-page-node-id="aBIBeZpvFEHg0SBcxIAmqx">2. 资产地图</h2>
+      <p class="gs-lead" data-page-node-id="LXGnRKoZXJvvCY8joCs72U">一张表搞清楚：每样东西是什么、什么时候该看它。所有路径都相对于项目根目录。</p>
+
+      <table class="gs-table" data-page-node-id="bkM11MMAFbU7i9jls16TcL">
+        <tr data-page-node-id="5HlHycdJh3CGuuSEIoYkAg"><th data-page-node-id="fv2NhG85SqEaYrHIDMtzHb">文件 / 目录</th><th data-page-node-id="n0XlOugfFmBxMTSOVpYaky">是什么</th><th data-page-node-id="jDWmXMyKVuKdJrRIQz0xtk">什么时候看</th></tr>
+        <tr data-page-node-id="zVN6MydTEPBsncCoMAU1zA"><td data-page-node-id="sFUXCaxBcqErxQjwJHgARE"><a href="giencoder/tokens.md" data-page-node-id="dnkFCZ9UVnoHws6x5hjFjj" class="gs-path">giencoder/tokens.md</a></td><td data-page-node-id="TTyWmdf2MhKgHUy359WyCG">Design Token 权威规范（色板/字体/间距/圆角/阴影/动效/z-index）</td><td data-page-node-id="3D94ciLV6xigMrYIYM8JHi">写样式、需要取具体 token 值时</td></tr>
+        <tr data-page-node-id="BZtLBHjDCgYu8WFUAnJDNQ"><td data-page-node-id="IT4StMUM1guICnOX8HrVlZ"><a href="giencoder/colors_and_type.css" data-page-node-id="SkfcWbJRkt3ZC8XGYQhqfo" class="gs-path">giencoder/colors_and_type.css</a></td><td data-page-node-id="CPPp82YwfisbA1It8YuVXd">Token 的 CSS 变量实现（<code data-page-node-id="nO2kFVn09Z663EEUW8V1Ah">--color-*</code> 等）</td><td data-page-node-id="QtvKeMAUitE2Dz7b8xY8aH">页面必须引入它，才能用 <code data-page-node-id="USx4jeUaqJ8e0KbpgtkS2a">var(--*)</code></td></tr>
+        <tr data-page-node-id="6w1NzMbW32eloBHjOqtmtZ"><td data-page-node-id="kvJhnKTnpnWeYVmL1OJBoV"><a href="giencoder/components.css" data-page-node-id="YB5a6ETBl6cY6nzg9PtOVE" class="gs-path">giencoder/components.css</a></td><td data-page-node-id="ilm5nAg2PT6xBhj50ria08">71 个组件的样式（<code data-page-node-id="DoNddYwcdmcTkZFy3xH0fy">giencoder-*</code> 类）</td><td data-page-node-id="jQzSa3kQR69p8urYCU3XqM">页面必须引入它，组件才有样式</td></tr>
+        <tr data-page-node-id="jH73E1NRWpLN79gtK7N9Tu"><td data-page-node-id="pBITPeVCOPsmdEC8HV7yMz"><a href="giencoder/component-registry.json" data-page-node-id="V7Jpd5euJdKIAHPusrFwJD" class="gs-path">giencoder/component-registry.json</a></td><td data-page-node-id="ZcGGmO7zrTurtV2YL4fDyI">71 组件注册表（分类/覆盖状态/命名映射）</td><td data-page-node-id="m5ZU8QBNmBxnTjpMArn4aK">查某个组件属于哪一类、slug 是什么</td></tr>
+        <tr data-page-node-id="6kbRD46yGrqpdxH3PNELHv"><td data-page-node-id="IZJSCOEc4oagqY7Qjwihqe"><a href="giencoder/components/button.json" data-page-node-id="ehcIbgMueyDbwbEDgdPRXT" class="gs-path">giencoder/components/{slug}.json</a></td><td data-page-node-id="ijLUw8XF0wZi3CmXX6VG5C">单个组件的契约（变体/状态/交互/无障碍/禁造清单）</td><td data-page-node-id="RZ86ny0w6w0eyzdbnyzt7B"><b data-page-node-id="ZpaByfZZDHCQuvyKehLff1">实现任何组件前必读</b></td></tr>
+        <tr data-page-node-id="JNPEIL2Aas2Z8EbK8ximgB"><td data-page-node-id="odlPZQ0RTEqEzHBl0ijJPA"><a href="giencoder/preview/component-button.html" data-page-node-id="Dob4FRc72C6Ju9pF6LNkci" class="gs-path">giencoder/preview/component-{slug}.html</a></td><td data-page-node-id="k4Sr7jFiGHjcRGboCD9I6X">组件的代码模板（可直接复制）</td><td data-page-node-id="BPnxNUyetQUbjKZDMVAOyk">写组件 HTML 的起点</td></tr>
+        <tr data-page-node-id="9Rcu7la2dW3SG5cIlXPA5q"><td data-page-node-id="IwykXqUZxclNJmkwiEyVEu"><a href="giencoder/patterns.md" data-page-node-id="PbRDidqpKD3wJQ8jjTy0Pr" class="gs-path">giencoder/patterns.md</a></td><td data-page-node-id="cAkXNZjD4cJBhvA6DFHo9F">六大页面模式（列表/详情/表单/看板/配置/结果）</td><td data-page-node-id="y2MISoo0DVVmhzQTqDrsG0">搭页面骨架时</td></tr>
+        <tr data-page-node-id="XWzB2SsM8rFhd3x7CS39UP"><td data-page-node-id="V5CPfdy0ruJG4HbiGHzw1f"><a href="giencoder/a11y.md" data-page-node-id="9F4yOZecCrVPExLD8bkYbr" class="gs-path">giencoder/a11y.md</a></td><td data-page-node-id="WWFElQn1hcuuC2GPpcXqtn">无障碍全局规范（对比度/键盘/弹层）</td><td data-page-node-id="RcDBhZBls1uqEvYFatzSpE">校验交付质量时</td></tr>
+        <tr data-page-node-id="cWJFlLwQbTkQLza6hpihHx"><td data-page-node-id="5P7DYwsA3e6w8C1PKHYSFT"><a href="giencoder/schema-contract.md" data-page-node-id="vue6rRnhLpABlFURN5gxF6" class="gs-path">giencoder/schema-contract.md</a></td><td data-page-node-id="rFIIpe3RkdOScL375tuZlt">契约 JSON 的格式规范</td><td data-page-node-id="JA0gwQ1JDwiiJhdSJPGuit">新增/修改组件契约时</td></tr>
+        <tr data-page-node-id="95AeKfZsRVZDcKwKuRXQMr"><td data-page-node-id="eI4hKbPukO5XOTufAAfsjB"><a href="giencoder/ui_kits/list-page/index.html" data-page-node-id="gsj5xLjSgSQCaREBfmL1sF" class="gs-path">giencoder/ui_kits/</a></td><td data-page-node-id="yDNTPq1Hs8A4CwAQdA350B">六大页面样板（成品）</td><td data-page-node-id="9qneQwdeJ8qpwuUWbbYvFj">直接复制改内容，或看最终效果</td></tr>
+        <tr data-page-node-id="BkjFyH6qSf76RyO4y7Ms0Z"><td data-page-node-id="VZKY8SrouSbaI5BTB3dFuu"><a href="giencoder/index.html" data-page-node-id="TCjU8LMkF30N2hAJqSPhZP" class="gs-path">giencoder/index.html</a></td><td data-page-node-id="lUCBoPO38zHDiEMa5dhu19">组件库导航首页</td><td data-page-node-id="SDDBKwPqlmCF72lFMv0cDB">浏览全量组件</td></tr>
+        <tr data-page-node-id="WmRVH56XNFXRl52GY1O2KS"><td data-page-node-id="UGaHmWQwmQ6WUuHbuTxdf6"><a href="giencoder/SKILL.md" data-page-node-id="QBRUrmZcbxP9y5tQi2ky4w" class="gs-path">giencoder/SKILL.md</a></td><td data-page-node-id="Psrz5xqbYWhzEDk0qI27lW">面向 AI agent 的硬规则</td><td data-page-node-id="qeemLhddEGJkklioHm6FIR">让 AI 协作生成 UI 时（人类看第 5 章铁律即可）</td></tr>
+      </table>
+
+      <div class="gs-note warn" data-page-node-id="2v0eIjg2kYr9O1GWLOor9V"><b data-page-node-id="UzUBeUEfcIZpOCT3z2vW1s">两条硬性引入规则</b>：任何页面想用源启组件与 Token，必须在 <code data-page-node-id="lGBGKn8oCCgKiBLeIeOlpL">&lt;head&gt;</code> 引入这两个文件——<a href="giencoder/colors_and_type.css" data-page-node-id="GwqdfLOWbh5Vh5zhPP4duK" class="gs-path">colors_and_type.css</a> 与 <a href="giencoder/components.css" data-page-node-id="c2CkP4FtK5lzo8OgyfM98l" class="gs-path">components.css</a>。缺一不可。</div>
+    </div>
+
+    <!-- ════════════ 3. 核心概念 ════════════ -->
+    <div class="gs-section" id="concepts" data-page-node-id="FiM0kAMTFZuVNMk2SZZUOT">
+      <h2 data-page-node-id="Vb2alNzKnDq9lFPwgP6MAT">3. 核心概念</h2>
+      <p class="gs-lead" data-page-node-id="mw21VWaaFfU4TbXGIV4rbI">整套系统靠「三件套」运转：契约（规格）→ 模板（代码）→ Token（样式变量）。理解三者关系，就理解了整套系统。</p>
+
+      <div class="gs-card" data-page-node-id="WELaumqb9ZZGkKhUlGDD2A">
+        <h3 style="margin-top:0;" data-page-node-id="RXp05MVnSxTVpuWRWeFxYm">三件套的关系</h3>
+        <table class="gs-table" data-page-node-id="QbxB1VC0Wwnif6sCmV3A5G">
+          <tr data-page-node-id="d9QcyvLoQyfERpS6olOqf1"><th data-page-node-id="ObkkiLIT6U4ixDUc5tP71Z">概念</th><th data-page-node-id="tCEMdgnNkJq0Fhe9rWYPGg">回答的问题</th><th data-page-node-id="5KfwHJDRyn3NDb8vgnYenf">落点</th><th data-page-node-id="IDtHhIIDB23LbmT8XPYkJx">类比</th></tr>
+          <tr data-page-node-id="4FYgw9Pp89qcUqNU7PNjGq"><td data-page-node-id="vbOJfWRwg6UJn1tVfIOy8k"><b data-page-node-id="qEkZJtgi4HwQAwuGDzIcD7">契约 Contract</b></td><td data-page-node-id="03rlWDYOes5XBXrF8c4tfL">这个组件<u data-page-node-id="KGPMNUx86BXWmMCzUYIDi3">应该</u>长什么样、有哪些变体/状态/交互</td><td data-page-node-id="0otR7nIJBrsAu1jNsCrnQv"><a href="giencoder/components/button.json" data-page-node-id="pqyVIpAFD7Ia50CBsZMmww" class="gs-path">components/{slug}.json</a></td><td data-page-node-id="S9nT4XEZM66pbhuK5JFWX9">设计规格说明书</td></tr>
+          <tr data-page-node-id="EY0m9ZLQsJ1eZs0KFw2p2X"><td data-page-node-id="3G4gQs9MyD5WWv5RcLBr3M"><b data-page-node-id="My8yUv7UBnGvYCySwksHr5">模板 Template</b></td><td data-page-node-id="eEJ6j47wtAuW82YNtcolAy">这个组件的<u data-page-node-id="sZMXpigqiPA5wx9hkxjE5V">代码</u>长什么样</td><td data-page-node-id="ClzzWuzZsALsB8KdXEAmaw"><a href="giencoder/preview/component-button.html" data-page-node-id="w7H9vHdCtppEX8CD600WEd" class="gs-path">preview/component-{slug}.html</a></td><td data-page-node-id="UovJzqKx3I1p0SiDW6dX0o">可直接复制的成品代码</td></tr>
+          <tr data-page-node-id="nqhab3Rm9nUOFLrHCsqIF9"><td data-page-node-id="FzTOz6Mth6YiD4h1KBHCQH"><b data-page-node-id="7H8gC9zGd9Rluc4UYK3wVs">Token</b></td><td data-page-node-id="GIqWCAbTLoqaOwjzaefBBH">颜色/间距/圆角等的<u data-page-node-id="DIvILJZZd7muYM5vGw4cov">唯一取值</u>是什么</td><td data-page-node-id="wDlbWriveEoJI3fUo19dfm"><a href="giencoder/colors_and_type.css" data-page-node-id="Ct9B5qDrkLmvlehZ2p26Ug" class="gs-path">colors_and_type.css</a> + <a href="giencoder/tokens.md" data-page-node-id="EOIQoEnZ2Du34BYOnnW4EG" class="gs-path">tokens.md</a></td><td data-page-node-id="HqSERmpzAEPa9i2LFnp2i8">设计变量字典</td></tr>
+        </table>
+        <p data-page-node-id="3X5tD7aVx17GqBm6OXZ2sI">一句话：<b data-page-node-id="hQbHmG2EFAqCt0I1v9NZn9">契约约束「有什么」、模板给出「怎么写」、Token 锁定「用什么值」。</b></p>
+      </div>
+
+      <h3 data-page-node-id="tx0w6nJ83B3vIfxcj1pGUB">3.1 契约（Contract）——实现前先读它</h3>
+      <p data-page-node-id="Wvu1jtvtzRhQIPTiu8zM40">每个组件都有一份契约 JSON。以 Button 为例，关键字段：</p>
+      <div class="gs-code" data-page-node-id="sCwTfDK6EDzUBTHVMjGqOd"><code data-page-node-id="1CBAXRdzX39jLLOwrjqgeW">{
+  "slug": "button",
+  "category": "general",
+  "variants": [ { "name": "primary", "whenToUse": "页面主操作" }, ... ],
+  "sizes":   [ { "name": "medium", "value": "32px 高度" }, ... ],
+  "states":  [ { "name": "hover", "visual": "..." }, ... ],
+  "interaction": { "keyboard": ["Enter: 触发"], "motion": {...} },
+  "a11y":  { "role": "button", "ariaAttrs": [...] },
+  "usage": [ "主操作每屏仅一个", ... ],
+  "doNotInvent": [ "不虚构圆角/胶囊等额外 shape 变体", ... ],
+  "tokensConsumed": [ "--color-primary-6", ... ]
+}</code></div>
+      <div class="gs-note" data-page-node-id="ajkoGHDEZoTHZahlo8p9Vj"><b data-page-node-id="k3ZpdFb3NZXQIgYPwfqBYr">重点看两个字段</b>：<code data-page-node-id="oX5YcLW94assTUiueMAoa5">usage</code>（该组件的正确用法）和 <code data-page-node-id="QYbPvETXhVAYH1p9sYVw3u">doNotInvent</code>（禁止臆造的东西）。它们直接决定你会不会「做错」。</div>
+
+      <h3 data-page-node-id="0XW2pjokP8QMtGb66BhjM1">3.2 模板（Template）——复制它，别手写</h3>
+      <p data-page-node-id="QQbCI5txvjaGVoVLL4QBP1">模板是「可复制的代码」，不是「视觉参考图」。生成页面时，从模板<b data-page-node-id="JyQc5wXHA8WgZ1dvXV5J7e">原样复制</b>组件 HTML，只改文字与数据。</p>
+      <div class="gs-note ok" data-page-node-id="rwBUeLIiizySr2Q7O85pCV"><b data-page-node-id="TML1JXGSiTbkgEIPrhEuIz">原则</b>：先复制模板，再替换内容。手写组件 HTML 是出错的头号来源。</div>
+
+      <h3 data-page-node-id="OU0eRX72iYa0EH5gVZBBij">3.3 Token——禁止硬编码</h3>
+      <p data-page-node-id="XgLILnSxpERHaSKH8LuTHO">所有视觉取值都来自 Token。颜色用 <code data-page-node-id="AYren1lnecEj1llMfsEF1s">var(--color-*)</code>，间距用 <code data-page-node-id="jQ6HbIsOssoqF4qd5pYlo8">var(--spacing-*)</code>，圆角用 <code data-page-node-id="nTDwcEqM4lXcNL8osDAW6F">var(--border-radius-*)</code>，阴影用 <code data-page-node-id="WbnC6uWlNtXachXZ57j2q1">var(--shadow*)</code>，动效用 <code data-page-node-id="tCLT7QCDhQMoG1jsQolzv5">var(--transition-*)</code>。</p>
+      <div class="gs-vs" data-page-node-id="kt7KjZEY7GIFsChPsY24yR">
+        <div class="gs-vs-bad" data-page-node-id="Hs4aPo5R3nQLDXLja51hm4"><h4 data-page-node-id="hqhNy7DDfkZcaZtyxa9BoK">✗ 错误</h4><div class="gs-code" style="background:#1F1F1F;" data-page-node-id="QmO7s55FhS1Z2uXgfBdh5Z"><code data-page-node-id="0t4Xv31MzX8Kk8f6YpOWkU">color: #3770F7;</code></div><p data-page-node-id="LQABgd98545OWML8GRySuW">硬编码 hex，换主题/改品牌色就失效</p></div>
+        <div class="gs-vs-good" data-page-node-id="mkKfYwqTE0Nbjqajxi4Z4S"><h4 data-page-node-id="tYWLmell3awqAUdQHENweP">✓ 正确</h4><div class="gs-code" style="background:#1F1F1F;" data-page-node-id="JeXpDlwhtxOVLigRejneON"><code data-page-node-id="7FDNAJalQo8CrIn44LFqBH">color: var(--color-primary-6);</code></div><p data-page-node-id="gXWhACVWEf9Dkv9D4B7EEZ">走 Token，全局联动</p></div>
+      </div>
+
+      <h3 data-page-node-id="IyqhotwvDQDHVAsqdAIxaA">3.4 Token 分类速查</h3>
+      <table class="gs-table" data-page-node-id="COuwB3wfEWGJmJUWPN2z0S">
+        <tr data-page-node-id="tmDYT1bbaWDmkCGOOwOtnv"><th data-page-node-id="REDVa8Xtxg6PWWvKiQB9VG">类别</th><th data-page-node-id="iFlBMcGYvrLfkFxyfYpeHI">前缀</th><th data-page-node-id="AwDqoy1IIn0dLo48b6BZ5C">示例</th><th data-page-node-id="IXkg2Ktjp5S7MFBT58onye">说明</th></tr>
+        <tr data-page-node-id="KYWCFe4F8HRuWBYNy0cDUE"><td data-page-node-id="3402A662Y0tT1DAOrRq1Hp">品牌色</td><td data-page-node-id="z5XbfpbyuiKvAdFm9YZV5W"><code data-page-node-id="58WqQ9GsOzwLebzufk9uEE">--color-primary-*</code></td><td data-page-node-id="9qvxOwNRTLtG0WPpcKAgoD"><code data-page-node-id="YEk7YdAZ840CJ9UHXQooPl">--color-primary-6</code></td><td data-page-node-id="hCW0ui6gMHHVj2AqVoFChx">1 最浅 → 10 最深，6 为基准</td></tr>
+        <tr data-page-node-id="2vzLi2UI03A9XEIxzfKKWz"><td data-page-node-id="xJW6A5VXrbFXQAqyU9PNLL">文本色</td><td data-page-node-id="1N60CDx1Z9yTRJRermHFds"><code data-page-node-id="VSzPm90zAs52UaoYbRBYKl">--color-text-*</code></td><td data-page-node-id="14hgG1RAWfqNvHjvCvCin2"><code data-page-node-id="kWq8VEy5NhEPs6aqGM9W0r">--color-text-1/2/3/4</code></td><td data-page-node-id="nEK5901HnDKuFQNIiNC3sS">主 / 次 / 辅助 / 禁用</td></tr>
+        <tr data-page-node-id="PmIM4RWl51KE7lF968ZW8G"><td data-page-node-id="TAJJfsNKqFrOPa1E0IBZlV">背景色</td><td data-page-node-id="ObDQDT7nQ8VxbKphO66QL5"><code data-page-node-id="vAlbjNAYJgPJiHyJ0w7edw">--color-bg-*</code></td><td data-page-node-id="cN3jTwdoF8G2CZv1FcC4YN"><code data-page-node-id="nkJzTUbRwYuQdRbSHk1yRD">--color-bg-1 ~ 5</code></td><td data-page-node-id="aDLU90pe83Y9K4kbRCkItH">层级背景</td></tr>
+        <tr data-page-node-id="9VPEg7DuAksFMHURKsTMNu"><td data-page-node-id="jf7Ui7Cr5gZWmEEMkg4YDo">边框</td><td data-page-node-id="YA1dtABwhGHx0U7e156P7X"><code data-page-node-id="fRoFmSYlKv0Q6qLL7uibD3">--color-border-*</code></td><td data-page-node-id="jxRGpCGPlZ8RFbgDdNkzKD"><code data-page-node-id="Qgva7lAVjfKS6DirxwJjcD">--color-border-1 ~ 4</code></td><td data-page-node-id="kLmGTweBvfgCirLFnENwpG">组件边界</td></tr>
+        <tr data-page-node-id="mQf2EVIB7DEKsTfK8jx26z"><td data-page-node-id="cmOArsBObubvo0Z8AcEQEg">功能色</td><td data-page-node-id="1fUiuXcWGLMLJIgD34OgsT"><code data-page-node-id="Rhn7cDOC2yPndflIuziEcN">--color-success/danger/warning/link</code></td><td data-page-node-id="6dKDksWiNtyJNFt94FSTth"><code data-page-node-id="DV6qgUOQ39eIcdlHaDWIPz">--color-success-6</code></td><td data-page-node-id="6UnXBkYkNYCyQT5wM7EsdS">含 <code data-page-node-id="wwMJW4EJvOTvs8GAHAntVp">-light-1/2</code> 浅色背景档</td></tr>
+        <tr data-page-node-id="6jR0RVmUaks1OVAs9Hpscy"><td data-page-node-id="50F921fDTuCqH2MkD9hFDR">间距</td><td data-page-node-id="Mij9CG7K5i43dyCun8EfqH"><code data-page-node-id="rOVmBZVZTHpuZK3vUcXcgS">--spacing-*</code></td><td data-page-node-id="7aVkfWwjBO85N7Sb6Zfwqj"><code data-page-node-id="PIDEbTyArHomo70p8HyujH">--spacing-7</code></td><td data-page-node-id="J1SEvlF4Zx0oazxBtnktLH">22 档刻度</td></tr>
+        <tr data-page-node-id="FrPOYR7EEa0rlJoqIhTkEp"><td data-page-node-id="ydFDaz7AadxgzW40ZOc6pt">圆角</td><td data-page-node-id="GQSrQLuRfGduFzL89TTX2E"><code data-page-node-id="4sHJCtEBVFtCzHQag5EGxk">--border-radius-*</code></td><td data-page-node-id="gji8p7LYCP8Hxsbc1RQoKm"><code data-page-node-id="zxAUNxmQ2toA84fBOeoHJL">--border-radius-medium</code></td><td data-page-node-id="i1zEMxwQNIXjG7BXeEPiYS">none/small/medium/large/circle</td></tr>
+        <tr data-page-node-id="OqBfy8KCRGCDdvVT168ZzA"><td data-page-node-id="9H37BQHFvEeGAAvHGpjksJ">阴影</td><td data-page-node-id="84NHiqPmZACQ6sF2WY8sQy"><code data-page-node-id="RY9sqngbAJtLzcyYb09zJt">--shadow*</code></td><td data-page-node-id="DT6HRaNqsTXNJh8rpN2Kn9"><code data-page-node-id="H4yFCy4telCRkBoLUrmHdl">--shadow1-down</code></td><td data-page-node-id="WdNggOv3bgXEWGW8LrDSUl">1/2/3 档 × 方向</td></tr>
+        <tr data-page-node-id="HhGcBwt05dnnW0KNZCzBUj"><td data-page-node-id="JHM3f6IlFygn543BPGrm2I">动效</td><td data-page-node-id="be6Q0OG6E99ZGUeGE0IJ2n"><code data-page-node-id="4I3CBTUj2QzOtC7FG5RKK3">--transition-*</code></td><td data-page-node-id="NvWkvb8WTKcjmdAI7bi2jT"><code data-page-node-id="48jTWyyuH1LGKESflk7LkD">--transition-duration-2</code></td><td data-page-node-id="vE7Bo9vWqPEpgk8BY5CCgo">含缓动函数</td></tr>
+      </table>
+    </div>
+
+    <!-- ════════════ 4. 标准工作流 ════════════ -->
+    <div class="gs-section" id="workflow" data-page-node-id="yOOi1y0kOQtsomAHpGJaVq">
+      <h2 data-page-node-id="8Ujf1fDO7abGKEO8BEROee">4. 标准工作流（六步）</h2>
+      <p class="gs-lead" data-page-node-id="8KF9OMcG7Okqj4Cc1DxXuE">从需求到高保真页面的固定路径。按顺序走，不跳步。</p>
+
+      <div class="gs-steps" data-page-node-id="En9oxA0TzSMoaLC8fUUWHo">
+        <div class="gs-step" data-page-node-id="ormIEFnC05RfoSKGIMbyxp"><b data-page-node-id="ZWe10wq2WnpTprEm9syGAi">明确需求与模式</b>
+          <p data-page-node-id="fghamvYaCJzbZNCr1FxFje">先想清楚要什么页面，对应 <a href="giencoder/patterns.md" class="gs-path">patterns.md</a> 六大模式里的哪一种（列表/详情/表单/看板/配置/结果）。页面 = 骨架 + 区块 + 状态 + 反馈。</p>
+        </div>
+        <div class="gs-step" data-page-node-id="0jjM9jBocLhOZsuUmID3EP"><b data-page-node-id="4fzqLi4QQTtfRWfsalfxV4">选组件</b>
+          <p data-page-node-id="dKOGLukIZpYyAi54Ez3CYv">在 <a href="giencoder/index.html" data-page-node-id="yX3tWjwHvYTxR7PZNxyEEV" class="gs-path">index.html</a> 按分类（通用/布局/导航/数据录入/数据展示/反馈/其他）找到需要的组件，记下它的 slug。</p>
+        </div>
+        <div class="gs-step" data-page-node-id="r7QumGFjI2xKsJcVtcURJ6"><b data-page-node-id="Lfafec5Q6DG8YRKETXhz3g">查契约</b>
+          <p data-page-node-id="Vow2m2xaOwbl4GYZFkmOve">读 <a href="giencoder/components/button.json" data-page-node-id="oD6Ibhs4vQ717vzKfKS3CS" class="gs-path">components/{slug}.json</a>。重点看 <code data-page-node-id="GwIMpKRUUCT7vRmsFXUsRJ">variants</code>（用哪个变体）、<code data-page-node-id="CmDXvpany20ATjNQHeUuH7">usage</code>（怎么用）、<code data-page-node-id="K31mgrPCRlfZM5wH2WwZWG">doNotInvent</code>（别造什么）。</p>
+        </div>
+        <div class="gs-step" data-page-node-id="hNm4GYeAejC0374Gm9t1th"><b data-page-node-id="nHC1PoKXuyHUN7tB2QBB4t">复制模板</b>
+          <p data-page-node-id="khFtdtiDoRIId0BdQWbbvb">从 <a href="giencoder/preview/component-button.html" data-page-node-id="akykfcDQcTATmEkslTlQhV" class="gs-path">preview/component-{slug}.html</a> 复制对应片段，只改文字与数据，别改结构。</p>
+        </div>
+        <div class="gs-step" data-page-node-id="Awf2pzQlEWIipuu1N2A5RS"><b data-page-node-id="KBpftrePcw8PfAZgrGgnHO">套 Token + 组页面</b>
+          <p data-page-node-id="b819fRGZEulRYARgTD53Zv">所有颜色/间距/圆角/阴影用 <code data-page-node-id="epO0avKuErlTfQH7QyA8xz">var(--*)</code>；按 <a href="giencoder/patterns.md" class="gs-path">patterns.md</a> 把区块组合成页面骨架。</p>
+        </div>
+        <div class="gs-step" data-page-node-id="pCsQYNFB6oH0BfMgvfRdUY"><b data-page-node-id="lD4fLFns9FXCgDWiwdsEGm">校验</b>
+          <p data-page-node-id="f89W5a9UtYFmnlAgdkcBZn">用第 7 章验收清单逐项自检：Token 无硬编码、弹层三要素、对比度、状态齐全、响应式。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════════════ 5. 铁律与反模式 ════════════ -->
+    <div class="gs-section" id="rules" data-page-node-id="BrSseXFVGcsuvBn7HZQhbt">
+      <h2 data-page-node-id="TRoxNcUOK7nV8COGkijogN">5. 铁律与反模式</h2>
+      <p class="gs-lead" data-page-node-id="8VBO8twjIHQF0nidWTe4Qm">五条铁律是红线，违反任何一条都不算合格产出。下面是每条的常见错误与正确做法。</p>
+
+      <h3 data-page-node-id="XywoPeADX9HUVWbAesAXkD">铁律 1：组件以契约为准，禁止臆造</h3>
+      <p data-page-node-id="U5UBYDgUEuj4LS1Q2nDdUh">任何组件先读契约，再动手。不要凭「记忆里这个组件应该能……」来写。</p>
+      <div class="gs-vs" data-page-node-id="kJt5LMkkyOOqrXnOq0BEEI">
+        <div class="gs-vs-bad" data-page-node-id="cNN9miF2sBGv2FmJylXALO"><h4 data-page-node-id="0O76cjPBIFZyf4akYNq2HV">✗ 臆造</h4><p data-page-node-id="2ulQjitlXt8YFTcBwPZ8iD">「Button 应该有胶囊圆角变体吧，我加一个」</p></div>
+        <div class="gs-vs-good" data-page-node-id="ALwgEwUpB8Z17J9XWH3ccu"><h4 data-page-node-id="bqZeHgHxnNiUQfWGGn3nzZ">✓ 守约</h4><p data-page-node-id="chOxpPU9nF8rkQxhOB3bgE">读 <a href="giencoder/components/button.json" class="gs-path">button.json</a>，确认只有 square/circle 两种 shape，绝不新增</p></div>
+      </div>
+
+      <h3 data-page-node-id="rm6uViutwDkMBp85Eo2YRo">铁律 2：Token 禁硬编码</h3>
+      <p data-page-node-id="3CpyGvWsrjnD8pdPWl2Hex">颜色、间距、圆角、阴影、动效一律 <code data-page-node-id="QvK0lcYgsMthSlT0RtFUyc">var(--*)</code>。代码里出现 hex 色值 = 不合格。</p>
+      <div class="gs-vs" data-page-node-id="mz5HNFkuGZyMGkaPUxhsvJ">
+        <div class="gs-vs-bad" data-page-node-id="IyeKHXCfTjYcZJRa8hJk1J"><h4 data-page-node-id="U5plphoWzLxBFRH8iBTB08">✗ 硬编码</h4><div class="gs-code" style="background:#1F1F1F;" data-page-node-id="dTZIii8mXyYymBVRxZibvg"><code data-page-node-id="osDTSiiDwn7cdSgqznJ3iU">background: #F53F3F;
+padding: 12px;</code></div></div>
+        <div class="gs-vs-good" data-page-node-id="S1XmGl09OIZF03mmjqxX0Z"><h4 data-page-node-id="IbFOLcEVFGlQRDTDLdoC6b">✓ Token</h4><div class="gs-code" style="background:#1F1F1F;" data-page-node-id="kahSUw1p44mFjhMdz23JLy"><code data-page-node-id="AkJSKGMCdQPwRFZeQMqtB3">background: var(--color-danger-6);
+padding: var(--spacing-6);</code></div></div>
+      </div>
+
+      <h3 data-page-node-id="nYJHdl4a3RvXJDTdOpHi8D">铁律 3：禁止替换类库</h3>
+      <p data-page-node-id="kQIlQb7PBdqQmskhY3KUxa">不引入外部 CSS 框架、不用 Lucide/Heroicons/FontAwesome 图标、不用 CDN 框架、不自造 SVG 路径。</p>
+      <div class="gs-note warn" data-page-node-id="m5fb6F6OJBaf6yNyXYfFcV"><b data-page-node-id="Bty9CgyNDB6eIFdW1wIyBX">说明</b>：图标用内联 SVG（源启图标体系），颜色用 <code data-page-node-id="lGi8W2gvqYp2IEvdgDmxKp">currentColor</code> 继承文字色。引第三方图标库会破坏视觉一致性。</div>
+
+      <h3 data-page-node-id="7A5rUSwVX8IBWttmCqePCv">铁律 4：弹层必做三要素</h3>
+      <p data-page-node-id="InhA4DIdGCbyplXbtpOgKt">Modal / Drawer / Select / Dropdown 等弹层必须实现：<b data-page-node-id="5Z8fv1SFgJTwSQJC7M8HNf">focus trap</b>（焦点循环）+ <b data-page-node-id="BjqyoplBRza1UQmAHcWyHN">Esc 关闭</b> + <b data-page-node-id="ecmOV8lttXFSCtx28W1ghG">遮罩点击关闭</b>。</p>
+      <div class="gs-note" data-page-node-id="j5yCXAoGTEmtRK8c4lyRwD"><b data-page-node-id="dHQnx5UTy4KWgCBdPZ2fNy">详见</b> <a href="giencoder/a11y.md" data-page-node-id="yChXWD7vRBENthSEY42Ryj" class="gs-path">a11y.md</a> §4，每个弹层组件的键盘行为见其契约的 <code data-page-node-id="sE1HgrnahbUd2O5gGXRMBd">interaction.keyboard</code> 字段。</div>
+
+      <h3 data-page-node-id="gCquE1w69lNmfqLWRoscHi">铁律 5：页面按模式组合，不自由发明布局</h3>
+      <p data-page-node-id="cqEEfCUyoqZh13VhVnFJlN">页面结构按 <a href="giencoder/patterns.md" class="gs-path">patterns.md</a> 六大模式组合，骨架对齐 ui_kits 样板。别自己发明一套「看起来很新」的布局。</p>
+
+      <h3 data-page-node-id="vf7IO0bMD54Hy2HrZiMDhf">反模式速查表</h3>
+      <table class="gs-table" data-page-node-id="HW4gopAz55t3IU8eUIcpuv">
+        <tr data-page-node-id="4AqRJpt8RW1jBncWEVRQJb"><th data-page-node-id="OQn854QdHwSjfWa65nFmX0">错误做法</th><th data-page-node-id="cgUoYw1DFE3DEMldSTKN5c">为什么错</th><th data-page-node-id="MMo7UVRqEyxAxJLFDcg0f6">正确做法</th></tr>
+        <tr data-page-node-id="9ZWPWxBGk3z3uFRjipxi3x"><td data-page-node-id="oKBB61zBM7g5RYCxWM6xGf">手写组件 HTML 结构</td><td data-page-node-id="LiJtHqXf38NHChjz2BwiBh">结构与模板不一致，样式错乱</td><td data-page-node-id="1obCPLYckZdnaYvuDEp7NB">复制模板改文字</td></tr>
+        <tr data-page-node-id="z2d8HxRKSBuORe3lOojTjN"><td data-page-node-id="oDfB4EIvk5cEhxzRuStCFM">直接写 <code data-page-node-id="b6G4BFcAOyYhC0stLUHEIa">#3770F7</code></td><td data-page-node-id="fSEfP1RLE5gOb9NK6izT3v">换主题即失效</td><td data-page-node-id="KucUhxLC5hj7wbejQIXJvy"><code data-page-node-id="x75wElst4Ig6PA6353J97N">var(--color-primary-6)</code></td></tr>
+        <tr data-page-node-id="oBOPw9Agl7KxHm4SCVharP"><td data-page-node-id="LLZ9Wr9bWWlu5ZC9ZuA1Wf">用 <code data-page-node-id="gXE5LFz8EHlGTOB0AkJLZv">&lt;i&gt;</code> 标签塞 FontAwesome</td><td data-page-node-id="v7zWuxuSoTMGr1ZoepF5we">引入外部依赖，风格不一致</td><td data-page-node-id="7oySgAXGvwzoCqX9cepfsr">内联 SVG + <code data-page-node-id="XrQf024mYkyMRXCPFFmBND">currentColor</code></td></tr>
+        <tr data-page-node-id="J15QOsXKWUdf7ouBHva4Fo"><td data-page-node-id="JBI6CJpYmxtLnCIIA8GyoP">弹层不做 focus trap</td><td data-page-node-id="lBlvEohyHUEQnCNH6z8ltu">键盘用户焦点跑飞，违反 WCAG</td><td data-page-node-id="8jdNn2FVCosyaoQeM13cwF">三要素齐全</td></tr>
+        <tr data-page-node-id="ehPWxeZvtiCUZQVrOQkV7C"><td data-page-node-id="sbha8EhtD56cI269OuvMRk">主按钮一屏放 5 个</td><td data-page-node-id="3rYdyzI6N1GCAhTxBtWyus">违背「主操作唯一」原则</td><td data-page-node-id="VbNeeNr10xJmphxyDILXli">主操作唯一，其余降级 secondary/outline/text</td></tr>
+      </table>
+    </div>
+
+    <!-- ════════════ 6. 端到端示例 ════════════ -->
+    <div class="gs-section" id="example" data-page-node-id="rOfDyuDDnDZSuhF2EiCpe6">
+      <h2 data-page-node-id="2HAYtBMFiBf3tCPDIRWXFl">6. 端到端示例：列表 + 新建表单</h2>
+      <p class="gs-lead" data-page-node-id="WwfZmbMDuv1sOxBsSCtmTP">用一个真实业务场景「资源管理列表 + 新建资源」完整走一遍六步工作流。最终成品可直接打开 <a href="giencoder/ui_kits/list-page/index.html" data-page-node-id="cYvB1tryc6mNpTtIgAlgpG" class="gs-path">giencoder/ui_kits/list-page/index.html</a> 查看。</p>
+
+      <h3 data-page-node-id="gVsUvloNxhmHVNS2syebkS">6.1 需求</h3>
+      <p data-page-node-id="rqTTUwYUkbetp6KqTfnVq9">做一个后台「资源管理」页：顶部标题 + 「新建资源」按钮；筛选栏（资源名搜索 + 状态 + 创建时间）；资源表格（勾选/名称/状态/负责人/操作）；底部分页；点「新建」弹出表单（名称/描述/环境/类型/开关）。</p>
+
+      <h3 data-page-node-id="oxADsDmw5TZfMWWGKiijb4">6.2 选组件 + 查契约</h3>
+      <table class="gs-table" data-page-node-id="RQaVI54mE0VGB9BzFeq29F">
+        <tr data-page-node-id="o5u9WC9AVGphmGxyqadWBy"><th data-page-node-id="KCK2csVbeNJgaxEyIluqgY">页面区块</th><th data-page-node-id="JI3mECsmNL5OT30CHV3VAf">组件（slug）</th><th data-page-node-id="ldw2WthHWpBHkY2ZGHHfxM">分类</th><th data-page-node-id="cpSt2xaQrL3Yp90getHjYa">契约要点</th></tr>
+        <tr data-page-node-id="J8xgno2Um5n2Lv59PQKDbq"><td data-page-node-id="ftGs4SO5WMOnzR3N4oHpho">页面骨架</td><td data-page-node-id="lZ09XuNaqWZwFuws8flRGI">Layout + Menu（<code data-page-node-id="VutDcv49inTuLQsnRwm9Lr">layout</code> / <code data-page-node-id="oG7K4fhazW0N13r7BM7TLF">menu</code>）</td><td data-page-node-id="rrjPrRia0N4IVJD9J4fbRs">布局 / 导航</td><td data-page-node-id="H76XuNqCPmDgpejKi0Epao">Header 48px + Sider 200px + Content</td></tr>
+        <tr data-page-node-id="fP8J1ptjqPiGuMAfVT1vFh"><td data-page-node-id="fbDb68F3AVAHX4gkNbszOP">标题栏</td><td data-page-node-id="L8R8SyJhZfTMsoogDAW2cG">PageHeader（<code data-page-node-id="u4UGNeNM1yMmhAiAleSwKS">page-header</code>）</td><td data-page-node-id="sqb5qcG9uQkGzO94TaLV1E">导航</td><td data-page-node-id="UsnJFcrcGtDbYIrRnMDrs7">标题 + 副标题 + 右侧操作区</td></tr>
+        <tr data-page-node-id="reK0VHmOhTofYCYodBU4Jk"><td data-page-node-id="ZJ1p7pLInSyo0fCYNeZSj3">新建按钮</td><td data-page-node-id="zD0s9u1Qc8SjxcAcf1rwnk">Button（<code data-page-node-id="csmfklPNvfuyXSL63HP7FQ">button</code>）</td><td data-page-node-id="HsEuKfaFujdgkfiRsIAc4n">通用</td><td data-page-node-id="7kAMEcqQD6kbP8DzWhGhao">primary 变体，主操作唯一</td></tr>
+        <tr data-page-node-id="aDsN1qYY7dVdp7SsmeOlmb"><td data-page-node-id="3vxG4N8F7hO7yryk3GKpTr">搜索框</td><td data-page-node-id="yuYsH1ZZFdI3D50zsuZslG">Input（<code data-page-node-id="SVPdQ2N9eD1gzyrd2fTMtJ">input</code>）</td><td data-page-node-id="HABJJ0ZpTOHMUSuYlwTQHN">数据录入</td><td data-page-node-id="4sPH9QJh3qEew2BJx0ZHfw">支持前缀图标</td></tr>
+        <tr data-page-node-id="W6gFqrfkreao1rKFeBaxQA"><td data-page-node-id="vt2ktqsrthdJJwljxjmUiD">状态筛选</td><td data-page-node-id="BRoIKZnebixOcsYhY2hiy0">Select（<code data-page-node-id="pTtBhCxzAyhMDjxjit9iiT">select</code>）</td><td data-page-node-id="f0OK0Aibti28JoBBMKFdP8">数据录入</td><td data-page-node-id="0UPSWgYi35ruLan89LWh1E">弹层三要素</td></tr>
+        <tr data-page-node-id="9zpXkrVaxzGA3sDHoPE69g"><td data-page-node-id="rDReKvYYlDaPEGYTel2jcJ">表格</td><td data-page-node-id="nTBLuNkHOHiYKXUGY9UUpO">Table（<code data-page-node-id="HVqwkQlJ3KD6HRW9oFieWv">table</code>）</td><td data-page-node-id="UJloCWAyqa0mIGDMuuQjit">数据展示</td><td data-page-node-id="CBmHdsxaDy4Zh8f3cyAwRt">勾选列 + 操作列</td></tr>
+        <tr data-page-node-id="Bi3CplpTtLnyAFyGA8Ibyz"><td data-page-node-id="XrdvvlpmSdrblOYL9GSFME">状态标签</td><td data-page-node-id="SO9OWc8xrBOXG0CUVSJfM6">Tag（<code data-page-node-id="NK1jMA8GrEe96woLUhVrUB">tag</code>）</td><td data-page-node-id="BYrW61U0kjE8KibrQy1odq">数据展示</td><td data-page-node-id="jncPlVSJ64Wbg090hnDmv9">light + success/warning/danger</td></tr>
+        <tr data-page-node-id="wYzCDeqoj3nh3nq8f3m4zk"><td data-page-node-id="OpXM1PXhMZMJxNctuSlPsx">分页</td><td data-page-node-id="JTsY0Xh10hFYzEF5kmvmYL">Pagination（<code data-page-node-id="rsd57fFEuizDHqoG7cjM9W">pagination</code>）</td><td data-page-node-id="1SNwdjiHAsg39CFm0PizD3">导航</td><td data-page-node-id="sHRUpWnuMXHjCexzZf4T5c">页码 + 总数</td></tr>
+        <tr data-page-node-id="gWKlkvjbMtvC6FCsOaj4iV"><td data-page-node-id="xugPMVtf82v2GFQCEvjWNG">新建表单</td><td data-page-node-id="HX3kk9RoMYViGzBTP7y2Uk">Form + Input/Select/Radio/Switch</td><td data-page-node-id="PGBjOziVwBtm6gwKL2JBVX">数据录入</td><td data-page-node-id="TjEAUUnBN8xeP4glgkILfe">必填标记 + 校验错误态</td></tr>
+      </table>
+
+      <h3 data-page-node-id="NA2MiFGGkNIwjGPCgBKARO">6.3 复制模板，拼装页面</h3>
+      <p data-page-node-id="6UEDPGQnAeWq6rTm2dVyBw">页面骨架（顶栏 + 侧栏 + 内容区）：</p>
+      <div class="gs-code" data-page-node-id="1RXdNKCAlbflENwFcUFqFY"><code data-page-node-id="pwgDEGkkfMjw5v0jsHZTFz"><span class="c" data-page-node-id="seThYjtYRNbMvWdUS6xPB3">&lt;!-- 顶栏 --&gt;</span>
+&lt;header class="giencoder-top-nav" style="height:48px;"&gt;...&lt;/header&gt;
+<span class="c" data-page-node-id="cfXmChQVMUQVKC0u7JGL1k">&lt;!-- 侧栏（200px 菜单）--&gt;</span>
+&lt;aside class="giencoder-sidenav" style="width:200px;"&gt;
+  &lt;div class="giencoder-menu giencoder-menu-vertical"&gt;
+    &lt;div class="giencoder-menu-group-title"&gt;总览&lt;/div&gt;
+    &lt;div class="giencoder-menu-item giencoder-menu-item-selected"&gt;资源管理&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/aside&gt;
+<span class="c" data-page-node-id="vN9L7JCcSmcSFkTvQ23lv7">&lt;!-- 内容区 --&gt;</span>
+&lt;main style="flex:1; padding:20px;"&gt;...&lt;/main&gt;</code></div>
+
+      <p data-page-node-id="0v1lzf7r0IgbSuzJEAtOA1">标题栏 + 新建按钮（PageHeader + Button）：</p>
+      <div class="gs-code" data-page-node-id="dwj3NTm3iG8Qvnb0rcBui8"><code data-page-node-id="c653lJHFdkbhBiCrt5UfN6">&lt;div class="giencoder-page-header"&gt;
+  &lt;div&gt;
+    &lt;h2 class="giencoder-page-header-title"&gt;资源管理&lt;/h2&gt;
+    &lt;div class="giencoder-page-header-subtitle"&gt;管理云上资源实例&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="giencoder-page-header-extra"&gt;
+    &lt;button class="giencoder-btn giencoder-btn-primary giencoder-btn-size-default"&gt;新建资源&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></div>
+
+      <p data-page-node-id="FpnsGCz4VFMTeBB949y9BT">表格行（Table + Tag + Button）：</p>
+      <div class="gs-code" data-page-node-id="k2P75OyvFFOTs4eHDroC4F"><code data-page-node-id="Pxp5cU7NgzgnWvEMA8qAaa">&lt;tr class="giencoder-table-tr"&gt;
+  &lt;td class="giencoder-table-td giencoder-table-checkbox"&gt;
+    &lt;label class="giencoder-checkbox"&gt;&lt;input type="checkbox" class="giencoder-checkbox-input"&gt;&lt;span class="giencoder-checkbox-mask"&gt;&lt;/span&gt;&lt;/label&gt;
+  &lt;/td&gt;
+  &lt;td class="giencoder-table-td"&gt;订单中心微服务&lt;/td&gt;
+  &lt;td class="giencoder-table-td"&gt;
+    &lt;span class="giencoder-tag giencoder-tag-light giencoder-tag-success"&gt;运行中&lt;/span&gt;
+  &lt;/td&gt;
+  &lt;td class="giencoder-table-td giencoder-table-operation"&gt;
+    &lt;button class="giencoder-btn giencoder-btn-text giencoder-btn-size-mini"&gt;编辑&lt;/button&gt;
+    &lt;button class="giencoder-btn giencoder-btn-text giencoder-btn-size-mini giencoder-btn-danger-text"&gt;删除&lt;/button&gt;
+  &lt;/td&gt;
+&lt;/tr&gt;</code></div>
+
+      <div class="gs-note ok" data-page-node-id="AURaJQHTBLdvpS0FRK3JHD"><b data-page-node-id="kAFDHN7lsAqN2kadzeqfmW">关键观察</b>：上面所有代码里，<u data-page-node-id="vpAQ79saNGDD8bI0MBKwCW">没有一个 hex 色值</u>，间距全走 <code data-page-node-id="ZfciLE4xyUfJlLEwg19Xba">var(--spacing-*)</code>，颜色全走 <code data-page-node-id="ib25D8g3IxwfGZ0avT6dUk">var(--color-*)</code>。这就是「套 Token」的落地样子。</div>
+
+      <h3 data-page-node-id="pWOs7OT4jDPw5jD9QgWXD2">6.4 最终成品（活预览）</h3>
+      <p data-page-node-id="cKclW5Kh7AOH8TvpExBht3">下面就是 <a href="giencoder/ui_kits/list-page/index.html" data-page-node-id="u6cnraYIVX0RHXESR1aaLr" class="gs-path">ui_kits/list-page/index.html</a> 的实际渲染效果，可直接滚动查看：</p>
+      <div class="gs-demo" data-page-node-id="egxitvXxKXtKFXrCVvG0Ey">
+        <div class="gs-demo-label" data-page-node-id="OqClhpiMwIeKS3tCAEhQgU">LIVE · 资源管理列表页</div>
+        <iframe src="giencoder/ui_kits/list-page/index.html" loading="lazy" title="资源管理列表页样板" data-page-node-id="yEQ2txnZflrhzDS7HQzLoF"></iframe>
+      </div>
+      <p data-page-node-id="UJ7TYXNJVX9NIBHBYipChe">新建表单对应 <a href="giencoder/ui_kits/form-page/index.html" data-page-node-id="NQxqH1IWgL25UZY50NbYIS" class="gs-path">ui_kits/form-page/index.html</a>，结构同理（PageHeader + Card + Form）。</p>
+    </div>
+
+    <!-- ════════════ 7. 验收清单 ════════════ -->
+    <div class="gs-section" id="checklist" data-page-node-id="SjLTIsivzXnEAJT7mjtg88">
+      <h2 data-page-node-id="818FyASBWEhUQJ3hhD0PXP">7. 验收清单</h2>
+      <p class="gs-lead" data-page-node-id="8L4Z6mgngTtDuPWRtL3n1f">交付前逐项自检。全部勾选才算「高保真达标」。</p>
+
+      <ul class="gs-check" data-page-node-id="G7cMU4ua5g5Ht8fsNboukL">
+        <li data-page-node-id="xAuSfYD0BWD1ox3NnCF1Lv">页面 <code data-page-node-id="EBg1J4BGL7lTrB2nrUN6a3">&lt;head&gt;</code> 引入了 <a href="giencoder/colors_and_type.css" data-page-node-id="q1Hc7mFBXzTMM7dUq23Voo" class="gs-path">colors_and_type.css</a> 与 <a href="giencoder/components.css" data-page-node-id="yKVsSy6IwOwyvvQHbSdQyG" class="gs-path">components.css</a></li>
+        <li data-page-node-id="qIWog6Lv2Lik6kLWtueIBT">代码中无任何硬编码 hex 色值，颜色/间距/圆角/阴影/动效全部走 <code data-page-node-id="JZpBgt2ukEpHE4Ccw2tzYQ">var(--*)</code></li>
+        <li data-page-node-id="MSUm1ej2Ng2lftJPvvBdvC">每个组件都查过契约，未臆造变体/状态（对照 <code data-page-node-id="SAZwk7kv1cRIj4bRlph2c7">doNotInvent</code>）</li>
+        <li data-page-node-id="Gmx0ImfrXfujbVbMC2AN8i">页面结构符合 <a href="giencoder/patterns.md" class="gs-path">patterns.md</a> 六大模式之一，骨架对齐 ui_kits 样板</li>
+        <li data-page-node-id="YwMtK3DK2HSJCZW48KSfdS">弹层（Modal/Drawer/Select/Dropdown）具备 focus trap + Esc + 遮罩点击三要素</li>
+        <li data-page-node-id="cj7BfUQFtNuKntwAgcwQut">文本对比度 ≥ 4.5:1，焦点环可见（<a href="giencoder/a11y.md" data-page-node-id="ylzA5r7EmtLq8agKQdU3di" class="gs-path">a11y.md</a>）</li>
+        <li data-page-node-id="KXSlVq8ds6fY4RVEFUd7BT">交互状态齐全：default / hover / active / focus / disabled / loading</li>
+        <li data-page-node-id="wjtqJ1tMnWMDskDqttRaDD">列表页有空态、错态、加载态处理</li>
+        <li data-page-node-id="gYh80ByNkd7mBXDtLyGSCX">图标用内联 SVG + <code data-page-node-id="AmjWtMfGp5d9Ur2eh8TuQ4">currentColor</code>，无第三方图标库</li>
+        <li data-page-node-id="B5J4GEna8OIO3ba0aLJdaj">窄屏（≤860px）布局不崩、不溢出</li>
+      </ul>
+
+      <div class="gs-note" data-page-node-id="9d8FXbAJ7JGyI5yeF7GT4u"><b data-page-node-id="LKhvIxIa3OWGwCbNiZYJNC">一句话自检</b>：能不能仅靠「复制模板 + 改文字 + 用 Token」就复现这个页面？能，就达标。</div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  /* scroll-spy：滚动时高亮当前章节 */
+  var links = document.querySelectorAll('#gs-toc a');
+  var sections = [];
+  links.forEach(function (a) {
+    var el = document.querySelector(a.getAttribute('href'));
+    if (el) { sections.push({ link: a, el: el }); }
+  });
+  var setActive = function (id) {
+    links.forEach(function (a) { a.classList.toggle('active', a.getAttribute('href') === '#' + id); });
+  };
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { setActive(e.target.id); }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+    sections.forEach(function (s) { io.observe(s.el); });
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,326 @@
+meta:
+  name: task-list
+  title: 智能软件工厂 · 任务清单
+  pattern: list-page
+layout:
+  top-nav:
+    logo: GienCoder
+    subtitle: 智能软件工厂 · 主项目
+    user: 艾
+  sidenav:
+    menu:
+      - group: 任务
+        items:
+          - text: 任务清单
+            selected: true
+          - text: 我的任务
+          - text: 已完成
+          - text: 已取消
+          - text: 回收站
+          - text: 迁移管理
+      - group: 状态图例
+        items:
+          - text: 🟦 开发中
+          - text: 🟩 已完成
+          - text: 🟧 待开发
+          - text: 🟥 已取消
+tree:
+  - c: page-header
+    props:
+      title: 任务清单
+      subtitle: 一级工作项负责业务归口，二级任务是唯一执行单元
+    slots:
+      extra:
+        - c: button
+          props:
+            variant: primary
+            icon: plus
+            openTarget: "#modal-create"
+          text: 新建一级工作项
+
+  # ---- 聚合统计带 ----
+  - c: card
+    props:
+      title: 概览
+    tree:
+      - c: statistic
+        props:
+          title: 工作项
+          value: 6
+          suffix: 个
+      - c: statistic
+        props:
+          title: 开发中
+          value: 2
+          status: warning
+      - c: statistic
+        props:
+          title: 已完成
+          value: 1
+          status: success
+      - c: statistic
+        props:
+          title: 待开发
+          value: 1
+      - c: statistic
+        props:
+          title: 同步异常
+          value: 3
+          status: danger
+
+  # ---- 工具栏（筛选 + 展开/折叠） ----
+  - c: filter-bar
+    slots:
+      items:
+        - c: filter-item
+          props:
+            label: 一级类型
+            options:
+              - { label: 业务需求, value: business }
+              - { label: 技术需求, value: tech }
+              - { label: 缺陷, value: defect }
+            type: checkbox
+        - c: filter-item
+          props:
+            label: 业务状态
+            options:
+              - { label: 待分配, value: unassigned }
+              - { label: 待开发, value: ready }
+              - { label: 开发中, value: doing }
+              - { label: 已完成, value: done }
+              - { label: 已取消, value: cancelled }
+            type: checkbox
+        - c: filter-item
+          props:
+            label: 来源
+            options:
+              - { label: DevOps, value: devops }
+              - { label: AI 平台, value: ai }
+            type: checkbox
+        - c: filter-item
+          props:
+            label: 任务分类
+            options:
+              - { label: 开发任务, value: dev }
+              - { label: 设计任务, value: design }
+              - { label: 测试任务, value: test }
+            type: checkbox
+      actions:
+        - c: button
+          text: 全部展开
+        - c: button
+          text: 全部折叠
+
+  # ---- 任务列表（一级工作项，行内操作） ----
+  - c: card
+    props:
+      title: 一级工作项
+      extra: 共 6 个
+    tree:
+      - c: table
+        props:
+          columns:
+            - field: title
+              title: 一级工作项
+            - field: type
+              title: 类型
+              render: tag
+              tagMap:
+                business: info
+                tech: normal
+                defect: danger
+            - field: source
+              title: 来源
+              render: tag
+              tagMap:
+                devops: primary
+                ai: normal
+                default: normal
+            - field: status
+              title: 业务状态
+              render: tag
+              tagMap:
+                doing: warning
+                done: success
+                ready: normal
+                unassigned: normal
+                cancelled: danger
+            - field: tasks
+              title: 二级任务
+            - field: sync
+              title: 同步
+              render: tag
+              tagMap:
+                ok: success
+                fail: danger
+                conflict: danger
+                map: warning
+                none: normal
+                ing: normal
+            - field: ops
+              title: 操作
+              render: rowActions
+              actions:
+                - { text: 新增任务, openTarget: "#modal-create" }
+                - { text: 指标下钻, openTarget: "#drawer-metrics" }
+                - { text: 同步异常, openTarget: "#drawer-sync" }
+                - { text: 删除, openTarget: "#modal-delete" }
+          data:
+            - { title: 用户登录改造, type: business, source: devops, status: doing, tasks: 3, sync: ok, ops: "" }
+            - { title: 订单流程改造, type: business, source: ai, status: doing, tasks: 3, sync: none, ops: "" }
+            - { title: 登录失败时未提示错误信息, type: defect, source: ai, status: ready, tasks: 1, sync: none, ops: "" }
+            - { title: 数据库查询性能优化, type: tech, source: devops, status: done, tasks: 2, sync: "conflict,fail", ops: "" }
+            - { title: 权限中心接入, type: business, source: devops, status: unassigned, tasks: 1, sync: none, ops: "" }
+            - { title: 构建流水线提速, type: tech, source: ai, status: cancelled, tasks: 1, sync: ing, ops: "" }
+          pagination:
+            total: 6
+            current: 1
+            last: 1
+
+  # ---- 弹窗：新建一级工作项 ----
+  - c: modal
+    props:
+      id: modal-create
+      title: 新建一级工作项
+      width: 520
+    tree:
+      - c: form
+        props:
+          layout: vertical
+        tree:
+          - c: form-item
+            props:
+              label: 一级类型
+              required: true
+            tree:
+              - c: radio
+                props:
+                  name: type
+                  checked: true
+                text: 业务需求
+              - c: radio
+                props:
+                  name: type
+                text: 技术需求
+              - c: radio
+                props:
+                  name: type
+                text: 缺陷
+          - c: form-item
+            props:
+              label: 标题
+              required: true
+            tree:
+              - c: input
+                props:
+                  width: 360
+                  placeholder: 输入一级工作项标题
+          - c: form-item
+            props:
+              label: 描述
+            tree:
+              - c: input
+                props:
+                  width: 360
+                  placeholder: 补充业务背景与目标
+    slots:
+      footer:
+        - c: button
+          text: 取消
+          props:
+            variant: secondary
+            closeTarget: "#modal-create"
+        - c: button
+          text: 创建
+          props:
+            variant: primary
+
+  # ---- 弹窗：确认删除 ----
+  - c: modal
+    props:
+      id: modal-delete
+      title: 确认删除
+      width: 480
+    tree:
+      - c: tag
+        props:
+          tone: danger
+        text: 危险操作
+      - c: tag
+        props:
+          tone: normal
+        text: 删除后不可恢复，将同时删除其下全部二级任务。
+    slots:
+      footer:
+        - c: button
+          text: 取消
+          props:
+            variant: secondary
+            closeTarget: "#modal-delete"
+        - c: button
+          text: 确认删除
+          props:
+            variant: primary
+            danger: true
+
+  # ---- 抽屉：指标下钻 ----
+  - c: drawer
+    props:
+      id: drawer-metrics
+      title: 指标下钻 · 用户登录改造
+      width: 420
+      placement: right
+    tree:
+      - c: card
+        props:
+          title: 概览
+        tree:
+          - c: statistic
+            props: { title: 代码转化率, value: "85%", status: success }
+          - c: statistic
+            props: { title: AI 生成, value: 500, suffix: 行 }
+          - c: statistic
+            props: { title: AI 采纳, value: 420, suffix: 行 }
+          - c: statistic
+            props: { title: AI 入库, value: 380, suffix: 行 }
+      - c: card
+        props:
+          title: 二级任务指标明细
+        tree:
+          - c: table
+            props:
+              columns:
+                - field: task
+                  title: 任务
+                - field: status
+                  title: 状态
+                  render: tag
+                  tagMap: { doing: warning, done: success }
+                - field: adopt
+                  title: AI 采纳
+              data:
+                - { task: 前端登录页改造, status: doing, adopt: "180 行" }
+                - { task: 登录接口改造, status: done, adopt: "150 行" }
+                - { task: 登录链路联调, status: doing, adopt: "30 行" }
+
+  # ---- 抽屉：同步异常 ----
+  - c: drawer
+    props:
+      id: drawer-sync
+      title: 同步异常详情 · 数据库查询性能优化
+      width: 420
+      placement: right
+    tree:
+      - c: card
+        props:
+          title: 同步异常
+        tree:
+          - c: tag
+            props: { tone: danger }
+            text: 慢查询索引优化 · 同步失败
+          - c: tag
+            props: { tone: danger }
+            text: 查询缓存策略 · 状态冲突
+          - c: tag
+            props: { tone: warning }
+            text: 构建流水线提速 · 同步中

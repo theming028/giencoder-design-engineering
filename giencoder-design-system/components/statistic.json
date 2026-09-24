@@ -1,0 +1,162 @@
+{
+  "schemaVersion": 3,
+  "slug": "statistic",
+  "name": "Statistic",
+  "category": "data-display",
+  "giencoderSource": {
+    "component": "Statistic",
+    "version": "2.66.16"
+  },
+  "summary": "统计数值：突出展示关键指标数字，支持精度、千分位、前后缀与数值滚动动画",
+  "variants": [
+    {
+      "name": "default",
+      "description": "基础统计：标题 + 大号数值",
+      "whenToUse": "指标卡、数据看板核心数字"
+    },
+    {
+      "name": "prefix-suffix",
+      "description": "前后缀统计：prefix/suffix 在数值前后附加符号、单位或图标",
+      "whenToUse": "金额单位、百分比符号、货币符号等"
+    },
+    {
+      "name": "count-up",
+      "description": "数值动画：countUp 使数值从起始值滚动到目标值",
+      "whenToUse": "页面进入时的指标呈现动画"
+    },
+    {
+      "name": "loading",
+      "description": "加载中：loading 时数值区域显示骨架占位",
+      "whenToUse": "指标异步获取期间"
+    },
+    {
+      "name": "card",
+      "description": "卡片容器：灰底 fill-1 + 8px 圆角 + 16px 内边距，作为独立统计卡片承载数值",
+      "whenToUse": "指标看板中多个独立统计卡片并排"
+    }
+  ],
+  "sizes": [
+    {
+      "name": "default",
+      "value": "标题 14px / 数值 26px",
+      "usage": "默认尺寸（数值加粗大号展示）"
+    }
+  ],
+  "states": [
+    {
+      "name": "default",
+      "description": "数值正常展示",
+      "visual": "数值 --color-text-1 加粗，标题 --color-text-2"
+    },
+    {
+      "name": "value-tone",
+      "description": "数值语义着色",
+      "visual": "数值通过 style/styleValue 按语义着色：primary --color-primary-6 / success --color-success-6 / warning --color-warning-6 / danger --color-danger-6"
+    },
+    {
+      "name": "loading",
+      "description": "数据加载中",
+      "visual": "数值区域替换为骨架占位块"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "statistic",
+      "element": "div.giencoder-statistic",
+      "description": "统计容器"
+    },
+    {
+      "part": "title",
+      "element": "div.giencoder-statistic-title",
+      "description": "指标标题"
+    },
+    {
+      "part": "value",
+      "element": "div.giencoder-statistic-value",
+      "description": "数值主体，支持 precision/groupSeparator/format 定制"
+    },
+    {
+      "part": "prefix",
+      "element": "span.giencoder-statistic-prefix",
+      "description": "数值前缀（符号/单位/图标）"
+    },
+    {
+      "part": "suffix",
+      "element": "span.giencoder-statistic-suffix",
+      "description": "数值后缀（单位/百分比等）"
+    }
+  ],
+  "interaction": {
+    "hover": "无悬停反馈（纯展示）",
+    "focus": "不接收焦点（纯展示）",
+    "keyboard": [
+      "无键盘交互（纯展示）"
+    ],
+    "motion": {
+      "duration": "逐位滚动 900ms/位，列间错峰 45ms（首位先动），总时长随位数增长约 1.2-1.5s",
+      "easing": "cubic-bezier(0.215, 0.61, 0.355, 1)（easeOutCubic）",
+      "description": "单个数字位动效（digit roll）：value 拆分为逐位滚轮，每位数字在 0-9 垂直列中滚动——页面加载/刷新时从 0 滚到目标值，数字更新时从当前位滚到新位（布局兼容则原位滚动，位数变化则重建）；千分位/小数点/负号等静态字符不参与滚动；45ms 错峰波浪；尊重 prefers-reduced-motion 时跳过动画"
+    },
+    "behaviorNotes": "countUp 仅做数值滚动呈现，不承载数据请求；precision 控制小数位、groupSeparator 控制千分位；数值建议纯文本渲染，避免复制粘贴问题"
+  },
+  "a11y": {
+    "role": "group",
+    "ariaAttrs": [
+      "aria-label (描述指标含义，如“本月销售额”)"
+    ],
+    "contrastNote": "数值 --color-text-1 对比度 ≥ 4.5:1；标题 --color-text-2 ≥ 3:1",
+    "focusNote": "纯展示不接收焦点；数值文本可被屏幕阅读器按文本读取"
+  },
+  "usage": [
+    "核心指标用 Statistic 统一视觉，保证数值层级一致",
+    "金额类数据开启 groupSeparator 千分位",
+    "需要动画呈现时用 countUp，但避免在数据高频刷新时使用",
+    "指标含义通过 title 或 aria-label 明确表达"
+  ],
+  "doNotInvent": [
+    "不得虚构趋势箭头、迷你图等 Statistic 未内置能力",
+    "不得新增官方不存在的变体与状态",
+    "不得用 外部 CSS 框架/Lucide 替代组件与图标体系"
+  ],
+  "tokensConsumed": [
+    "--color-text-1",
+    "--color-text-2",
+    "--color-fill-1",
+    "--color-fill-2",
+    "--color-primary-6",
+    "--color-success-6",
+    "--color-warning-6",
+    "--color-danger-6",
+    "--border-radius-large",
+    "--spacing-7",
+    "--font-size-title-1"
+  ],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "StatisticProps",
+    "props": [
+      "className",
+      "countDuration",
+      "countFrom",
+      "countUp",
+      "extra",
+      "format",
+      "groupSeparator",
+      "loading",
+      "now",
+      "onFinish",
+      "precision",
+      "prefix",
+      "renderFormat",
+      "start",
+      "style",
+      "styleDecimal",
+      "styleValue",
+      "suffix",
+      "title",
+      "value"
+    ],
+    "total": 20,
+    "syncDate": "2026/08/28"
+  }
+}

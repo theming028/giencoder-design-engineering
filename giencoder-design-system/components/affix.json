@@ -1,0 +1,106 @@
+{
+  "schemaVersion": 3,
+  "slug": "affix",
+  "name": "Affix",
+  "category": "navigation",
+  "giencoderSource": {
+    "component": "Affix",
+    "version": "2.66.16"
+  },
+  "summary": "固钉：将内容固定在视口指定位置（默认顶部），页面滚动超过阈值时触发固定，行为包装组件无视觉变体。",
+  "variants": [
+    {
+      "name": "top",
+      "description": "offsetTop 触发，固定于视口顶部",
+      "whenToUse": "顶部工具栏/筛选条滚动后固定"
+    },
+    {
+      "name": "bottom",
+      "description": "offsetBottom 触发，固定于视口底部",
+      "whenToUse": "底部操作栏/悬浮按钮固定"
+    }
+  ],
+  "sizes": [
+    {
+      "name": "default",
+      "value": "默认尺寸",
+      "usage": "无尺寸变体，随包裹内容自适应"
+    }
+  ],
+  "states": [
+    {
+      "name": "default",
+      "description": "未固定，随页面正常滚动",
+      "visual": "无视觉变化，与普通内容一致"
+    },
+    {
+      "name": "active",
+      "description": "已固定（affixed）",
+      "visual": "脱离文档流固定于视口，不注入背景/边框，保留内容原样式"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "Affix 容器",
+      "element": "div",
+      "description": "位置计算与监听容器（position: fixed 切换）"
+    },
+    {
+      "part": "目标内容",
+      "element": "*",
+      "description": "被固定的子内容，由使用方传入"
+    }
+  ],
+  "interaction": {
+    "hover": "无（行为包装组件，不注入悬停反馈）",
+    "focus": "无（不拦截焦点，子内容焦点行为透传）",
+    "keyboard": [
+      "无键盘交互（纯展示包装组件，子内容自身交互透传）"
+    ],
+    "motion": {
+      "duration": "0s",
+      "easing": "linear",
+      "description": "固定切换为位置属性变化，无内置过渡动画"
+    },
+    "behaviorNotes": "滚动超过 offsetTop/offsetBottom 时固定，回到阈值内解除；可通过 target 指定滚动容器；onChange 通知固定状态变化。"
+  },
+  "a11y": {
+    "role": "none",
+    "ariaAttrs": [
+      "无（纯包装，不注入语义属性）"
+    ],
+    "contrastNote": "不改变内容配色，无对比度影响",
+    "focusNote": "不改变焦点行为，子内容可正常 Tab 聚焦"
+  },
+  "usage": [
+    "滚动容器为 window 或指定 target 元素",
+    "offsetTop/offsetBottom 二选一或组合使用",
+    "包裹需固定的内容，不新增视觉样式",
+    "配合 --z-index-affix 保证固定层不被遮挡"
+  ],
+  "doNotInvent": [
+    "不虚构 Affix 视觉变体（无内置样式变体）",
+    "不虚构吸底动画或平滑过渡",
+    "不虚构拖拽/悬浮能力"
+  ],
+  "tokensConsumed": [
+    "--z-index-affix"
+  ],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "AffixProps",
+    "props": [
+      "affixClassName",
+      "affixStyle",
+      "className",
+      "offsetBottom",
+      "offsetTop",
+      "onChange",
+      "style",
+      "target",
+      "targetContainer"
+    ],
+    "total": 9,
+    "syncDate": "2026/08/28"
+  }
+}

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>Radio 单选框</title>
+  <link rel="stylesheet" href="preview-scaffold.css">
+  <link rel="stylesheet" href="../colors_and_type.css">
+  <link rel="stylesheet" href="../components.css">
+  <style>
+    /* 交互动效用：选中时圆点 scale 0→1 出现 0.15s + 边框过渡；按钮形态激活色过渡 */
+    .giencoder-radio-mask {
+      transition: border-color 0.15s var(--transition-timing-function-standard),
+                  background-color 0.15s var(--transition-timing-function-standard);
+    }
+    @keyframes giencoder-radio-dot-pop {
+      from { transform: scale(0); }
+      to   { transform: scale(1); }
+    }
+    .giencoder-radio-input:checked + .giencoder-radio-mask.giencoder-radio-anim::after {
+      animation: giencoder-radio-dot-pop 0.15s var(--transition-timing-function-standard);
+    }
+    .giencoder-radio-button {
+      transition: background-color 0.15s var(--transition-timing-function-standard),
+                  color 0.15s var(--transition-timing-function-standard),
+                  box-shadow 0.15s var(--transition-timing-function-standard);
+    }
+  </style>
+</head>
+<body>
+  <div class="pv-layout">
+    <aside class="pv-sidebar">
+      <div class="pv-nav">
+        <div class="pv-menu-group">入口</div>
+        <a href="../home.html">首页</a>
+        <a href="../../GETTING-STARTED.html">使用说明书</a>
+        <div class="pv-menu-group">组件</div>
+        <a href="../index.html#general">通用</a>
+        <a href="../index.html#layout">布局</a>
+        <a href="../index.html#navigation">导航</a>
+        <a href="../index.html#data-entry" class="active">数据录入</a>
+        <a href="../index.html#data-display">数据展示</a>
+        <a href="../index.html#feedback">反馈</a>
+        <a href="../index.html#other">其他</a>
+        <div class="pv-menu-group">资源</div>
+        <a href="../index.html#uikits">页面样板</a>
+        <a href="../index.html#docs">规范文档</a>
+      </div>
+    </aside>
+    <main class="pv-content">
+  <a class="pv-back" href="../index.html#data-entry">← 返回组件库</a>
+  <div class="pv-header">
+    <h1>Radio 单选框</h1>
+    <p>源启单选框：Radio.Group 组合、按钮形态（映射自既有分段类）、禁用/受控状态。</p>
+  </div>
+
+  <!-- ============ 变体：基础单选框 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Radio 基础单选框</div>
+    <div class="row">
+      <label class="giencoder-radio" data-component="radio" data-variant="default" data-state="checked">
+        <input type="radio" class="giencoder-radio-input" name="demo1" checked>
+        <span class="giencoder-radio-mask"></span>
+        <span class="giencoder-radio-text">已选中</span>
+      </label>
+      <label class="giencoder-radio" data-component="radio" data-variant="default" data-state="default">
+        <input type="radio" class="giencoder-radio-input" name="demo1">
+        <span class="giencoder-radio-mask"></span>
+        <span class="giencoder-radio-text">未选中</span>
+      </label>
+      <label class="giencoder-radio giencoder-radio-disabled" data-component="radio" data-variant="default" data-state="disabled">
+        <input type="radio" class="giencoder-radio-input" name="demo1" disabled>
+        <span class="giencoder-radio-mask"></span>
+        <span class="giencoder-radio-text">禁用</span>
+      </label>
+    </div>
+  </div>
+
+  <!-- ============ 变体：按钮形态（映射既有分段类） ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Radio.Group Button 按钮形态（映射自既有分段类）</div>
+    <div class="row">
+      <div class="giencoder-radio-group giencoder-radio-group-button" data-component="radio" data-variant="button" data-state="default" role="radiogroup">
+        <span class="giencoder-radio-button-slider" aria-hidden="true"></span>
+        <label class="giencoder-radio-button giencoder-radio-button-checked">
+          <input type="radio" class="giencoder-radio-input" name="seg1" checked>
+          <span class="giencoder-radio-button-text">基础信息</span>
+        </label>
+        <label class="giencoder-radio-button">
+          <input type="radio" class="giencoder-radio-input" name="seg1">
+          <span class="giencoder-radio-button-text">高级配置</span>
+        </label>
+        <label class="giencoder-radio-button">
+          <input type="radio" class="giencoder-radio-input" name="seg1">
+          <span class="giencoder-radio-button-text">权限设置</span>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 变体：垂直单选组 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Radio.Group 垂直单选组</div>
+    <div class="row">
+      <div class="giencoder-radio-group" data-component="radio" data-variant="group" data-state="default" role="radiogroup" style="flex-direction:column; gap:8px;">
+        <label class="giencoder-radio">
+          <input type="radio" class="giencoder-radio-input" name="demo2" checked>
+          <span class="giencoder-radio-mask"></span>
+          <span class="giencoder-radio-text">方案 A（推荐）</span>
+        </label>
+        <label class="giencoder-radio">
+          <input type="radio" class="giencoder-radio-input" name="demo2">
+          <span class="giencoder-radio-mask"></span>
+          <span class="giencoder-radio-text">方案 B</span>
+        </label>
+        <label class="giencoder-radio">
+          <input type="radio" class="giencoder-radio-input" name="demo2">
+          <span class="giencoder-radio-mask"></span>
+          <span class="giencoder-radio-text">方案 C</span>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* 源启交互脚本 — radio
+     * 1. 点击单选：同组（同 name）互斥选中；基础形态同步 input:checked（走 mask 样式），按钮形态切换 giencoder-radio-button-checked
+     * 2. disabled 点击无效
+     */
+    (function () {
+      'use strict';
+      /* 滑块指示器定位：跟随选中项移动（transform + width 过渡产生滑动位移） */
+      function moveSlider(group) {
+        var slider = group.querySelector('.giencoder-radio-button-slider');
+        var checked = group.querySelector('.giencoder-radio-button-checked');
+        if (!slider || !checked) { return; }
+        slider.style.width = checked.offsetWidth + 'px';
+        slider.style.transform = 'translateX(' + (checked.offsetLeft - 2) + 'px)';
+      }
+      var labels = document.querySelectorAll('label.giencoder-radio, label.giencoder-radio-button');
+      labels.forEach(function (label) {
+        label.addEventListener('click', function (e) {
+          if (label.classList.contains('giencoder-radio-disabled')) { return; }
+          var input = label.querySelector('.giencoder-radio-input');
+          if (!input || input.disabled) { return; }
+          e.preventDefault();
+          var name = input.name;
+          document.querySelectorAll('input.giencoder-radio-input[name="' + name + '"]').forEach(function (other) {
+            other.checked = false;
+            var otherLabel = other.closest('label.giencoder-radio-button');
+            if (otherLabel) { otherLabel.classList.remove('giencoder-radio-button-checked'); }
+          });
+          input.checked = true;
+          if (label.classList.contains('giencoder-radio-button')) {
+            label.classList.add('giencoder-radio-button-checked');
+            moveSlider(label.closest('.giencoder-radio-group-button'));
+          }
+          /* 动效：选中时圆点 scale 放大出现（重触发动画） */
+          var mask = label.querySelector('.giencoder-radio-mask');
+          if (mask) {
+            mask.classList.remove('giencoder-radio-anim');
+            void mask.offsetWidth;
+            mask.classList.add('giencoder-radio-anim');
+          }
+        });
+      });
+      /* 初始化：为已有选中项的按钮组定位滑块 */
+      document.querySelectorAll('.giencoder-radio-group-button').forEach(moveSlider);
+    })();
+  </script>
+    </main>
+  </div>
+<script src="preview-copy.js"></script>
+</body>
+</html>

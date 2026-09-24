@@ -1,0 +1,170 @@
+{
+  "schemaVersion": 3,
+  "slug": "verification-code",
+  "name": "VerificationCode",
+  "category": "data-entry",
+  "giencoderSource": {
+    "component": "VerificationCode",
+    "version": "2.66.16"
+  },
+  "summary": "验证码输入：N 位固定长度分格输入，自动聚焦前进、粘贴填充与错误态。",
+  "variants": [
+    {
+      "name": "default",
+      "description": "数字分格输入，length 定义格数",
+      "whenToUse": "短信/邮箱验证码输入"
+    },
+    {
+      "name": "masked",
+      "description": "masked 掩码显示（圆点遮罩）",
+      "whenToUse": "密码类安全验证码"
+    },
+    {
+      "name": "error",
+      "description": "status=error 错误态",
+      "whenToUse": "校验失败时整组标红提示"
+    },
+    {
+      "name": "disabled",
+      "description": "disabled 禁用态",
+      "whenToUse": "等待重发或不可输入场景"
+    }
+  ],
+  "sizes": [
+    {
+      "name": "small",
+      "value": "28px 单元格",
+      "usage": "紧凑场景"
+    },
+    {
+      "name": "medium",
+      "value": "32px 单元格",
+      "usage": "默认尺寸"
+    },
+    {
+      "name": "large",
+      "value": "36px 单元格",
+      "usage": "大字号/移动端触屏"
+    }
+  ],
+  "states": [
+    {
+      "name": "default",
+      "description": "未输入态",
+      "visual": "单元格边框 --color-border-2，白底"
+    },
+    {
+      "name": "focus",
+      "description": "当前输入格",
+      "visual": "当前格主色边框 + 光标闪烁"
+    },
+    {
+      "name": "filled",
+      "description": "已输入态",
+      "visual": "格内显示数字，掩码态显示圆点"
+    },
+    {
+      "name": "error",
+      "description": "错误态",
+      "visual": "全部格边框 --color-danger-6"
+    },
+    {
+      "name": "disabled",
+      "description": "禁用态",
+      "visual": "灰底 --color-fill-3，不可输入"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "input",
+      "element": "input",
+      "description": "隐藏的聚合输入框，承载全部可访问性语义"
+    },
+    {
+      "part": "cells",
+      "element": "div",
+      "description": "N 个显示格子，与输入内容一一对应"
+    },
+    {
+      "part": "active-caret",
+      "element": "span",
+      "description": "当前聚焦格内的光标"
+    },
+    {
+      "part": "cell-content",
+      "element": "span",
+      "description": "格内数字或掩码圆点"
+    }
+  ],
+  "interaction": {
+    "hover": "单元格边框加深一档",
+    "focus": "当前格主色边框 + 光标，随输入自动前进",
+    "keyboard": [
+      "0-9: 在当前格输入数字并自动前进到下一格",
+      "Backspace: 删除当前格内容并回退到上一格",
+      "ArrowLeft/ArrowRight: 在格间移动焦点",
+      "Enter: 全部填满时触发 onFinish 提交",
+      "Tab: 进入/离开验证码组件",
+      "Ctrl/Cmd+V: 粘贴整串验证码自动拆分填充"
+    ],
+    "motion": {
+      "duration": "0.1s",
+      "easing": "standard",
+      "description": "焦点格边框与光标 0.1s 过渡，输入自动前进即时响应"
+    },
+    "behaviorNotes": "填满全部格自动触发 onFinish；粘贴自动按位拆分填充；status=error 整组标红；masked 下内容以圆点显示；支持 value/onChange 受控"
+  },
+  "a11y": {
+    "role": "textbox",
+    "ariaAttrs": [
+      "aria-label",
+      "aria-invalid",
+      "aria-disabled",
+      "aria-valuetext"
+    ],
+    "contrastNote": "默认边框 --color-border-2 与白底对比清晰；错误态 --color-danger-6 红框醒目",
+    "focusNote": "当前格主色边框 + 光标，焦点通告明确当前输入位置"
+  },
+  "usage": [
+    "短信/邮箱验证码等定长数字输入",
+    "安全场景用 masked 掩码显示",
+    "校验失败用 status=error 标红",
+    "与倒计时重发按钮配合使用",
+    "length 按业务定长设置"
+  ],
+  "doNotInvent": [
+    "不得虚构官方不存在的图片验证码形态（图形验证码用其他方案）",
+    "不得用自定义红色替换错误态边框",
+    "不得在 disabled 下允许输入",
+    "不得改变自动前进/回退的默认行为"
+  ],
+  "tokensConsumed": [
+    "--color-border-2",
+    "--color-primary-6",
+    "--color-danger-6",
+    "--color-fill-3",
+    "--color-text-1",
+    "--border-radius-medium"
+  ],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "VerificationCodeProps",
+    "props": [
+      "className",
+      "defaultValue",
+      "disabled",
+      "index",
+      "inputValue",
+      "length",
+      "masked",
+      "readOnly",
+      "size",
+      "status",
+      "style",
+      "validate",
+      "value"
+    ],
+    "total": 13,
+    "syncDate": "2026/08/28"
+  }
+}

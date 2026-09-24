@@ -1,0 +1,203 @@
+{
+  "schemaVersion": 3,
+  "slug": "pagination",
+  "name": "Pagination",
+  "category": "navigation",
+  "giencoderSource": {
+    "component": "Pagination",
+    "version": "2.66.16"
+  },
+  "summary": "分页器：页码切换、每页条数（pageSize）调整与快速跳转，用于数据列表分页导航。",
+  "variants": [
+    {
+      "name": "default",
+      "description": "页码按钮 + 上一页/下一页",
+      "whenToUse": "常规数据列表分页"
+    },
+    {
+      "name": "size-changer",
+      "description": "sizeCanChange 每页条数切换",
+      "whenToUse": "需要调整每页数据量"
+    },
+    {
+      "name": "jumper",
+      "description": "showJumper 快速跳转输入框",
+      "whenToUse": "页数多时快速定位"
+    },
+    {
+      "name": "total",
+      "description": "showTotal 总数展示",
+      "whenToUse": "需要展示数据总量"
+    },
+    {
+      "name": "simple",
+      "description": "simple 精简模式（上一页/下一页+页码输入）",
+      "whenToUse": "空间受限的轻量分页"
+    }
+  ],
+  "sizes": [
+    {
+      "name": "mini",
+      "value": "24px 高",
+      "usage": "紧凑场景"
+    },
+    {
+      "name": "small",
+      "value": "28px 高",
+      "usage": "紧凑列表"
+    },
+    {
+      "name": "default",
+      "value": "32px 高",
+      "usage": "默认场景"
+    },
+    {
+      "name": "large",
+      "value": "36px 高",
+      "usage": "强调场景/移动端适配"
+    }
+  ],
+  "states": [
+    {
+      "name": "default",
+      "description": "页码按钮默认态",
+      "visual": "背景 --color-bg-2，文字 --color-text-2"
+    },
+    {
+      "name": "hover",
+      "description": "页码悬停",
+      "visual": "背景 --color-fill-2，边框 --color-border-2"
+    },
+    {
+      "name": "active",
+      "description": "当前页码",
+      "visual": "背景 --color-primary-6，文字白色"
+    },
+    {
+      "name": "disabled",
+      "description": "禁用态（边界页/整体禁用）",
+      "visual": "文字 --color-text-4，不可点击"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "分页容器",
+      "element": "div[role=navigation]",
+      "description": "整体分页区域"
+    },
+    {
+      "part": "页码按钮",
+      "element": "li/button",
+      "description": "单个页码，激活项 aria-current=page"
+    },
+    {
+      "part": "上一页/下一页",
+      "element": "button",
+      "description": "前后翻页按钮"
+    },
+    {
+      "part": "每页条数选择器",
+      "element": "select",
+      "description": "sizeCanChange 时的 Select"
+    },
+    {
+      "part": "快速跳转",
+      "element": "input",
+      "description": "showJumper 时的页码输入框"
+    },
+    {
+      "part": "总数文案",
+      "element": "span",
+      "description": "showTotal 时的统计文本"
+    }
+  ],
+  "interaction": {
+    "hover": "页码悬停背景 --color-fill-2，边框 --color-border-2",
+    "focus": "页码/选择器/输入框获得焦点显示焦点环",
+    "keyboard": [
+      "Tab: 在页码与分页控件间移动",
+      "ArrowLeft/ArrowRight: 上一页/下一页",
+      "Enter: 确认快速跳转输入的页码",
+      "Home/End: 跳到第一页/最后一页"
+    ],
+    "motion": {
+      "duration": "0.1s~0.2s",
+      "easing": "standard",
+      "description": "页码状态切换过渡，无翻页动画"
+    },
+    "behaviorNotes": "页码过多时自动出现省略号收敛；总页数变化自适应；受控 current/pageSize 配合 onChange。"
+  },
+  "a11y": {
+    "role": "navigation",
+    "ariaAttrs": [
+      "aria-label（如 '分页'）",
+      "aria-current=\"page\"（当前页码）",
+      "aria-disabled（禁用项）"
+    ],
+    "contrastNote": "当前页 --color-primary-6 白字对比度满足 AA",
+    "focusNote": "所有分页控件均为真实可聚焦元素，焦点顺序清晰"
+  },
+  "usage": [
+    "页码过多时依赖省略号自动收敛，避免全量渲染",
+    "配合 showTotal 提供总数反馈",
+    "sizeCanChange 让用户控制每页条数",
+    "简单场景用 simple 模式保持轻量"
+  ],
+  "doNotInvent": [
+    "不虚构范围校验外的智能跳转（仅 1~总页数）",
+    "不虚构翻页后自动滚动到列表顶部（需业务处理）",
+    "不虚构 mini/simple 模式下丢失条数切换能力"
+  ],
+  "tokensConsumed": [
+    "--color-primary-6",
+    "--color-bg-2",
+    "--color-fill-2",
+    "--color-border-2",
+    "--color-text-2",
+    "--color-text-4",
+    "--border-radius-small"
+  ],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "PaginationProps",
+    "props": [
+      "activePageItemStyle",
+      "allPages",
+      "bufferSize",
+      "className",
+      "current",
+      "defaultCurrent",
+      "defaultPageSize",
+      "disabled",
+      "hideOnSinglePage",
+      "icons",
+      "itemRender",
+      "jumpPage",
+      "more",
+      "next",
+      "onChange",
+      "onClick",
+      "onPageSizeChange",
+      "pageItemStyle",
+      "pageNum",
+      "pageSize",
+      "pageSizeChangeResetCurrent",
+      "prev",
+      "rootPrefixCls",
+      "selectProps",
+      "showJumper",
+      "showMore",
+      "showTotal",
+      "simple",
+      "size",
+      "sizeCanChange",
+      "sizeOptions",
+      "style",
+      "total",
+      "totalPages",
+      "type"
+    ],
+    "total": 35,
+    "syncDate": "2026/08/28"
+  }
+}

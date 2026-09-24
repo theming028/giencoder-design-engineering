@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>标签输入 InputTag</title>
+  <link rel="stylesheet" href="preview-scaffold.css">
+  <link rel="stylesheet" href="../colors_and_type.css">
+  <link rel="stylesheet" href="../components.css">
+  <style>
+    .giencoder-input-tag-wrapper {
+      display: flex; flex-wrap: wrap; align-items: center;
+      min-height: 32px; height: auto; padding: var(--spacing-1) var(--spacing-6);
+      gap: var(--spacing-2);
+    }
+    .giencoder-input-tag-input { flex: 1; min-width: 140px; height: 24px; }
+  </style>
+</head>
+<body>
+  <div class="pv-layout">
+    <aside class="pv-sidebar">
+      <div class="pv-nav">
+        <div class="pv-menu-group">入口</div>
+        <a href="../home.html">首页</a>
+        <a href="../../GETTING-STARTED.html">使用说明书</a>
+        <div class="pv-menu-group">组件</div>
+        <a href="../index.html#general">通用</a>
+        <a href="../index.html#layout">布局</a>
+        <a href="../index.html#navigation">导航</a>
+        <a href="../index.html#data-entry" class="active">数据录入</a>
+        <a href="../index.html#data-display">数据展示</a>
+        <a href="../index.html#feedback">反馈</a>
+        <a href="../index.html#other">其他</a>
+        <div class="pv-menu-group">资源</div>
+        <a href="../index.html#uikits">页面样板</a>
+        <a href="../index.html#docs">规范文档</a>
+      </div>
+    </aside>
+    <main class="pv-content">
+  <a class="pv-back" href="../index.html#data-entry">← 返回组件库</a>
+  <div class="pv-header">
+    <h1>InputTag</h1>
+    <p>标签输入框：输入内容后回车生成标签，已有标签可一键关闭，禁用态下标签不可操作。</p>
+  </div>
+
+  <!-- ============ 变体：基础 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Basic 已有标签 + 输入光标位</div>
+    <div class="row">
+      <div class="giencoder-input-tag" data-component="input-tag" data-variant="default" data-state="default" style="width:340px;">
+        <div class="giencoder-input-wrapper giencoder-input-tag-wrapper">
+          <span class="giencoder-tag giencoder-tag-primary">
+            前端开发
+            <button class="giencoder-tag-close-btn" type="button" aria-label="移除标签">
+              <svg viewBox="0 0 12 12" width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 3l6 6M9 3l-6 6"/></svg>
+            </button>
+          </span>
+          <span class="giencoder-tag giencoder-tag-primary">
+            设计系统
+            <button class="giencoder-tag-close-btn" type="button" aria-label="移除标签">
+              <svg viewBox="0 0 12 12" width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 3l6 6M9 3l-6 6"/></svg>
+            </button>
+          </span>
+          <span class="giencoder-tag giencoder-tag-primary">
+            组件库
+            <button class="giencoder-tag-close-btn" type="button" aria-label="移除标签">
+              <svg viewBox="0 0 12 12" width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 3l6 6M9 3l-6 6"/></svg>
+            </button>
+          </span>
+          <input class="giencoder-input giencoder-input-tag-input" placeholder="输入后回车添加">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 状态：禁用 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Disabled 禁用（标签不可关闭）</div>
+    <div class="row">
+      <div class="giencoder-input-tag" data-component="input-tag" data-variant="default" data-state="disabled" style="width:340px;">
+        <div class="giencoder-input-wrapper giencoder-input-disabled giencoder-input-tag-wrapper">
+          <span class="giencoder-tag giencoder-tag-primary giencoder-tag-disabled">设计系统</span>
+          <span class="giencoder-tag giencoder-tag-primary giencoder-tag-disabled">组件库</span>
+          <span class="giencoder-tag giencoder-tag-primary giencoder-tag-disabled">无障碍规范</span>
+          <input class="giencoder-input giencoder-input-tag-input" placeholder="输入后回车添加" disabled>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* 源启交互脚本 — input-tag
+     * 1. 输入文字后回车添加标签（动态创建 giencoder-tag + 关闭按钮，输入框 value 清空）
+     * 2. 标签关闭按钮点击移除（事件委托）
+     * 3. disabled 场景无效
+     */
+    (function () {
+      'use strict';
+      var containers = document.querySelectorAll('.giencoder-input-tag');
+      containers.forEach(function (container) {
+        var wrapper = container.querySelector('.giencoder-input-tag-wrapper');
+        var input = container.querySelector('.giencoder-input-tag-input');
+        if (!wrapper || !input) { return; }
+        var disabled = input.disabled || wrapper.classList.contains('giencoder-input-disabled');
+
+        input.addEventListener('keydown', function (e) {
+          if (disabled) { return; }
+          if (e.key !== 'Enter') { return; }
+          var text = input.value.trim();
+          if (!text) { return; }
+          e.preventDefault();
+
+          var tag = document.createElement('span');
+          tag.className = 'giencoder-tag giencoder-tag-primary';
+
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'giencoder-tag-close-btn';
+          btn.setAttribute('aria-label', '移除标签');
+          btn.innerHTML = '<svg viewBox="0 0 12 12" width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 3l6 6M9 3l-6 6"/></svg>';
+
+          tag.appendChild(document.createTextNode(text));
+          tag.appendChild(btn);
+          wrapper.insertBefore(tag, input);
+          input.value = '';
+        });
+
+        wrapper.addEventListener('click', function (e) {
+          if (disabled) { return; }
+          var target = e.target;
+          var btn = target && target.closest ? target.closest('.giencoder-tag-close-btn') : null;
+          if (!btn) { return; }
+          var tag = btn.closest('.giencoder-tag');
+          if (tag && tag.parentNode === wrapper) {
+            wrapper.removeChild(tag);
+          }
+        });
+      });
+    })();
+  </script>
+    </main>
+  </div>
+<script src="preview-copy.js"></script>
+</body>
+</html>

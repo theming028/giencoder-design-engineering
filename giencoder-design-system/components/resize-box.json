@@ -1,0 +1,138 @@
+{
+  "schemaVersion": 3,
+  "slug": "resize-box",
+  "name": "ResizeBox",
+  "category": "other",
+  "giencoderSource": {
+    "component": "ResizeBox",
+    "version": "2.66.16"
+  },
+  "summary": "调整框/分割面板：沿容器边缘拖拽手柄改变尺寸，支持 left/right/top/bottom 四个方向，含 Split/SplitGroup 分割面板子组件。",
+  "variants": [
+    {
+      "name": "默认",
+      "description": "标准拖拽手柄：容器边缘的细条手柄，默认右方向",
+      "whenToUse": "需要拖拽调整尺寸的可伸缩区域"
+    },
+    {
+      "name": "自定义手柄",
+      "description": "resizeTriggers/resizeIcons 定制各方向手柄内容与图标",
+      "whenToUse": "需要更明显或品牌化的拖拽手柄"
+    },
+    {
+      "name": "Split 分割面板",
+      "description": "ResizeBox.Split 水平/垂直分割两个面板（direction，2.35 支持 reverse）",
+      "whenToUse": "左右/上下分割布局，拖拽改变面板比例"
+    }
+  ],
+  "sizes": [
+    {
+      "name": "default",
+      "value": "由 width/height 受控",
+      "usage": "尺寸由受控属性决定，无固定尺寸变体"
+    }
+  ],
+  "states": [
+    {
+      "name": "default",
+      "description": "未拖拽状态",
+      "visual": "手柄区域显示分割线"
+    },
+    {
+      "name": "hover",
+      "description": "鼠标悬停在拖拽手柄上",
+      "visual": "手柄高亮，分割线颜色加深"
+    },
+    {
+      "name": "active",
+      "description": "拖拽进行中",
+      "visual": "手柄高亮保持，onMoving 实时回调新尺寸"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "resize-box",
+      "element": "div.giencoder-resizebox",
+      "description": "容器，承载被调整的内容"
+    },
+    {
+      "part": "trigger",
+      "element": "div.giencoder-resizebox-trigger",
+      "description": "沿 directions 渲染的拖拽手柄"
+    },
+    {
+      "part": "trigger-line",
+      "element": "div",
+      "description": "手柄中的 1px 视觉分割线"
+    }
+  ],
+  "interaction": {
+    "hover": "手柄分割线颜色加深，提示可拖拽",
+    "focus": "官方手柄为 div 不可聚焦，无焦点样式",
+    "keyboard": [
+      "ArrowLeft/ArrowRight/ArrowUp/ArrowDown: 官方未内置方向键调整，需开发者自定义 onKeyDown 增强",
+      "Tab: 官方拖拽手柄默认不可聚焦（无 tabIndex），建议补充 tabIndex 与 separator role"
+    ],
+    "motion": {
+      "duration": "0.1s",
+      "easing": "standard",
+      "description": "手柄 hover/active 状态 0.1s 过渡；拖拽过程实时更新尺寸无动画"
+    },
+    "behaviorNotes": "directions 指定可拖拽方向（left/right/top/bottom 组合，默认 ['right']）；width/height 受控配合 onMovingStart/onMoving/onMovingEnd 实现尺寸调整；resizeTriggers/resizeIcons 自定义手柄；Split 子组件提供水平/垂直分割面板。预览实现：pointerdown 捕获分隔条 + setPointerCapture，拖拽中实时更新首面板 flex-basis（min 40px，末面板 min 40px），divider active 态高亮 --color-primary-6。"
+  },
+  "a11y": {
+    "role": "separator（建议，官方为 div 需开发者补充）",
+    "ariaAttrs": [
+      "aria-orientation",
+      "aria-label"
+    ],
+    "contrastNote": "手柄分割线使用中性边框色，与背景可区分",
+    "focusNote": "官方无默认焦点样式，建议补充 tabIndex 与可见焦点环实现键盘可达"
+  },
+  "usage": [
+    "用于可拖拽调整尺寸的区域或分割面板",
+    "受控 width/height + onMoving 回调驱动尺寸变化",
+    "多面板场景用 Split/SplitGroup 组合实现"
+  ],
+  "doNotInvent": [
+    "不得虚构官方内置的方向键键盘调整（官方源码无键盘处理）",
+    "不得新增官方不存在的变体/状态",
+    "不得用 外部 CSS 框架/Lucide 替代 源启 token 与结构"
+  ],
+  "tokensConsumed": [
+    "--color-border-2"
+  ],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "ResizeBoxProps",
+    "props": [
+      "className",
+      "collapsed",
+      "collapsible",
+      "component",
+      "direction",
+      "directions",
+      "disabled",
+      "height",
+      "icon",
+      "max",
+      "min",
+      "onClick",
+      "onMouseDown",
+      "onMoving",
+      "onMovingEnd",
+      "onMovingStart",
+      "onPaneResize",
+      "onResize",
+      "panes",
+      "prev",
+      "resizable",
+      "size",
+      "style",
+      "trigger",
+      "width"
+    ],
+    "total": 25,
+    "syncDate": "2026/08/28"
+  }
+}

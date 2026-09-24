@@ -1,0 +1,147 @@
+{
+  "schemaVersion": 3,
+  "slug": "tooltip",
+  "name": "Tooltip",
+  "category": "data-display",
+  "giencoderSource": {
+    "component": "Tooltip",
+    "version": "2.66.16"
+  },
+  "summary": "文字气泡：悬停或聚焦时在元素旁展示简短的文字说明，深色底 + 箭头",
+  "variants": [
+    {
+      "name": "default",
+      "description": "默认气泡：深色底（--color-tooltip-bg）白字 + 箭头",
+      "whenToUse": "图标、按钮、省略文本的补充说明"
+    },
+    {
+      "name": "mini",
+      "description": "迷你气泡：mini 缩小字号与内边距",
+      "whenToUse": "极简辅助说明、紧凑界面"
+    },
+    {
+      "name": "click",
+      "description": "点击触发：trigger=click 点击切换显隐",
+      "whenToUse": "移动端或需要主动开合的说明"
+    }
+  ],
+  "sizes": [
+    {
+      "name": "default",
+      "value": "内容自适应，最大宽度约 320px",
+      "usage": "默认尺寸"
+    },
+    {
+      "name": "mini",
+      "value": "字号 12px、内边距更小",
+      "usage": "迷你气泡"
+    }
+  ],
+  "states": [
+    {
+      "name": "default",
+      "description": "气泡关闭",
+      "visual": "触发器无额外样式"
+    },
+    {
+      "name": "hover",
+      "description": "鼠标悬停触发器",
+      "visual": "气泡 0.2s 淡入并指向触发器"
+    },
+    {
+      "name": "focus",
+      "description": "触发器获焦（键盘触发）",
+      "visual": "气泡显示，焦点移出后关闭"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "trigger",
+      "element": "span.giencoder-tooltip-reference",
+      "description": "触发器包裹节点，定位锚点"
+    },
+    {
+      "part": "popup",
+      "element": "div.giencoder-tooltip",
+      "description": "气泡容器：深色底 + 白色文字"
+    },
+    {
+      "part": "content",
+      "element": "div.giencoder-tooltip-content",
+      "description": "气泡文字内容"
+    },
+    {
+      "part": "arrow",
+      "element": "div.giencoder-tooltip-arrow",
+      "description": "指向触发器的箭头"
+    }
+  ],
+  "interaction": {
+    "hover": "悬停 0.2s 显示、移出关闭（含移向气泡内部的缓冲）",
+    "focus": "trigger=focus 时键盘焦点进入显示、移出关闭；trigger=click 时点击切换",
+    "keyboard": [
+      "Tab: 焦点进入触发器",
+      "Enter: trigger=click 时切换显隐",
+      "Space: 同 Enter 切换显隐",
+      "Esc: 关闭气泡（escToClose）",
+      "Tab: 焦点移出后气泡关闭（focus 触发）"
+    ],
+    "motion": {
+      "duration": "0.2s",
+      "easing": "standard",
+      "description": "气泡淡入淡出 + 轻微位移，0.2s 标准过渡"
+    },
+    "behaviorNotes": "focusTrap：非模态轻量浮层，不启用焦点陷阱；escClose：Esc 关闭；clickOutsideClose：click 触发时点击外部关闭；Tooltip 只承载简短文字，富内容用 Popover"
+  },
+  "a11y": {
+    "role": "tooltip",
+    "ariaAttrs": [
+      "aria-describedby (触发器通过该属性关联气泡内容)"
+    ],
+    "contrastNote": "深色底 --color-tooltip-bg（#1F1F1F）上白字对比度 ≥ 12:1，符合高对比要求",
+    "focusNote": "触发器保留可见焦点环；键盘用户通过 focus 触发读取说明"
+  },
+  "usage": [
+    "仅承载简短文字说明，长内容/可交互内容用 Popover",
+    "图标类操作必须配 Tooltip 提供可访问名称",
+    "悬停触发不适合触屏场景，移动端改用 click",
+    "触发器为禁用元素时无法触发 hover，需用包装元素承载"
+  ],
+  "doNotInvent": [
+    "不得在 Tooltip 内放按钮、链接等可交互内容（官方不承诺焦点可达）",
+    "不得新增官方不存在的变体与行为",
+    "不得用 外部 CSS 框架/Lucide 替代组件与图标体系"
+  ],
+  "tokensConsumed": [
+    "--color-tooltip-bg",
+    "--color-tooltip-text",
+    "--border-radius-medium",
+    "--z-index-popup"
+  ],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "TooltipProps",
+    "props": [
+      "blurToHide",
+      "className",
+      "color",
+      "content",
+      "defaultPopupVisible",
+      "disabled",
+      "escToClose",
+      "getPopupContainer",
+      "mini",
+      "onVisibleChange",
+      "popupHoverStay",
+      "popupVisible",
+      "position",
+      "prefixCls",
+      "style",
+      "trigger",
+      "triggerProps",
+      "unmountOnExit"
+    ],
+    "total": 18,
+    "syncDate": "2026/08/28"
+  }
+}

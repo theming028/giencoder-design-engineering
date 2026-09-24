@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>Spin 加载中</title>
+  <link rel="stylesheet" href="preview-scaffold.css">
+  <link rel="stylesheet" href="../colors_and_type.css">
+  <link rel="stylesheet" href="../components.css">
+</head>
+<body>
+  <div class="pv-layout">
+    <aside class="pv-sidebar">
+      <div class="pv-nav">
+        <div class="pv-menu-group">入口</div>
+        <a href="../home.html">首页</a>
+        <a href="../../GETTING-STARTED.html">使用说明书</a>
+        <div class="pv-menu-group">组件</div>
+        <a href="../index.html#general">通用</a>
+        <a href="../index.html#layout">布局</a>
+        <a href="../index.html#navigation">导航</a>
+        <a href="../index.html#data-entry">数据录入</a>
+        <a href="../index.html#data-display">数据展示</a>
+        <a href="../index.html#feedback" class="active">反馈</a>
+        <a href="../index.html#other">其他</a>
+        <div class="pv-menu-group">资源</div>
+        <a href="../index.html#uikits">页面样板</a>
+        <a href="../index.html#docs">规范文档</a>
+      </div>
+    </aside>
+    <main class="pv-content">
+  <a class="pv-back" href="../index.html#feedback">← 返回组件库</a>
+  <div class="pv-header">
+    <h1>Spin 加载中</h1>
+    <p>源启加载中：指示器尺寸、包裹内容、整页遮罩。</p>
+  </div>
+
+  <!-- ============ 变体：独立指示器 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Standalone 独立指示器（尺寸）</div>
+    <div class="row" style="gap:24px; align-items:center;">
+      <span class="giencoder-spin" data-component="spin" data-variant="standalone" data-size="mini" data-state="loading" role="status" aria-label="加载中">
+        <span class="giencoder-spin-loading giencoder-spin-loading-mini"></span>
+      </span>
+      <span class="giencoder-spin" data-component="spin" data-variant="standalone" data-size="small" data-state="loading" role="status" aria-label="加载中">
+        <span class="giencoder-spin-loading giencoder-spin-loading-small"></span>
+      </span>
+      <span class="giencoder-spin" data-component="spin" data-variant="standalone" data-size="medium" data-state="loading" role="status" aria-label="加载中">
+        <span class="giencoder-spin-loading giencoder-spin-loading-medium"></span>
+      </span>
+      <span class="giencoder-spin" data-component="spin" data-variant="standalone" data-size="large" data-state="loading" role="status" aria-label="加载中">
+        <span class="giencoder-spin-loading giencoder-spin-loading-large"></span>
+      </span>
+    </div>
+  </div>
+
+  <!-- ============ 变体：包裹内容 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Wrap 包裹内容</div>
+    <div class="row">
+      <div class="giencoder-spin giencoder-spin-wrapper" data-component="spin" data-variant="wrap" data-state="loading" style="position:relative; width:360px; height:180px; display:flex; align-items:center; justify-content:center;">
+        <span class="giencoder-spin-loading giencoder-spin-loading-medium"></span>
+        <span class="giencoder-spin-mask"></span>
+        <div style="position:absolute; inset:0; opacity:0.3; padding:20px; font-size: 14px; color:var(--color-text-2);">
+          <div style="height:14px; background:var(--color-fill-3); border-radius:4px; margin-bottom:12px; width:80%;"></div>
+          <div style="height:14px; background:var(--color-fill-3); border-radius:4px; margin-bottom:12px; width:60%;"></div>
+          <div style="height:14px; background:var(--color-fill-3); border-radius:4px; width:70%;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 变体：带文案 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">With Text 带文案</div>
+    <div class="row" style="gap:24px; align-items:center;">
+      <span class="giencoder-spin" data-component="spin" data-variant="text" data-state="loading" role="status" aria-label="加载中" style="display:flex; align-items:center; gap:8px;">
+        <span class="giencoder-spin-loading giencoder-spin-loading-small"></span>
+        <span class="giencoder-spin-text" style="font-size:12px; color:var(--color-text-2);">加载中...</span>
+      </span>
+      <span class="giencoder-spin" data-component="spin" data-variant="text" data-state="loading" role="status" aria-label="提交中" style="display:flex; align-items:center; gap:8px;">
+        <span class="giencoder-spin-loading giencoder-spin-loading-small"></span>
+        <span class="giencoder-spin-text" style="font-size:12px; color:var(--color-primary-6);">提交中...</span>
+      </span>
+    </div>
+  </div>
+    </main>
+  </div>
+<script src="preview-copy.js"></script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+{
+  "schemaVersion": 3,
+  "slug": "watermark",
+  "name": "Watermark",
+  "category": "other",
+  "giencoderSource": {
+    "component": "Watermark",
+    "version": "2.66.16"
+  },
+  "summary": "水印：在容器上按网格平铺文字或图片水印，支持旋转角度、间距、偏移与层级配置，用于版权/归属标注。",
+  "variants": [
+    {
+      "name": "文字水印",
+      "description": "content 渲染重复文字，默认 -20° 旋转",
+      "whenToUse": "文档/内容区标注版权或归属信息"
+    },
+    {
+      "name": "图片水印",
+      "description": "image 渲染图片水印（优先级高于文字内容）",
+      "whenToUse": "需要 Logo 或图形水印的场景"
+    }
+  ],
+  "sizes": [
+    {
+      "name": "default",
+      "value": "fontSize 默认 14px",
+      "usage": "单个水印尺寸由 fontSize/width/height 控制，无固定尺寸变体"
+    }
+  ],
+  "states": [
+    {
+      "name": "default",
+      "description": "水印正常平铺显示",
+      "visual": "按 gap（默认 [100,100]）网格平铺，rotate -20°，默认颜色 rgba(0,0,0,0.12)（约当 --color-text-4）"
+    },
+    {
+      "name": "empty",
+      "description": "未配置 content/image 时",
+      "visual": "不渲染水印内容"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "watermark",
+      "element": "div.giencoder-watermark",
+      "description": "水印容器，作为 getContainer 容器的第一个子节点展示"
+    },
+    {
+      "part": "watermark-content",
+      "element": "div（单个水印单元）",
+      "description": "文字或图片水印单元，按 gap 重复平铺"
+    }
+  ],
+  "interaction": {
+    "hover": "无（水印为纯展示装饰层，不响应鼠标）",
+    "focus": "无（纯展示装饰层）",
+    "keyboard": [
+      "无键盘交互（纯展示）"
+    ],
+    "motion": {
+      "duration": "0s",
+      "easing": "linear",
+      "description": "无动效"
+    },
+    "behaviorNotes": "content（文字，string|string[]）与 image（图片）二选一，image 优先级更高；rotate 旋转（默认 -20°）；gap 间距、offset 偏移；fontStyle 配置颜色/字体/字号/字重；width/height 单水印尺寸；zIndex 层级；getContainer 指定水印挂载容器；透明度通过 fontStyle.color 的 alpha 通道实现（默认 rgba(0,0,0,0.12)）。"
+  },
+  "a11y": {
+    "role": "none（装饰性内容）",
+    "ariaAttrs": [
+      "aria-hidden"
+    ],
+    "contrastNote": "水印为低对比度装饰（默认 rgba(0,0,0,0.12)），弱于正文层级属设计意图",
+    "focusNote": "不适用：纯展示层不可聚焦"
+  },
+  "usage": [
+    "用于版权/归属/防泄漏标注，覆盖在内容之上",
+    "文字水印与图片水印按场景二选一",
+    "通过 rotate/gap/fontStyle/zIndex 精细控制水印视觉"
+  ],
+  "doNotInvent": [
+    "不得虚构 opacity/repeat 等官方不存在的属性（2.66 无独立透明度属性，透明度走 fontStyle.color 的 alpha）",
+    "水印为装饰层，不得承载交互或键盘操作",
+    "不得用 外部 CSS 框架/Lucide 替代 源启实现"
+  ],
+  "tokensConsumed": [
+    "--color-text-4"
+  ],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "WatermarkProps",
+    "props": [
+      "className",
+      "content",
+      "height",
+      "image",
+      "rotate",
+      "style",
+      "width",
+      "zIndex"
+    ],
+    "total": 8,
+    "syncDate": "2026/08/28"
+  }
+}

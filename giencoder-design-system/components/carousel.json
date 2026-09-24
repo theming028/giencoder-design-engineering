@@ -1,0 +1,139 @@
+{
+  "schemaVersion": 3,
+  "slug": "carousel",
+  "name": "Carousel",
+  "category": "data-display",
+  "giencoderSource": {
+    "component": "Carousel",
+    "version": "2.66.16"
+  },
+  "summary": "轮播，循环展示多张幻灯片，支持自动播放、指示器、方向箭头与多种切换动画。",
+  "variants": [
+    {
+      "name": "滑动轮播",
+      "description": "animation=slide 水平/垂直平移切换",
+      "whenToUse": "默认轮播形态，适用于 Banner、图片墙"
+    },
+    {
+      "name": "卡片轮播",
+      "description": "animation=card 中间高亮两侧层叠",
+      "whenToUse": "突出主卡片的同时展示相邻内容"
+    },
+    {
+      "name": "淡入轮播",
+      "description": "animation=fade 交叉淡入淡出",
+      "whenToUse": "不适合平移的图文内容，如大图 Banner"
+    },
+    {
+      "name": "垂直轮播",
+      "description": "direction=vertical 垂直方向切换",
+      "whenToUse": "窄高布局（如侧边栏公告）"
+    },
+    {
+      "name": "指示器样式",
+      "description": "indicators 支持 dot/line/slider 三种样式与四向位置",
+      "whenToUse": "按品牌风格与信息密度选择指示器形态"
+    }
+  ],
+  "sizes": [],
+  "states": [
+    {
+      "name": "default",
+      "description": "常规展示态",
+      "visual": "当前幻灯片完整显示，其余按动画形态层叠/隐藏"
+    },
+    {
+      "name": "hover",
+      "description": "鼠标悬停",
+      "visual": "自动播放暂停；arrows=hover 时显示方向箭头"
+    },
+    {
+      "name": "active",
+      "description": "当前激活幻灯片",
+      "visual": "指示器高亮当前项"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "视口容器",
+      "element": "div.giencoder-carousel",
+      "description": "固定尺寸的轮播视口，溢出隐藏"
+    },
+    {
+      "part": "幻灯片列表",
+      "element": "div.giencoder-carousel-slide",
+      "description": "承载全部幻灯片的移动轨道"
+    },
+    {
+      "part": "幻灯片",
+      "element": "div.giencoder-carousel-slide-item",
+      "description": "单个内容单元"
+    },
+    {
+      "part": "指示器",
+      "element": "div.giencoder-carousel-indicator",
+      "description": "dot/line/slider 形态的当前位置指示"
+    },
+    {
+      "part": "方向箭头",
+      "element": "div.giencoder-carousel-arrow",
+      "description": "上一张/下一张切换按钮"
+    }
+  ],
+  "interaction": {
+    "hover": "悬停暂停自动播放；arrows=hover 时显示箭头",
+    "focus": "容器可聚焦，聚焦后支持方向键切换幻灯片",
+    "keyboard": [
+      "Tab: 聚焦轮播容器",
+      "ArrowLeft/ArrowRight: 切换上一张/下一张（水平方向）",
+      "ArrowUp/ArrowDown: 切换上一张/下一张（垂直方向）"
+    ],
+    "motion": {
+      "duration": "0.3s~0.5s",
+      "easing": "linear",
+      "description": "slide 平移、fade 淡入淡出与 card 层叠切换（--transition-duration-3~5）"
+    },
+    "behaviorNotes": "loop 控制无限循环；autoPlayInterval 控制自动播放间隔；moveSpeed 控制切换速度。"
+  },
+  "a11y": {
+    "role": "group",
+    "ariaAttrs": [
+      "aria-label: 轮播内容说明",
+      "aria-roledescription: carousel",
+      "aria-live: 自动播放时用于播报内容变化"
+    ],
+    "contrastNote": "指示器与箭头需与幻灯片内容保持足够对比度",
+    "focusNote": "容器聚焦后提供可见焦点环以支持方向键操作"
+  },
+  "usage": [
+    "每张幻灯片提供独立的可读内容与替代文本",
+    "自动播放建议提供暂停入口或悬停暂停，避免内容过快跳转",
+    "指示器位置避免遮挡关键内容"
+  ],
+  "doNotInvent": [
+    "不虚构触摸滑动回弹等未声明行为",
+    "不杜撰指示器之外的页码数字形态",
+    "不在多图场景虚构缩略图导航"
+  ],
+  "tokensConsumed": [],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "CarouselProps",
+    "props": [
+      "activeIndex",
+      "children",
+      "className",
+      "count",
+      "currentIndex",
+      "next",
+      "onSelectIndex",
+      "position",
+      "prev",
+      "style",
+      "trigger",
+      "type"
+    ],
+    "total": 12,
+    "syncDate": "2026/08/28"
+  }
+}

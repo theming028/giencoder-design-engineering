@@ -1,0 +1,41 @@
+/* ═══════════════════════════════════════════════════════════════
+ * ui-kits 共享 Statistic 数值滚动动效样式
+ * 来源：组件标准实现（giencoder/preview/component-statistic.html），
+ *       与组件规范页行为一致，供模板页统计数值复用
+ * 机制：value 拆分为「数字滚轮位」+「静态字符」——每位数字 0-9
+ *       垂直滚动（overflow hidden + translateY），千分位/小数点/
+ *       负号等静态字符不参与滚动；列间 45ms 错峰形成波浪；
+ *       respect prefers-reduced-motion
+ * 依赖：components.css（.giencoder-statistic-title/content 基础样式）
+ * ═══════════════════════════════════════════════════════════════ */
+.giencoder-statistic-value {
+  display: inline-flex;
+  align-items: baseline;
+  font-variant-numeric: tabular-nums; /* 数字等宽，滚动时列宽稳定 */
+}
+.yd-digit {
+  display: inline-block;
+  height: 1em;
+  overflow: hidden;
+  line-height: 1;
+  vertical-align: baseline;
+}
+.yd-digit__roll {
+  display: flex;
+  flex-direction: column;
+  transform: translateY(0);
+  transition: transform 900ms cubic-bezier(0.215, 0.61, 0.355, 1); /* easeOutCubic */
+  will-change: transform;
+}
+.yd-digit__item {
+  height: 1em;
+  flex: 0 0 1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+.yd-digit__sep { display: inline-block; line-height: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .yd-digit__roll { transition: none; }
+}

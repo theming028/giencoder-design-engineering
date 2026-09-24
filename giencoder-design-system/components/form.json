@@ -1,0 +1,163 @@
+{
+  "schemaVersion": 3,
+  "slug": "form",
+  "name": "Form",
+  "category": "data-entry",
+  "giencoderSource": {
+    "component": "Form",
+    "version": "2.66.16"
+  },
+  "summary": "表单容器组件，提供数据收集、校验、布局与联动能力，Form.Item 承载字段级配置。",
+  "variants": [
+    {
+      "name": "horizontal",
+      "description": "水平布局（标签在左）",
+      "whenToUse": "标准表单页，一行一个字段"
+    },
+    {
+      "name": "vertical",
+      "description": "垂直布局（标签在上）",
+      "whenToUse": "字段说明较长或移动端窄屏"
+    },
+    {
+      "name": "inline",
+      "description": "内联布局",
+      "whenToUse": "搜索/筛选区一行多字段"
+    },
+    {
+      "name": "disabled",
+      "description": "整体禁用",
+      "whenToUse": "只读详情或权限受限场景"
+    }
+  ],
+  "sizes": [
+    {
+      "name": "mini",
+      "value": "24px 控件",
+      "usage": "紧凑筛选区"
+    },
+    {
+      "name": "small",
+      "value": "28px 控件",
+      "usage": "紧凑表单"
+    },
+    {
+      "name": "medium",
+      "value": "32px 控件",
+      "usage": "标准（默认）"
+    },
+    {
+      "name": "large",
+      "value": "36px 控件",
+      "usage": "强调/移动端"
+    }
+  ],
+  "states": [
+    {
+      "name": "default",
+      "description": "未校验",
+      "visual": "字段正常展示，无校验提示"
+    },
+    {
+      "name": "error",
+      "description": "校验失败",
+      "visual": "字段控件 --color-danger-6 边框 + 光晕，下方红色错误信息"
+    },
+    {
+      "name": "disabled",
+      "description": "禁用",
+      "visual": "字段控件禁用态（--color-fill-2 背景）"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "表单容器",
+      "element": "form",
+      "description": "承载 Form.Item 列表与提交动作"
+    },
+    {
+      "part": "表单项行",
+      "element": "div",
+      "description": "Form.Item：label + 控件 + 校验信息一行"
+    },
+    {
+      "part": "标签",
+      "element": "label",
+      "description": "字段名称，必填显示星号，可配置对齐"
+    },
+    {
+      "part": "控件区",
+      "element": "div",
+      "description": "表单控件（Input/Select 等）占位"
+    },
+    {
+      "part": "校验信息",
+      "element": "div",
+      "description": "校验失败/成功提示文本，--color-danger-6 或 --color-success-6"
+    },
+    {
+      "part": "额外说明",
+      "element": "div",
+      "description": "extra 扩展说明文字（--color-text-3）"
+    }
+  ],
+  "interaction": {
+    "hover": "字段控件保持各自组件的悬停反馈",
+    "focus": "焦点落在当前字段控件；提交失败后自动聚焦第一个错误字段",
+    "keyboard": [
+      "Tab: move focus to the next field control",
+      "Shift+Tab: move focus to the previous field control",
+      "Enter: submit the form (with onSubmit) from input-like controls",
+      "Space: toggle checkbox/switch-like controls inside the form"
+    ],
+    "motion": {
+      "duration": "0.1s~0.3s",
+      "easing": "standard",
+      "description": "校验信息出现使用淡入 + 位移 0.2s；提交后滚动定位错误字段"
+    },
+    "behaviorNotes": "validateTrigger 决定校验时机（blur/change）；validateFields 提交时校验全部字段；联动通过 Form.useWatch / shouldUpdate 实现；布局基于 24 栅格 labelCol/wrapperCol"
+  },
+  "a11y": {
+    "role": "form",
+    "ariaAttrs": [
+      "aria-invalid (on failing fields)",
+      "aria-describedby (points to error text)",
+      "aria-required (on required fields)",
+      "role=group on grouped fields"
+    ],
+    "contrastNote": "错误信息 --color-danger-6 文字配错误图标双通道传达；标签 --color-text-1 对比度充足",
+    "focusNote": "提交失败自动聚焦第一个错误字段；错误信息通过 aria-describedby 关联到控件"
+  },
+  "usage": [
+    "校验规则集中在 rules 声明，避免散落校验逻辑",
+    "表单控件统一继承 Form 的 size/disabled，不逐字段重复设置",
+    "联动字段用 Form.useWatch 订阅，避免整表重渲染"
+  ],
+  "doNotInvent": [
+    "不要虚构 layout 之外的模式（无 split/step 等布局）",
+    "不要把校验逻辑写在组件内部（应走 rules/自定义 validator）",
+    "不要虚构表单级错误聚合条（源启无 form-level 错误条）"
+  ],
+  "tokensConsumed": [
+    "--color-danger-6",
+    "--color-success-6",
+    "--color-text-1",
+    "--color-text-3",
+    "--color-border-2",
+    "--color-fill-2",
+    "--transition-duration-2",
+    "--transition-timing-function-standard"
+  ],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "FormProps",
+    "props": [
+      "htmlFor",
+      "onFormValuesChange",
+      "prefix",
+      "showColon"
+    ],
+    "total": 4,
+    "syncDate": "2026/08/28"
+  }
+}

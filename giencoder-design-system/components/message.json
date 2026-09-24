@@ -1,0 +1,147 @@
+{
+  "schemaVersion": 3,
+  "slug": "message",
+  "name": "Message",
+  "category": "feedback",
+  "giencoderSource": {
+    "component": "Message",
+    "version": "2.66.16"
+  },
+  "summary": "全局消息提示，以轻量浮层在页面顶部/底部短暂展示操作反馈，自动消失，可全局配置。",
+  "variants": [
+    {
+      "name": "info",
+      "description": "信息提示（默认）：弧蓝图标",
+      "whenToUse": "中性操作反馈"
+    },
+    {
+      "name": "success",
+      "description": "成功提示：绿色图标",
+      "whenToUse": "操作成功反馈"
+    },
+    {
+      "name": "error",
+      "description": "错误提示：红色图标",
+      "whenToUse": "操作失败反馈"
+    },
+    {
+      "name": "warning",
+      "description": "警告提示：橙色图标",
+      "whenToUse": "警示性反馈"
+    },
+    {
+      "name": "loading",
+      "description": "加载提示：旋转图标",
+      "whenToUse": "异步操作进行中"
+    },
+    {
+      "name": "normal",
+      "description": "普通提示：无图标",
+      "whenToUse": "不需要语义图标的纯文本提示"
+    }
+  ],
+  "sizes": [
+    {
+      "name": "default",
+      "value": "自适应内容宽度",
+      "usage": "官方无尺寸档位"
+    }
+  ],
+  "states": [
+    {
+      "name": "default",
+      "description": "常规展示",
+      "visual": "白色浮层（--color-bg-popup）+ --shadow2-down + 圆角 small"
+    },
+    {
+      "name": "hover",
+      "description": "消息条悬停",
+      "visual": "阴影常驻，无额外反馈"
+    },
+    {
+      "name": "focus",
+      "description": "关闭按钮获得焦点",
+      "visual": "可见焦点环（可聚焦性需使用方保证，关闭图标为 span）"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "notice",
+      "element": "div.giencoder-message",
+      "description": "消息条容器"
+    },
+    {
+      "part": "icon",
+      "element": "span.giencoder-message-icon",
+      "description": "类型图标（showIcon 默认 true）"
+    },
+    {
+      "part": "content",
+      "element": "span.giencoder-message-content",
+      "description": "消息文案（--font-size-body-3）"
+    },
+    {
+      "part": "close-icon",
+      "element": "span.giencoder-message-close-icon",
+      "description": "右上关闭按钮（closable 默认 true）"
+    }
+  ],
+  "interaction": {
+    "hover": "消息条悬停不消失",
+    "focus": "关闭按钮可聚焦并获得可见焦点环",
+    "keyboard": [
+      "Tab: 焦点移至关闭图标（可聚焦性需使用方保证）",
+      "Enter: 触发关闭按钮",
+      "Space: 触发关闭按钮"
+    ],
+    "motion": {
+      "duration": "0.1s~0.3s",
+      "easing": "standard",
+      "description": "入场 100ms / 退场 300ms（transitionTimeout 默认 {enter:100, exit:300}）"
+    },
+    "behaviorNotes": "非弹层组件，无 focusTrap/escClose/clickOutsideClose；duration 默认 3000ms 自动消失，传 0 不自动关闭；官方无原生 Esc 关闭能力，需应用层自行实现（如全局 keydown 调用 Message.remove）"
+  },
+  "a11y": {
+    "role": "status",
+    "ariaAttrs": [
+      "aria-live（官方未自动输出，建议由使用方透传）"
+    ],
+    "contrastNote": "内容 --color-text-1 与 --color-bg-popup 白底对比度 ≥ 4.5:1",
+    "focusNote": "关闭按钮需可见焦点环；建议补充 aria-live 以便读屏播报"
+  },
+  "usage": [
+    "通过 Message.info/success/warning/error/loading/normal 静态方法或 useMessage 调用",
+    "duration 控制自动关闭时长（默认 3000ms），0 表示不自动关闭",
+    "position 仅 top/bottom",
+    "closable 显示关闭按钮，onClose 回调",
+    "Message.config 全局配置（duration/maxStack/position 等）"
+  ],
+  "doNotInvent": [
+    "不得虚构官方不存在的 type（仅 info/success/error/warning/loading/normal）",
+    "不得声称原生 Esc 关闭（官方未实现，需应用层补充）",
+    "不得用 外部 CSS 框架/Lucide 替代 源启图标与 token"
+  ],
+  "tokensConsumed": [
+    "--color-bg-popup",
+    "--color-primary-6",
+    "--color-success-6",
+    "--color-warning-6",
+    "--color-danger-6",
+    "--color-text-1",
+    "--color-border-2",
+    "--shadow2-down",
+    "--border-radius-small",
+    "--z-index-message"
+  ],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "MessageProps",
+    "props": [
+      "className",
+      "style",
+      "transitionClassNames"
+    ],
+    "total": 3,
+    "syncDate": "2026/08/28"
+  }
+}

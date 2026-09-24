@@ -1,0 +1,79 @@
+# 金标示例：资源管理列表页（对齐 gienx-templates/list-page/index.html）
+# 验收：yq build 产出页面与金标视觉一致（组件/布局/数据）
+meta:
+  name: resource-list
+  pattern: list-page
+  title: 资源管理 · 列表页样板
+
+layout:
+  top-nav:
+    logo: 源启
+    subtitle: 中电金信 · 云服务平台
+    links: [帮助, 通知]
+    user: 张
+  sidenav:
+    menu:
+      - group: 总览
+        items:
+          - { text: 工作台 }
+          - { text: 资源管理, selected: true }
+          - { text: 监控告警 }
+      - group: 系统
+        items:
+          - { text: 系统设置 }
+
+tree:
+  - c: page-header
+    props:
+      title: 资源管理
+      subtitle: 管理云上资源实例，支持搜索、筛选与批量操作
+    slots:
+      extra:
+        - c: button
+          props: { variant: primary, icon: plus }
+          text: 新建资源
+
+  - c: filter-bar
+    slots:
+      items:
+        - c: filter-item
+          props: { label: 资源名称 }
+          tree:
+            - c: input
+              props: { placeholder: 请输入资源名称, value: 云资源, prefixIcon: search, width: 220 }
+        - c: filter-item
+          props: { label: 状态 }
+          tree:
+            - c: select
+              props: { width: 160, value: 运行中, options: [运行中, 已停止, 异常, 已归档] }
+        - c: filter-item
+          props: { label: 创建时间 }
+          tree:
+            - c: date-picker
+              props: { variant: range, width: 280, value: "2026/07/15 ~ 2026/08/10" }
+      actions:
+        - c: button
+          props: { variant: primary }
+          text: 查询
+        - c: button
+          props: { variant: secondary }
+          text: 重置
+
+  - c: card
+    props: { title: 资源列表, extra: 共 42 条 }
+    tree:
+      - c: table
+        props:
+          selectable: true
+          columns:
+            - { field: name, title: 名称 }
+            - { field: status, title: 状态, render: tag, tagMap: { 运行中: success, 待处理: warning, 已停止: danger } }
+            - { field: owner, title: 负责人 }
+            - { field: op, title: 操作, render: rowActions, actions: [编辑, 详情, 删除] }
+          data:
+            - { name: 订单中心微服务, status: 运行中, owner: 张三 }
+            - { name: 用户画像数据仓库, status: 待处理, owner: 李四 }
+            - { name: 智能运维告警平台, status: 已停止, owner: 王五 }
+            - { name: 支付网关集群, status: 运行中, owner: 赵六 }
+            - { name: 日志采集服务, status: 待处理, owner: 张三 }
+          pagination: { total: 42, current: 1, last: 9 }

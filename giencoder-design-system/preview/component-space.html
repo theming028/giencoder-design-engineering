@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>Space 间距</title>
+  <link rel="stylesheet" href="preview-scaffold.css">
+  <link rel="stylesheet" href="../colors_and_type.css">
+  <link rel="stylesheet" href="../components.css">
+</head>
+<body>
+  <div class="pv-layout">
+    <aside class="pv-sidebar">
+      <div class="pv-nav">
+        <div class="pv-menu-group">入口</div>
+        <a href="../home.html">首页</a>
+        <a href="../../GETTING-STARTED.html">使用说明书</a>
+        <div class="pv-menu-group">组件</div>
+        <a href="../index.html#general" class="active">通用</a>
+        <a href="../index.html#layout">布局</a>
+        <a href="../index.html#navigation">导航</a>
+        <a href="../index.html#data-entry">数据录入</a>
+        <a href="../index.html#data-display">数据展示</a>
+        <a href="../index.html#feedback">反馈</a>
+        <a href="../index.html#other">其他</a>
+        <div class="pv-menu-group">资源</div>
+        <a href="../index.html#uikits">页面样板</a>
+        <a href="../index.html#docs">规范文档</a>
+      </div>
+    </aside>
+    <main class="pv-content">
+  <a class="pv-back" href="../index.html#general">← 返回组件库</a>
+  <div class="pv-header">
+    <h1>Space 间距</h1>
+    <p>源启间距布局组件：统一控制子元素之间的排列方向、间距与换行，纯布局、不渲染额外语义。</p>
+  </div>
+
+  <!-- ============ 变体：水平排列 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Horizontal 水平排列（gap 8px）</div>
+    <div class="pv-section__sub">默认方向 row，子元素水平排列，间距 8px（--spacing-4）。</div>
+    <div class="row">
+      <div class="giencoder-space" data-component="space" data-variant="horizontal" data-state="default" style="display:inline-flex; align-items:center; gap:8px;">
+        <button class="giencoder-btn giencoder-btn-primary giencoder-btn-size-default">主要操作</button>
+        <button class="giencoder-btn giencoder-btn-secondary giencoder-btn-size-default">次要操作</button>
+        <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-default">文本操作</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 变体：垂直排列 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Vertical 垂直排列（direction=column）</div>
+    <div class="pv-section__sub">direction=column 时子元素纵向堆叠，间距 12px（--spacing-6）。</div>
+    <div class="row">
+      <div class="giencoder-space" data-component="space" data-variant="vertical" data-state="default" style="display:inline-flex; flex-direction:column; gap:12px;">
+        <button class="giencoder-btn giencoder-btn-secondary giencoder-btn-size-default">第一步：填写基础信息</button>
+        <button class="giencoder-btn giencoder-btn-secondary giencoder-btn-size-default">第二步：配置权限</button>
+        <button class="giencoder-btn giencoder-btn-primary giencoder-btn-size-default">第三步：提交审核</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 变体：换行 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Wrap 换行（wrap）</div>
+    <div class="pv-section__sub">wrap 开启后子元素在容器宽度不足时自动换行，间距 8px。</div>
+    <div class="row">
+      <div class="giencoder-space" data-component="space" data-variant="wrap" data-state="default" style="display:flex; flex-wrap:wrap; gap:8px; max-width:520px;">
+        <span class="giencoder-tag giencoder-tag-primary">标签一</span>
+        <span class="giencoder-tag giencoder-tag-success">标签二</span>
+        <span class="giencoder-tag giencoder-tag-warning">标签三</span>
+        <span class="giencoder-tag giencoder-tag-danger">标签四</span>
+        <span class="giencoder-tag giencoder-tag-outline">标签五</span>
+        <span class="giencoder-tag giencoder-tag-light">标签六</span>
+        <span class="giencoder-tag giencoder-tag-outline">标签七</span>
+        <span class="giencoder-tag giencoder-tag-light">标签八</span>
+        <span class="giencoder-tag giencoder-tag-outline">标签九</span>
+        <span class="giencoder-tag giencoder-tag-light">标签十</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 变体：带分隔符 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Split 带分隔符（split 竖线分隔）</div>
+    <div class="pv-section__sub">split 在每个子元素之间插入分隔元素，示例为 1px 竖线，间距 12px。</div>
+    <div class="row">
+      <div class="giencoder-space" data-component="space" data-variant="split" data-state="default" style="display:inline-flex; align-items:center; gap:12px;">
+        <span style="font-size:var(--font-size-body-3); color:var(--color-text-2);">查看</span>
+        <span class="giencoder-space-split" role="separator" style="width:1px; height:14px; background:var(--color-border-3);"></span>
+        <span style="font-size:var(--font-size-body-3); color:var(--color-text-2);">编辑</span>
+        <span class="giencoder-space-split" role="separator" style="width:1px; height:14px; background:var(--color-border-3);"></span>
+        <span style="font-size:var(--font-size-body-3); color:var(--color-danger-6);">删除</span>
+      </div>
+    </div>
+    <div class="row" style="margin-top:16px;">
+      <div class="giencoder-space" data-component="space" data-variant="split" data-state="default" style="display:inline-flex; align-items:center; gap:12px; font-size:var(--font-size-body-3);">
+        <span style="color:var(--color-text-3);">操作说明：</span>
+        <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-small">批量导入</button>
+        <span class="giencoder-space-split" role="separator" style="width:1px; height:14px; background:var(--color-border-3);"></span>
+        <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-small">批量导出</button>
+        <span class="giencoder-space-split" role="separator" style="width:1px; height:14px; background:var(--color-border-3);"></span>
+        <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-small">清空回收站</button>
+      </div>
+    </div>
+  </div>
+    </main>
+  </div>
+<script src="preview-copy.js"></script>
+</body>
+</html>

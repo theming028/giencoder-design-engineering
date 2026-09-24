@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>Pagination 分页</title>
+  <link rel="stylesheet" href="preview-scaffold.css">
+  <link rel="stylesheet" href="../colors_and_type.css">
+  <link rel="stylesheet" href="../components.css">
+</head>
+<body>
+  <div class="pv-layout">
+    <aside class="pv-sidebar">
+      <div class="pv-nav">
+        <div class="pv-menu-group">入口</div>
+        <a href="../home.html">首页</a>
+        <a href="../../GETTING-STARTED.html">使用说明书</a>
+        <div class="pv-menu-group">组件</div>
+        <a href="../index.html#general">通用</a>
+        <a href="../index.html#layout">布局</a>
+        <a href="../index.html#navigation" class="active">导航</a>
+        <a href="../index.html#data-entry">数据录入</a>
+        <a href="../index.html#data-display">数据展示</a>
+        <a href="../index.html#feedback">反馈</a>
+        <a href="../index.html#other">其他</a>
+        <div class="pv-menu-group">资源</div>
+        <a href="../index.html#uikits">页面样板</a>
+        <a href="../index.html#docs">规范文档</a>
+      </div>
+    </aside>
+    <main class="pv-content">
+  <a class="pv-back" href="../index.html#navigation">← 返回组件库</a>
+  <div class="pv-header">
+    <h1>Pagination 分页</h1>
+    <p>源启分页器：页码/每页条数/快速跳转/总数展示。</p>
+  </div>
+
+  <!-- ============ 变体：基础分页 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Default 基础分页</div>
+    <div class="row">
+      <div class="giencoder-pagination" data-component="pagination" data-variant="default" data-state="default">
+        <button class="giencoder-pagination-item giencoder-pagination-item-previous" aria-label="上一页">
+          <svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M7.5 2.5L4 6l3.5 3.5"/></svg>
+        </button>
+        <button class="giencoder-pagination-item">1</button>
+        <button class="giencoder-pagination-item giencoder-pagination-item-active">2</button>
+        <button class="giencoder-pagination-item">3</button>
+        <button class="giencoder-pagination-item">4</button>
+        <button class="giencoder-pagination-item giencoder-pagination-item-ellipsis">…</button>
+        <button class="giencoder-pagination-item">10</button>
+        <button class="giencoder-pagination-item giencoder-pagination-item-next" aria-label="下一页">
+          <svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M4.5 2.5L8 6l-3.5 3.5"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 变体：每页条数 + 总数 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">PageSize + Total 每页条数与总数</div>
+    <div class="row" style="gap:16px; align-items:center; flex-wrap:wrap;">
+      <span style="font-size:12px; color:var(--color-text-3);">共 96 条</span>
+      <div class="giencoder-pagination" data-component="pagination" data-variant="pagesize" data-state="default">
+        <button class="giencoder-pagination-item giencoder-pagination-item-previous" aria-label="上一页">
+          <svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M7.5 2.5L4 6l3.5 3.5"/></svg>
+        </button>
+        <button class="giencoder-pagination-item">1</button>
+        <button class="giencoder-pagination-item giencoder-pagination-item-active">2</button>
+        <button class="giencoder-pagination-item">3</button>
+        <button class="giencoder-pagination-item">4</button>
+        <button class="giencoder-pagination-item">5</button>
+        <button class="giencoder-pagination-item giencoder-pagination-item-next" aria-label="下一页">
+          <svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M4.5 2.5L8 6l-3.5 3.5"/></svg>
+        </button>
+        <div class="giencoder-pagination-options">
+          <div class="giencoder-select">
+            <div class="giencoder-select-view" tabindex="0" role="combobox" aria-expanded="false" aria-haspopup="listbox">
+              <span class="giencoder-select-view-text">10 条/页</span>
+              <span class="giencoder-select-suffix">
+                <svg class="giencoder-select-arrow" viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 4l4 4 4-4"/></svg>
+              </span>
+            </div>
+            <div class="giencoder-select-popup" style="display:none;">
+              <ul class="giencoder-select-option-list" role="listbox">
+                <li class="giencoder-select-option giencoder-select-option-selected" role="option" aria-selected="true">10 条/页</li>
+                <li class="giencoder-select-option" role="option" aria-selected="false">20 条/页</li>
+                <li class="giencoder-select-option" role="option" aria-selected="false">30 条/页</li>
+                <li class="giencoder-select-option" role="option" aria-selected="false">50 条/页</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 变体：快速跳转 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Jumper 快速跳转</div>
+    <div class="row">
+      <div class="giencoder-pagination" data-component="pagination" data-variant="jumper" data-state="default">
+        <button class="giencoder-pagination-item giencoder-pagination-item-previous" aria-label="上一页">
+          <svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M7.5 2.5L4 6l3.5 3.5"/></svg>
+        </button>
+        <button class="giencoder-pagination-item giencoder-pagination-item-active">1</button>
+        <button class="giencoder-pagination-item">2</button>
+        <button class="giencoder-pagination-item">3</button>
+        <button class="giencoder-pagination-item giencoder-pagination-item-ellipsis">…</button>
+        <button class="giencoder-pagination-item">10</button>
+        <button class="giencoder-pagination-item giencoder-pagination-item-next" aria-label="下一页">
+          <svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M4.5 2.5L8 6l-3.5 3.5"/></svg>
+        </button>
+        <span class="giencoder-pagination-jumper">跳至
+          <div class="giencoder-input-wrapper" style="width:48px; display:inline-flex;">
+            <input class="giencoder-input" value="3" style="text-align:center;">
+          </div>
+          页
+        </span>
+      </div>
+    </div>
+  </div>
+  <script>
+  (function () {
+    'use strict';
+    /* component-pagination — 交互清单：
+     * 1. 点击页码互斥激活 giencoder-pagination-item-active
+     * 2. 上一页/下一页在边界禁用（首页禁上一页、末页禁下一页），disabled + 半透明样式
+     * 3. 省略号项不可点击
+     * 4. 每页条数选择器（giencoder-pagination-options 内嵌 select）：
+     *    点击触发框展开/收起弹层，点击选项选中并同步文本，点击外部收起
+     */
+    document.querySelectorAll('.giencoder-pagination').forEach(function (pg) {
+      var items = Array.prototype.slice.call(pg.querySelectorAll('.giencoder-pagination-item'));
+      if (!items.length) return;
+      var numberItems = items.filter(function (it) {
+        return !it.classList.contains('giencoder-pagination-item-ellipsis') &&
+               !it.classList.contains('giencoder-pagination-item-previous') &&
+               !it.classList.contains('giencoder-pagination-item-next');
+      });
+      var nums = numberItems.map(function (it) { return parseInt(it.textContent, 10); })
+                            .filter(function (n) { return !isNaN(n); });
+      if (!nums.length) return;
+      var first = Math.min.apply(null, nums);
+      var last = Math.max.apply(null, nums);
+
+      function current() {
+        for (var i = 0; i < numberItems.length; i++) {
+          if (numberItems[i].classList.contains('giencoder-pagination-item-active')) {
+            var n = parseInt(numberItems[i].textContent, 10);
+            if (!isNaN(n)) return n;
+          }
+        }
+        return first;
+      }
+
+      function setActive(n) {
+        numberItems.forEach(function (it) { it.classList.remove('giencoder-pagination-item-active'); });
+        numberItems.forEach(function (it) {
+          if (parseInt(it.textContent, 10) === n) it.classList.add('giencoder-pagination-item-active');
+        });
+        render();
+      }
+
+      function render() {
+        var cur = current();
+        items.forEach(function (it) {
+          var isPrev = it.classList.contains('giencoder-pagination-item-previous');
+          var isNext = it.classList.contains('giencoder-pagination-item-next');
+          if (!isPrev && !isNext) return;
+          var disabled = (isPrev && cur <= first) || (isNext && cur >= last);
+          it.disabled = disabled;
+          it.style.opacity = disabled ? '0.4' : '';
+          it.style.cursor = disabled ? 'not-allowed' : '';
+        });
+      }
+
+      items.forEach(function (it) {
+        it.addEventListener('click', function () {
+          if (it.classList.contains('giencoder-pagination-item-ellipsis')) return; /* 省略号不可点击 */
+          if (it.classList.contains('giencoder-pagination-item-previous')) {
+            var cur = current();
+            if (cur > first) setActive(cur - 1);
+            return;
+          }
+          if (it.classList.contains('giencoder-pagination-item-next')) {
+            var cur = current();
+            if (cur < last) setActive(cur + 1);
+            return;
+          }
+          var n = parseInt(it.textContent, 10);
+          if (isNaN(n)) return;
+          if (n >= first && n <= last) setActive(n);
+        });
+      });
+
+      render();
+    });
+
+    /* 每页条数选择器：点击展开/收起、选项互斥选中、外部点击收起 */
+    document.querySelectorAll('.giencoder-pagination .giencoder-select').forEach(function (sel) {
+      var view = sel.querySelector('.giencoder-select-view');
+      var popup = sel.querySelector('.giencoder-select-popup');
+      if (!view || !popup) return;
+      var options = Array.prototype.slice.call(popup.querySelectorAll('.giencoder-select-option'));
+      var textEl = view.querySelector('.giencoder-select-view-text');
+
+      function open() {
+        popup.style.display = 'block';
+        view.setAttribute('aria-expanded', 'true');
+      }
+      function close() {
+        popup.style.display = 'none';
+        view.setAttribute('aria-expanded', 'false');
+      }
+      view.addEventListener('click', function () {
+        if (popup.style.display === 'block') close(); else open();
+      });
+      options.forEach(function (opt) {
+        if (opt.classList.contains('giencoder-select-option-disabled')) return;
+        opt.addEventListener('click', function () {
+          options.forEach(function (o) {
+            o.classList.remove('giencoder-select-option-selected');
+            o.setAttribute('aria-selected', 'false');
+          });
+          opt.classList.add('giencoder-select-option-selected');
+          opt.setAttribute('aria-selected', 'true');
+          if (textEl) textEl.textContent = opt.textContent;
+          close();
+        });
+      });
+      document.addEventListener('click', function (e) {
+        if (!sel.contains(e.target)) close();
+      });
+    });
+  })();
+  </script>
+    </main>
+  </div>
+<script src="preview-copy.js"></script>
+</body>
+</html>

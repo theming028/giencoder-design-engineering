@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 3,
+  "slug": "comment",
+  "name": "Comment",
+  "category": "data-display",
+  "giencoderSource": {
+    "component": "Comment",
+    "version": "2.66.16"
+  },
+  "summary": "评论，展示作者、时间与内容，支持操作区与嵌套回复结构。",
+  "variants": [
+    {
+      "name": "基础评论",
+      "description": "头像 + 作者 + 时间 + 内容",
+      "whenToUse": "评论区、动态流中的单条评论"
+    },
+    {
+      "name": "嵌套回复",
+      "description": "通过 children 递归嵌套子评论",
+      "whenToUse": "多级回复讨论（如楼层式评论）"
+    },
+    {
+      "name": "操作区评论",
+      "description": "actions 提供点赞/回复等操作，align 控制左/右对齐",
+      "whenToUse": "需要评论级交互的讨论场景"
+    }
+  ],
+  "sizes": [],
+  "states": [
+    {
+      "name": "default",
+      "description": "常规展示态",
+      "visual": "作者 --color-text-1，时间 --color-text-2，内容 --color-text-1"
+    },
+    {
+      "name": "hover",
+      "description": "鼠标悬停操作区元素",
+      "visual": "操作文字 hover 变 --color-primary-6"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "头像",
+      "element": "div.giencoder-comment-avatar",
+      "description": "评论者头像"
+    },
+    {
+      "part": "主体",
+      "element": "div.giencoder-comment-inner",
+      "description": "作者、时间、内容与操作区"
+    },
+    {
+      "part": "作者与时间",
+      "element": "div.giencoder-comment-content-author",
+      "description": "作者名与 datetime 时间信息行"
+    },
+    {
+      "part": "内容",
+      "element": "div.giencoder-comment-content-detail",
+      "description": "评论正文"
+    },
+    {
+      "part": "操作区",
+      "element": "div.giencoder-comment-actions",
+      "description": "点赞、回复等操作项"
+    },
+    {
+      "part": "嵌套层",
+      "element": "div.giencoder-comment-children",
+      "description": "递归子评论容器"
+    }
+  ],
+  "interaction": {
+    "hover": "操作项 hover 变 --color-primary-6",
+    "focus": "操作按钮提供标准焦点环",
+    "keyboard": [
+      "无键盘交互（纯展示）；若配置 actions，操作按钮遵循 Tab 聚焦、Enter/Space 触发的标准按钮交互"
+    ],
+    "motion": {
+      "duration": "0.1s~0.2s",
+      "easing": "standard",
+      "description": "操作项颜色过渡（--transition-duration-1）"
+    },
+    "behaviorNotes": "align 控制操作区左/右对齐；嵌套通过 children 递归，层级不宜过深。"
+  },
+  "a11y": {
+    "role": "article",
+    "ariaAttrs": [
+      "aria-label: 评论作者与内容简述"
+    ],
+    "contrastNote": "时间信息使用 --color-text-2 弱化但保持可读",
+    "focusNote": "评论内容不可聚焦；操作按钮提供可见焦点环"
+  },
+  "usage": [
+    "时间信息保持简洁格式（如 5 分钟前）",
+    "嵌套层级建议不超过 2~3 层，避免阅读困难",
+    "操作区提供明确的语义文案（点赞/回复/删除）"
+  ],
+  "doNotInvent": [
+    "不虚构评论的折叠、高亮、楼层号等未提供能力",
+    "不杜撰时间自动格式化规则（由业务传入）",
+    "不在纯展示评论上添加键盘操作"
+  ],
+  "tokensConsumed": [
+    "--color-text-1",
+    "--color-text-2",
+    "--color-primary-6"
+  ],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "CommentProps",
+    "props": [
+      "actions",
+      "author",
+      "avatar",
+      "className",
+      "content",
+      "datetime",
+      "style"
+    ],
+    "total": 7,
+    "syncDate": "2026/08/28"
+  }
+}

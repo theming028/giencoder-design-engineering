@@ -1,0 +1,160 @@
+{
+  "schemaVersion": 3,
+  "slug": "checkbox",
+  "name": "Checkbox",
+  "category": "data-entry",
+  "giencoderSource": {
+    "component": "Checkbox",
+    "version": "2.66.16"
+  },
+  "summary": "复选框组件，支持选中、半选（indeterminate）与禁用状态，常与 Checkbox.Group 组合实现多选。",
+  "variants": [
+    {
+      "name": "default",
+      "description": "单个复选框",
+      "whenToUse": "单一的是/否选择"
+    },
+    {
+      "name": "group",
+      "description": "复选框组 Checkbox.Group",
+      "whenToUse": "一组选项中的多选场景"
+    },
+    {
+      "name": "controlled",
+      "description": "受控模式（Group value 为数组）",
+      "whenToUse": "需要由外部状态管理选中集合时"
+    }
+  ],
+  "sizes": [
+    {
+      "name": "default",
+      "value": "16px 选框 + 14px 标签文本",
+      "usage": "源启 Checkbox 无 size prop，使用固定默认尺寸"
+    }
+  ],
+  "states": [
+    {
+      "name": "default",
+      "description": "未选中",
+      "visual": "白色选框，--color-border-2 边框"
+    },
+    {
+      "name": "hover",
+      "description": "悬停",
+      "visual": "选框边框加深 --color-border-3，文本 --color-text-2"
+    },
+    {
+      "name": "checked",
+      "description": "已选中",
+      "visual": "选框填充 --color-primary-6，白色对勾；禁用选中为 --color-primary-5"
+    },
+    {
+      "name": "indeterminate",
+      "description": "半选（部分子项选中）",
+      "visual": "选框填充 --color-primary-6，白色横线"
+    },
+    {
+      "name": "disabled",
+      "description": "禁用",
+      "visual": "选框背景 --color-fill-2，勾选图标 --color-text-4"
+    },
+    {
+      "name": "focus",
+      "description": "聚焦",
+      "visual": "选框外侧 2px --color-primary-6 光晕"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "标签容器",
+      "element": "label",
+      "description": "整体可点击区域，含选框与文本"
+    },
+    {
+      "part": "原生输入",
+      "element": "input[type=checkbox]",
+      "description": "视觉隐藏但保留语义，供屏幕阅读器与表单提交使用"
+    },
+    {
+      "part": "自定义选框",
+      "element": "span",
+      "description": "视觉化选框，随状态切换背景/边框/图标"
+    },
+    {
+      "part": "标签文本",
+      "element": "span",
+      "description": "选项说明文字"
+    }
+  ],
+  "interaction": {
+    "hover": "选框边框加深，文本色加深",
+    "focus": "选框外侧显示弧蓝焦点光晕（FocusRing）",
+    "keyboard": [
+      "Tab: enter/leave the checkbox",
+      "Space: toggle the checked state",
+      "Enter: no toggle behavior (Space toggles)"
+    ],
+    "motion": {
+      "duration": "0.1s~0.2s",
+      "easing": "standard",
+      "description": "选中状态切换时对勾图标 0.2s 缩放 + 透明度过渡"
+    },
+    "behaviorNotes": "indeterminate 为视觉态，不改变 value 布尔语义；点击半选复选框通常变为全选；Group 内禁用项的全选联动需自行处理"
+  },
+  "a11y": {
+    "role": "checkbox",
+    "ariaAttrs": [
+      "aria-checked",
+      "aria-disabled",
+      "aria-labelledby",
+      "role=group on Checkbox.Group"
+    ],
+    "contrastNote": "未选中边框 --color-border-2 在白色背景上对比度足够；选中态弧蓝填充配白色图标满足大图形 3:1 对比",
+    "focusNote": "焦点环为弧蓝光晕，键盘用户可清晰定位当前复选框"
+  },
+  "usage": [
+    "选项较少（≤7 个）时优先使用 Checkbox.Group",
+    "半选状态应由父级选项根据子项勾选情况计算",
+    "禁用项建议同时提供说明文字"
+  ],
+  "doNotInvent": [
+    "不要虚构 size 变体（源启 Checkbox 无 size prop）",
+    "不要把 Checkbox 当作开关使用（应使用 Switch）",
+    "不要用 indeterminate 表达第三个业务值"
+  ],
+  "tokensConsumed": [
+    "--color-primary-6",
+    "--color-primary-5",
+    "--color-border-2",
+    "--color-border-3",
+    "--color-fill-2",
+    "--color-text-1",
+    "--color-text-2",
+    "--color-text-4",
+    "--color-white",
+    "--transition-duration-1",
+    "--transition-timing-function-standard"
+  ],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "CheckboxProps",
+    "props": [
+      "checkboxGroupValue",
+      "checked",
+      "children",
+      "className",
+      "defaultChecked",
+      "disabled",
+      "error",
+      "icon",
+      "indeterminate",
+      "isCheckboxGroup",
+      "onChange",
+      "onGroupChange",
+      "style",
+      "value"
+    ],
+    "total": 14,
+    "syncDate": "2026/08/28"
+  }
+}

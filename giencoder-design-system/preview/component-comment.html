@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>评论 Comment</title>
+  <link rel="stylesheet" href="preview-scaffold.css">
+  <link rel="stylesheet" href="../colors_and_type.css">
+  <link rel="stylesheet" href="../components.css">
+  <style>
+    /* 页面级演示样式（preview-format.md §3）：组件样式并入 components.css 后可整体移除 */
+    .giencoder-comment { font-size: var(--font-size-body-3); color: var(--color-text-1); }
+    .giencoder-comment-inner { display: flex; gap: var(--spacing-6); }
+    .giencoder-comment-avatar { flex-shrink: 0; }
+    .giencoder-comment-content { flex: 1; min-width: 0; }
+    .giencoder-comment-meta { display: flex; align-items: center; gap: var(--spacing-3); margin-bottom: var(--spacing-2); }
+    .giencoder-comment-author { font-weight: 500; color: var(--color-text-1); }
+    .giencoder-comment-time { font-size: var(--font-size-body-1); color: var(--color-text-3); }
+    .giencoder-comment-text { line-height: 1.7; }
+    .giencoder-comment-actions { display: flex; gap: var(--spacing-6); margin-top: var(--spacing-3); }
+    .giencoder-comment-action { display: inline-flex; align-items: center; gap: var(--spacing-2); padding: 0; border: none; background: none; font-size: var(--font-size-body-2); color: var(--color-text-3); cursor: pointer; }
+    .giencoder-comment-action:hover { color: var(--color-primary-6); }
+    .giencoder-comment-action-liked, .giencoder-comment-action-liked:hover { color: var(--color-primary-6); }
+    .giencoder-comment-like-icon { display: inline-flex; }
+    .giencoder-comment-nested { margin-top: var(--spacing-7); padding-left: var(--spacing-7); }
+    .giencoder-comment-nested .giencoder-comment-inner + .giencoder-comment-inner { margin-top: var(--spacing-7); }
+    .giencoder-comment-list { display: flex; flex-direction: column; gap: var(--spacing-7); }
+  </style>
+</head>
+<body>
+  <div class="pv-layout">
+    <aside class="pv-sidebar">
+      <div class="pv-nav">
+        <div class="pv-menu-group">入口</div>
+        <a href="../home.html">首页</a>
+        <a href="../../GETTING-STARTED.html">使用说明书</a>
+        <div class="pv-menu-group">组件</div>
+        <a href="../index.html#general">通用</a>
+        <a href="../index.html#layout">布局</a>
+        <a href="../index.html#navigation">导航</a>
+        <a href="../index.html#data-entry">数据录入</a>
+        <a href="../index.html#data-display" class="active">数据展示</a>
+        <a href="../index.html#feedback">反馈</a>
+        <a href="../index.html#other">其他</a>
+        <div class="pv-menu-group">资源</div>
+        <a href="../index.html#uikits">页面样板</a>
+        <a href="../index.html#docs">规范文档</a>
+      </div>
+    </aside>
+    <main class="pv-content">
+  <a class="pv-back" href="../index.html#data-display">← 返回组件库</a>
+  <div class="pv-header">
+    <h1>Comment 评论</h1>
+    <p>源启评论：头像 + 作者 + 时间 + 内容 + 操作区（回复/点赞），嵌套回复缩进一层。</p>
+  </div>
+
+  <!-- ============ 变体：基础评论 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Default 基础评论（含点赞态）</div>
+    <div class="row">
+      <div class="giencoder-comment" data-component="comment" data-variant="default" data-state="default">
+        <div class="giencoder-comment-inner">
+          <div class="giencoder-comment-avatar">
+            <span class="giencoder-avatar" style="width:32px; height:32px; border-radius:50%; background:var(--color-primary-6); color:var(--color-white); display:flex; align-items:center; justify-content:center; font-size:14px;">张</span>
+          </div>
+          <div class="giencoder-comment-content">
+            <div class="giencoder-comment-meta">
+              <span class="giencoder-comment-author">张三</span>
+              <span class="giencoder-comment-time">2026/08/28 10:30</span>
+            </div>
+            <div class="giencoder-comment-text">整体方案没问题，建议把表单校验的交互细节再细化一下，特别是错误提示的对比度。</div>
+            <div class="giencoder-comment-actions">
+              <button class="giencoder-comment-action">回复</button>
+              <button class="giencoder-comment-action">
+                <span class="giencoder-comment-like-icon"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 11v9H4.5A1.5 1.5 0 0 1 3 18.5v-6A1.5 1.5 0 0 1 4.5 11H7z"/><path d="M7 11l3.8-6.4A2 2 0 0 1 14 5.5V10h5.2a1.8 1.8 0 0 1 1.75 2.25l-1.5 6A1.8 1.8 0 0 1 17.7 20H7"/></svg></span>
+                点赞 12
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="giencoder-comment" data-component="comment" data-variant="default" data-state="liked">
+        <div class="giencoder-comment-inner">
+          <div class="giencoder-comment-avatar">
+            <span class="giencoder-avatar" style="width:32px; height:32px; border-radius:50%; background:var(--color-success-6); color:var(--color-white); display:flex; align-items:center; justify-content:center; font-size:14px;">李</span>
+          </div>
+          <div class="giencoder-comment-content">
+            <div class="giencoder-comment-meta">
+              <span class="giencoder-comment-author">李四</span>
+              <span class="giencoder-comment-time">2026/08/28 11:02</span>
+            </div>
+            <div class="giencoder-comment-text">收到，校验文案和错误样式已按规范更新，附上最新稿，麻烦再确认下。</div>
+            <div class="giencoder-comment-actions">
+              <button class="giencoder-comment-action">回复</button>
+              <button class="giencoder-comment-action giencoder-comment-action-liked">
+                <span class="giencoder-comment-like-icon"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 11v9H4.5A1.5 1.5 0 0 1 3 18.5v-6A1.5 1.5 0 0 1 4.5 11H7z"/><path d="M7 11l3.8-6.4A2 2 0 0 1 14 5.5V10h5.2a1.8 1.8 0 0 1 1.75 2.25l-1.5 6A1.8 1.8 0 0 1 17.7 20H7"/></svg></span>
+                点赞 28
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 变体：嵌套回复 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Nested 嵌套回复（缩进 16px 一层）</div>
+    <div class="row">
+      <div class="giencoder-comment" data-component="comment" data-variant="nested" data-state="default">
+        <div class="giencoder-comment-inner">
+          <div class="giencoder-comment-avatar">
+            <span class="giencoder-avatar" style="width:32px; height:32px; border-radius:50%; background:var(--color-primary-6); color:var(--color-white); display:flex; align-items:center; justify-content:center; font-size:14px;">张</span>
+          </div>
+          <div class="giencoder-comment-content">
+            <div class="giencoder-comment-meta">
+              <span class="giencoder-comment-author">张三</span>
+              <span class="giencoder-comment-time">2026/08/28 10:30</span>
+            </div>
+            <div class="giencoder-comment-text">整体方案没问题，建议把表单校验的交互细节再细化一下。</div>
+            <div class="giencoder-comment-actions">
+              <button class="giencoder-comment-action">回复</button>
+              <button class="giencoder-comment-action">
+                <span class="giencoder-comment-like-icon"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 11v9H4.5A1.5 1.5 0 0 1 3 18.5v-6A1.5 1.5 0 0 1 4.5 11H7z"/><path d="M7 11l3.8-6.4A2 2 0 0 1 14 5.5V10h5.2a1.8 1.8 0 0 1 1.75 2.25l-1.5 6A1.8 1.8 0 0 1 17.7 20H7"/></svg></span>
+                点赞 12
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- 嵌套回复层：缩进 16px -->
+        <div class="giencoder-comment-nested">
+          <div class="giencoder-comment-inner">
+            <div class="giencoder-comment-avatar">
+              <span class="giencoder-avatar" style="width:32px; height:32px; border-radius:50%; background:var(--color-success-6); color:var(--color-white); display:flex; align-items:center; justify-content:center; font-size:14px;">李</span>
+            </div>
+            <div class="giencoder-comment-content">
+              <div class="giencoder-comment-meta">
+                <span class="giencoder-comment-author">李四</span>
+                <span class="giencoder-comment-time">2026/08/28 11:02</span>
+              </div>
+              <div class="giencoder-comment-text">收到，校验文案和错误样式已按规范更新，可以再看看。</div>
+              <div class="giencoder-comment-actions">
+                <button class="giencoder-comment-action">回复</button>
+                <button class="giencoder-comment-action">
+                  <span class="giencoder-comment-like-icon"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 11v9H4.5A1.5 1.5 0 0 1 3 18.5v-6A1.5 1.5 0 0 1 4.5 11H7z"/><path d="M7 11l3.8-6.4A2 2 0 0 1 14 5.5V10h5.2a1.8 1.8 0 0 1 1.75 2.25l-1.5 6A1.8 1.8 0 0 1 17.7 20H7"/></svg></span>
+                点赞 3
+              </button>
+            </div>
+          </div>
+          <div class="giencoder-comment-inner">
+            <div class="giencoder-comment-avatar">
+              <span class="giencoder-avatar" style="width:32px; height:32px; border-radius:50%; background:var(--color-data-2); color:var(--color-white); display:flex; align-items:center; justify-content:center; font-size:14px;">王</span>
+            </div>
+            <div class="giencoder-comment-content">
+              <div class="giencoder-comment-meta">
+                <span class="giencoder-comment-author">王五</span>
+                <span class="giencoder-comment-time">2026/08/28 11:20</span>
+              </div>
+              <div class="giencoder-comment-text">同意，另外离线场景下的降级方案也别忘了补上。</div>
+              <div class="giencoder-comment-actions">
+                <button class="giencoder-comment-action">回复</button>
+                <button class="giencoder-comment-action">
+                  <span class="giencoder-comment-like-icon"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 11v9H4.5A1.5 1.5 0 0 1 3 18.5v-6A1.5 1.5 0 0 1 4.5 11H7z"/><path d="M7 11l3.8-6.4A2 2 0 0 1 14 5.5V10h5.2a1.8 1.8 0 0 1 1.75 2.25l-1.5 6A1.8 1.8 0 0 1 17.7 20H7"/></svg></span>
+                点赞 5
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+  <!-- 修复：模板原缺失 row / .pv-section 两个闭合标签，此处补全以保证 HTML 合法 -->
+  <style>
+    /* 交互脚本用（点赞实心图标 + 回复输入框容器，勿并入 components.css） */
+    .giencoder-comment-action-liked .giencoder-comment-like-icon svg { fill: currentColor; }
+    .giencoder-comment-reply-box { display: flex; align-items: center; gap: 8px; margin-top: 12px; }
+  </style>
+  <script>
+    /* ========== component-comment：交互清单 ==========
+       1) 点赞图标：切换点赞态（giencoder-comment-action-liked 变色 + 图标实心）并计数 +1/-1
+       2) 回复按钮：临时插入回复输入框（复用 giencoder-input-wrapper / giencoder-btn class），再次点击或发送后移除
+    */
+    (function () {
+      'use strict';
+      var comments = document.querySelectorAll('.giencoder-comment');
+      comments.forEach(function (comment) {
+        comment.addEventListener('click', function (e) {
+          var btn = e.target.closest('.giencoder-comment-action');
+          if (!btn) return;
+
+          /* 1) 点赞 */
+          var likeIcon = btn.querySelector('.giencoder-comment-like-icon');
+          if (likeIcon) {
+            var liked = btn.classList.toggle('giencoder-comment-action-liked');
+            var m = /(\d+)/.exec(btn.textContent);
+            if (m) {
+              var n = +m[1] + (liked ? 1 : -1);
+              if (n < 0) n = 0;
+              btn.textContent = btn.textContent.replace(m[0], String(n));
+            }
+            return;
+          }
+
+          /* 2) 回复：在操作区后插入输入框 */
+          var content = btn.closest('.giencoder-comment-content');
+          if (!content) return;
+          var existing = content.querySelector('.giencoder-comment-reply-box');
+          if (existing) {
+            if (existing.parentNode) existing.parentNode.removeChild(existing);
+            return;
+          }
+          var box = document.createElement('div');
+          box.className = 'giencoder-comment-reply-box';
+          box.innerHTML =
+            '<div class="giencoder-input-wrapper" style="flex:1; min-width:0;">' +
+              '<input class="giencoder-input" placeholder="写下你的回复…" />' +
+            '</div>' +
+            '<button class="giencoder-btn giencoder-btn-primary giencoder-btn-size-mini" type="button">发送</button>';
+          var actions = content.querySelector('.giencoder-comment-actions');
+          if (actions && actions.parentNode) {
+            actions.parentNode.insertBefore(box, actions.nextSibling);
+          } else {
+            content.appendChild(box);
+          }
+          var sendBtn = box.querySelector('.giencoder-btn');
+          if (sendBtn) {
+            sendBtn.addEventListener('click', function () {
+              if (box.parentNode) box.parentNode.removeChild(box);
+            });
+          }
+          var input = box.querySelector('.giencoder-input');
+          if (input) input.focus();
+        });
+      });
+    })();
+  </script>
+    </main>
+  </div>
+<script src="preview-copy.js"></script>
+</body>
+</html>

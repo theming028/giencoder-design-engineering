@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>TimePicker 时间选择</title>
+  <link rel="stylesheet" href="preview-scaffold.css">
+  <link rel="stylesheet" href="../colors_and_type.css">
+  <link rel="stylesheet" href="../components.css">
+  <style>
+    .giencoder-time-picker-option-selected { color: var(--color-primary-6); font-weight: 500; background: var(--color-primary-light-1); }
+    /* 列选项 hover 与 Dropdown 菜单项一致（fill-2 + 背景过渡）；选中项 hover 保持选中色 */
+    .giencoder-time-picker-col li { transition: background var(--transition-duration-1); }
+    .giencoder-time-picker-col li:hover { background: var(--color-fill-2); }
+    .giencoder-time-picker-col li.giencoder-time-picker-option-selected:hover { background: var(--color-primary-light-1); }
+
+    /* 交互动效：面板展开/收起（点击过渡，standard 缓动） */
+    .giencoder-time-picker-popup {
+      opacity: 0; visibility: hidden;
+      transform: scale(0.97) translateY(4px);
+      transition: opacity var(--transition-duration-2) var(--transition-timing-function-standard),
+                  transform var(--transition-duration-2) var(--transition-timing-function-standard),
+                  visibility var(--transition-duration-2) var(--transition-timing-function-standard);
+      will-change: opacity, transform;
+    }
+    .giencoder-time-picker-popup.giencoder-panel-open {
+      opacity: 1; visibility: visible;
+      transform: scale(1) translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <div class="pv-layout">
+    <aside class="pv-sidebar">
+      <div class="pv-nav">
+        <div class="pv-menu-group">入口</div>
+        <a href="../home.html">首页</a>
+        <a href="../../GETTING-STARTED.html">使用说明书</a>
+        <div class="pv-menu-group">组件</div>
+        <a href="../index.html#general">通用</a>
+        <a href="../index.html#layout">布局</a>
+        <a href="../index.html#navigation">导航</a>
+        <a href="../index.html#data-entry" class="active">数据录入</a>
+        <a href="../index.html#data-display">数据展示</a>
+        <a href="../index.html#feedback">反馈</a>
+        <a href="../index.html#other">其他</a>
+        <div class="pv-menu-group">资源</div>
+        <a href="../index.html#uikits">页面样板</a>
+        <a href="../index.html#docs">规范文档</a>
+      </div>
+    </aside>
+    <main class="pv-content">
+  <a class="pv-back" href="../index.html#data-entry">← 返回组件库</a>
+  <div class="pv-header">
+    <h1>TimePicker 时间选择</h1>
+    <p>源启时间选择：触发框 + 时/分/秒三列滚动弹层，选中项以 --color-primary-6 浅色背景高亮，支持范围选择。</p>
+  </div>
+
+  <!-- ============ 变体：触发框 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Default 触发框（时钟图标 + 10:30:00）</div>
+    <div class="row">
+      <div class="giencoder-input-wrapper" data-component="time-picker" data-variant="default" data-state="default" style="width:180px;">
+        <span class="giencoder-input-prefix">
+          <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="8" cy="8" r="6"/><path d="M8 4.5V8l2.5 1.5"/></svg>
+        </span>
+        <input class="giencoder-input" value="10:30:00" readonly>
+        <span class="giencoder-input-suffix">
+          <svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 4l4 4 4-4"/></svg>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 变体：弹层三列 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Panel 弹层三列（时 / 分 / 秒 列表滚动，选中项高亮）</div>
+    <div class="row">
+      <div class="giencoder-time-picker-popup" data-component="time-picker" data-variant="panel" data-state="open" style="width:210px; background:var(--color-bg-2); border:1px solid var(--color-border-2); border-radius:8px; box-shadow:var(--shadow2-down); padding:8px 0;">
+        <div class="giencoder-time-picker-header" style="display:flex; padding:0 8px 8px; font-size:var(--font-size-body-1); color:var(--color-text-3);">
+          <span style="flex:1; text-align:center;">时</span>
+          <span style="flex:1; text-align:center;">分</span>
+          <span style="flex:1; text-align:center;">秒</span>
+        </div>
+        <div class="giencoder-time-picker-columns" style="display:flex; height:224px;">
+          <!-- 时 -->
+          <ul class="giencoder-time-picker-col" style="flex:1; list-style:none; margin:0; padding:0; overflow-y:auto; scrollbar-width:thin; border-right:1px solid var(--color-border-1);">
+            <li style="height:32px; display:flex; align-items:center; justify-content:center; font-size:var(--font-size-body-3); color:var(--color-text-2); cursor:pointer;">6</li>
+            <li style="height:32px; display:flex; align-items:center; justify-content:center; font-size:var(--font-size-body-3); color:var(--color-text-2); cursor:pointer;">7</li>
+            <li style="height:32px; display:flex; align-items:center; justify-content:center; font-size:var(--font-size-body-3); color:var(--color-text-2); cursor:pointer;">8</li>
+            <li style="height:32px; display:flex; align-items:center; justify-content:center; font-size:var(--font-size-body-3); color:var(--color-text-2); cursor:pointer;">9</li>
+            <li class="giencoder-time-picker-option-selected" style="height:32px; display:flex; align-items:center; justify-content:center; font-size:var(--font-size-body-3); color:var(--color-primary-6); font-weight:500; cursor:pointer;">10</li>
+            <li style="height:32px; display:flex; align-items:center; justify-content:center; font-size:var(--font-size-body-3); color:var(--color-text-2); cursor:pointer;">11</li>
+            <li style="height:32px; display:flex; align-items:center; justify-content:center; font-size:var(--font-size-body-3); color:var(--color-text-2); cursor:pointer;">12</li>
+            <li style="height:32px; display:flex; align-items:center; justify-content:center; font-size:var(--font-size-body-3); color:var(--color-text-2); cursor:pointer;">13</li>
+            <li style="height:32px; display:flex; align-items:center; justify-content:center; font-size:var(--font-size-body-3); color:var(--color-text-2); cursor:pointer;">14</li>
+            <li style="height:32px; display:flex; align-items:center; justify-content:center; font-size:var(--font-size-body-3); color:var(--color-text-2); cursor:pointer;">15</li>
+            <li style="height:32px; display:flex; align-items:center; justify-content:center; font-size:var(--font-size-body-3); color:var(--color-text-2); cursor:pointer;">16</li>
+            <li style="height:32px; display:flex; align-items:center; justify-content:center; font-size:var(--font-size-body-3); color:var(--color-text-2); cursor:pointer;">17</li>
+          </ul>
+          <!-- 分 -->
+          <ul class="giencoder-time-picker-col" style="flex:1; list-style:none; margin:0; padding:0; overflow-y:auto; scrollbar-width:thin; border-right:1px solid var(--color-border-1);">
+            <li style="height:32px; display:flex; align-items:center; justify-content:center; font-size:var(--font-size-body-3); color:var(--color-text-2); cursor:pointer;">26</li>
+            <li style="height:32px; display:flex; align-items:center; justify-content:center; font-size:var(--font-size-body-3); color:var(--color-text-2); cursor:pointer;">27</li>
+            <li style="height:32px; display:flex; align-items:center; justify-content:center; font-size:var(--font-size-body-3); color:var(--color-text-2); cursor:pointer;">28</li>
+            <li style="height:32px; display:flex; align-items:center; justify-content:center; font-size:var(--font-size-body-3); color:var(--color-text-2); cursor:pointer;">29</li>
+            <li class="giencoder-time-picker-option-selected" style="height:32px; display:flex; align-items:center; justify-content:center; font-size:var(--font-size-body-3); color:var(--color-primary-6); font-weight:500; cursor:pointer;">30</li>
+            <li style="height:32px; display:flex; align-items:center; justify-content:center; font-size:var(--font-size-body-3); color:var(--color-text-2); cursor:pointer;">31</li>
+            <li style="height:32px; display:flex; align-items:center; justify-content:center; font-size:var(--font-size-body-3); color:var(--color-text-2); cursor:pointer;">32</li>
+            <li style="height:32px; display:flex; align-items:center; justify-content:center; font-size:var(--font-size-body-3); color:var(--color-text-2); cursor:pointer;">33</li>
+            <li style="height:32px; display:flex; align-items:center; justify-content:center; font-size:var(--font-size-body-3); color:var(--color-text-2); cursor:pointer;">34</li>
+            <li style="height:32px; display:flex; align-items:center; justify-content:center; font-size:var(--font-size-body-3); color:var(--color-text-2); cursor:pointer;">35</li>
+            <li style="height:32px; display:flex; align-items:center; justify-content:center; font-size:var(--font-size-body-3); color:var(--color-text-2); cursor:pointer;">36</li>
+            <li style="height:32px; display:flex; align-items:center; justify-content:center; font-size:var(--font-size-body-3); color:var(--color-text-2); cursor:pointer;">37</li>
+          </ul>
+          <!-- 秒 -->
+          <ul class="giencoder-time-picker-col" style="flex:1; list-style:none; margin:0; padding:0; overflow-y:auto; scrollbar-width:thin;">
+            <li style="height:32px; display:flex; align-items:center; justify-content:center; font-size:var(--font-size-body-3); color:var(--color-text-2); cursor:pointer;">56</li>
+            <li style="height:32px; display:flex; align-items:center; justify-content:center; font-size:var(--font-size-body-3); color:var(--color-text-2); cursor:pointer;">57</li>
+            <li style="height:32px; display:flex; align-items:center; justify-content:center; font-size:var(--font-size-body-3); color:var(--color-text-2); cursor:pointer;">58</li>
+            <li style="height:32px; display:flex; align-items:center; justify-content:center; font-size:var(--font-size-body-3); color:var(--color-text-2); cursor:pointer;">59</li>
+            <li class="giencoder-time-picker-option-selected" style="height:32px; display:flex; align-items:center; justify-content:center; font-size:var(--font-size-body-3); color:var(--color-primary-6); font-weight:500; cursor:pointer;">00</li>
+            <li style="height:32px; display:flex; align-items:center; justify-content:center; font-size:var(--font-size-body-3); color:var(--color-text-2); cursor:pointer;">01</li>
+            <li style="height:32px; display:flex; align-items:center; justify-content:center; font-size:var(--font-size-body-3); color:var(--color-text-2); cursor:pointer;">02</li>
+            <li style="height:32px; display:flex; align-items:center; justify-content:center; font-size:var(--font-size-body-3); color:var(--color-text-2); cursor:pointer;">03</li>
+            <li style="height:32px; display:flex; align-items:center; justify-content:center; font-size:var(--font-size-body-3); color:var(--color-text-2); cursor:pointer;">04</li>
+            <li style="height:32px; display:flex; align-items:center; justify-content:center; font-size:var(--font-size-body-3); color:var(--color-text-2); cursor:pointer;">05</li>
+            <li style="height:32px; display:flex; align-items:center; justify-content:center; font-size:var(--font-size-body-3); color:var(--color-text-2); cursor:pointer;">06</li>
+            <li style="height:32px; display:flex; align-items:center; justify-content:center; font-size:var(--font-size-body-3); color:var(--color-text-2); cursor:pointer;">07</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 变体：范围 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Range 范围选择（开始 / 结束时间）</div>
+    <div class="row" style="gap:8px; align-items:center;">
+      <div class="giencoder-time-picker-range" data-component="time-picker" data-variant="range" data-state="default" style="display:flex; gap:8px; align-items:center;">
+        <div class="giencoder-input-wrapper" style="width:170px;">
+          <span class="giencoder-input-prefix">
+            <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="8" cy="8" r="6"/><path d="M8 4.5V8l2.5 1.5"/></svg>
+          </span>
+          <input class="giencoder-input" value="10:30:00" readonly>
+        </div>
+        <span style="color:var(--color-text-3); font-size:var(--font-size-body-3);">至</span>
+        <div class="giencoder-input-wrapper" style="width:170px;">
+          <span class="giencoder-input-prefix">
+            <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="8" cy="8" r="6"/><path d="M8 4.5V8l2.5 1.5"/></svg>
+          </span>
+          <input class="giencoder-input" value="11:45:30" readonly>
+        </div>
+      </div>
+    </div>
+  </div>
+<script>
+/* ============================================================
+ * 源启 TimePicker 交互脚本（component-time-picker）
+ * 1) 点击触发框（默认 / 范围起止）：展开时/分/秒面板（克隆既有弹层，fixed 定位到触发框下，带展开/收起过渡）
+ * 2) 点击任一列选项：同列互斥高亮（giencoder-time-picker-option-selected，已定义于页面样式表）
+ * 3) 选中时/分/秒后同步触发框文本（HH:MM:SS）
+ * 4) 点击外部 / Esc：收起
+ * 5) 静态展示弹层选项同样支持互斥高亮
+ * ============================================================ */
+(function () {
+  'use strict';
+
+  function $(sel, root) { return (root || document).querySelector(sel); }
+  function $$(sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); }
+
+  var src = $('.giencoder-time-picker-popup');
+  if (!src) return;
+  src.classList.add('giencoder-panel-open'); // 静态展示弹层保持展开态
+
+  // 将静态弹层中"内联样式选中项"收敛为 class，便于互斥切换
+  $$('.giencoder-time-picker-col', src).forEach(function (col) {
+    $$('li', col).forEach(function (li) {
+      if (li.style.fontWeight === '500') {
+        li.style.color = '';
+        li.style.background = '';
+        li.style.fontWeight = '';
+        li.classList.add('giencoder-time-picker-option-selected');
+      }
+    });
+  });
+
+  // 交互弹层：克隆静态弹层，fixed 定位
+  var popup = src.cloneNode(true);
+  popup.removeAttribute('data-component');
+  popup.setAttribute('data-interactive', '1');
+  popup.style.position = 'fixed';
+  popup.style.zIndex = '1000';
+  popup.style.display = 'none';
+  document.body.appendChild(popup);
+  popup.classList.remove('giencoder-panel-open'); // 克隆弹层从收起态开始，展开时再播放动画
+
+  var activeInput = null;
+  var chosen = ['10', '30', '00'];
+
+  function openFor(trigger, input) {
+    activeInput = input;
+    var parts = String(input.value).split(':');
+    chosen = [parts[0] || '00', parts[1] || '00', parts[2] || '00'];
+    var r = trigger.getBoundingClientRect();
+    var w = popup.offsetWidth || 210;
+    var h = popup.offsetHeight || 240;
+    var left = Math.min(r.left, Math.max(8, window.innerWidth - w - 8));
+    var top = r.bottom + 4;
+    if (top + h > window.innerHeight - 8) top = Math.max(8, r.top - h - 4);
+    popup.style.left = left + 'px';
+    popup.style.top = top + 'px';
+    popup.style.display = '';
+    // 展开动画：先显示，再于下一帧加 open class 触发过渡
+    requestAnimationFrame(function () {
+      if (popup.isConnected) popup.classList.add('giencoder-panel-open');
+    });
+  }
+  function close() {
+    if (!popup.classList.contains('giencoder-panel-open') && popup.style.display === 'none') {
+      activeInput = null;
+      return;
+    }
+    // 收起动画：移除 open class 播放退场，200ms 过渡结束后隐藏
+    popup.classList.remove('giencoder-panel-open');
+    setTimeout(function () {
+      if (popup.isConnected && !popup.classList.contains('giencoder-panel-open')) {
+        popup.style.display = 'none';
+      }
+    }, 200);
+    activeInput = null;
+  }
+
+  // 1) 触发框展开（data-component 元素自身可能就是触发框）
+  $$('[data-component="time-picker"]').forEach(function (scope) {
+    var wrappers = [];
+    if (scope.classList && scope.classList.contains('giencoder-input-wrapper')) wrappers.push(scope);
+    wrappers = wrappers.concat($$('.giencoder-input-wrapper', scope));
+    wrappers.forEach(function (w) {
+      w.addEventListener('click', function (ev) {
+        ev.stopPropagation();
+        var input = $('.giencoder-input', w);
+        if (!input) return;
+        var isOpen = popup.classList.contains('giencoder-panel-open') && popup.style.display !== 'none';
+        if (!isOpen || activeInput !== input) openFor(w, input);
+        else close();
+      });
+    });
+  });
+
+  // 4) 外部点击 / Esc 收起
+  document.addEventListener('click', function (ev) {
+    if (popup.contains(ev.target)) return;
+    close();
+  });
+  document.addEventListener('keydown', function (ev) {
+    if (ev.key === 'Escape') close();
+  });
+
+  // 2) 3) 列选项：同列互斥高亮 + 同步触发框（按弹层分组，组内列下标 0=时/1=分/2=秒）
+  $$('.giencoder-time-picker-popup').forEach(function (popEl) {
+    $$('.giencoder-time-picker-col', popEl).forEach(function (col, colIdx) {
+      var isInteractive = !!col.closest('[data-interactive]');
+      $$('li', col).forEach(function (li) {
+        li.addEventListener('click', function (ev) {
+          ev.stopPropagation();
+          $$('li', col).forEach(function (o) { o.classList.remove('giencoder-time-picker-option-selected'); });
+          li.classList.add('giencoder-time-picker-option-selected');
+          if (isInteractive && activeInput) {
+            chosen[colIdx] = li.textContent.trim();
+            activeInput.value = chosen[0] + ':' + chosen[1] + ':' + chosen[2];
+          }
+        });
+      });
+    });
+  });
+})();
+</script>
+    </main>
+  </div>
+<script src="preview-copy.js"></script>
+</body>
+</html>

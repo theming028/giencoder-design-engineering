@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>Tooltip 文字气泡</title>
+  <link rel="stylesheet" href="preview-scaffold.css">
+  <link rel="stylesheet" href="../colors_and_type.css">
+  <link rel="stylesheet" href="../components.css">
+  <style>
+    /* Tooltip 预览局部样式 */
+    /* === 交互动效用：弹层展开/收起（opacity 0→1 + scale(0.96→1) + translateY(4px→0)，收起 .15s / 展开 .2s standard 曲线；translate/scale 与既有内联 transform 定位组合） === */
+    .giencoder-tooltip-popup {
+      opacity: 0;
+      visibility: hidden;
+      translate: 0 4px;
+      scale: 0.96;
+      transform-origin: top center;
+      transition: opacity .15s cubic-bezier(0.34, 0.69, 0.1, 1), translate .15s cubic-bezier(0.34, 0.69, 0.1, 1), scale .15s cubic-bezier(0.34, 0.69, 0.1, 1), visibility 0s .15s;
+    }
+    .giencoder-tooltip-popup.giencoder-popup-open {
+      opacity: 1;
+      visibility: visible;
+      translate: 0 0;
+      scale: 1;
+      transition: opacity .2s cubic-bezier(0.34, 0.69, 0.1, 1), translate .2s var(--transition-timing-function-spring), scale .2s var(--transition-timing-function-spring), visibility 0s;
+    }
+  </style>
+</head>
+<body>
+  <div class="pv-layout">
+    <aside class="pv-sidebar">
+      <div class="pv-nav">
+        <div class="pv-menu-group">入口</div>
+        <a href="../home.html">首页</a>
+        <a href="../../GETTING-STARTED.html">使用说明书</a>
+        <div class="pv-menu-group">组件</div>
+        <a href="../index.html#general">通用</a>
+        <a href="../index.html#layout">布局</a>
+        <a href="../index.html#navigation">导航</a>
+        <a href="../index.html#data-entry">数据录入</a>
+        <a href="../index.html#data-display" class="active">数据展示</a>
+        <a href="../index.html#feedback">反馈</a>
+        <a href="../index.html#other">其他</a>
+        <div class="pv-menu-group">资源</div>
+        <a href="../index.html#uikits">页面样板</a>
+        <a href="../index.html#docs">规范文档</a>
+      </div>
+    </aside>
+    <main class="pv-content">
+  <a class="pv-back" href="../index.html#data-display">← 返回组件库</a>
+  <div class="pv-header">
+    <h1>Tooltip 文字气泡</h1>
+    <p>源启文字气泡：深色底、箭头、四个方向定位。</p>
+  </div>
+
+  <!-- ============ 变体：方向 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Directions 方向</div>
+    <div class="row" style="gap:24px; align-items:center; justify-content:center; padding:48px 0;">
+      <!-- Top -->
+      <div class="giencoder-tooltip" data-component="tooltip" data-variant="top" data-state="open" style="position:relative;">
+        <button class="giencoder-btn giencoder-btn-secondary giencoder-btn-size-default">上</button>
+        <div class="giencoder-tooltip-popup giencoder-tooltip-popup-top" role="tooltip" style="position:absolute; bottom:calc(100% + 8px); left:50%; transform:translateX(-50%); background:var(--color-tooltip-bg); color:var(--color-white); font-size:12px; padding:5px 10px; border-radius:4px; white-space:nowrap;">
+          提示文字
+          <span class="giencoder-tooltip-arrow" style="position:absolute; top:100%; left:50%; transform:translateX(-50%); border:4px solid transparent; border-top-color:var(--color-tooltip-bg);"></span>
+        </div>
+      </div>
+      <!-- Right -->
+      <div class="giencoder-tooltip" data-component="tooltip" data-variant="right" data-state="open" style="position:relative;">
+        <button class="giencoder-btn giencoder-btn-secondary giencoder-btn-size-default">右</button>
+        <div class="giencoder-tooltip-popup giencoder-tooltip-popup-right" role="tooltip" style="position:absolute; left:calc(100% + 8px); top:50%; transform:translateY(-50%); background:var(--color-tooltip-bg); color:var(--color-white); font-size:12px; padding:5px 10px; border-radius:4px; white-space:nowrap;">
+          提示文字
+          <span class="giencoder-tooltip-arrow" style="position:absolute; right:100%; top:50%; transform:translateY(-50%); border:4px solid transparent; border-right-color:var(--color-tooltip-bg);"></span>
+        </div>
+      </div>
+      <!-- Bottom -->
+      <div class="giencoder-tooltip" data-component="tooltip" data-variant="bottom" data-state="open" style="position:relative;">
+        <button class="giencoder-btn giencoder-btn-secondary giencoder-btn-size-default">下</button>
+        <div class="giencoder-tooltip-popup giencoder-tooltip-popup-bottom" role="tooltip" style="position:absolute; top:calc(100% + 8px); left:50%; transform:translateX(-50%); background:var(--color-tooltip-bg); color:var(--color-white); font-size:12px; padding:5px 10px; border-radius:4px; white-space:nowrap;">
+          提示文字
+          <span class="giencoder-tooltip-arrow" style="position:absolute; bottom:100%; left:50%; transform:translateX(-50%); border:4px solid transparent; border-bottom-color:var(--color-tooltip-bg);"></span>
+        </div>
+      </div>
+      <!-- Left -->
+      <div class="giencoder-tooltip" data-component="tooltip" data-variant="left" data-state="open" style="position:relative;">
+        <button class="giencoder-btn giencoder-btn-secondary giencoder-btn-size-default">左</button>
+        <div class="giencoder-tooltip-popup giencoder-tooltip-popup-left" role="tooltip" style="position:absolute; right:calc(100% + 8px); top:50%; transform:translateY(-50%); background:var(--color-tooltip-bg); color:var(--color-white); font-size:12px; padding:5px 10px; border-radius:4px; white-space:nowrap;">
+          提示文字
+          <span class="giencoder-tooltip-arrow" style="position:absolute; left:100%; top:50%; transform:translateY(-50%); border:4px solid transparent; border-left-color:var(--color-tooltip-bg);"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 变体：场景 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Use Case 场景示例（操作按钮提示）</div>
+    <div class="row" style="gap:24px; align-items:center;">
+      <div class="giencoder-tooltip" data-component="tooltip" data-variant="use-case" data-state="open" style="position:relative;">
+        <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-default" aria-describedby="tip-edit">编辑</button>
+        <div class="giencoder-tooltip-popup" role="tooltip" id="tip-edit" style="position:absolute; bottom:calc(100% + 8px); left:50%; transform:translateX(-50%); background:var(--color-tooltip-bg); color:var(--color-white); font-size:12px; padding:5px 10px; border-radius:4px; white-space:nowrap;">
+          编辑项目配置
+          <span class="giencoder-tooltip-arrow" style="position:absolute; top:100%; left:50%; transform:translateX(-50%); border:4px solid transparent; border-top-color:var(--color-tooltip-bg);"></span>
+        </div>
+      </div>
+      <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-default">删除</button>
+      <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-default">更多</button>
+    </div>
+  </div>
+
+  <script>
+  /* tooltip：触发器点击切换气泡显示；点击外部隐藏；多示例互斥 */
+  (function () {
+    'use strict';
+
+    function findAll(sel, root) {
+      return Array.prototype.slice.call((root || document).querySelectorAll(sel));
+    }
+
+    var items = findAll('.giencoder-tooltip');
+    if (!items.length) return;
+
+    /* —— 交互动效：展开 = display + rAF 加 .giencoder-popup-open；收起 = 移除 class + setTimeout 延迟隐藏 —— */
+    function isPopupOpen(popup) {
+      return !!popup && popup.classList.contains('giencoder-popup-open');
+    }
+    function openPopup(popup) {
+      if (!popup) { return; }
+      if (popup._closeTimer) { clearTimeout(popup._closeTimer); popup._closeTimer = null; }
+      popup.style.display = '';
+      var token = (popup._animToken = (popup._animToken || 0) + 1);
+      requestAnimationFrame(function () {
+        if (!popup.isConnected || popup._animToken !== token) { return; } /* 元素已移除或状态已变则跳过 */
+        popup.classList.add('giencoder-popup-open');
+      });
+    }
+    function closePopup(popup) {
+      if (!popup) { return; }
+      var token = (popup._animToken = (popup._animToken || 0) + 1);
+      popup.classList.remove('giencoder-popup-open');
+      if (popup._closeTimer) { clearTimeout(popup._closeTimer); }
+      popup._closeTimer = setTimeout(function () {
+        popup._closeTimer = null;
+        if (!popup.isConnected || popup._animToken !== token) { return; } /* 元素已移除或已重新展开则跳过 */
+        popup.style.display = 'none';
+      }, 200);
+    }
+    function setOpen(item, open) {
+      var popup = item.querySelector('.giencoder-tooltip-popup');
+      if (!popup) { return; }
+      if (open) { openPopup(popup); } else { closePopup(popup); }
+    }
+    function isOpen(item) {
+      return isPopupOpen(item.querySelector('.giencoder-tooltip-popup'));
+    }
+
+    function closeAll(except) {
+      items.forEach(function (item) {
+        if (item !== except) setOpen(item, false);
+      });
+    }
+
+    items.forEach(function (item) {
+      var trigger = item.querySelector(':scope > .giencoder-btn');
+      var popup = item.querySelector('.giencoder-tooltip-popup');
+      if (!trigger || !popup) return;
+
+      trigger.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var wasOpen = isOpen(item);
+        closeAll(item);
+        setOpen(item, !wasOpen);
+      });
+    });
+
+    // 外部点击 → 收起（判断是否在触发器/弹层内）
+    document.addEventListener('click', function (e) {
+      items.forEach(function (item) {
+        var popup = item.querySelector('.giencoder-tooltip-popup');
+        if (popup && isPopupOpen(popup) && !item.contains(e.target)) {
+          setOpen(item, false);
+        }
+      });
+    });
+    /* 初始同步：模板 data-state="open" 的弹层直接置为展开态（避免加载动画） */
+    items.forEach(function (item) {
+      var popup = item.querySelector('.giencoder-tooltip-popup');
+      if (popup) { popup.classList.add('giencoder-popup-open'); }
+    });
+  })();
+  </script>
+    </main>
+  </div>
+<script src="preview-copy.js"></script>
+</body>
+</html>

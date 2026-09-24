@@ -1,0 +1,167 @@
+meta:
+  name: demo-form-detail
+  title: 演示 · 表单/弹窗/指标
+  pattern: form-page
+layout:
+  top-nav:
+    logo: 源启
+    subtitle: 云服务平台
+    user: 张
+  sidenav:
+    menu:
+      - group: 总览
+        items:
+          - text: 概览大屏
+          - text: 指标看板
+      - group: 资源
+        items:
+          - text: 资源列表
+            selected: true
+          - text: 资源详情
+tree:
+  - c: page-header
+    props:
+      title: 创建资源
+      subtitle: 配置新云资源实例
+    slots:
+      extra:
+        - c: button
+          text: 返回列表
+  - c: form
+    props:
+      layout: vertical
+    tree:
+      - c: form-item
+        props:
+          label: 资源名称
+          required: true
+        tree:
+          - c: input
+            props:
+              width: 320
+              placeholder: 请输入资源名称
+      - c: form-item
+        props:
+          label: 所属分组
+          required: true
+          help: 选择资源归属的业务分组
+        tree:
+          - c: select
+            props:
+              width: 240
+              value: 生产环境
+              options: [生产环境, 预发布, 测试环境]
+      - c: form-item
+        props:
+          label: 环境类型
+        tree:
+          - c: radio
+            props:
+              name: env
+              text: 生产
+              checked: true
+          - c: radio
+            props:
+              name: env
+              text: 测试
+      - c: form-item
+        props:
+          label: 自动部署
+        tree:
+          - c: switch
+            props:
+              checked: true
+              checkText: 开
+              unCheckText: 关
+      - c: form-item
+        props:
+          label: 同意条款
+        tree:
+          - c: checkbox
+            props:
+              text: 我已阅读并同意部署协议
+              checked: true
+  - c: tabs
+    props:
+      variant: line
+      items:
+        - title: 基础信息
+        - title: 高级配置
+      active: 0
+    slots:
+      pane:
+        - c: form
+          props:
+            layout: vertical
+          tree:
+            - c: form-item
+              props:
+                label: 高级参数
+              tree:
+                - c: input
+                  props:
+                    width: 320
+                    placeholder: 例如 --no-cache
+  - c: statistic
+    props:
+      title: 预估费用
+      value: 3269
+      suffix: 元/月
+      compare: "+12%"
+      direction: up
+      status: warning
+      groupSeparator: true
+  - c: button
+    props:
+      variant: primary
+    text: 提交
+  - c: button
+    text: 暂存
+    props:
+      variant: secondary
+    slots: {}
+  - c: button
+    props:
+      variant: secondary
+      danger: true
+      icon: close
+      openTarget: "#demo-modal"
+    text: 打开弹窗
+  - c: modal
+    props:
+      id: demo-modal
+      title: 确认删除资源
+      width: 420
+    tree:
+      - c: tag
+        text: 警告
+        props:
+          tone: danger
+      - c: input
+        props:
+          readonly: true
+          value: 将删除资源「demo-01」
+    slots:
+      footer:
+        - c: button
+          props:
+            variant: primary
+          text: 确认删除
+  - c: drawer
+    props:
+      id: demo-drawer
+      title: 审计日志
+      width: 400
+    tree:
+      - c: table
+        props:
+          columns:
+            - field: op
+              title: 操作
+            - field: time
+              title: 时间
+          data:
+            - op: 创建资源
+              time: "2026-08-01 10:00"
+            - op: 修改配置
+              time: "2026-08-02 11:30"

@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 3,
+  "slug": "portal",
+  "name": "Portal",
+  "category": "other",
+  "giencoderSource": {
+    "component": "Portal",
+    "version": "2.66.16"
+  },
+  "summary": "传送门：基于 ReactDOM.createPortal 将子树渲染到指定容器（默认 document.body），用于弹层/浮层的脱离文档流挂载。",
+  "variants": [
+    {
+      "name": "默认",
+      "description": "无视觉形态的行为组件",
+      "whenToUse": "需要将内容渲染到指定 DOM 容器（如 body 末尾）时"
+    }
+  ],
+  "sizes": [
+    {
+      "name": "default",
+      "value": "—",
+      "usage": "无尺寸概念"
+    }
+  ],
+  "states": [
+    {
+      "name": "default",
+      "description": "组件自身无视觉状态",
+      "visual": "不渲染可见 UI"
+    },
+    {
+      "name": "focus",
+      "description": "不适用：无焦点元素",
+      "visual": "无"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "portal",
+      "element": "ReactPortal",
+      "description": "经 ReactDOM.createPortal 渲染的子树"
+    },
+    {
+      "part": "container",
+      "element": "getContainer 返回的目标容器",
+      "description": "子树实际挂载的 DOM 节点"
+    },
+    {
+      "part": "children",
+      "element": "ReactNode",
+      "description": "被传送的内容"
+    }
+  ],
+  "interaction": {
+    "hover": "无（纯行为组件）",
+    "focus": "无（纯行为组件）",
+    "keyboard": [
+      "无键盘交互（Portal 自身不处理键盘；子树组件的键盘行为不受影响）"
+    ],
+    "motion": {
+      "duration": "0s",
+      "easing": "linear",
+      "description": "无自身动效"
+    },
+    "behaviorNotes": "getContainer 指定挂载容器（返回 Element 的函数，默认 document.body）；children 渲染到该容器下；常用于弹层/浮层的传送挂载。"
+  },
+  "a11y": {
+    "role": "none",
+    "ariaAttrs": [],
+    "contrastNote": "不适用：自身无视觉",
+    "focusNote": "不适用：无焦点元素；子树中的可聚焦元素仍可正常聚焦"
+  },
+  "usage": [
+    "用于弹层/浮层/全局提示等需要脱离文档流挂载的场景",
+    "getContainer 可指定任意目标容器，实现传送到特定 DOM 区域"
+  ],
+  "doNotInvent": [
+    "不得虚构可见 UI 或附加属性（官方仅 getContainer/children）",
+    "不得虚构 Portal 自身的键盘/焦点行为",
+    "不得用 外部 CSS 框架/Lucide 替代"
+  ],
+  "tokensConsumed": [],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "PortalProps",
+    "props": [
+      "children",
+      "childrenComponent",
+      "forceRender",
+      "getContainer",
+      "visible"
+    ],
+    "total": 5,
+    "syncDate": "2026/08/28"
+  }
+}

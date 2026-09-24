@@ -1,0 +1,141 @@
+{
+  "schemaVersion": 3,
+  "slug": "avatar",
+  "name": "Avatar",
+  "category": "data-display",
+  "giencoderSource": {
+    "component": "Avatar",
+    "version": "2.66.16"
+  },
+  "summary": "头像，用于展示用户或实体的图片、图标或文字标识，支持组合与折叠。",
+  "variants": [
+    {
+      "name": "图片头像",
+      "description": "以 img 展示图片，支持圆形/方形两种形状",
+      "whenToUse": "展示用户照片、品牌 Logo 等图片素材"
+    },
+    {
+      "name": "图标头像",
+      "description": "以图标填充头像区域",
+      "whenToUse": "无图片素材时用图标表达用户或实体类型"
+    },
+    {
+      "name": "文字头像",
+      "description": "以文字展示；medium（32px）及以上尺寸显示两个汉字/字符，autoFixFontSize 按内容长度自动缩放字号——1 字约尺寸×0.42，2 字约尺寸×0.31（缩约 25%）",
+      "whenToUse": "展示用户名、缩写或简短代号"
+    },
+    {
+      "name": "组合头像",
+      "description": "Avatar.Group 将多个头像横向堆叠，maxCount 折叠溢出项并以 +N 呈现",
+      "whenToUse": "展示团队成员、共同编辑者等多人集合"
+    }
+  ],
+  "sizes": [
+    {
+      "name": "small",
+      "value": "28px",
+      "usage": "紧凑场景（如表格行内）的头像尺寸"
+    },
+    {
+      "name": "default",
+      "value": "32px",
+      "usage": "默认头像尺寸"
+    },
+    {
+      "name": "large",
+      "value": "36px",
+      "usage": "强调场景（如个人中心）的头像尺寸"
+    }
+  ],
+  "states": [
+    {
+      "name": "default",
+      "description": "常规展示态",
+      "visual": "背景 --color-fill-2，前景 --color-text-1，圆形或方形轮廓"
+    },
+    {
+      "name": "hover",
+      "description": "鼠标悬停",
+      "visual": "纯展示组件，悬停无视觉变化"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "头像容器",
+      "element": "div.giencoder-avatar",
+      "description": "承载图片/图标/文字的圆形或方形容器"
+    },
+    {
+      "part": "图片内容",
+      "element": "img",
+      "description": "图片头像的 src 内容，加载失败时回退为文字/图标"
+    },
+    {
+      "part": "文字内容",
+      "element": "span",
+      "description": "文字头像的文本，过长时按 autoFixFontSize 自动缩放"
+    },
+    {
+      "part": "组合折叠项",
+      "element": "span.giencoder-avatar-group-max-count",
+      "description": "Avatar.Group 中超出 maxCount 的 +N 提示元素"
+    }
+  ],
+  "interaction": {
+    "hover": "无交互反馈（纯展示组件）",
+    "focus": "无焦点态（纯展示，不参与 Tab 顺序）",
+    "keyboard": [
+      "无键盘交互（纯展示）"
+    ],
+    "motion": {
+      "duration": "0.1s~0.2s",
+      "easing": "standard",
+      "description": "尺寸/形状切换的轻量过渡（--transition-duration-1）"
+    },
+    "behaviorNotes": "文字头像未设置尺寸时默认 32px；medium（32px）及以上尺寸展示两个汉字/字符，字号随字符数缩小：1 字 = 尺寸×0.42 左右（32px→14px、40px→16px、48px→20px），2 字 = 尺寸×0.31 左右（32px→10px、40px→12px、48px→15px）；small（24px）容量不足，保持单字 11px。图片加载失败时显示占位文字或图标。"
+  },
+  "a11y": {
+    "role": "img",
+    "ariaAttrs": [
+      "aria-label: 头像所代表的用户或实体说明"
+    ],
+    "contrastNote": "文字头像前景与背景对比度满足 WCAG AA（--color-text-1 与 --color-fill-2）",
+    "focusNote": "纯展示元素不可聚焦；如需可点击头像，外层应包裹按钮并提供焦点样式"
+  },
+  "usage": [
+    "文字内容保持简短（建议 1~2 个字符），过长依赖 autoFixFontSize 自动缩放",
+    "图片加载失败时应提供 fallback 文字或图标，避免空白区域",
+    "Avatar.Group 中建议为折叠项设置可读的 +N 文案"
+  ],
+  "doNotInvent": [
+    "不虚构 Avatar 的 disabled/loading 原生状态（需由外层容器实现）",
+    "不杜撰 40px 等未定义的标准尺寸",
+    "不在纯展示头像上强行添加 hover 浮起等视觉反馈"
+  ],
+  "tokensConsumed": [
+    "--color-fill-2",
+    "--color-text-1",
+    "--color-primary-6"
+  ],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "AvatarProps",
+    "props": [
+      "autoFixFontSize",
+      "className",
+      "maxCount",
+      "maxPopoverTriggerProps",
+      "maxStyle",
+      "onClick",
+      "shape",
+      "size",
+      "style",
+      "triggerIcon",
+      "triggerIconStyle",
+      "triggerType",
+      "zIndexAscend"
+    ],
+    "total": 13,
+    "syncDate": "2026/08/28"
+  }
+}

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>Progress 进度条</title>
+  <link rel="stylesheet" href="preview-scaffold.css">
+  <link rel="stylesheet" href="../colors_and_type.css">
+  <link rel="stylesheet" href="../components.css">
+</head>
+<body>
+  <div class="pv-layout">
+    <aside class="pv-sidebar">
+      <div class="pv-nav">
+        <div class="pv-menu-group">入口</div>
+        <a href="../home.html">首页</a>
+        <a href="../../GETTING-STARTED.html">使用说明书</a>
+        <div class="pv-menu-group">组件</div>
+        <a href="../index.html#general">通用</a>
+        <a href="../index.html#layout">布局</a>
+        <a href="../index.html#navigation">导航</a>
+        <a href="../index.html#data-entry">数据录入</a>
+        <a href="../index.html#data-display" class="active">数据展示</a>
+        <a href="../index.html#feedback">反馈</a>
+        <a href="../index.html#other">其他</a>
+        <div class="pv-menu-group">资源</div>
+        <a href="../index.html#uikits">页面样板</a>
+        <a href="../index.html#docs">规范文档</a>
+      </div>
+    </aside>
+    <main class="pv-content">
+  <a class="pv-back" href="../index.html#data-display">← 返回组件库</a>
+  <div class="pv-header">
+    <h1>Progress 进度条</h1>
+    <p>源启进度条：线性/圆形，状态色、缓冲、文字标签。</p>
+  </div>
+
+  <!-- ============ 变体：线性 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Line 线性进度条</div>
+    <div class="row" style="flex-direction:column; gap:16px; align-items:stretch; max-width:560px;">
+      <div class="giencoder-progress giencoder-progress-line" data-component="progress" data-variant="line" data-state="default">
+        <div class="giencoder-progress-outer">
+          <div class="giencoder-progress-inner">
+            <div class="giencoder-progress-bar giencoder-progress-bar-primary" style="width:45%;"></div>
+          </div>
+        </div>
+        <span class="giencoder-progress-text">45%</span>
+      </div>
+      <div class="giencoder-progress giencoder-progress-line" data-component="progress" data-variant="line" data-state="success">
+        <div class="giencoder-progress-outer">
+          <div class="giencoder-progress-inner">
+            <div class="giencoder-progress-bar giencoder-progress-bar-success" style="width:100%;"></div>
+          </div>
+        </div>
+        <span class="giencoder-progress-text giencoder-progress-text-success">
+          <svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2.5 6.5l2.5 2.5 4.5-5"/></svg>
+        </span>
+      </div>
+      <div class="giencoder-progress giencoder-progress-line" data-component="progress" data-variant="line" data-state="error">
+        <div class="giencoder-progress-outer">
+          <div class="giencoder-progress-inner">
+            <div class="giencoder-progress-bar giencoder-progress-bar-danger" style="width:60%;"></div>
+          </div>
+        </div>
+        <span class="giencoder-progress-text giencoder-progress-text-danger">60%</span>
+      </div>
+      <div class="giencoder-progress giencoder-progress-line" data-component="progress" data-variant="line-buffer" data-state="default">
+        <div class="giencoder-progress-outer">
+          <div class="giencoder-progress-inner">
+            <div class="giencoder-progress-buffer" style="width:80%;"></div>
+            <div class="giencoder-progress-bar giencoder-progress-bar-primary" style="width:35%;"></div>
+          </div>
+        </div>
+        <span class="giencoder-progress-text">35%</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 变体：圆形 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Circle 圆形进度条</div>
+    <div class="row" style="gap:32px; align-items:center;">
+      <div class="giencoder-progress giencoder-progress-circle" data-component="progress" data-variant="circle" data-state="default" style="position:relative; width:80px; height:80px;">
+        <svg viewBox="0 0 100 100" width="80" height="80">
+          <circle cx="50" cy="50" r="45" fill="none" stroke="var(--color-fill-2)" stroke-width="8"/>
+          <circle cx="50" cy="50" r="45" fill="none" stroke="var(--color-primary-6)" stroke-width="8" stroke-linecap="round" stroke-dasharray="282.7" stroke-dashoffset="141.4" transform="rotate(-90 50 50)"/>
+        </svg>
+        <span class="giencoder-progress-circle-text" style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:14px; color:var(--color-text-1);">50%</span>
+      </div>
+      <div class="giencoder-progress giencoder-progress-circle" data-component="progress" data-variant="circle" data-state="success" style="position:relative; width:80px; height:80px;">
+        <svg viewBox="0 0 100 100" width="80" height="80">
+          <circle cx="50" cy="50" r="45" fill="none" stroke="var(--color-fill-2)" stroke-width="8"/>
+          <circle cx="50" cy="50" r="45" fill="none" stroke="var(--color-success-6)" stroke-width="8" stroke-linecap="round" stroke-dasharray="282.7" stroke-dashoffset="0" transform="rotate(-90 50 50)"/>
+        </svg>
+        <span class="giencoder-progress-circle-text" style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center;">
+          <svg viewBox="0 0 12 12" width="14" height="14" fill="none" stroke="var(--color-success-6)" stroke-width="2" stroke-linecap="round"><path d="M2.5 6.5l2.5 2.5 4.5-5"/></svg>
+        </span>
+      </div>
+      <div class="giencoder-progress giencoder-progress-circle" data-component="progress" data-variant="circle" data-state="error" style="position:relative; width:80px; height:80px;">
+        <svg viewBox="0 0 100 100" width="80" height="80">
+          <circle cx="50" cy="50" r="45" fill="none" stroke="var(--color-fill-2)" stroke-width="8"/>
+          <circle cx="50" cy="50" r="45" fill="none" stroke="var(--color-danger-6)" stroke-width="8" stroke-linecap="round" stroke-dasharray="282.7" stroke-dashoffset="113" transform="rotate(-90 50 50)"/>
+        </svg>
+        <span class="giencoder-progress-circle-text" style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size: 14px; color:var(--color-text-1);">60%</span>
+      </div>
+    </div>
+  </div>
+    </main>
+  </div>
+<script src="preview-copy.js"></script>
+</body>
+</html>

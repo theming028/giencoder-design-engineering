@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-page-node-id="E4doBGWrElDU3euuOgSFwa">
+<head data-page-node-id="b6Xd5EqF2P8Xvtel6QaII3">
+  <meta charset="UTF-8" data-page-node-id="2F3vMi50yYfcXGZ0MS4ctA">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" data-page-node-id="sQIuwSr2SMlndF12wF0vTu">
+  <title>源启 Design Token 可视化</title>
+  <link rel="stylesheet" href="colors_and_type.css" data-page-node-id="Kx2vlZiT7lQDgvRtGqrerZ">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: var(--font-family); background: var(--color-bg-1); color: var(--color-text-1);
+      -webkit-font-smoothing: antialiased; transition: background .2s, color .2s;
+    }
+    .hero {
+      background: linear-gradient(135deg, #3770F7 0%, #2E5ECE 100%);
+      color: #fff; padding: 40px 48px;
+    }
+    .hero h1 { font-size: 28px; font-weight: 600; }
+    .hero p { font-size: 14px; opacity: .85; margin-top: 6px; max-width: 760px; line-height: 1.7; }
+    .hero .tools { margin-top: 20px; display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+    .theme-toggle {
+      display: inline-flex; align-items: center; gap: 8px; cursor: pointer;
+      background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.35);
+      border-radius: 999px; padding: 6px 18px; font-size: 13px; color: #fff; user-select: none;
+    }
+    .theme-toggle:hover { background: rgba(255,255,255,.25); }
+    .nav {
+      display: flex; gap: 8px; padding: 16px 48px; border-bottom: 1px solid var(--color-border-1);
+      position: sticky; top: 0; background: var(--color-bg-1); z-index: 100; flex-wrap: wrap;
+    }
+    .nav a {
+      color: var(--color-text-2); text-decoration: none; font-size: 13px;
+      padding: 6px 14px; border-radius: 999px; transition: all .15s;
+    }
+    .nav a:hover { background: var(--color-fill-1); color: var(--color-primary-6); }
+    .section { padding: 36px 48px 8px; }
+    .section h2 { font-size: 20px; font-weight: 600; margin-bottom: 4px; }
+    .section .desc { font-size: 13px; color: var(--color-text-3); margin-bottom: 20px; line-height: 1.6; }
+    .grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); }
+    .card {
+      background: var(--color-bg-2); border: 1px solid var(--color-border-2);
+      border-radius: 8px; padding: 20px; margin-bottom: 20px;
+    }
+    .card h3 { font-size: 14px; font-weight: 600; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+    .card h3 .swatch { width: 12px; height: 12px; border-radius: 3px; border: 1px solid var(--color-border-2); }
+
+    /* 色板 */
+    .palette-row { display: flex; margin-bottom: 8px; border-radius: 6px; overflow: hidden; }
+    .palette-row .step { flex: 1; height: 56px; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding-bottom: 6px; font-size: 10px; color: rgba(0,0,0,.55); }
+    .palette-row .step .val { font-size: 9px; opacity: .75; }
+    .palette-row .step.light-text .lbl, .palette-row .step.light-text .val { color: rgba(255,255,255,.85); }
+    .palette-name { font-size: 12px; font-weight: 500; color: var(--color-text-2); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+    .palette-name code { font-size: 11px; color: var(--color-text-3); font-weight: 400; }
+
+    /* 语义色 */
+    .semantic-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+    .semantic-item { border: 1px solid var(--color-border-2); border-radius: 8px; overflow: hidden; }
+    .semantic-item .color-box { height: 56px; display: flex; align-items: flex-end; padding: 8px; font-size: 10px; }
+    .semantic-item .info { padding: 10px 12px; }
+    .semantic-item .info .name { font-size: 12px; font-weight: 500; }
+    .semantic-item .info .token { font-size: 11px; color: var(--color-text-3); margin-top: 2px; font-family: var(--code-family); }
+
+    /* 中性色层级 */
+    .neutral-row { display: flex; gap: 8px; margin-bottom: 8px; }
+    .neutral-block { flex: 1; border: 1px solid var(--color-border-2); border-radius: 6px; padding: 8px; text-align: center; }
+    .neutral-block .bar { height: 32px; border-radius: 4px; margin-bottom: 6px; border: 1px solid rgba(0,0,0,.06); }
+    .neutral-block .label { font-size: 10px; color: var(--color-text-3); }
+
+    /* 字体 */
+    .type-sample { display: flex; align-items: baseline; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--color-border-1); }
+    .type-sample .sample { flex: 1; }
+    .type-sample .meta { width: 200px; text-align: right; font-size: 11px; color: var(--color-text-3); }
+    .type-sample .meta code { font-family: var(--code-family); }
+
+    /* 间距 */
+    .spacing-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+    .spacing-item { border: 1px solid var(--color-border-2); border-radius: 8px; padding: 12px; }
+    .spacing-item .bar-wrap { background: var(--color-fill-1); border-radius: 4px; height: 28px; display: flex; align-items: center; margin-bottom: 8px; }
+    .spacing-item .bar { height: 6px; background: var(--color-primary-6); border-radius: 3px; }
+    .spacing-item .label { font-size: 11px; color: var(--color-text-3); }
+    .spacing-item .label code { font-family: var(--code-family); }
+
+    /* 圆角 */
+    .radius-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
+    .radius-item { border: 1px solid var(--color-border-2); border-radius: 8px; padding: 16px; text-align: center; }
+    .radius-item .box { width: 72px; height: 72px; background: var(--color-primary-light-1); border: 2px solid var(--color-primary-6); margin: 0 auto 10px; }
+    .radius-item .label { font-size: 11px; color: var(--color-text-3); }
+    .radius-item .label code { font-family: var(--code-family); }
+
+    /* 阴影 */
+    .shadow-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; padding: 24px 0; }
+    .shadow-demo { width: 120px; height: 80px; background: var(--color-bg-2); border-radius: 8px; margin: 0 auto; }
+    .shadow-item { text-align: center; }
+    .shadow-item .label { font-size: 11px; color: var(--color-text-3); margin-top: 12px; }
+    .shadow-item .label code { font-family: var(--code-family); }
+
+    /* 动效 */
+    .motion-item { display: flex; align-items: center; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--color-border-1); }
+    .motion-item .demo { width: 56px; height: 56px; background: var(--color-primary-6); border-radius: 12px; flex-shrink: 0; }
+    .motion-item .info { flex: 1; }
+    .motion-item .info .name { font-size: 13px; font-weight: 500; }
+    .motion-item .info .meta { font-size: 11px; color: var(--color-text-3); margin-top: 2px; font-family: var(--code-family); }
+    .motion-item .run-btn {
+      border: 1px solid var(--color-border-2); background: var(--color-bg-2); color: var(--color-text-2);
+      border-radius: 6px; padding: 6px 14px; font-size: 12px; cursor: pointer; transition: all .15s;
+    }
+    .motion-item .run-btn:hover { border-color: var(--color-primary-6); color: var(--color-primary-6); }
+
+    /* z-index */
+    .z-stack { display: flex; flex-direction: column-reverse; gap: 4px; max-width: 520px; }
+    .z-layer { display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-radius: 6px; font-size: 12px; }
+    .z-layer .val { font-family: var(--code-family); font-size: 11px; color: var(--color-text-3); width: 48px; }
+    .z-layer .lbl { font-weight: 500; }
+    .z-layer-999 { background: var(--color-fill-1); }
+    .z-layer-1000 { background: var(--color-primary-light-1); }
+    .z-layer-1001 { background: var(--color-primary-light-2); }
+    .z-layer-1003 { background: var(--color-primary-light-3); }
+
+    /* 不透明度 */
+    .opacity-row { display: flex; gap: 8px; }
+    .opacity-cell { flex: 1; border-radius: 6px; padding: 10px; text-align: center; font-size: 10px; }
+    .opacity-cell .bar { height: 28px; border-radius: 4px; background: var(--color-primary-6); margin-bottom: 6px; }
+
+    /* 表格 */
+    table.tokens-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    table.tokens-table th, table.tokens-table td { padding: 8px 12px; border-bottom: 1px solid var(--color-border-1); text-align: left; }
+    table.tokens-table th { color: var(--color-text-3); font-weight: 500; font-size: 12px; }
+    table.tokens-table code { font-family: var(--code-family); font-size: 12px; color: var(--color-primary-6); }
+
+    .footer { padding: 32px 48px; color: var(--color-text-3); font-size: 12px; border-top: 1px solid var(--color-border-1); margin-top: 40px; }
+
+    /* 可点击复制的色值元素：悬停显示 pointer 光标 */
+    .palette-row .step, .semantic-item .color-box, .neutral-block .bar, #componentColors .color-box {
+      cursor: pointer;
+    }
+    .palette-row .step:hover, .semantic-item .color-box:hover, .neutral-block .bar:hover, #componentColors .color-box:hover {
+      outline: 2px solid var(--color-primary-6);
+      outline-offset: -2px;
+    }
+
+    /* 暗色适配 */
+    [giencoder-theme='dark'] .palette-row .step { color: rgba(255,255,255,.8); }
+    [giencoder-theme='dark'] .palette-row .step .val { color: rgba(255,255,255,.6); }
+    [giencoder-theme='dark'] .palette-row .step.light-text .lbl, [giencoder-theme='dark'] .palette-row .step.light-text .val { color: rgba(0,0,0,.6); }
+    [giencoder-theme='dark'] .neutral-block .bar { border-color: rgba(255,255,255,.12); }
+  </style>
+</head>
+<body data-page-node-id="klLnR4AVCrxORoHsaL16yD">
+  <div class="hero" data-page-node-id="f3Vcf30qfGUd698yujxWvB">
+    <h1 data-page-node-id="lpB9iK3aDgY6GVS9NUEG3Y">源启 Design Token 可视化</h1>
+    <p data-page-node-id="mNToBBA0dCv7RudZmKnM9K">基于 <code data-page-node-id="pwmlLb96Mf3a9q846J2vW7">tokens.md</code> 与 <code data-page-node-id="6Brrc2Oas2UoXSVd4E9PIu">colors_and_type.css</code> 的完整 Token 画廊。数据与规范文档同源，切换暗色模式可查看暗色 Token。</p>
+    <div class="tools" data-page-node-id="pomQtM8WkOpzvjSn3eLDJD">
+      <span class="theme-toggle" onclick="toggleTheme()" data-page-node-id="XzVgo1S279K6W7vL8IxZg8">🌓 切换暗色模式</span>
+      <span style="font-size:12px; opacity:.75;" data-page-node-id="Oz1tIsUjJB5UguFHTSuy2j">主色 #3770F7 ｜ 亮/暗双模式</span>
+    </div>
+  </div>
+
+  <div class="nav" data-page-node-id="2mgmFF4KhSNdSGAYgH6yDR">
+    <a href="#palettes" data-page-node-id="BWZxDlQASCERFTzaztxWay">色板</a>
+    <a href="#semantic" data-page-node-id="SttidzV0EvHlvxMehuD7i5">语义色</a>
+    <a href="#neutral" data-page-node-id="b7bCJPNeeFS2pjrTUJoZGZ">中性色</a>
+    <a href="#component-colors" data-page-node-id="mWfI5JjUFX8QjeTfARktCj">组件色</a>
+    <a href="#typography" data-page-node-id="2MiiVi6ig6ymiHvNo6rXYG">字体</a>
+    <a href="#spacing" data-page-node-id="zT58QfDhyibpCSskGIkgGF">间距</a>
+    <a href="#radius" data-page-node-id="kHpelUkkvY9fKyKoWGRUtF">圆角</a>
+    <a href="#shadow" data-page-node-id="lfBk9nzBlA825VUZXaG9z7">阴影</a>
+    <a href="#motion" data-page-node-id="fxmvnuDbENvBBwFRbkDQUw">动效</a>
+    <a href="#zindex" data-page-node-id="f1Oj8armNG6n3QkC3X22wb">层级</a>
+    <a href="#opacity" data-page-node-id="m2k0V1vIZ9yK2PWjv0J2fl">不透明度</a>
+    <a href="#rules" data-page-node-id="bfibU3UOJCfdogGeFsdt4E">使用规则</a>
+  </div>
+
+  <!-- ═══════════ 色板 ═══════════ -->
+  <div class="section" id="palettes" data-page-node-id="cxoKIV8ebatz4CWDGKOMcu">
+    <h2 data-page-node-id="x8WEzRk8fYbi8DqiGhKDa1">色板系统</h2>
+    <p class="desc" data-page-node-id="usr1n0SAHbqYDmyUtugbLq">13 个基础色板 × 10 阶。6 级为基准色，1-5 浅色梯度，7-10 深色梯度。点击色块可复制色值。</p>
+    <div id="paletteContainer" data-page-node-id="0XqegmyKJ1WIkh0e3InHrZ"></div>
+  </div>
+
+  <!-- ═══════════ 语义色 ═══════════ -->
+  <div class="section" id="semantic" data-page-node-id="PRdkU6kQ5fcDt6RTCc5ik4">
+    <h2 data-page-node-id="oPj3brG12hrhCtYFCrfe04">语义色（功能色）</h2>
+    <p class="desc" data-page-node-id="lftzqpcfb2BiG6siOxDCr4">主操作/成功/警告/危险/链接五类语义色，映射到基础色板 6 级。</p>
+    <div class="semantic-grid" id="semanticGrid" data-page-node-id="LOvJQeAqG3slbjvPLU4QCV"></div>
+  </div>
+
+  <!-- ═══════════ 中性色 ═══════════ -->
+  <div class="section" id="neutral" data-page-node-id="7ufr4wLzhjQ5roCRQxOsV4">
+    <h2 data-page-node-id="hERRjolh1huw5XulI70W8R">中性色语义层</h2>
+    <p class="desc" data-page-node-id="s6xFdRsTnc2EHDteeHHE8c">背景 / 文字 / 填充 / 边框四类层级，决定信息层次。</p>
+    <div class="grid" data-page-node-id="q1ukmKDfFVDnVgMqMqIbPb">
+      <div class="card" data-page-node-id="cTTMHtqj9yDA2vR7VL1GbQ">
+        <h3 data-page-node-id="MzFlANFTxf4n0Lk5jiLz2x"><span class="swatch" style="background:var(--color-text-1)" data-page-node-id="DFtIiOjnzCyvzoRk9Qv6Sd"></span>文字 Text</h3>
+        <div id="textLayers" data-page-node-id="RdSTXHnOVnldwOmpijNPRN"></div>
+      </div>
+      <div class="card" data-page-node-id="clE1FqRAC7opi6UkgEHeUh">
+        <h3 data-page-node-id="xWPCyip8lT02B7Gr4XiDn4"><span class="swatch" style="background:var(--color-fill-3)" data-page-node-id="YcQqQ8mrtER9OmWpTCPYPf"></span>填充 Fill</h3>
+        <div id="fillLayers" data-page-node-id="JbA9NXBqDIz78iCq4xYZ8k"></div>
+      </div>
+      <div class="card" data-page-node-id="IamX62scR8ov7OECLBoEQF">
+        <h3 data-page-node-id="5fNHzpcR6U57hO0mXPFSP4"><span class="swatch" style="background:var(--color-border-2)" data-page-node-id="Eq8RHD5NsFUglCtWyfyEN5"></span>边框 Border</h3>
+        <div id="borderLayers" data-page-node-id="iur6RDjEd1Gba3dHHGpzDM"></div>
+      </div>
+      <div class="card" data-page-node-id="49gCIntvuSOF33SQhOjGS2">
+        <h3 data-page-node-id="u049dbdeVptBzdJbbw4Ec5"><span class="swatch" style="background:var(--color-bg-2)" data-page-node-id="KTdIgjlXI3h3b9cRKJE93k"></span>背景 Background</h3>
+        <div id="bgLayers" data-page-node-id="0DPYz0FUjFwKovIAsGFYCJ"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ 组件专用色 ═══════════ -->
+  <div class="section" id="component-colors" data-page-node-id="MMTOEImGTtwQMijM1UhlmA">
+    <h2 data-page-node-id="xi56hV9wJKFmk5mc59vpav">组件专用色</h2>
+    <p class="desc" data-page-node-id="vQLFgb6dZ61EXNXZsi9CnG">Tooltip 深底、遮罩、菜单背景等组件级颜色。</p>
+    <div class="semantic-grid" id="componentColors" data-page-node-id="1JoTBTPYqsTuVcwlQOEP1q"></div>
+  </div>
+
+  <!-- ═══════════ 字体 ═══════════ -->
+  <div class="section" id="typography" data-page-node-id="OOmzztZ1ghSjCSYrt8zZDb">
+    <h2 data-page-node-id="rJZqx08h4wz6DcqEOwGcqC">字体 Typography</h2>
+    <p class="desc" data-page-node-id="0iKKd2ZRVnBbQuCWE8UpXV">字号层级：display → title → body。正文基准 14px（body-3）。</p>
+    <div class="card" data-page-node-id="EZI6gMbvPFXdGIhRZpmpDN">
+      <div id="typeSamples" data-page-node-id="irFmrEATEzaZ0FebTFfF6P"></div>
+    </div>
+    <div class="card" data-page-node-id="MeKbhTbW4uXP8emZAqCiGD">
+      <h3 data-page-node-id="lJDcoGb3szIAUrVDQBu0we">字体族</h3>
+      <div style="font-size:13px; color:var(--color-text-2); line-height:1.8; font-family:var(--code-family);" id="fontFamily" data-page-node-id="Zh0C4bcCYSRtDNDz7UP9Sl"></div>
+      <h3 style="margin-top:16px;" data-page-node-id="pBVtCUfGDGZUllx7DGoVEK">字重</h3>
+      <div id="fontWeights" style="display:flex; gap:20px; flex-wrap:wrap;" data-page-node-id="uLF5Ox76F30M1f2eAiwXGk"></div>
+    </div>
+  </div>
+
+  <!-- ═══════════ 间距 ═══════════ -->
+  <div class="section" id="spacing" data-page-node-id="GS75AMzHfBfmXPv4sb4xVi">
+    <h2 data-page-node-id="8nehrg5aK4CCldMXHUe6Ft">间距 Spacing</h2>
+    <p class="desc" data-page-node-id="z5SWG3c3HBmExIZPElj2SZ">2px 步进递增，高频使用 8px 倍数。宽度按实际值渲染。</p>
+    <div class="spacing-grid" id="spacingGrid" data-page-node-id="GFpft81aNFTGHG7Yye2F9a"></div>
+  </div>
+
+  <!-- ═══════════ 圆角 ═══════════ -->
+  <div class="section" id="radius" data-page-node-id="BzWsP3oc2FRPmPSG0FWY3N">
+    <h2 data-page-node-id="cGvQWICB7qwAcXKUOrQvfV">圆角 Border Radius</h2>
+    <p class="desc" data-page-node-id="1u4CY3GFid6i10KecIjIO3">2px / 4px / 8px / 50% 分级。</p>
+    <div class="radius-grid" id="radiusGrid" data-page-node-id="NkuIS6owNRHW1HropoAi7V"></div>
+  </div>
+
+  <!-- ═══════════ 阴影 ═══════════ -->
+  <div class="section" id="shadow" data-page-node-id="rHR78XY3vnmLDIAXNaiXAq">
+    <h2 data-page-node-id="IM1vcWOmUiQU0IheCnO0EH">阴影 Shadow</h2>
+    <p class="desc" data-page-node-id="3yKfZnzItgxprcujAvsqPu">三层浮起（1 轻 / 2 中 / 3 强），展示 down 方向。</p>
+    <div class="shadow-grid" id="shadowGrid" data-page-node-id="Wx4sI2dMNDSPNfjc45e3Fz"></div>
+  </div>
+
+  <!-- ═══════════ 动效 ═══════════ -->
+  <div class="section" id="motion" data-page-node-id="y0WebzZBcV3swipHUdU4z1">
+    <h2 data-page-node-id="4DB7jNwTqB5v9vzxu552xK">动效 Motion</h2>
+    <p class="desc" data-page-node-id="vRbD2ePcAABYGLlWSjPM0n">时长分级 + 缓动曲线。点击「播放」查看效果。</p>
+    <div class="card" id="motionDurations" data-page-node-id="l0MEoGMAEs40DifRuA0iny"></div>
+    <div class="card" id="motionEasings" style="margin-top:0;" data-page-node-id="O0WcOUpejQxKmKCW6vWzG0"></div>
+  </div>
+
+  <!-- ═══════════ Z-Index ═══════════ -->
+  <div class="section" id="zindex" data-page-node-id="VXG6c5cxRUtliI02TvQ3gY">
+    <h2 data-page-node-id="5ScpZi7WtjycwBWPDZ9AzE">层级 Z-Index</h2>
+    <p class="desc" data-page-node-id="DgHFbz8kftptVLfSqfF7iZ">浮层基准 1000，Modal/Drawer 1001，消息 1003。</p>
+    <div class="z-stack" id="zStack" data-page-node-id="eGkstic86T4yVw4FdTjsYA"></div>
+  </div>
+
+  <!-- ═══════════ 不透明度 ═══════════ -->
+  <div class="section" id="opacity" data-page-node-id="jTyV6YzS2zjuRkFeYOlmcp">
+    <h2 data-page-node-id="YGdlw2CmmJtb0YgDXx26uc">不透明度 Opacity</h2>
+    <p class="desc" data-page-node-id="26ihJZkCIz9HQ1b7OFod2Z">0% → 100%，10 级。</p>
+    <div class="opacity-row" id="opacityRow" data-page-node-id="gUjplvvEIte9BB5Fuqhunw"></div>
+  </div>
+
+  <!-- ═══════════ 使用规则 ═══════════ -->
+  <div class="section" id="rules" data-page-node-id="hJmqefG2tT1SBydjMOvXEK">
+    <h2 data-page-node-id="SaCYQAmNZ1PqEflVYHkKtC">Token 使用规则（硬规则）</h2>
+    <div class="card" style="font-size:13px; line-height:2; color:var(--color-text-2);" data-page-node-id="bFDBFhHtPLpFCz6lCjpcWX">
+      <ol style="padding-left:20px;" data-page-node-id="WcjuFuNI8CGDxfLnjlaOTN">
+        <li data-page-node-id="5Ijubofwep0MXPgzgSEw86"><strong data-page-node-id="tzJX3p2DqPgEIjQtK32yHD">颜色禁止硬编码 hex</strong>：一律使用语义变量（--color-primary-*、--color-text-*、--color-border-*）；色阶仅用于状态与品牌语境</li>
+        <li data-page-node-id="zawb7xm2YI5taLzWhGzVMI"><strong data-page-node-id="6OtMKIAk9kc1knQmjcpadi">间距用 2px/8px 体系</strong>：取 --spacing-*，不写魔法数字</li>
+        <li data-page-node-id="jeEKeRbROM9ALooQ4i7PAv"><strong data-page-node-id="5KBMAXlM3Tjvp8SEqUqB3G">圆角分级</strong>：按钮/输入框/卡片 4px（medium），弹窗/抽屉 8px（large），小标签 2px（small）</li>
+        <li data-page-node-id="UJb4JS5Vh0wLjD5By59lAd"><strong data-page-node-id="rRfeUN8cBxiXt53vOd5DQm">动效统一</strong>：hover/按下 0.1s、面板 0.2s、浮层出入 0.2–0.3s，曲线默认 standard</li>
+        <li data-page-node-id="VbRdINKeYWaPS77vA7oWK2"><strong data-page-node-id="Yarbt6b7iT9nhWrZERNC50">暗色模式</strong>：body[giencoder-theme='dark'] 下语义变量自动切换</li>
+        <li data-page-node-id="Yo7qCTIzFsRz8BcYmcmEP0"><strong data-page-node-id="ogiteAmEeGKi4dCewtxCHH">语义优先</strong>：先语义层 → 再色阶 → 最后基础色板（图表、品牌场景）</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="footer" data-page-node-id="5CYSHZaqAHAPdMqXZ8rdDB">
+    源启 Design Token 可视化 ｜ 数据来源：tokens.md + colors_and_type.css ｜ 2026/08/28
+  </div>
+
+  <script>
+    (function () {
+      'use strict';
+      var css = getComputedStyle(document.documentElement);
+
+      function hexToRgb(h) {
+        h = h.replace('#', '');
+        return [parseInt(h.slice(0,2),16), parseInt(h.slice(2,4),16), parseInt(h.slice(4,6),16)];
+      }
+      function isDark(hex) {
+        var rgb = hexToRgb(hex);
+        return (0.299*rgb[0] + 0.587*rgb[1] + 0.114*rgb[2]) < 140;
+      }
+      function copyVal(val) {
+        var done = function () {
+          // 复制成功反馈（toast）
+          var t = document.getElementById('pvToast');
+          if (!t) {
+            t = document.createElement('div');
+            t.id = 'pvToast';
+            t.style.cssText = 'position:fixed; top:16px; left:50%; transform:translateX(-50%) translateY(-12px); background:var(--color-primary-6); color:#fff; padding:8px 18px; border-radius:999px; font-size:13px; box-shadow:var(--shadow3-down); z-index:9999; opacity:0; transition:opacity .2s, transform .2s; pointer-events:none;';
+            document.body.appendChild(t);
+          }
+          t.textContent = '已复制 ' + val;
+          t.style.opacity = '1';
+          t.style.transform = 'translateX(-50%) translateY(0)';
+          clearTimeout(t._timer);
+          t._timer = setTimeout(function () { t.style.opacity = '0'; t.style.transform = 'translateX(-50%) translateY(-12px)'; }, 1600);
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(val).then(done).catch(function () { legacyCopy(val); done(); });
+        } else {
+          legacyCopy(val); done();
+        }
+      }
+      function legacyCopy(val) {
+        var ta = document.createElement('textarea');
+        ta.value = val;
+        ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); } catch (e) {}
+        document.body.removeChild(ta);
+      }
+
+      // ── 色板数据（与 colors_and_type.css 亮色一致）──
+      var PALETTES = [
+        ['giencoderblue', '弧蓝', ['#F5F8FF','#DAE4FE','#B4C9FC','#8EAEFA','#6692F9','#3770F7','#346AE9','#2E5ECE','#2851B4','#22469A']],
+        ['red', '红', ['#FFECE8','#FDC5C5','#FBACA3','#F98981','#F76560','#F53F3F','#CB272D','#A1151E','#770813','#4D000A']],
+        ['green', '绿', ['#ECF7EC','#D0F0D1','#A4E0A7','#7DD182','#5AC262','#3BB346','#30953B','#25772F','#1B5924','#113C18']],
+        ['orange', '橙', ['#FFF7E8','#FFE4BA','#FFCF8B','#FFB65D','#FF9A2E','#FF7D00','#D25F00','#A64500','#792E00','#4D1B00']],
+        ['yellow', '黄', ['#FEFFE8','#FEFEBE','#FDFA94','#FCF26B','#FBE842','#FADC19','#CFAF0F','#A38408','#785D03','#4D3800']],
+        ['gold', '金', ['#FFFCE8','#FDF4BF','#FCE996','#FADC6D','#F9CC45','#F7BA1E','#CC9213','#A26D0A','#774B04','#4D2D00']],
+        ['purple', '紫', ['#F5E8FF','#DDBEF6','#C396ED','#A871E3','#8D4EDA','#722ED1','#551DB0','#3C108F','#27066E','#16004D']],
+        ['pinkpurple', '粉紫', ['#FFE8FB','#F7BAEF','#F08EE6','#E865DF','#E13EDB','#D91AD9','#B010B6','#8A0993','#650370','#42004D']],
+        ['magenta', '品红', ['#FFE8F1','#FDC2DB','#FB9DC7','#F979B7','#F754A8','#F5319D','#CB1E83','#A11069','#77064F','#4D0034']],
+        ['cyan', '青', ['#E8FFFB','#B7F4EC','#89E9E0','#5EDFD6','#37D4CF','#14C9C9','#0DA5AA','#07828B','#03616C','#00424D']],
+        ['blue', '蓝', ['#E8F7FF','#C3E7FE','#9FD4FD','#7BC0FC','#57A9FB','#3491FA','#206CCF','#114BA3','#063078','#001A4D']],
+        ['lime', '青柠', ['#FCFFE8','#EDF8BB','#DCF190','#C9E968','#B5E241','#9FDB1D','#7EB712','#5F940A','#437004','#2A4D00']],
+        ['gray', '灰', ['#F7F7F7','#F2F2F2','#E5E5E5','#C9C9C9','#A9A9A9','#868686','#6B6B6B','#4E4E4E','#2B2B2B','#1F1F1F']]
+      ];
+
+      function renderPalettes() {
+        var c = document.getElementById('paletteContainer');
+        var html = '';
+        PALETTES.forEach(function (p) {
+          html += '<div class="palette-name">' + p[1] + ' <code>--' + p[0] + '-1..10</code></div>';
+          html += '<div class="palette-row">';
+          p[2].forEach(function (hex, i) {
+            var dark = isDark(hex);
+            html += '<div class="step' + (dark ? ' light-text' : '') + '" style="background:' + hex + ';" onclick="copyVal(\'' + hex + '\')" title="点击复制 ' + hex + '">'
+              + '<span class="lbl">' + (i + 1) + '</span><span class="val">' + hex + '</span></div>';
+          });
+          html += '</div>';
+        });
+        c.innerHTML = html;
+      }
+
+      // ── 语义色 ──
+      var SEMANTIC = [
+        ['--color-primary-6', '#3770F7', '主操作色（按钮/选中态/链接）'],
+        ['--color-success-6', '#3BB346', '成功 / 正向反馈'],
+        ['--color-warning-6', '#FF7D00', '警告 / 警示信息'],
+        ['--color-danger-6', '#F53F3F', '危险 / 错误删除'],
+        ['--color-link-6', '#3770F7', '文本链接']
+      ];
+      function renderSemantic() {
+        var c = document.getElementById('semanticGrid');
+        var html = '';
+        SEMANTIC.forEach(function (s) {
+          var dark = isDark(s[1]);
+          html += '<div class="semantic-item"><div class="color-box" style="background:' + s[1] + ';' + (dark ? 'color:#fff;' : 'color:#000;') + '" onclick="copyVal(\'' + s[1] + '\')" title="点击复制 ' + s[1] + '">' + s[1] + '</div>'
+            + '<div class="info"><div class="name">' + s[0] + '</div><div class="token">' + s[2] + '</div></div></div>';
+        });
+        c.innerHTML = html;
+      }
+
+      // ── 中性色层级 ──
+      var TEXT_LAYERS = [
+        ['--color-text-1', '#1F1F1F', '标题 / 正文'],
+        ['--color-text-2', '#4E4E4E', '语句 / 次级'],
+        ['--color-text-3', '#868686', '次要信息'],
+        ['--color-text-4', '#C9C9C9', '禁用态']
+      ];
+      var FILL_LAYERS = [
+        ['--color-fill-1', '#F7F7F7', 'hover 底色'],
+        ['--color-fill-2', '#F2F2F2', '填充-浅'],
+        ['--color-fill-3', '#E5E5E5', '填充-中'],
+        ['--color-fill-4', '#C9C9C9', '填充-深']
+      ];
+      var BORDER_LAYERS = [
+        ['--color-border-1', '#F2F2F2', '分割线'],
+        ['--color-border-2', '#E5E5E5', '默认边框'],
+        ['--color-border-3', '#C9C9C9', '边框-中'],
+        ['--color-border-4', '#868686', '边框-深']
+      ];
+      var BG_LAYERS = [
+        ['--color-bg-1', '#FFFFFF', '页面背景'],
+        ['--color-bg-2', '#FFFFFF', '卡片容器'],
+        ['--color-bg-3', '#FFFFFF', '二级容器'],
+        ['--color-bg-4', '#FFFFFF', '三级容器'],
+        ['--color-bg-5', '#FFFFFF', '浮层背景']
+      ];
+      function renderNeutral() {
+        function block(arr) {
+          return arr.map(function (t) {
+            return '<div class="neutral-block"><div class="bar" style="background:' + t[1] + ';" onclick="copyVal(\'' + t[1] + '\')" title="点击复制 ' + t[1] + '"></div>'
+              + '<div class="label" onclick="copyVal(\'' + t[0] + '\')" title="点击复制 ' + t[0] + '" style="cursor:pointer;">' + t[0] + '</div><div class="label" style="margin-top:2px;">' + t[1] + '</div><div class="label">' + t[2] + '</div></div>';
+          }).join('');
+        }
+        document.getElementById('textLayers').innerHTML = '<div class="neutral-row">' + block(TEXT_LAYERS) + '</div>';
+        document.getElementById('fillLayers').innerHTML = '<div class="neutral-row">' + block(FILL_LAYERS) + '</div>';
+        document.getElementById('borderLayers').innerHTML = '<div class="neutral-row">' + block(BORDER_LAYERS) + '</div>';
+        document.getElementById('bgLayers').innerHTML = '<div class="neutral-row">' + block(BG_LAYERS) + '</div>';
+      }
+
+      // ── 组件专用色 ──
+      var COMP_COLORS = [
+        ['--color-tooltip-bg', '#1F1F1F', 'Tooltip 深底'],
+        ['--color-mask-bg', 'rgba(31,31,31,0.6)', 'Modal/Drawer 遮罩'],
+        ['--color-menu-dark-bg', '#232324', '暗色菜单背景'],
+        ['--color-menu-light-bg', '#FFFFFF', '亮色菜单背景'],
+        ['--color-spin-layer-bg', 'rgba(255,255,255,0.6)', 'Spin 遮罩']
+      ];
+      function renderCompColors() {
+        var c = document.getElementById('componentColors');
+        c.innerHTML = COMP_COLORS.map(function (s) {
+          return '<div class="semantic-item"><div class="color-box" style="background:' + s[1] + ';color:#fff;" onclick="copyVal(\'' + s[1] + '\')" title="点击复制 ' + s[1] + '">' + s[1] + '</div>'
+            + '<div class="info"><div class="name">' + s[0] + '</div><div class="token">' + s[2] + '</div></div></div>';
+        }).join('');
+      }
+
+      // ── 字体 ──
+      var TYPES = [
+        ['display-3', '56px', '大数字展示'],
+        ['display-2', '48px', '展示标题'],
+        ['display-1', '36px', '大标题'],
+        ['title-3', '24px', '页面大标题'],
+        ['title-2', '20px', '区块标题'],
+        ['title-1', '16px', '卡片/表单标题'],
+        ['body-3', '14px', '正文/默认 ★'],
+        ['body-2', '13px', '次级正文'],
+        ['body-1', '12px', '辅助文字'],
+        ['caption', '12px', '说明标注']
+      ];
+      function renderTypes() {
+        document.getElementById('typeSamples').innerHTML = TYPES.map(function (t) {
+          return '<div class="type-sample"><div class="sample" style="font-size:' + t[1] + ';">'
+            + (t[2].indexOf('默认') >= 0 ? 'GienCoder 设计系统' : '字体层级示例')
+            + '</div><div class="meta"><code>--font-size-' + t[0] + '</code><br>' + t[1] + ' · ' + t[2] + '</div></div>';
+        }).join('');
+        document.getElementById('fontFamily').textContent =
+          "font-family: Inter, -apple-system, BlinkMacSystemFont, PingFang SC, Hiragino Sans GB, noto sans, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif;";
+        var weights = [100,200,300,400,500,600,700,800,900];
+        document.getElementById('fontWeights').innerHTML = weights.map(function (w) {
+          return '<div style="text-align:center;"><div style="font-size:22px; font-weight:' + w + ';">字</div><div style="font-size:11px; color:var(--color-text-3); margin-top:4px;">' + w + '</div></div>';
+        }).join('');
+      }
+
+      // ── 间距 ──
+      var SPACING = [
+        ['spacing-1', 2], ['spacing-2', 4], ['spacing-3', 6], ['spacing-4', 8], ['spacing-5', 10],
+        ['spacing-6', 12], ['spacing-7', 16], ['spacing-8', 20], ['spacing-9', 24], ['spacing-10', 32],
+        ['spacing-12', 40], ['spacing-13', 48], ['spacing-16', 64], ['spacing-20', 96]
+      ];
+      function renderSpacing() {
+        document.getElementById('spacingGrid').innerHTML = SPACING.map(function (s) {
+          var w = Math.min(s[1] / 96 * 100, 100);
+          return '<div class="spacing-item"><div class="bar-wrap"><div class="bar" style="width:' + w + '%;"></div></div>'
+            + '<div class="label"><code>--' + s[0] + '</code> · ' + s[1] + 'px</div></div>';
+        }).join('');
+      }
+
+      // ── 圆角 ──
+      var RADII = [
+        ['--border-radius-none', '0', '无圆角', 0],
+        ['--border-radius-small', '2px', '标签/小元素', 2],
+        ['--border-radius-medium', '4px', '按钮/输入框/卡片', 4],
+        ['--border-radius-large', '8px', '弹窗/抽屉/大容器', 8],
+        ['--border-radius-circle', '50%', '圆形头像/按钮', 999]
+      ];
+      function renderRadius() {
+        document.getElementById('radiusGrid').innerHTML = RADII.map(function (r) {
+          return '<div class="radius-item"><div class="box" style="border-radius:' + r[3] + 'px;"></div>'
+            + '<div class="label"><code>' + r[0] + '</code><br>' + r[1] + ' · ' + r[2] + '</div></div>';
+        }).join('');
+      }
+
+      // ── 阴影 ──
+      var SHADOWS = [
+        ['--shadow1-down', '0 2px 5px rgba(0,0,0,0.1)', '轻微浮起（卡片/hover）'],
+        ['--shadow2-down', '0 8px 20px rgba(31,41,55,0.10)', '下拉浮层投影（Select/Dropdown/Popover 等）'],
+        ['--shadow3-down', '0 8px 20px rgba(0,0,0,0.1)', '强浮起（Modal/Drawer）']
+      ];
+      function renderShadows() {
+        document.getElementById('shadowGrid').innerHTML = SHADOWS.map(function (s) {
+          return '<div class="shadow-item"><div class="shadow-demo" style="box-shadow:' + s[1] + ';"></div>'
+            + '<div class="label"><code>' + s[0] + '</code><br>' + s[2] + '</div></div>';
+        }).join('');
+      }
+
+      // ── 动效 ──
+      var DURATIONS = [
+        ['--transition-duration-1', '0.1s', '即时反馈（hover/按下）'],
+        ['--transition-duration-2', '0.2s', '默认过渡（面板/状态切换）'],
+        ['--transition-duration-3', '0.3s', '较大过渡（抽屉/Modal）'],
+        ['--transition-duration-5', '0.5s', '慢速演示']
+      ];
+      var EASINGS = [
+        ['--transition-timing-function-standard', 'cubic-bezier(0.34, 0.69, 0.1, 1)', '标准（默认）'],
+        ['--transition-timing-function-overshoot', 'cubic-bezier(0.3, 1.3, 0.3, 1)', '过冲（弹跳感）'],
+        ['--transition-timing-function-decelerate', 'cubic-bezier(0.4, 0.8, 0.74, 1)', '减速（入场）'],
+        ['--transition-timing-function-accelerate', 'cubic-bezier(0.26, 0, 0.6, 0.2)', '加速（退场）'],
+        ['--transition-timing-function-linear', 'cubic-bezier(0, 0, 1, 1)', '线性']
+      ];
+      function renderMotion() {
+        document.getElementById('motionDurations').innerHTML =
+          '<h3>时长 Duration</h3>' + DURATIONS.map(function (d, i) {
+            return '<div class="motion-item"><div class="demo" id="durDemo' + i + '"></div>'
+              + '<div class="info"><div class="name">' + d[0] + '</div><div class="meta">' + d[1] + ' · ' + d[2] + '</div></div>'
+              + '<button class="run-btn" onclick="playDur(' + i + ',\'' + d[1] + '\')">播放</button></div>';
+          }).join('');
+        document.getElementById('motionEasings').innerHTML =
+          '<h3>缓动曲线 Easing</h3>' + EASINGS.map(function (e, i) {
+            return '<div class="motion-item"><div class="demo" id="easeDemo' + i + '"></div>'
+              + '<div class="info"><div class="name">' + e[0] + '</div><div class="meta">' + e[2] + ' · ' + e[1] + '</div></div>'
+              + '<button class="run-btn" onclick="playEase(' + i + ',\'' + e[1] + '\')">播放</button></div>';
+          }).join('');
+      }
+      window.playDur = function (i, dur) {
+        var el = document.getElementById('durDemo' + i);
+        el.style.transition = 'none';
+        el.style.transform = 'translateX(0) scale(1)';
+        requestAnimationFrame(function () {
+          el.style.transition = 'transform ' + dur + ' ease';
+          el.style.transform = 'translateX(120px) scale(1.1)';
+        });
+      };
+      window.playEase = function (i, curve) {
+        var el = document.getElementById('easeDemo' + i);
+        el.style.transition = 'none';
+        el.style.transform = 'translateX(0)';
+        requestAnimationFrame(function () {
+          el.style.transition = 'transform 0.8s ' + curve;
+          el.style.transform = 'translateX(120px)';
+        });
+      };
+
+      // ── Z-Index ──
+      var Z_LAYERS = [
+        [999, '--z-index-affix', '固钉', 'z-layer-999'],
+        [1000, '--z-index-popup', '弹层基准（下拉/Tooltip/Popover）', 'z-layer-1000'],
+        [1001, '--z-index-drawer/modal', '抽屉 / 对话框 / 图片预览', 'z-layer-1001'],
+        [1003, '--z-index-message/notification', '全局消息 / 通知提醒', 'z-layer-1003']
+      ];
+      function renderZ() {
+        document.getElementById('zStack').innerHTML = Z_LAYERS.map(function (z) {
+          return '<div class="z-layer ' + z[3] + '"><span class="val">' + z[0] + '</span><span class="lbl">' + z[2] + '</span>'
+            + '<span style="margin-left:auto; color:var(--color-text-3); font-family:var(--code-family); font-size:11px;">' + z[1] + '</span></div>';
+        }).join('');
+      }
+
+      // ── 不透明度 ──
+      function renderOpacity() {
+        var html = '';
+        for (var i = 0; i <= 10; i++) {
+          var o = i * 10;
+          html += '<div class="opacity-cell" style="background:var(--color-fill-1);">'
+            + '<div class="bar" style="opacity:' + o / 100 + ';"></div>' + o + '%</div>';
+        }
+        document.getElementById('opacityRow').innerHTML = html;
+      }
+
+      // ── 主题切换 ──
+      window.toggleTheme = function () {
+        var el = document.body;
+        if (el.hasAttribute('giencoder-theme')) {
+          el.removeAttribute('giencoder-theme');
+          document.documentElement.removeAttribute('giencoder-theme');
+        } else {
+          el.setAttribute('giencoder-theme', 'dark');
+          document.documentElement.setAttribute('giencoder-theme', 'dark');
+        }
+      };
+      window.copyVal = copyVal;
+
+      // init
+      renderPalettes();
+      renderSemantic();
+      renderNeutral();
+      renderCompColors();
+      renderTypes();
+      renderSpacing();
+      renderRadius();
+      renderShadows();
+      renderMotion();
+      renderZ();
+      renderOpacity();
+    })();
+  </script>
+</body>
+</html>

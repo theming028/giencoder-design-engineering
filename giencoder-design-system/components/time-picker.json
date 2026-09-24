@@ -1,0 +1,223 @@
+{
+  "schemaVersion": 3,
+  "slug": "time-picker",
+  "name": "TimePicker",
+  "category": "data-entry",
+  "giencoderSource": {
+    "component": "TimePicker",
+    "version": "2.66.16"
+  },
+  "summary": "时间选择：面板/范围选择时间，支持 12 小时制、步进与直接键入。",
+  "variants": [
+    {
+      "name": "panel",
+      "description": "默认面板选择，时分秒多列滚动",
+      "whenToUse": "常规时间录入"
+    },
+    {
+      "name": "range",
+      "description": "TimePicker.RangePicker 时间范围选择",
+      "whenToUse": "选择起止时间区间"
+    },
+    {
+      "name": "12hours",
+      "description": "use12Hours 12 小时制 + AM/PM",
+      "whenToUse": "非 24 小时制场景"
+    },
+    {
+      "name": "step",
+      "description": "step 配置时/分/秒步进间隔",
+      "whenToUse": "限制可选粒度（如 15 分钟步进）"
+    },
+    {
+      "name": "clearable",
+      "description": "allowClear 一键清除已选时间",
+      "whenToUse": "允许清空时间值"
+    },
+    {
+      "name": "confirm",
+      "description": "disableConfirm=false 选择后需底部确认",
+      "whenToUse": "需要明确确认提交的时间录入"
+    }
+  ],
+  "sizes": [
+    {
+      "name": "mini",
+      "value": "24px",
+      "usage": "紧凑场景"
+    },
+    {
+      "name": "small",
+      "value": "28px",
+      "usage": "密集表单"
+    },
+    {
+      "name": "medium",
+      "value": "32px",
+      "usage": "默认尺寸"
+    },
+    {
+      "name": "large",
+      "value": "36px",
+      "usage": "大字号场景"
+    }
+  ],
+  "states": [
+    {
+      "name": "default",
+      "description": "未交互态",
+      "visual": "白底 + --color-border-2 边框"
+    },
+    {
+      "name": "hover",
+      "description": "鼠标悬停",
+      "visual": "边框过渡主色，0.1s"
+    },
+    {
+      "name": "focus",
+      "description": "聚焦态",
+      "visual": "主色边框 + 焦点环，面板展开"
+    },
+    {
+      "name": "disabled",
+      "description": "禁用态",
+      "visual": "灰底灰字，不可交互"
+    },
+    {
+      "name": "selected",
+      "description": "面板内选中格",
+      "visual": "选中格主色底白字，当前列高亮"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "input",
+      "element": "input",
+      "description": "时间输入框，支持直接键入"
+    },
+    {
+      "part": "popup",
+      "element": "div",
+      "description": "时间面板浮层"
+    },
+    {
+      "part": "column",
+      "element": "ul",
+      "description": "时/分/秒独立滚动列"
+    },
+    {
+      "part": "cell",
+      "element": "li",
+      "description": "单个时间单元格，含 hover/选中/禁用"
+    },
+    {
+      "part": "footer",
+      "element": "div",
+      "description": "底部确认/清空栏（非 disableConfirm）"
+    }
+  ],
+  "interaction": {
+    "hover": "输入框边框过渡主色；面板单元格 hover 底色 --color-fill-1",
+    "focus": "输入框主色边框 + 焦点环，面板打开时焦点落于当前列",
+    "keyboard": [
+      "ArrowUp: 当前列数值 +1",
+      "ArrowDown: 当前列数值 -1",
+      "ArrowLeft/ArrowRight: 在时/分/秒列间切换",
+      "Enter: 确认选择并关闭面板",
+      "Esc: 关闭面板",
+      "Tab: 离开组件并关闭面板",
+      "0-9: 输入框直接键入时间值"
+    ],
+    "motion": {
+      "duration": "0.1s~0.2s",
+      "easing": "standard",
+      "description": "面板展开 0.2s 标准曲线，列滚动定位 0.1s，单元格 hover 0.1s"
+    },
+    "behaviorNotes": "弹层型组件：focusTrap——面板打开时焦点受限并通告当前单元格；escClose——Esc 关闭面板；clickOutsideClose——点击外部关闭。disableConfirm 时选择即生效无需确认；disabledHours/Minutes/Seconds 控制禁用格"
+  },
+  "a11y": {
+    "role": "combobox",
+    "ariaAttrs": [
+      "aria-expanded",
+      "aria-activedescendant",
+      "aria-haspopup",
+      "aria-disabled",
+      "aria-label"
+    ],
+    "contrastNote": "面板底色 --color-bg-5，选中格主色底白字对比达标；禁用格 --color-text-4 属预期降级",
+    "focusNote": "输入框可见焦点环，面板通过 aria-activedescendant 通告当前时间单元格"
+  },
+  "usage": [
+    "仅录入时间（不含日期）场景，含日期用 DatePicker",
+    "秒级或自定义精度用 format/step 配置",
+    "时间区间用 RangePicker",
+    "12 小时制用 use12Hours",
+    "允许直接键入时间以提升输入效率"
+  ],
+  "doNotInvent": [
+    "不得混入日期选择（日期用 DatePicker）",
+    "不得虚构官方不存在的快捷时间选项",
+    "不得在 disableConfirm=false 时选择即关闭（需确认）",
+    "不得自定义列滚动动画曲线"
+  ],
+  "tokensConsumed": [
+    "--color-bg-5",
+    "--shadow2-down",
+    "--color-primary-6",
+    "--color-fill-1",
+    "--color-border-2",
+    "--color-text-1",
+    "--color-text-3",
+    "--color-text-4",
+    "--z-index-popup",
+    "--border-radius-medium"
+  ],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "TimePickerProps",
+    "props": [
+      "allowClear",
+      "changeFocusedInputIndex",
+      "className",
+      "confirmBtnDisabled",
+      "defaultValue",
+      "disableConfirm",
+      "disabled",
+      "error",
+      "focusedInputIndex",
+      "format",
+      "getPopupContainer",
+      "hideFooter",
+      "hour",
+      "isRangePicker",
+      "list",
+      "minute",
+      "onChange",
+      "onClear",
+      "onConfirmValue",
+      "onHandleSelect",
+      "onSelect",
+      "order",
+      "picker",
+      "placeholder",
+      "popupVisible",
+      "position",
+      "prefix",
+      "prefixCls",
+      "scrollSticky",
+      "second",
+      "setValueShow",
+      "status",
+      "step",
+      "style",
+      "triggerElement",
+      "triggerProps",
+      "unit",
+      "use12Hours",
+      "value",
+      "valueShow"
+    ],
+    "total": 40,
+    "syncDate": "2026/08/28"
+  }
+}

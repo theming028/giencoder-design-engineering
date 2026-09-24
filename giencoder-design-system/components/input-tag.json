@@ -1,0 +1,207 @@
+{
+  "schemaVersion": 3,
+  "slug": "input-tag",
+  "name": "InputTag",
+  "category": "data-entry",
+  "giencoderSource": {
+    "component": "InputTag",
+    "version": "2.66.16"
+  },
+  "summary": "标签输入组件，输入后回车生成标签，支持删除、清空与数量限制，适合关键词类多值输入。",
+  "variants": [
+    {
+      "name": "default",
+      "description": "标准标签输入",
+      "whenToUse": "关键词、邮箱列表等多值输入"
+    },
+    {
+      "name": "clearable",
+      "description": "可一键清空（allowClear）",
+      "whenToUse": "需要快速清空全部标签时"
+    },
+    {
+      "name": "with-suffix",
+      "description": "带后缀（suffix）",
+      "whenToUse": "附加提示图标或说明时"
+    }
+  ],
+  "sizes": [
+    {
+      "name": "mini",
+      "value": "24px",
+      "usage": "紧凑表格"
+    },
+    {
+      "name": "small",
+      "value": "28px",
+      "usage": "紧凑表单"
+    },
+    {
+      "name": "medium",
+      "value": "32px",
+      "usage": "标准（默认）"
+    },
+    {
+      "name": "large",
+      "value": "36px",
+      "usage": "强调场景"
+    }
+  ],
+  "states": [
+    {
+      "name": "default",
+      "description": "未交互",
+      "visual": "白底 --color-border-2 边框，标签为 --color-fill-2 背景"
+    },
+    {
+      "name": "hover",
+      "description": "悬停",
+      "visual": "边框加深；标签悬停显示关闭图标"
+    },
+    {
+      "name": "focus",
+      "description": "聚焦",
+      "visual": "--color-primary-6 边框 + 光晕，输入光标可见"
+    },
+    {
+      "name": "disabled",
+      "description": "禁用",
+      "visual": "--color-fill-2 整体背景，标签与文本 --color-text-4"
+    },
+    {
+      "name": "error",
+      "description": "校验失败",
+      "visual": "--color-danger-6 边框 + 光晕"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "输入容器",
+      "element": "div",
+      "description": "整体外框，点击任意处聚焦输入"
+    },
+    {
+      "part": "标签列表",
+      "element": "div",
+      "description": "已生成标签的排列区（flex wrap）"
+    },
+    {
+      "part": "标签项",
+      "element": "span",
+      "description": "单个标签：文本 + 关闭图标"
+    },
+    {
+      "part": "隐藏输入",
+      "element": "input",
+      "description": "宽度自适应的输入元素，位于标签之后"
+    },
+    {
+      "part": "suffix",
+      "element": "span",
+      "description": "可选后置内容"
+    }
+  ],
+  "interaction": {
+    "hover": "容器边框加深；标签关闭图标显示并悬停变 --color-danger-6",
+    "focus": "容器弧蓝边框 + 光晕；点击容器空白处聚焦输入",
+    "keyboard": [
+      "Enter: add the current input as a tag",
+      "Backspace: delete the last tag when the input is empty",
+      "Tab: leave the component, keeping existing tags",
+      "ArrowLeft/ArrowRight: move the cursor inside the input text"
+    ],
+    "motion": {
+      "duration": "0.1s~0.3s",
+      "easing": "standard",
+      "description": "标签添加 0.2s 缩放淡入；删除时淡出并让位"
+    },
+    "behaviorNotes": "max 限制标签总数；重复标签可配置去重；标签可通过点击关闭图标删除；受控 value 为数组"
+  },
+  "a11y": {
+    "role": "textbox (container)",
+    "ariaAttrs": [
+      "aria-label",
+      "aria-describedby",
+      "role=list on tag list",
+      "aria-disabled"
+    ],
+    "contrastNote": "标签文本 --color-text-1 在 --color-fill-2 背景上对比度充足；关闭图标 hover 变 --color-danger-6 有色彩 + 图标双通道",
+    "focusNote": "容器焦点环为弧蓝边框 + 光晕；标签删除对键盘用户通过 Backspace 可达"
+  },
+  "usage": [
+    "关键词/技能/邮箱等多值输入优先使用",
+    "设置 max 防止标签无限增长",
+    "重复输入场景开启去重并给出提示"
+  ],
+  "doNotInvent": [
+    "不要虚构分隔符自动拆分输入（源启 InputTag 不支持）",
+    "不要把标签当作只读展示（只读用 Tag 组件）",
+    "不要虚构长按删除等行为"
+  ],
+  "tokensConsumed": [
+    "--color-primary-6",
+    "--color-fill-2",
+    "--color-fill-3",
+    "--color-border-2",
+    "--color-border-3",
+    "--color-text-1",
+    "--color-text-4",
+    "--color-danger-6",
+    "--transition-duration-2",
+    "--transition-timing-function-standard"
+  ],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "InputTagProps",
+    "props": [
+      "addAfter",
+      "addBefore",
+      "allowClear",
+      "animation",
+      "autoFocus",
+      "className",
+      "clearIcon",
+      "closable",
+      "count",
+      "defaultValue",
+      "disableInput",
+      "disabled",
+      "dragToSort",
+      "error",
+      "icon",
+      "inputValue",
+      "label",
+      "labelInValue",
+      "maxTagCount",
+      "onBlur",
+      "onChange",
+      "onClear",
+      "onClick",
+      "onClose",
+      "onFocus",
+      "onInputChange",
+      "onKeyDown",
+      "onPaste",
+      "onPressEnter",
+      "onRemove",
+      "placeholder",
+      "popoverProps",
+      "prefix",
+      "readOnly",
+      "removeIcon",
+      "render",
+      "renderTag",
+      "saveOnBlur",
+      "size",
+      "status",
+      "style",
+      "suffix",
+      "tagClassName",
+      "tokenSeparators",
+      "validate",
+      "value"
+    ],
+    "total": 46,
+    "syncDate": "2026/08/28"
+  }
+}

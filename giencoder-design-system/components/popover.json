@@ -1,0 +1,141 @@
+{
+  "schemaVersion": 3,
+  "slug": "popover",
+  "name": "Popover",
+  "category": "data-display",
+  "giencoderSource": {
+    "component": "Popover",
+    "version": "2.66.16"
+  },
+  "summary": "气泡卡片：以浮层形式展示额外内容或操作区，支持 hover/click/focus 触发与十二方位定位",
+  "variants": [
+    {
+      "name": "default",
+      "description": "默认气泡：白色卡片 + 箭头 + 可选标题与正文内容",
+      "whenToUse": "次要说明、快捷操作区等轻量浮层"
+    },
+    {
+      "name": "no-arrow",
+      "description": "无箭头气泡：arrow=false 去除箭头指示",
+      "whenToUse": "浮层与触发器视觉关系已足够清晰、空间局促时"
+    },
+    {
+      "name": "controlled",
+      "description": "受控气泡：通过 popupVisible/onVisibleChange 由业务完全控制显隐",
+      "whenToUse": "需要联动其他状态或自定义开关逻辑时"
+    }
+  ],
+  "sizes": [
+    {
+      "name": "default",
+      "value": "宽度由内容决定（max-width 约 320px）",
+      "usage": "默认尺寸，不设固定宽高"
+    }
+  ],
+  "states": [
+    {
+      "name": "default",
+      "description": "气泡关闭，触发器常态",
+      "visual": "触发器无额外样式"
+    },
+    {
+      "name": "hover",
+      "description": "trigger=hover 时鼠标悬停触发器",
+      "visual": "气泡以 0.2s 淡入并定位到对应方位"
+    },
+    {
+      "name": "focus",
+      "description": "trigger=focus 时触发器获焦",
+      "visual": "气泡显示，焦点移出后关闭"
+    },
+    {
+      "name": "disabled",
+      "description": "触发器 disabled 时",
+      "visual": "气泡不弹出，触发器呈现禁用态"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "trigger",
+      "element": "span.giencoder-popover-reference",
+      "description": "包裹触发元素的引用节点，气泡定位锚点"
+    },
+    {
+      "part": "popup",
+      "element": "div.giencoder-popover",
+      "description": "气泡卡片容器，渲染到 popupContainer（默认 body）"
+    },
+    {
+      "part": "title",
+      "element": "div.giencoder-popover-title",
+      "description": "可选标题区"
+    },
+    {
+      "part": "content",
+      "element": "div.giencoder-popover-content",
+      "description": "正文内容区"
+    },
+    {
+      "part": "arrow",
+      "element": "div.giencoder-popover-arrow",
+      "description": "指向触发器的箭头"
+    }
+  ],
+  "interaction": {
+    "hover": "trigger=hover 时悬停显示、移出（含移向气泡内部）后 0.2s 关闭",
+    "focus": "trigger=focus 时焦点进入触发器显示、焦点移出关闭；click 触发时点击切换",
+    "keyboard": [
+      "Tab: 焦点进入触发器",
+      "Enter: trigger=click 时切换气泡显隐",
+      "Space: 同 Enter 切换显隐",
+      "Esc: 关闭气泡（escToClose 默认 true）",
+      "Tab: 焦点进入气泡内可聚焦内容"
+    ],
+    "motion": {
+      "duration": "0.2s",
+      "easing": "standard",
+      "description": "气泡淡入淡出 + 轻微位移入场，0.2s 标准过渡"
+    },
+    "behaviorNotes": "focusTrap：非模态浮层，不启用焦点陷阱，焦点不被锁在气泡内；escClose：Esc 关闭；clickOutsideClose：click 触发时点击气泡外部关闭（hover 触发时鼠标移出关闭）"
+  },
+  "a11y": {
+    "role": "dialog",
+    "ariaAttrs": [
+      "aria-describedby (触发器关联气泡内容)",
+      "aria-expanded (触发器展开态)"
+    ],
+    "contrastNote": "气泡白底 --color-bg-5 上正文 --color-text-1 对比度 ≥ 4.5:1",
+    "focusNote": "触发器保留可见焦点环；气泡内容可聚焦元素随 Tab 流进入"
+  },
+  "usage": [
+    "内容超过纯文本说明（含操作、表单、富内容）时用 Popover，纯文字说明用 Tooltip",
+    "关键操作浮层建议 trigger=click 而非 hover，避免误触",
+    "气泡内容默认不随滚动容器位移时配置 popupContainer",
+    "受控显隐时同步管理 popupVisible 与 onVisibleChange"
+  ],
+  "doNotInvent": [
+    "不得虚构气泡内的表单校验、级联等 Popover 未内置能力",
+    "不得新增官方不存在的变体与方位枚举",
+    "不得用 外部 CSS 框架/Lucide 替代组件与图标体系"
+  ],
+  "tokensConsumed": [
+    "--color-bg-5",
+    "--shadow2-down",
+    "--border-radius-medium",
+    "--color-text-1",
+    "--color-text-2",
+    "--z-index-popup"
+  ],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "PopoverProps",
+    "props": [
+      "className",
+      "disabled",
+      "style",
+      "title"
+    ],
+    "total": 4,
+    "syncDate": "2026/08/28"
+  }
+}

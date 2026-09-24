@@ -1,0 +1,251 @@
+{
+  "schemaVersion": 3,
+  "slug": "date-picker",
+  "name": "DatePicker",
+  "category": "data-entry",
+  "giencoderSource": {
+    "component": "DatePicker",
+    "version": "2.66.16"
+  },
+  "summary": "日期选择组件，支持单日、范围、月/年/周/季度等模式与快捷选项，面板式选择。",
+  "variants": [
+    {
+      "name": "date",
+      "description": "单日选择",
+      "whenToUse": "选择单个日期"
+    },
+    {
+      "name": "range",
+      "description": "日期范围选择（双面板）",
+      "whenToUse": "选择起止日期区间"
+    },
+    {
+      "name": "month",
+      "description": "月份选择",
+      "whenToUse": "只选到月份粒度"
+    },
+    {
+      "name": "year",
+      "description": "年份选择",
+      "whenToUse": "只选到年份粒度"
+    },
+    {
+      "name": "week",
+      "description": "周选择",
+      "whenToUse": "以周为粒度的排期场景"
+    },
+    {
+      "name": "quarter",
+      "description": "季度选择",
+      "whenToUse": "财务/经营报表场景"
+    },
+    {
+      "name": "shortcuts",
+      "description": "快捷选项（面板底部预设）",
+      "whenToUse": "提供'今天/本周/本月'等常用快捷选择"
+    }
+  ],
+  "sizes": [
+    {
+      "name": "mini",
+      "value": "24px",
+      "usage": "紧凑表格"
+    },
+    {
+      "name": "small",
+      "value": "28px",
+      "usage": "紧凑表单"
+    },
+    {
+      "name": "medium",
+      "value": "32px",
+      "usage": "标准（默认）"
+    },
+    {
+      "name": "large",
+      "value": "36px",
+      "usage": "强调场景"
+    }
+  ],
+  "states": [
+    {
+      "name": "default",
+      "description": "未交互",
+      "visual": "白底 --color-border-2 边框"
+    },
+    {
+      "name": "hover",
+      "description": "悬停",
+      "visual": "边框 --color-border-3"
+    },
+    {
+      "name": "focus",
+      "description": "聚焦",
+      "visual": "--color-primary-6 边框 + 光晕"
+    },
+    {
+      "name": "active",
+      "description": "选中日期",
+      "visual": "日期格圆角填充 --color-primary-6，白色文字"
+    },
+    {
+      "name": "disabled",
+      "description": "禁用",
+      "visual": "--color-fill-2 背景，--color-text-4 文本"
+    },
+    {
+      "name": "error",
+      "description": "校验失败",
+      "visual": "--color-danger-6 边框 + 光晕"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "触发器输入框",
+      "element": "div[role=combobox]",
+      "description": "展示选中日期或占位符"
+    },
+    {
+      "part": "日历图标",
+      "element": "span",
+      "description": "suffix 图标，点击也可展开面板"
+    },
+    {
+      "part": "弹出面板",
+      "element": "div[role=dialog]",
+      "description": "--color-bg-5 + --shadow2-down；范围模式为双面板"
+    },
+    {
+      "part": "头部年月切换",
+      "element": "div",
+      "description": "上/下月切换按钮与年月展示"
+    },
+    {
+      "part": "星期表头",
+      "element": "div",
+      "description": "日一二三四五六表头行"
+    },
+    {
+      "part": "日期网格",
+      "element": "table",
+      "description": "每格一天，含今天/选中/范围态"
+    },
+    {
+      "part": "快捷选项区",
+      "element": "div",
+      "description": "底部快捷链接（shortcuts）"
+    }
+  ],
+  "interaction": {
+    "hover": "输入框边框加深；日期格悬停 --color-fill-2 圆角背景",
+    "focus": "输入框弧蓝边框；面板打开后键盘导航作用于日期网格",
+    "keyboard": [
+      "ArrowUp/ArrowDown/ArrowLeft/ArrowRight: move the selected day in the date grid",
+      "Enter: confirm the selected date (range mode: confirm the end date)",
+      "Esc: close the panel",
+      "Tab: leave the component and close the panel"
+    ],
+    "motion": {
+      "duration": "0.1s~0.3s",
+      "easing": "standard",
+      "description": "面板淡入展开；月份切换时网格 0.2s 位移过渡"
+    },
+    "focusTrap": "面板打开后焦点保持在输入框，方向键驱动网格高亮（focusTrap 不接管）",
+    "escClose": "按 Esc 关闭面板，未确认的日期选择不提交",
+    "clickOutsideClose": "点击面板外部关闭面板",
+    "behaviorNotes": "范围模式先选开始日再选结束日；disabledDate 限制可选范围；showTime 支持时间联动；面板月份随选中值自动对齐"
+  },
+  "a11y": {
+    "role": "combobox",
+    "ariaAttrs": [
+      "aria-expanded",
+      "aria-haspopup",
+      "aria-label",
+      "role=grid/table on date grid",
+      "aria-selected on cells"
+    ],
+    "contrastNote": "选中日期 --color-primary-6 底 + 白色文字对比度充足；今天标识以圆点 + 文本双通道呈现",
+    "focusNote": "键盘导航有明确高亮格；禁用日期不参与方向键序列"
+  },
+  "usage": [
+    "范围选择务必给出开始/结束的明确交互提示",
+    "用 disabledDate 防止非法日期（如过去的发货日）",
+    "报表场景优先提供快捷选项减少操作步数"
+  ],
+  "doNotInvent": [
+    "不要虚构时间面板组合（时间联动由 showTime 提供，非默认）",
+    "不要虚构面板内手输日期（源启不支持面板内文本输入）",
+    "不要在 range 模式虚构单面板模式"
+  ],
+  "tokensConsumed": [
+    "--color-primary-6",
+    "--color-bg-5",
+    "--shadow2-down",
+    "--color-border-2",
+    "--color-border-3",
+    "--color-fill-2",
+    "--color-text-1",
+    "--color-text-2",
+    "--color-text-4",
+    "--color-danger-6",
+    "--color-white",
+    "--transition-duration-2",
+    "--transition-timing-function-standard"
+  ],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "DatePickerProps",
+    "props": [
+      "allowClear",
+      "className",
+      "dateRender",
+      "dayStartOfWeek",
+      "defaultValue",
+      "disabled",
+      "disabledDate",
+      "disabledTime",
+      "editable",
+      "error",
+      "format",
+      "getPopupContainer",
+      "icons",
+      "inputSuffix",
+      "mode",
+      "next",
+      "nextDouble",
+      "nowDisabled",
+      "nowText",
+      "onChange",
+      "onClear",
+      "onMouseEnterShortcut",
+      "onMouseLeaveShortcut",
+      "onSelect",
+      "onSelectNow",
+      "onSelectShortcut",
+      "onVisibleChange",
+      "panelRender",
+      "picker",
+      "placeholder",
+      "popupVisible",
+      "position",
+      "prefix",
+      "prefixCls",
+      "prev",
+      "prevDouble",
+      "shortcuts",
+      "shortcutsPlacementLeft",
+      "showNowBtn",
+      "showTime",
+      "size",
+      "status",
+      "style",
+      "timepickerProps",
+      "triggerProps",
+      "type",
+      "unmountOnExit",
+      "value"
+    ],
+    "total": 48,
+    "syncDate": "2026/08/28"
+  }
+}

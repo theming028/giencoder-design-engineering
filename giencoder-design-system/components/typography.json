@@ -1,0 +1,184 @@
+{
+  "schemaVersion": 3,
+  "slug": "typography",
+  "name": "Typography",
+  "category": "general",
+  "giencoderSource": {
+    "component": "Typography",
+    "version": "2.66.16"
+  },
+  "summary": "文本排版体系：Text/Title(h1-6)/Paragraph，支持加粗、禁用、省略（单行+多行）、复制与行内编辑。",
+  "variants": [
+    {
+      "name": "text",
+      "description": "Text 行内文本（span），支持 type 语义色",
+      "whenToUse": "普通/辅助/成功/错误等语义文本"
+    },
+    {
+      "name": "title",
+      "description": "Title 标题，heading 属性控制 h1~h6",
+      "whenToUse": "页面与区块标题层级"
+    },
+    {
+      "name": "paragraph",
+      "description": "Paragraph 段落（div），可配省略展开",
+      "whenToUse": "正文段落与长文本"
+    }
+  ],
+  "sizes": [
+    {
+      "name": "default",
+      "value": "14px（--font-size-body-1）",
+      "usage": "正文默认字号"
+    },
+    {
+      "name": "medium",
+      "value": "16px（--font-size-body-2）",
+      "usage": "正文强调/较大场景"
+    },
+    {
+      "name": "large",
+      "value": "18px（--font-size-body-3）",
+      "usage": "大段重点内容"
+    }
+  ],
+  "states": [
+    {
+      "name": "default",
+      "description": "静止",
+      "visual": "--color-text-1 正文色"
+    },
+    {
+      "name": "hover",
+      "description": "悬停",
+      "visual": "copyable 浮现复制图标；editable 浮现编辑图标"
+    },
+    {
+      "name": "focus",
+      "description": "聚焦",
+      "visual": "editable 编辑态输入框获得焦点"
+    },
+    {
+      "name": "disabled",
+      "description": "禁用",
+      "visual": "--color-text-4 弱化，禁交互"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "root",
+      "element": "span/div/h1-h6",
+      "description": "按 Text/Paragraph/Title 渲染对应元素"
+    },
+    {
+      "part": "content",
+      "element": "文本节点",
+      "description": "正文内容"
+    },
+    {
+      "part": "copy-icon",
+      "element": "span > svg",
+      "description": "copyable 复制图标"
+    },
+    {
+      "part": "edit-area",
+      "element": "input/textarea",
+      "description": "editable 编辑态输入框"
+    },
+    {
+      "part": "ellipsis",
+      "element": "内联省略处理",
+      "description": "ellipsis 单行/多行截断"
+    }
+  ],
+  "interaction": {
+    "hover": "copyable/editable 时悬停显示操作图标",
+    "focus": "editable 点击进入编辑态，焦点落入输入框",
+    "keyboard": [
+      "Tab: 移动到可编辑文本/复制按钮",
+      "Enter: 编辑态确认提交（onEnd）",
+      "Esc: 编辑态取消",
+      "Tab: 离开编辑态"
+    ],
+    "motion": {
+      "duration": "0.1s~0.2s",
+      "easing": "standard",
+      "description": "编辑态切换与颜色过渡"
+    },
+    "behaviorNotes": "ellipsis 多行须传 rows 并配合 showTooltip/expandable；复制成功触发 onCopy；编辑失焦等价提交"
+  },
+  "a11y": {
+    "role": "heading（Title）｜paragraph（Paragraph）｜text（Text）",
+    "ariaAttrs": [
+      "aria-disabled（disabled 时）",
+      "aria-label（copy/编辑图标按钮）"
+    ],
+    "contrastNote": "disabled 用 --color-text-4 仅限次要内容；正文保持 --color-text-1/2 对比度",
+    "focusNote": "editable 编辑态须有清晰焦点指示，Tab 可达"
+  },
+  "usage": [
+    "标题层级用 heading 1-6 对齐信息结构",
+    "省略须配合宽度约束与提示（title/tooltip）",
+    "复制与编辑操作提供成功反馈",
+    "正文不小于 14px（--font-size-body-1）"
+  ],
+  "doNotInvent": [
+    "不虚构 heading 1-6 之外的标题层级",
+    "不杜撰 ellipsis 行数上限",
+    "不为 Text 增加标题语义"
+  ],
+  "tokensConsumed": [
+    "--color-text-1",
+    "--color-text-2",
+    "--color-text-3",
+    "--color-text-4",
+    "--color-link-6",
+    "--color-primary-6",
+    "--color-bg-2",
+    "--color-border-2",
+    "--font-size-title-1",
+    "--font-size-title-2",
+    "--font-size-title-3",
+    "--font-size-body-1",
+    "--font-size-body-2",
+    "--font-size-body-3",
+    "--font-weight-500",
+    "--transition-duration-1"
+  ],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "TypographyProps",
+    "props": [
+      "blockquote",
+      "bold",
+      "children",
+      "className",
+      "color",
+      "copyable",
+      "disabled",
+      "editableConfig",
+      "editing",
+      "expandable",
+      "heading",
+      "icon",
+      "mark",
+      "onChange",
+      "onCopy",
+      "onEnd",
+      "onStart",
+      "prefixCls",
+      "rows",
+      "setEditing",
+      "showTooltip",
+      "single",
+      "spacing",
+      "style",
+      "text",
+      "tooltipProps",
+      "tooltips",
+      "type"
+    ],
+    "total": 28,
+    "syncDate": "2026/08/28"
+  }
+}

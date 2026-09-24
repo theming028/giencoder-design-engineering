@@ -1,0 +1,225 @@
+{
+  "schemaVersion": 3,
+  "slug": "select",
+  "name": "Select",
+  "category": "data-entry",
+  "giencoderSource": {
+    "component": "Select",
+    "version": "2.66.16"
+  },
+  "summary": "选择器：单选/多选/可搜索/分组/远程加载的下拉选择组件。",
+  "variants": [
+    {
+      "name": "single",
+      "description": "单选，点击选项即选中并收起",
+      "whenToUse": "从一组选项中选择一项"
+    },
+    {
+      "name": "multiple",
+      "description": "多选，选中项以 Tag 标签展示",
+      "whenToUse": "从一组选项中选择多项"
+    },
+    {
+      "name": "search",
+      "description": "showSearch 可搜索过滤选项",
+      "whenToUse": "选项数量多、需快速定位"
+    },
+    {
+      "name": "group",
+      "description": "OptGroup 选项分组，带分组标题",
+      "whenToUse": "选项有明确分类层级"
+    },
+    {
+      "name": "remote",
+      "description": "remote + onSearch 远程搜索加载",
+      "whenToUse": "选项来自服务端、随输入动态查询"
+    },
+    {
+      "name": "clearable",
+      "description": "allowClear 可一键清除已选值",
+      "whenToUse": "允许清空选择结果"
+    }
+  ],
+  "sizes": [
+    {
+      "name": "mini",
+      "value": "24px",
+      "usage": "紧凑场景"
+    },
+    {
+      "name": "small",
+      "value": "28px",
+      "usage": "密集表单"
+    },
+    {
+      "name": "medium",
+      "value": "32px",
+      "usage": "默认尺寸"
+    },
+    {
+      "name": "large",
+      "value": "36px",
+      "usage": "大字号/宽松场景"
+    }
+  ],
+  "states": [
+    {
+      "name": "default",
+      "description": "未交互态",
+      "visual": "白底 + --color-border-2 边框"
+    },
+    {
+      "name": "hover",
+      "description": "鼠标悬停",
+      "visual": "边框过渡为主色，0.1s"
+    },
+    {
+      "name": "focus",
+      "description": "键盘/点击聚焦",
+      "visual": "主色边框 + 焦点环，下拉展开"
+    },
+    {
+      "name": "disabled",
+      "description": "禁用态",
+      "visual": "灰底 --color-fill-2，文字 --color-text-4"
+    },
+    {
+      "name": "loading",
+      "description": "远程加载中",
+      "visual": "箭头位显示加载指示器"
+    },
+    {
+      "name": "empty",
+      "description": "无匹配选项",
+      "visual": "面板内显示空态提示"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "selector",
+      "element": "div",
+      "description": "选择框容器，展示选中值或占位符"
+    },
+    {
+      "part": "input",
+      "element": "input",
+      "description": "搜索输入框（search 模式）"
+    },
+    {
+      "part": "arrow-icon",
+      "element": "svg",
+      "description": "展开箭头，随展开状态旋转"
+    },
+    {
+      "part": "tag",
+      "element": "span",
+      "description": "多选已选项标签（multiple）"
+    },
+    {
+      "part": "option-list",
+      "element": "ul",
+      "description": "下拉选项列表"
+    },
+    {
+      "part": "option",
+      "element": "li",
+      "description": "单个选项，含 hover/选中/禁用态"
+    },
+    {
+      "part": "opt-group",
+      "element": "li",
+      "description": "选项分组标题"
+    }
+  ],
+  "interaction": {
+    "hover": "选择框边框过渡主色；选项 hover 底色 --color-fill-1，0.1s",
+    "focus": "选择框主色边框 + 焦点环，面板展开时焦点保持在下拉上下文",
+    "keyboard": [
+      "ArrowDown: 打开下拉并高亮下一项",
+      "ArrowUp: 高亮上一项",
+      "Enter: 选中高亮项并收起（多选时保留面板）",
+      "Esc: 关闭下拉并返回选择框",
+      "Backspace: 多选模式下删除最后一个已选标签",
+      "Tab: 离开组件并关闭下拉"
+    ],
+    "motion": {
+      "duration": "0.1s~0.2s",
+      "easing": "standard",
+      "description": "面板展开 0.2s 标准曲线，选项 hover 底色 0.1s"
+    },
+    "behaviorNotes": "弹层型组件：focusTrap——下拉打开时焦点受限并维护 activedescendant；escClose——Esc 关闭面板；clickOutsideClose——点击外部区域关闭面板。remote 模式输入触发 onSearch 防抖查询"
+  },
+  "a11y": {
+    "role": "combobox",
+    "ariaAttrs": [
+      "aria-expanded",
+      "aria-activedescendant",
+      "aria-haspopup",
+      "aria-disabled",
+      "aria-multiselectable",
+      "aria-label"
+    ],
+    "contrastNote": "面板底色 --color-bg-5，选中项 --color-text-1 (gray-10) 文字 + --color-fill-1 (gray-1) 底色，常规字重 400，对比达标；占位符 --color-text-3 为次要层级",
+    "focusNote": "选择框可见焦点环，下拉通过 aria-activedescendant 通告当前高亮选项"
+  },
+  "usage": [
+    "选项 ≥5 项或动态变化时使用 Select 而非 Radio",
+    "多选用 multiple，标签过多配合 maxTagCount 折叠",
+    "大数据量开启 virtualList 虚拟滚动",
+    "远程搜索用 remote + onSearch，并展示 loading 态",
+    "分组数据用 OptGroup 或嵌套 options"
+  ],
+  "doNotInvent": [
+    "不得虚构官方不存在的级联行为（级联用 Cascader）",
+    "不得在未配置 remote 时伪造远程加载状态",
+    "不得自定义下拉定位脱离 Trigger 体系",
+    "不得新增官方不存在的\"树形面板\"形态（树形选择用 TreeSelect）"
+  ],
+  "tokensConsumed": [
+    "--color-bg-5",
+    "--shadow2-down",
+    "--color-primary-6",
+    "--color-primary-light-2",
+    "--color-fill-1",
+    "--color-fill-2",
+    "--color-border-2",
+    "--color-text-1",
+    "--color-text-3",
+    "--color-text-4",
+    "--z-index-popup",
+    "--border-radius-medium"
+  ],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "SelectProps",
+    "props": [
+      "_isMultipleMode",
+      "_isUserCreatedOption",
+      "_isUserCreatingOption",
+      "_key",
+      "_onClick",
+      "_onMouseEnter",
+      "_onMouseLeave",
+      "_valueActive",
+      "_valueSelect",
+      "children",
+      "className",
+      "defaultValue",
+      "disabled",
+      "extra",
+      "inputValue",
+      "isSelectOptGroup",
+      "isSelectOption",
+      "label",
+      "mode",
+      "options",
+      "prefixCls",
+      "rtl",
+      "style",
+      "value",
+      "wrapperClassName"
+    ],
+    "total": 25,
+    "syncDate": "2026/08/28"
+  }
+}

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>Button 按钮</title>
+  <link rel="stylesheet" href="preview-scaffold.css">
+  <link rel="stylesheet" href="../colors_and_type.css">
+  <link rel="stylesheet" href="../components.css">
+  <style>
+    /* 按压反馈由 components.css 的 :active 动效提供（同色 spread 收起内缩 1px），此处无需脚本补充 */
+  </style>
+</head>
+<body>
+  <div class="pv-layout">
+    <aside class="pv-sidebar">
+      <div class="pv-nav">
+        <div class="pv-menu-group">入口</div>
+        <a href="../home.html">首页</a>
+        <a href="../../GETTING-STARTED.html">使用说明书</a>
+        <div class="pv-menu-group">组件</div>
+        <a href="../index.html#general" class="active">通用</a>
+        <a href="../index.html#layout">布局</a>
+        <a href="../index.html#navigation">导航</a>
+        <a href="../index.html#data-entry">数据录入</a>
+        <a href="../index.html#data-display">数据展示</a>
+        <a href="../index.html#feedback">反馈</a>
+        <a href="../index.html#other">其他</a>
+        <div class="pv-menu-group">资源</div>
+        <a href="../index.html#uikits">页面样板</a>
+        <a href="../index.html#docs">规范文档</a>
+      </div>
+    </aside>
+    <main class="pv-content">
+  <a class="pv-back" href="../index.html#general">← 返回组件库</a>
+  <div class="pv-header">
+    <h1>Button 按钮</h1>
+    <p>源启按钮：primary/secondary/outline/dashed/text 变体，mini/small/medium/large 尺寸，含 loading/disabled 状态。</p>
+  </div>
+
+  <!-- ============ 变体：Primary ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Primary 主要按钮</div>
+    <div class="row">
+      <button class="giencoder-btn giencoder-btn-primary giencoder-btn-size-large" data-component="button" data-variant="primary" data-size="large" data-state="default">按钮名称</button>
+      <button class="giencoder-btn giencoder-btn-primary giencoder-btn-size-default" data-component="button" data-variant="primary" data-size="medium" data-state="default">按钮名称</button>
+      <button class="giencoder-btn giencoder-btn-primary giencoder-btn-size-small" data-component="button" data-variant="primary" data-size="small" data-state="default">按钮名称</button>
+      <button class="giencoder-btn giencoder-btn-primary giencoder-btn-size-mini" data-component="button" data-variant="primary" data-size="mini" data-state="default">按钮名称</button>
+      <button class="giencoder-btn giencoder-btn-primary giencoder-btn-size-default giencoder-btn-disabled" disabled data-component="button" data-variant="primary" data-size="medium" data-state="disabled">按钮名称</button>
+      <button class="giencoder-btn giencoder-btn-primary giencoder-btn-size-default giencoder-btn-loading" data-component="button" data-variant="primary" data-size="medium" data-state="loading">
+        <span class="giencoder-btn-icon"><svg class="giencoder-icon giencoder-icon-loading" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a9 9 0 1 0 9 9" stroke-linecap="round"/></svg></span>
+        <span class="giencoder-btn-content">加载中</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ============ 变体：Secondary ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Secondary 次要按钮</div>
+    <div class="row">
+      <button class="giencoder-btn giencoder-btn-secondary giencoder-btn-size-default" data-component="button" data-variant="secondary" data-size="medium" data-state="default">按钮名称</button>
+      <button class="giencoder-btn giencoder-btn-secondary giencoder-btn-size-default giencoder-btn-disabled" disabled data-component="button" data-variant="secondary" data-size="medium" data-state="disabled">按钮名称</button>
+    </div>
+  </div>
+
+  <!-- ============ 变体：Outline ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Outline 线框按钮</div>
+    <div class="row">
+      <button class="giencoder-btn giencoder-btn-outline giencoder-btn-size-default" data-component="button" data-variant="outline" data-size="medium" data-state="default">按钮名称</button>
+      <button class="giencoder-btn giencoder-btn-outline giencoder-btn-size-default giencoder-btn-disabled" disabled data-component="button" data-variant="outline" data-size="medium" data-state="disabled">按钮名称</button>
+    </div>
+  </div>
+
+  <!-- ============ 变体：Dashed ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Dashed 虚线按钮</div>
+    <div class="row">
+      <button class="giencoder-btn giencoder-btn-dashed giencoder-btn-size-default" data-component="button" data-variant="dashed" data-size="medium" data-state="default">添加</button>
+      <button class="giencoder-btn giencoder-btn-dashed giencoder-btn-size-default giencoder-btn-disabled" disabled data-component="button" data-variant="dashed" data-size="medium" data-state="disabled">添加</button>
+    </div>
+  </div>
+
+  <!-- ============ 变体：Text ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Text 文本按钮</div>
+    <div class="row">
+      <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-default" data-component="button" data-variant="text" data-size="medium" data-state="default">编辑</button>
+      <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-default" data-component="button" data-variant="text" data-size="medium" data-state="default">删除</button>
+      <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-default giencoder-btn-disabled" disabled data-component="button" data-variant="text" data-size="medium" data-state="disabled">禁用</button>
+    </div>
+  </div>
+
+  <!-- ============ 状态：危险色按钮 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Status 状态色按钮</div>
+    <div class="row">
+      <button class="giencoder-btn giencoder-btn-danger giencoder-btn-size-default" data-component="button" data-variant="danger" data-size="medium" data-state="default">危险操作</button>
+      <button class="giencoder-btn giencoder-btn-warning giencoder-btn-size-default" data-component="button" data-variant="warning" data-size="medium" data-state="default">警告操作</button>
+      <button class="giencoder-btn giencoder-btn-success giencoder-btn-size-default" data-component="button" data-variant="success" data-size="medium" data-state="default">成功操作</button>
+    </div>
+  </div>
+
+  <!-- ============ 尺寸对照 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Size 尺寸对照（36/32/28/24px）</div>
+    <div class="row align-center">
+      <button class="giencoder-btn giencoder-btn-primary giencoder-btn-size-large">大按钮 36px</button>
+      <button class="giencoder-btn giencoder-btn-primary giencoder-btn-size-default">中按钮 32px</button>
+      <button class="giencoder-btn giencoder-btn-primary giencoder-btn-size-small">小按钮 28px</button>
+      <button class="giencoder-btn giencoder-btn-primary giencoder-btn-size-mini">迷你按钮 24px</button>
+    </div>
+  </div>
+
+  <!-- ============ 组合：按钮组 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Button Group 按钮组</div>
+    <div class="row">
+      <div class="giencoder-btn-group">
+        <button class="giencoder-btn giencoder-btn-secondary giencoder-btn-size-default">左</button>
+        <button class="giencoder-btn giencoder-btn-secondary giencoder-btn-size-default">中</button>
+        <button class="giencoder-btn giencoder-btn-secondary giencoder-btn-size-default">右</button>
+      </div>
+    </div>
+  </div>
+  <script>
+  (function () {
+    'use strict';
+    /* component-button：交互清单
+       1. 按压反馈由 CSS :active 承担（FF 风格：同色 spread 收起 → 表面内缩 1px + 背景加深，
+          按下 80ms / 释放 180ms），脚本不再叠加 pressed class
+       2. loading（.giencoder-btn-loading）按钮点击无效果（视为已禁用）
+       3. disabled（[disabled]/.giencoder-btn-disabled）按钮点击无效果（CSS pointer-events:none 天然拦截，脚本再守卫） */
+    document.querySelectorAll('.giencoder-btn').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        if (btn.disabled || btn.classList.contains('giencoder-btn-disabled') || btn.classList.contains('giencoder-btn-loading')) {
+          e.preventDefault();
+          return;
+        }
+      });
+    });
+  })();
+  </script>
+    </main>
+  </div>
+<script src="preview-copy.js"></script>
+</body>
+</html>

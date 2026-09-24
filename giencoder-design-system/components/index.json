@@ -1,0 +1,935 @@
+{
+  "schemaVersion": 3,
+  "library": "源启设计 全量组件契约索引",
+  "source": "基于开源 @giencoder-design/web-react 2.66.16",
+  "summary": "71 组件，全部含契约+模板",
+  "components": [
+    {
+      "slug": "button",
+      "name": "Button",
+      "category": "general",
+      "giencoderSource": {
+        "component": "Button",
+        "version": "2.66.16"
+      },
+      "preview": "preview/component-button.html",
+      "contract": "components/button.json",
+      "hasPreview": true,
+      "propsTotal": 17
+    },
+    {
+      "slug": "icon",
+      "name": "Icon",
+      "category": "general",
+      "giencoderSource": {
+        "component": "Icon（@giencoder-design/web-react/icon）",
+        "version": "2.66.16"
+      },
+      "preview": "preview/component-icon.html",
+      "contract": "components/icon.json",
+      "hasPreview": true,
+      "propsTotal": 8
+    },
+    {
+      "slug": "typography",
+      "name": "Typography",
+      "category": "general",
+      "giencoderSource": {
+        "component": "Typography",
+        "version": "2.66.16"
+      },
+      "preview": "preview/component-typography.html",
+      "contract": "components/typography.json",
+      "hasPreview": true,
+      "propsTotal": 28
+    },
+    {
+      "slug": "divider",
+      "name": "Divider",
+      "category": "general",
+      "giencoderSource": {
+        "component": "Divider",
+        "version": "2.66.16"
+      },
+      "preview": "preview/component-divider.html",
+      "contract": "components/divider.json",
+      "hasPreview": true,
+      "propsTotal": 5
+    },
+    {
+      "slug": "grid",
+      "name": "Grid",
+      "category": "general",
+      "giencoderSource": {
+        "component": "Grid",
+        "version": "2.66.16"
+      },
+      "preview": "preview/component-grid.html",
+      "contract": "components/grid.json",
+      "hasPreview": true,
+      "propsTotal": 17
+    },
+    {
+      "slug": "space",
+      "name": "Space",
+      "category": "general",
+      "giencoderSource": {
+        "component": "Space",
+        "version": "2.66.16"
+      },
+      "preview": "preview/component-space.html",
+      "contract": "components/space.json",
+      "hasPreview": true,
+      "propsTotal": 8
+    },
+    {
+      "slug": "link",
+      "name": "Link",
+      "category": "general",
+      "giencoderSource": {
+        "component": "Link",
+        "version": "2.66.16"
+      },
+      "preview": "preview/component-link.html",
+      "contract": "components/link.json",
+      "hasPreview": true,
+      "propsTotal": 6
+    },
+    {
+      "slug": "layout",
+      "name": "Layout",
+      "category": "layout",
+      "giencoderSource": {
+        "component": "Layout",
+        "version": "2.66.16",
+        "mapsFrom": "sidenav/topnav"
+      },
+      "preview": "preview/component-layout.html",
+      "contract": "components/layout.json",
+      "hasPreview": true,
+      "propsTotal": 20
+    },
+    {
+      "slug": "affix",
+      "name": "Affix",
+      "category": "navigation",
+      "giencoderSource": {
+        "component": "Affix",
+        "version": "2.66.16"
+      },
+      "preview": "preview/component-affix.html",
+      "contract": "components/affix.json",
+      "hasPreview": true,
+      "propsTotal": 9
+    },
+    {
+      "slug": "anchor",
+      "name": "Anchor",
+      "category": "navigation",
+      "giencoderSource": {
+        "component": "Anchor",
+        "version": "2.66.16"
+      },
+      "preview": "preview/component-anchor.html",
+      "contract": "components/anchor.json",
+      "hasPreview": true,
+      "propsTotal": 17
+    },
+    {
+      "slug": "breadcrumb",
+      "name": "Breadcrumb",
+      "category": "navigation",
+      "giencoderSource": {
+        "component": "Breadcrumb",
+        "version": "2.66.16"
+      },
+      "preview": "preview/component-breadcrumb.html",
+      "contract": "components/breadcrumb.json",
+      "hasPreview": true,
+      "propsTotal": 15
+    },
+    {
+      "slug": "dropdown",
+      "name": "Dropdown",
+      "category": "navigation",
+      "giencoderSource": {
+        "component": "Dropdown",
+        "version": "2.66.16"
+      },
+      "preview": "preview/component-dropdown.html",
+      "contract": "components/dropdown.json",
+      "hasPreview": true,
+      "propsTotal": 19
+    },
+    {
+      "slug": "menu",
+      "name": "Menu",
+      "category": "navigation",
+      "giencoderSource": {
+        "component": "Menu",
+        "version": "2.66.16",
+        "mapsFrom": "sidenav/topnav"
+      },
+      "preview": "preview/component-menu.html",
+      "contract": "components/menu.json",
+      "hasPreview": true,
+      "propsTotal": 27
+    },
+    {
+      "slug": "page-header",
+      "name": "PageHeader",
+      "category": "navigation",
+      "giencoderSource": {
+        "component": "PageHeader",
+        "version": "2.66.16"
+      },
+      "preview": "preview/component-page-header.html",
+      "contract": "components/page-header.json",
+      "hasPreview": true,
+      "propsTotal": 9
+    },
+    {
+      "slug": "pagination",
+      "name": "Pagination",
+      "category": "navigation",
+      "giencoderSource": {
+        "component": "Pagination",
+        "version": "2.66.16"
+      },
+      "preview": "preview/component-pagination.html",
+      "contract": "components/pagination.json",
+      "hasPreview": true,
+      "propsTotal": 35
+    },
+    {
+      "slug": "steps",
+      "name": "Steps",
+      "category": "navigation",
+      "giencoderSource": {
+        "component": "Steps",
+        "version": "2.66.16"
+      },
+      "preview": "preview/component-steps.html",
+      "contract": "components/steps.json",
+      "hasPreview": true,
+      "propsTotal": 21
+    },
+    {
+      "slug": "tabs",
+      "name": "Tabs",
+      "category": "navigation",
+      "giencoderSource": {
+        "component": "Tabs",
+        "version": "2.66.16"
+      },
+      "preview": "preview/component-tabs.html",
+      "contract": "components/tabs.json",
+      "hasPreview": true,
+      "propsTotal": 16
+    },
+    {
+      "slug": "auto-complete",
+      "name": "AutoComplete",
+      "category": "data-entry",
+      "giencoderSource": {
+        "component": "AutoComplete",
+        "version": "2.66.16"
+      },
+      "preview": "preview/component-auto-complete.html",
+      "contract": "components/auto-complete.json",
+      "hasPreview": true,
+      "propsTotal": 8
+    },
+    {
+      "slug": "cascader",
+      "name": "Cascader",
+      "category": "data-entry",
+      "giencoderSource": {
+        "component": "Cascader",
+        "version": "2.66.16"
+      },
+      "preview": "preview/component-cascader.html",
+      "contract": "components/cascader.json",
+      "hasPreview": true,
+      "propsTotal": 6
+    },
+    {
+      "slug": "checkbox",
+      "name": "Checkbox",
+      "category": "data-entry",
+      "giencoderSource": {
+        "component": "Checkbox",
+        "version": "2.66.16"
+      },
+      "preview": "preview/component-checkbox.html",
+      "contract": "components/checkbox.json",
+      "hasPreview": true,
+      "propsTotal": 14
+    },
+    {
+      "slug": "color-picker",
+      "name": "ColorPicker",
+      "category": "data-entry",
+      "giencoderSource": {
+        "component": "ColorPicker",
+        "version": "2.66.16"
+      },
+      "preview": "preview/component-color-picker.html",
+      "contract": "components/color-picker.json",
+      "hasPreview": true,
+      "propsTotal": 40
+    },
+    {
+      "slug": "date-picker",
+      "name": "DatePicker",
+      "category": "data-entry",
+      "giencoderSource": {
+        "component": "DatePicker",
+        "version": "2.66.16"
+      },
+      "preview": "preview/component-date-picker.html",
+      "contract": "components/date-picker.json",
+      "hasPreview": true,
+      "propsTotal": 48
+    },
+    {
+      "slug": "form",
+      "name": "Form",
+      "category": "data-entry",
+      "giencoderSource": {
+        "component": "Form",
+        "version": "2.66.16"
+      },
+      "preview": "preview/component-form.html",
+      "contract": "components/form.json",
+      "hasPreview": true,
+      "propsTotal": 4
+    },
+    {
+      "slug": "input",
+      "name": "Input",
+      "category": "data-entry",
+      "giencoderSource": {
+        "component": "Input",
+        "version": "2.66.16"
+      },
+      "preview": "preview/component-input.html",
+      "contract": "components/input.json",
+      "hasPreview": true,
+      "propsTotal": 30
+    },
+    {
+      "slug": "input-number",
+      "name": "InputNumber",
+      "category": "data-entry",
+      "giencoderSource": {
+        "component": "InputNumber",
+        "version": "2.66.16"
+      },
+      "preview": "preview/component-input-number.html",
+      "contract": "components/input-number.json",
+      "hasPreview": true,
+      "propsTotal": 20
+    },
+    {
+      "slug": "input-tag",
+      "name": "InputTag",
+      "category": "data-entry",
+      "giencoderSource": {
+        "component": "InputTag",
+        "version": "2.66.16"
+      },
+      "preview": "preview/component-input-tag.html",
+      "contract": "components/input-tag.json",
+      "hasPreview": true,
+      "propsTotal": 46
+    },
+    {
+      "slug": "mentions",
+      "name": "Mentions",
+      "category": "data-entry",
+      "giencoderSource": {
+        "component": "Mentions",
+        "version": "2.66.16"
+      },
+      "preview": "preview/component-mentions.html",
+      "contract": "components/mentions.json",
+      "hasPreview": true,
+      "propsTotal": 7
+    },
+    {
+      "slug": "radio",
+      "name": "Radio",
+      "category": "data-entry",
+      "giencoderSource": {
+        "component": "Radio",
+        "version": "2.66.16",
+        "mapsFrom": "segmented-picker"
+      },
+      "preview": "preview/component-radio.html",
+      "contract": "components/radio.json",
+      "hasPreview": true,
+      "propsTotal": 15
+    },
+    {
+      "slug": "rate",
+      "name": "Rate",
+      "category": "data-entry",
+      "giencoderSource": {
+        "component": "Rate",
+        "version": "2.66.16"
+      },
+      "preview": "preview/component-rate.html",
+      "contract": "components/rate.json",
+      "hasPreview": true,
+      "propsTotal": 14
+    },
+    {
+      "slug": "select",
+      "name": "Select",
+      "category": "data-entry",
+      "giencoderSource": {
+        "component": "Select",
+        "version": "2.66.16"
+      },
+      "preview": "preview/component-select.html",
+      "contract": "components/select.json",
+      "hasPreview": true,
+      "propsTotal": 25
+    },
+    {
+      "slug": "slider",
+      "name": "Slider",
+      "category": "data-entry",
+      "giencoderSource": {
+        "component": "Slider",
+        "version": "2.66.16"
+      },
+      "preview": "preview/component-slider.html",
+      "contract": "components/slider.json",
+      "hasPreview": true,
+      "propsTotal": 28
+    },
+    {
+      "slug": "switch",
+      "name": "Switch",
+      "category": "data-entry",
+      "giencoderSource": {
+        "component": "Switch",
+        "version": "2.66.16"
+      },
+      "preview": "preview/component-switch.html",
+      "contract": "components/switch.json",
+      "hasPreview": true,
+      "propsTotal": 14
+    },
+    {
+      "slug": "time-picker",
+      "name": "TimePicker",
+      "category": "data-entry",
+      "giencoderSource": {
+        "component": "TimePicker",
+        "version": "2.66.16"
+      },
+      "preview": "preview/component-time-picker.html",
+      "contract": "components/time-picker.json",
+      "hasPreview": true,
+      "propsTotal": 40
+    },
+    {
+      "slug": "transfer",
+      "name": "Transfer",
+      "category": "data-entry",
+      "giencoderSource": {
+        "component": "Transfer",
+        "version": "2.66.16"
+      },
+      "preview": "preview/component-transfer.html",
+      "contract": "components/transfer.json",
+      "hasPreview": true,
+      "propsTotal": 35
+    },
+    {
+      "slug": "tree-select",
+      "name": "TreeSelect",
+      "category": "data-entry",
+      "giencoderSource": {
+        "component": "TreeSelect",
+        "version": "2.66.16"
+      },
+      "preview": "preview/component-tree-select.html",
+      "contract": "components/tree-select.json",
+      "hasPreview": true,
+      "propsTotal": 8
+    },
+    {
+      "slug": "upload",
+      "name": "Upload",
+      "category": "data-entry",
+      "giencoderSource": {
+        "component": "Upload",
+        "version": "2.66.16"
+      },
+      "preview": "preview/component-upload.html",
+      "contract": "components/upload.json",
+      "hasPreview": true,
+      "propsTotal": 24
+    },
+    {
+      "slug": "verification-code",
+      "name": "VerificationCode",
+      "category": "data-entry",
+      "giencoderSource": {
+        "component": "VerificationCode",
+        "version": "2.66.16"
+      },
+      "preview": "preview/component-verification-code.html",
+      "contract": "components/verification-code.json",
+      "hasPreview": true,
+      "propsTotal": 13
+    },
+    {
+      "slug": "avatar",
+      "name": "Avatar",
+      "category": "data-display",
+      "giencoderSource": {
+        "component": "Avatar",
+        "version": "2.66.16"
+      },
+      "preview": "preview/component-avatar.html",
+      "contract": "components/avatar.json",
+      "hasPreview": true,
+      "propsTotal": 13
+    },
+    {
+      "slug": "badge",
+      "name": "Badge",
+      "category": "data-display",
+      "giencoderSource": {
+        "component": "Badge",
+        "version": "2.66.16"
+      },
+      "preview": "preview/component-badge.html",
+      "contract": "components/badge.json",
+      "hasPreview": true,
+      "propsTotal": 7
+    },
+    {
+      "slug": "calendar",
+      "name": "Calendar",
+      "category": "data-display",
+      "giencoderSource": {
+        "component": "Calendar",
+        "version": "2.66.16"
+      },
+      "preview": "preview/component-calendar.html",
+      "contract": "components/calendar.json",
+      "hasPreview": true,
+      "propsTotal": 33
+    },
+    {
+      "slug": "card",
+      "name": "Card",
+      "category": "data-display",
+      "giencoderSource": {
+        "component": "Card",
+        "version": "2.66.16"
+      },
+      "preview": "preview/component-card.html",
+      "contract": "components/card.json",
+      "hasPreview": true,
+      "propsTotal": 17
+    },
+    {
+      "slug": "carousel",
+      "name": "Carousel",
+      "category": "data-display",
+      "giencoderSource": {
+        "component": "Carousel",
+        "version": "2.66.16"
+      },
+      "preview": "preview/component-carousel.html",
+      "contract": "components/carousel.json",
+      "hasPreview": true,
+      "propsTotal": 12
+    },
+    {
+      "slug": "collapse",
+      "name": "Collapse",
+      "category": "data-display",
+      "giencoderSource": {
+        "component": "Collapse",
+        "version": "2.66.16"
+      },
+      "preview": "preview/component-collapse.html",
+      "contract": "components/collapse.json",
+      "hasPreview": true,
+      "propsTotal": 18
+    },
+    {
+      "slug": "comment",
+      "name": "Comment",
+      "category": "data-display",
+      "giencoderSource": {
+        "component": "Comment",
+        "version": "2.66.16"
+      },
+      "preview": "preview/component-comment.html",
+      "contract": "components/comment.json",
+      "hasPreview": true,
+      "propsTotal": 7
+    },
+    {
+      "slug": "descriptions",
+      "name": "Descriptions",
+      "category": "data-display",
+      "giencoderSource": {
+        "component": "Descriptions",
+        "version": "2.66.16"
+      },
+      "preview": "preview/component-descriptions.html",
+      "contract": "components/descriptions.json",
+      "hasPreview": true,
+      "propsTotal": 5
+    },
+    {
+      "slug": "empty",
+      "name": "Empty",
+      "category": "data-display",
+      "giencoderSource": {
+        "component": "Empty",
+        "version": "2.66.16"
+      },
+      "preview": "preview/component-empty.html",
+      "contract": "components/empty.json",
+      "hasPreview": true,
+      "propsTotal": 5
+    },
+    {
+      "slug": "image",
+      "name": "Image",
+      "category": "data-display",
+      "giencoderSource": {
+        "component": "Image",
+        "version": "2.66.16"
+      },
+      "preview": "preview/component-image.html",
+      "contract": "components/image.json",
+      "hasPreview": true,
+      "propsTotal": 60
+    },
+    {
+      "slug": "list",
+      "name": "List",
+      "category": "data-display",
+      "giencoderSource": {
+        "component": "List",
+        "version": "2.66.16"
+      },
+      "preview": "preview/component-list.html",
+      "contract": "components/list.json",
+      "hasPreview": true,
+      "propsTotal": 9
+    },
+    {
+      "slug": "popover",
+      "name": "Popover",
+      "category": "data-display",
+      "giencoderSource": {
+        "component": "Popover",
+        "version": "2.66.16"
+      },
+      "preview": "preview/component-popover.html",
+      "contract": "components/popover.json",
+      "hasPreview": true,
+      "propsTotal": 4
+    },
+    {
+      "slug": "progress",
+      "name": "Progress",
+      "category": "data-display",
+      "giencoderSource": {
+        "component": "Progress",
+        "version": "2.66.16"
+      },
+      "preview": "preview/component-progress.html",
+      "contract": "components/progress.json",
+      "hasPreview": true,
+      "propsTotal": 7
+    },
+    {
+      "slug": "skeleton",
+      "name": "Skeleton",
+      "category": "data-display",
+      "giencoderSource": {
+        "component": "Skeleton",
+        "version": "2.66.16"
+      },
+      "preview": "preview/component-skeleton.html",
+      "contract": "components/skeleton.json",
+      "hasPreview": true,
+      "propsTotal": 12
+    },
+    {
+      "slug": "statistic",
+      "name": "Statistic",
+      "category": "data-display",
+      "giencoderSource": {
+        "component": "Statistic",
+        "version": "2.66.16"
+      },
+      "preview": "preview/component-statistic.html",
+      "contract": "components/statistic.json",
+      "hasPreview": true,
+      "propsTotal": 20
+    },
+    {
+      "slug": "table",
+      "name": "Table",
+      "category": "data-display",
+      "giencoderSource": {
+        "component": "Table",
+        "version": "2.66.16"
+      },
+      "preview": "preview/component-table.html",
+      "contract": "components/table.json",
+      "hasPreview": true,
+      "propsTotal": 2
+    },
+    {
+      "slug": "tag",
+      "name": "Tag",
+      "category": "data-display",
+      "giencoderSource": {
+        "component": "Tag",
+        "version": "2.66.16",
+        "mapsFrom": "status-tag"
+      },
+      "preview": "preview/component-tag.html",
+      "contract": "components/tag.json",
+      "hasPreview": true,
+      "propsTotal": 16
+    },
+    {
+      "slug": "timeline",
+      "name": "Timeline",
+      "category": "data-display",
+      "giencoderSource": {
+        "component": "Timeline",
+        "version": "2.66.16"
+      },
+      "preview": "preview/component-timeline.html",
+      "contract": "components/timeline.json",
+      "hasPreview": true,
+      "propsTotal": 16
+    },
+    {
+      "slug": "tooltip",
+      "name": "Tooltip",
+      "category": "data-display",
+      "giencoderSource": {
+        "component": "Tooltip",
+        "version": "2.66.16"
+      },
+      "preview": "preview/component-tooltip.html",
+      "contract": "components/tooltip.json",
+      "hasPreview": true,
+      "propsTotal": 18
+    },
+    {
+      "slug": "tree",
+      "name": "Tree",
+      "category": "data-display",
+      "giencoderSource": {
+        "component": "Tree",
+        "version": "2.66.16"
+      },
+      "preview": "preview/component-tree.html",
+      "contract": "components/tree.json",
+      "hasPreview": true,
+      "propsTotal": 48
+    },
+    {
+      "slug": "alert",
+      "name": "Alert",
+      "category": "feedback",
+      "giencoderSource": {
+        "component": "Alert",
+        "version": "2.66.16"
+      },
+      "preview": "preview/component-alert.html",
+      "contract": "components/alert.json",
+      "hasPreview": true,
+      "propsTotal": 14
+    },
+    {
+      "slug": "drawer",
+      "name": "Drawer",
+      "category": "feedback",
+      "giencoderSource": {
+        "component": "Drawer",
+        "version": "2.66.16"
+      },
+      "preview": "preview/component-drawer.html",
+      "contract": "components/drawer.json",
+      "hasPreview": true,
+      "propsTotal": 34
+    },
+    {
+      "slug": "message",
+      "name": "Message",
+      "category": "feedback",
+      "giencoderSource": {
+        "component": "Message",
+        "version": "2.66.16"
+      },
+      "preview": "preview/component-message.html",
+      "contract": "components/message.json",
+      "hasPreview": true,
+      "propsTotal": 3
+    },
+    {
+      "slug": "modal",
+      "name": "Modal",
+      "category": "feedback",
+      "giencoderSource": {
+        "component": "Modal",
+        "version": "2.66.16"
+      },
+      "preview": "preview/component-modal.html",
+      "contract": "components/modal.json",
+      "hasPreview": true,
+      "propsTotal": 38
+    },
+    {
+      "slug": "notification",
+      "name": "Notification",
+      "category": "feedback",
+      "giencoderSource": {
+        "component": "Notification",
+        "version": "2.66.16"
+      },
+      "preview": "preview/component-notification.html",
+      "contract": "components/notification.json",
+      "hasPreview": true,
+      "propsTotal": 14
+    },
+    {
+      "slug": "popconfirm",
+      "name": "Popconfirm",
+      "category": "feedback",
+      "giencoderSource": {
+        "component": "Popconfirm",
+        "version": "2.66.16"
+      },
+      "preview": "preview/component-popconfirm.html",
+      "contract": "components/popconfirm.json",
+      "hasPreview": true,
+      "propsTotal": 26
+    },
+    {
+      "slug": "result",
+      "name": "Result",
+      "category": "feedback",
+      "giencoderSource": {
+        "component": "Result",
+        "version": "2.66.16"
+      },
+      "preview": "preview/component-result.html",
+      "contract": "components/result.json",
+      "hasPreview": true,
+      "propsTotal": 7
+    },
+    {
+      "slug": "spin",
+      "name": "Spin",
+      "category": "feedback",
+      "giencoderSource": {
+        "component": "Spin",
+        "version": "2.66.16"
+      },
+      "preview": "preview/component-spin.html",
+      "contract": "components/spin.json",
+      "hasPreview": true,
+      "propsTotal": 11
+    },
+    {
+      "slug": "back-top",
+      "name": "BackTop",
+      "category": "other",
+      "giencoderSource": {
+        "component": "BackTop",
+        "version": "2.66.16"
+      },
+      "preview": "preview/component-back-top.html",
+      "contract": "components/back-top.json",
+      "hasPreview": true,
+      "propsTotal": 7
+    },
+    {
+      "slug": "config-provider",
+      "name": "ConfigProvider",
+      "category": "other",
+      "giencoderSource": {
+        "component": "ConfigProvider",
+        "version": "2.66.16"
+      },
+      "preview": "preview/component-config-provider.html",
+      "contract": "components/config-provider.json",
+      "hasPreview": true,
+      "propsTotal": 11
+    },
+    {
+      "slug": "portal",
+      "name": "Portal",
+      "category": "other",
+      "giencoderSource": {
+        "component": "Portal",
+        "version": "2.66.16"
+      },
+      "preview": "preview/component-portal.html",
+      "contract": "components/portal.json",
+      "hasPreview": true,
+      "propsTotal": 5
+    },
+    {
+      "slug": "resize-box",
+      "name": "ResizeBox",
+      "category": "other",
+      "giencoderSource": {
+        "component": "ResizeBox",
+        "version": "2.66.16"
+      },
+      "preview": "preview/component-resize-box.html",
+      "contract": "components/resize-box.json",
+      "hasPreview": true,
+      "propsTotal": 25
+    },
+    {
+      "slug": "trigger",
+      "name": "Trigger",
+      "category": "other",
+      "giencoderSource": {
+        "component": "Trigger",
+        "version": "2.66.16"
+      },
+      "preview": "preview/component-trigger.html",
+      "contract": "components/trigger.json",
+      "hasPreview": true,
+      "propsTotal": 13
+    },
+    {
+      "slug": "watermark",
+      "name": "Watermark",
+      "category": "other",
+      "giencoderSource": {
+        "component": "Watermark",
+        "version": "2.66.16"
+      },
+      "preview": "preview/component-watermark.html",
+      "contract": "components/watermark.json",
+      "hasPreview": true,
+      "propsTotal": 8
+    }
+  ]
+}

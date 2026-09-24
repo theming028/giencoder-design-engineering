@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>数字输入 InputNumber</title>
+  <link rel="stylesheet" href="preview-scaffold.css">
+  <link rel="stylesheet" href="../colors_and_type.css">
+  <link rel="stylesheet" href="../components.css">
+  <style>
+    .giencoder-input-number { display: inline-block; }
+    /* 右侧内间距 4px：步进器距控件右缘收窄到 spacing-2（普通 Input 保持 12px 不受影响） */
+    .giencoder-input-number .giencoder-input-wrapper { padding-right: var(--spacing-2); }
+    .giencoder-input-number-stepper {
+      display: flex; flex-direction: column; flex-shrink: 0;
+      margin-left: var(--spacing-4);
+    }
+    .giencoder-input-number-btn {
+      width: 18px; height: 14px; border: none; background: none; cursor: pointer;
+      display: inline-flex; align-items: center; justify-content: center;
+      color: var(--color-text-3); border-radius: var(--border-radius-small);
+      padding: 0;
+    }
+    /* 箭头图标 8px（= --spacing-4，6px 过小、12px 过大后的中间值），hover 热区不变；
+       上下箭头各向接缝微移 2px，保持两箭头紧凑(gap 2px)：14 - 2*2 = 8 + 2 */
+    .giencoder-input-number-btn svg { width: 8px; height: 8px; }
+    .giencoder-input-number-btn:first-child svg { transform: translateY(2px); }
+    .giencoder-input-number-btn:last-child svg { transform: translateY(-2px); }
+    .giencoder-input-number-btn:hover { background: var(--color-fill-1); color: var(--color-text-1); }
+    .giencoder-input-number-btn:disabled { color: var(--color-text-4); cursor: not-allowed; background: none; }
+    .giencoder-input-number-hint { font-size: var(--font-size-body-1); color: var(--color-text-3); }
+
+  </style>
+</head>
+<body>
+  <div class="pv-layout">
+    <aside class="pv-sidebar">
+      <div class="pv-nav">
+        <div class="pv-menu-group">入口</div>
+        <a href="../home.html">首页</a>
+        <a href="../../GETTING-STARTED.html">使用说明书</a>
+        <div class="pv-menu-group">组件</div>
+        <a href="../index.html#general">通用</a>
+        <a href="../index.html#layout">布局</a>
+        <a href="../index.html#navigation">导航</a>
+        <a href="../index.html#data-entry" class="active">数据录入</a>
+        <a href="../index.html#data-display">数据展示</a>
+        <a href="../index.html#feedback">反馈</a>
+        <a href="../index.html#other">其他</a>
+        <div class="pv-menu-group">资源</div>
+        <a href="../index.html#uikits">页面样板</a>
+        <a href="../index.html#docs">规范文档</a>
+      </div>
+    </aside>
+    <main class="pv-content">
+  <a class="pv-back" href="../index.html#data-entry">← 返回组件库</a>
+  <div class="pv-header">
+    <h1>InputNumber</h1>
+    <p>数字输入框：右侧上下步进按钮增减数值，支持禁用态与 min / max 边界限制。</p>
+  </div>
+
+  <!-- ============ 变体：基础 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Basic 基础（默认 / 到达最大值）</div>
+    <div class="row">
+      <div class="giencoder-input-number" data-component="input-number" data-variant="default" data-state="default" style="width:180px;">
+        <div class="giencoder-input-wrapper">
+          <input class="giencoder-input" value="10" inputmode="numeric" aria-label="数值">
+          <span class="giencoder-input-number-stepper">
+            <button class="giencoder-input-number-btn" type="button" aria-label="增加">
+              <svg viewBox="0 0 12 12" width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 8l4-4 4 4"/></svg>
+            </button>
+            <button class="giencoder-input-number-btn" type="button" aria-label="减少">
+              <svg viewBox="0 0 12 12" width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 4l4 4 4-4"/></svg>
+            </button>
+          </span>
+        </div>
+      </div>
+      <div class="giencoder-input-number" data-component="input-number" data-variant="max" data-state="default" style="width:180px;">
+        <div class="giencoder-input-wrapper">
+          <input class="giencoder-input" value="100" inputmode="numeric" aria-label="数值">
+          <span class="giencoder-input-number-stepper">
+            <button class="giencoder-input-number-btn" type="button" aria-label="增加" disabled>
+              <svg viewBox="0 0 12 12" width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 8l4-4 4 4"/></svg>
+            </button>
+            <button class="giencoder-input-number-btn" type="button" aria-label="减少">
+              <svg viewBox="0 0 12 12" width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 4l4 4 4-4"/></svg>
+            </button>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="giencoder-input-number-hint">min = 0，max = 100：到达边界后对应步进按钮自动禁用</div>
+    </div>
+  </div>
+
+  <!-- ============ 状态：禁用 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Disabled 禁用</div>
+    <div class="row">
+      <div class="giencoder-input-number" data-component="input-number" data-variant="default" data-state="disabled" style="width:180px;">
+        <div class="giencoder-input-wrapper giencoder-input-disabled">
+          <input class="giencoder-input" value="5" inputmode="numeric" disabled aria-label="数值">
+          <span class="giencoder-input-number-stepper">
+            <button class="giencoder-input-number-btn" type="button" aria-label="增加" disabled>
+              <svg viewBox="0 0 12 12" width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 8l4-4 4 4"/></svg>
+            </button>
+            <button class="giencoder-input-number-btn" type="button" aria-label="减少" disabled>
+              <svg viewBox="0 0 12 12" width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 4l4 4 4-4"/></svg>
+            </button>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* 源启交互脚本 — input-number
+     * 1. 点击上/下步进按钮：value 增减（步长 1），clamp 到 min/max（读 data-min/data-max，默认 0~100）
+     * 2. 到达边界对应按钮 disabled
+     * 3. 直接显示当前值（input value 同步）
+     */
+    (function () {
+      'use strict';
+      var containers = document.querySelectorAll('.giencoder-input-number');
+      containers.forEach(function (container) {
+        var input = container.querySelector('.giencoder-input');
+        if (!input || input.disabled) { return; }
+
+        var min = container.hasAttribute('data-min') ? parseFloat(container.getAttribute('data-min')) : 0;
+        var max = container.hasAttribute('data-max') ? parseFloat(container.getAttribute('data-max')) : 100;
+        if (isNaN(min)) { min = 0; }
+        if (isNaN(max)) { max = 100; }
+
+        var up = null, down = null;
+        container.querySelectorAll('.giencoder-input-number-btn').forEach(function (btn) {
+          if (btn.getAttribute('aria-label') === '增加') { up = btn; }
+          if (btn.getAttribute('aria-label') === '减少') { down = btn; }
+        });
+
+        function current() {
+          var v = parseFloat(input.value);
+          return isNaN(v) ? min : v;
+        }
+        function sync() {
+          var v = current();
+          if (up) { up.disabled = v >= max; }
+          if (down) { down.disabled = v <= min; }
+        }
+        function set(v) {
+          v = Math.min(max, Math.max(min, v));
+          input.value = String(v);
+          sync();
+        }
+
+        if (up) {
+          up.addEventListener('click', function () { set(current() + 1); });
+        }
+        if (down) {
+          down.addEventListener('click', function () { set(current() - 1); });
+        }
+        sync();
+      });
+    })();
+  </script>
+    </main>
+  </div>
+<script src="preview-copy.js"></script>
+</body>
+</html>

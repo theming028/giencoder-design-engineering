@@ -1,0 +1,196 @@
+{
+  "schemaVersion": 3,
+  "slug": "image",
+  "name": "Image",
+  "category": "data-display",
+  "giencoderSource": {
+    "component": "Image",
+    "version": "2.66.16"
+  },
+  "summary": "图片，支持懒加载、多种适配裁切与点击查看大图的预览遮罩。",
+  "variants": [
+    {
+      "name": "基础图片",
+      "description": "常规图片展示，可设置宽高",
+      "whenToUse": "页面中的静态图片内容"
+    },
+    {
+      "name": "可预览图片",
+      "description": "preview（默认开启）点击打开大图遮罩预览",
+      "whenToUse": "商品图、相册图等需要查看大图的场景"
+    },
+    {
+      "name": "懒加载",
+      "description": "loading=lazy 进入视口后再加载",
+      "whenToUse": "长列表中的大量图片，减少首屏请求"
+    },
+    {
+      "name": "适配裁切",
+      "description": "fit 控制 contain/cover/fill/none/scale-down，position 控制定位",
+      "whenToUse": "固定尺寸容器内的图片适配"
+    },
+    {
+      "name": "加载失败",
+      "description": "error/fallback 提供失败占位",
+      "whenToUse": "图片不可用时的兜底展示"
+    },
+    {
+      "name": "标题描述",
+      "description": "title/description 在预览中展示",
+      "whenToUse": "为图片补充说明信息"
+    }
+  ],
+  "sizes": [],
+  "states": [
+    {
+      "name": "default",
+      "description": "常规展示态",
+      "visual": "图片按 fit 适配容器"
+    },
+    {
+      "name": "hover",
+      "description": "鼠标悬停（可预览时）",
+      "visual": "显示预览遮罩与放大图标提示"
+    },
+    {
+      "name": "loading",
+      "description": "图片加载中",
+      "visual": "placeholder 占位"
+    },
+    {
+      "name": "error",
+      "description": "加载失败",
+      "visual": "error 自定义节点或 fallback 图片占位"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "图片元素",
+      "element": "img.giencoder-image-img",
+      "description": "实际渲染的图片，携带 alt 等属性"
+    },
+    {
+      "part": "容器",
+      "element": "div.giencoder-image",
+      "description": "按 width/height 约束的图片容器"
+    },
+    {
+      "part": "预览遮罩",
+      "element": "div.giencoder-image-mask",
+      "description": "悬停时的预览提示遮罩"
+    },
+    {
+      "part": "预览层",
+      "element": "div.giencoder-image-preview",
+      "description": "点击后的大图预览遮罩，含工具栏"
+    }
+  ],
+  "interaction": {
+    "hover": "可预览图片悬停显示遮罩与放大图标",
+    "focus": "预览触发区域聚焦显示焦点环",
+    "keyboard": [
+      "Tab: 聚焦预览触发区域",
+      "Enter/Space: 打开图片预览",
+      "Esc: 关闭预览遮罩",
+      "Tab: 预览打开时在工具栏按钮（缩放/旋转/下载）间移动焦点"
+    ],
+    "motion": {
+      "duration": "0.2s~0.3s",
+      "easing": "standard",
+      "description": "预览遮罩淡入与缩放过渡（--transition-duration-2~3）"
+    },
+    "behaviorNotes": "预览遮罩为弹层：启用 focusTrap 将焦点限制在预览层内，Esc 关闭，点击遮罩空白处（clickOutsideClose）关闭；工具栏支持缩放、旋转与下载。"
+  },
+  "a11y": {
+    "role": "button",
+    "ariaAttrs": [
+      "alt: 图片替代文本（经 imgAttributes 传入）",
+      "aria-label: 预览操作说明（可预览时）"
+    ],
+    "contrastNote": "预览遮罩使用 --color-mask-bg 半透明深色，白色工具栏图标对比度充足",
+    "focusNote": "预览触发区域可聚焦；预览打开后焦点陷入预览层，关闭后归还焦点"
+  },
+  "usage": [
+    "始终提供有意义的 alt 文本，装饰性图片可留空并 aria-hidden",
+    "大图列表优先开启懒加载",
+    "固定容器内使用 fit 控制裁切，避免图片变形"
+  ],
+  "doNotInvent": [
+    "不虚构图片压缩、滤镜等编辑能力（预览仅缩放/旋转/下载）",
+    "不杜撰预览外弹窗形态（预览为遮罩层）",
+    "不在无预览场景添加键盘打开行为"
+  ],
+  "tokensConsumed": [
+    "--color-mask-bg",
+    "--color-white",
+    "--color-text-1"
+  ],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "ImageProps",
+    "props": [
+      "actions",
+      "actionsLayout",
+      "breakPoint",
+      "className",
+      "closable",
+      "content",
+      "current",
+      "currentIndex",
+      "defaultActions",
+      "defaultCurrent",
+      "defaultVisible",
+      "description",
+      "disabled",
+      "error",
+      "escToExit",
+      "extra",
+      "footerPosition",
+      "forceRender",
+      "getContainer",
+      "getPopupContainer",
+      "handleVisibleChange",
+      "height",
+      "imageRender",
+      "imgAttributes",
+      "index",
+      "infinite",
+      "key",
+      "lazyload",
+      "loader",
+      "loaderClassName",
+      "maskClosable",
+      "name",
+      "onChange",
+      "onError",
+      "onLoad",
+      "onNext",
+      "onPrev",
+      "onVisibleChange",
+      "popup",
+      "prefixCls",
+      "preview",
+      "previewCount",
+      "previewGroup",
+      "previewPrefixCls",
+      "previewProps",
+      "previewPropsMap",
+      "previewUrlMap",
+      "registerPreviewProps",
+      "registerPreviewUrl",
+      "resetTranslate",
+      "scales",
+      "setCurrentIndex",
+      "setPreviewUrlMap",
+      "simple",
+      "src",
+      "srcList",
+      "style",
+      "title",
+      "visible",
+      "width"
+    ],
+    "total": 60,
+    "syncDate": "2026/08/28"
+  }
+}

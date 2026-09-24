@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>Tabs 标签页</title>
+  <link rel="stylesheet" href="preview-scaffold.css">
+  <link rel="stylesheet" href="../colors_and_type.css">
+  <link rel="stylesheet" href="../components.css">
+  <style>
+    /* 交互动效用：tab 激活色过渡 0.15s；内容切换淡入 0.15s（ink 滑动已有 0.2s transition，保留） */
+    .giencoder-tabs-tab {
+      transition: color 0.15s var(--transition-timing-function-standard),
+                  background-color 0.15s var(--transition-timing-function-standard);
+    }
+    @keyframes giencoder-tabs-pane-fade-in {
+      from { opacity: 0; transform: translateY(4px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .giencoder-tabs-pane.giencoder-tabs-pane-anim {
+      animation: giencoder-tabs-pane-fade-in 0.15s var(--transition-timing-function-standard);
+    }
+  </style>
+</head>
+<body>
+  <div class="pv-layout">
+    <aside class="pv-sidebar">
+      <div class="pv-nav">
+        <div class="pv-menu-group">入口</div>
+        <a href="../home.html">首页</a>
+        <a href="../../GETTING-STARTED.html">使用说明书</a>
+        <div class="pv-menu-group">组件</div>
+        <a href="../index.html#general">通用</a>
+        <a href="../index.html#layout">布局</a>
+        <a href="../index.html#navigation" class="active">导航</a>
+        <a href="../index.html#data-entry">数据录入</a>
+        <a href="../index.html#data-display">数据展示</a>
+        <a href="../index.html#feedback">反馈</a>
+        <a href="../index.html#other">其他</a>
+        <div class="pv-menu-group">资源</div>
+        <a href="../index.html#uikits">页面样板</a>
+        <a href="../index.html#docs">规范文档</a>
+      </div>
+    </aside>
+    <main class="pv-content">
+  <a class="pv-back" href="../index.html#navigation">← 返回组件库</a>
+  <div class="pv-header">
+    <h1>Tabs 标签页</h1>
+    <p>源启标签页：line/card 样式、可关闭、键盘左右切换。</p>
+  </div>
+
+  <!-- ============ 变体：Line 线条样式 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Line 线条样式（默认）</div>
+    <div class="row">
+      <div class="giencoder-tabs giencoder-tabs-line" data-component="tabs" data-variant="line" data-state="default" style="width:100%;">
+        <div class="giencoder-tabs-header" role="tablist">
+          <div class="giencoder-tabs-tab giencoder-tabs-tab-active" role="tab" aria-selected="true" tabindex="0">基础信息</div>
+          <div class="giencoder-tabs-tab" role="tab" aria-selected="false" tabindex="-1">高级配置</div>
+          <div class="giencoder-tabs-tab" role="tab" aria-selected="false" tabindex="-1">权限设置</div>
+          <div class="giencoder-tabs-tab" role="tab" aria-selected="false" tabindex="-1">操作日志</div>
+          <div class="giencoder-tabs-ink" style="left:0; width:80px;"></div>
+        </div>
+        <div class="giencoder-tabs-content" role="tabpanel">
+          <div class="giencoder-tabs-pane">基础信息内容区域。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 变体：Card 卡片样式 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Card 卡片样式</div>
+    <div class="row">
+      <div class="giencoder-tabs giencoder-tabs-card" data-component="tabs" data-variant="card" data-state="default" style="width:100%;">
+        <div class="giencoder-tabs-header" role="tablist">
+          <div class="giencoder-tabs-tab giencoder-tabs-tab-active" role="tab" aria-selected="true" tabindex="0">项目</div>
+          <div class="giencoder-tabs-tab" role="tab" aria-selected="false" tabindex="-1">成员</div>
+          <div class="giencoder-tabs-tab" role="tab" aria-selected="false" tabindex="-1">数据</div>
+        </div>
+        <div class="giencoder-tabs-content" role="tabpanel">
+          <div class="giencoder-tabs-pane">卡片样式标签页内容。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 变体：Subtle 轻量 Pill 样式（映射自 Fluid Functionalism TabsSubtle） ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Subtle 轻量 Pill 样式</div>
+    <div class="row">
+      <div class="giencoder-tabs giencoder-tabs-subtle" data-component="tabs" data-variant="subtle" data-state="default">
+        <div class="giencoder-tabs-header" role="tablist">
+          <div class="giencoder-tabs-tab giencoder-tabs-tab-active" role="tab" aria-selected="true" tabindex="0">基础信息</div>
+          <div class="giencoder-tabs-tab" role="tab" aria-selected="false" tabindex="-1">高级配置</div>
+          <div class="giencoder-tabs-tab" role="tab" aria-selected="false" tabindex="-1">权限设置</div>
+        </div>
+        <div class="giencoder-tabs-content" role="tabpanel">
+          <div class="giencoder-tabs-pane">Subtle 轻量 Pill 样式内容区域。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 变体：可关闭 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Closable 可关闭标签</div>
+    <div class="row">
+      <div class="giencoder-tabs giencoder-tabs-line" data-component="tabs" data-variant="closable" data-state="default" style="width:100%;">
+        <div class="giencoder-tabs-header" role="tablist">
+          <div class="giencoder-tabs-tab giencoder-tabs-tab-active" role="tab" aria-selected="true" tabindex="0">
+            概览
+            <button class="giencoder-tabs-tab-close-btn" aria-label="关闭标签">
+              <svg viewBox="0 0 12 12" width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 3l6 6M9 3l-6 6"/></svg>
+            </button>
+          </div>
+          <div class="giencoder-tabs-tab" role="tab" aria-selected="false" tabindex="-1">
+            日志
+            <button class="giencoder-tabs-tab-close-btn" aria-label="关闭标签">
+              <svg viewBox="0 0 12 12" width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 3l6 6M9 3l-6 6"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="giencoder-tabs-content" role="tabpanel">
+          <div class="giencoder-tabs-pane">可关闭标签页内容。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+  (function () {
+    'use strict';
+    /* component-tabs — 交互清单：
+     * 1. 点击 tab：互斥激活 giencoder-tabs-tab-active，联动 ink 指示条（left/width = 点击 tab 的 offsetLeft/offsetWidth；无 ink 仅高亮）
+     * 2. 可关闭 tab：关闭按钮点击隐藏该 tab（至少保留一个可见）
+     */
+    document.querySelectorAll('.giencoder-tabs').forEach(function (tabs) {
+      var header = tabs.querySelector('.giencoder-tabs-header');
+      if (!header) return;
+      var ink = header.querySelector('.giencoder-tabs-ink');
+      var tabEls = Array.prototype.slice.call(header.querySelectorAll('.giencoder-tabs-tab'));
+
+      function isHidden(tab) { return tab.style.display === 'none'; }
+
+      function activate(tab) {
+        if (!tab) return;
+        tabEls.forEach(function (t) {
+          if (t === tab) t.classList.add('giencoder-tabs-tab-active');
+          else t.classList.remove('giencoder-tabs-tab-active');
+        });
+        if (ink) {
+          ink.style.left = (tab.offsetLeft || 0) + 'px';
+          ink.style.width = (tab.offsetWidth || 0) + 'px';
+        }
+        /* 动效：内容切换淡入（重触发动画） */
+        var pane = tabs.querySelector('.giencoder-tabs-pane');
+        if (pane) {
+          pane.classList.remove('giencoder-tabs-pane-anim');
+          void pane.offsetWidth;
+          pane.classList.add('giencoder-tabs-pane-anim');
+        }
+      }
+
+      tabEls.forEach(function (tab) {
+        tab.addEventListener('click', function () { activate(tab); });
+      });
+
+      header.querySelectorAll('.giencoder-tabs-tab-close-btn').forEach(function (btn) {
+        btn.addEventListener('click', function (ev) {
+          ev.stopPropagation();
+          var tab = btn.parentElement;
+          while (tab && !tab.classList.contains('giencoder-tabs-tab')) tab = tab.parentElement;
+          if (!tab) return;
+          var visible = tabEls.filter(function (t) { return !isHidden(t); });
+          if (visible.length <= 1) return; /* 至少保留一个 */
+          var wasActive = tab.classList.contains('giencoder-tabs-tab-active');
+          tab.style.display = 'none';
+          if (wasActive) {
+            var after = tabEls.filter(function (t) { return !isHidden(t); });
+            if (after.length) activate(after[0]);
+          }
+        });
+      });
+    });
+  })();
+  </script>
+    </main>
+  </div>
+<script src="preview-copy.js"></script>
+</body>
+</html>

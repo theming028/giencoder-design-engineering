@@ -1,0 +1,123 @@
+{
+  "schemaVersion": 3,
+  "slug": "back-top",
+  "name": "BackTop",
+  "category": "other",
+  "giencoderSource": {
+    "component": "BackTop",
+    "version": "2.66.16"
+  },
+  "summary": "回到顶部：滚动超过指定高度后在视口右下角出现圆形按钮，点击平滑滚动回页面顶部。",
+  "variants": [
+    {
+      "name": "默认",
+      "description": "主色圆形按钮（--color-primary-6 背景）+ 白色向上箭头图标（IconUp）",
+      "whenToUse": "长页面滚动浏览时提供快捷回顶入口"
+    },
+    {
+      "name": "自定义内容",
+      "description": "通过 children 自定义按钮内容（图标/文案），容器与交互逻辑不变",
+      "whenToUse": "需要品牌化图标或自定义文案的回顶入口"
+    }
+  ],
+  "sizes": [
+    {
+      "name": "default",
+      "value": "40px（--size-10）",
+      "usage": "固定圆形按钮，无尺寸变体"
+    }
+  ],
+  "states": [
+    {
+      "name": "default",
+      "description": "滚动高度未达阈值时隐藏；达到后显示",
+      "visual": "40px 圆形，背景 --color-primary-6，白色图标"
+    },
+    {
+      "name": "hover",
+      "description": "鼠标悬停",
+      "visual": "背景切换为 --color-primary-5，0.2s 过渡"
+    },
+    {
+      "name": "focus",
+      "description": "键盘 Tab 聚焦（focus-visible）",
+      "visual": "0 0 0 2px --color-primary-light-3 焦点环"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "backtop",
+      "element": "div.giencoder-backtop",
+      "description": "固定定位容器，right/bottom 24px（--spacing-9），z-index 100"
+    },
+    {
+      "part": "button",
+      "element": "button.giencoder-backtop-button",
+      "description": "原生按钮，40px 圆形，主色背景"
+    },
+    {
+      "part": "icon",
+      "element": "svg（14px）",
+      "description": "默认白色向上箭头图标，可用 children 替换"
+    }
+  ],
+  "interaction": {
+    "hover": "背景切换为 --color-primary-5，0.2s 线性过渡",
+    "focus": "原生 button 的 focus-visible 焦点环（--color-primary-light-3）",
+    "keyboard": [
+      "Tab: 焦点进入返回按钮",
+      "Enter: 触发返回顶部（原生 button）",
+      "Space: 触发返回顶部（原生 button）"
+    ],
+    "motion": {
+      "duration": "0.2s",
+      "easing": "linear",
+      "description": "按钮背景 0.2s 线性过渡；点击后按 duration（默认 400ms）与 easing（默认 quartOut）平滑滚动回顶"
+    },
+    "behaviorNotes": "监听滚动容器（默认 window，target 可指定）滚动事件，滚动高度 ≥ visibleHeight（默认 400）时显示按钮；点击后按 duration 与 easing 平滑滚动回顶；onClick 为点击回调。"
+  },
+  "a11y": {
+    "role": "button（原生 button 元素）",
+    "ariaAttrs": [
+      "aria-label: 返回顶部说明文案（建议补充）"
+    ],
+    "contrastNote": "白色图标在 --color-primary-6 背景上对比度满足 AA",
+    "focusNote": "原生 focus-visible 焦点环（--color-primary-light-3），键盘可达"
+  },
+  "usage": [
+    "用于长页面提供快捷回顶入口",
+    "visibleHeight 控制出现时机，target 指定滚动容器",
+    "children 自定义内容，onClick 处理点击回调"
+  ],
+  "doNotInvent": [
+    "不得虚构白色底+阴影形态（官方为主色圆形按钮，无 --shadow2-down）",
+    "不得虚构尺寸变体（固定 40px 圆形）",
+    "不得用 外部 CSS 框架/Lucide 替代 源启图标与 token"
+  ],
+  "tokensConsumed": [
+    "--color-primary-6",
+    "--color-primary-5",
+    "--color-white",
+    "--color-primary-light-3",
+    "--border-radius-circle",
+    "--font-size-body-1",
+    "--size-10",
+    "--spacing-9",
+    "--transition-duration-2"
+  ],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "BackTopProps",
+    "props": [
+      "className",
+      "duration",
+      "easing",
+      "onClick",
+      "style",
+      "target",
+      "visibleHeight"
+    ],
+    "total": 7,
+    "syncDate": "2026/08/28"
+  }
+}

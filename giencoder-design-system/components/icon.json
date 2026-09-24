@@ -1,0 +1,141 @@
+{
+  "schemaVersion": 3,
+  "slug": "icon",
+  "name": "Icon",
+  "category": "general",
+  "giencoderSource": {
+    "component": "Icon（@giencoder-design/web-react/icon）",
+    "version": "2.66.16"
+  },
+  "summary": "2000+ 线性 SVG 图标集合，尺寸 12~48px，颜色继承 currentColor，支持 spin 旋转。",
+  "variants": [
+    {
+      "name": "line",
+      "description": "线性描边风格（默认形态）",
+      "whenToUse": "常规界面图标"
+    },
+    {
+      "name": "filled",
+      "description": "实心填充形态（按图标实际提供）",
+      "whenToUse": "强调/选中等需要更重视觉的场景"
+    },
+    {
+      "name": "iconfont",
+      "description": "IconFont 自定义字体图标",
+      "whenToUse": "接入 iconfont.cn 私有图标库"
+    }
+  ],
+  "sizes": [
+    {
+      "name": "mini",
+      "value": "12px",
+      "usage": "行内小图标/角标"
+    },
+    {
+      "name": "small",
+      "value": "16px",
+      "usage": "默认字号场景"
+    },
+    {
+      "name": "medium",
+      "value": "24px",
+      "usage": "按钮/列表/导航图标"
+    },
+    {
+      "name": "large",
+      "value": "32px",
+      "usage": "区块级图标"
+    },
+    {
+      "name": "default",
+      "value": "继承字号，size 支持任意数值 12~48",
+      "usage": "无明确预设时跟随上下文"
+    }
+  ],
+  "states": [
+    {
+      "name": "default",
+      "description": "静止",
+      "visual": "以当前色（currentColor）渲染"
+    },
+    {
+      "name": "loading",
+      "description": "加载",
+      "visual": "spin 属性开启匀速旋转"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "svg-root",
+      "element": "svg",
+      "description": "矢量本体，尺寸由 size/font-size 决定"
+    },
+    {
+      "part": "graphic",
+      "element": "path/g",
+      "description": "具体图形路径"
+    },
+    {
+      "part": "text",
+      "element": "无",
+      "description": "纯图形，无文本节点"
+    }
+  ],
+  "interaction": {
+    "hover": "默认无悬停反馈；颜色由 color 属性或父级控制",
+    "focus": "svg 默认不可聚焦，不进入 Tab 序",
+    "keyboard": [
+      "无键盘交互（纯展示）"
+    ],
+    "motion": {
+      "duration": "0.6s~1s",
+      "easing": "linear",
+      "description": "spin 时绕中心匀速旋转（约 1s/圈，无限循环）"
+    },
+    "behaviorNotes": "颜色默认继承 currentColor；装饰性图标须 aria-hidden；语义图标需由外层可交互元素承载"
+  },
+  "a11y": {
+    "role": "img（语义图标时）",
+    "ariaAttrs": [
+      "aria-hidden=\"true\"（装饰性图标默认）",
+      "aria-label（语义图标必填）"
+    ],
+    "contrastNote": "承载信息的彩色图标与背景需 ≥3:1；纯装饰图标不承载信息",
+    "focusNote": "svg 默认无焦点；语义图标建议外层使用可聚焦元素"
+  },
+  "usage": [
+    "装饰图标一律 aria-hidden",
+    "语义图标提供 aria-label 或由邻近文本表达",
+    "尺寸用 12/16/24/32 预设保持节奏",
+    "颜色随语义使用 currentColor"
+  ],
+  "doNotInvent": [
+    "不虚构图标数量或新增风格变体",
+    "不为装饰图标杜撰悬停/焦点态",
+    "不将 Icon 直接当交互组件（点击须外包 button/link）"
+  ],
+  "tokensConsumed": [
+    "currentColor",
+    "--color-text-1",
+    "--color-text-2",
+    "--color-text-3",
+    "--color-text-4",
+    "--color-primary-6"
+  ],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "IconProps",
+    "props": [
+      "className",
+      "fill",
+      "height",
+      "spin",
+      "style",
+      "type",
+      "viewBox",
+      "width"
+    ],
+    "total": 8,
+    "syncDate": "2026/08/28"
+  }
+}

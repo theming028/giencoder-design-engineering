@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>Message 全局消息</title>
+  <link rel="stylesheet" href="preview-scaffold.css">
+  <link rel="stylesheet" href="../colors_and_type.css">
+  <link rel="stylesheet" href="../components.css">
+</head>
+<body>
+  <div class="pv-layout">
+    <aside class="pv-sidebar">
+      <div class="pv-nav">
+        <div class="pv-menu-group">入口</div>
+        <a href="../home.html">首页</a>
+        <a href="../../GETTING-STARTED.html">使用说明书</a>
+        <div class="pv-menu-group">组件</div>
+        <a href="../index.html#general">通用</a>
+        <a href="../index.html#layout">布局</a>
+        <a href="../index.html#navigation">导航</a>
+        <a href="../index.html#data-entry">数据录入</a>
+        <a href="../index.html#data-display">数据展示</a>
+        <a href="../index.html#feedback" class="active">反馈</a>
+        <a href="../index.html#other">其他</a>
+        <div class="pv-menu-group">资源</div>
+        <a href="../index.html#uikits">页面样板</a>
+        <a href="../index.html#docs">规范文档</a>
+      </div>
+    </aside>
+    <main class="pv-content">
+  <a class="pv-back" href="../index.html#feedback">← 返回组件库</a>
+  <div class="pv-header">
+    <h1>Message 全局消息</h1>
+    <p>源启全局消息：success/info/warning/error，顶部居中，自动消失。</p>
+  </div>
+
+  <!-- ============ 变体：四种类型 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Types 四种类型</div>
+    <div class="row" style="flex-direction:column; gap:12px; align-items:center;">
+      <div class="giencoder-message" data-component="message" data-variant="success" data-state="default" role="alert" style="display:flex; align-items:center; gap:8px; padding:10px 16px; background:var(--color-bg-2); box-shadow:var(--shadow2-down); font-size: 14px;">
+        <span style="color:var(--color-success-6);">
+          <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="8" cy="8" r="6.5"/><path d="M5 8.5l2 2 4-4.5"/></svg>
+        </span>
+        操作成功，数据已保存
+      </div>
+      <div class="giencoder-message" data-component="message" data-variant="info" data-state="default" role="status" style="display:flex; align-items:center; gap:8px; padding:10px 16px; background:var(--color-bg-2); box-shadow:var(--shadow2-down); font-size: 14px;">
+        <span style="color:var(--color-primary-6);">
+          <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6.5"/><path d="M8 4.5v4M8 11.5h.01"/></svg>
+        </span>
+        正在同步数据...
+      </div>
+      <div class="giencoder-message" data-component="message" data-variant="warning" data-state="default" role="alert" style="display:flex; align-items:center; gap:8px; padding:10px 16px; background:var(--color-bg-2); box-shadow:var(--shadow2-down); font-size: 14px;">
+        <span style="color:var(--color-warning-6);">
+          <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M8 2l6 11H2L8 2z"/><path d="M8 6.5v3M8 11.5h.01"/></svg>
+        </span>
+        配额即将用尽，请注意
+      </div>
+      <div class="giencoder-message" data-component="message" data-variant="error" data-state="default" role="alert" style="display:flex; align-items:center; gap:8px; padding:10px 16px; background:var(--color-bg-2); box-shadow:var(--shadow2-down); font-size: 14px;">
+        <span style="color:var(--color-danger-6);">
+          <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="8" cy="8" r="6.5"/><path d="M5.5 5.5l5 5M10.5 5.5l-5 5"/></svg>
+        </span>
+        操作失败，请稍后重试
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 变体：可关闭 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Closable 可关闭</div>
+    <div class="row" style="justify-content:center;">
+      <div class="giencoder-message" data-component="message" data-variant="closable" data-state="default" role="status" style="display:flex; align-items:center; gap:8px; padding:10px 16px; background:var(--color-bg-2); box-shadow:var(--shadow2-down); font-size: 14px;">
+        <span style="color:var(--color-primary-6);">
+          <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6.5"/><path d="M8 4.5v4M8 11.5h.01"/></svg>
+        </span>
+        有新版本可用，点击刷新
+        <button class="giencoder-message-close-btn" aria-label="关闭" style="border:none; background:none; cursor:pointer; color:var(--color-text-3); display:flex; padding:2px;">
+          <svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 3l6 6M9 3l-6 6"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    /* Message 预览交互动效样式（新增 class，此处定义） */
+    /* 交互动效用：进入 — 淡入 + 下滑（translateY(-8px)→0）0.25s，加载时由脚本添加 */
+    @keyframes pv-message-in {
+      from { opacity: 0; transform: translateY(-8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .pv-message-enter { animation: pv-message-in 0.25s var(--transition-timing-function-spring); }
+    /* 交互动效用：离开 — 淡出 + 上滑 + 微缩放 0.2s，结束后由脚本移除 */
+    .pv-message-leave { opacity: 0; transform: translateY(-8px) scale(0.96); transition: opacity 0.2s var(--transition-timing-function-standard), transform 0.2s var(--transition-timing-function-standard); }
+    .pv-message-pop { opacity: 0; transform: scale(1.06); transition: opacity 0.22s var(--transition-timing-function-standard), transform 0.22s var(--transition-timing-function-standard); }
+    .pv-message-clickable { cursor: pointer; }
+  </style>
+  <script>
+  /* message：关闭按钮移除消息；无按钮消息点击短暂放大消失；默认消息 3s 自动淡出移除 */
+  (function () {
+    'use strict';
+
+    function findAll(sel, root) {
+      return Array.prototype.slice.call((root || document).querySelectorAll(sel));
+    }
+
+    function dismiss(msg, cls) {
+      if (!msg || msg._dismissed) return;
+      msg._dismissed = true;
+      if (msg._timer) clearTimeout(msg._timer);
+      /* 移除进入动画 class，避免动画（fill 态）覆盖离开过渡 */
+      msg.classList.remove('pv-message-enter');
+      msg.classList.add(cls || 'pv-message-leave');
+      /* 交互动效用：离开动画时长 leave 0.2s / pop 0.22s，结束后移除 */
+      var delay = cls === 'pv-message-pop' ? 250 : 220;
+      setTimeout(function () {
+        /* 空指针防护：元素可能已被移除 */
+        if (msg.parentNode) msg.parentNode.removeChild(msg);
+      }, delay);
+    }
+
+    findAll('.giencoder-message').forEach(function (msg) {
+      /* 交互动效用：消息出现 — 淡入 + 下滑 */
+      msg.classList.add('pv-message-enter');
+      var closeBtn = msg.querySelector('.giencoder-message-close-btn');
+      if (closeBtn) {
+        // 有关闭按钮：点击移除
+        closeBtn.addEventListener('click', function () { dismiss(msg); });
+      } else {
+        // 无关闭按钮：点击短暂放大消失
+        msg.classList.add('pv-message-clickable');
+        msg.addEventListener('click', function () { dismiss(msg, 'pv-message-pop'); });
+      }
+      // 默认消息 3s 自动消失（closable 示例留给手动关闭演示）
+      if (msg.getAttribute('data-variant') !== 'closable') {
+        msg._timer = setTimeout(function () { dismiss(msg); }, 3000);
+      }
+    });
+  })();
+  </script>
+    </main>
+  </div>
+<script src="preview-copy.js"></script>
+</body>
+</html>

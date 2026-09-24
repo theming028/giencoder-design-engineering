@@ -1,0 +1,187 @@
+{
+  "schemaVersion": 3,
+  "slug": "slider",
+  "name": "Slider",
+  "category": "data-entry",
+  "giencoderSource": {
+    "component": "Slider",
+    "version": "2.66.16"
+  },
+  "summary": "滑动条：通过拖拽手柄在 min/max 区间内取值，支持范围双滑块与刻度。",
+  "variants": [
+    {
+      "name": "single",
+      "description": "单滑块连续取值",
+      "whenToUse": "单个数值的粗略/连续调节"
+    },
+    {
+      "name": "range",
+      "description": "range 双滑块区间取值",
+      "whenToUse": "选择数值区间（如价格范围）"
+    },
+    {
+      "name": "vertical",
+      "description": "vertical 垂直方向",
+      "whenToUse": "纵向空间充裕或高度类比场景"
+    },
+    {
+      "name": "marks",
+      "description": "marks 刻度与标注文字",
+      "whenToUse": "需要明确刻度语义（如 0/50/100）"
+    },
+    {
+      "name": "tooltip",
+      "description": "showTooltip 拖动时显示数值气泡",
+      "whenToUse": "需要精确读数反馈"
+    }
+  ],
+  "sizes": [
+    {
+      "name": "default",
+      "value": "轨道 4px / 手柄 14px",
+      "usage": "固定尺寸，无尺寸档位"
+    }
+  ],
+  "states": [
+    {
+      "name": "default",
+      "description": "未交互态",
+      "visual": "轨道 --color-border-2，已选段 --color-primary-6"
+    },
+    {
+      "name": "hover",
+      "description": "鼠标悬停",
+      "visual": "手柄轻微放大并出现主色描边"
+    },
+    {
+      "name": "active",
+      "description": "拖拽中",
+      "visual": "手柄阴影加深，轨道填充跟随"
+    },
+    {
+      "name": "focus",
+      "description": "键盘焦点",
+      "visual": "手柄出现可见焦点环"
+    },
+    {
+      "name": "disabled",
+      "description": "禁用态",
+      "visual": "轨道与手柄 --color-fill-3 灰化，不可交互"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "track",
+      "element": "div",
+      "description": "未选轨道背景"
+    },
+    {
+      "part": "track-fill",
+      "element": "div",
+      "description": "已选区间填充段，主色"
+    },
+    {
+      "part": "button",
+      "element": "div",
+      "description": "滑块手柄，可拖拽/键盘操作"
+    },
+    {
+      "part": "mark",
+      "element": "div",
+      "description": "刻度线与刻度文字"
+    },
+    {
+      "part": "tooltip",
+      "element": "div",
+      "description": "拖动时的数值气泡"
+    }
+  ],
+  "interaction": {
+    "hover": "手柄微放大 + 主色描边；轨道可点击跳转取值",
+    "focus": "手柄可见焦点环",
+    "keyboard": [
+      "ArrowLeft/ArrowDown: 按 step 减小值",
+      "ArrowRight/ArrowUp: 按 step 增大值",
+      "Home: 跳到最小值 min",
+      "End: 跳到最大值 max",
+      "Tab: 焦点进入/离开滑块手柄"
+    ],
+    "motion": {
+      "duration": "0.1s~0.2s",
+      "easing": "standard",
+      "description": "手柄按压反馈 0.1s，数值气泡显隐 0.2s，拖动即时响应"
+    },
+    "behaviorNotes": "range 模式双手柄互不越界；marks 模式可 onlyMarkValue 吸附刻度；vertical 模式方向键语义对调；支持 formatTooltip 格式化气泡文案"
+  },
+  "a11y": {
+    "role": "slider",
+    "ariaAttrs": [
+      "aria-valuemin",
+      "aria-valuemax",
+      "aria-valuenow",
+      "aria-orientation",
+      "aria-label",
+      "aria-disabled"
+    ],
+    "contrastNote": "已选段 --color-primary-6 与背景轨道对比明显；禁用态 --color-fill-3 属预期降级",
+    "focusNote": "手柄可见焦点环，方向键精确步进取值"
+  },
+  "usage": [
+    "连续数值或粗略调节场景",
+    "区间选择用 range 双滑块",
+    "刻度语义明确时配 marks",
+    "精确数值场景优先考虑 InputNumber",
+    "触屏场景确保手柄命中区域足够"
+  ],
+  "doNotInvent": [
+    "不得虚构官方不存在的输入框联动（源启 Slider 无 withInput）",
+    "不得新增步进箭头等非官方控件",
+    "不得在 disabled 下保留拖拽反馈",
+    "不得自定义刻度渲染脱离 marks 协议"
+  ],
+  "tokensConsumed": [
+    "--color-primary-6",
+    "--color-border-2",
+    "--color-fill-3",
+    "--color-bg-5",
+    "--color-text-1",
+    "--color-text-3",
+    "--border-radius-circle"
+  ],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "SliderProps",
+    "props": [
+      "className",
+      "data",
+      "disabled",
+      "draggableBar",
+      "extra",
+      "formatTooltip",
+      "getTooltipContainer",
+      "intervalConfigs",
+      "max",
+      "maxValue",
+      "min",
+      "minValue",
+      "onArrowEvent",
+      "onChange",
+      "onMouseDown",
+      "onMoveBegin",
+      "onMoveEnd",
+      "onMoving",
+      "prefixCls",
+      "range",
+      "reverse",
+      "step",
+      "style",
+      "tooltipPosition",
+      "tooltipVisible",
+      "value",
+      "valueRange",
+      "vertical"
+    ],
+    "total": 28,
+    "syncDate": "2026/08/28"
+  }
+}

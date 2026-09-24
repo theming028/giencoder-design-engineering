@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>Switch 开关</title>
+  <link rel="stylesheet" href="preview-scaffold.css">
+  <link rel="stylesheet" href="../colors_and_type.css">
+  <link rel="stylesheet" href="../components.css">
+  <style>
+    /* 交互动效用：背景色过渡 0.2s + 滑块位移 0.2s（已有 transition，此处细化属性）+ 滑块 scale 弹跳 */
+    .giencoder-switch {
+      transition: background-color 0.2s var(--transition-timing-function-standard);
+    }
+    .giencoder-switch-handle {
+      transition: left 0.2s var(--transition-timing-function-standard);
+    }
+    @keyframes giencoder-switch-handle-pop {
+      0%   { transform: scale(1); }
+      50%  { transform: scale(1.18); }
+      100% { transform: scale(1); }
+    }
+    .giencoder-switch-handle.giencoder-switch-pop {
+      animation: giencoder-switch-handle-pop 0.2s var(--transition-timing-function-standard);
+    }
+  </style>
+</head>
+<body>
+  <div class="pv-layout">
+    <aside class="pv-sidebar">
+      <div class="pv-nav">
+        <div class="pv-menu-group">入口</div>
+        <a href="../home.html">首页</a>
+        <a href="../../GETTING-STARTED.html">使用说明书</a>
+        <div class="pv-menu-group">组件</div>
+        <a href="../index.html#general">通用</a>
+        <a href="../index.html#layout">布局</a>
+        <a href="../index.html#navigation">导航</a>
+        <a href="../index.html#data-entry" class="active">数据录入</a>
+        <a href="../index.html#data-display">数据展示</a>
+        <a href="../index.html#feedback">反馈</a>
+        <a href="../index.html#other">其他</a>
+        <div class="pv-menu-group">资源</div>
+        <a href="../index.html#uikits">页面样板</a>
+        <a href="../index.html#docs">规范文档</a>
+      </div>
+    </aside>
+    <main class="pv-content">
+  <a class="pv-back" href="../index.html#data-entry">← 返回组件库</a>
+  <div class="pv-header">
+    <h1>Switch 开关</h1>
+    <p>源启开关：开/关/禁用/加载，胶囊与圆形形态。</p>
+  </div>
+
+  <!-- ============ 变体：基础开关 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Default 基础开关</div>
+    <div class="row" style="gap:24px; align-items:center;">
+      <button class="giencoder-switch giencoder-switch-checked" role="switch" aria-checked="true" data-component="switch" data-variant="default" data-state="checked">
+        <span class="giencoder-switch-handle"></span>
+      </button>
+      <button class="giencoder-switch" role="switch" aria-checked="false" data-component="switch" data-variant="default" data-state="default">
+        <span class="giencoder-switch-handle"></span>
+      </button>
+      <button class="giencoder-switch giencoder-switch-disabled" role="switch" aria-checked="true" aria-disabled="true" data-component="switch" data-variant="default" data-state="disabled">
+        <span class="giencoder-switch-handle"></span>
+      </button>
+      <button class="giencoder-switch giencoder-switch-loading giencoder-switch-checked" role="switch" aria-checked="true" aria-busy="true" data-component="switch" data-variant="default" data-state="loading">
+        <span class="giencoder-switch-handle giencoder-switch-loading-icon"></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ============ 变体：带文字 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">With Text 带文字开关</div>
+    <div class="row" style="gap:24px; align-items:center;">
+      <button class="giencoder-switch giencoder-switch-checked giencoder-switch-with-text" role="switch" aria-checked="true" data-component="switch" data-variant="text" data-state="checked">
+        <span class="giencoder-switch-text">开</span>
+        <span class="giencoder-switch-handle"></span>
+      </button>
+      <button class="giencoder-switch giencoder-switch-with-text" role="switch" aria-checked="false" data-component="switch" data-variant="text" data-state="default">
+        <span class="giencoder-switch-handle"></span>
+        <span class="giencoder-switch-text">关</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ============ 变体：场景示例 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Config Item 配置项示例（配合说明文字）</div>
+    <div class="row" style="flex-direction:column; gap:12px; align-items:stretch; max-width:480px;">
+      <div style="display:flex; align-items:center; justify-content:space-between; padding:12px 16px; border:1px solid var(--color-border-2); border-radius:4px;">
+        <div>
+          <div style="font-size:14px; color:var(--color-text-1);">自动备份</div>
+          <div style="font-size:12px; color:var(--color-text-3); margin-top:2px;">每日凌晨自动备份数据</div>
+        </div>
+        <button class="giencoder-switch giencoder-switch-checked" role="switch" aria-checked="true" aria-label="自动备份" data-component="switch" data-variant="config" data-state="checked">
+          <span class="giencoder-switch-handle"></span>
+        </button>
+      </div>
+      <div style="display:flex; align-items:center; justify-content:space-between; padding:12px 16px; border:1px solid var(--color-border-2); border-radius:4px;">
+        <div>
+          <div style="font-size:14px; color:var(--color-text-1);">消息通知</div>
+          <div style="font-size:12px; color:var(--color-text-3); margin-top:2px;">接收系统消息与告警通知</div>
+        </div>
+        <button class="giencoder-switch" role="switch" aria-checked="false" aria-label="消息通知" data-component="switch" data-variant="config" data-state="default">
+          <span class="giencoder-switch-handle"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* 源启交互脚本 — switch
+     * 1. 点击开关切换开/关：giencoder-switch-checked class 切换 + aria-checked 同步
+     * 2. disabled / loading 点击无效
+     */
+    (function () {
+      'use strict';
+      var switches = document.querySelectorAll('button.giencoder-switch');
+      switches.forEach(function (sw) {
+        sw.addEventListener('click', function () {
+          if (sw.classList.contains('giencoder-switch-disabled')) { return; }
+          if (sw.classList.contains('giencoder-switch-loading')) { return; }
+          var checked = sw.getAttribute('aria-checked') === 'true';
+          checked = !checked;
+          sw.classList.toggle('giencoder-switch-checked', checked);
+          sw.setAttribute('aria-checked', String(checked));
+          /* 动效：滑块 scale 弹跳（重触发动画） */
+          var handle = sw.querySelector('.giencoder-switch-handle');
+          if (handle) {
+            handle.classList.remove('giencoder-switch-pop');
+            void handle.offsetWidth;
+            handle.classList.add('giencoder-switch-pop');
+          }
+        });
+      });
+    })();
+  </script>
+    </main>
+  </div>
+<script src="preview-copy.js"></script>
+</body>
+</html>

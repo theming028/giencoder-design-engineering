@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>Breadcrumb 面包屑</title>
+  <link rel="stylesheet" href="preview-scaffold.css">
+  <link rel="stylesheet" href="../colors_and_type.css">
+  <link rel="stylesheet" href="../components.css">
+  <style>
+    /* 交互脚本用：被点击层级高亮 */
+    .giencoder-breadcrumb-item-pressed { color: var(--color-primary-6); font-weight: 600; }
+  </style>
+</head>
+<body>
+  <div class="pv-layout">
+    <aside class="pv-sidebar">
+      <div class="pv-nav">
+        <div class="pv-menu-group">入口</div>
+        <a href="../home.html">首页</a>
+        <a href="../../GETTING-STARTED.html">使用说明书</a>
+        <div class="pv-menu-group">组件</div>
+        <a href="../index.html#general">通用</a>
+        <a href="../index.html#layout">布局</a>
+        <a href="../index.html#navigation" class="active">导航</a>
+        <a href="../index.html#data-entry">数据录入</a>
+        <a href="../index.html#data-display">数据展示</a>
+        <a href="../index.html#feedback">反馈</a>
+        <a href="../index.html#other">其他</a>
+        <div class="pv-menu-group">资源</div>
+        <a href="../index.html#uikits">页面样板</a>
+        <a href="../index.html#docs">规范文档</a>
+      </div>
+    </aside>
+    <main class="pv-content">
+  <a class="pv-back" href="../index.html#navigation">← 返回组件库</a>
+  <div class="pv-header">
+    <h1>Breadcrumb 面包屑</h1>
+    <p>源启面包屑：层级路径、自定义分隔符、当前页态。</p>
+  </div>
+
+  <!-- ============ 变体：标准 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Default 标准面包屑</div>
+    <div class="row">
+      <div class="giencoder-breadcrumb" data-component="breadcrumb" data-variant="default" data-state="default" aria-label="面包屑">
+        <div class="giencoder-breadcrumb-item">
+          <a class="giencoder-breadcrumb-item-link" href="#">首页</a>
+        </div>
+        <span class="giencoder-breadcrumb-item-separator">/</span>
+        <div class="giencoder-breadcrumb-item">
+          <a class="giencoder-breadcrumb-item-link" href="#">项目管理</a>
+        </div>
+        <span class="giencoder-breadcrumb-item-separator">/</span>
+        <div class="giencoder-breadcrumb-item">
+          <span class="giencoder-breadcrumb-item-link giencoder-breadcrumb-item-current" aria-current="page">项目详情</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 变体：图标分隔符 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Custom Separator 图标分隔符</div>
+    <div class="row">
+      <div class="giencoder-breadcrumb" data-component="breadcrumb" data-variant="separator" data-state="default" aria-label="面包屑">
+        <div class="giencoder-breadcrumb-item">
+          <a class="giencoder-breadcrumb-item-link" href="#">控制台</a>
+        </div>
+        <span class="giencoder-breadcrumb-item-separator">
+          <svg viewBox="0 0 12 12" width="10" height="10" fill="none" stroke="var(--color-text-3)" stroke-width="1.5" stroke-linecap="round"><path d="M4.5 2.5L8 6l-3.5 3.5"/></svg>
+        </span>
+        <div class="giencoder-breadcrumb-item">
+          <a class="giencoder-breadcrumb-item-link" href="#">服务列表</a>
+        </div>
+        <span class="giencoder-breadcrumb-item-separator">
+          <svg viewBox="0 0 12 12" width="10" height="10" fill="none" stroke="var(--color-text-3)" stroke-width="1.5" stroke-linecap="round"><path d="M4.5 2.5L8 6l-3.5 3.5"/></svg>
+        </span>
+        <div class="giencoder-breadcrumb-item">
+          <span class="giencoder-breadcrumb-item-link giencoder-breadcrumb-item-current" aria-current="page">服务详情</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 变体：带省略 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Ellipsis 省略长层级</div>
+    <div class="row">
+      <div class="giencoder-breadcrumb" data-component="breadcrumb" data-variant="ellipsis" data-state="default" aria-label="面包屑">
+        <div class="giencoder-breadcrumb-item">
+          <a class="giencoder-breadcrumb-item-link" href="#">首页</a>
+        </div>
+        <span class="giencoder-breadcrumb-item-separator">/</span>
+        <div class="giencoder-breadcrumb-item">
+          <a class="giencoder-breadcrumb-item-link" href="#">组织</a>
+        </div>
+        <span class="giencoder-breadcrumb-item-separator">/</span>
+        <div class="giencoder-breadcrumb-item">
+          <span class="giencoder-breadcrumb-item-ellipsis">…</span>
+        </div>
+        <span class="giencoder-breadcrumb-item-separator">/</span>
+        <div class="giencoder-breadcrumb-item">
+          <span class="giencoder-breadcrumb-item-link giencoder-breadcrumb-item-current" aria-current="page">当前页面</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+  (function () {
+    'use strict';
+    /* component-breadcrumb：交互清单
+       1. 可点击链接项（a.giencoder-breadcrumb-item-link，有 href）点击：preventDefault + 高亮该级，同一面包屑内互斥
+       2. 末级当前页（.giencoder-breadcrumb-item-current，span 非链接）天然不可点击 */
+    var PRESSED = 'giencoder-breadcrumb-item-pressed';
+    document.querySelectorAll('a.giencoder-breadcrumb-item-link').forEach(function (link) {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        var crumb = link.closest('.giencoder-breadcrumb');
+        if (crumb) {
+          crumb.querySelectorAll('a.giencoder-breadcrumb-item-link').forEach(function (other) {
+            other.classList.remove(PRESSED);
+          });
+        }
+        link.classList.add(PRESSED);
+      });
+    });
+  })();
+  </script>
+    </main>
+  </div>
+<script src="preview-copy.js"></script>
+</body>
+</html>

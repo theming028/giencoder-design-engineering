@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>颜色选择 ColorPicker</title>
+  <link rel="stylesheet" href="preview-scaffold.css">
+  <link rel="stylesheet" href="../colors_and_type.css">
+  <link rel="stylesheet" href="../components.css">
+  <style>
+    .giencoder-color-picker { position: relative; display: inline-block; }
+    .giencoder-color-picker-trigger {
+      display: inline-flex; align-items: center; gap: var(--spacing-4);
+      height: 32px; padding: 0 var(--spacing-6);
+      background: var(--color-bg-2); border: 1px solid var(--color-border-2);
+      border-radius: 8px; cursor: pointer;
+      font-size: var(--font-size-body-3); color: var(--color-text-1);
+      box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 0 0 1px var(--color-bg-2);
+      transition: border-color var(--transition-duration-1) var(--transition-timing-function-standard),
+                  box-shadow 180ms cubic-bezier(0.23, 1, 0.32, 1), background-color 80ms ease;
+    }
+    /* 触发框 hover/按压：仅背景变浅、无投影（hover/active box-shadow: none），与 Select 触发框一致 */
+    .giencoder-color-picker-trigger:hover {
+      background: var(--color-fill-1);
+      box-shadow: none;
+    }
+    .giencoder-color-picker-trigger:active {
+      background: var(--color-bg-2);
+      box-shadow: none;
+      transition-duration: 80ms, 80ms, 80ms;
+    }
+    .giencoder-color-picker-swatch {
+      width: 14px; height: 14px; border-radius: var(--border-radius-small);
+      background: var(--color-primary-6); border: 1px solid var(--color-border-2);
+      flex-shrink: 0;
+    }
+    .giencoder-color-picker-popup {
+      position: absolute; top: calc(100% + 4px); left: 0; z-index: 10;
+      background: var(--color-bg-popup); border: 1px solid var(--color-border-2);
+      border-radius: var(--border-radius-large); box-shadow: var(--shadow2-down);
+      padding: var(--spacing-6);
+    }
+    .giencoder-color-picker-swatches {
+      display: grid; grid-template-columns: repeat(6, 24px); gap: var(--spacing-4);
+    }
+    .giencoder-color-picker-block {
+      width: 24px; height: 24px; border-radius: var(--border-radius-small);
+      cursor: pointer; border: 1px solid var(--color-border-2); box-sizing: border-box;
+    }
+    .giencoder-color-picker-block:hover { transform: scale(1.1); }
+    .giencoder-color-picker-block-selected { border: 2px solid var(--color-primary-6); }
+    .giencoder-color-picker-divider { height: 1px; background: var(--color-border-1); margin: var(--spacing-6) 0; }
+    .giencoder-color-picker-custom { display: flex; align-items: center; gap: var(--spacing-4); }
+    .giencoder-color-picker-label { font-size: var(--font-size-body-2); color: var(--color-text-3); }
+
+    /* 交互动效：面板展开/收起（点击过渡，standard 缓动） */
+    .giencoder-color-picker-popup {
+      opacity: 0; visibility: hidden;
+      transform: scale(0.97) translateY(4px);
+      transition: opacity var(--transition-duration-2) var(--transition-timing-function-standard),
+                  transform var(--transition-duration-2) var(--transition-timing-function-spring),
+                  visibility var(--transition-duration-2) var(--transition-timing-function-standard);
+      will-change: opacity, transform;
+    }
+    .giencoder-color-picker-popup.giencoder-panel-open {
+      opacity: 1; visibility: visible;
+      transform: scale(1) translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <div class="pv-layout">
+    <aside class="pv-sidebar">
+      <div class="pv-nav">
+        <div class="pv-menu-group">入口</div>
+        <a href="../home.html">首页</a>
+        <a href="../../GETTING-STARTED.html">使用说明书</a>
+        <div class="pv-menu-group">组件</div>
+        <a href="../index.html#general">通用</a>
+        <a href="../index.html#layout">布局</a>
+        <a href="../index.html#navigation">导航</a>
+        <a href="../index.html#data-entry" class="active">数据录入</a>
+        <a href="../index.html#data-display">数据展示</a>
+        <a href="../index.html#feedback">反馈</a>
+        <a href="../index.html#other">其他</a>
+        <div class="pv-menu-group">资源</div>
+        <a href="../index.html#uikits">页面样板</a>
+        <a href="../index.html#docs">规范文档</a>
+      </div>
+    </aside>
+    <main class="pv-content">
+  <a class="pv-back" href="../index.html#data-entry">← 返回组件库</a>
+  <div class="pv-header">
+    <h1>ColorPicker</h1>
+    <p>取色器：触发按钮展示当前色块与 HEX 值，弹层提供 12 色预设色板与自定义颜色输入。</p>
+  </div>
+
+  <!-- ============ 变体：触发按钮 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Trigger 触发按钮</div>
+    <div class="row">
+      <div class="giencoder-color-picker" data-component="color-picker" data-variant="trigger" data-state="default">
+        <button class="giencoder-color-picker-trigger" type="button">
+          <span class="giencoder-color-picker-swatch"></span>
+          <span>#3770F7</span>
+          <svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 4l4 4 4-4"/></svg>
+        </button>
+      </div>
+      <div class="giencoder-color-picker" data-component="color-picker" data-variant="trigger" data-state="default">
+        <button class="giencoder-color-picker-trigger" type="button">
+          <span class="giencoder-color-picker-swatch" style="background: var(--color-bg-5); border-color: var(--color-border-3);"></span>
+          <span style="color: var(--color-text-3);">选择颜色</span>
+          <svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 4l4 4 4-4"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 变体：弹层（预设色板 + 自定义输入） ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Panel 取色器弹层（选中色块加边框高亮）</div>
+    <div class="row">
+      <div class="giencoder-color-picker" data-component="color-picker" data-variant="panel" data-state="default">
+        <button class="giencoder-color-picker-trigger" type="button">
+          <span class="giencoder-color-picker-swatch"></span>
+          <span>#3770F7</span>
+          <svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 4l4 4 4-4"/></svg>
+        </button>
+        <div class="giencoder-color-picker-popup">
+          <div class="giencoder-color-picker-swatches">
+            <span class="giencoder-color-picker-block giencoder-color-picker-block-selected" style="background: var(--color-primary-6);"></span>
+            <span class="giencoder-color-picker-block" style="background: rgb(var(--blue-6));"></span>
+            <span class="giencoder-color-picker-block" style="background: rgb(var(--cyan-6));"></span>
+            <span class="giencoder-color-picker-block" style="background: rgb(var(--green-6));"></span>
+            <span class="giencoder-color-picker-block" style="background: rgb(var(--lime-6));"></span>
+            <span class="giencoder-color-picker-block" style="background: rgb(var(--yellow-6));"></span>
+            <span class="giencoder-color-picker-block" style="background: rgb(var(--gold-6));"></span>
+            <span class="giencoder-color-picker-block" style="background: rgb(var(--orange-6));"></span>
+            <span class="giencoder-color-picker-block" style="background: rgb(var(--red-6));"></span>
+            <span class="giencoder-color-picker-block" style="background: rgb(var(--magenta-6));"></span>
+            <span class="giencoder-color-picker-block" style="background: rgb(var(--pinkpurple-6));"></span>
+            <span class="giencoder-color-picker-block" style="background: rgb(var(--purple-6));"></span>
+          </div>
+          <div class="giencoder-color-picker-divider"></div>
+          <div class="giencoder-color-picker-custom">
+            <span class="giencoder-color-picker-label">自定义</span>
+            <div class="giencoder-input-wrapper" style="width: 110px;">
+              <span class="giencoder-input-prefix">#</span>
+              <input class="giencoder-input" value="165DFF" aria-label="自定义颜色 HEX 值">
+            </div>
+            <button class="giencoder-btn giencoder-btn-primary giencoder-btn-size-small" type="button">确定</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<script>
+/* ============================================================
+ * 源启 ColorPicker 交互脚本（component-color-picker）
+ * 1) 点击触发按钮：展开/收起色板弹层（克隆既有弹层，fixed 定位到触发按钮下，带展开/收起过渡）
+ * 2) 点击预设色块：互斥选中高亮（giencoder-color-picker-block-selected）+ 同步触发按钮
+ *    色块背景与 HEX 文本 + 收起
+ * 3) HEX 输入框回车 / 确定按钮：应用自定义颜色（含 3/6 位 hex 校验）
+ * 4) 静态展示弹层色块点击：高亮 + 同步自身触发按钮（保持展示）
+ * 5) 点击外部 / Esc：收起
+ * ============================================================ */
+(function () {
+  'use strict';
+
+  function $(sel, root) { return (root || document).querySelector(sel); }
+  function $$(sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); }
+
+  var srcPopup = $('.giencoder-color-picker-popup');
+  if (!srcPopup) return;
+  srcPopup.classList.add('giencoder-panel-open'); // 静态展示弹层保持展开态
+
+  function rgbToHex(rgb) {
+    if (!rgb) return '#3770F7';
+    var m = rgb.match(/\d+(\.\d+)?/g);
+    if (!m || m.length < 3) return '#3770F7';
+    return '#' + m.slice(0, 3).map(function (n) {
+      return ('0' + Math.round(Number(n)).toString(16)).slice(-2);
+    }).join('').toUpperCase();
+  }
+
+  function syncTrigger(btn, hex) {
+    if (!btn) return;
+    $$('span', btn).forEach(function (s) {
+      if (s.classList.contains('giencoder-color-picker-swatch')) {
+        s.style.background = hex;
+        s.style.borderColor = 'var(--color-border-2)';
+      } else {
+        s.textContent = hex;
+        s.style.color = '';
+      }
+    });
+  }
+
+  // 交互弹层：克隆静态弹层，fixed 定位
+  var popup = srcPopup.cloneNode(true);
+  popup.removeAttribute('data-component');
+  popup.setAttribute('data-interactive', '1');
+  popup.style.position = 'fixed';
+  popup.style.zIndex = '1000';
+  popup.style.display = 'none';
+  document.body.appendChild(popup);
+  popup.classList.remove('giencoder-panel-open'); // 克隆弹层从收起态开始，展开时再播放动画
+
+  var activeBtn = null;
+
+  function openFor(btn) {
+    activeBtn = btn;
+    var r = btn.getBoundingClientRect();
+    var w = popup.offsetWidth || 220;
+    popup.style.left = Math.min(r.left, Math.max(8, window.innerWidth - w - 8)) + 'px';
+    popup.style.top = (r.bottom + 4) + 'px';
+    popup.style.display = '';
+    // 展开动画：先显示，再于下一帧加 open class 触发过渡
+    requestAnimationFrame(function () {
+      if (popup.isConnected) popup.classList.add('giencoder-panel-open');
+    });
+  }
+  function close() {
+    if (!popup.classList.contains('giencoder-panel-open') && popup.style.display === 'none') {
+      activeBtn = null;
+      return;
+    }
+    // 收起动画：移除 open class 播放退场，200ms 过渡结束后隐藏
+    popup.classList.remove('giencoder-panel-open');
+    setTimeout(function () {
+      if (popup.isConnected && !popup.classList.contains('giencoder-panel-open')) {
+        popup.style.display = 'none';
+      }
+    }, 200);
+    activeBtn = null;
+  }
+
+  // 1) 触发按钮（仅 trigger 变体；panel 变体为静态展示）
+  $$('.giencoder-color-picker[data-variant="trigger"] .giencoder-color-picker-trigger').forEach(function (btn) {
+    btn.addEventListener('click', function (ev) {
+      ev.stopPropagation();
+      var isOpen = popup.classList.contains('giencoder-panel-open') && popup.style.display !== 'none';
+      if (!isOpen || activeBtn !== btn) openFor(btn);
+      else close();
+    });
+  });
+
+  // 5) 外部点击 / Esc 收起
+  document.addEventListener('click', function (ev) {
+    if (popup.contains(ev.target)) return;
+    close();
+  });
+  document.addEventListener('keydown', function (ev) {
+    if (ev.key === 'Escape') close();
+  });
+
+  // 2) 预设色块
+  $$('.giencoder-color-picker-block').forEach(function (block) {
+    block.addEventListener('click', function (ev) {
+      ev.stopPropagation();
+      var grid = block.closest('.giencoder-color-picker-swatches');
+      if (grid) {
+        $$('.giencoder-color-picker-block', grid).forEach(function (b) {
+          b.classList.remove('giencoder-color-picker-block-selected');
+        });
+      }
+      block.classList.add('giencoder-color-picker-block-selected');
+      var hex = rgbToHex(getComputedStyle(block).backgroundColor);
+      if (block.closest('[data-interactive]')) {
+        syncTrigger(activeBtn, hex);
+        close(); // 2) 选中后收起
+      } else {
+        var root = block.closest('.giencoder-color-picker');
+        if (root) syncTrigger($('.giencoder-color-picker-trigger', root), hex);
+      }
+    });
+  });
+
+  // 3) HEX 自定义：回车 / 确定
+  function applyCustom(custom) {
+    var input = $('.giencoder-color-picker-custom .giencoder-input', custom);
+    if (!input) return;
+    var hex = String(input.value).replace(/^#/, '').trim();
+    if (!/^[0-9a-fA-F]{3}$|^[0-9a-fA-F]{6}$/.test(hex)) return;
+    if (hex.length === 3) hex = hex.replace(/./g, function (c) { return c + c; });
+    hex = '#' + hex.toUpperCase();
+    if (custom.closest('[data-interactive]')) {
+      syncTrigger(activeBtn, hex);
+      close();
+    } else {
+      var picker = custom.closest('.giencoder-color-picker');
+      if (picker) syncTrigger($('.giencoder-color-picker-trigger', picker), hex);
+    }
+  }
+  $$('.giencoder-color-picker-custom').forEach(function (custom) {
+    var input = $('.giencoder-input', custom);
+    if (input) {
+      input.addEventListener('keydown', function (ev) {
+        if (ev.key === 'Enter') { ev.preventDefault(); applyCustom(custom); }
+      });
+    }
+    var ok = $('.giencoder-btn', custom);
+    if (ok) ok.addEventListener('click', function (ev) { ev.stopPropagation(); applyCustom(custom); });
+  });
+})();
+</script>
+    </main>
+  </div>
+<script src="preview-copy.js"></script>
+</body>
+</html>

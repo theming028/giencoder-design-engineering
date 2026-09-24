@@ -1,0 +1,168 @@
+{
+  "schemaVersion": 3,
+  "slug": "calendar",
+  "name": "Calendar",
+  "category": "data-display",
+  "giencoderSource": {
+    "component": "Calendar",
+    "version": "2.66.16"
+  },
+  "summary": "日历，支持月/年视图切换、日期范围选择与自定义单元格内容渲染。",
+  "variants": [
+    {
+      "name": "月视图",
+      "description": "按月展示日期网格，支持月份切换",
+      "whenToUse": "默认视图，选择或展示某一天"
+    },
+    {
+      "name": "年视图",
+      "description": "按年展示 12 个月份卡片",
+      "whenToUse": "快速定位年份或选择整月"
+    },
+    {
+      "name": "范围选择",
+      "description": "range 开启后在月视图中选择起止日期区间",
+      "whenToUse": "预订周期、活动起止时间等区间场景"
+    },
+    {
+      "name": "面板模式",
+      "description": "panel 模式去除完整头部，仅保留精简控制",
+      "whenToUse": "嵌入侧边栏、筛选器等紧凑空间"
+    },
+    {
+      "name": "自定义单元格",
+      "description": "dateCellRender/dateInnerContent/monthCellRender 自定义日期内容",
+      "whenToUse": "在日期中展示日程、标记或统计信息"
+    }
+  ],
+  "sizes": [],
+  "states": [
+    {
+      "name": "default",
+      "description": "常规日期单元格",
+      "visual": "文字 --color-text-1，今日标记 --color-primary-6"
+    },
+    {
+      "name": "hover",
+      "description": "鼠标悬停日期",
+      "visual": "单元格背景 --color-fill-2"
+    },
+    {
+      "name": "selected",
+      "description": "选中日期",
+      "visual": "背景 --color-primary-6，文字 --color-white"
+    },
+    {
+      "name": "disabled",
+      "description": "禁用日期（disabledDate）",
+      "visual": "文字 --color-text-4，不可交互"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "头部",
+      "element": "div.giencoder-calendar-header",
+      "description": "年月切换按钮、视图切换与今日快捷入口"
+    },
+    {
+      "part": "星期栏",
+      "element": "div.giencoder-calendar-week-list",
+      "description": "周一至周日表头"
+    },
+    {
+      "part": "日期网格",
+      "element": "div.giencoder-calendar-month",
+      "description": "按周排布的日期单元格矩阵"
+    },
+    {
+      "part": "日期单元格",
+      "element": "div.giencoder-calendar-date",
+      "description": "单个日期，含值、内容渲染区与选中/今日标记"
+    }
+  ],
+  "interaction": {
+    "hover": "日期单元格悬停显示 --color-fill-2 背景",
+    "focus": "聚焦日期单元格显示 --color-primary-6 焦点环",
+    "keyboard": [
+      "Tab: 聚焦当前日期单元格",
+      "ArrowLeft/ArrowRight: 切换前一天/后一天",
+      "ArrowUp/ArrowDown: 切换前一周/后一周",
+      "Enter/Space: 选中当前聚焦日期"
+    ],
+    "motion": {
+      "duration": "0.1s~0.3s",
+      "easing": "decelerate",
+      "description": "选中态背景与视图切换的过渡（--transition-duration-1~2）"
+    },
+    "behaviorNotes": "范围选择模式下再次点击结束日期完成区间选择；disabledDate 返回 true 的日期不可选。"
+  },
+  "a11y": {
+    "role": "grid",
+    "ariaAttrs": [
+      "aria-label: 当前展示的年月（如 2026 年 8 月）",
+      "aria-selected: 日期单元格的选中状态",
+      "aria-disabled: 禁用日期状态"
+    ],
+    "contrastNote": "选中日白字配 --color-primary-6 弧蓝背景，对比度满足 WCAG AA",
+    "focusNote": "日期单元格可聚焦并支持方向键导航，焦点环使用 --color-primary-6 保证可见"
+  },
+  "usage": [
+    "范围选择需配合 range 与 onChange 完整处理起止值",
+    "自定义单元格渲染时保持日期可读性，避免信息过度堆叠",
+    "为日历提供明确的年月上下文，辅助键盘与读屏用户定位"
+  ],
+  "doNotInvent": [
+    "不虚构周起始日可配置等未提供能力",
+    "不杜撰农历、节假日等内置展示（需自行通过单元格渲染实现）",
+    "不在面板模式下虚构完整头部功能"
+  ],
+  "tokensConsumed": [
+    "--color-primary-6",
+    "--color-fill-2",
+    "--color-text-1",
+    "--color-text-4",
+    "--color-white",
+    "--color-bg-2"
+  ],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "CalendarProps",
+    "props": [
+      "CALENDAR_LOCALE",
+      "allowSelect",
+      "cell",
+      "className",
+      "dateInnerContent",
+      "dateRender",
+      "dayStartOfWeek",
+      "defaultMode",
+      "defaultPageShowDate",
+      "defaultValue",
+      "disabledDate",
+      "headerRender",
+      "innerMode",
+      "isWeek",
+      "mergedPageShowDate",
+      "mergedValue",
+      "mode",
+      "modes",
+      "monthRender",
+      "onChange",
+      "onChangeMode",
+      "onChangePageDate",
+      "onPanelChange",
+      "pageData",
+      "pageShowDate",
+      "panel",
+      "panelOperations",
+      "panelTodayBtn",
+      "panelWidth",
+      "prefixCls",
+      "selectHandler",
+      "style",
+      "value"
+    ],
+    "total": 33,
+    "syncDate": "2026/08/28"
+  }
+}

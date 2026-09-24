@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-page-node-id="4rfKaoUPxfXFSZYtkOjAmy">
+<head data-page-node-id="NgDklABU7w3u356rvP9Mj2">
+  <meta charset="UTF-8" data-page-node-id="S5Bd9eMlqTBvB2cOjhRXIU">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" data-page-node-id="4j74xyUaYWkMEO8Bid84yG">
+  <title>GienCoder 设计系统 — 首页</title>
+  <link rel="stylesheet" href="colors_and_type.css" data-page-node-id="t0wrNO2slK7vpxfdnCfPjf">
+  <link rel="stylesheet" href="components.css" data-page-node-id="UwwVO6iAT7z37KDdzZAEur">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: var(--font-family); background: var(--color-bg-1); color: var(--color-text-1); }
+    .layout { display: flex; align-items: flex-start; }
+    .sidebar {
+      width: 232px; flex-shrink: 0; position: sticky; top: 0; height: 100vh;
+      overflow-y: auto; border-right: 1px solid var(--color-border-1);
+      background: var(--color-bg-1); padding: 24px 16px 48px;
+    }
+    .menu-group-title { font-size: 12px; color: var(--color-text-3); padding: 10px 14px 6px; letter-spacing: 0.5px; }
+    .nav { display: flex; flex-direction: column; gap: 2px; }
+    .nav a {
+      display: block; color: var(--color-text-2); text-decoration: none;
+      font-size: 14px; padding: 8px 14px; border-radius: 6px; transition: all 0.15s;
+    }
+    .nav a:hover { background: var(--color-fill-1); color: var(--color-text-1); }
+    .nav a.active { background: var(--color-primary-1); color: var(--color-primary-7); font-weight: 500; }
+    .content { flex: 1; min-width: 0; }
+    .section { padding: 32px 40px 8px; }
+    @media (max-width: 860px) {
+      .layout { display: block; }
+      .sidebar { width: auto; height: auto; position: static; border-right: none; border-bottom: 1px solid var(--color-border-1); padding: 12px 16px; }
+      .nav { flex-direction: row; flex-wrap: wrap; }
+    }
+    .section h2 { font-size: 20px; font-weight: 600; margin-bottom: 4px; }
+    .section .desc { font-size: 13px; color: var(--color-text-3); margin-bottom: 20px; }
+
+    /* hero 卡片（内容区内） */
+    .hero {
+      background: linear-gradient(135deg, var(--color-primary-6, #3770F7) 0%, var(--color-primary-7, #346AE9) 100%);
+      color: var(--color-white, #fff); padding: 40px 36px; border-radius: 12px;
+    }
+    .hero h1 { font-size: 28px; font-weight: 600; margin-bottom: 10px; }
+    .hero p { font-size: 14px; opacity: 0.9; max-width: 720px; line-height: 1.8; }
+    .hero .badge-line { margin-top: 18px; display: flex; gap: 12px; flex-wrap: wrap; }
+    .hero .badge {
+      background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 999px; padding: 4px 14px; font-size: 12px;
+    }
+    .hero .cta-line { margin-top: 24px; display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+    .hero .cta {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--color-white, #fff); color: var(--color-primary-7, #346AE9);
+      padding: 10px 24px; border-radius: 8px; font-size: 14px; font-weight: 600;
+      text-decoration: none; box-shadow: 0 6px 18px rgba(0,0,0,.14); transition: all .18s;
+    }
+    .hero .cta:hover { transform: translateY(-1px); box-shadow: 0 10px 22px rgba(0,0,0,.2); color: var(--color-primary-8, #2E5ECE); }
+    .hero .cta-arrow { transition: transform .18s; }
+    .hero .cta:hover .cta-arrow { transform: translateX(3px); }
+    .hero .cta.ghost { background: transparent; color: var(--color-white, #fff); border: 1px solid rgba(255,255,255,.5); box-shadow: none; }
+    .hero .cta.ghost:hover { background: rgba(255,255,255,.12); color: var(--color-white, #fff); }
+
+    /* 快速开始卡片 */
+    .quick-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
+    .quick-card {
+      display: flex; flex-direction: column; gap: 6px;
+      background: var(--color-bg-2); border: 1px solid var(--color-border-2);
+      border-radius: 10px; padding: 22px; text-decoration: none; transition: all .2s;
+      color: var(--color-text-1);
+    }
+    .quick-card:hover { border-color: var(--color-primary-6); box-shadow: var(--shadow2-down); transform: translateY(-2px); }
+    .quick-card .t { font-size: 15px; font-weight: 600; color: var(--color-primary-7); }
+    .quick-card .d { font-size: 13px; color: var(--color-text-3); line-height: 1.6; }
+    .quick-card .go { margin-top: 8px; font-size: 13px; color: var(--color-primary-6); }
+    .footer { padding: 32px 40px; color: var(--color-text-3); font-size: 12px; border-top: 1px solid var(--color-border-1); margin-top: 40px; }
+  </style>
+</head>
+<body data-page-node-id="xLMJ3oxcQTtPR54TD5SWIf">
+  <div class="layout" data-page-node-id="DHTmKcYNVu5rGJ5wvBM5kp">
+    <aside class="sidebar" data-page-node-id="CGc2kURKJvFXtegHyyQHh6">
+      <div class="nav" id="top" data-page-node-id="aD8JfH1ftu0jl9E6rta24E">
+        <div class="menu-group-title" data-page-node-id="OKeLR5pDAS5KTN3F5VEwOI">入口</div>
+        <a href="home.html" data-page-node-id="zcUFh15GSVujEMDMPQmOuk">首页</a>
+        <a href="../GETTING-STARTED.html" data-page-node-id="0Z9NwLPWxHqcjstMA75YCx">使用说明书</a>
+        <div class="menu-group-title" data-page-node-id="CmL3sx0cuZN7DMFO8o01zn">组件</div>
+        <a href="index.html#general" data-page-node-id="ZMdkXGpIW2GbmnPGt3hMCc">通用</a>
+        <a href="index.html#layout" data-page-node-id="HkSFzM5vIZ5cKZ1o25Ay1E">布局</a>
+        <a href="index.html#navigation" data-page-node-id="NRog8t2nSqBUUCedvJSRhp">导航</a>
+        <a href="index.html#data-entry" data-page-node-id="CUhFnsZpFE3A4zHZAVGgsc">数据录入</a>
+        <a href="index.html#data-display" data-page-node-id="WBhE3EVNXkzTbCazMLCyQj">数据展示</a>
+        <a href="index.html#feedback" data-page-node-id="HZZRJTONJ7H7YzKHUA4YL1">反馈</a>
+        <a href="index.html#other" data-page-node-id="ep4pQGBU1MgtVe4SSWIG8E">其他</a>
+        <div class="menu-group-title" data-page-node-id="Ohsf1BKGx2rVZyzP2nCUz8">资源</div>
+        <a href="index.html#uikits" data-page-node-id="N0InL1XdfswqXYbxn5Ca6z">页面样板</a>
+        <a href="index.html#docs" data-page-node-id="D2Q8ZiCFNmyWT8EIYYfs1j">规范文档</a>
+      </div>
+    </aside>
+    <main class="content" data-page-node-id="R3CCTg2ykXImh2AAVgrMIy">
+      <div class="section" data-page-node-id="kCSDri7WTwJqEf0nrKYInG">
+        <div class="hero" data-page-node-id="x4J3hUJWL5yB37bbpQoe7L">
+          <h1 data-page-node-id="sIMnJpkf7wpZkGRYLRO5yW">GienCoder 设计系统</h1>
+          <p data-page-node-id="NcwPEytGeA5Nrjr30D9zMX">中电金信企业级 UI/UX 设计规范系统，覆盖 71 个源启官方组件的完整 UI 与交互要素（契约 JSON + 可复制代码模板 + 设计 Token + 无障碍规范）。</p>
+          <div class="badge-line" data-page-node-id="9E10HOmmYf3tEc8l5VcHeQ">
+            <span class="badge" data-page-node-id="GnAOtS37vv1phedNsGa1Ah">71 组件契约</span>
+            <span class="badge" data-page-node-id="n6pHR2dCR9BOjFZMX4U90w">71 份 preview 代码模板</span>
+            <span class="badge" data-page-node-id="LEmCR1EplVkCS0nTx4t1dP">1261+ props 索引</span>
+            <span class="badge" data-page-node-id="tjFeUw9sYeDKBpJ7teByK2">6 大页面模式</span>
+            <span class="badge" data-page-node-id="E4iKftDoHym424lEORfunp">WCAG 2.1 AA</span>
+          </div>
+          <div class="cta-line" data-page-node-id="d5bvmS6G3NbaRxgqA5M5Hu">
+            <a class="cta" href="index.html" data-page-node-id="6wPBzA9J9eNlswpkuSO8tG">进入组件库<span class="cta-arrow" data-page-node-id="ZPgMI6jKyOgp3qR6cKWlhD">→</span></a>
+            <a class="cta ghost" href="../GETTING-STARTED.html" data-page-node-id="bQhJ5GlxsALc7oVhoPA5K7">使用说明书</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="section" data-page-node-id="irpyiizAOzv5Rvr5ehS7oW">
+        <h2 data-page-node-id="yGZ6qipE4lDJjvcGSYGjzk">快速开始</h2>
+        <p class="desc" data-page-node-id="pu5Gfg059Zu3D5EDYx0Oub">四个高频入口，直接跳转</p>
+        <div class="quick-grid" data-page-node-id="ao7YmLvWPpGO1oX9upl3tD">
+          <a class="quick-card" href="index.html" data-page-node-id="M70783JBmad56lImVzSkjO">
+            <div class="t" data-page-node-id="gLdIajSYGDdiFarYylywCj">组件库</div>
+            <div class="d" data-page-node-id="vWeJ9lI09Vk8n2KrdmsF7B">71 个源启组件的完整契约、可复制模板与交互演示</div>
+            <div class="go" data-page-node-id="u4McdpLeF9w4MM83doB9EM">浏览组件 →</div>
+          </a>
+          <a class="quick-card" href="../GETTING-STARTED.html" data-page-node-id="1v6WZVKDZ9m3gQAUTE9KB5">
+            <div class="t" data-page-node-id="C2E2QGjvO05IhU7UZAVqdD">使用说明书</div>
+            <div class="d" data-page-node-id="qsJQKwWpEbGzOC6TFu5uTz">新手 7 步，从需求到高保真 UI 的标准工作流</div>
+            <div class="go" data-page-node-id="6SHCIcQikzku08oMXQ7BgX">开始上手 →</div>
+          </a>
+          <a class="quick-card" href="tokens-visual.html" data-page-node-id="1xpNPdVmnDut8iYgLGgj1N">
+            <div class="t" data-page-node-id="JT4iHaMLrNQUIfAuOwjNGO">Token 可视化</div>
+            <div class="d" data-page-node-id="W9CtWnLk6Iuay0Bbjmgj95">色板、字体、间距、圆角、阴影、动效交互浏览</div>
+            <div class="go" data-page-node-id="qjjVZ0jw0n6zt7X5zpUrAi">查看 Token →</div>
+          </a>
+          <a class="quick-card" href="gienx-templates/list-page/index.html" data-page-node-id="lUhkp4qasktlRLYnNZBoX9">
+            <div class="t" data-page-node-id="yyf13hInvIRmFNvaEQ0yXY">页面样板</div>
+            <div class="d" data-page-node-id="EwMY7zwGBK3XnYBajXjenA">企业级后台六大页面模式，直接参考复用</div>
+            <div class="go" data-page-node-id="HsBaXiYdTJF4XN9imnRBxT">查看样板 →</div>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer" data-page-node-id="BD6Ecbi3g0BclB4GGZ8Qfa">GienCoder 设计系统 v3 ｜ 中电金信（GienTech） ｜ 2026/08/28</div>
+    </main>
+  </div>
+</body>
+</html>

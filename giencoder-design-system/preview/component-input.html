@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>Input 输入框</title>
+  <link rel="stylesheet" href="preview-scaffold.css">
+  <link rel="stylesheet" href="../colors_and_type.css">
+  <link rel="stylesheet" href="../components.css">
+</head>
+<body>
+  <div class="pv-layout">
+    <aside class="pv-sidebar">
+      <div class="pv-nav">
+        <div class="pv-menu-group">入口</div>
+        <a href="../home.html">首页</a>
+        <a href="../../GETTING-STARTED.html">使用说明书</a>
+        <div class="pv-menu-group">组件</div>
+        <a href="../index.html#general">通用</a>
+        <a href="../index.html#layout">布局</a>
+        <a href="../index.html#navigation">导航</a>
+        <a href="../index.html#data-entry" class="active">数据录入</a>
+        <a href="../index.html#data-display">数据展示</a>
+        <a href="../index.html#feedback">反馈</a>
+        <a href="../index.html#other">其他</a>
+        <div class="pv-menu-group">资源</div>
+        <a href="../index.html#uikits">页面样板</a>
+        <a href="../index.html#docs">规范文档</a>
+      </div>
+    </aside>
+    <main class="pv-content">
+  <a class="pv-back" href="../index.html#data-entry">← 返回组件库</a>
+  <div class="pv-header">
+    <h1>Input 输入框</h1>
+    <p>源启输入框：尺寸/前缀后缀/可清除/密码/禁用/错误态。</p>
+  </div>
+
+  <!-- ============ 变体：基础 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Default 基础输入框（尺寸对照）</div>
+    <div class="row">
+      <div class="giencoder-input-wrapper" data-component="input" data-variant="default" data-size="large" data-state="default">
+        <input class="giencoder-input" placeholder="大输入框 36px">
+      </div>
+      <div class="giencoder-input-wrapper" data-component="input" data-variant="default" data-size="medium" data-state="default">
+        <input class="giencoder-input" placeholder="中输入框 32px">
+      </div>
+      <div class="giencoder-input-wrapper" data-component="input" data-variant="default" data-size="small" data-state="default">
+        <input class="giencoder-input" placeholder="小输入框 28px">
+      </div>
+      <div class="giencoder-input-wrapper" data-component="input" data-variant="default" data-size="mini" data-state="default">
+        <input class="giencoder-input" placeholder="迷你 24px">
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 变体：前缀/后缀 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Prefix / Suffix 前缀后缀</div>
+    <div class="row">
+      <div class="giencoder-input-wrapper" data-component="input" data-variant="prefix" data-state="default">
+        <span class="giencoder-input-prefix">
+          <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="7" cy="7" r="4.5"/><path d="M10.5 10.5L14 14"/></svg>
+        </span>
+        <input class="giencoder-input" placeholder="搜索">
+      </div>
+      <div class="giencoder-input-wrapper" data-component="input" data-variant="suffix" data-state="default">
+        <input class="giencoder-input" placeholder="带后缀单位">
+        <span class="giencoder-input-suffix">元</span>
+      </div>
+      <div class="giencoder-input-wrapper" data-component="input" data-variant="suffix" data-state="default">
+        <input class="giencoder-input" value="可清除内容">
+        <span class="giencoder-input-suffix">
+          <button class="giencoder-input-clear-btn" aria-label="清除">
+            <svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="6" cy="6" r="5"/><path d="M4 4l4 4M8 4l-4 4"/></svg>
+          </button>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 状态：密码/禁用/错误 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Password / Disabled / Error</div>
+    <div class="row">
+      <div class="giencoder-input-wrapper" data-component="input" data-variant="password" data-state="default">
+        <input class="giencoder-input" type="password" value="123456">
+        <span class="giencoder-input-suffix">
+          <button class="giencoder-input-clear-btn" aria-label="显示密码">
+            <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M1.5 8s2.5-4.5 6.5-4.5S14.5 8 14.5 8 12 12.5 8 12.5 1.5 8 1.5 8z"/><circle cx="8" cy="8" r="2"/></svg>
+          </button>
+        </span>
+      </div>
+      <div class="giencoder-input-wrapper giencoder-input-disabled" data-component="input" data-variant="default" data-state="disabled">
+        <input class="giencoder-input" placeholder="禁用输入框" disabled>
+      </div>
+      <div class="giencoder-input-wrapper giencoder-input-error" data-component="input" data-variant="default" data-state="error">
+        <input class="giencoder-input" value="错误内容" aria-invalid="true">
+      </div>
+    </div>
+    <div class="row">
+      <div class="giencoder-form-message giencoder-form-message-error" data-state="error">请输入正确的邮箱地址</div>
+    </div>
+  </div>
+
+  <script>
+    /* 源启交互脚本 — input
+     * 1. 可清除输入框：点击清除按钮清空 input value（无值时按钮隐藏）
+     * 2. 密码框：点击眼睛图标切换 type=password/text 与图标
+     * 3. disabled 无效
+     */
+    (function () {
+      'use strict';
+      var EYE_ON = '<path d="M1.5 8s2.5-4.5 6.5-4.5S14.5 8 14.5 8 12 12.5 8 12.5 1.5 8 1.5 8z"/><circle cx="8" cy="8" r="2"/>';
+      var EYE_OFF = '<path d="M1.5 8s2.5-4.5 6.5-4.5S14.5 8 14.5 8 12 12.5 8 12.5 1.5 8 1.5 8z"/><circle cx="8" cy="8" r="2"/><path d="M3.5 12.5l9-9"/>';
+
+      var wrappers = document.querySelectorAll('.giencoder-input-wrapper');
+      wrappers.forEach(function (wrapper) {
+        var input = wrapper.querySelector('.giencoder-input');
+        if (!input) { return; }
+        var isPassword = input.type === 'password';
+        var clearBtn = wrapper.querySelector('.giencoder-input-clear-btn');
+        if (!clearBtn) { return; }
+        var disabled = input.disabled || wrapper.classList.contains('giencoder-input-disabled');
+
+        function updateClearVisibility() {
+          if (isPassword) { return; }
+          clearBtn.style.display = input.value ? '' : 'none';
+        }
+
+        if (isPassword) {
+          clearBtn.addEventListener('click', function () {
+            if (disabled) { return; }
+            var showing = input.type === 'text';
+            input.type = showing ? 'password' : 'text';
+            clearBtn.setAttribute('aria-label', showing ? '显示密码' : '隐藏密码');
+            var svg = clearBtn.querySelector('svg');
+            if (svg) { svg.innerHTML = showing ? EYE_ON : EYE_OFF; }
+            input.focus();
+          });
+        } else {
+          clearBtn.addEventListener('click', function () {
+            if (disabled) { return; }
+            input.value = '';
+            updateClearVisibility();
+            input.focus();
+          });
+          input.addEventListener('input', updateClearVisibility);
+          updateClearVisibility();
+        }
+      });
+    })();
+  </script>
+    </main>
+  </div>
+<script src="preview-copy.js"></script>
+</body>
+</html>

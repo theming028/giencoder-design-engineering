@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>Grid 栅格</title>
+  <link rel="stylesheet" href="preview-scaffold.css">
+  <link rel="stylesheet" href="../colors_and_type.css">
+  <link rel="stylesheet" href="../components.css">
+</head>
+<body>
+  <div class="pv-layout">
+    <aside class="pv-sidebar">
+      <div class="pv-nav">
+        <div class="pv-menu-group">入口</div>
+        <a href="../home.html">首页</a>
+        <a href="../../GETTING-STARTED.html">使用说明书</a>
+        <div class="pv-menu-group">组件</div>
+        <a href="../index.html#general" class="active">通用</a>
+        <a href="../index.html#layout">布局</a>
+        <a href="../index.html#navigation">导航</a>
+        <a href="../index.html#data-entry">数据录入</a>
+        <a href="../index.html#data-display">数据展示</a>
+        <a href="../index.html#feedback">反馈</a>
+        <a href="../index.html#other">其他</a>
+        <div class="pv-menu-group">资源</div>
+        <a href="../index.html#uikits">页面样板</a>
+        <a href="../index.html#docs">规范文档</a>
+      </div>
+    </aside>
+    <main class="pv-content">
+  <a class="pv-back" href="../index.html#general">← 返回组件库</a>
+  <div class="pv-header">
+    <h1>Grid 栅格</h1>
+    <p>源启 24 栅格布局：Row 横向排列、Col 按 span 占 24 等分，支持 offset 偏移、gutter 间距与 xs/sm/md 响应式断点。</p>
+  </div>
+
+  <!-- ============ 变体：24 等分 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Equal 24 等分（span=6 四列）</div>
+    <div class="pv-section__sub">每列 span=6，占 24/6=25% 宽度，四列平分一行。</div>
+    <div class="giencoder-row" data-component="grid" data-variant="equal" data-state="default" style="display:flex; flex-wrap:wrap; margin:0 -8px;">
+      <div class="giencoder-col" style="width:25%; padding:0 8px;">
+        <div style="text-align:center; padding:12px 0; background:var(--color-primary-1); border:1px solid var(--color-primary-2); border-radius:var(--border-radius-medium); color:var(--color-primary-6); font-size:var(--font-size-body-3);">span=6</div>
+      </div>
+      <div class="giencoder-col" style="width:25%; padding:0 8px;">
+        <div style="text-align:center; padding:12px 0; background:var(--color-primary-1); border:1px solid var(--color-primary-2); border-radius:var(--border-radius-medium); color:var(--color-primary-6); font-size:var(--font-size-body-3);">span=6</div>
+      </div>
+      <div class="giencoder-col" style="width:25%; padding:0 8px;">
+        <div style="text-align:center; padding:12px 0; background:var(--color-primary-1); border:1px solid var(--color-primary-2); border-radius:var(--border-radius-medium); color:var(--color-primary-6); font-size:var(--font-size-body-3);">span=6</div>
+      </div>
+      <div class="giencoder-col" style="width:25%; padding:0 8px;">
+        <div style="text-align:center; padding:12px 0; background:var(--color-primary-1); border:1px solid var(--color-primary-2); border-radius:var(--border-radius-medium); color:var(--color-primary-6); font-size:var(--font-size-body-3);">span=6</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 变体：偏移 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Offset 偏移（offset=6）</div>
+    <div class="pv-section__sub">首列 offset=6，即从第 7 栅格开始（margin-left 25%），其余两列 span=6 顺排。</div>
+    <div class="giencoder-row" data-component="grid" data-variant="offset" data-state="default" style="display:flex; flex-wrap:wrap; margin:0 -8px;">
+      <div class="giencoder-col" style="width:25%; padding:0 8px; margin-left:25%;">
+        <div style="text-align:center; padding:12px 0; background:var(--color-fill-2); border:1px solid var(--color-border-2); border-radius:var(--border-radius-medium); color:var(--color-text-2); font-size:var(--font-size-body-3);">span=6 offset=6</div>
+      </div>
+      <div class="giencoder-col" style="width:25%; padding:0 8px;">
+        <div style="text-align:center; padding:12px 0; background:var(--color-primary-1); border:1px solid var(--color-primary-2); border-radius:var(--border-radius-medium); color:var(--color-primary-6); font-size:var(--font-size-body-3);">span=6</div>
+      </div>
+      <div class="giencoder-col" style="width:25%; padding:0 8px;">
+        <div style="text-align:center; padding:12px 0; background:var(--color-primary-1); border:1px solid var(--color-primary-2); border-radius:var(--border-radius-medium); color:var(--color-primary-6); font-size:var(--font-size-body-3);">span=6</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 变体：间距 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Gutter 间距（gutter=16px 两列）</div>
+    <div class="pv-section__sub">Row 负 margin 抵消，Col 内 padding 形成 16px 水平间距，列内容用 Card 示意。</div>
+    <div class="giencoder-row" data-component="grid" data-variant="gutter" data-state="default" style="display:flex; flex-wrap:wrap; margin:0 -8px;">
+      <div class="giencoder-col" style="width:50%; padding:0 8px;">
+        <div class="giencoder-card" style="background:var(--color-bg-2); border:1px solid var(--color-border-2); border-radius:var(--border-radius-medium);">
+          <div class="giencoder-card-header" style="display:flex; align-items:center; justify-content:space-between; padding:14px 16px; border-bottom:1px solid var(--color-border-1);">
+            <span class="giencoder-card-header-title" style="font-size:var(--font-size-title-1); font-weight:600; color:var(--color-text-1);">项目概览</span>
+            <span class="giencoder-tag giencoder-tag-primary" style="font-size:var(--font-size-body-1); padding:1px 8px; border-radius:var(--border-radius-medium);">进行中</span>
+          </div>
+          <div class="giencoder-card-body" style="padding:16px; font-size:var(--font-size-body-3); color:var(--color-text-2);">span=12 · 左侧卡片，展示核心指标与状态信息，栅格间距保证两列内容互不粘连。</div>
+        </div>
+      </div>
+      <div class="giencoder-col" style="width:50%; padding:0 8px;">
+        <div class="giencoder-card" style="background:var(--color-bg-2); border:1px solid var(--color-border-2); border-radius:var(--border-radius-medium);">
+          <div class="giencoder-card-header" style="display:flex; align-items:center; justify-content:space-between; padding:14px 16px; border-bottom:1px solid var(--color-border-1);">
+            <span class="giencoder-card-header-title" style="font-size:var(--font-size-title-1); font-weight:600; color:var(--color-text-1);">数据报表</span>
+            <span class="giencoder-tag giencoder-tag-success" style="font-size:var(--font-size-body-1); padding:1px 8px; border-radius:var(--border-radius-medium);">已完成</span>
+          </div>
+          <div class="giencoder-card-body" style="padding:16px; font-size:var(--font-size-body-3); color:var(--color-text-2);">span=12 · 右侧卡片，与左侧卡片之间保持 16px 栅格间距，实现等宽双栏布局。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 变体：响应式 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Responsive 响应式（xs / sm / md）</div>
+    <div class="pv-section__sub">同一组 4 个元素在不同断点下栅格数变化：xs（&lt;576px）span=24 每项占满；sm（≥576px）span=12 每项半宽；md（≥768px）span=6 四项一行。</div>
+    <div class="stack-16">
+      <div>
+        <div class="pv-section__sub">xs 断点（&lt;576px）：span=24，每项 100% 宽度纵向堆叠</div>
+        <div class="giencoder-row" data-component="grid" data-variant="responsive" data-state="default" data-breakpoint="xs" style="display:flex; flex-wrap:wrap; margin:0 -8px;">
+          <div class="giencoder-col" style="width:100%; padding:0 8px;"><div style="text-align:center; padding:10px 0; background:var(--color-fill-2); border:1px solid var(--color-border-2); border-radius:var(--border-radius-medium); color:var(--color-text-2); font-size:var(--font-size-body-2);">span=24 xs</div></div>
+          <div class="giencoder-col" style="width:100%; padding:0 8px;"><div style="text-align:center; padding:10px 0; background:var(--color-fill-2); border:1px solid var(--color-border-2); border-radius:var(--border-radius-medium); color:var(--color-text-2); font-size:var(--font-size-body-2);">span=24 xs</div></div>
+          <div class="giencoder-col" style="width:100%; padding:0 8px;"><div style="text-align:center; padding:10px 0; background:var(--color-fill-2); border:1px solid var(--color-border-2); border-radius:var(--border-radius-medium); color:var(--color-text-2); font-size:var(--font-size-body-2);">span=24 xs</div></div>
+          <div class="giencoder-col" style="width:100%; padding:0 8px;"><div style="text-align:center; padding:10px 0; background:var(--color-fill-2); border:1px solid var(--color-border-2); border-radius:var(--border-radius-medium); color:var(--color-text-2); font-size:var(--font-size-body-2);">span=24 xs</div></div>
+        </div>
+      </div>
+      <div>
+        <div class="pv-section__sub">sm 断点（≥576px）：span=12，每项 50% 宽度两两一行</div>
+        <div class="giencoder-row" data-component="grid" data-variant="responsive" data-state="default" data-breakpoint="sm" style="display:flex; flex-wrap:wrap; margin:0 -8px;">
+          <div class="giencoder-col" style="width:50%; padding:0 8px;"><div style="text-align:center; padding:10px 0; background:var(--color-fill-2); border:1px solid var(--color-border-2); border-radius:var(--border-radius-medium); color:var(--color-text-2); font-size:var(--font-size-body-2);">span=12 sm</div></div>
+          <div class="giencoder-col" style="width:50%; padding:0 8px;"><div style="text-align:center; padding:10px 0; background:var(--color-fill-2); border:1px solid var(--color-border-2); border-radius:var(--border-radius-medium); color:var(--color-text-2); font-size:var(--font-size-body-2);">span=12 sm</div></div>
+          <div class="giencoder-col" style="width:50%; padding:0 8px;"><div style="text-align:center; padding:10px 0; background:var(--color-fill-2); border:1px solid var(--color-border-2); border-radius:var(--border-radius-medium); color:var(--color-text-2); font-size:var(--font-size-body-2);">span=12 sm</div></div>
+          <div class="giencoder-col" style="width:50%; padding:0 8px;"><div style="text-align:center; padding:10px 0; background:var(--color-fill-2); border:1px solid var(--color-border-2); border-radius:var(--border-radius-medium); color:var(--color-text-2); font-size:var(--font-size-body-2);">span=12 sm</div></div>
+        </div>
+      </div>
+      <div>
+        <div class="pv-section__sub">md 断点（≥768px）：span=6，每项 25% 宽度四项一行</div>
+        <div class="giencoder-row" data-component="grid" data-variant="responsive" data-state="default" data-breakpoint="md" style="display:flex; flex-wrap:wrap; margin:0 -8px;">
+          <div class="giencoder-col" style="width:25%; padding:0 8px;"><div style="text-align:center; padding:10px 0; background:var(--color-primary-1); border:1px solid var(--color-primary-2); border-radius:var(--border-radius-medium); color:var(--color-primary-6); font-size:var(--font-size-body-2);">span=6 md</div></div>
+          <div class="giencoder-col" style="width:25%; padding:0 8px;"><div style="text-align:center; padding:10px 0; background:var(--color-primary-1); border:1px solid var(--color-primary-2); border-radius:var(--border-radius-medium); color:var(--color-primary-6); font-size:var(--font-size-body-2);">span=6 md</div></div>
+          <div class="giencoder-col" style="width:25%; padding:0 8px;"><div style="text-align:center; padding:10px 0; background:var(--color-primary-1); border:1px solid var(--color-primary-2); border-radius:var(--border-radius-medium); color:var(--color-primary-6); font-size:var(--font-size-body-2);">span=6 md</div></div>
+          <div class="giencoder-col" style="width:25%; padding:0 8px;"><div style="text-align:center; padding:10px 0; background:var(--color-primary-1); border:1px solid var(--color-primary-2); border-radius:var(--border-radius-medium); color:var(--color-primary-6); font-size:var(--font-size-body-2);">span=6 md</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+    </main>
+  </div>
+<script src="preview-copy.js"></script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>传送门 Portal</title>
+  <link rel="stylesheet" href="preview-scaffold.css">
+  <link rel="stylesheet" href="../colors_and_type.css">
+  <link rel="stylesheet" href="../components.css">
+</head>
+<body>
+  <div class="pv-layout">
+    <aside class="pv-sidebar">
+      <div class="pv-nav">
+        <div class="pv-menu-group">入口</div>
+        <a href="../home.html">首页</a>
+        <a href="../../GETTING-STARTED.html">使用说明书</a>
+        <div class="pv-menu-group">组件</div>
+        <a href="../index.html#general">通用</a>
+        <a href="../index.html#layout">布局</a>
+        <a href="../index.html#navigation">导航</a>
+        <a href="../index.html#data-entry">数据录入</a>
+        <a href="../index.html#data-display">数据展示</a>
+        <a href="../index.html#feedback">反馈</a>
+        <a href="../index.html#other" class="active">其他</a>
+        <div class="pv-menu-group">资源</div>
+        <a href="../index.html#uikits">页面样板</a>
+        <a href="../index.html#docs">规范文档</a>
+      </div>
+    </aside>
+    <main class="pv-content">
+  <a class="pv-back" href="../index.html#other">← 返回组件库</a>
+  <div class="pv-header">
+    <h1>Portal 传送门</h1>
+    <p>源启传送门：将子树渲染到指定容器（如 body），无视觉交互，纯说明展示。</p>
+  </div>
+
+  <!-- ============ 变体：概念示意 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Concept 概念示意</div>
+    <div class="pv-section__sub">将子树渲染到指定容器（如 body），组件逻辑保持在原 React 树中，DOM 却挂载到目标容器。</div>
+    <div class="row" style="align-items:center; gap:var(--spacing-8); padding:var(--spacing-8) 0;">
+      <!-- 父容器 -->
+      <div class="giencoder-portal-parent" data-component="portal" data-variant="parent" data-state="default" style="width:240px; border:1px dashed var(--color-border-3); border-radius:var(--border-radius-medium); padding:var(--spacing-8); background:var(--color-bg-2); text-align:center;">
+        <div style="font-size:var(--font-size-body-1); color:var(--color-text-3); margin-bottom:var(--spacing-8);">父容器 Parent</div>
+        <div style="display:inline-block; padding:4px 12px; border-radius:var(--border-radius-small); background:var(--color-fill-2); font-size:var(--font-size-body-1); color:var(--color-text-1);">原始位置</div>
+      </div>
+      <!-- 箭头 -->
+      <svg width="72" height="24" viewBox="0 0 72 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="4 3" style="color:var(--color-primary-6); flex-shrink:0;">
+        <path d="M4 12h58"/>
+        <path d="M56 6l8 6-8 6"/>
+      </svg>
+      <!-- 渲染目标 -->
+      <div class="giencoder-portal-target" data-component="portal" data-variant="target" data-state="default" style="width:240px; border:1px solid var(--color-border-3); border-radius:var(--border-radius-medium); padding:var(--spacing-8); background:var(--color-bg-2); text-align:center;">
+        <div style="font-size:var(--font-size-body-1); color:var(--color-text-3); margin-bottom:var(--spacing-8);">渲染目标容器（如 body）</div>
+        <div style="display:inline-block; padding:4px 12px; border-radius:var(--border-radius-small); background:var(--color-primary-6); color:var(--color-white); font-size:var(--font-size-body-1);">渲染目标</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 变体：DOM 结构对比 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">DOM Structure DOM 结构对比</div>
+    <div class="row" style="gap:var(--spacing-8);">
+      <!-- React 组件树 -->
+      <div class="giencoder-portal" data-component="portal" data-variant="react-tree" data-state="default" style="flex:1; min-width:280px; border:1px solid var(--color-border-2); border-radius:var(--border-radius-large); background:var(--color-bg-2); padding:var(--spacing-8);">
+        <div style="font-size:var(--font-size-body-3); font-weight:500; color:var(--color-text-1); margin-bottom:var(--spacing-6);">React 组件树（逻辑位置）</div>
+        <div style="font-family:var(--code-family); font-size:var(--font-size-body-1); line-height:1.9; color:var(--color-text-2); background:var(--color-fill-1); border-radius:var(--border-radius-medium); padding:var(--spacing-6);">
+          <div>&lt;App&gt;</div>
+          <div style="padding-left:var(--spacing-8);">&lt;Modal <span style="color:var(--color-primary-6);">visible</span> <span style="color:var(--color-primary-6);">mountOnEnter</span>&gt;</div>
+          <div style="padding-left:var(--spacing-16);">&lt;p&gt;弹窗内容&lt;/p&gt;</div>
+          <div style="padding-left:var(--spacing-8);">&lt;/Modal&gt;</div>
+          <div>&lt;/App&gt;</div>
+        </div>
+      </div>
+      <!-- 实际 DOM 树 -->
+      <div class="giencoder-portal" data-component="portal" data-variant="dom-tree" data-state="default" style="flex:1; min-width:280px; border:1px solid var(--color-border-2); border-radius:var(--border-radius-large); background:var(--color-bg-2); padding:var(--spacing-8);">
+        <div style="font-size:var(--font-size-body-3); font-weight:500; color:var(--color-text-1); margin-bottom:var(--spacing-6);">实际 DOM 树（渲染位置）</div>
+        <div style="font-family:var(--code-family); font-size:var(--font-size-body-1); line-height:1.9; color:var(--color-text-2); background:var(--color-fill-1); border-radius:var(--border-radius-medium); padding:var(--spacing-6);">
+          <div>&lt;body&gt;</div>
+          <div style="padding-left:var(--spacing-8);">&lt;div id=<span style="color:var(--color-danger-6);">"app"</span>&gt; … &lt;/div&gt;</div>
+          <div style="padding-left:var(--spacing-8);">&lt;div class=<span style="color:var(--color-danger-6);">"modal-root"</span>&gt;</div>
+          <div style="padding-left:var(--spacing-16);">&lt;p&gt;弹窗内容&lt;/p&gt;</div>
+          <div style="padding-left:var(--spacing-8);">&lt;/div&gt;</div>
+          <div>&lt;/body&gt;</div>
+        </div>
+      </div>
+    </div>
+  </div>
+    </main>
+  </div>
+<script src="preview-copy.js"></script>
+</body>
+</html>

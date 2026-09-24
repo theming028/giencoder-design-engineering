@@ -1,0 +1,211 @@
+{
+  "schemaVersion": 3,
+  "slug": "upload",
+  "name": "Upload",
+  "category": "data-entry",
+  "giencoderSource": {
+    "component": "Upload",
+    "version": "2.66.16"
+  },
+  "summary": "上传：点击/拖拽上传文件，支持图片卡片/列表展示、进度与失败重试。",
+  "variants": [
+    {
+      "name": "default",
+      "description": "按钮触发上传（listType=text 文本列表）",
+      "whenToUse": "通用文件上传"
+    },
+    {
+      "name": "drag",
+      "description": "drag 拖拽区域上传",
+      "whenToUse": "大文件批量拖拽场景"
+    },
+    {
+      "name": "picture-card",
+      "description": "listType=picture-card 图片卡片栅格",
+      "whenToUse": "图片类上传（头像、商品图）"
+    },
+    {
+      "name": "picture-list",
+      "description": "listType=picture 图片缩略图列表",
+      "whenToUse": "图片与文件混合列表"
+    },
+    {
+      "name": "custom-request",
+      "description": "customRequest 自定义上传请求",
+      "whenToUse": "需对接自定义后端/分片逻辑"
+    },
+    {
+      "name": "multiple",
+      "description": "multiple 多文件上传",
+      "whenToUse": "批量上传场景"
+    }
+  ],
+  "sizes": [
+    {
+      "name": "default",
+      "value": "触发按钮 32px 高，列表项固定尺寸",
+      "usage": "无独立尺寸档位，触发区随 Button 组件"
+    }
+  ],
+  "states": [
+    {
+      "name": "default",
+      "description": "未交互态",
+      "visual": "触发按钮常规态，拖拽区虚线边框"
+    },
+    {
+      "name": "hover",
+      "description": "悬停触发区/列表项",
+      "visual": "触发按钮 hover 态；列表项显示删除/预览操作钮"
+    },
+    {
+      "name": "dragging",
+      "description": "拖拽悬停",
+      "visual": "拖拽区边框与底色主色高亮"
+    },
+    {
+      "name": "loading",
+      "description": "上传中",
+      "visual": "文件项显示进度条与 loading 图标"
+    },
+    {
+      "name": "success",
+      "description": "上传成功",
+      "visual": "成功标记 --color-success-6"
+    },
+    {
+      "name": "error",
+      "description": "上传失败",
+      "visual": "错误标记与重试按钮 --color-danger-6"
+    },
+    {
+      "name": "disabled",
+      "description": "禁用态",
+      "visual": "触发区灰化，不可点击/拖拽"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "trigger",
+      "element": "div/button",
+      "description": "触发区，点击唤起文件选择"
+    },
+    {
+      "part": "input",
+      "element": "input[type=file]",
+      "description": "隐藏的原生文件输入，承载选择语义"
+    },
+    {
+      "part": "list",
+      "element": "ul",
+      "description": "文件列表"
+    },
+    {
+      "part": "item",
+      "element": "li",
+      "description": "单个文件项，含名称/状态/操作"
+    },
+    {
+      "part": "progress",
+      "element": "div",
+      "description": "上传进度条"
+    },
+    {
+      "part": "remove-icon",
+      "element": "svg",
+      "description": "删除文件按钮"
+    },
+    {
+      "part": "retry-icon",
+      "element": "svg",
+      "description": "失败重试按钮"
+    },
+    {
+      "part": "preview-icon",
+      "element": "svg",
+      "description": "图片预览按钮"
+    }
+  ],
+  "interaction": {
+    "hover": "触发按钮/卡片 hover 态；文件项 hover 浮现操作按钮，0.1s",
+    "focus": "触发区与文件项操作按钮可见焦点环",
+    "keyboard": [
+      "Tab: 在触发按钮与文件项操作按钮间移动焦点",
+      "Enter: 焦点在触发区时打开文件选择框",
+      "Space: 同上",
+      "Enter/Space: 文件项删除/重试/预览按钮触发对应操作"
+    ],
+    "motion": {
+      "duration": "0.2s~0.3s",
+      "easing": "standard",
+      "description": "文件项出入场 0.2s，进度条平滑推进 0.3s，拖拽区高亮 0.2s"
+    },
+    "behaviorNotes": "隐藏 input 触发原生文件选择；drag 区 dragOver 高亮、drop 即上传；上传进度/成功/失败由事件驱动，失败项可重试；beforeUpload 可拦截校验"
+  },
+  "a11y": {
+    "role": "button",
+    "ariaAttrs": [
+      "aria-label",
+      "aria-disabled",
+      "aria-describedby"
+    ],
+    "contrastNote": "成功 --color-success-6 / 失败 --color-danger-6 与背景对比达标；进度条建议配 aria-valuenow",
+    "focusNote": "触发区与列表操作按钮均需可见焦点环，键盘可完整完成删除/重试"
+  },
+  "usage": [
+    "单/多文件上传场景",
+    "图片场景用 picture-card/picture 提供预览",
+    "大文件或批量场景用 drag 拖拽区",
+    "上传前用 beforeUpload 做类型/大小校验",
+    "失败项提供重试能力"
+  ],
+  "doNotInvent": [
+    "不得虚构官方内置分片上传能力（需 customRequest 自实现）",
+    "不得在 disabled 下仍响应拖拽",
+    "不得自定义触发按钮样式脱离 Button 规范",
+    "不得新增官方不存在的\"断点续传\"标记"
+  ],
+  "tokensConsumed": [
+    "--color-primary-6",
+    "--color-success-6",
+    "--color-danger-6",
+    "--color-fill-1",
+    "--color-border-2",
+    "--color-text-1",
+    "--color-text-3",
+    "--color-bg-2",
+    "--border-radius-medium"
+  ],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "UploadProps",
+    "props": [
+      "accept",
+      "className",
+      "defaultFileList",
+      "directory",
+      "disabled",
+      "fileList",
+      "hide",
+      "imagePreview",
+      "limit",
+      "listType",
+      "onAbort",
+      "onFileStatusChange",
+      "onPreview",
+      "onRemove",
+      "onReupload",
+      "onUpload",
+      "prefixCls",
+      "progressProps",
+      "renderUploadItem",
+      "renderUploadList",
+      "showUploadList",
+      "strict",
+      "style",
+      "type"
+    ],
+    "total": 24,
+    "syncDate": "2026/08/28"
+  }
+}

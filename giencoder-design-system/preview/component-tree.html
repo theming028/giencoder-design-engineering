@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>树形控件 Tree</title>
+  <link rel="stylesheet" href="preview-scaffold.css">
+  <link rel="stylesheet" href="../colors_and_type.css">
+  <link rel="stylesheet" href="../components.css">
+  <style>
+    /* 页面级演示样式（preview-format.md §3）：组件样式并入 components.css 后可整体移除 */
+    .giencoder-tree { font-size: var(--font-size-body-3); color: var(--color-text-1); }
+    .giencoder-tree-list { list-style: none; margin: 0; padding: 0; }
+    .giencoder-tree-children { padding-left: var(--spacing-9); }
+    .giencoder-tree-node-content { display: flex; align-items: center; gap: var(--spacing-2); min-height: 28px; padding: var(--spacing-2) var(--spacing-4); border-radius: var(--border-radius-small); cursor: pointer; }
+    .giencoder-tree-node-content:hover { background: var(--color-fill-1); }
+    .giencoder-tree-node-selected > .giencoder-tree-node-content { background: var(--color-primary-1); color: var(--color-primary-6); }
+    .giencoder-tree-node-selected > .giencoder-tree-node-content:hover { background: var(--color-primary-1); }
+    .giencoder-tree-node-selected .giencoder-tree-title { font-weight: 500; }
+    .giencoder-tree-switcher { display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; flex-shrink: 0; color: var(--color-text-3); }
+    .giencoder-tree-node-disabled { color: var(--color-text-4); cursor: not-allowed; }
+    .giencoder-tree-node-disabled:hover { background: transparent; }
+  </style>
+</head>
+<body>
+  <div class="pv-layout">
+    <aside class="pv-sidebar">
+      <div class="pv-nav">
+        <div class="pv-menu-group">入口</div>
+        <a href="../home.html">首页</a>
+        <a href="../../GETTING-STARTED.html">使用说明书</a>
+        <div class="pv-menu-group">组件</div>
+        <a href="../index.html#general">通用</a>
+        <a href="../index.html#layout">布局</a>
+        <a href="../index.html#navigation">导航</a>
+        <a href="../index.html#data-entry">数据录入</a>
+        <a href="../index.html#data-display" class="active">数据展示</a>
+        <a href="../index.html#feedback">反馈</a>
+        <a href="../index.html#other">其他</a>
+        <div class="pv-menu-group">资源</div>
+        <a href="../index.html#uikits">页面样板</a>
+        <a href="../index.html#docs">规范文档</a>
+      </div>
+    </aside>
+    <main class="pv-content">
+  <a class="pv-back" href="../index.html#data-display">← 返回组件库</a>
+  <div class="pv-header">
+    <h1>Tree 树形控件</h1>
+    <p>源启树形控件：展开/收起箭头 + 文字，选中高亮，三级嵌套；支持 checkbox 多选。</p>
+  </div>
+
+  <!-- ============ 变体：基础树 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Basic 基础树（3 层嵌套，选中高亮 --color-primary-1，hover --color-fill-1）</div>
+    <div class="row">
+      <div class="giencoder-tree" data-component="tree" data-variant="basic" data-state="default">
+        <ul class="giencoder-tree-list">
+          <!-- 一级：展开 -->
+          <li class="giencoder-tree-node">
+            <div class="giencoder-tree-node-content">
+              <span class="giencoder-tree-switcher"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+              <span class="giencoder-tree-title">一级节点 1</span>
+            </div>
+            <ul class="giencoder-tree-list giencoder-tree-children">
+              <!-- 二级：收起 -->
+              <li class="giencoder-tree-node">
+                <div class="giencoder-tree-node-content">
+                  <span class="giencoder-tree-switcher"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span>
+                  <span class="giencoder-tree-title">二级节点 1-1</span>
+                </div>
+                <ul class="giencoder-tree-list giencoder-tree-children">
+                  <!-- 三级：叶子 -->
+                  <li class="giencoder-tree-node">
+                    <div class="giencoder-tree-node-content">
+                      <span class="giencoder-tree-switcher"></span>
+                      <span class="giencoder-tree-title">三级节点 1-1-1</span>
+                    </div>
+                  </li>
+                  <li class="giencoder-tree-node">
+                    <div class="giencoder-tree-node-content">
+                      <span class="giencoder-tree-switcher"></span>
+                      <span class="giencoder-tree-title">三级节点 1-1-2</span>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+              <!-- 二级：叶子（选中态） -->
+              <li class="giencoder-tree-node giencoder-tree-node-selected">
+                <div class="giencoder-tree-node-content">
+                  <span class="giencoder-tree-switcher"></span>
+                  <span class="giencoder-tree-title">二级节点 1-2</span>
+                </div>
+              </li>
+            </ul>
+          </li>
+          <!-- 一级：收起 -->
+          <li class="giencoder-tree-node">
+            <div class="giencoder-tree-node-content">
+              <span class="giencoder-tree-switcher"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span>
+              <span class="giencoder-tree-title">一级节点 2</span>
+            </div>
+            <!-- 收起状态：不渲染子级 -->
+          </li>
+          <!-- 一级：叶子 -->
+          <li class="giencoder-tree-node">
+            <div class="giencoder-tree-node-content">
+              <span class="giencoder-tree-switcher"></span>
+              <span class="giencoder-tree-title">一级节点 3</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 变体：多选树 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Checkbox 多选树（全选 / 半选 / 未选 / 禁用）</div>
+    <div class="row">
+      <div class="giencoder-tree" data-component="tree" data-variant="checkbox" data-state="default">
+        <ul class="giencoder-tree-list">
+          <!-- 全选父节点 -->
+          <li class="giencoder-tree-node">
+            <div class="giencoder-tree-node-content">
+              <span class="giencoder-tree-switcher"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+              <label class="giencoder-checkbox giencoder-checkbox-checked"><input type="checkbox" class="giencoder-checkbox-input" checked><span class="giencoder-checkbox-mask"></span></label>
+              <span class="giencoder-tree-title">分类一</span>
+            </div>
+            <ul class="giencoder-tree-list giencoder-tree-children">
+              <li class="giencoder-tree-node">
+                <div class="giencoder-tree-node-content">
+                  <span class="giencoder-tree-switcher"></span>
+                  <label class="giencoder-checkbox giencoder-checkbox-checked"><input type="checkbox" class="giencoder-checkbox-input" checked><span class="giencoder-checkbox-mask"></span></label>
+                  <span class="giencoder-tree-title">子项 1-1</span>
+                </div>
+              </li>
+              <li class="giencoder-tree-node">
+                <div class="giencoder-tree-node-content">
+                  <span class="giencoder-tree-switcher"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+                  <label class="giencoder-checkbox giencoder-checkbox-indeterminate"><input type="checkbox" class="giencoder-checkbox-input"><span class="giencoder-checkbox-mask"></span></label>
+                  <span class="giencoder-tree-title">子项 1-2（半选）</span>
+                </div>
+                <ul class="giencoder-tree-list giencoder-tree-children">
+                  <li class="giencoder-tree-node">
+                    <div class="giencoder-tree-node-content">
+                      <span class="giencoder-tree-switcher"></span>
+                      <label class="giencoder-checkbox giencoder-checkbox-checked"><input type="checkbox" class="giencoder-checkbox-input" checked><span class="giencoder-checkbox-mask"></span></label>
+                      <span class="giencoder-tree-title">孙项 1-2-1</span>
+                    </div>
+                  </li>
+                  <li class="giencoder-tree-node">
+                    <div class="giencoder-tree-node-content">
+                      <span class="giencoder-tree-switcher"></span>
+                      <label class="giencoder-checkbox"><input type="checkbox" class="giencoder-checkbox-input"><span class="giencoder-checkbox-mask"></span></label>
+                      <span class="giencoder-tree-title">孙项 1-2-2</span>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+              <li class="giencoder-tree-node">
+                <div class="giencoder-tree-node-content">
+                  <span class="giencoder-tree-switcher"></span>
+                  <label class="giencoder-checkbox"><input type="checkbox" class="giencoder-checkbox-input"><span class="giencoder-checkbox-mask"></span></label>
+                  <span class="giencoder-tree-title">子项 1-3</span>
+                </div>
+              </li>
+            </ul>
+          </li>
+          <!-- 未选父节点 -->
+          <li class="giencoder-tree-node">
+            <div class="giencoder-tree-node-content">
+              <span class="giencoder-tree-switcher"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span>
+              <label class="giencoder-checkbox"><input type="checkbox" class="giencoder-checkbox-input"><span class="giencoder-checkbox-mask"></span></label>
+              <span class="giencoder-tree-title">分类二</span>
+            </div>
+          </li>
+          <!-- 禁用节点 -->
+          <li class="giencoder-tree-node">
+            <div class="giencoder-tree-node-content giencoder-tree-node-disabled">
+              <span class="giencoder-tree-switcher"></span>
+              <label class="giencoder-checkbox giencoder-checkbox-disabled"><input type="checkbox" class="giencoder-checkbox-input" disabled><span class="giencoder-checkbox-mask"></span></label>
+              <span class="giencoder-tree-title">已停用项（禁用）</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <style>
+    /* 交互脚本用（展开/收起与勾选的全新状态样式，勿并入 components.css） */
+    .giencoder-tree-node-collapsed > .giencoder-tree-list { display: none; }
+    .giencoder-tree-node-collapsed > .giencoder-tree-node-content .giencoder-tree-switcher svg { transform: rotate(-90deg); }
+    .giencoder-tree-switcher svg { transition: transform 0.2s ease; }
+    .giencoder-tree-node-checked > .giencoder-tree-node-content .giencoder-tree-title { color: var(--color-primary-6); }
+  </style>
+  <script>
+    /* ========== component-tree：交互清单 ==========
+       1) 点击节点：切换展开/收起（子级容器 display 切换 + 箭头旋转 class）
+       2) 点击含 checkbox 的节点：切换勾选（giencoder-tree-node-checked + input.checked + giencoder-checkbox-checked）
+       3) 点击纯文本节点：互斥选中（giencoder-tree-node-selected，模板既有高亮样式）
+    */
+    (function () {
+      'use strict';
+      var UP = 'M6 9l6 6 6-6';
+      var RIGHT = 'M9 6l6 6-6 6';
+
+      function firstChildByClass(node, cls) {
+        for (var i = 0; i < node.children.length; i++) {
+          if (node.children[i].classList && node.children[i].classList.contains(cls)) return node.children[i];
+        }
+        return null;
+      }
+      function findChildrenList(node) {
+        for (var i = 0; i < node.children.length; i++) {
+          var c = node.children[i];
+          if (c.tagName === 'UL' && c.classList.contains('giencoder-tree-children')) return c;
+        }
+        return null;
+      }
+      function setArrow(svg, isUp) {
+        if (!svg) return;
+        var path = svg.querySelector('path');
+        if (path) path.setAttribute('d', isUp ? UP : RIGHT);
+      }
+
+      var trees = document.querySelectorAll('.giencoder-tree');
+      trees.forEach(function (tree) {
+        /* 初始化：统一箭头基准为“向上=展开”；模板中初始右箭头（收起）的节点标记 collapsed，由 CSS 旋转还原视觉 */
+        tree.querySelectorAll('li.giencoder-tree-node').forEach(function (node) {
+          var content = firstChildByClass(node, 'giencoder-tree-node-content');
+          if (!content) return;
+          var switcher = content.querySelector('.giencoder-tree-switcher');
+          if (!switcher) return;
+          var svg = switcher.querySelector('svg');
+          if (!svg) return; /* 叶子节点：无箭头 */
+          var path = svg.querySelector('path');
+          var d = path ? path.getAttribute('d') : '';
+          if (d.indexOf(RIGHT) !== -1) {
+            setArrow(svg, true);
+            node.classList.add('giencoder-tree-node-collapsed');
+          }
+        });
+
+        /* 事件委托：动态新增节点也自动生效 */
+        tree.addEventListener('click', function (e) {
+          var content = e.target.closest('.giencoder-tree-node-content');
+          if (!content) return;
+          var node = content.parentElement;
+          if (!node || !node.classList || !node.classList.contains('giencoder-tree-node')) return;
+          if (content.classList.contains('giencoder-tree-node-disabled')) return;
+          /* checkbox 勾选由 change 事件处理，此处不展开也不选中 */
+          if (e.target.closest('.giencoder-checkbox')) return;
+
+          /* 3) 互斥选中 */
+          tree.querySelectorAll('.giencoder-tree-node-selected').forEach(function (n) {
+            n.classList.remove('giencoder-tree-node-selected');
+          });
+          node.classList.add('giencoder-tree-node-selected');
+
+          /* 1) 展开 / 收起 */
+          var collapsed = node.classList.contains('giencoder-tree-node-collapsed');
+          var switcher = content.querySelector('.giencoder-tree-switcher');
+          var svg = switcher ? switcher.querySelector('svg') : null;
+          if (collapsed) {
+            node.classList.remove('giencoder-tree-node-collapsed');
+            setArrow(svg, true);
+            /* 无子级容器的节点：动态创建占位子级（复用模板既有 class 结构） */
+            if (!findChildrenList(node)) {
+              var ul = document.createElement('ul');
+              ul.className = 'giencoder-tree-list giencoder-tree-children';
+              var li = document.createElement('li');
+              li.className = 'giencoder-tree-node';
+              li.innerHTML = '<div class="giencoder-tree-node-content"><span class="giencoder-tree-switcher"></span><span class="giencoder-tree-title">（暂无子节点）</span></div>';
+              ul.appendChild(li);
+              node.appendChild(ul);
+            }
+          } else {
+            node.classList.add('giencoder-tree-node-collapsed');
+            /* 保持 path=UP（朝下），收起方向交给 CSS rotate(90deg) 转朝右；
+               不得改回 RIGHT，否则与 rotate 叠加变成朝下（方向双重设置矛盾） */
+            setArrow(svg, true);
+          }
+        });
+
+        /* 2) checkbox 勾选（原生 change 事件） */
+        tree.addEventListener('change', function (e) {
+          var input = e.target;
+          if (!input.classList || !input.classList.contains('giencoder-checkbox-input')) return;
+          var node = input.closest('li.giencoder-tree-node');
+          var wrap = input.closest('.giencoder-checkbox');
+          if (!node || !wrap || input.disabled) return;
+          wrap.classList.toggle('giencoder-checkbox-checked', input.checked);
+          node.classList.toggle('giencoder-tree-node-checked', input.checked);
+        });
+      });
+    })();
+  </script>
+    </main>
+  </div>
+<script src="preview-copy.js"></script>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>轮播 Carousel</title>
+  <link rel="stylesheet" href="preview-scaffold.css">
+  <link rel="stylesheet" href="../colors_and_type.css">
+  <link rel="stylesheet" href="../components.css">
+  <style>
+    /* 页面级演示样式（preview-format.md §3）：组件样式并入 components.css 后可整体移除 */
+    .giencoder-carousel { position: relative; width: 400px; height: 200px; border-radius: var(--border-radius-large); overflow: hidden; background: var(--color-fill-1); }
+    .giencoder-carousel-item { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: var(--font-size-title-2); font-weight: 600; color: var(--color-white); }
+    .giencoder-carousel-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 28px; height: 28px; border: none; border-radius: var(--border-radius-circle); background: var(--color-mask-bg); color: var(--color-white); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background var(--transition-duration-2); }
+    .giencoder-carousel-arrow:hover { background: var(--color-primary-6); }
+    .giencoder-carousel-arrow-prev { left: 12px; }
+    .giencoder-carousel-arrow-next { right: 12px; }
+    .giencoder-carousel-dots { position: absolute; bottom: 10px; left: 0; right: 0; display: flex; justify-content: center; gap: var(--spacing-3); }
+    .giencoder-carousel-dot { width: 8px; height: 8px; padding: 0; border: none; border-radius: var(--border-radius-circle); background: var(--color-fill-3); cursor: pointer; transition: all var(--transition-duration-2); }
+    .giencoder-carousel-dot:hover { background: var(--color-text-4); }
+    .giencoder-carousel-dot-active { width: 20px; border-radius: var(--border-radius-small); background: var(--color-primary-6); }
+    .giencoder-carousel-note { margin-top: var(--spacing-4); font-size: var(--font-size-body-1); color: var(--color-text-3); }
+  </style>
+</head>
+<body>
+  <div class="pv-layout">
+    <aside class="pv-sidebar">
+      <div class="pv-nav">
+        <div class="pv-menu-group">入口</div>
+        <a href="../home.html">首页</a>
+        <a href="../../GETTING-STARTED.html">使用说明书</a>
+        <div class="pv-menu-group">组件</div>
+        <a href="../index.html#general">通用</a>
+        <a href="../index.html#layout">布局</a>
+        <a href="../index.html#navigation">导航</a>
+        <a href="../index.html#data-entry">数据录入</a>
+        <a href="../index.html#data-display" class="active">数据展示</a>
+        <a href="../index.html#feedback">反馈</a>
+        <a href="../index.html#other">其他</a>
+        <div class="pv-menu-group">资源</div>
+        <a href="../index.html#uikits">页面样板</a>
+        <a href="../index.html#docs">规范文档</a>
+      </div>
+    </aside>
+    <main class="pv-content">
+  <a class="pv-back" href="../index.html#data-display">← 返回组件库</a>
+  <div class="pv-header">
+    <h1>Carousel 轮播</h1>
+    <p>源启轮播：图片区（渐变占位）+ 底部圆点指示器 + 左右箭头，支持自动播放。</p>
+  </div>
+
+  <!-- ============ 变体：默认轮播 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Default 默认轮播（3 帧 + 圆点指示器 + 左右箭头）</div>
+    <div class="row">
+      <div class="giencoder-carousel" data-component="carousel" data-variant="default" data-state="default">
+        <!-- 第 1 帧（当前帧） -->
+        <div class="giencoder-carousel-item" style="background: linear-gradient(135deg, var(--color-primary-1), var(--color-primary-6));">Slide 1</div>
+        <!-- 第 2 帧 -->
+        <div class="giencoder-carousel-item" style="background: linear-gradient(135deg, var(--color-success-light-1), var(--color-success-6));">Slide 2</div>
+        <!-- 第 3 帧 -->
+        <div class="giencoder-carousel-item" style="background: linear-gradient(135deg, var(--color-warning-light-1), var(--color-warning-6));">Slide 3</div>
+        <!-- 左右箭头 -->
+        <button class="giencoder-carousel-arrow giencoder-carousel-arrow-prev" aria-label="上一张"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>
+        <button class="giencoder-carousel-arrow giencoder-carousel-arrow-next" aria-label="下一张"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+        <!-- 底部圆点指示器 -->
+        <div class="giencoder-carousel-dots">
+          <button class="giencoder-carousel-dot giencoder-carousel-dot-active" aria-label="切换到第 1 张"></button>
+          <button class="giencoder-carousel-dot" aria-label="切换到第 2 张"></button>
+          <button class="giencoder-carousel-dot" aria-label="切换到第 3 张"></button>
+        </div>
+      </div>
+    </div>
+    <div class="giencoder-carousel-note">自动播放：每 3 秒切换一帧，循环播放；鼠标悬停暂停，可点击箭头或圆点手动切换。</div>
+  </div>
+  <style>
+    /* 交互动效样式（当前帧交叉淡入淡出 + 指示器激活过渡，勿并入 components.css） */
+    /* 交互动效用：幻灯切换 — 当前淡出 + 下一张淡入（opacity 0.3s 交叉过渡，替代硬显隐） */
+    .giencoder-carousel-item { opacity: 0; transition: opacity 0.3s var(--transition-timing-function-standard); }
+    .giencoder-carousel-item-active { opacity: 1; }
+    /* 交互动效用：指示器激活过渡 — 宽度/圆角/背景 0.2s */
+    .giencoder-carousel-dot { transition: width 0.2s var(--transition-timing-function-standard), border-radius 0.2s var(--transition-timing-function-standard), background-color 0.2s var(--transition-timing-function-standard); }
+  </style>
+  <script>
+    /* ========== component-carousel：交互清单 ==========
+       1) 点击左右箭头：循环切换当前幻灯（-active 显隐互斥 + 指示器同步）
+       2) 点击指示器圆点：跳转到对应幻灯
+    */
+    (function () {
+      'use strict';
+      var carousel = document.querySelector('.giencoder-carousel');
+      if (!carousel) return;
+      var items = carousel.querySelectorAll('.giencoder-carousel-item');
+      var dots = carousel.querySelectorAll('.giencoder-carousel-dot');
+      if (!items.length || !dots.length) return;
+
+      var current = 0;
+      function show(index) {
+        if (index < 0) index = items.length - 1;
+        if (index >= items.length) index = 0;
+        current = index;
+        items.forEach(function (item, i) {
+          item.classList.toggle('giencoder-carousel-item-active', i === current);
+        });
+        dots.forEach(function (dot, i) {
+          dot.classList.toggle('giencoder-carousel-dot-active', i === current);
+        });
+      }
+
+      /* 初始化：模板第 1 帧为当前帧 */
+      show(0);
+
+      /* 1) 左右箭头 */
+      var prev = carousel.querySelector('.giencoder-carousel-arrow-prev');
+      var next = carousel.querySelector('.giencoder-carousel-arrow-next');
+      if (prev) prev.addEventListener('click', function () { show(current - 1); });
+      if (next) next.addEventListener('click', function () { show(current + 1); });
+
+      /* 2) 指示器圆点 */
+      dots.forEach(function (dot, i) {
+        dot.addEventListener('click', function () { show(i); });
+      });
+    })();
+  </script>
+    </main>
+  </div>
+<script src="preview-copy.js"></script>
+</body>
+</html>

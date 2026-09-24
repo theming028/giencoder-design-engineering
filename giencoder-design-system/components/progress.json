@@ -1,0 +1,167 @@
+{
+  "schemaVersion": 3,
+  "slug": "progress",
+  "name": "Progress",
+  "category": "data-display",
+  "giencoderSource": {
+    "component": "Progress",
+    "version": "2.66.16"
+  },
+  "summary": "进度条：以线形或圆形展示任务完成进度，支持状态色、分段步进与缓冲进度",
+  "variants": [
+    {
+      "name": "line",
+      "description": "线形进度条：横向条状填充，可选 steps 分段显示",
+      "whenToUse": "线性流程进度、上传/下载百分比"
+    },
+    {
+      "name": "circle",
+      "description": "圆形进度环：环形描边展示百分比",
+      "whenToUse": "仪表盘、能力值等需要环形视觉的场景"
+    },
+    {
+      "name": "steps",
+      "description": "分段步进：line + steps 将进度按固定段数离散展示",
+      "whenToUse": "步骤感强的流程进度（如分 N 段）"
+    },
+    {
+      "name": "buffer",
+      "description": "缓冲进度：line 形态下 buffer 属性显示浅色缓冲轨道",
+      "whenToUse": "音视频加载等有缓冲概念的进度"
+    }
+  ],
+  "sizes": [
+    {
+      "name": "mini",
+      "value": "圆形直径 60px",
+      "usage": "小面积环形进度（状态点等）"
+    },
+    {
+      "name": "small",
+      "value": "圆形直径 80px",
+      "usage": "紧凑环形展示"
+    },
+    {
+      "name": "default",
+      "value": "线形条高 8px；圆形直径 100px",
+      "usage": "默认尺寸"
+    },
+    {
+      "name": "large",
+      "value": "圆形直径 120px",
+      "usage": "大尺寸环形展示"
+    }
+  ],
+  "states": [
+    {
+      "name": "default",
+      "description": "status=normal 常规进度",
+      "visual": "填充色 --color-primary-6，轨道 --color-fill-2"
+    },
+    {
+      "name": "error",
+      "description": "status=error 进度异常",
+      "visual": "填充色切换为 --color-danger-6，文字/图标变红"
+    },
+    {
+      "name": "success",
+      "description": "status=success 完成",
+      "visual": "填充色切换为 --color-success-6"
+    },
+    {
+      "name": "warning",
+      "description": "status=warning 警告进度",
+      "visual": "填充色切换为 --color-warning-6"
+    },
+    {
+      "name": "empty",
+      "description": "percent=0 未开始",
+      "visual": "仅显示轨道底色，无填充"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "track",
+      "element": "div.giencoder-progress-track",
+      "description": "轨道：未完成区域底色"
+    },
+    {
+      "part": "bar",
+      "element": "div.giencoder-progress-bar",
+      "description": "进度填充条，宽度随 percent 变化"
+    },
+    {
+      "part": "buffer",
+      "element": "div.giencoder-progress-buffer",
+      "description": "缓冲填充层（line + buffer）"
+    },
+    {
+      "part": "text",
+      "element": "div.giencoder-progress-text",
+      "description": "百分比/状态文字或图标（showText 时）"
+    },
+    {
+      "part": "circle",
+      "element": "div.giencoder-progress-circle",
+      "description": "圆形进度容器（SVG 描边）"
+    }
+  ],
+  "interaction": {
+    "hover": "无悬停反馈（纯展示）",
+    "focus": "不接收焦点（纯展示）",
+    "keyboard": [
+      "无键盘交互（纯展示）"
+    ],
+    "motion": {
+      "duration": "0.3s",
+      "easing": "standard",
+      "description": "percent 变化时填充条 0.3s 标准过渡"
+    },
+    "behaviorNotes": "status 与颜色优先级：自定义 color 优先于状态色；圆形 size 控制直径与描边粗细；showText=false 可隐藏文字；加载语义可结合 Spin 由业务承载"
+  },
+  "a11y": {
+    "role": "progressbar",
+    "ariaAttrs": [
+      "aria-valuenow (当前进度)",
+      "aria-valuemin=\"0\"",
+      "aria-valuemax=\"100\"",
+      "aria-valuetext (进度文字)"
+    ],
+    "contrastNote": "填充色与轨道色对比明显；文字 --color-text-1 对比度 ≥ 4.5:1",
+    "focusNote": "纯展示不接收焦点，不设 tabindex"
+  },
+  "usage": [
+    "进度变化频繁时保持 percent 受控更新，动画由组件平滑过渡",
+    "error/success/warning 状态使用对应 status 而非自定义颜色",
+    "分段步进适用于离散步骤，连续百分比用普通 line",
+    "无障碍场景务必保留 showText 或 aria-valuetext"
+  ],
+  "doNotInvent": [
+    "不得虚构加载动画条纹、渐变描边等官方不存在的形态",
+    "不得新增官方不存在的状态枚举（如 paused）",
+    "不得用 外部 CSS 框架/Lucide 替代组件与图标体系"
+  ],
+  "tokensConsumed": [
+    "--color-primary-6",
+    "--color-success-6",
+    "--color-danger-6",
+    "--color-warning-6",
+    "--color-fill-2",
+    "--color-text-1"
+  ],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "ProgressProps",
+    "props": [
+      "animation",
+      "className",
+      "color",
+      "status",
+      "steps",
+      "style",
+      "type"
+    ],
+    "total": 7,
+    "syncDate": "2026/08/28"
+  }
+}

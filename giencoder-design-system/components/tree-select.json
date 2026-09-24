@@ -1,0 +1,213 @@
+{
+  "schemaVersion": 3,
+  "slug": "tree-select",
+  "name": "TreeSelect",
+  "category": "data-entry",
+  "giencoderSource": {
+    "component": "TreeSelect",
+    "version": "2.66.16"
+  },
+  "summary": "树选择：下拉面板内以树形结构选择节点，支持多选、搜索与父子联动。",
+  "variants": [
+    {
+      "name": "single",
+      "description": "单选，点击节点即选中并收起",
+      "whenToUse": "层级数据单选（省市区、组织架构）"
+    },
+    {
+      "name": "multiple",
+      "description": "多选，选中节点以 Tag 展示",
+      "whenToUse": "层级数据多选"
+    },
+    {
+      "name": "search",
+      "description": "showSearch 树内搜索定位节点",
+      "whenToUse": "层级深、节点多，需快速定位"
+    },
+    {
+      "name": "checkable",
+      "description": "treeCheckable 多选复选框，父子联动",
+      "whenToUse": "按层级批量勾选"
+    },
+    {
+      "name": "strict",
+      "description": "treeCheckStrictly 父子选择相互独立",
+      "whenToUse": "父与子选择需解耦（部分选中不计父级）"
+    },
+    {
+      "name": "clearable",
+      "description": "allowClear 一键清除已选节点",
+      "whenToUse": "允许清空选择"
+    }
+  ],
+  "sizes": [
+    {
+      "name": "mini",
+      "value": "24px",
+      "usage": "紧凑场景"
+    },
+    {
+      "name": "small",
+      "value": "28px",
+      "usage": "密集表单"
+    },
+    {
+      "name": "medium",
+      "value": "32px",
+      "usage": "默认尺寸"
+    },
+    {
+      "name": "large",
+      "value": "36px",
+      "usage": "大字号场景"
+    }
+  ],
+  "states": [
+    {
+      "name": "default",
+      "description": "未交互态",
+      "visual": "白底 + --color-border-2 边框"
+    },
+    {
+      "name": "hover",
+      "description": "鼠标悬停",
+      "visual": "选择框边框过渡主色；树节点底色 --color-fill-1"
+    },
+    {
+      "name": "focus",
+      "description": "聚焦态",
+      "visual": "主色边框 + 焦点环，下拉展开"
+    },
+    {
+      "name": "disabled",
+      "description": "禁用态",
+      "visual": "灰底灰字，不可交互"
+    },
+    {
+      "name": "loading",
+      "description": "数据加载中",
+      "visual": "箭头位显示加载指示器"
+    },
+    {
+      "name": "selected",
+      "description": "节点选中态",
+      "visual": "节点主色文字/复选框勾选主色"
+    },
+    {
+      "name": "empty",
+      "description": "无匹配节点",
+      "visual": "面板内空态提示"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "selector",
+      "element": "div",
+      "description": "选择框容器"
+    },
+    {
+      "part": "input",
+      "element": "input",
+      "description": "搜索输入框（showSearch）"
+    },
+    {
+      "part": "tag",
+      "element": "span",
+      "description": "多选已选节点标签"
+    },
+    {
+      "part": "dropdown",
+      "element": "div",
+      "description": "树形下拉面板"
+    },
+    {
+      "part": "tree-node",
+      "element": "div",
+      "description": "树节点行，含展开箭头与文字"
+    },
+    {
+      "part": "tree-checkbox",
+      "element": "span",
+      "description": "节点复选框（checkable）"
+    },
+    {
+      "part": "tree-switcher",
+      "element": "span",
+      "description": "展开/折叠箭头：收起=右箭头 ›，展开=下箭头 ⌄"
+    }
+  ],
+  "interaction": {
+    "hover": "选择框边框过渡主色；树节点 hover 底色 --color-fill-1，0.1s",
+    "focus": "选择框主色边框 + 焦点环，高亮节点可键盘操作",
+    "keyboard": [
+      "ArrowDown/ArrowUp: 在树节点间移动高亮",
+      "ArrowRight: 展开节点或进入子节点",
+      "ArrowLeft: 折叠节点或回到父节点",
+      "Enter: 选中高亮节点并收起（多选时保留面板）",
+      "Space: 多选模式切换节点复选框",
+      "Esc: 关闭下拉",
+      "Tab: 离开组件并关闭下拉"
+    ],
+    "motion": {
+      "duration": "0.1s~0.2s",
+      "easing": "standard",
+      "description": "面板展开 0.2s，树节点展开/折叠 0.2s 标准曲线，节点 hover 0.1s"
+    },
+    "behaviorNotes": "弹层型组件：focusTrap——下拉打开时焦点受限；escClose——Esc 关闭面板；clickOutsideClose——点击外部关闭。treeCheckStrictly 时父子选择独立；单选模式点击节点即选中关闭；支持 virtualList 大数据虚拟滚动"
+  },
+  "a11y": {
+    "role": "combobox",
+    "ariaAttrs": [
+      "aria-expanded",
+      "aria-activedescendant",
+      "aria-haspopup",
+      "aria-disabled",
+      "aria-multiselectable",
+      "aria-label"
+    ],
+    "contrastNote": "面板底色 --color-bg-5，选中节点主色文字对比达标；禁用态 --color-text-4 属预期降级",
+    "focusNote": "选择框可见焦点环，面板内高亮节点经 aria-activedescendant 通告，树结构建议配 aria-label"
+  },
+  "usage": [
+    "层级数据单选/多选（省市区、组织架构、分类目录）",
+    "父子批量勾选用 treeCheckable",
+    "父子选择解耦用 treeCheckStrictly",
+    "深层树开启 showSearch 定位节点",
+    "大数据量开启 virtualList"
+  ],
+  "doNotInvent": [
+    "不得虚构官方不存在的级联面板样式（级联用 Cascader）",
+    "不得在单选模式实现父子联动（仅多选 checkable 支持）",
+    "不得自定义节点折叠动画曲线",
+    "不得用扁平 Select 冒充层级选择"
+  ],
+  "tokensConsumed": [
+    "--color-bg-5",
+    "--shadow2-down",
+    "--color-primary-6",
+    "--color-fill-1",
+    "--color-fill-2",
+    "--color-border-2",
+    "--color-text-1",
+    "--color-text-3",
+    "--color-text-4",
+    "--z-index-popup",
+    "--border-radius-medium"
+  ],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "TreeSelectProps",
+    "props": [
+      "defaultValue",
+      "disabled",
+      "filterNode",
+      "inputValue",
+      "label",
+      "multiple",
+      "prefixCls",
+      "value"
+    ],
+    "total": 8,
+    "syncDate": "2026/08/28"
+  }
+}

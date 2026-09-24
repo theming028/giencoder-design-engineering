@@ -1,0 +1,166 @@
+{
+  "schemaVersion": 3,
+  "slug": "list",
+  "name": "List",
+  "category": "data-display",
+  "giencoderSource": {
+    "component": "List",
+    "version": "2.66.16"
+  },
+  "summary": "列表：以行或网格形式展示同构数据集合，支持分页、加载更多、滚动加载与虚拟滚动",
+  "variants": [
+    {
+      "name": "default",
+      "description": "基础列表：上下分割线分隔的行式列表，可配 bordered 边框与 split 分割线",
+      "whenToUse": "消息、任务、搜索结果等垂直数据流"
+    },
+    {
+      "name": "grid",
+      "description": "网格列表：通过 grid 属性按列数/响应式断点（xs~xxl）栅格排布条目",
+      "whenToUse": "商品、图片、卡片类数据的网格展示"
+    },
+    {
+      "name": "hoverable",
+      "description": "可悬停行：hoverable 开启后行背景悬停高亮，提示可交互",
+      "whenToUse": "行内含操作、点击行有跳转或抽屉等交互"
+    },
+    {
+      "name": "loading",
+      "description": "加载态：loading 时列表区域展示 Spin 加载指示",
+      "whenToUse": "数据异步加载期间占位"
+    }
+  ],
+  "sizes": [
+    {
+      "name": "small",
+      "value": "行高约 32px",
+      "usage": "紧凑场景（密集数据、控制台）"
+    },
+    {
+      "name": "default",
+      "value": "行高约 40px",
+      "usage": "默认尺寸"
+    },
+    {
+      "name": "large",
+      "value": "行高约 48px",
+      "usage": "内容较丰富的列表"
+    }
+  ],
+  "states": [
+    {
+      "name": "default",
+      "description": "默认状态",
+      "visual": "浅色底 + --color-border-1 分割线"
+    },
+    {
+      "name": "hover",
+      "description": "hoverable 开启时鼠标悬停行",
+      "visual": "行背景变为 --color-fill-1，0.2s 过渡"
+    },
+    {
+      "name": "loading",
+      "description": "数据加载中",
+      "visual": "列表内容替换为 Spin 居中指示"
+    },
+    {
+      "name": "empty",
+      "description": "无数据",
+      "visual": "展示默认空态（插图 + 文案，可通过 empty 属性自定义）"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "list",
+      "element": "div.giencoder-list",
+      "description": "列表容器，包裹 header/footer 与列表主体"
+    },
+    {
+      "part": "header",
+      "element": "div.giencoder-list-header",
+      "description": "列表头部，可放标题、统计等"
+    },
+    {
+      "part": "item",
+      "element": "div.giencoder-list-item",
+      "description": "行条目，grid 模式下表现为栅格单元"
+    },
+    {
+      "part": "item-meta",
+      "element": "div.giencoder-list-item-meta",
+      "description": "条目元信息：avatar 头像 / title 标题 / description 描述"
+    },
+    {
+      "part": "item-action",
+      "element": "div.giencoder-list-item-action",
+      "description": "条目操作区，展示在行尾部（按钮、链接等）"
+    },
+    {
+      "part": "footer",
+      "element": "div.giencoder-list-footer",
+      "description": "列表底部，常用于放分页器或加载更多按钮"
+    }
+  ],
+  "interaction": {
+    "hover": "hoverable 时行背景高亮为 --color-fill-1",
+    "focus": "列表本身不接收焦点；焦点落在行内可交互元素上，显示可见焦点环",
+    "keyboard": [
+      "Tab: 依次聚焦行内的可交互元素（链接、按钮等）",
+      "Enter: 触发已聚焦元素的操作",
+      "Space: 触发已聚焦元素的操作（如按钮）"
+    ],
+    "motion": {
+      "duration": "0.2s",
+      "easing": "standard",
+      "description": "行 hover 背景 0.2s 标准过渡；加载更多/滚动加载无入场动效"
+    },
+    "behaviorNotes": "加载更多通过 onReachBottom 监听滚动触底触发，滚动加载配合 scrollLoading 显示尾部加载态；虚拟滚动由 virtualListProps 启用，仅渲染可视区条目"
+  },
+  "a11y": {
+    "role": "list",
+    "ariaAttrs": [
+      "role=listitem (行条目)",
+      "aria-label (列表容器，可选)",
+      "aria-busy (loading 时)"
+    ],
+    "contrastNote": "正文 --color-text-1 与背景对比度 ≥ 4.5:1；次要文字 --color-text-2 ≥ 3:1",
+    "focusNote": "行内可交互元素需可见焦点环；列表本身不设 tabindex"
+  },
+  "usage": [
+    "数据项结构一致时优先用 List 而非手写循环 div",
+    "分页/加载更多/滚动加载/虚拟滚动按数据规模选择，避免一次性渲染万级数据",
+    "grid 模式结合响应式断点配置列数，保证小屏可用",
+    "hoverable 仅用于行确实可交互的场景"
+  ],
+  "doNotInvent": [
+    "不得虚构 List 不存在的拖拽排序、滑动删除等交互（源启未内置）",
+    "不得新增官方不存在的变体 class",
+    "不得用 外部 CSS 框架/Lucide 替代组件与图标体系"
+  ],
+  "tokensConsumed": [
+    "--color-border-1",
+    "--color-fill-1",
+    "--color-bg-2",
+    "--color-text-1",
+    "--color-text-2",
+    "--border-radius-medium",
+    "--font-size-body-3"
+  ],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "ListProps",
+    "props": [
+      "actionLayout",
+      "actions",
+      "avatar",
+      "children",
+      "className",
+      "description",
+      "extra",
+      "style",
+      "title"
+    ],
+    "total": 9,
+    "syncDate": "2026/08/28"
+  }
+}

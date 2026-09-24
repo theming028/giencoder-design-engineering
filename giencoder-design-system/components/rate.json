@@ -1,0 +1,163 @@
+{
+  "schemaVersion": 3,
+  "slug": "rate",
+  "name": "Rate",
+  "category": "data-entry",
+  "giencoderSource": {
+    "component": "Rate",
+    "version": "2.66.16"
+  },
+  "summary": "评分：星形图标评价控件，支持半选、清除、只读与自定义字符。",
+  "variants": [
+    {
+      "name": "default",
+      "description": "星形整星评分，默认 5 星",
+      "whenToUse": "常规满意度/星级评价"
+    },
+    {
+      "name": "half",
+      "description": "allowHalf 半星评分，粒度 0.5",
+      "whenToUse": "需要更精确的评分粒度"
+    },
+    {
+      "name": "clearable",
+      "description": "allowClear 点击当前值可清除评分",
+      "whenToUse": "允许取消评价的场景"
+    },
+    {
+      "name": "readonly",
+      "description": "readOnly 只读展示，不可交互",
+      "whenToUse": "展示历史评分结果"
+    },
+    {
+      "name": "character",
+      "description": "character 自定义字符（emoji/图标）",
+      "whenToUse": "用表情或自定义符号替代星形"
+    },
+    {
+      "name": "grading",
+      "description": "grading 附带等级文案（很差/差/一般/好/很好）",
+      "whenToUse": "需要文字说明评分等级含义"
+    }
+  ],
+  "sizes": [
+    {
+      "name": "default",
+      "value": "24px（星形图标）",
+      "usage": "固定尺寸，无尺寸档位"
+    }
+  ],
+  "states": [
+    {
+      "name": "default",
+      "description": "未交互态",
+      "visual": "未选中星 --color-fill-3，选中星 --color-orange-6"
+    },
+    {
+      "name": "hover",
+      "description": "鼠标悬停",
+      "visual": "悬停星即时高亮至当前星，其余保持空星"
+    },
+    {
+      "name": "active",
+      "description": "按下/选择过程",
+      "visual": "星形缩放弹跳反馈 0.1s"
+    },
+    {
+      "name": "disabled",
+      "description": "禁用态",
+      "visual": "星形降透明度，不可交互"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "rate-star",
+      "element": "svg/span",
+      "description": "星形图标，选中/空态两色"
+    },
+    {
+      "part": "rate-star-first",
+      "element": "span",
+      "description": "前半星，allowHalf 时承载 0.5 评分"
+    },
+    {
+      "part": "rate-character",
+      "element": "span",
+      "description": "自定义字符渲染位"
+    },
+    {
+      "part": "rate-text",
+      "element": "span",
+      "description": "grading 模式下的等级文案"
+    }
+  ],
+  "interaction": {
+    "hover": "星形即时高亮至当前星并附 Tooltip（配置 tooltips 时）",
+    "focus": "键盘操作时焦点星高亮，可见焦点环",
+    "keyboard": [
+      "ArrowLeft/ArrowDown: 减少评分（allowHalf 时按半星步进）",
+      "ArrowRight/ArrowUp: 增加评分",
+      "Enter: 确认当前评分并提交表单",
+      "Tab: 焦点进入/离开评分组件"
+    ],
+    "motion": {
+      "duration": "0.1s~0.3s",
+      "easing": "overshoot",
+      "description": "星形选中缩放带轻微弹跳 0.1s，半星切换 0.2s，等级文案淡入 0.3s"
+    },
+    "behaviorNotes": "allowClear 时点击当前值清除评分；readOnly 纯展示无交互；受控 value 经 onChange 上报，count 可自定义星数"
+  },
+  "a11y": {
+    "role": "slider",
+    "ariaAttrs": [
+      "aria-valuemin",
+      "aria-valuemax",
+      "aria-valuenow",
+      "aria-label",
+      "aria-disabled"
+    ],
+    "contrastNote": "选中星 --color-orange-6 与空星 --color-fill-3 对比清晰；grading 文案 --color-text-2 对比度 ≥ 4.5:1",
+    "focusNote": "单一可见焦点环，方向键调整评分值"
+  },
+  "usage": [
+    "星级评价、满意度打分场景",
+    "精确评价用 allowHalf，允许取消用 allowClear",
+    "展示已有评分用 readOnly",
+    "需要语义化表达可用 character 自定义字符",
+    "与 Form 集成受控 value/onChange"
+  ],
+  "doNotInvent": [
+    "不得虚构官方不存在的点赞/踩双态变体",
+    "不得为星形自定义品牌色以外的配色（官方未提供 color 配置）",
+    "不得在 readOnly 下保留点击反馈",
+    "不得用自定义图标替换时改变选中色规范"
+  ],
+  "tokensConsumed": [
+    "--color-orange-6",
+    "--color-fill-3",
+    "--color-text-2",
+    "--color-text-4"
+  ],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "RateProps",
+    "props": [
+      "allowClear",
+      "allowHalf",
+      "character",
+      "className",
+      "count",
+      "defaultValue",
+      "disabled",
+      "grading",
+      "onChange",
+      "onHoverChange",
+      "readonly",
+      "style",
+      "tooltips",
+      "value"
+    ],
+    "total": 14,
+    "syncDate": "2026/08/28"
+  }
+}

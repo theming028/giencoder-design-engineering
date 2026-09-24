@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>Card 卡片</title>
+  <link rel="stylesheet" href="preview-scaffold.css">
+  <link rel="stylesheet" href="../colors_and_type.css">
+  <link rel="stylesheet" href="../components.css">
+</head>
+<body>
+  <div class="pv-layout">
+    <aside class="pv-sidebar">
+      <div class="pv-nav">
+        <div class="pv-menu-group">入口</div>
+        <a href="../home.html">首页</a>
+        <a href="../../GETTING-STARTED.html">使用说明书</a>
+        <div class="pv-menu-group">组件</div>
+        <a href="../index.html#general">通用</a>
+        <a href="../index.html#layout">布局</a>
+        <a href="../index.html#navigation">导航</a>
+        <a href="../index.html#data-entry">数据录入</a>
+        <a href="../index.html#data-display" class="active">数据展示</a>
+        <a href="../index.html#feedback">反馈</a>
+        <a href="../index.html#other">其他</a>
+        <div class="pv-menu-group">资源</div>
+        <a href="../index.html#uikits">页面样板</a>
+        <a href="../index.html#docs">规范文档</a>
+      </div>
+    </aside>
+    <main class="pv-content">
+  <a class="pv-back" href="../index.html#data-display">← 返回组件库</a>
+  <div class="pv-header">
+    <h1>Card 卡片</h1>
+    <p>源启卡片：标题/操作区/内容，可加载、可 hover 浮起。页面区块容器。</p>
+  </div>
+
+  <!-- ============ 变体：基础卡片 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Default 基础卡片</div>
+    <div class="row">
+      <div class="giencoder-card" data-component="card" data-variant="default" data-state="default" style="width:320px;">
+        <div class="giencoder-card-header">
+          <div class="giencoder-card-header-title">基础卡片</div>
+        </div>
+        <div class="giencoder-card-body">
+          卡片内容：用于承载区块信息，如统计、列表、表单分区。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 变体：带操作区 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">With Extra 带操作区卡片</div>
+    <div class="row">
+      <div class="giencoder-card" data-component="card" data-variant="extra" data-state="default" style="width:420px;">
+        <div class="giencoder-card-header">
+          <div class="giencoder-card-header-title">服务监控</div>
+          <div class="giencoder-card-header-extra">
+            <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-small">刷新</button>
+            <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-small">更多</button>
+          </div>
+        </div>
+        <div class="giencoder-card-body">
+          卡片主体内容区域。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 变体：可 hover 浮起 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Hoverable 可悬浮卡片</div>
+    <div class="row">
+      <div class="giencoder-card giencoder-card-hoverable" data-component="card" data-variant="hoverable" data-state="default" style="width:320px;">
+        <div class="giencoder-card-header">
+          <div class="giencoder-card-header-title">项目卡片</div>
+        </div>
+        <div class="giencoder-card-body">
+          鼠标悬停时卡片浮起（--shadow2-down）。
+        </div>
+      </div>
+      <div class="giencoder-card giencoder-card-hoverable" data-component="card" data-variant="hoverable" data-state="default" style="width:320px;">
+        <div class="giencoder-card-header">
+          <div class="giencoder-card-header-title">资源卡片</div>
+        </div>
+        <div class="giencoder-card-body">
+          鼠标悬停时卡片浮起（--shadow2-down）。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 变体：加载中 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Loading 加载中卡片</div>
+    <div class="row">
+      <div class="giencoder-card" data-component="card" data-variant="loading" data-state="loading" style="width:320px;">
+        <div class="giencoder-card-header">
+          <div class="giencoder-card-header-title">加载中</div>
+        </div>
+        <div class="giencoder-card-body">
+          <div class="giencoder-skeleton">
+            <div class="giencoder-skeleton-paragraph">
+              <span class="giencoder-skeleton-line" style="width:100%;"></span>
+              <span class="giencoder-skeleton-line" style="width:80%;"></span>
+              <span class="giencoder-skeleton-line" style="width:60%;"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    </main>
+  </div>
+<script src="preview-copy.js"></script>
+</body>
+</html>

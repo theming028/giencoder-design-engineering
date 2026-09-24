@@ -1,0 +1,81 @@
+/* ═══════════════════════════════════════════════════════════════
+ * ui-kits 共享控件样式（Select / DatePicker）
+ * 来源：组件标准实现（giencoder/preview/component-select.html、
+ *       giencoder/preview/component-date-picker.html），仅收敛动效与
+ *       面板样式供模板页复用；基础组件样式见 components.css
+ * 规则：仅用 Design Token，禁止硬编码 hex
+ * ═══════════════════════════════════════════════════════════════ */
+
+/* ---- Select 弹层展开/收起动效（.giencoder-popup-open）---- */
+.giencoder-select-popup {
+  opacity: 0;
+  visibility: hidden;
+  translate: 0 4px;
+  scale: 0.96;
+  transform-origin: top center;
+  transition: opacity .15s cubic-bezier(0.34, 0.69, 0.1, 1), translate .15s cubic-bezier(0.34, 0.69, 0.1, 1), scale .15s cubic-bezier(0.34, 0.69, 0.1, 1), visibility 0s .15s;
+}
+.giencoder-select-popup.giencoder-popup-open {
+  opacity: 1;
+  visibility: visible;
+  translate: 0 0;
+  scale: 1;
+  transition: opacity .2s cubic-bezier(0.34, 0.69, 0.1, 1), translate .2s var(--transition-timing-function-spring), scale .2s var(--transition-timing-function-spring), visibility 0s;
+}
+
+/* ---- DatePicker 面板与日历（.giencoder-panel-open）---- */
+.giencoder-date-picker { position: relative; display: inline-block; }
+.giencoder-date-picker-popup {
+  position: absolute; top: calc(100% + 4px); left: 0; z-index: 10;
+  background: var(--color-bg-popup); border: 1px solid var(--color-border-2);
+  border-radius: var(--border-radius-large); box-shadow: var(--shadow1-down);
+  padding: var(--spacing-6);
+}
+.giencoder-date-picker-panels { display: flex; gap: var(--spacing-9); }
+.giencoder-calendar { width: 224px; }
+.giencoder-calendar-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: var(--spacing-4);
+}
+.giencoder-calendar-title { font-size: var(--font-size-body-3); font-weight: 600; color: var(--color-text-1); }
+.giencoder-calendar-nav {
+  border: none; background: none; cursor: pointer; color: var(--color-text-3);
+  width: 24px; height: 24px; border-radius: var(--border-radius-small);
+  display: inline-flex; align-items: center; justify-content: center; padding: 0;
+}
+.giencoder-calendar-nav:hover { background: var(--color-fill-1); color: var(--color-text-1); }
+.giencoder-calendar-weekdays, .giencoder-calendar-grid {
+  display: grid; grid-template-columns: repeat(7, 32px); gap: 0;
+}
+.giencoder-calendar-weekdays span {
+  width: 32px; height: 28px; display: inline-flex; align-items: center; justify-content: center;
+  font-size: var(--font-size-body-1); color: var(--color-text-3);
+}
+.giencoder-calendar-cell {
+  width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 50%; font-size: var(--font-size-body-2); color: var(--color-text-1);
+  cursor: pointer; box-sizing: border-box;
+}
+.giencoder-calendar-cell:hover { background: var(--color-fill-1); }
+.giencoder-calendar-cell-other { color: var(--color-text-4); }
+.giencoder-calendar-cell-today { border: 1px solid var(--color-primary-6); color: var(--color-primary-6); }
+.giencoder-calendar-cell-selected { background: var(--color-primary-6); color: var(--color-white); }
+.giencoder-calendar-cell-in-range { background: var(--color-primary-1); border-radius: 0; }
+.giencoder-calendar-cell-range-start, .giencoder-calendar-cell-range-end {
+  background: var(--color-primary-6); color: var(--color-white); border-radius: 50%;
+}
+.giencoder-calendar-cell-empty { visibility: hidden; }
+
+/* DatePicker 面板展开/收起动效 */
+.giencoder-date-picker-popup {
+  opacity: 0; visibility: hidden;
+  transform: scale(0.97) translateY(4px);
+  transition: opacity var(--transition-duration-2) var(--transition-timing-function-standard),
+              transform var(--transition-duration-2) var(--transition-timing-function-spring),
+              visibility var(--transition-duration-2) var(--transition-timing-function-standard);
+  will-change: opacity, transform;
+}
+.giencoder-date-picker-popup.giencoder-panel-open {
+  opacity: 1; visibility: visible;
+  transform: scale(1) translateY(0);
+}

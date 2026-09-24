@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>列表 List</title>
+  <link rel="stylesheet" href="preview-scaffold.css">
+  <link rel="stylesheet" href="../colors_and_type.css">
+  <link rel="stylesheet" href="../components.css">
+  <style>
+    /* 页面级演示样式（preview-format.md §3）：组件样式并入 components.css 后可整体移除 */
+    .giencoder-list { width: 100%; background: var(--color-bg-2); border: 1px solid var(--color-border-2); border-radius: var(--border-radius-medium); overflow: hidden; }
+    .giencoder-list-header { display: flex; align-items: center; justify-content: space-between; padding: var(--spacing-7); border-bottom: 1px solid var(--color-border-1); font-size: var(--font-size-title-1); font-weight: 600; color: var(--color-text-1); }
+    .giencoder-list-item { display: flex; align-items: center; justify-content: space-between; gap: var(--spacing-7); padding: var(--spacing-7); border-bottom: 1px solid var(--color-border-1); }
+    .giencoder-list-item:last-child { border-bottom: none; }
+    .giencoder-list-item-meta { display: flex; align-items: center; gap: var(--spacing-6); min-width: 0; }
+    .giencoder-list-item-title { font-size: var(--font-size-body-3); font-weight: 500; color: var(--color-text-1); }
+    .giencoder-list-item-description { margin-top: var(--spacing-2); font-size: var(--font-size-body-2); color: var(--color-text-3); }
+    .giencoder-list-item-action { display: flex; gap: var(--spacing-4); flex-shrink: 0; }
+    .giencoder-list-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--spacing-7); }
+    .giencoder-list-grid-item { background: var(--color-bg-2); border: 1px solid var(--color-border-2); border-radius: var(--border-radius-medium); padding: var(--spacing-7); }
+    .giencoder-list-grid-item:hover { border-color: var(--color-border-3); box-shadow: var(--shadow1-down); }
+    .giencoder-list-grid-item-footer { display: flex; align-items: center; justify-content: space-between; margin-top: var(--spacing-6); }
+    .giencoder-list-footer { display: flex; align-items: center; justify-content: space-between; padding: var(--spacing-6) var(--spacing-7); border-top: 1px solid var(--color-border-1); }
+    .giencoder-list-total { font-size: var(--font-size-body-2); color: var(--color-text-3); }
+  </style>
+</head>
+<body>
+  <div class="pv-layout">
+    <aside class="pv-sidebar">
+      <div class="pv-nav">
+        <div class="pv-menu-group">入口</div>
+        <a href="../home.html">首页</a>
+        <a href="../../GETTING-STARTED.html">使用说明书</a>
+        <div class="pv-menu-group">组件</div>
+        <a href="../index.html#general">通用</a>
+        <a href="../index.html#layout">布局</a>
+        <a href="../index.html#navigation">导航</a>
+        <a href="../index.html#data-entry">数据录入</a>
+        <a href="../index.html#data-display" class="active">数据展示</a>
+        <a href="../index.html#feedback">反馈</a>
+        <a href="../index.html#other">其他</a>
+        <div class="pv-menu-group">资源</div>
+        <a href="../index.html#uikits">页面样板</a>
+        <a href="../index.html#docs">规范文档</a>
+      </div>
+    </aside>
+    <main class="pv-content">
+  <a class="pv-back" href="../index.html#data-display">← 返回组件库</a>
+  <div class="pv-header">
+    <h1>List 列表</h1>
+    <p>源启列表：基础列表（头像 + 标题 + 描述）、操作列表（编辑/删除）、网格列表（3 列卡片）、加载更多。</p>
+  </div>
+
+  <!-- ============ 变体：基础列表 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Basic 基础列表（分隔线 --color-border-1）</div>
+    <div class="row">
+      <div class="giencoder-list" data-component="list" data-variant="basic" data-state="default">
+        <div class="giencoder-list-header">项目成员</div>
+        <div class="giencoder-list-item">
+          <div class="giencoder-list-item-meta">
+            <span class="giencoder-avatar" style="width:40px; height:40px; border-radius:50%; background:var(--color-primary-6); color:var(--color-white); display:flex; align-items:center; justify-content:center; font-size:16px;">张</span>
+            <div>
+              <div class="giencoder-list-item-title">张三</div>
+              <div class="giencoder-list-item-description">项目 A · 负责前端架构与组件库建设</div>
+            </div>
+          </div>
+        </div>
+        <div class="giencoder-list-item">
+          <div class="giencoder-list-item-meta">
+            <span class="giencoder-avatar" style="width:40px; height:40px; border-radius:50%; background:var(--color-success-6); color:var(--color-white); display:flex; align-items:center; justify-content:center; font-size:16px;">李</span>
+            <div>
+              <div class="giencoder-list-item-title">李四</div>
+              <div class="giencoder-list-item-description">项目 B · 负责数据平台与可视化</div>
+            </div>
+          </div>
+        </div>
+        <div class="giencoder-list-item">
+          <div class="giencoder-list-item-meta">
+            <span class="giencoder-avatar" style="width:40px; height:40px; border-radius:50%; background:var(--color-data-2); color:var(--color-white); display:flex; align-items:center; justify-content:center; font-size:16px;">王</span>
+            <div>
+              <div class="giencoder-list-item-title">王五</div>
+              <div class="giencoder-list-item-description">项目 C · 负责测试体系建设</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 变体：操作列表 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Action 操作列表（右侧 编辑/删除）</div>
+    <div class="row">
+      <div class="giencoder-list" data-component="list" data-variant="action" data-state="default">
+        <div class="giencoder-list-item">
+          <div class="giencoder-list-item-meta">
+            <span class="giencoder-avatar" style="width:40px; height:40px; border-radius:50%; background:var(--color-primary-6); color:var(--color-white); display:flex; align-items:center; justify-content:center; font-size:16px;">张</span>
+            <div>
+              <div class="giencoder-list-item-title">张三</div>
+              <div class="giencoder-list-item-description">项目 A · 负责前端架构与组件库建设</div>
+            </div>
+          </div>
+          <div class="giencoder-list-item-action">
+            <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-mini">编辑</button>
+            <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-mini giencoder-btn-danger-text">删除</button>
+          </div>
+        </div>
+        <div class="giencoder-list-item">
+          <div class="giencoder-list-item-meta">
+            <span class="giencoder-avatar" style="width:40px; height:40px; border-radius:50%; background:var(--color-success-6); color:var(--color-white); display:flex; align-items:center; justify-content:center; font-size:16px;">李</span>
+            <div>
+              <div class="giencoder-list-item-title">李四</div>
+              <div class="giencoder-list-item-description">项目 B · 负责数据平台与可视化</div>
+            </div>
+          </div>
+          <div class="giencoder-list-item-action">
+            <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-mini">编辑</button>
+            <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-mini giencoder-btn-danger-text">删除</button>
+          </div>
+        </div>
+        <div class="giencoder-list-item">
+          <div class="giencoder-list-item-meta">
+            <span class="giencoder-avatar" style="width:40px; height:40px; border-radius:50%; background:var(--color-data-2); color:var(--color-white); display:flex; align-items:center; justify-content:center; font-size:16px;">王</span>
+            <div>
+              <div class="giencoder-list-item-title">王五</div>
+              <div class="giencoder-list-item-description">项目 C · 负责测试体系建设</div>
+            </div>
+          </div>
+          <div class="giencoder-list-item-action">
+            <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-mini">编辑</button>
+            <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-mini giencoder-btn-danger-text">删除</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 变体：网格列表 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Grid 网格列表（3 列卡片）</div>
+    <div class="row">
+      <div class="giencoder-list" data-component="list" data-variant="grid" data-state="default">
+        <div class="giencoder-list-grid">
+          <div class="giencoder-list-grid-item">
+            <div class="giencoder-list-item-meta">
+              <span class="giencoder-avatar" style="width:40px; height:40px; border-radius:var(--border-radius-medium); background:var(--color-primary-6); color:var(--color-white); display:flex; align-items:center; justify-content:center; font-size:16px;">数</span>
+              <div class="giencoder-list-item-title">数据分析平台</div>
+            </div>
+            <div class="giencoder-list-item-description">实时数据看板与可视化报表，支持多维度下钻分析。</div>
+            <div class="giencoder-list-grid-item-footer">
+              <span class="giencoder-tag giencoder-tag-light giencoder-tag-primary">进行中</span>
+              <span class="giencoder-list-total">2026/08/28</span>
+            </div>
+          </div>
+          <div class="giencoder-list-grid-item">
+            <div class="giencoder-list-item-meta">
+              <span class="giencoder-avatar" style="width:40px; height:40px; border-radius:var(--border-radius-medium); background:var(--color-success-6); color:var(--color-white); display:flex; align-items:center; justify-content:center; font-size:16px;">审</span>
+              <div class="giencoder-list-item-title">审批中心</div>
+            </div>
+            <div class="giencoder-list-item-description">流程审批与代办提醒，支持多级审批与转办。</div>
+            <div class="giencoder-list-grid-item-footer">
+              <span class="giencoder-tag giencoder-tag-light giencoder-tag-success">已上线</span>
+              <span class="giencoder-list-total">2026/08/20</span>
+            </div>
+          </div>
+          <div class="giencoder-list-grid-item">
+            <div class="giencoder-list-item-meta">
+              <span class="giencoder-avatar" style="width:40px; height:40px; border-radius:var(--border-radius-medium); background:var(--color-warning-6); color:var(--color-white); display:flex; align-items:center; justify-content:center; font-size:16px;">资</span>
+              <div class="giencoder-list-item-title">资产管理</div>
+            </div>
+            <div class="giencoder-list-item-description">资产台账与盘点流程，支持条码与批量导入。</div>
+            <div class="giencoder-list-grid-item-footer">
+              <span class="giencoder-tag giencoder-tag-light giencoder-tag-warning">待验收</span>
+              <span class="giencoder-list-total">2026/08/15</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 变体：加载更多 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">LoadMore 加载更多（底部按钮 + 总数）</div>
+    <div class="row">
+      <div class="giencoder-list" data-component="list" data-variant="load-more" data-state="default">
+        <div class="giencoder-list-header">通知列表</div>
+        <div class="giencoder-list-item">
+          <div class="giencoder-list-item-meta">
+            <span class="giencoder-avatar" style="width:40px; height:40px; border-radius:50%; background:var(--color-primary-6); color:var(--color-white); display:flex; align-items:center; justify-content:center; font-size:16px;">通</span>
+            <div>
+              <div class="giencoder-list-item-title">【系统】组件库 2.0 版本发布</div>
+              <div class="giencoder-list-item-description">新增 6 个组件，更新 12 个组件样式，请及时查看更新日志。</div>
+            </div>
+          </div>
+        </div>
+        <div class="giencoder-list-item">
+          <div class="giencoder-list-item-meta">
+            <span class="giencoder-avatar" style="width:40px; height:40px; border-radius:50%; background:var(--color-success-6); color:var(--color-white); display:flex; align-items:center; justify-content:center; font-size:16px;">审</span>
+            <div>
+              <div class="giencoder-list-item-title">【审批】张三 提交了「需求评审」</div>
+              <div class="giencoder-list-item-description">审批流程等待你处理，请在 48 小时内完成审批。</div>
+            </div>
+          </div>
+        </div>
+        <div class="giencoder-list-footer">
+          <span class="giencoder-list-total">共 12 条</span>
+          <button class="giencoder-btn giencoder-btn-secondary giencoder-btn-size-default">加载更多</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <style>
+    /* 交互脚本用（编辑反馈闪烁，勿并入 components.css） */
+    .giencoder-list-item-editing { animation: giencoder-list-edit-flash 1.2s ease; }
+    @keyframes giencoder-list-edit-flash {
+      0% { background: var(--color-primary-1); }
+      50% { background: var(--color-primary-light-2); }
+      100% { background: transparent; }
+    }
+  </style>
+  <script>
+    /* ========== component-list：交互清单 ==========
+       1) Action 列表：删除按钮移除该列表项；编辑按钮显示"已进入编辑"反馈（行背景闪烁）
+       2) LoadMore 列表："加载更多"按钮追加新列表项（createElement 复用模板结构）并更新总数
+    */
+    (function () {
+      'use strict';
+      /* 1) 操作列表：删除 / 编辑 */
+      var actionLists = document.querySelectorAll('.giencoder-list[data-variant="action"]');
+      actionLists.forEach(function (list) {
+        list.addEventListener('click', function (e) {
+          var btn = e.target.closest('.giencoder-btn');
+          if (!btn) return;
+          var item = btn.closest('.giencoder-list-item');
+          if (!item) return;
+          if (btn.classList.contains('giencoder-btn-danger-text')) {
+            /* 删除 */
+            if (item.parentNode) item.parentNode.removeChild(item);
+          } else {
+            /* 编辑 → 反馈：行背景闪烁 */
+            item.classList.remove('giencoder-list-item-editing');
+            /* 强制重启动画 */
+            void item.offsetWidth;
+            item.classList.add('giencoder-list-item-editing');
+            setTimeout(function () {
+              item.classList.remove('giencoder-list-item-editing');
+            }, 1300);
+          }
+        });
+      });
+
+      /* 2) 加载更多 */
+      var loadMoreList = document.querySelector('.giencoder-list[data-variant="load-more"]');
+      if (loadMoreList) {
+        var footer = loadMoreList.querySelector('.giencoder-list-footer');
+        var moreBtn = footer ? footer.querySelector('.giencoder-btn') : null;
+        var totalEl = loadMoreList.querySelector('.giencoder-list-total');
+        var counter = 0;
+        if (moreBtn) {
+          moreBtn.addEventListener('click', function () {
+            var lastItem = loadMoreList.querySelector('.giencoder-list-item:last-of-type');
+            if (!lastItem || !footer || !lastItem.parentNode) return;
+            counter++;
+            var titles = ['【通知】新版本上线提醒', '【审批】李四 提交了「上线申请」', '【公告】系统将于今晚 23:00 维护'];
+            var descs = ['请及时查看发布说明与变更日志。', '审批流程等待你处理，请在 24 小时内完成审批。', '维护期间服务可能短暂不可用，请提前保存工作。'];
+            var idx = (counter - 1) % titles.length;
+            var item = document.createElement('div');
+            item.className = 'giencoder-list-item';
+            item.innerHTML =
+              '<div class="giencoder-list-item-meta">' +
+                '<span class="giencoder-avatar" style="width:40px; height:40px; border-radius:50%; background:var(--color-primary-6); color:var(--color-white); display:flex; align-items:center; justify-content:center; font-size:16px;">新</span>' +
+                '<div>' +
+                  '<div class="giencoder-list-item-title">' + titles[idx] + '</div>' +
+                  '<div class="giencoder-list-item-description">' + descs[idx] + '</div>' +
+                '</div>' +
+              '</div>';
+            loadMoreList.insertBefore(item, footer);
+            /* 更新总数 */
+            if (totalEl) {
+              var m = /共\s*(\d+)\s*条/.exec(totalEl.textContent);
+              var n = m ? (+m[1] + 1) : 13;
+              totalEl.textContent = '共 ' + n + ' 条';
+            }
+          });
+        }
+      }
+    })();
+  </script>
+    </main>
+  </div>
+<script src="preview-copy.js"></script>
+</body>
+</html>

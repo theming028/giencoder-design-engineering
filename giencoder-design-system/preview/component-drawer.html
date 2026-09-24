@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>Drawer 抽屉</title>
+  <link rel="stylesheet" href="preview-scaffold.css">
+  <link rel="stylesheet" href="../colors_and_type.css">
+  <link rel="stylesheet" href="../components.css">
+  <style>
+    /* Drawer 抽屉过渡动效（交互脚本用） */
+    .giencoder-drawer-mask {
+      transition: opacity var(--transition-duration-3) var(--transition-timing-function-standard);
+    }
+    .giencoder-drawer-mask-motion-hide { opacity: 0; transition-duration: var(--transition-duration-2); }
+    .giencoder-drawer {
+      transition: transform var(--transition-duration-3) var(--transition-timing-function-standard);
+      will-change: transform;
+    }
+    /* 关闭态：右侧抽屉缩回右侧、左侧抽屉缩回左侧 */
+    .giencoder-drawer-mask-motion-hide .giencoder-drawer { transform: translateX(100%); }
+    .giencoder-drawer-mask[data-variant='left'].giencoder-drawer-mask-motion-hide .giencoder-drawer { transform: translateX(-100%); }
+  </style>
+</head>
+<body>
+  <div class="pv-layout">
+    <aside class="pv-sidebar">
+      <div class="pv-nav">
+        <div class="pv-menu-group">入口</div>
+        <a href="../home.html">首页</a>
+        <a href="../../GETTING-STARTED.html">使用说明书</a>
+        <div class="pv-menu-group">组件</div>
+        <a href="../index.html#general">通用</a>
+        <a href="../index.html#layout">布局</a>
+        <a href="../index.html#navigation">导航</a>
+        <a href="../index.html#data-entry">数据录入</a>
+        <a href="../index.html#data-display">数据展示</a>
+        <a href="../index.html#feedback" class="active">反馈</a>
+        <a href="../index.html#other">其他</a>
+        <div class="pv-menu-group">资源</div>
+        <a href="../index.html#uikits">页面样板</a>
+        <a href="../index.html#docs">规范文档</a>
+      </div>
+    </aside>
+    <main class="pv-content">
+  <a class="pv-back" href="../index.html#feedback">← 返回组件库</a>
+  <div class="pv-header">
+    <h1>Drawer 抽屉</h1>
+    <p>源启抽屉：右侧滑出、遮罩、标题+内容+底部操作，Esc 关闭。</p>
+  </div>
+
+  <!-- ============ 变体：右侧抽屉 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Right 右侧抽屉（默认）</div>
+    <div class="row">
+      <div class="giencoder-drawer-mask" data-component="drawer" data-variant="right" data-state="open" style="position:relative; height:360px; border-radius:4px; overflow:hidden; width:100%; display:flex; justify-content:flex-end;">
+        <div class="giencoder-drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-title" style="width:420px; height:100%; background:var(--color-bg-2); box-shadow:var(--shadow3-down); display:flex; flex-direction:column;">
+          <div class="giencoder-drawer-header">
+            <div class="giencoder-drawer-title" id="drawer-title">编辑项目</div>
+            <button class="giencoder-drawer-close-btn" aria-label="关闭">
+              <svg viewBox="0 0 12 12" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 3l6 6M9 3l-6 6"/></svg>
+            </button>
+          </div>
+          <div class="giencoder-drawer-content" style="flex:1; padding:16px 20px; overflow-y:auto; font-size: 14px; color:var(--color-text-2);">
+            <div class="giencoder-form" style="display:flex; flex-direction:column; gap:16px;">
+              <div class="giencoder-form-item">
+                <label class="giencoder-form-label" style="font-size: 14px; color:var(--color-text-1); margin-bottom:6px; display:block;">项目名称</label>
+                <div class="giencoder-input-wrapper">
+                  <input class="giencoder-input" value="资源管理平台">
+                </div>
+              </div>
+              <div class="giencoder-form-item">
+                <label class="giencoder-form-label" style="font-size: 14px; color:var(--color-text-1); margin-bottom:6px; display:block;">描述</label>
+                <div class="giencoder-textarea-wrapper">
+                  <textarea class="giencoder-textarea" rows="4" style="width:100%; border:1px solid var(--color-border-2); border-radius:4px; padding:8px 12px; font-size: 14px;">企业级资源管理后台系统</textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="giencoder-drawer-footer" style="padding:12px 20px; border-top:1px solid var(--color-border-1); display:flex; justify-content:flex-end; gap:12px;">
+            <button class="giencoder-btn giencoder-btn-secondary giencoder-btn-size-default">取消</button>
+            <button class="giencoder-btn giencoder-btn-primary giencoder-btn-size-default">保存</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 变体：左侧抽屉 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Left 左侧抽屉</div>
+    <div class="row">
+      <div class="giencoder-drawer-mask" data-component="drawer" data-variant="left" data-state="open" style="position:relative; height:300px; border-radius:4px; overflow:hidden; width:100%; display:flex; justify-content:flex-start;">
+        <div class="giencoder-drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-left-title" style="width:360px; height:100%; background:var(--color-bg-2); box-shadow:var(--shadow3-down); display:flex; flex-direction:column;">
+          <div class="giencoder-drawer-header">
+            <div class="giencoder-drawer-title" id="drawer-left-title">导航设置</div>
+            <button class="giencoder-drawer-close-btn" aria-label="关闭">
+              <svg viewBox="0 0 12 12" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 3l6 6M9 3l-6 6"/></svg>
+            </button>
+          </div>
+          <div class="giencoder-drawer-content" style="flex:1; padding:16px 20px; font-size: 14px; color:var(--color-text-2);">
+            左侧抽屉内容，常用于导航配置、筛选面板。
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  /* drawer：打开抽屉滑入动画；关闭滑出动画后隐藏（关闭按钮/遮罩/取消/保存） */
+  (function () {
+    'use strict';
+
+    function findAll(sel, root) {
+      return Array.prototype.slice.call((root || document).querySelectorAll(sel));
+    }
+
+    var DURATION = 300; // 与 CSS transition 0.3s 对应
+
+    function openMask(mask) {
+      mask.style.display = 'flex';
+      // 下一帧移除 hide class → 触发滑入过渡
+      requestAnimationFrame(function () {
+        mask.classList.remove('giencoder-drawer-mask-motion-hide');
+      });
+    }
+
+    function closeMask(mask) {
+      if (mask._closing) return;
+      mask._closing = true;
+      mask.classList.add('giencoder-drawer-mask-motion-hide');
+      // 过渡结束后真正隐藏
+      setTimeout(function () {
+        mask.style.display = 'none';
+        mask._closing = false;
+      }, DURATION);
+    }
+
+    findAll('.pv-section').forEach(function (section) {
+      var mask = section.querySelector('.giencoder-drawer-mask');
+      if (!mask) return;
+      var row = section.querySelector('.row');
+
+      // 初始隐藏遮罩，由触发器按钮打开（先预置关闭态，打开时滑入）
+      mask.style.display = 'none';
+      mask.classList.add('giencoder-drawer-mask-motion-hide');
+
+      // 注入"打开抽屉"触发器（动态 DOM：先确认父节点存在）
+      var trigger = document.createElement('button');
+      trigger.type = 'button';
+      trigger.className = 'giencoder-btn giencoder-btn-primary giencoder-btn-size-default';
+      trigger.textContent = '打开抽屉';
+      trigger.style.marginBottom = '16px';
+      trigger.addEventListener('click', function () { openMask(mask); });
+      if (row && row.parentNode) {
+        row.parentNode.insertBefore(trigger, row);
+      } else if (section.parentNode) {
+        section.insertBefore(trigger, section.firstChild);
+      }
+
+      // 关闭按钮 → 关闭
+      var closeBtn = mask.querySelector('.giencoder-drawer-close-btn');
+      if (closeBtn) {
+        closeBtn.addEventListener('click', function () { closeMask(mask); });
+      }
+
+      // 遮罩点击（点空白处）→ 关闭
+      mask.addEventListener('click', function (e) {
+        if (e.target === mask) closeMask(mask);
+      });
+
+      // 底部取消 / 保存 → 关闭（排除触发按钮自身区域外的按钮都在 mask 内）
+      findAll('.giencoder-btn', mask).forEach(function (btn) {
+        btn.addEventListener('click', function () { closeMask(mask); });
+      });
+    });
+  })();
+  </script>
+    </main>
+  </div>
+<script src="preview-copy.js"></script>
+</body>
+</html>

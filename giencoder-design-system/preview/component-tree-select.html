@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>TreeSelect 树选择</title>
+  <link rel="stylesheet" href="preview-scaffold.css">
+  <link rel="stylesheet" href="../colors_and_type.css">
+  <link rel="stylesheet" href="../components.css">
+  <style>
+    /* ===== 交互动效用：弹层展开/收起过渡 ===== */
+    .giencoder-tree-select-popup {
+      opacity: 0; visibility: hidden; transform: translateY(4px);
+      transition: opacity .2s cubic-bezier(0.34, 0.69, 0.1, 1), transform .2s var(--transition-timing-function-spring), visibility .2s;
+    }
+    .giencoder-tree-select-popup.giencoder-popup-open {
+      opacity: 1; visibility: visible; transform: translateY(0);
+    }
+    .giencoder-tree-node { transition: background var(--transition-duration-1); }
+    .giencoder-tree-node:hover { background: var(--color-fill-2); } /* hover 与 Dropdown 菜单项一致 */
+    /* 触发框：Secondary 同款表面层 + hover 仅背景变浅（投影保持默认）+ 按压下沉（与 Select 触发框一致） */
+    .giencoder-tree-select-view {
+      display: flex; align-items: center; gap: 8px;
+      border: 1px solid var(--color-border-2); border-radius: 4px;
+      background: var(--color-bg-2); padding: 0 12px; height: 32px; cursor: pointer;
+      box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 0 0 1px var(--color-bg-2);
+      transition: border-color var(--transition-duration-1) var(--transition-timing-function-standard),
+                  box-shadow 180ms cubic-bezier(0.23, 1, 0.32, 1), background-color 80ms ease;
+    }
+    .giencoder-tree-select-view:hover {
+      background: var(--color-fill-1);
+      box-shadow: none; /* hover 无投影无 ring */
+    }
+    .giencoder-tree-select-view:active {
+      background: var(--color-bg-2);
+      box-shadow: none;
+      transition-duration: 80ms, 80ms, 80ms;
+    }
+  </style>
+</head>
+<body>
+  <div class="pv-layout">
+    <aside class="pv-sidebar">
+      <div class="pv-nav">
+        <div class="pv-menu-group">入口</div>
+        <a href="../home.html">首页</a>
+        <a href="../../GETTING-STARTED.html">使用说明书</a>
+        <div class="pv-menu-group">组件</div>
+        <a href="../index.html#general">通用</a>
+        <a href="../index.html#layout">布局</a>
+        <a href="../index.html#navigation">导航</a>
+        <a href="../index.html#data-entry" class="active">数据录入</a>
+        <a href="../index.html#data-display">数据展示</a>
+        <a href="../index.html#feedback">反馈</a>
+        <a href="../index.html#other">其他</a>
+        <div class="pv-menu-group">资源</div>
+        <a href="../index.html#uikits">页面样板</a>
+        <a href="../index.html#docs">规范文档</a>
+      </div>
+    </aside>
+    <main class="pv-content">
+  <a class="pv-back" href="../index.html#data-entry">← 返回组件库</a>
+  <div class="pv-header">
+    <h1>TreeSelect 树选择</h1>
+    <p>源启树选择：触发框显示选中节点，弹层树支持展开/收起箭头、checkbox 多选与 16px/级缩进，选中节点高亮。</p>
+  </div>
+
+  <!-- ============ 变体：触发框 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Default 触发框（显示选中「节点 1-1-1」）</div>
+    <div class="row">
+      <div class="giencoder-tree-select" data-component="tree-select" data-variant="multiple" data-state="default" style="width:300px;">
+        <div class="giencoder-tree-select-view">
+          <span style="font-size:var(--font-size-body-3); color:var(--color-text-1);">节点 1-1-1</span>
+          <span style="margin-left:auto; color:var(--color-text-3); display:inline-flex;">
+            <svg viewBox="0 0 12 12" width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"><path d="M2 4l4 4 4-4"/></svg>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 变体：树弹层 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Dropdown 树弹层（箭头 + checkbox 多选 + 16px/级缩进）</div>
+    <div class="row">
+      <div class="giencoder-tree-select-popup" data-component="tree-select" data-variant="multiple" data-state="open" style="width:300px; background:var(--color-bg-2); border:1px solid var(--color-border-2); border-radius:4px; box-shadow:var(--shadow2-down); padding:6px; max-height:280px; overflow:auto;">
+        <div class="giencoder-tree" role="tree" aria-multiselectable="true">
+          <!-- 节点 1（展开） -->
+          <div class="giencoder-tree-node" role="treeitem" aria-expanded="true" style="display:flex; align-items:center; gap:6px; padding:3px 8px; border-radius:var(--border-radius-medium); cursor:pointer;">
+            <span class="giencoder-tree-switcher" style="width:10px; height:10px; color:var(--color-text-3); display:inline-flex; flex-shrink:0;">
+              <svg viewBox="0 0 12 12" width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"><path d="M2 4l4 4 4-4"/></svg>
+            </span>
+            <label class="giencoder-checkbox giencoder-checkbox-indeterminate">
+              <input class="giencoder-checkbox-input" type="checkbox">
+              <span class="giencoder-checkbox-mask"></span>
+              <span style="font-size:var(--font-size-body-3); color:var(--color-text-1);">节点 1</span>
+            </label>
+          </div>
+          <!-- 节点 1-1（展开，缩进 1 级） -->
+          <div class="giencoder-tree-node" role="treeitem" aria-expanded="true" style="display:flex; align-items:center; gap:6px; padding:3px 8px 4px 24px; border-radius:var(--border-radius-medium); cursor:pointer;">
+            <span class="giencoder-tree-switcher" style="width:10px; height:10px; color:var(--color-text-3); display:inline-flex; flex-shrink:0;">
+              <svg viewBox="0 0 12 12" width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"><path d="M2 4l4 4 4-4"/></svg>
+            </span>
+            <label class="giencoder-checkbox giencoder-checkbox-indeterminate">
+              <input class="giencoder-checkbox-input" type="checkbox">
+              <span class="giencoder-checkbox-mask"></span>
+              <span style="font-size:var(--font-size-body-3); color:var(--color-text-1);">节点 1-1</span>
+            </label>
+          </div>
+          <!-- 节点 1-1-1（选中高亮，缩进 2 级） -->
+          <div class="giencoder-tree-node giencoder-tree-node-selected" role="treeitem" aria-selected="true" style="display:flex; align-items:center; gap:6px; padding:3px 8px 4px 40px; border-radius:var(--border-radius-medium); cursor:pointer;">
+            <span class="giencoder-tree-switcher" style="width:10px; height:10px; color:var(--color-text-4); display:inline-flex; flex-shrink:0;"></span>
+            <label class="giencoder-checkbox">
+              <input class="giencoder-checkbox-input" type="checkbox" checked>
+              <span class="giencoder-checkbox-mask"></span>
+              <span class="giencoder-tree-label" style="font-size:var(--font-size-body-3); color:var(--color-primary-6); font-weight:500; background:var(--color-primary-light-1); border-radius:var(--border-radius-small); padding:0 6px;">节点 1-1-1</span>
+            </label>
+          </div>
+          <!-- 节点 1-1-2（缩进 2 级） -->
+          <div class="giencoder-tree-node" role="treeitem" style="display:flex; align-items:center; gap:6px; padding:3px 8px 4px 40px; border-radius:var(--border-radius-medium); cursor:pointer;">
+            <span class="giencoder-tree-switcher" style="width:10px; height:10px; color:var(--color-text-4); display:inline-flex; flex-shrink:0;"></span>
+            <label class="giencoder-checkbox">
+              <input class="giencoder-checkbox-input" type="checkbox">
+              <span class="giencoder-checkbox-mask"></span>
+              <span style="font-size:var(--font-size-body-3); color:var(--color-text-1);">节点 1-1-2</span>
+            </label>
+          </div>
+          <!-- 节点 1-2（收起，缩进 1 级） -->
+          <div class="giencoder-tree-node" role="treeitem" aria-expanded="false" style="display:flex; align-items:center; gap:6px; padding:3px 8px 4px 24px; border-radius:var(--border-radius-medium); cursor:pointer;">
+            <span class="giencoder-tree-switcher" style="width:10px; height:10px; color:var(--color-text-3); display:inline-flex; flex-shrink:0;">
+              <svg viewBox="0 0 12 12" width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"><path d="M3 2l4 4-4 4"/></svg>
+            </span>
+            <label class="giencoder-checkbox">
+              <input class="giencoder-checkbox-input" type="checkbox">
+              <span class="giencoder-checkbox-mask"></span>
+              <span style="font-size:var(--font-size-body-3); color:var(--color-text-1);">节点 1-2</span>
+            </label>
+          </div>
+          <!-- 节点 1-2-1（缩进 2 级，初始隐藏） -->
+          <div class="giencoder-tree-node" role="treeitem" style="display:none; align-items:center; gap:6px; padding:3px 8px 4px 40px; border-radius:var(--border-radius-medium); cursor:pointer;">
+            <span class="giencoder-tree-switcher" style="width:10px; height:10px; color:var(--color-text-4); display:inline-flex; flex-shrink:0;"></span>
+            <label class="giencoder-checkbox">
+              <input class="giencoder-checkbox-input" type="checkbox">
+              <span class="giencoder-checkbox-mask"></span>
+              <span style="font-size:var(--font-size-body-3); color:var(--color-text-1);">节点 1-2-1</span>
+            </label>
+          </div>
+          <!-- 节点 2（收起） -->
+          <div class="giencoder-tree-node" role="treeitem" aria-expanded="false" style="display:flex; align-items:center; gap:6px; padding:3px 8px; border-radius:var(--border-radius-medium); cursor:pointer;">
+            <span class="giencoder-tree-switcher" style="width:10px; height:10px; color:var(--color-text-3); display:inline-flex; flex-shrink:0;">
+              <svg viewBox="0 0 12 12" width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"><path d="M3 2l4 4-4 4"/></svg>
+            </span>
+            <label class="giencoder-checkbox">
+              <input class="giencoder-checkbox-input" type="checkbox">
+              <span class="giencoder-checkbox-mask"></span>
+              <span style="font-size:var(--font-size-body-3); color:var(--color-text-1);">节点 2</span>
+            </label>
+          </div>
+          <!-- 节点 2-1（缩进 1 级，初始隐藏） -->
+          <div class="giencoder-tree-node" role="treeitem" style="display:none; align-items:center; gap:6px; padding:3px 8px 4px 24px; border-radius:var(--border-radius-medium); cursor:pointer;">
+            <span class="giencoder-tree-switcher" style="width:10px; height:10px; color:var(--color-text-4); display:inline-flex; flex-shrink:0;"></span>
+            <label class="giencoder-checkbox">
+              <input class="giencoder-checkbox-input" type="checkbox">
+              <span class="giencoder-checkbox-mask"></span>
+              <span style="font-size:var(--font-size-body-3); color:var(--color-text-1);">节点 2-1</span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+  (function () {
+    'use strict';
+    /* component-tree-select — 交互清单：
+     * 1. 触发框（giencoder-tree-select）：模板中无同容器弹层，仅空防护占位
+     * 2. 树弹层（giencoder-tree-select-popup）：
+     *    - 点击有子节点的树节点：切换展开/收起（按缩进推断子节点，子节点 style.display 切换 + 箭头 rotate，内部切换无动画）
+     *    - 点击叶子/无可展开子节点的节点：互斥高亮 giencoder-tree-node-selected，同步触发框文本 + 过渡动画收起弹层
+     */
+    document.querySelectorAll('.giencoder-tree-select').forEach(function (ts) {
+      var view = ts.querySelector('.giencoder-tree-select-view');
+      var popup = ts.querySelector('.giencoder-tree-select-popup');
+      if (!view || !popup) return; /* 本模板触发框无同容器弹层 */
+    });
+
+    document.querySelectorAll('.giencoder-tree-select-popup').forEach(function (popup) {
+      var tree = popup.querySelector('.giencoder-tree');
+      if (!tree) return;
+      var nodes = Array.prototype.slice.call(tree.querySelectorAll('.giencoder-tree-node'));
+      if (!nodes.length) return;
+
+      /* 初始化：模板中默认展开的弹层补 open class（交互动效），保持静态展示可见 */
+      if (popup.style.display !== 'none') popup.classList.add('giencoder-popup-open');
+
+      function indentOf(node) {
+        var parts = (node.style.padding || '').split(/\s+/).filter(Boolean);
+        if (!parts.length) return 0;
+        return parseFloat(parts[parts.length - 1]) || 0; /* 末位即 left（2/3/4 值简写均成立） */
+      }
+
+      function hasSwitcherIcon(node) { return !!node.querySelector('.giencoder-tree-switcher svg'); }
+
+      function childrenOf(node) {
+        var idx = nodes.indexOf(node);
+        if (idx < 0) return [];
+        var indent = indentOf(node);
+        var out = [];
+        for (var i = idx + 1; i < nodes.length; i++) {
+          if (indentOf(nodes[i]) <= indent) break;
+          out.push(nodes[i]);
+        }
+        return out;
+      }
+
+      function rotateArrow(node, collapsed) {
+        /* 收起=右箭头 ›，展开=下箭头 ⌄：直接切换 path，与静态 HTML 初始语义一致 */
+        var svg = node.querySelector('.giencoder-tree-switcher svg');
+        if (svg) svg.innerHTML = collapsed
+          ? '<path d="M3 2l4 4-4 4"/>'
+          : '<path d="M2 4l4 4 4-4"/>';
+      }
+
+      nodes.forEach(function (node) {
+        node.addEventListener('click', function () {
+          var kids = childrenOf(node);
+          if (hasSwitcherIcon(node)) {
+            var expanded = node.getAttribute('aria-expanded') === 'true';
+            kids.forEach(function (k) { k.style.display = expanded ? 'none' : ''; });
+            node.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+            rotateArrow(node, expanded);
+            return;
+          }
+          /* 叶子/无可展开子节点：高亮选中 + 同步触发框文本 + 收起 */
+          nodes.forEach(function (n) { n.classList.remove('giencoder-tree-node-selected'); });
+          node.classList.add('giencoder-tree-node-selected');
+          var view = document.querySelector('.giencoder-tree-select-view');
+          if (view) {
+            var span = view.querySelector('span');
+            if (span) span.textContent = node.textContent.trim();
+          }
+          popup.classList.remove('giencoder-popup-open');
+          setTimeout(function () {
+            if (popup && popup.parentNode) popup.style.display = 'none';
+          }, 200);
+        });
+      });
+    });
+  })();
+  </script>
+    </main>
+  </div>
+<script src="preview-copy.js"></script>
+</body>
+</html>

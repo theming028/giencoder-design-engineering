@@ -1,0 +1,168 @@
+{
+  "schemaVersion": 3,
+  "slug": "layout",
+  "name": "Layout",
+  "category": "layout",
+  "giencoderSource": {
+    "component": "Layout",
+    "version": "2.66.16",
+    "mapsFrom": "sidenav/topnav"
+  },
+  "summary": "页面整体布局骨架，由 Header/Sider/Content/Footer 组合支撑页面级结构，Sider 支持折叠与主题切换。",
+  "variants": [
+    {
+      "name": "top",
+      "description": "顶部 Header + 主体 Content 的上下结构",
+      "whenToUse": "通用页面框架，顶部导航 + 内容区"
+    },
+    {
+      "name": "side",
+      "description": "左侧 Sider + 右侧 Content 的左右结构",
+      "whenToUse": "后台管理系统侧边导航布局"
+    },
+    {
+      "name": "mixed",
+      "description": "Header + Sider + Content + Footer 完整组合",
+      "whenToUse": "企业级后台完整框架"
+    },
+    {
+      "name": "sider-collapsible",
+      "description": "Sider 可折叠（collapsible），折叠宽度 collapsedWidth 可配",
+      "whenToUse": "需要收起侧边栏释放内容空间"
+    },
+    {
+      "name": "sider-dark",
+      "description": "Sider 深色主题（theme=dark）",
+      "whenToUse": "深色侧边导航强化层级"
+    },
+    {
+      "name": "sider-light",
+      "description": "Sider 浅色主题（theme=light，默认）",
+      "whenToUse": "浅色侧边导航，与页面底色一致"
+    }
+  ],
+  "sizes": [
+    {
+      "name": "default",
+      "value": "默认尺寸",
+      "usage": "无尺寸枚举，宽度由 Sider 的 width/collapsedWidth 控制"
+    }
+  ],
+  "states": [
+    {
+      "name": "default",
+      "description": "默认布局态",
+      "visual": "背景 --color-bg-2，内容区自适应剩余空间"
+    },
+    {
+      "name": "hover",
+      "description": "折叠触发器悬停",
+      "visual": "触发器底色加深 --color-fill-3"
+    },
+    {
+      "name": "focus",
+      "description": "折叠触发器聚焦",
+      "visual": "可见焦点环"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "Layout 容器",
+      "element": "section/div",
+      "description": "最外层布局容器，flex 纵向排列"
+    },
+    {
+      "part": "Header",
+      "element": "header",
+      "description": "顶部区域，放置 Logo/导航/操作"
+    },
+    {
+      "part": "Sider",
+      "element": "aside",
+      "description": "侧边栏，可折叠、可配宽度与主题"
+    },
+    {
+      "part": "Content",
+      "element": "main",
+      "description": "主体内容区，自适应剩余空间"
+    },
+    {
+      "part": "Footer",
+      "element": "footer",
+      "description": "底部区域，版权/辅助信息"
+    },
+    {
+      "part": "折叠触发器",
+      "element": "button",
+      "description": "Sider 底部触发按钮，控制折叠/展开"
+    }
+  ],
+  "interaction": {
+    "hover": "折叠触发器悬停底色加深；Sider 折叠时悬停展开浮层菜单",
+    "focus": "折叠触发器获得焦点时显示焦点环",
+    "keyboard": [
+      "Tab: 依次聚焦折叠触发器及区域内可交互元素",
+      "Enter/Space: 切换 Sider 折叠/展开"
+    ],
+    "motion": {
+      "duration": "0.2s",
+      "easing": "standard",
+      "description": "Sider 宽度折叠/展开过渡，内容区同步位移"
+    },
+    "behaviorNotes": "Sider 折叠为受控/半受控：collapsed + onCollapse；配置 breakpoint 后视口小于断点时自动折叠（响应式）；折叠时子菜单以浮层呈现；Sider theme 支持 dark/light。"
+  },
+  "a11y": {
+    "role": "none",
+    "ariaAttrs": [
+      "aria-label（可选，标识区域用途，如 Sider 导航区）"
+    ],
+    "contrastNote": "深色 Sider 使用 --color-menu-dark-bg，浅色文本对比度满足 AA",
+    "focusNote": "折叠触发器为真实 button，Tab 可达且焦点环可见"
+  },
+  "usage": [
+    "Sider 可折叠，配合 onCollapse 受控管理折叠状态",
+    "设置 breakpoint 实现响应式自动折叠",
+    "Sider theme 支持 dark/light 两种主题",
+    "Header/Sider/Content/Footer 可自由组合，不强制全部使用"
+  ],
+  "doNotInvent": [
+    "不虚构 Sider 自动展开回弹动画（折叠展开由 collapsed 状态驱动）",
+    "拖拽调整 Sider 宽度由 resize-box 承载（resizeBoxProps / resizeDirections），非 Layout 内建能力",
+    "不虚构布局注册/持久化能力"
+  ],
+  "tokensConsumed": [
+    "--color-bg-2",
+    "--color-menu-dark-bg",
+    "--color-fill-3",
+    "--color-text-1",
+    "--color-text-2"
+  ],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "LayoutProps",
+    "props": [
+      "breakpoint",
+      "children",
+      "className",
+      "collapsed",
+      "collapsedWidth",
+      "collapsible",
+      "defaultCollapsed",
+      "hasSider",
+      "onBreakpoint",
+      "onCollapse",
+      "onSiderMount",
+      "onSiderUnmount",
+      "resizeBoxProps",
+      "resizeDirections",
+      "reverseArrow",
+      "sign",
+      "style",
+      "theme",
+      "trigger",
+      "width"
+    ],
+    "total": 20,
+    "syncDate": "2026/08/28"
+  }
+}

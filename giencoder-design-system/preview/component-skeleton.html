@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>Skeleton 骨架屏</title>
+  <link rel="stylesheet" href="preview-scaffold.css">
+  <link rel="stylesheet" href="../colors_and_type.css">
+  <link rel="stylesheet" href="../components.css">
+</head>
+<body>
+  <div class="pv-layout">
+    <aside class="pv-sidebar">
+      <div class="pv-nav">
+        <div class="pv-menu-group">入口</div>
+        <a href="../home.html">首页</a>
+        <a href="../../GETTING-STARTED.html">使用说明书</a>
+        <div class="pv-menu-group">组件</div>
+        <a href="../index.html#general">通用</a>
+        <a href="../index.html#layout">布局</a>
+        <a href="../index.html#navigation">导航</a>
+        <a href="../index.html#data-entry">数据录入</a>
+        <a href="../index.html#data-display" class="active">数据展示</a>
+        <a href="../index.html#feedback">反馈</a>
+        <a href="../index.html#other">其他</a>
+        <div class="pv-menu-group">资源</div>
+        <a href="../index.html#uikits">页面样板</a>
+        <a href="../index.html#docs">规范文档</a>
+      </div>
+    </aside>
+    <main class="pv-content">
+  <a class="pv-back" href="../index.html#data-display">← 返回组件库</a>
+  <div class="pv-header">
+    <h1>Skeleton 骨架屏</h1>
+    <p>源启骨架屏：段落/标题/头像组合，加载占位。</p>
+  </div>
+
+  <!-- ============ 变体：段落 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Paragraph 段落骨架</div>
+    <div class="row">
+      <div class="giencoder-skeleton" data-component="skeleton" data-variant="paragraph" data-state="loading" style="width:480px;">
+        <div class="giencoder-skeleton-paragraph">
+          <span class="giencoder-skeleton-line" style="width:100%;"></span>
+          <span class="giencoder-skeleton-line" style="width:92%;"></span>
+          <span class="giencoder-skeleton-line" style="width:85%;"></span>
+          <span class="giencoder-skeleton-line" style="width:60%;"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 变体：标题+段落 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Title + Paragraph 标题段落</div>
+    <div class="row">
+      <div class="giencoder-skeleton" data-component="skeleton" data-variant="title" data-state="loading" style="width:480px;">
+        <div class="giencoder-skeleton-title" style="width:40%;"></div>
+        <div class="giencoder-skeleton-paragraph">
+          <span class="giencoder-skeleton-line" style="width:100%;"></span>
+          <span class="giencoder-skeleton-line" style="width:90%;"></span>
+          <span class="giencoder-skeleton-line" style="width:70%;"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 变体：头像组合 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Avatar + Text 头像文字（列表项）</div>
+    <div class="row" style="flex-direction:column; gap:16px; align-items:stretch; width:480px;">
+      <div class="giencoder-skeleton" data-component="skeleton" data-variant="avatar" data-state="loading" style="display:flex; gap:16px; align-items:center;">
+        <span class="giencoder-skeleton-avatar"></span>
+        <div class="giencoder-skeleton-paragraph" style="flex:1;">
+          <span class="giencoder-skeleton-line" style="width:80%;"></span>
+          <span class="giencoder-skeleton-line" style="width:50%;"></span>
+        </div>
+      </div>
+      <div class="giencoder-skeleton" data-component="skeleton" data-variant="avatar" data-state="loading" style="display:flex; gap:16px; align-items:center;">
+        <span class="giencoder-skeleton-avatar"></span>
+        <div class="giencoder-skeleton-paragraph" style="flex:1;">
+          <span class="giencoder-skeleton-line" style="width:90%;"></span>
+          <span class="giencoder-skeleton-line" style="width:40%;"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+    </main>
+  </div>
+<script src="preview-copy.js"></script>
+</body>
+</html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI 工作台 · 元启 appart 页面样板</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect x='2.5' y='3.5' width='11' height='9' rx='2' fill='%233770F7'/%3E%3Cpath d='M2.5 7h11M6.5 3.5v9' stroke='white' stroke-width='1'/%3E%3C/svg%3E">
+    <link rel="stylesheet" href="../_shared/tokens.css">
+
+      <link rel="stylesheet" href="../_shared/components.css">
+
+
+    
+  <link rel="stylesheet" href="styles/workbench.css">
+
+</head>
+<body>
+
+<div class="wb-window">
+  <div class="giencoder-layout wb-layout">
+
+    <!-- ══ Header：窗口条 + Tabs capsule 工作台切换 ══ -->
+    <header class="giencoder-layout-header wb-header" aria-label="应用顶部栏">
+      <div class="wb-traffic" aria-hidden="true"><i></i><i></i><i></i></div>
+      <div class="wb-header-center">
+        <div class="giencoder-tabs giencoder-tabs-capsule" data-component="tabs" data-variant="capsule">
+          <div class="giencoder-tabs-header" role="tablist" aria-label="工作台切换">
+            <span class="giencoder-tabs-thumb" aria-hidden="true"></span>
+            <div class="giencoder-tabs-tab giencoder-tabs-tab-active" role="tab" aria-selected="true" tabindex="0">
+              <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><rect x="2.5" y="3.5" width="11" height="9" rx="2"/><path d="M2.5 7h11M6.5 3.5v9"/></svg>
+              <span class="wb-tab-label" data-full="通用工作台" data-short="通用">通用工作台</span>
+            </div>
+            <div class="giencoder-tabs-tab" role="tab" aria-selected="false" tabindex="0">
+              <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4.5L2.5 8L6 11.5M10 4.5L13.5 8L10 11.5"/></svg>
+              <span class="wb-tab-label" data-full="研发工作台" data-short="研发">研发</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="wb-header-right">
+        <button class="wb-icon-btn" type="button" aria-label="截图">
+          <svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"><path d="M2.5 5.5h2l1-1.5h5l1 1.5h2v7h-11z"/><circle cx="8" cy="9" r="2.2"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <div class="giencoder-layout-body">
+
+      <!-- ══ Sider：会话导航 ══ -->
+      <aside class="giencoder-layout-sider wb-sider" aria-label="会话导航">
+
+        <button class="giencoder-btn giencoder-btn-outline wb-new-chat" type="button">
+          <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11.5 2.5l2 2L6 12.5 2 13.5l1-4z"/></svg>
+          新会话
+        </button>
+
+        <div class="wb-sider-scroll">
+          <!-- 快捷导航 -->
+          <nav class="giencoder-menu giencoder-menu-vertical wb-menu-unselected wb-nav-quick" role="menu" aria-label="快捷导航" style="width:100%;padding:0 0 12px;border-bottom:1px solid #E4E6EA;">
+            <div class="giencoder-menu-group">
+              <div class="giencoder-menu-item" role="menuitem" tabindex="0" aria-selected="false">
+                <span class="giencoder-menu-icon"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><circle cx="8" cy="5.5" r="2.5"/><path d="M3.5 13c.6-2.4 2.3-3.8 4.5-3.8s3.9 1.4 4.5 3.8"/></svg></span>
+                数字分身
+              </div>
+              <div class="giencoder-menu-item" role="menuitem" tabindex="0" aria-selected="false">
+                <span class="giencoder-menu-icon"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="8" cy="8" r="2.2"/><path d="M8 2v2M8 12v2M2 8h2M12 8h2"/></svg></span>
+                自动化
+              </div>
+              <div class="giencoder-menu-item" role="menuitem" tabindex="0" aria-selected="false">
+                <span class="giencoder-menu-icon"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="7" cy="7" r="4.2"/><path d="M10.2 10.2L13.5 13.5"/></svg></span>
+                技能 Skills
+              </div>
+            </div>
+          </nav>
+
+          <!-- 置顶任务 -->
+          <div class="giencoder-menu giencoder-menu-vertical wb-menu-unselected wb-group wb-indent" role="menu" aria-label="置顶任务" style="width:100%;padding:0;margin-top:8px;">
+            <div class="giencoder-menu-submenu giencoder-menu-submenu-open">
+              <div class="giencoder-menu-submenu-title" role="button" aria-expanded="true" tabindex="0">
+                <span class="wb-group-row"><span>置顶任务</span><span class="wb-count">(2)</span></span>
+                <span class="giencoder-menu-arrow"><svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 2l4 4-4 4"/></svg></span>
+              </div>
+              <div class="giencoder-menu-submenu-content">
+                <div class="giencoder-menu-item" role="menuitem" tabindex="0" aria-selected="false"><span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">开发管理系统单文件工作台</span><span class="wb-session-time" style="margin-left:auto;">2小时前</span></div>
+                <div class="giencoder-menu-item" role="menuitem" tabindex="0" aria-selected="false"><span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">开发贪吃蛇游戏</span><span class="wb-session-time" style="margin-left:auto;">5小时前</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 工作区：Tree（文件夹 → 会话） -->
+          <div class="giencoder-menu giencoder-menu-vertical wb-menu-unselected" aria-label="工作区" style="width:100%;padding:0;margin-top:8px;">
+            <div class="giencoder-menu-submenu giencoder-menu-submenu-open">
+              <div class="giencoder-menu-submenu-title" role="button" aria-expanded="true" tabindex="0" style="padding-right:6px;">
+                <span class="wb-group-row" style="flex:1;"><span>工作目录</span></span>
+                <button class="giencoder-btn giencoder-btn-size-mini" type="button" style="margin-right:2px;">＋ 添加文件夹</button>
+                <button class="wb-icon-btn" type="button" aria-label="排序"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M2.5 5h11M4 8h8M6.5 11h3"/></svg></button>
+              </div>
+              <div class="giencoder-menu-submenu-content">
+                <div class="giencoder-tree giencoder-tree-show-line" role="tree" aria-label="工作区会话树">
+                  <!-- 文件夹节点（展开） -->
+                  <div class="giencoder-tree-node giencoder-tree-node-expanded" role="treeitem" aria-expanded="true" aria-level="1" tabindex="-1">
+                    <span class="giencoder-tree-node-icon"><svg class="tree-icon-folder" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"><path d="M2 4.5a1.5 1.5 0 011.5-1.5H6l1.4 1.4h5.1A1.5 1.5 0 0114 5.9v5.6a1.5 1.5 0 01-1.5 1.5h-9A1.5 1.5 0 012 11.5z"/></svg></span>
+                    <span class="giencoder-tree-node-title">银行指挥调度演练系统</span>
+                    <span class="giencoder-tree-node-extra wb-dropdown">
+                      <button class="wb-icon-btn" type="button" aria-label="更多操作" aria-haspopup="true" aria-expanded="false" data-dropdown-toggle><svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor"><circle cx="3.5" cy="8" r="1.2"/><circle cx="8" cy="8" r="1.2"/><circle cx="12.5" cy="8" r="1.2"/></svg></button>
+                      <div class="wb-dropdown-popup" role="menu">
+                        <div class="wb-dropdown-item" role="menuitem" tabindex="0">重命名文件夹</div>
+                        <div class="wb-dropdown-item" role="menuitem" tabindex="0">新建会话</div>
+                        <div class="wb-dropdown-item" role="menuitem" tabindex="0">在访达中打开</div>
+                        <div class="wb-dropdown-item wb-dropdown-item-danger" role="menuitem" tabindex="0">移除工作区</div>
+                      </div>
+                    </span>
+                  </div>
+                  <div class="giencoder-tree-children" role="group">
+                    <div class="giencoder-tree-node giencoder-tree-node-disabled wb-expand-like" role="treeitem" aria-level="2" tabindex="-1"><span class="giencoder-tree-node-title" style="padding-left:14px;">新建会话</span></div>
+                    <div class="giencoder-tree-node giencoder-tree-node-selected" role="treeitem" aria-level="2" aria-selected="true" tabindex="0">
+                      <span class="giencoder-tree-node-title">检查website健康度与性能优化</span>
+                      <span class="giencoder-tree-node-extra"><span class="giencoder-spin-loading giencoder-spin-loading-mini" role="status" aria-label="运行中"></span></span>
+                    </div>
+                    <div class="giencoder-tree-node" role="treeitem" aria-level="2" tabindex="-1">
+                      <span class="giencoder-tree-node-title">读取SDD Harness规范</span>
+                      <span class="giencoder-tree-node-extra"><span class="giencoder-tag giencoder-tag-warning" style="height:18px;padding:0 6px;">待确认</span></span>
+                    </div>
+                    <div class="giencoder-tree-node" role="treeitem" aria-level="2" tabindex="-1">
+                      <span class="giencoder-tree-node-title">吹场小游戏开发</span>
+                      <span class="giencoder-tree-node-extra"><span class="giencoder-tag giencoder-tag-success" style="height:18px;padding:0 6px;">完成</span></span>
+                    </div>
+                    <div class="giencoder-tree-node" role="treeitem" aria-level="2" tabindex="-1"><span class="giencoder-tree-node-title">全球AI市场增长数据分析报告</span><span class="giencoder-tree-node-extra"><span class="wb-session-time">1小时前</span></span></div>
+                  </div>
+                  <!-- 文件夹节点（折叠） -->
+                  <div class="giencoder-tree-node" role="treeitem" aria-expanded="false" aria-level="1" tabindex="-1">
+                    <span class="giencoder-tree-node-icon"><svg class="tree-icon-folder" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"><path d="M2 4.5a1.5 1.5 0 011.5-1.5H6l1.4 1.4h5.1A1.5 1.5 0 0114 5.9v5.6a1.5 1.5 0 01-1.5 1.5h-9A1.5 1.5 0 012 11.5z"/></svg></span>
+                    <span class="giencoder-tree-node-title">旅行助手</span>
+                    <span class="giencoder-tree-node-extra"><span class="giencoder-tag giencoder-tag-warning" style="height:18px;padding:0 6px;">待确认</span></span>
+                  </div>
+                  <div class="giencoder-tree-children" role="group">
+                    <div class="giencoder-tree-node" role="treeitem" aria-level="2" tabindex="-1"><span class="giencoder-tree-node-title">成都三日行程规划</span><span class="giencoder-tree-node-extra"><span class="wb-session-time">昨天</span></span></div>
+                  </div>
+                  <div class="wb-expand-all" style="padding:0 8px 0 26px;">展开全部 (12)</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 自动化任务 -->
+          <div class="giencoder-menu giencoder-menu-vertical wb-menu-unselected wb-indent" role="menu" aria-label="自动化任务" style="width:100%;padding:0;margin-top:8px;">
+            <div class="giencoder-menu-submenu giencoder-menu-submenu-open">
+              <div class="giencoder-menu-submenu-title" role="button" aria-expanded="true" tabindex="0">
+                <span class="wb-group-row"><span>自动化任务</span><span class="wb-count">(5)</span></span>
+                <span class="giencoder-menu-arrow"><svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 2l4 4-4 4"/></svg></span>
+              </div>
+              <div class="giencoder-menu-submenu-content">
+                <div class="giencoder-menu-item" role="menuitem" tabindex="0" aria-selected="false">
+                  <span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">每日变更摘要</span><span class="wb-session-time" style="margin-left:auto;">刚刚</span>
+                  <span class="giencoder-spin-loading giencoder-spin-loading-mini" role="status" aria-label="运行中"></span>
+                </div>
+                <div class="giencoder-menu-item" role="menuitem" tabindex="0" aria-selected="false"><span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">每日 AI 热闻推送</span><span class="wb-session-time" style="margin-left:auto;">2小时前</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 通用会话 -->
+          <div class="giencoder-menu giencoder-menu-vertical wb-menu-unselected wb-indent" role="menu" aria-label="通用会话" style="width:100%;padding:0;margin-top:8px;">
+            <div class="giencoder-menu-submenu giencoder-menu-submenu-open">
+              <div class="giencoder-menu-submenu-title" role="button" aria-expanded="true" tabindex="0">
+                <span class="wb-group-row"><span>通用会话</span><span class="wb-count">(2)</span></span>
+                <span class="giencoder-menu-arrow"><svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 2l4 4-4 4"/></svg></span>
+              </div>
+              <div class="giencoder-menu-submenu-content">
+                <div class="giencoder-menu-item" role="menuitem" tabindex="0" aria-selected="false"><span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">worktree模式介绍</span><span class="wb-session-time" style="margin-left:auto;">1小时前</span></div>
+                <div class="giencoder-menu-item" role="menuitem" tabindex="0" aria-selected="false"><span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">全球AI市场增长数据分析报告</span><span class="wb-session-time" style="margin-left:auto;">昨天</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sider 底部固定区 -->
+        <div class="wb-sider-footer">
+          <button class="wb-user-chip" type="button">
+            <span class="wb-avatar-text">邵</span>邵禹铭
+            <svg viewBox="0 0 12 12" width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 4l4 4 4-4"/></svg>
+          </button>
+          <button class="wb-icon-btn" type="button" aria-label="设置" style="display:none;"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><circle cx="8" cy="8" r="2.2"/><path d="M8 1.8v2M8 12.2v2M1.8 8h2M12.2 8h2M3.6 3.6L5 5M11 11l1.4 1.4M12.4 3.6L11 5M5 11L3.6 12.4"/></svg></button>
+        </div>
+      </aside>
+
+      <!-- ══ Content：会话主区 ══ -->
+      <main class="giencoder-layout-content wb-content">
+        <div class="wb-content-inner">
+          <!-- 内容区暂留空，待后续填充 -->
+        </div>
+      </main>
+    </div>
+  </div>
+</div>
+
+  <script src="scripts/workbench.js"></script>
+
+</body>
+</html>

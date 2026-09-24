@@ -1,0 +1,168 @@
+{
+  "schemaVersion": 3,
+  "slug": "drawer",
+  "name": "Drawer",
+  "category": "feedback",
+  "giencoderSource": {
+    "component": "Drawer",
+    "version": "2.66.16"
+  },
+  "summary": "抽屉，从屏幕四边滑出的浮层面板，用于承载详情、编辑等次级任务，支持遮罩、Esc 关闭与焦点锁定。",
+  "variants": [
+    {
+      "name": "default",
+      "description": "标准抽屉：标题栏 + 关闭按钮 + 内容区 + 底部按钮组",
+      "whenToUse": "需要用户聚焦完成的次级任务（表单、详情）"
+    },
+    {
+      "name": "no-footer",
+      "description": "无底部按钮组（footer=null）",
+      "whenToUse": "纯展示型抽屉，不承载确认/取消操作"
+    }
+  ],
+  "sizes": [
+    {
+      "name": "default",
+      "value": "width/height 默认 250px",
+      "usage": "官方无尺寸档位；left/right 用 width、top/bottom 用 height 传任意 number/string"
+    }
+  ],
+  "states": [
+    {
+      "name": "default",
+      "description": "打开状态",
+      "visual": "遮罩 + 面板按 placement 滑入，面板 --color-bg-2 白底"
+    },
+    {
+      "name": "loading",
+      "description": "确认按钮加载中",
+      "visual": "confirmLoading=true 时确认按钮转圈并禁用"
+    },
+    {
+      "name": "focus",
+      "description": "焦点锁定在抽屉内",
+      "visual": "autoFocus 聚焦首个可聚焦元素，FocusLock 内循环"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "wrapper",
+      "element": "div.giencoder-drawer-wrapper",
+      "description": "遮罩容器，Esc 键监听挂载于此"
+    },
+    {
+      "part": "mask",
+      "element": "div.giencoder-drawer-mask",
+      "description": "遮罩层（mask 默认 true）"
+    },
+    {
+      "part": "panel",
+      "element": "div.giencoder-drawer",
+      "description": "抽屉面板，按 placement 方向滑入"
+    },
+    {
+      "part": "header",
+      "element": "div.giencoder-drawer-header",
+      "description": "标题栏（title=null 隐藏）+ 右上关闭按钮"
+    },
+    {
+      "part": "content",
+      "element": "div.giencoder-drawer-content",
+      "description": "内容区（children）"
+    },
+    {
+      "part": "footer",
+      "element": "div.giencoder-drawer-footer",
+      "description": "底部按钮组：取消 + 确认（footer=null 隐藏）"
+    }
+  ],
+  "interaction": {
+    "hover": "面板内按钮等元素常规 hover；遮罩无反馈",
+    "focus": "打开时 autoFocus（默认 true）聚焦抽屉内首个可聚焦元素，焦点锁定在面板内",
+    "keyboard": [
+      "Tab: 焦点在抽屉内循环（FocusLock，focusLock 默认 true）",
+      "Shift+Tab: 焦点反向循环",
+      "Esc: 关闭抽屉（escToExit 默认 true，触发 onCancel）",
+      "Enter: 触发聚焦的按钮（确认/取消）"
+    ],
+    "motion": {
+      "duration": "0.3s",
+      "easing": "decelerate",
+      "description": "面板按 placement 方向平顺滑入（standard 曲线，无 spring 过冲回弹），退场用 accelerate"
+    },
+    "behaviorNotes": "focusTrap：react-focus-lock 实现，focusLock 默认 true；escClose：escToExit 默认 true；clickOutsideClose：maskClosable 默认 true，点击遮罩关闭；打开期间锁定 body 滚动（useOverflowHidden）"
+  },
+  "a11y": {
+    "role": "dialog",
+    "ariaAttrs": [
+      "aria-modal（官方 DOM 未自动输出，建议由使用方透传）",
+      "aria-labelledby（建议指向标题节点）"
+    ],
+    "contrastNote": "面板 --color-bg-2 与文字 --color-text-1 对比度 ≥ 4.5:1；遮罩 --color-mask-bg 提供背景隔离",
+    "focusNote": "焦点由 FocusLock 锁定（scroll 容器 tabIndex=-1）；官方未自动输出 role/aria-modal，需使用方补充对话框语义"
+  },
+  "usage": [
+    "placement 仅 top/right/bottom/left，默认 right",
+    "left/right 用 width、top/bottom 用 height 控制尺寸（默认 250）",
+    "maskClosable 控制点击遮罩关闭，escToExit 控制 Esc 关闭",
+    "footer=null 隐藏按钮组，footer 可自定义节点",
+    "confirmLoading 防止确认操作重复提交"
+  ],
+  "doNotInvent": [
+    "不得虚构 size 尺寸档位枚举（官方仅 width/height）",
+    "不得移除焦点锁定或 Esc 关闭的默认行为",
+    "不得用 外部 CSS 框架/Lucide 替代 源启组件与 token"
+  ],
+  "tokensConsumed": [
+    "--color-bg-2",
+    "--color-mask-bg",
+    "--shadow3-down",
+    "--color-border-1",
+    "--font-size-title-1",
+    "--spacing-7",
+    "--spacing-6",
+    "--z-index-drawer"
+  ],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "DrawerProps",
+    "props": [
+      "afterClose",
+      "afterOpen",
+      "autoFocus",
+      "bodyStyle",
+      "cancelButtonProps",
+      "cancelText",
+      "children",
+      "className",
+      "closable",
+      "closeIcon",
+      "confirmLoading",
+      "escToExit",
+      "focusLock",
+      "footer",
+      "getChildrenPopupContainer",
+      "getPopupContainer",
+      "headerStyle",
+      "height",
+      "mask",
+      "maskClosable",
+      "maskStyle",
+      "mountOnEnter",
+      "okButtonProps",
+      "okText",
+      "onCancel",
+      "onOk",
+      "placement",
+      "style",
+      "title",
+      "unmountOnExit",
+      "visible",
+      "width",
+      "wrapClassName",
+      "zIndex"
+    ],
+    "total": 34,
+    "syncDate": "2026/08/28"
+  }
+}

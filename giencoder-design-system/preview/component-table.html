@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-page-node-id="JwEihsVtZuqmgPEahAKac9">
+<head data-page-node-id="DQGIZDcgbWGk05n5zvn93X">
+  <meta charset="UTF-8" data-page-node-id="ZC7xBz7uzeDg2lvjbm8rn9">
+  <title>Table 表格</title>
+  <link rel="stylesheet" href="preview-scaffold.css" data-page-node-id="B7oabxiVikfm6aBI41HAXY">
+  <link rel="stylesheet" href="../colors_and_type.css" data-page-node-id="SX7JCLnjl1H7GEBxzsQiKN">
+  <link rel="stylesheet" href="../components.css" data-page-node-id="5QD9pTUbF3GrB6DOO8cRzT">
+</head>
+<body data-page-node-id="iVKosx6G8q091XtN0kJt3b">
+  <div class="pv-layout" data-page-node-id="sVSOoapjgcncKZNVVtANMo">
+    <aside class="pv-sidebar" data-page-node-id="7nXDyVdMLbFLcSsB9EqlFr">
+      <div class="pv-nav" data-page-node-id="KxH6EK7EHwcJsgDre5wm6A">
+        <div class="pv-menu-group" data-page-node-id="qOnlWILTm3Je9QiBBhDE79">入口</div>
+        <a href="../home.html" data-page-node-id="AmqCwzZbedW0Gj6SBPE3X9">首页</a>
+        <a href="../../GETTING-STARTED.html" data-page-node-id="GNQkrh4KBoiuu3YKue1SrV">使用说明书</a>
+        <div class="pv-menu-group" data-page-node-id="fprd9pbwwdFrVcdFxAxDl6">组件</div>
+        <a href="../index.html#general" data-page-node-id="N1ZWa8yx4mxMlMs5JmvuoS">通用</a>
+        <a href="../index.html#layout" data-page-node-id="bCHc5oRpRZjSXZ4rquhpDY">布局</a>
+        <a href="../index.html#navigation" data-page-node-id="s1YtFI1dSvALQyJn5hcT1n">导航</a>
+        <a href="../index.html#data-entry" data-page-node-id="umKWXgoq8sbguq2wXtPFDD">数据录入</a>
+        <a href="../index.html#data-display" class="active" data-page-node-id="jASUPzvUs4XbCZ9h0XLtSj">数据展示</a>
+        <a href="../index.html#feedback" data-page-node-id="0ODA6bbo6AxS08pvqwkBlH">反馈</a>
+        <a href="../index.html#other" data-page-node-id="1YLFbWty3xaV7JEjtuHTBM">其他</a>
+        <div class="pv-menu-group" data-page-node-id="s4ZB7e348DFlXYbxTBTlUm">资源</div>
+        <a href="../index.html#uikits" data-page-node-id="0E1Dv1AhPLdSJLZ1MONp6o">页面样板</a>
+        <a href="../index.html#docs" data-page-node-id="nx5RFhJwmMMDxBeLkxCPKK">规范文档</a>
+      </div>
+    </aside>
+    <main class="pv-content" data-page-node-id="RMarxgYOQlQaHQ3rXrvQnv">
+  <a class="pv-back" href="../index.html#data-display" data-page-node-id="hnOldOdD4NWyks8T91aINM">← 返回组件库</a>
+  <div class="pv-header" data-page-node-id="TC3CSFml1WiIkNhoFuW2pK">
+    <h1 data-page-node-id="5EO8Iew4YM2AFRRcKhS1vr">Table 表格</h1>
+    <p data-page-node-id="vCGcg4L16zxm1JVVpf9iqh">源启表格：列/排序/选择/分页/固定表头，行内操作，选中态。</p>
+  </div>
+
+  <!-- ============ 变体：基础表格 ============ -->
+  <div class="pv-section" data-page-node-id="choiEzOA16V0zwzaeXFKDG">
+    <div class="pv-section__title" data-page-node-id="D88DzBObFdlCm71DGAQRuy">Default 基础表格（带排序 + 行选择 + 支持右键菜单）</div>
+    <div class="row" data-page-node-id="csCDWGRDhMAjDRemKdLAvg">
+      <div class="giencoder-table" data-component="table" data-variant="default" data-state="default" data-page-node-id="5RZwfFB5MinVUowHG3ZPkC">
+        <div class="giencoder-table-container" data-page-node-id="tOGNmxpqz65R0s0ubZF99n">
+          <table class="giencoder-table-content" data-page-node-id="r0jHuT3bnxLAoBt8wBFX7b">
+            <thead data-page-node-id="jVD4yWeZGU3FaDYOo1s94E">
+              <tr class="giencoder-table-tr" data-page-node-id="KXLD0nRHB8LpSoBrmaTgyN">
+                <th class="giencoder-table-th giencoder-table-checkbox" data-page-node-id="cySj5xHMvKWBzXsczcb7an">
+                  <label class="giencoder-checkbox" data-page-node-id="TH9jz39ongpYUrCG1zDqdh"><input type="checkbox" class="giencoder-checkbox-input" data-page-node-id="oaz0pRuhMBuocGGAs1BsJs"><span class="giencoder-checkbox-mask" data-page-node-id="DGvQJWBCWf5ovaLyu9Gkid"></span></label>
+                </th>
+                <th class="giencoder-table-th" data-page-node-id="ti6VKLfDBpBrnhetBOMyUm">名称</th>
+                <th class="giencoder-table-th giencoder-table-th-sortable" data-page-node-id="35cK38XUljT4rfZaBGR4Ao">状态
+                  <span class="giencoder-table-sorter" data-page-node-id="D6lJ59wbDS1SNbf04xAC8P">
+                    <!-- 单向指上箭头（仅保留上方三角形）；desc 时旋转 180° 指向下。
+                         之前双向箭头 SVG 即使 asc 状态不旋转，视觉上也像"双箭头"，看起来"翻了一下"，
+                         用户感知为"还是会翻转"。改成单向箭头后：none/asc 都是向上（仅颜色区分 asc），
+                         desc 旋转 180° 指向下，"翻转"语义只在 asc↔desc 之间发生。 -->
+                    <svg viewBox="0 0 8 12" width="8" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-page-node-id="vDc0PBq0hBWSFKKUJqsvin"><path d="M4 1l2.5 3h-5L4 1z" data-page-node-id="K4YqwnjKIGRu8rZCLFO9oC"/></svg>
+                  </span>
+                </th>
+                <th class="giencoder-table-th" data-page-node-id="3XNQcGG5ItjYQybUd8gXKi">负责人</th>
+                <th class="giencoder-table-th" data-page-node-id="KiFz9aUTeZAxOccvDIQHZV">更新时间</th>
+                <th class="giencoder-table-th giencoder-table-operation" data-page-node-id="wi6BhQ8lAqFI0oIW29ozd1">操作</th>
+              </tr>
+            </thead>
+            <tbody data-page-node-id="3mNDv6y91ibZTzRKqsGvDc">
+              <tr class="giencoder-table-tr" data-page-node-id="5nNeS3NpD03y2tXhHDDSXC">
+                <td class="giencoder-table-td giencoder-table-checkbox" data-page-node-id="ei3LflnBpFLyvoQMBssgNP">
+                  <label class="giencoder-checkbox" data-page-node-id="pARHhyBzT1wnYuYXt5Qp6d"><input type="checkbox" class="giencoder-checkbox-input" data-page-node-id="p35gakQkOs9QIkH0UUZ9ka"><span class="giencoder-checkbox-mask" data-page-node-id="pN7TSDQzJFPBrJaBBhMfLQ"></span></label>
+                </td>
+                <td class="giencoder-table-td" data-page-node-id="zQdt1COoHLnCm2cxgiqgSb">项目 A</td>
+                <td class="giencoder-table-td" data-page-node-id="t8i2hRoHcb9mgJ52utaMzW"><span class="giencoder-tag giencoder-tag-light giencoder-tag-success" data-page-node-id="IIQWKW7x16gBkSgfXWCk9x">运行中</span></td>
+                <td class="giencoder-table-td" data-page-node-id="hqP6iVE1GQKxODIgNuarr2">张三</td>
+                <td class="giencoder-table-td" data-page-node-id="JpT9NpFkWpvUos9tkvATk0">2026/08/28 10:00</td>
+                <td class="giencoder-table-td giencoder-table-operation" data-page-node-id="awOCWQXoXKvfQaY1zDGChg">
+                  <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-mini" data-page-node-id="XN6Dru2ZlWrSqZ9EZ6tST4">编辑</button>
+                  <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-mini" data-page-node-id="daN8oErwVDnvrFBJjupU96">详情</button>
+                  <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-mini giencoder-btn-danger-text" data-page-node-id="r4AwiFOI4ORSsOZXQRO1Ag">删除</button>
+                </td>
+              </tr>
+              <tr class="giencoder-table-tr" data-page-node-id="ZuxvAZjxU0RGZEUzM2Qviz">
+                <td class="giencoder-table-td giencoder-table-checkbox" data-page-node-id="Ztn67tbHTPlIztAdslUDdb">
+                  <label class="giencoder-checkbox" data-page-node-id="oUn72uAeVlFyKAmmZ9N9T6"><input type="checkbox" class="giencoder-checkbox-input" data-page-node-id="Hz1y6Gdl2l9qBiHBmY0r3q"><span class="giencoder-checkbox-mask" data-page-node-id="SrPoU3JdCzapOQeJHFiFP3"></span></label>
+                </td>
+                <td class="giencoder-table-td" data-page-node-id="SEhW3mykAQyFtLNjsbzz9a">项目 B</td>
+                <td class="giencoder-table-td" data-page-node-id="HMW3pijHzLh6t83rvEvES6"><span class="giencoder-tag giencoder-tag-light giencoder-tag-warning" data-page-node-id="MhB1zauAq59ofJuGP67hlr">待处理</span></td>
+                <td class="giencoder-table-td" data-page-node-id="yYJDOm385ZD6GuD7OkI2dx">李四</td>
+                <td class="giencoder-table-td" data-page-node-id="6XsFVThHYhPxdcJLFPm5MO">2026/08/27 15:30</td>
+                <td class="giencoder-table-td giencoder-table-operation" data-page-node-id="n4yTeJpHpOEeRkc9L95dT2">
+                  <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-mini" data-page-node-id="n8ze0Rx5gsm7CQNkylHJoq">编辑</button>
+                  <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-mini" data-page-node-id="Y5rHF35S3rHBgZWslfTHlE">详情</button>
+                  <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-mini giencoder-btn-danger-text" data-page-node-id="Gyyd8BHnfJMJNU8maTdtdZ">删除</button>
+                </td>
+              </tr>
+              <tr class="giencoder-table-tr" data-page-node-id="L5XAuqgTNaqxmrnpC4HUL0">
+                <td class="giencoder-table-td giencoder-table-checkbox" data-page-node-id="qCcKcp7nNAW3RUs9M0ojVl">
+                  <label class="giencoder-checkbox" data-page-node-id="vDk4TtorCWgdFsnagtH9Ax"><input type="checkbox" class="giencoder-checkbox-input" data-page-node-id="46ZB08WiMEo75Rl4SVZZBC"><span class="giencoder-checkbox-mask" data-page-node-id="lrZj0Grq1BTXM1bUdxkPsz"></span></label>
+                </td>
+                <td class="giencoder-table-td" data-page-node-id="6Osdut9kelfsh7Rg5xUNeY">项目 C</td>
+                <td class="giencoder-table-td" data-page-node-id="Ieu49CKK5HkrppVwmpF64G"><span class="giencoder-tag giencoder-tag-light giencoder-tag-danger" data-page-node-id="Mb0wy80RLOlPMQrZbzjaMH">已停止</span></td>
+                <td class="giencoder-table-td" data-page-node-id="jwdOVKgCkcOyOcd7fZJDXE">王五</td>
+                <td class="giencoder-table-td" data-page-node-id="c4QaFWGGlsQc9rcWWkUxqA">2026/08/26 09:12</td>
+                <td class="giencoder-table-td giencoder-table-operation" data-page-node-id="XeRY4gDknc0slvOUd6QzZX">
+                  <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-mini" data-page-node-id="yQW3E949MxVDW0quHjHSQG">编辑</button>
+                  <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-mini" data-page-node-id="uowH9RKjN13jakL1AuHb76">详情</button>
+                  <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-mini giencoder-btn-danger-text" data-page-node-id="IGCCvedUGxrLPvM8CIzzx2">删除</button>
+                </td>
+              </tr>
+              <tr class="giencoder-table-tr" data-page-node-id="Tvpdqj6kBnFWasvKHkKgGP">
+                <td class="giencoder-table-td giencoder-table-checkbox" data-page-node-id="RqR3ahrDMYb75hQgOnIN7N">
+                  <label class="giencoder-checkbox" data-page-node-id="fAHC25IHdAxEPFKz4LSJ1X"><input type="checkbox" class="giencoder-checkbox-input" data-page-node-id="0nlDAsOhf1wYVGF3OaFDa9"><span class="giencoder-checkbox-mask" data-page-node-id="R4vpRj8Vaj08fBMIu2FGY3"></span></label>
+                </td>
+                <td class="giencoder-table-td" data-page-node-id="5Wv9wTGxPADXJp3t3oGW5u">项目 D</td>
+                <td class="giencoder-table-td" data-page-node-id="HmaHzRmDDIY0lD4yvNcIQ7"><span class="giencoder-tag giencoder-tag-light giencoder-tag-success" data-page-node-id="eLpAzmAwI16hYGPQwZpwKK">运行中</span></td>
+                <td class="giencoder-table-td" data-page-node-id="tgkJN8gR5ZN8aLTjSHjR7D">赵六</td>
+                <td class="giencoder-table-td" data-page-node-id="K1yKYnE0o99hKZY3u7Y0aA">2026/08/25 14:45</td>
+                <td class="giencoder-table-td giencoder-table-operation" data-page-node-id="WeF2efijBGOtEBPMIY0A1D">
+                  <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-mini" data-page-node-id="raxJaw5yPpFYHN9chBKjsK">编辑</button>
+                  <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-mini" data-page-node-id="pDdAJuXnZjspBqJmWjEIb6">详情</button>
+                  <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-mini giencoder-btn-danger-text" data-page-node-id="GszXFCdBXbWvxdxYRc21Lu">删除</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="giencoder-table-pagination" data-page-node-id="Z2eEbsVfwCjAc4EvYg4RaU">
+          <div class="giencoder-pagination-stats" data-page-node-id="psAA001stats0000000000">共 128 条</div>
+          <div class="giencoder-pagination" data-page-node-id="NrgR0gMwILEJHWlTgLy7Ii">
+            <button class="giencoder-pagination-item giencoder-pagination-item-active" data-page-node-id="gbSWd1qrDmQYgqvqPmztOc">1</button>
+            <button class="giencoder-pagination-item" data-page-node-id="efySSnStTnp8gnNVaVZ68F">2</button>
+            <button class="giencoder-pagination-item" data-page-node-id="zUOiaqMNCyyIcwITEoalJg">3</button>
+            <button class="giencoder-pagination-item giencoder-pagination-item-ellipsis" data-page-node-id="zowTCZ3dTaaYwMCNzHbTM5">…</button>
+            <button class="giencoder-pagination-item" data-page-node-id="xtvqlE2L51CxyYaGRbP9GG">10</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <style>
+    /* 交互动效样式（点击排序/行选择的状态过渡，勿并入 components.css） */
+    /* 交互动效用：行选中高亮背景过渡 0.15s（选中/悬停背景作用于单元格，补过渡） */
+    .giencoder-table-td { transition: background-color 0.15s var(--transition-timing-function-standard); }
+    /* 右键菜单（交互动效用，勿并入 components.css）：菜单项默认深色文字，danger 项红色 */
+    .giencoder-table-context-menu {
+      position: fixed; z-index: 1001; min-width: 120px;
+      background: var(--color-bg-5); border: 1px solid var(--color-border-2);
+      border-radius: 8px; box-shadow: var(--shadow2-down); padding: 4px;
+    }
+    .giencoder-table-context-menu .giencoder-menu-item { height: 32px; color: var(--color-text-1); }
+    .giencoder-table-context-menu .giencoder-menu-item-danger { color: var(--color-danger-6); }
+    .giencoder-table-context-menu-divider { height: 1px; margin: 4px 0; background: var(--color-border-2); }
+    /* 右键菜单打开时：所属行浅蓝色选中态背景（与 checkbox 选中 --color-primary-light-1 一致），显式覆盖 hover 态 */
+    .giencoder-table-tr-context-active .giencoder-table-td,
+    .giencoder-table-tr-context-active:hover .giencoder-table-td { background: var(--color-primary-light-1); }
+    /* 分页器固定在视口底部（不贴着表格，不跟随页面内容滚动；只影响本预览页，components.css 不动以保持组件库容器无关性）。
+       left=232px 避开 sticky sidebar；right=0 占满右侧；box-shadow inset 0 1px 0 充当 1px 内顶边硬线（去 border-top 避免双线）；z-index 100 低于右键菜单 1001。 */
+    .giencoder-table-pagination {
+      position: fixed; left: 232px; right: 0; bottom: 0;
+      padding: 12px 32px; display: flex; justify-content: space-between; align-items: center;
+      background: var(--color-bg-1, #fff);
+      box-shadow: inset 0 1px 0 var(--color-border-1, #eaedf1);
+      z-index: 100;
+    }
+    @media (max-width: 860px) {
+      .giencoder-table-pagination { left: 0; padding: 12px 16px; }
+    }
+  </style>
+  <script>
+    /* ========== component-table：交互清单 ==========
+       1) 点击表头排序：循环 none→asc→desc→none，按列值实际重排 tbody 行；多列互斥（同时只有一列处于 asc/desc）
+       2) 点击行 checkbox：行高亮 giencoder-table-tr-checked + 表头全选框联动（全选/半选 indeterminate/未选）
+       3) 点击表头全选框：全选 / 取消全部
+    */
+    (function () {
+      'use strict';
+      var table = document.querySelector('.giencoder-table');
+      if (!table) return;
+
+      var tbody = table.querySelector('tbody');
+      if (!tbody) return;
+      var rows = Array.prototype.slice.call(tbody.querySelectorAll('tr.giencoder-table-tr'));
+      var rowInputs = [];
+      rows.forEach(function (tr) {
+        var input = tr.querySelector(':scope > td.giencoder-table-checkbox .giencoder-checkbox-input');
+        if (input) rowInputs.push(input);
+      });
+      var headInput = table.querySelector('thead .giencoder-checkbox-input');
+      var headLabel = headInput ? headInput.closest('.giencoder-checkbox') : null;
+
+      /* 2) 行勾选 → 行高亮 + 表头联动 */
+      function syncRow(tr, checked) {
+        tr.classList.toggle('giencoder-table-tr-checked', checked);
+        var label = tr.querySelector('.giencoder-checkbox');
+        if (label) label.classList.toggle('giencoder-checkbox-checked', checked);
+      }
+
+      function refreshHead() {
+        if (!headInput) return;
+        var checked = 0;
+        rowInputs.forEach(function (input) { if (input.checked) checked++; });
+        if (checked === 0) {
+          headInput.checked = false;
+          headInput.indeterminate = false;
+          if (headLabel) { headLabel.classList.remove('giencoder-checkbox-checked', 'giencoder-checkbox-indeterminate'); }
+        } else if (checked === rowInputs.length) {
+          headInput.checked = true;
+          headInput.indeterminate = false;
+          if (headLabel) { headLabel.classList.add('giencoder-checkbox-checked'); headLabel.classList.remove('giencoder-checkbox-indeterminate'); }
+        } else {
+          headInput.checked = false;
+          headInput.indeterminate = true;
+          if (headLabel) { headLabel.classList.add('giencoder-checkbox-indeterminate'); headLabel.classList.remove('giencoder-checkbox-checked'); }
+        }
+      }
+
+      rowInputs.forEach(function (input) {
+        input.addEventListener('change', function () {
+          var tr = input.closest('tr.giencoder-table-tr');
+          if (tr) syncRow(tr, input.checked);
+          refreshHead();
+        });
+      });
+
+      /* 3) 表头全选 / 取消 */
+      if (headInput) {
+        headInput.addEventListener('change', function () {
+          var all = headInput.checked;
+          rowInputs.forEach(function (input) {
+            input.checked = all;
+            var tr = input.closest('tr.giencoder-table-tr');
+            if (tr) syncRow(tr, all);
+          });
+          refreshHead();
+        });
+      }
+
+      /* 1) 排序：循环 none→asc→desc→none，按列值实际重排 tbody 行；多列互斥（同时只有一列 asc/desc）
+         - 本模板仅「状态」列 sortable，业务权重：已停止(0) < 待处理(1) < 运行中(2)（按业务进度而非字典序）
+         - 状态写到 th 的 [data-sort]，颜色/旋转由 components.css 接管
+         - 重排后刷新表头全选联动（refreshHead）；行勾选态由 rowInputs 数组与 DOM 重排天然一致
+      */
+      var SORT_WEIGHT = { '已停止': 0, '待处理': 1, '运行中': 2 };
+
+      function appendInOrder(list) {
+        var frag = document.createDocumentFragment();
+        list.forEach(function (tr) { frag.appendChild(tr); });
+        tbody.appendChild(frag);
+      }
+
+      function getSortValue(tr, th) {
+        var idx = Array.prototype.indexOf.call(th.parentNode.children, th);
+        var td = tr.children[idx];
+        if (!td) return '';
+        var tagSpan = td.querySelector('.giencoder-tag');
+        return (tagSpan ? tagSpan.textContent : td.textContent).trim();
+      }
+
+      function sortByState(dir) {
+        var sorted = rows.slice().sort(function (a, b) {
+          var va = SORT_WEIGHT[getSortValue(a, currentTh)] != null
+                 ? SORT_WEIGHT[getSortValue(a, currentTh)] : Number.NEGATIVE_INFINITY;
+          var vb = SORT_WEIGHT[getSortValue(b, currentTh)] != null
+                 ? SORT_WEIGHT[getSortValue(b, currentTh)] : Number.NEGATIVE_INFINITY;
+          return va - vb;
+        });
+        if (dir === 'desc') sorted.reverse();
+        appendInOrder(sorted);
+      }
+
+      var sortableThs = Array.prototype.slice.call(table.querySelectorAll('th.giencoder-table-th-sortable'));
+      sortableThs.forEach(function (th) { th.setAttribute('data-sort', 'none'); });
+
+      var currentTh = null;
+
+      function clickSort(th) {
+        var next = th.getAttribute('data-sort') === 'none' ? 'asc'
+                 : th.getAttribute('data-sort') === 'asc' ? 'desc'
+                 : 'none';
+        sortableThs.forEach(function (other) {
+          if (other !== th) other.setAttribute('data-sort', 'none');
+        });
+        th.setAttribute('data-sort', next);
+        currentTh = th;
+        if (next === 'none') {
+          appendInOrder(rows);
+        } else {
+          sortByState(next);
+        }
+        refreshHead();
+      }
+
+      sortableThs.forEach(function (th) {
+        th.addEventListener('click', function () { clickSort(th); });
+      });
+
+      /* 初始化：模板第 3 行已勾选 → 表头显示半选 */
+      refreshHead();
+    })();
+
+    /* ========== component-table：右键菜单 ==========
+       数据行右键 → 弹出自定义菜单，菜单项 = 该行操作列（.giencoder-table-operation）的按钮
+       - 动态读取操作列按钮生成菜单项（结构性等价，避免两处硬编码不同步）
+       - 菜单项按操作类型分组：首个 danger 操作（删除）前插入分隔线
+       - Esc 关闭 / 点击外部关闭 / 滚动关闭 / resize 关闭
+       - 菜单定位跟随鼠标，边界防溢出视口
+    */
+    (function () {
+      'use strict';
+      var menu = document.createElement('div');
+      menu.className = 'giencoder-table-context-menu';
+      menu.setAttribute('role', 'menu');
+      menu.hidden = true;
+      document.body.appendChild(menu);
+
+      var activeRow = null;
+      function setActiveRow(tr) {
+        if (activeRow && activeRow !== tr) activeRow.classList.remove('giencoder-table-tr-context-active');
+        if (tr) tr.classList.add('giencoder-table-tr-context-active');
+        activeRow = tr;
+      }
+
+      function hide() {
+        menu.hidden = true;
+        menu.textContent = '';
+        setActiveRow(null);
+      }
+
+      function buildItems(tr) {
+        var op = tr.querySelector('.giencoder-table-operation');
+        if (!op) return [];
+        return Array.prototype.slice.call(op.querySelectorAll('button')).map(function (btn) {
+          return {
+            label: (btn.textContent || '').trim(),
+            danger: btn.classList.contains('giencoder-btn-danger-text'),
+            btn: btn
+          };
+        });
+      }
+
+      function show(tr, x, y) {
+        var list = buildItems(tr);
+        if (!list.length) { hide(); return; }
+        setActiveRow(tr);
+        menu.textContent = '';
+        var dividerInserted = false;
+        list.forEach(function (it) {
+          if (it.danger && !dividerInserted) {
+            var divider = document.createElement('div');
+            divider.className = 'giencoder-table-context-menu-divider';
+            divider.setAttribute('role', 'separator');
+            menu.appendChild(divider);
+            dividerInserted = true;
+          }
+          var item = document.createElement('div');
+          item.className = 'giencoder-menu-item' + (it.danger ? ' giencoder-menu-item-danger' : '');
+          item.setAttribute('role', 'menuitem');
+          item.textContent = it.label;
+          item.addEventListener('click', function () {
+            it.btn.click();
+            hide();
+          });
+          menu.appendChild(item);
+        });
+        menu.hidden = false;
+        var mw = menu.offsetWidth;
+        var mh = menu.offsetHeight;
+        menu.style.left = Math.max(8, Math.min(x, window.innerWidth - mw - 8)) + 'px';
+        menu.style.top = Math.max(8, Math.min(y, window.innerHeight - mh - 8)) + 'px';
+      }
+
+      document.addEventListener('contextmenu', function (e) {
+        var tr = e.target && e.target.closest ? e.target.closest('tr.giencoder-table-tr') : null;
+        if (!tr || !tr.closest('tbody')) return;
+        if (!tr.querySelector('.giencoder-table-operation button')) return;
+        e.preventDefault();
+        show(tr, e.clientX, e.clientY);
+      });
+
+      document.addEventListener('mousedown', function (e) {
+        if (!menu.hidden && !menu.contains(e.target)) hide();
+      });
+
+      window.addEventListener('scroll', function () { if (!menu.hidden) hide(); }, true);
+      window.addEventListener('resize', function () { if (!menu.hidden) hide(); });
+
+      document.addEventListener('keydown', function (e) {
+        if (menu.hidden) return;
+        if (e.key === 'Escape') { e.preventDefault(); hide(); }
+      });
+    })();
+  </script>
+    </main>
+  </div>
+<script src="preview-copy.js"></script>
+</body>
+</html>

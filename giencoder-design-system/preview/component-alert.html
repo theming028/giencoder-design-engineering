@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>Alert 警告提示</title>
+  <link rel="stylesheet" href="preview-scaffold.css">
+  <link rel="stylesheet" href="../colors_and_type.css">
+  <link rel="stylesheet" href="../components.css">
+</head>
+<body>
+  <div class="pv-layout">
+    <aside class="pv-sidebar">
+      <div class="pv-nav">
+        <div class="pv-menu-group">入口</div>
+        <a href="../home.html">首页</a>
+        <a href="../../GETTING-STARTED.html">使用说明书</a>
+        <div class="pv-menu-group">组件</div>
+        <a href="../index.html#general">通用</a>
+        <a href="../index.html#layout">布局</a>
+        <a href="../index.html#navigation">导航</a>
+        <a href="../index.html#data-entry">数据录入</a>
+        <a href="../index.html#data-display">数据展示</a>
+        <a href="../index.html#feedback" class="active">反馈</a>
+        <a href="../index.html#other">其他</a>
+        <div class="pv-menu-group">资源</div>
+        <a href="../index.html#uikits">页面样板</a>
+        <a href="../index.html#docs">规范文档</a>
+      </div>
+    </aside>
+    <main class="pv-content">
+  <a class="pv-back" href="../index.html#feedback">← 返回组件库</a>
+  <div class="pv-header">
+    <h1>Alert 警告提示</h1>
+    <p>源启警告提示：info/success/warning/error 四类型，可关闭、可带操作。</p>
+  </div>
+
+  <!-- ============ 变体：四类型 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Types 四种类型</div>
+    <div class="row" style="flex-direction:column; gap:12px; align-items:stretch;">
+      <div class="giencoder-alert giencoder-alert-info" role="alert" data-component="alert" data-variant="info" data-state="default">
+        <span class="giencoder-alert-icon">
+          <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6.5"/><path d="M8 4.5v4M8 11.5h.01"/></svg>
+        </span>
+        <div class="giencoder-alert-content">
+          <div class="giencoder-alert-title">信息提示</div>
+          <div class="giencoder-alert-description">这是一条信息提示，用于告知用户常规信息。</div>
+        </div>
+      </div>
+      <div class="giencoder-alert giencoder-alert-success" role="alert" data-component="alert" data-variant="success" data-state="default">
+        <span class="giencoder-alert-icon">
+          <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="8" cy="8" r="6.5"/><path d="M5 8.5l2 2 4-4.5"/></svg>
+        </span>
+        <div class="giencoder-alert-content">
+          <div class="giencoder-alert-title">操作成功</div>
+          <div class="giencoder-alert-description">项目创建成功，已同步到所有成员。</div>
+        </div>
+      </div>
+      <div class="giencoder-alert giencoder-alert-warning" role="alert" data-component="alert" data-variant="warning" data-state="default">
+        <span class="giencoder-alert-icon">
+          <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M8 2l6 11H2L8 2z"/><path d="M8 6.5v3M8 11.5h.01"/></svg>
+        </span>
+        <div class="giencoder-alert-content">
+          <div class="giencoder-alert-title">配额即将用尽</div>
+          <div class="giencoder-alert-description">当前存储使用已达 90%，请及时清理或扩容。</div>
+        </div>
+      </div>
+      <div class="giencoder-alert giencoder-alert-error" role="alert" data-component="alert" data-variant="error" data-state="default">
+        <span class="giencoder-alert-icon">
+          <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="8" cy="8" r="6.5"/><path d="M5.5 5.5l5 5M10.5 5.5l-5 5"/></svg>
+        </span>
+        <div class="giencoder-alert-content">
+          <div class="giencoder-alert-title">操作失败</div>
+          <div class="giencoder-alert-description">网络异常，请稍后重试。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 变体：可关闭 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Closable 可关闭</div>
+    <div class="row" style="flex-direction:column; gap:12px; align-items:stretch;">
+      <div class="giencoder-alert giencoder-alert-info" role="alert" data-component="alert" data-variant="closable" data-state="default">
+        <span class="giencoder-alert-icon">
+          <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6.5"/><path d="M8 4.5v4M8 11.5h.01"/></svg>
+        </span>
+        <div class="giencoder-alert-content">
+          <div class="giencoder-alert-title">可关闭提示</div>
+          <div class="giencoder-alert-description">点击右侧关闭按钮可移除本条提示。</div>
+        </div>
+        <button class="giencoder-alert-close-btn" aria-label="关闭提示">
+          <svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 3l6 6M9 3l-6 6"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 变体：带操作 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">With Action 带操作</div>
+    <div class="row" style="flex-direction:column; gap:12px; align-items:stretch;">
+      <div class="giencoder-alert giencoder-alert-warning" role="alert" data-component="alert" data-variant="action" data-state="default">
+        <span class="giencoder-alert-icon">
+          <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M8 2l6 11H2L8 2z"/><path d="M8 6.5v3M8 11.5h.01"/></svg>
+        </span>
+        <div class="giencoder-alert-content">
+          <div class="giencoder-alert-title">检测到安全风险</div>
+          <div class="giencoder-alert-description">有 3 个安全漏洞需要处理。</div>
+        </div>
+        <div class="giencoder-alert-action">
+          <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-small">查看详情</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    /* Alert 预览交互动效样式（新增 class，此处定义） */
+    /* 交互动效用：关闭 — 淡出 + 高度折叠（opacity + max-height 0.2s），结束后由脚本移除 */
+    .pv-alert-leave {
+      opacity: 0;
+      max-height: 0;
+      padding-top: 0;
+      padding-bottom: 0;
+      overflow: hidden;
+      transition: opacity 0.2s var(--transition-timing-function-standard),
+                  max-height 0.2s var(--transition-timing-function-spring),
+                  padding-top 0.2s var(--transition-timing-function-standard),
+                  padding-bottom 0.2s var(--transition-timing-function-standard);
+    }
+  </style>
+  <script>
+  /* alert：可关闭 alert 点击关闭按钮隐藏（淡出移除） */
+  (function () {
+    'use strict';
+
+    function findAll(sel, root) {
+      return Array.prototype.slice.call((root || document).querySelectorAll(sel));
+    }
+
+    function closest(el, cls) {
+      while (el && el !== document) {
+        if (el.classList && el.classList.contains(cls)) return el;
+        el = el.parentNode;
+      }
+      return null;
+    }
+
+    findAll('.giencoder-alert-close-btn').forEach(function (btn) {
+      var alertEl = closest(btn, 'giencoder-alert');
+      if (!alertEl) return;
+      btn.addEventListener('click', function () {
+        /* 交互动效用：关闭 — 淡出 + 高度折叠（opacity + max-height 0.2s） */
+        if (alertEl._dismissed) return;
+        alertEl._dismissed = true;
+        /* 先从当前实际高度开始折叠：设定起始 max-height 并强制回流 */
+        alertEl.style.maxHeight = alertEl.scrollHeight + 'px';
+        void alertEl.offsetHeight;
+        alertEl.classList.add('pv-alert-leave');
+        alertEl.style.maxHeight = '0px';
+        setTimeout(function () {
+          /* 空指针防护：元素可能已被移除 */
+          if (alertEl.parentNode) alertEl.parentNode.removeChild(alertEl);
+        }, 220);
+      });
+    });
+  })();
+  </script>
+    </main>
+  </div>
+<script src="preview-copy.js"></script>
+</body>
+</html>

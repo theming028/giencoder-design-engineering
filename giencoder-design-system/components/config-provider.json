@@ -1,0 +1,98 @@
+{
+  "schemaVersion": 3,
+  "slug": "config-provider",
+  "name": "ConfigProvider",
+  "category": "other",
+  "giencoderSource": {
+    "component": "ConfigProvider",
+    "version": "2.66.16"
+  },
+  "summary": "全局配置容器：通过 React Context 向子树注入主题、语言 locale、类名前缀、默认尺寸、弹层焦点锁定与组件级默认参数，自身不渲染视觉。",
+  "variants": [
+    {
+      "name": "默认",
+      "description": "无视觉输出的配置容器，包裹应用根节点",
+      "whenToUse": "应用根节点统一注入主题/语言/前缀/尺寸等全局配置"
+    }
+  ],
+  "sizes": [
+    {
+      "name": "default",
+      "value": "—",
+      "usage": "无自身尺寸；size 属性向下游支持 size 的组件传递 mini/small/default/large"
+    }
+  ],
+  "states": [
+    {
+      "name": "default",
+      "description": "组件自身无任何视觉状态",
+      "visual": "不渲染可见 UI，仅经 context 透传配置"
+    },
+    {
+      "name": "focus",
+      "description": "不适用：无焦点元素",
+      "visual": "无"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "config-provider",
+      "element": "div（包裹子树的容器）",
+      "description": "可包裹任意子树，自身不产生视觉"
+    },
+    {
+      "part": "context",
+      "element": "React Context",
+      "description": "theme/locale/prefixCls/size/componentConfig 等经 context 向下传递"
+    }
+  ],
+  "interaction": {
+    "hover": "无（纯配置容器）",
+    "focus": "无（纯配置容器）",
+    "keyboard": [
+      "无键盘交互（纯配置容器）"
+    ],
+    "motion": {
+      "duration": "0s",
+      "easing": "linear",
+      "description": "无自身动效；主题切换后下游组件过渡由各组件自身动效驱动"
+    },
+    "behaviorNotes": "theme 主题配置（亮暗模式，暗色配合 body[giencoder-theme=dark] 的 CSS 变量体系）；locale 语言包；prefixCls 全局类名前缀（默认 giencoder）；size 默认尺寸；getPopupContainer 全局弹层挂载容器；componentConfig 按组件配置默认参数；focusLock 全局弹层焦点锁定（作用于 Modal/Drawer，默认 autoFocus）；autoInsertSpaceInButton 双汉字按钮自动加空格；loadingElement 全局加载图标；renderEmpty 全局空状态；tablePagination/effectGlobalNotice/effectGlobalModal/rtl/zIndex 等全局项。"
+  },
+  "a11y": {
+    "role": "none",
+    "ariaAttrs": [],
+    "contrastNote": "不适用：自身无视觉，对比度由下游组件与 token 体系保证",
+    "focusNote": "不适用：无焦点元素；focusLock 属性可全局配置 Modal/Drawer 弹层的焦点锁定行为"
+  },
+  "usage": [
+    "在应用根节点包裹，统一注入主题/语言/前缀等全局配置",
+    "componentConfig 为指定组件设置全局默认属性",
+    "暗色模式配合 body[giencoder-theme=dark] 的 CSS 变量体系自动生效"
+  ],
+  "doNotInvent": [
+    "不得虚构官方不存在的配置项（如自定义主题色板注入）",
+    "不得将本组件渲染为可见 UI",
+    "不得用 外部 CSS 框架/Lucide 替代"
+  ],
+  "tokensConsumed": [],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "ConfigProviderProps",
+    "props": [
+      "autoInsertSpaceInButton",
+      "componentConfig",
+      "getPopupContainer",
+      "getPrefixCls",
+      "loadingElement",
+      "locale",
+      "prefixCls",
+      "renderEmpty",
+      "size",
+      "tablePagination",
+      "theme"
+    ],
+    "total": 11,
+    "syncDate": "2026/08/28"
+  }
+}

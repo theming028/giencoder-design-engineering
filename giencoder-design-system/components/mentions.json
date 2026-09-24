@@ -1,0 +1,154 @@
+{
+  "schemaVersion": 3,
+  "slug": "mentions",
+  "name": "Mentions",
+  "category": "data-entry",
+  "giencoderSource": {
+    "component": "Mentions",
+    "version": "2.66.16"
+  },
+  "summary": "提及组件，在文本输入中通过 @ 触发用户/实体选择下拉，选中后回填文本。",
+  "variants": [
+    {
+      "name": "default",
+      "description": "标准 @ 触发提及",
+      "whenToUse": "评论、IM 中 @ 用户"
+    },
+    {
+      "name": "custom-prefix",
+      "description": "自定义触发前缀（prefix）",
+      "whenToUse": "需要 #、$ 等其他前缀触发"
+    },
+    {
+      "name": "custom-option",
+      "description": "自定义选项渲染",
+      "whenToUse": "选项需展示头像、描述等富内容"
+    }
+  ],
+  "sizes": [
+    {
+      "name": "default",
+      "value": "自适应高度（基于 textarea）",
+      "usage": "Mentions 基于 TextArea，高度随内容自适应，无预设尺寸变体"
+    }
+  ],
+  "states": [
+    {
+      "name": "default",
+      "description": "未交互",
+      "visual": "textarea 白底 --color-border-2 边框"
+    },
+    {
+      "name": "hover",
+      "description": "悬停",
+      "visual": "边框 --color-border-3"
+    },
+    {
+      "name": "focus",
+      "description": "聚焦",
+      "visual": "--color-primary-6 边框 + 光晕"
+    },
+    {
+      "name": "disabled",
+      "description": "禁用",
+      "visual": "--color-fill-2 背景，--color-text-4 文本"
+    },
+    {
+      "name": "active",
+      "description": "下拉激活（@ 后匹配）",
+      "visual": "下拉列表展开，--color-bg-5 + --shadow2-down"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "文本域",
+      "element": "textarea",
+      "description": "输入承载，@ 后触发搜索"
+    },
+    {
+      "part": "下拉弹层",
+      "element": "div[role=listbox]",
+      "description": "匹配结果列表，跟随光标定位，--color-bg-5 + --shadow2-down"
+    },
+    {
+      "part": "匹配选项",
+      "element": "div[role=option]",
+      "description": "用户/实体条目，可自定义渲染"
+    },
+    {
+      "part": "空态提示",
+      "element": "div",
+      "description": "无匹配结果时的占位文案"
+    }
+  ],
+  "interaction": {
+    "hover": "textarea 边框加深；选项悬停 --color-fill-2",
+    "focus": "textarea 弧蓝边框 + 光晕；@ 输入时下拉激活",
+    "keyboard": [
+      "@: type the trigger prefix and open the dropdown",
+      "ArrowUp/ArrowDown: move between matching options",
+      "Enter: select the highlighted option and insert it",
+      "Esc: close the dropdown",
+      "Tab: leave the component and close the dropdown"
+    ],
+    "motion": {
+      "duration": "0.1s~0.3s",
+      "easing": "standard",
+      "description": "下拉淡入且随光标位置定位；选中回填即时无动画"
+    },
+    "focusTrap": "下拉为跟随光标的列表型弹层，焦点保持在 textarea，不启用 focusTrap",
+    "escClose": "按 Esc 关闭下拉，@ 文本保留可继续编辑",
+    "clickOutsideClose": "点击组件外部关闭下拉",
+    "behaviorNotes": "onSearch 在触发前缀后回调；split 定义选中后保留的字符；选中后回填'前缀 + 选中项 + split'，光标继续输入"
+  },
+  "a11y": {
+    "role": "textbox",
+    "ariaAttrs": [
+      "aria-expanded",
+      "aria-controls",
+      "aria-activedescendant",
+      "role=listbox on popup",
+      "role=option on items"
+    ],
+    "contrastNote": "选项文本 --color-text-1 在 --color-bg-5 上对比度充足；选中项 --color-primary-6 文字高亮",
+    "focusNote": "键盘高亮随方向键移动，aria-activedescendant 同步指向当前选项"
+  },
+  "usage": [
+    "@ 触发场景（评论、IM、协作）使用",
+    "匹配数据量大时建议服务端搜索（onSearch）",
+    "选项含富内容时自定义渲染并保持高度一致性"
+  ],
+  "doNotInvent": [
+    "不要虚构 @ 面板内置分组（源启无分组能力，可自定义渲染模拟但非内置）",
+    "不要把 Mentions 当作普通多行输入（纯文本用 TextArea）",
+    "不要虚构富文本编辑能力（Mentions 输出为纯文本字符串）"
+  ],
+  "tokensConsumed": [
+    "--color-bg-5",
+    "--shadow2-down",
+    "--color-primary-6",
+    "--color-border-2",
+    "--color-border-3",
+    "--color-fill-2",
+    "--color-text-1",
+    "--color-text-2",
+    "--color-text-4",
+    "--transition-duration-2",
+    "--transition-timing-function-standard"
+  ],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "MentionsProps",
+    "props": [
+      "children",
+      "defaultValue",
+      "disabled",
+      "label",
+      "maxLength",
+      "options",
+      "value"
+    ],
+    "total": 7,
+    "syncDate": "2026/08/28"
+  }
+}

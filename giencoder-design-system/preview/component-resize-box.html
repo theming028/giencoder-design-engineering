@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>调整框 ResizeBox</title>
+  <link rel="stylesheet" href="preview-scaffold.css">
+  <link rel="stylesheet" href="../colors_and_type.css">
+  <link rel="stylesheet" href="../components.css">
+</head>
+<body>
+  <div class="pv-layout">
+    <aside class="pv-sidebar">
+      <div class="pv-nav">
+        <div class="pv-menu-group">入口</div>
+        <a href="../home.html">首页</a>
+        <a href="../../GETTING-STARTED.html">使用说明书</a>
+        <div class="pv-menu-group">组件</div>
+        <a href="../index.html#general">通用</a>
+        <a href="../index.html#layout">布局</a>
+        <a href="../index.html#navigation">导航</a>
+        <a href="../index.html#data-entry">数据录入</a>
+        <a href="../index.html#data-display">数据展示</a>
+        <a href="../index.html#feedback">反馈</a>
+        <a href="../index.html#other" class="active">其他</a>
+        <div class="pv-menu-group">资源</div>
+        <a href="../index.html#uikits">页面样板</a>
+        <a href="../index.html#docs">规范文档</a>
+      </div>
+    </aside>
+    <main class="pv-content">
+  <a class="pv-back" href="../index.html#other">← 返回组件库</a>
+  <div class="pv-header">
+    <h1>ResizeBox 调整框</h1>
+    <p>源启调整框：通过拖拽分隔条调整相邻面板尺寸，支持水平 / 上下分割。</p>
+  </div>
+
+  <!-- ============ 变体：水平分割 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Horizontal 水平分割（左右 60% / 40%）</div>
+    <div class="pv-section__sub">分隔条 4px 宽，光标为双向箭头 col-resize，左右面板随拖拽改变宽度。</div>
+    <div class="row">
+      <div class="giencoder-resize-box" data-component="resize-box" data-variant="horizontal" data-state="default" style="width:100%; max-width:640px; height:180px; display:flex; border:1px solid var(--color-border-2); border-radius:var(--border-radius-medium); overflow:hidden; background:var(--color-bg-2);">
+        <div class="giencoder-resize-box-panel" style="flex:0 0 60%; display:flex; align-items:center; justify-content:center; background:var(--color-fill-2); font-size:var(--font-size-body-2); color:var(--color-text-2);">左面板 60%</div>
+        <div class="giencoder-resize-box-divider" style="flex-shrink:0; width:4px; background:var(--color-border-2); cursor:col-resize; display:flex; align-items:center; justify-content:center; color:var(--color-text-3);">
+          <svg viewBox="0 0 24 12" width="18" height="9" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 6h18"/>
+            <path d="M6 3L3 6l3 3"/>
+            <path d="M18 3l3 3-3 3"/>
+          </svg>
+        </div>
+        <div class="giencoder-resize-box-panel" style="flex:1; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg, var(--color-fill-1), var(--color-fill-3)); font-size:var(--font-size-body-2); color:var(--color-text-2);">右面板 40% 渐变底</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 变体：悬停拖拽态 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Hover / Drag 悬停拖拽态</div>
+    <div class="pv-section__sub">分隔条 hover 时变为 --color-primary-6，光标示意双向箭头，拖拽过程中实时调整面板尺寸。</div>
+    <div class="row">
+      <div class="giencoder-resize-box" data-component="resize-box" data-variant="horizontal" data-state="hover" style="width:100%; max-width:640px; height:180px; display:flex; border:1px solid var(--color-border-2); border-radius:var(--border-radius-medium); overflow:hidden; background:var(--color-bg-2);">
+        <div class="giencoder-resize-box-panel" style="flex:0 0 60%; display:flex; align-items:center; justify-content:center; background:var(--color-fill-2); font-size:var(--font-size-body-2); color:var(--color-text-2);">左面板 60%</div>
+        <div class="giencoder-resize-box-divider" style="flex-shrink:0; width:4px; background:var(--color-primary-6); cursor:col-resize; display:flex; align-items:center; justify-content:center; color:var(--color-white);">
+          <svg viewBox="0 0 24 12" width="18" height="9" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 6h18"/>
+            <path d="M6 3L3 6l3 3"/>
+            <path d="M18 3l3 3-3 3"/>
+          </svg>
+        </div>
+        <div class="giencoder-resize-box-panel" style="flex:1; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg, var(--color-fill-1), var(--color-fill-3)); font-size:var(--font-size-body-2); color:var(--color-text-2);">右面板 40% 渐变底</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 变体：上下分割 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Vertical 上下分割</div>
+    <div class="pv-section__sub">direction="vertical" 时面板上下排列，分隔条横向拖拽（cursor: row-resize）调整上下高度。</div>
+    <div class="row">
+      <div class="giencoder-resize-box" data-component="resize-box" data-variant="vertical" data-state="default" style="width:100%; max-width:640px; height:260px; display:flex; flex-direction:column; border:1px solid var(--color-border-2); border-radius:var(--border-radius-medium); overflow:hidden; background:var(--color-bg-2);">
+        <div class="giencoder-resize-box-panel" style="flex:0 0 50%; display:flex; align-items:center; justify-content:center; background:var(--color-fill-2); font-size:var(--font-size-body-2); color:var(--color-text-2);">上方面板 50%</div>
+        <div class="giencoder-resize-box-divider" style="flex-shrink:0; height:4px; background:var(--color-border-2); cursor:row-resize; display:flex; align-items:center; justify-content:center; color:var(--color-text-3);">
+          <svg viewBox="0 0 12 24" width="9" height="18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M6 3v18"/>
+            <path d="M3 6L6 3l3 3"/>
+            <path d="M3 18l3 3 3-3"/>
+          </svg>
+        </div>
+        <div class="giencoder-resize-box-panel" style="flex:1; display:flex; align-items:center; justify-content:center; background:linear-gradient(180deg, var(--color-fill-1), var(--color-fill-3)); font-size:var(--font-size-body-2); color:var(--color-text-2);">下方面板 50% 渐变底</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  /* resize-box：拖拽分隔条实时调整面板比例（水平左右 / 垂直上下） */
+  (function () {
+    'use strict';
+
+    function findAll(sel, root) {
+      return Array.prototype.slice.call((root || document).querySelectorAll(sel));
+    }
+
+    findAll('.giencoder-resize-box').forEach(function (box) {
+      var divider = box.querySelector('.giencoder-resize-box-divider');
+      var panels = findAll('.giencoder-resize-box-panel', box);
+      if (!divider || panels.length < 2) return;
+      var first = panels[0];
+      var second = panels[1];
+      var isVertical = box.getAttribute('data-variant') === 'vertical';
+
+      var dragging = false;
+      var startClient = 0;
+      var startBasisPx = 0;
+      var dividerBg = divider.style.background || '';
+
+      function clampPct(totalPx, dividerPx, px) {
+        // 首面板最小 40px，末面板最小 40px
+        var minPx = 40;
+        var maxPx = totalPx - dividerPx - 40;
+        return Math.min(Math.max(px, minPx), maxPx);
+      }
+
+      divider.addEventListener('pointerdown', function (e) {
+        e.preventDefault();
+        dragging = true;
+        divider.setPointerCapture(e.pointerId);
+
+        // 直接实测首面板当前像素尺寸（flex-basis 可能是 % 或 px，不解析字符串）
+        var firstRect = first.getBoundingClientRect();
+        startBasisPx = isVertical ? firstRect.height : firstRect.width;
+        startClient = isVertical ? e.clientY : e.clientX;
+
+        // active 高亮 + 拖拽中禁止选中
+        divider.style.background = 'var(--color-primary-6)';
+        box.style.userSelect = 'none';
+        box.style.webkitUserSelect = 'none';
+      });
+
+      divider.addEventListener('pointermove', function (e) {
+        if (!dragging) return;
+        var boxRect = box.getBoundingClientRect();
+        var totalPx = isVertical ? boxRect.height : boxRect.width;
+        var dividerPx = isVertical ? divider.offsetHeight : divider.offsetWidth;
+        var delta = (isVertical ? e.clientY : e.clientX) - startClient;
+        var newPx = clampPct(totalPx, dividerPx, startBasisPx + delta);
+        var pct = Math.round((newPx / totalPx) * 100);
+        var secondPct = Math.round(((totalPx - newPx - dividerPx) / totalPx) * 100);
+
+        first.style.flex = '0 0 ' + newPx + 'px';
+        if (isVertical) {
+          first.textContent = '上方面板 ' + pct + '%';
+          second.textContent = '下方面板 ' + secondPct + '% 渐变底';
+        } else {
+          first.textContent = '左面板 ' + pct + '%';
+          second.textContent = '右面板 ' + secondPct + '% 渐变底';
+        }
+      });
+
+      function endDrag() {
+        if (!dragging) return;
+        dragging = false;
+        divider.style.background = dividerBg;
+        box.style.userSelect = '';
+        box.style.webkitUserSelect = '';
+      }
+      divider.addEventListener('pointerup', endDrag);
+      divider.addEventListener('pointercancel', endDrag);
+    });
+  })();
+  </script>
+    </main>
+  </div>
+<script src="preview-copy.js"></script>
+</body>
+</html>

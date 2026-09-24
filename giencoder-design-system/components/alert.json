@@ -1,0 +1,170 @@
+{
+  "schemaVersion": 3,
+  "slug": "alert",
+  "name": "Alert",
+  "category": "feedback",
+  "giencoderSource": {
+    "component": "Alert",
+    "version": "2.66.16"
+  },
+  "summary": "警告提示，在页面内展示需要引起注意的成功/信息/警告/错误提示，可关闭、可带操作项，可用作顶部公告。",
+  "variants": [
+    {
+      "name": "info",
+      "description": "信息提示（默认）：弧蓝图标 + 浅蓝底",
+      "whenToUse": "中性说明、功能提示"
+    },
+    {
+      "name": "success",
+      "description": "成功提示：绿色图标 + 浅绿底",
+      "whenToUse": "操作成功后的正向反馈"
+    },
+    {
+      "name": "warning",
+      "description": "警告提示：橙色图标 + 浅橙底",
+      "whenToUse": "需注意但不阻断的警示"
+    },
+    {
+      "name": "error",
+      "description": "错误提示：红色图标 + 浅红底",
+      "whenToUse": "错误、失败、危险信息"
+    },
+    {
+      "name": "banner",
+      "description": "顶部公告模式（banner=true）：全宽铺开、无边框圆角",
+      "whenToUse": "页面顶部全局公告"
+    }
+  ],
+  "sizes": [
+    {
+      "name": "default",
+      "value": "自适应容器宽度",
+      "usage": "官方无尺寸档位，宽度随容器与内容自适应"
+    }
+  ],
+  "states": [
+    {
+      "name": "default",
+      "description": "常规展示",
+      "visual": "类型色浅底（--color-*-light-1）+ 类型色图标（--color-*-6）+ 正文文字"
+    },
+    {
+      "name": "hover",
+      "description": "关闭按钮/操作项悬停",
+      "visual": "图标 hover 底色 --color-fill-2，0.1s 过渡"
+    },
+    {
+      "name": "focus",
+      "description": "关闭按钮获得焦点",
+      "visual": "可见焦点环，键盘可达"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "container",
+      "element": "div[role=alert]",
+      "description": "根容器，原生输出 role=\"alert\""
+    },
+    {
+      "part": "icon",
+      "element": "span",
+      "description": "前缀类型图标（showIcon 默认 true）"
+    },
+    {
+      "part": "title",
+      "element": "div",
+      "description": "标题文字（--font-size-title-1）"
+    },
+    {
+      "part": "content",
+      "element": "div",
+      "description": "正文内容（--font-size-body-3）"
+    },
+    {
+      "part": "action",
+      "element": "div",
+      "description": "右侧自定义操作区（action）"
+    },
+    {
+      "part": "close-icon",
+      "element": "span",
+      "description": "关闭按钮（closable=true 时显示）"
+    }
+  ],
+  "interaction": {
+    "hover": "关闭按钮与操作项 hover 时显示 --color-fill-2 底色反馈",
+    "focus": "关闭按钮可聚焦并获得可见焦点环",
+    "keyboard": [
+      "Tab: 焦点进入关闭按钮/操作项",
+      "Enter: 触发关闭按钮（触发 onClose）",
+      "Space: 触发关闭按钮",
+      "Tab: 焦点移出组件"
+    ],
+    "motion": {
+      "duration": "0.2s",
+      "easing": "standard",
+      "description": "关闭时高度与透明度过渡，结束后触发 afterClose"
+    },
+    "behaviorNotes": "非弹层组件，无 focusTrap/escClose/clickOutsideClose；closable 点击关闭图标后内部隐藏并触发 onClose/afterClose；官方无内置展开收起能力（无 expandable prop），更多内容请通过 content 或 action 承载"
+  },
+  "a11y": {
+    "role": "alert",
+    "ariaAttrs": [
+      "aria-label（关闭按钮可访问名，建议提供）"
+    ],
+    "contrastNote": "正文 --color-text-1 与类型浅色底（--color-*-light-1）对比度 ≥ 4.5:1",
+    "focusNote": "关闭按钮/操作项需提供可见焦点环"
+  },
+  "usage": [
+    "type 仅限 info/success/warning/error 四种官方类型",
+    "closable=true 时提供关闭入口，点击触发 onClose",
+    "action 用于在右侧放置次要操作（如链接、按钮）",
+    "banner=true 用作页面顶部全局公告",
+    "背景用 --color-*-light-1，图标用对应 --color-*-6，禁止硬编码 hex"
+  ],
+  "doNotInvent": [
+    "不得虚构其他 type 枚举或自定义颜色变体",
+    "不得添加官方不存在的展开/收起（expandable）能力",
+    "不得用 外部 CSS 框架/Lucide 替代 源启图标与 token",
+    "不得覆盖原生 role=\"alert\""
+  ],
+  "tokensConsumed": [
+    "--color-primary-light-1",
+    "--color-success-light-1",
+    "--color-warning-light-1",
+    "--color-danger-light-1",
+    "--color-primary-6",
+    "--color-success-6",
+    "--color-warning-6",
+    "--color-danger-6",
+    "--color-text-1",
+    "--color-text-2",
+    "--color-fill-2",
+    "--border-radius-small",
+    "--spacing-7",
+    "--font-size-title-1",
+    "--font-size-body-3"
+  ],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "AlertProps",
+    "props": [
+      "action",
+      "afterClose",
+      "banner",
+      "className",
+      "closable",
+      "closeElement",
+      "closeable",
+      "content",
+      "icon",
+      "onClose",
+      "showIcon",
+      "style",
+      "title",
+      "type"
+    ],
+    "total": 14,
+    "syncDate": "2026/08/28"
+  }
+}

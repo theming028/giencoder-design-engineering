@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>锚点 Anchor</title>
+  <link rel="stylesheet" href="preview-scaffold.css">
+  <link rel="stylesheet" href="../colors_and_type.css">
+  <link rel="stylesheet" href="../components.css">
+  <style>
+    /* Anchor 预览局部样式（Token 驱动，无硬编码色值） */
+    .giencoder-anchor { display: block; width: 220px; font-family: var(--font-family); }
+    .giencoder-anchor-link { display: block; padding: 7px 12px 7px 16px; border-left: 2px solid transparent; font-size: var(--font-size-body-3); color: var(--color-text-2); cursor: pointer; transition: color var(--transition-duration-1), background var(--transition-duration-1); }
+    .giencoder-anchor-link-title { display: block; color: inherit; text-decoration: none; }
+    .giencoder-anchor-link:hover, .giencoder-anchor-link-hover { background: var(--color-fill-1); color: var(--color-text-1); }
+    .giencoder-anchor-link-active { border-left-color: var(--color-primary-6); background: var(--color-primary-light-1); color: var(--color-primary-6); font-weight: 600; }
+    .giencoder-anchor-link-active .giencoder-anchor-link-title { color: var(--color-primary-6); }
+    .giencoder-anchor-sublist { padding-left: 20px; }
+    .giencoder-anchor-sublist .giencoder-anchor-link { font-size: var(--font-size-body-2); padding: 6px 12px 6px 16px; }
+  </style>
+</head>
+<body>
+  <div class="pv-layout">
+    <aside class="pv-sidebar">
+      <div class="pv-nav">
+        <div class="pv-menu-group">入口</div>
+        <a href="../home.html">首页</a>
+        <a href="../../GETTING-STARTED.html">使用说明书</a>
+        <div class="pv-menu-group">组件</div>
+        <a href="../index.html#general">通用</a>
+        <a href="../index.html#layout">布局</a>
+        <a href="../index.html#navigation" class="active">导航</a>
+        <a href="../index.html#data-entry">数据录入</a>
+        <a href="../index.html#data-display">数据展示</a>
+        <a href="../index.html#feedback">反馈</a>
+        <a href="../index.html#other">其他</a>
+        <div class="pv-menu-group">资源</div>
+        <a href="../index.html#uikits">页面样板</a>
+        <a href="../index.html#docs">规范文档</a>
+      </div>
+    </aside>
+    <main class="pv-content">
+  <a class="pv-back" href="../index.html#navigation">← 返回组件库</a>
+  <div class="pv-header">
+    <h1>Anchor 锚点</h1>
+    <p>源启锚点：垂直目录列表，激活项高亮为品牌蓝并带左侧指示条，支持二级嵌套子锚点。</p>
+  </div>
+
+  <!-- ============ 变体：基础锚点 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Basic 基础锚点（default / hover / active 三态）</div>
+    <div class="row">
+      <div class="giencoder-anchor" data-component="anchor" data-variant="basic" data-state="active">
+        <div class="giencoder-anchor-link"><a class="giencoder-anchor-link-title" href="#basic-1">1. 组件总览</a></div>
+        <div class="giencoder-anchor-link giencoder-anchor-link-hover"><a class="giencoder-anchor-link-title" href="#basic-2">2. 基本用法（hover）</a></div>
+        <div class="giencoder-anchor-link giencoder-anchor-link-active"><a class="giencoder-anchor-link-title" href="#basic-3">3. 自定义样式（active）</a></div>
+        <div class="giencoder-anchor-link"><a class="giencoder-anchor-link-title" href="#basic-4">4. 事件监听</a></div>
+        <div class="giencoder-anchor-link"><a class="giencoder-anchor-link-title" href="#basic-5">5. API 参考</a></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 变体：二级嵌套 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Nested 二级嵌套子锚点</div>
+    <div class="row">
+      <div class="giencoder-anchor" data-component="anchor" data-variant="nested" data-state="active">
+        <div class="giencoder-anchor-link"><a class="giencoder-anchor-link-title" href="#nested-1">基础用法</a></div>
+        <div class="giencoder-anchor-sublist">
+          <div class="giencoder-anchor-link"><a class="giencoder-anchor-link-title" href="#nested-1-1">1.1 快速开始</a></div>
+          <div class="giencoder-anchor-link giencoder-anchor-link-active"><a class="giencoder-anchor-link-title" href="#nested-1-2">1.2 常用场景（active）</a></div>
+          <div class="giencoder-anchor-link"><a class="giencoder-anchor-link-title" href="#nested-1-3">1.3 进阶配置</a></div>
+        </div>
+        <div class="giencoder-anchor-link"><a class="giencoder-anchor-link-title" href="#nested-2">性能优化</a></div>
+        <div class="giencoder-anchor-sublist">
+          <div class="giencoder-anchor-link"><a class="giencoder-anchor-link-title" href="#nested-2-1">2.1 滚动监听</a></div>
+          <div class="giencoder-anchor-link"><a class="giencoder-anchor-link-title" href="#nested-2-2">2.2 节流处理</a></div>
+        </div>
+        <div class="giencoder-anchor-link"><a class="giencoder-anchor-link-title" href="#nested-3">常见问题</a></div>
+      </div>
+    </div>
+  </div>
+  <script>
+  (function () {
+    'use strict';
+    /* component-anchor：交互清单
+       1. 点击锚点项：同容器内互斥高亮（移除其他项 -active/-hover，给当前加 -active，左侧指示条随 -active 生效）
+       2. href 对应 id 区块存在时平滑滚动（scrollIntoView smooth），不存在则仅高亮不跳转 */
+    document.querySelectorAll('.giencoder-anchor-link').forEach(function (item) {
+      item.addEventListener('click', function (e) {
+        var box = item.closest('.giencoder-anchor');
+        if (box) {
+          box.querySelectorAll('.giencoder-anchor-link').forEach(function (other) {
+            other.classList.remove('giencoder-anchor-link-active', 'giencoder-anchor-link-hover');
+          });
+        }
+        item.classList.add('giencoder-anchor-link-active');
+        var title = item.querySelector('a.giencoder-anchor-link-title');
+        if (title) {
+          var hash = title.getAttribute('href');
+          if (hash && hash.charAt(0) === '#') {
+            e.preventDefault();
+            var target = document.getElementById(hash.slice(1));
+            if (target && target.scrollIntoView) {
+              target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          }
+        }
+      });
+    });
+  })();
+  </script>
+    </main>
+  </div>
+<script src="preview-copy.js"></script>
+</body>
+</html>

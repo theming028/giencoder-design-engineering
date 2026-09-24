@@ -1,0 +1,170 @@
+{
+ "schemaVersion": 3,
+ "slug": "radio",
+ "name": "Radio",
+ "category": "data-entry",
+ "giencoderSource": {
+  "component": "Radio",
+  "version": "2.66.16",
+  "mapsFrom": "segmented-picker"
+ },
+ "summary": "单选框：在一组互斥选项中单选一项，支持圆形点选与按钮分组两种形态。",
+ "variants": [
+  {
+   "name": "default",
+   "description": "圆形圆点 + 右侧文字，未选中为空心圆点",
+   "whenToUse": "选项较少且需要完整展示选项内容时"
+  },
+  {
+   "name": "button",
+   "description": "Radio.Group type=button 按钮形态，选项紧凑并排成段",
+   "whenToUse": "分段筛选/工具栏选择，即分段选择器的 源启等价形态（源启无独立 Segmented 组件）"
+  }
+ ],
+ "sizes": [
+  {
+   "name": "mini",
+   "value": "24px",
+   "usage": "紧凑场景，按钮形态最小高度"
+  },
+  {
+   "name": "small",
+   "value": "28px",
+   "usage": "密集表单"
+  },
+  {
+   "name": "medium",
+   "value": "32px",
+   "usage": "默认尺寸"
+  },
+  {
+   "name": "large",
+   "value": "36px",
+   "usage": "宽松页面/大字号场景"
+  }
+ ],
+ "states": [
+  {
+   "name": "default",
+   "description": "未选中态",
+   "visual": "空心圆点，边框 --color-border-3，白色底"
+  },
+  {
+   "name": "hover",
+   "description": "鼠标悬停",
+   "visual": "圆点边框过渡为主色，0.1s；按钮形态悬停文字加深 + 半透明指示器，0.15s"
+  },
+  {
+   "name": "checked",
+   "description": "选中态",
+   "visual": "圆点填充主色 + 内部白点缩放动画；按钮形态为浅灰凹槽轨道内白色滑块 + 1px 浅灰描边(--color-border-2) + 深色加粗文字，无投影，滑块随切换滑动定位"
+  },
+  {
+   "name": "focus",
+   "description": "键盘焦点",
+   "visual": "可见焦点环"
+  },
+  {
+   "name": "disabled",
+   "description": "禁用态",
+   "visual": "圆点灰底灰边，文字 --color-text-4，不可交互"
+  }
+ ],
+ "anatomy": [
+  {
+   "part": "radio-mask",
+   "element": "span",
+   "description": "圆形选框，checked 时填充主色"
+  },
+  {
+   "part": "radio-text",
+   "element": "span/label",
+   "description": "选项文字标签"
+  },
+  {
+   "part": "radio-input",
+   "element": "input[type=radio]",
+   "description": "隐藏的原生 radio 输入，承载可访问性语义"
+  },
+  {
+   "part": "radio-group",
+   "element": "div",
+   "description": "Radio.Group 容器，管理互斥选中与方向排列"
+  }
+ ],
+ "interaction": {
+  "hover": "未选中圆点边框变主色；按钮形态文字加深 + 半透明指示器，0.15s 过渡",
+  "focus": "焦点项出现可见焦点环，组内为 roving tabindex 单一焦点",
+  "keyboard": [
+   "Tab: 焦点进入/离开单选组",
+   "ArrowLeft/ArrowRight: 在组内移动焦点并选中相邻项",
+   "ArrowUp/ArrowDown: 纵向排列时移动焦点并选中",
+   "Space: 选中当前焦点项",
+   "Enter: 提交所在表单"
+  ],
+  "motion": {
+   "duration": "0.1s~0.28s",
+   "easing": "standard / 缓入缓出",
+   "description": "选中态圆点内部白点 0.1s 缩放；按钮形态滑块指示器 transform/width 0.28s 滑动过渡（cubic-bezier(0.22,1,0.36,1)），文字颜色 0.15s 过渡"
+  },
+  "behaviorNotes": "Radio.Group 提供受控 value/onChange；同组互斥仅能选中一项；type=button 按钮形态即分段选择器，源启官方无独立 Segmented"
+ },
+ "a11y": {
+  "role": "radio",
+  "ariaAttrs": [
+   "aria-checked",
+   "aria-disabled",
+   "aria-label",
+   "aria-required"
+  ],
+  "contrastNote": "选中主色 #3770F7 与白色圆点对比度满足要求；禁用文字 --color-text-4 低于 4.5:1 属预期降级",
+  "focusNote": "组内单一可见焦点环，方向键在项间转移焦点而非 Tab 逐个遍历"
+ },
+ "usage": [
+  "选项互斥且数量较少（≤5 项）时使用",
+  "分段按钮场景使用 Radio.Group type=button，即分段选择器的 源启映射",
+  "纵向排列设置 direction=vertical",
+  "可用 options 数组声明简化写法",
+  "与 Form 集成使用受控 value/onChange"
+ ],
+ "doNotInvent": [
+  "不得虚构 type=segmented 等官方不存在的形态",
+  "不得在按钮形态上叠加自定义描边或圆角破坏 源启规范",
+  "不得自行实现全选/清空等 Radio 不提供的交互",
+  "不得用 Checkbox 复选语义冒充单选"
+ ],
+ "tokensConsumed": [
+  "--color-primary-6",
+  "--color-border-3",
+  "--color-bg-white",
+  "--color-fill-2",
+  "--color-bg-5",
+  "--color-text-1",
+  "--color-text-2",
+  "--color-text-4",
+  "--border-radius-medium"
+ ],
+ "assetsConsumed": [],
+ "propsIndex": {
+  "interface": "RadioProps",
+  "props": [
+   "className",
+   "defaultValue",
+   "direction",
+   "disabled",
+   "group",
+   "label",
+   "mode",
+   "name",
+   "onChange",
+   "onChangeValue",
+   "options",
+   "size",
+   "style",
+   "type",
+   "value"
+  ],
+  "total": 15,
+  "syncDate": "2026/08/28"
+ }
+}

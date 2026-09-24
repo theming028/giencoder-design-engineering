@@ -1,0 +1,212 @@
+{
+  "schemaVersion": 3,
+  "slug": "color-picker",
+  "name": "ColorPicker",
+  "category": "data-entry",
+  "giencoderSource": {
+    "component": "ColorPicker",
+    "version": "2.66.16"
+  },
+  "summary": "取色器组件，通过弹层面板选取颜色，支持预设色板、色相条、饱和度面板与多格式色值。",
+  "variants": [
+    {
+      "name": "default",
+      "description": "完整取色面板",
+      "whenToUse": "需要自由选取任意颜色时"
+    },
+    {
+      "name": "preset",
+      "description": "预设色板模式",
+      "whenToUse": "只需从品牌色/常用色中选择时，效率更高"
+    },
+    {
+      "name": "custom-trigger",
+      "description": "自定义触发器",
+      "whenToUse": "需要自定义色块/按钮展示时"
+    }
+  ],
+  "sizes": [
+    {
+      "name": "mini",
+      "value": "24px",
+      "usage": "紧凑工具栏"
+    },
+    {
+      "name": "small",
+      "value": "28px",
+      "usage": "紧凑表单"
+    },
+    {
+      "name": "medium",
+      "value": "32px",
+      "usage": "标准（默认）"
+    },
+    {
+      "name": "large",
+      "value": "36px",
+      "usage": "强调场景"
+    }
+  ],
+  "states": [
+    {
+      "name": "default",
+      "description": "未交互",
+      "visual": "触发器显示当前色块与色值文本"
+    },
+    {
+      "name": "hover",
+      "description": "悬停",
+      "visual": "触发器边框加深"
+    },
+    {
+      "name": "active",
+      "description": "面板打开",
+      "visual": "触发器弧蓝边框；面板展开"
+    },
+    {
+      "name": "disabled",
+      "description": "禁用",
+      "visual": "触发器 --color-fill-2 背景，色块降透明"
+    },
+    {
+      "name": "selected",
+      "description": "面板内颜色选中",
+      "visual": "预设色块显示弧蓝描边 + 对勾"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "触发器",
+      "element": "div[role=button]",
+      "description": "展示当前颜色色块与文本，点击展开面板"
+    },
+    {
+      "part": "弹出面板",
+      "element": "div",
+      "description": "--color-bg-5 背景 + --shadow2-down，含全部取色控件"
+    },
+    {
+      "part": "饱和度/亮度区域",
+      "element": "div",
+      "description": "二维渐变区域，拖拽定位"
+    },
+    {
+      "part": "色相条",
+      "element": "div[role=slider]",
+      "description": "水平色相渐变条，拖动/方向键调整"
+    },
+    {
+      "part": "预设色板",
+      "element": "div",
+      "description": "presetColors 配置的快捷色块"
+    },
+    {
+      "part": "色值输入",
+      "element": "input",
+      "description": "HEX/RGB/HSL 格式输入与当前值展示"
+    }
+  ],
+  "interaction": {
+    "hover": "触发器边框加深；预设色块悬停放大/描边",
+    "focus": "触发器弧蓝边框；面板内控件可聚焦",
+    "keyboard": [
+      "ArrowLeft/ArrowRight: adjust hue on the hue bar",
+      "ArrowUp/ArrowDown: adjust saturation/brightness in the panel",
+      "Enter: confirm the current color",
+      "Esc: close the panel and revert unconfirmed changes",
+      "Tab: move through panel controls and leave"
+    ],
+    "motion": {
+      "duration": "0.1s~0.3s",
+      "easing": "standard",
+      "description": "面板淡入展开；取色调整实时更新无过渡延迟"
+    },
+    "focusTrap": "面板打开后键盘焦点进入面板并在其中循环（focusTrap 生效），Esc 或确认后返回触发器",
+    "escClose": "按 Esc 关闭面板并放弃未确认的调整（回到打开前颜色）",
+    "clickOutsideClose": "点击面板外部关闭面板",
+    "behaviorNotes": "颜色格式 format 支持 hex/rgb/hsl；onChange 实时回调、onComplete 确认时回调；受控 value 可接管面板"
+  },
+  "a11y": {
+    "role": "button (trigger)",
+    "ariaAttrs": [
+      "aria-expanded",
+      "aria-haspopup",
+      "aria-label",
+      "role=slider on hue bar",
+      "aria-valuenow on slider"
+    ],
+    "contrastNote": "当前色块旁始终展示色值文本，避免仅靠颜色传达信息（色盲友好）",
+    "focusNote": "面板内控件有明确焦点环；色相条 slider 具备 aria-valuenow 数值语义"
+  },
+  "usage": [
+    "品牌一致性场景优先使用预设色板",
+    "展示当前色值时同时给出 HEX 文本便于复制",
+    "实时预览用 onChange，提交动作用 onComplete"
+  ],
+  "doNotInvent": [
+    "不要虚构吸管（eyedropper）等未提供的能力",
+    "不要把取色器当输入框使用（精确输入用色值输入）",
+    "不要仅用颜色表达状态而无文字"
+  ],
+  "tokensConsumed": [
+    "--color-bg-5",
+    "--shadow2-down",
+    "--color-primary-6",
+    "--color-border-2",
+    "--color-border-3",
+    "--color-fill-2",
+    "--color-text-1",
+    "--color-text-2",
+    "--color-white",
+    "--transition-duration-2",
+    "--transition-timing-function-standard"
+  ],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "ColorPickerProps",
+    "props": [
+      "activeColorId",
+      "activeColorIdRef",
+      "activeMode",
+      "alpha",
+      "className",
+      "color",
+      "defaultPopupVisible",
+      "defaultValue",
+      "disabled",
+      "disabledAlpha",
+      "format",
+      "gradientColors",
+      "historyColors",
+      "mode",
+      "multiple",
+      "onActive",
+      "onActiveColorIdChange",
+      "onActiveModeChange",
+      "onAdd",
+      "onAlphaChange",
+      "onChange",
+      "onGradientColorsChange",
+      "onHsvChange",
+      "popupVisible",
+      "presetColors",
+      "renderFooter",
+      "renderHandlerCenterStyle",
+      "renderHandlerStyle",
+      "renderHistory",
+      "renderPickSection",
+      "renderPreset",
+      "showHistory",
+      "showPreset",
+      "showText",
+      "size",
+      "style",
+      "triggerElement",
+      "triggerProps",
+      "unmountOnExit",
+      "value"
+    ],
+    "total": 40,
+    "syncDate": "2026/08/28"
+  }
+}

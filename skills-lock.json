@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "skills": {
+    "master-go-to-code": {
+      "source": "/tmp/agent-skills-willnie9",
+      "sourceType": "local",
+      "computedHash": "078c88eaa56ac3e77fbd3994ce06960d42e6eed6dc89390a59ccf3adeda19f96"
+    },
+    "mastergo-dsl-to-code": {
+      "source": "/tmp/mastergo-skills",
+      "sourceType": "local",
+      "computedHash": "de61ca073dbdaae394581bc489f7e6d76e44fddf84c0ec295d84baccc5cc3413"
+    },
+    "mastergo-magic-skill": {
+      "source": "/tmp/superproxy-skills",
+      "sourceType": "local",
+      "computedHash": "3c99631a406847eaafbba1331dccb95ab17556d1bd91cec7b0545c6998af1751"
+    }
+  }
+}

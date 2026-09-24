@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>Typography 排版</title>
+  <link rel="stylesheet" href="preview-scaffold.css">
+  <link rel="stylesheet" href="../colors_and_type.css">
+  <link rel="stylesheet" href="../components.css">
+  <style>
+    .giencoder-icon-copied { color: var(--color-success-6) !important; }
+  </style>
+</head>
+<body>
+  <div class="pv-layout">
+    <aside class="pv-sidebar">
+      <div class="pv-nav">
+        <div class="pv-menu-group">入口</div>
+        <a href="../home.html">首页</a>
+        <a href="../../GETTING-STARTED.html">使用说明书</a>
+        <div class="pv-menu-group">组件</div>
+        <a href="../index.html#general" class="active">通用</a>
+        <a href="../index.html#layout">布局</a>
+        <a href="../index.html#navigation">导航</a>
+        <a href="../index.html#data-entry">数据录入</a>
+        <a href="../index.html#data-display">数据展示</a>
+        <a href="../index.html#feedback">反馈</a>
+        <a href="../index.html#other">其他</a>
+        <div class="pv-menu-group">资源</div>
+        <a href="../index.html#uikits">页面样板</a>
+        <a href="../index.html#docs">规范文档</a>
+      </div>
+    </aside>
+    <main class="pv-content">
+  <a class="pv-back" href="../index.html#general">← 返回组件库</a>
+  <div class="pv-header">
+    <h1>Typography 排版</h1>
+    <p>源启排版：Text 文本 / Title 标题（h1-h6）/ Paragraph 段落，含加粗、斜体、禁用、省略、可复制、可编辑等状态。</p>
+  </div>
+
+  <!-- ============ 变体：Text 文本 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Text 文本</div>
+    <div class="pv-section__sub">基础字号 body-3（14px）/ body-2（13px）/ body-1（12px），颜色 text-1 ~ text-4。</div>
+    <div class="stack-12">
+      <div style="display:flex; align-items:center; gap:24px;">
+        <span style="width:72px; font-size:var(--font-size-body-1); color:var(--color-text-3);">默认</span>
+        <span class="giencoder-typography" data-component="typography" data-variant="text" data-state="default" style="font-size:var(--font-size-body-3); color:var(--color-text-1);">基础文本内容</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:24px;">
+        <span style="width:72px; font-size:var(--font-size-body-1); color:var(--color-text-3);">加粗</span>
+        <span class="giencoder-typography" data-component="typography" data-variant="text" data-state="bold" style="font-size:var(--font-size-body-3); font-weight:600; color:var(--color-text-1);">加粗文本内容</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:24px;">
+        <span style="width:72px; font-size:var(--font-size-body-1); color:var(--color-text-3);">斜体</span>
+        <span class="giencoder-typography" data-component="typography" data-variant="text" data-state="italic" style="font-size:var(--font-size-body-3); font-style:italic; color:var(--color-text-1);">斜体文本内容</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:24px;">
+        <span style="width:72px; font-size:var(--font-size-body-1); color:var(--color-text-3);">下划线</span>
+        <span class="giencoder-typography" data-component="typography" data-variant="text" data-state="underline" style="font-size:var(--font-size-body-3); text-decoration:underline; text-underline-offset:3px; color:var(--color-text-1);">下划线文本内容</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:24px;">
+        <span style="width:72px; font-size:var(--font-size-body-1); color:var(--color-text-3);">删除线</span>
+        <span class="giencoder-typography" data-component="typography" data-variant="text" data-state="strikethrough" style="font-size:var(--font-size-body-3); text-decoration:line-through; color:var(--color-text-1);">删除线文本内容</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:24px;">
+        <span style="width:72px; font-size:var(--font-size-body-1); color:var(--color-text-3);">标记</span>
+        <span class="giencoder-typography" data-component="typography" data-variant="text" data-state="mark" style="font-size:var(--font-size-body-3); background:var(--yellow-2); color:var(--color-text-1);">标记高亮文本内容</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:24px;">
+        <span style="width:72px; font-size:var(--font-size-body-1); color:var(--color-text-3);">代码</span>
+        <code class="giencoder-typography" data-component="typography" data-variant="text" data-state="code" style="font-size:var(--font-size-body-2); font-family:var(--code-family); background:var(--color-fill-2); border:1px solid var(--color-border-1); border-radius:var(--border-radius-small); padding:0 6px; color:var(--color-text-2);">npm install @giencoder-design/web-react</code>
+      </div>
+      <div style="display:flex; align-items:center; gap:24px;">
+        <span style="width:72px; font-size:var(--font-size-body-1); color:var(--color-text-3);">禁用</span>
+        <span class="giencoder-typography" data-component="typography" data-variant="text" data-state="disabled" style="font-size:var(--font-size-body-3); color:var(--color-text-4); cursor:not-allowed;">禁用文本内容（不可选中）</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:24px;">
+        <span style="width:72px; font-size:var(--font-size-body-1); color:var(--color-text-3);">多级字号</span>
+        <span class="giencoder-typography" data-component="typography" data-variant="text" data-state="default" style="font-size:var(--font-size-body-3); color:var(--color-text-2);">body-3 14px</span>
+        <span class="giencoder-typography" data-component="typography" data-variant="text" data-state="default" style="font-size:var(--font-size-body-2); color:var(--color-text-2);">body-2 13px</span>
+        <span class="giencoder-typography" data-component="typography" data-variant="text" data-state="default" style="font-size:var(--font-size-body-1); color:var(--color-text-3);">body-1 12px</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 变体：Title 标题 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Title 标题（h1 - h6）</div>
+    <div class="pv-section__sub">字号映射：h1=title-3(24px) / h2=title-2(20px) / h3=title-1(16px) / h4-h6 依次取 body-3/2/1 加粗。</div>
+    <div class="stack-12">
+      <h1 class="giencoder-typography giencoder-title" data-component="typography" data-variant="title" data-state="default" style="margin:0; font-size:var(--font-size-title-3); font-weight:600; color:var(--color-text-1); line-height:1.33;">一级标题 h1 · 24px</h1>
+      <h2 class="giencoder-typography giencoder-title" data-component="typography" data-variant="title" data-state="default" style="margin:0; font-size:var(--font-size-title-2); font-weight:600; color:var(--color-text-1); line-height:1.4;">二级标题 h2 · 20px</h2>
+      <h3 class="giencoder-typography giencoder-title" data-component="typography" data-variant="title" data-state="default" style="margin:0; font-size:var(--font-size-title-1); font-weight:600; color:var(--color-text-1); line-height:1.5;">三级标题 h3 · 16px</h3>
+      <h4 class="giencoder-typography giencoder-title" data-component="typography" data-variant="title" data-state="default" style="margin:0; font-size:var(--font-size-body-3); font-weight:600; color:var(--color-text-1); line-height:1.5715;">四级标题 h4 · 14px</h4>
+      <h5 class="giencoder-typography giencoder-title" data-component="typography" data-variant="title" data-state="default" style="margin:0; font-size:var(--font-size-body-2); font-weight:600; color:var(--color-text-1); line-height:1.5715;">五级标题 h5 · 13px</h5>
+      <h6 class="giencoder-typography giencoder-title" data-component="typography" data-variant="title" data-state="default" style="margin:0; font-size:var(--font-size-body-1); font-weight:600; color:var(--color-text-2); line-height:1.5715;">六级标题 h6 · 12px</h6>
+    </div>
+  </div>
+
+  <!-- ============ 变体：Paragraph 段落 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Paragraph 段落</div>
+    <div class="pv-section__sub">默认段落行高 --line-height-base（1.5715）；ellipsis 单行省略需配合定宽容器。</div>
+    <div class="stack-12">
+      <p class="giencoder-typography giencoder-paragraph" data-component="typography" data-variant="paragraph" data-state="default" style="margin:0; font-size:var(--font-size-body-3); line-height:var(--line-height-base); color:var(--color-text-1); max-width:640px;">源启设计是面向企业级中后台产品的设计体系，提供从色彩、字体、间距到组件的完整规范。Paragraph 用于承载大段说明文字，行高与字号遵循排版栅格。</p>
+      <div class="giencoder-typography giencoder-paragraph" data-component="typography" data-variant="paragraph" data-state="ellipsis" title="这是一段超长文本，超出容器宽度后以省略号截断，鼠标悬停可查看完整内容" style="max-width:640px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:var(--font-size-body-3); color:var(--color-text-2);">这是一段超长文本，用于演示 ellipsis 单行省略：当内容超出容器宽度时自动截断并显示省略号，该行为由 overflow/text-overflow/white-space 三个属性共同实现。</div>
+    </div>
+  </div>
+
+  <!-- ============ 变体：Copyable 可复制 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Copyable 可复制</div>
+    <div class="pv-section__sub">文本右侧带复制图标，hover 图标变主色；点击复制文本到剪贴板。</div>
+    <div class="row">
+      <span class="giencoder-typography giencoder-typography-copyable" data-component="typography" data-variant="copyable" data-state="default" style="display:inline-flex; align-items:center; gap:6px; font-size:var(--font-size-body-3); color:var(--color-text-1);">可复制的文本内容
+        <span style="display:inline-flex; color:var(--color-text-3); cursor:pointer;">
+          <svg class="giencoder-icon" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="6.2" y="6.2" width="6.8" height="6.8" rx="1"/><path d="M4.4 9.6V4.4a1 1 0 011-1h5.2"/></svg>
+        </span>
+      </span>
+    </div>
+  </div>
+
+  <!-- ============ 变体：Editable 可编辑 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Editable 可编辑</div>
+    <div class="pv-section__sub">未编辑时以文本 + 编辑图标呈现，点击后切换为输入框，回车/失焦保存。</div>
+    <div class="stack-12">
+      <div class="row align-center">
+        <span class="giencoder-typography giencoder-typography-editable" data-component="typography" data-variant="editable" data-state="default" style="display:inline-flex; align-items:center; gap:6px; font-size:var(--font-size-body-3); color:var(--color-text-1); cursor:pointer;">点击编辑项目名称
+          <span style="display:inline-flex; color:var(--color-text-3);">
+            <svg class="giencoder-icon" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.6 3.4l2 2L5.5 12.5 3 13l.5-2.5 7.1-7.1z"/><path d="M9.5 4.5l2 2"/></svg>
+          </span>
+        </span>
+      </div>
+      <div class="row align-center">
+        <span class="giencoder-typography giencoder-typography-editable" data-component="typography" data-variant="editable" data-state="editing" style="font-size:var(--font-size-body-3); color:var(--color-text-1);">编辑中状态（点击后切换为输入框）：</span>
+        <span class="giencoder-input-wrapper" style="display:inline-flex; align-items:center; border:1px solid var(--color-border-2); border-radius:var(--border-radius-medium); padding:0 12px; background:var(--color-bg-2);">
+          <input class="giencoder-input" type="text" value="项目名称" style="border:none; outline:none; background:transparent; height:32px; font-size:var(--font-size-body-3); color:var(--color-text-1); width:200px; font-family:var(--font-family);">
+        </span>
+      </div>
+    </div>
+  </div>
+<script>
+/* ============================================================
+ * 源启 Typography 交互脚本（component-typography）
+ * 1) 可复制文本：点击复制图标复制文本（navigator.clipboard，失败 textarea 兜底，
+ *    全程 try/catch 不抛错），图标短暂变成功色（giencoder-icon-copied）
+ * 2) 可编辑文本：点击进入编辑（替换为 input），Enter/失焦提交并还原显示，Esc 取消
+ * ============================================================ */
+(function () {
+  'use strict';
+
+  function $(sel, root) { return (root || document).querySelector(sel); }
+
+  // ---------- 1) 可复制 ----------
+  function fallbackCopy(text) {
+    try {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.cssText = 'position:fixed; top:0; left:0; width:2px; height:2px; opacity:0;';
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      try { document.execCommand('copy'); } catch (e) { /* ignore */ }
+      document.body.removeChild(ta);
+    } catch (e) { /* ignore */ }
+  }
+
+  var copyable = $('.giencoder-typography-copyable');
+  if (copyable) {
+    var icon = copyable.querySelector('.giencoder-icon');
+    var iconWrap = icon ? icon.parentNode : null;
+    if (iconWrap) {
+      iconWrap.addEventListener('click', function () {
+        // 提取纯文本（去掉图标节点）
+        var tmp = copyable.cloneNode(true);
+        var ic = tmp.querySelector('.giencoder-icon');
+        if (ic && ic.parentNode) ic.parentNode.removeChild(ic);
+        var text = (tmp.textContent || '').trim();
+        // 剪贴板 API + 兜底，全部 try/catch，不抛错
+        try {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).catch(function () { fallbackCopy(text); });
+          } else {
+            fallbackCopy(text);
+          }
+        } catch (e) { fallbackCopy(text); }
+        // 成功色反馈
+        iconWrap.classList.add('giencoder-icon-copied');
+        setTimeout(function () { iconWrap.classList.remove('giencoder-icon-copied'); }, 1200);
+      });
+    }
+  }
+
+  // ---------- 2) 可编辑 ----------
+  Array.prototype.forEach.call(
+    document.querySelectorAll('.giencoder-typography-editable[data-state="default"]'),
+    function (span) {
+      span.addEventListener('click', function () {
+        if (span.dataset.editing) return;
+        var originalHTML = span.innerHTML;
+        span.dataset.editing = '1';
+        span.style.cursor = 'text';
+
+        var input = document.createElement('input');
+        input.type = 'text';
+        input.value = (span.textContent || '').trim();
+        input.style.cssText = 'border:1px solid var(--color-border-2); border-radius:var(--border-radius-medium); padding:2px 8px; font-size:var(--font-size-body-3); color:var(--color-text-1); font-family:var(--font-family); outline:none; background:var(--color-bg-2); width:220px; box-sizing:border-box;';
+        span.innerHTML = '';
+        span.appendChild(input);
+        input.focus();
+        input.select();
+
+        var finished = false;
+        function finish(html, newText) {
+          if (finished) return;
+          finished = true;
+          span.innerHTML = html;
+          var first = span.firstChild;
+          if (newText !== undefined && first && first.nodeType === 3) first.nodeValue = newText;
+          span.style.cursor = '';
+          delete span.dataset.editing;
+        }
+        function commit() { finish(originalHTML, input.value); }
+        function cancel() { finish(originalHTML); }
+
+        input.addEventListener('keydown', function (ev) {
+          if (ev.key === 'Enter') { ev.preventDefault(); commit(); }
+          else if (ev.key === 'Escape') { ev.preventDefault(); cancel(); }
+        });
+        input.addEventListener('blur', commit);
+      });
+    }
+  );
+})();
+</script>
+    </main>
+  </div>
+<script src="preview-copy.js"></script>
+</body>
+</html>

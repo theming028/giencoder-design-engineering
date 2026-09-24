@@ -1,0 +1,110 @@
+{
+  "schemaVersion": 3,
+  "slug": "divider",
+  "name": "Divider",
+  "category": "general",
+  "giencoderSource": {
+    "component": "Divider",
+    "version": "2.66.16"
+  },
+  "summary": "区隔内容的分割线：水平/垂直两种方向，可携带文字（orientation 左/中/右）。",
+  "variants": [
+    {
+      "name": "horizontal",
+      "description": "水平分割线（默认，无文字）",
+      "whenToUse": "区块/列表间分隔"
+    },
+    {
+      "name": "vertical",
+      "description": "垂直分割线（行内）",
+      "whenToUse": "行内元素竖向分隔"
+    },
+    {
+      "name": "with-text",
+      "description": "带文字水平线，orientation=left/center/right 控制位置",
+      "whenToUse": "分组标题式分隔"
+    }
+  ],
+  "sizes": [
+    {
+      "name": "default",
+      "value": "1px 高/宽",
+      "usage": "分割线默认粗细（颜色由 --color-border-1 决定）"
+    }
+  ],
+  "states": [
+    {
+      "name": "default",
+      "description": "带文字或纯线形态",
+      "visual": "--color-border-1 细线，文字 --color-text-1/2"
+    },
+    {
+      "name": "empty",
+      "description": "无文字形态",
+      "visual": "整条线贯通，无内嵌节点"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "root",
+      "element": "div",
+      "description": "分割线本体（1px）"
+    },
+    {
+      "part": "text",
+      "element": "span",
+      "description": "可选文字（children），orientation 控制位置"
+    }
+  ],
+  "interaction": {
+    "hover": "无悬停反馈（纯展示）",
+    "focus": "无焦点",
+    "keyboard": [
+      "无键盘交互（纯展示）"
+    ],
+    "motion": {
+      "duration": "0.1s",
+      "easing": "linear",
+      "description": "无内置动效（静态元素）"
+    },
+    "behaviorNotes": "文字经 children 传入；vertical 时不渲染文字；分割线仅为视觉分隔，不承载语义分组"
+  },
+  "a11y": {
+    "role": "separator",
+    "ariaAttrs": [
+      "aria-orientation=\"horizontal|vertical\""
+    ],
+    "contrastNote": "--color-border-1 仅为装饰，不承载信息，无对比度要求",
+    "focusNote": "无焦点（纯展示）"
+  },
+  "usage": [
+    "相邻同层级内容间使用，避免过度分割",
+    "带文字时用 orientation 明确文字位置",
+    "行内分隔用 vertical 并设置高度",
+    "不用分割线表达关联语义"
+  ],
+  "doNotInvent": [
+    "不虚构 dashed/渐变等额外变体（源启仅 horizontal/vertical）",
+    "不为 vertical 杜撰带文字形态",
+    "不新增分割线动画"
+  ],
+  "tokensConsumed": [
+    "--color-border-1",
+    "--color-text-1",
+    "--color-text-2",
+    "--spacing-2"
+  ],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "DividerProps",
+    "props": [
+      "children",
+      "className",
+      "orientation",
+      "style",
+      "type"
+    ],
+    "total": 5,
+    "syncDate": "2026/08/28"
+  }
+}

@@ -1,0 +1,172 @@
+{
+  "schemaVersion": 3,
+  "slug": "tag",
+  "name": "Tag",
+  "category": "data-display",
+  "giencoderSource": {
+    "component": "Tag",
+    "version": "2.66.16",
+    "mapsFrom": "status-tag"
+  },
+  "summary": "标签：用于标识、分类与状态展示的小型标记，支持状态色、可关闭与可选中",
+  "variants": [
+    {
+      "name": "default",
+      "description": "默认标签：预设色渲染为浅色底 + 深色文字",
+      "whenToUse": "状态标识、分类标记（成功/危险/普通等）"
+    },
+    {
+      "name": "bordered",
+      "description": "描边标签：bordered 控制边框显示（默认带边框）",
+      "whenToUse": "需更清晰边界感的标签"
+    },
+    {
+      "name": "solid",
+      "description": "实心标签：color 传自定义色值时渲染为实心底 + 白色文字",
+      "whenToUse": "强调品牌色或自定义主题色的标签"
+    },
+    {
+      "name": "closable",
+      "description": "可关闭标签：closable 显示关闭按钮，onClose 回调",
+      "whenToUse": "可移除的筛选条件、已选标签集合"
+    },
+    {
+      "name": "checkable",
+      "description": "可选中标签：checkable 使标签可被点击选中/取消选中",
+      "whenToUse": "多选筛选、偏好选择"
+    }
+  ],
+  "sizes": [
+    {
+      "name": "small",
+      "value": "高度 20px、字号 12px",
+      "usage": "紧凑场景"
+    },
+    {
+      "name": "default",
+      "value": "高度 24px、字号 14px",
+      "usage": "默认尺寸"
+    },
+    {
+      "name": "large",
+      "value": "高度 28px、字号 14px",
+      "usage": "强调型标签"
+    }
+  ],
+  "states": [
+    {
+      "name": "default",
+      "description": "默认状态",
+      "visual": "预设色：--color-*-light-1 底 + --color-*-6 文字；实心：--color-*-6 底 + 白字"
+    },
+    {
+      "name": "hover",
+      "description": "鼠标悬停（可关闭/可选中标签）",
+      "visual": "背景亮度变化，关闭按钮显色，0.2s 过渡"
+    },
+    {
+      "name": "checked",
+      "description": "checkable 选中态",
+      "visual": "底色加深为主色（--color-primary-6 底白字）"
+    },
+    {
+      "name": "disabled",
+      "description": "禁用态（节点 disabled）",
+      "visual": "整体透明度降低，交互失效"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "tag",
+      "element": "span.giencoder-tag",
+      "description": "标签主体，颜色/尺寸在此承载"
+    },
+    {
+      "part": "icon",
+      "element": "span.giencoder-tag-icon",
+      "description": "前置图标位（icon 属性）"
+    },
+    {
+      "part": "content",
+      "element": "span.giencoder-tag-content",
+      "description": "标签文字内容"
+    },
+    {
+      "part": "close",
+      "element": "button.giencoder-tag-close-icon",
+      "description": "关闭按钮（closable），原生 button 语义"
+    }
+  ],
+  "interaction": {
+    "hover": "可关闭标签悬停显示关闭按钮并高亮；checkable 标签悬停背景变化提示可点击",
+    "focus": "可交互标签（checkable/closable）可获焦，显示可见焦点环",
+    "keyboard": [
+      "Tab: 聚焦可交互标签（checkable/closable）",
+      "Enter: 触发切换选中（checkable）或触发关闭（closable）",
+      "Space: 切换选中状态（checkable）",
+      "Tab: 焦点移出关闭按钮"
+    ],
+    "motion": {
+      "duration": "0.2s",
+      "easing": "standard",
+      "description": "hover/选中状态 0.2s 标准过渡；关闭时移除无出入场动画"
+    },
+    "behaviorNotes": "checkable 受控用 checked/onChange；closable 受控由业务维护移除后的数据；color 预设值（red/giencoderblue/success 等）渲染浅色变体，自定义色值渲染实心变体"
+  },
+  "a11y": {
+    "role": "button",
+    "ariaAttrs": [
+      "aria-pressed (checkable 选中态)",
+      "aria-label (关闭按钮，如“移除标签”)"
+    ],
+    "contrastNote": "浅色底标签文字 --color-*-6 与 --color-*-light-1 底对比度 ≥ 4.5:1；实心标签白字与 --color-*-6 底同理",
+    "focusNote": "可交互标签保留可见焦点环；纯展示标签不设 tabindex"
+  },
+  "usage": [
+    "状态标识优先用预设色语义（success/danger/warning/normal），保持全局一致",
+    "可关闭标签需同步维护移除后的数据状态",
+    "同一页面的标签色彩语义应统一，避免滥用自定义色",
+    "Tag 只承载短文本，长文本用其他容器"
+  ],
+  "doNotInvent": [
+    "不得虚构 Tag 的拖拽、复制等官方不存在的交互",
+    "不得新增官方不存在的颜色枚举与变体",
+    "不得用 外部 CSS 框架/Lucide 替代组件与图标体系"
+  ],
+  "tokensConsumed": [
+    "--color-primary-6",
+    "--color-primary-light-1",
+    "--color-success-6",
+    "--color-success-light-1",
+    "--color-danger-6",
+    "--color-danger-light-1",
+    "--color-warning-6",
+    "--color-warning-light-1",
+    "--color-text-1",
+    "--border-radius-medium"
+  ],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "TagProps",
+    "props": [
+      "__closeIconProps",
+      "bordered",
+      "checkable",
+      "checked",
+      "className",
+      "closable",
+      "closeIcon",
+      "color",
+      "defaultChecked",
+      "fill",
+      "icon",
+      "onCheck",
+      "onClose",
+      "size",
+      "style",
+      "visible"
+    ],
+    "total": 16,
+    "syncDate": "2026/08/28"
+  }
+}

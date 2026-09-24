@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>Mentions 提及</title>
+  <link rel="stylesheet" href="preview-scaffold.css">
+  <link rel="stylesheet" href="../colors_and_type.css">
+  <link rel="stylesheet" href="../components.css">
+  <style>
+    /* ===== 交互动效用：弹层展开/收起过渡 ===== */
+    .giencoder-mentions-popup {
+      display: none;
+      opacity: 0; visibility: hidden; transform: translateY(4px);
+      transition: opacity .2s cubic-bezier(0.34, 0.69, 0.1, 1), transform .2s var(--transition-timing-function-spring), visibility .2s;
+    }
+    .giencoder-mentions-popup.giencoder-mentions-open { display: block; }
+    .giencoder-mentions-popup.giencoder-popup-open {
+      opacity: 1; visibility: visible; transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <div class="pv-layout">
+    <aside class="pv-sidebar">
+      <div class="pv-nav">
+        <div class="pv-menu-group">入口</div>
+        <a href="../home.html">首页</a>
+        <a href="../../GETTING-STARTED.html">使用说明书</a>
+        <div class="pv-menu-group">组件</div>
+        <a href="../index.html#general">通用</a>
+        <a href="../index.html#layout">布局</a>
+        <a href="../index.html#navigation">导航</a>
+        <a href="../index.html#data-entry" class="active">数据录入</a>
+        <a href="../index.html#data-display">数据展示</a>
+        <a href="../index.html#feedback">反馈</a>
+        <a href="../index.html#other">其他</a>
+        <div class="pv-menu-group">资源</div>
+        <a href="../index.html#uikits">页面样板</a>
+        <a href="../index.html#docs">规范文档</a>
+      </div>
+    </aside>
+    <main class="pv-content">
+  <a class="pv-back" href="../index.html#data-entry">← 返回组件库</a>
+  <div class="pv-header">
+    <h1>Mentions 提及</h1>
+    <p>源启提及输入：文本域内输入 @ 触发，命中用户以高亮标记内联显示，下拉列表展示头像占位圆与用户名。</p>
+  </div>
+
+  <!-- ============ 变体：输入中 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Default 输入 @ 触发（文本域内高亮标记）</div>
+    <div class="row" style="gap:24px; align-items:flex-start;">
+      <div class="giencoder-mentions" data-component="mentions" data-variant="default" data-state="active" style="position:relative; width:400px; border:1px solid var(--color-primary-6); border-radius:8px; background:var(--color-bg-2); box-shadow:0 0 0 2px var(--color-primary-light-2);">
+        <div class="giencoder-mentions-highlight" aria-hidden="true" style="position:absolute; inset:0; padding:6px 12px; font-size:var(--font-size-body-3); line-height:1.7; color:var(--color-text-1); font-family:var(--font-family); white-space:pre-wrap; word-break:normal; overflow-wrap:normal; pointer-events:none;">
+          今天 <mark class="giencoder-mentions-mark" style="background:var(--color-primary-light-1); color:var(--color-primary-6); border-radius:2px;">@张伟</mark> 一起评审设计方案，下午同步给产品经理。
+        </div>
+        <textarea class="giencoder-mentions-textarea" rows="3" style="position:relative; display:block; width:100%; box-sizing:border-box; border:none; outline:none; background:transparent; resize:none; padding:6px 12px; font-size:var(--font-size-body-3); line-height:1.7; color:var(--color-text-1); font-family:var(--font-family); caret-color:var(--color-primary-6);">今天 @张伟 一起评审设计方案，下午同步给产品经理。</textarea>
+      </div>
+      <div style="padding-top:2px;">
+        <div class="giencoder-form-help" style="margin-top:0;">输入 @ 触发，继续输入过滤候选，Enter 选中</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 变体：匹配下拉 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Dropdown 匹配下拉列表（头像占位圆 + 用户名）</div>
+    <div class="row" style="gap:24px; align-items:flex-start;">
+      <ul class="giencoder-mentions-dropdown" data-component="mentions" data-variant="dropdown" data-state="open" role="listbox" aria-label="提及候选" style="list-style:none; margin:0; padding:6px; width:280px; background:var(--color-bg-2); border:1px solid var(--color-border-2); border-radius:8px; box-shadow:var(--shadow2-down);">
+        <li class="giencoder-mentions-option giencoder-mentions-option-active" role="option" aria-selected="true" style="display:flex; align-items:center; gap:8px; height:32px; padding:0 8px; margin-bottom:2px; border-radius:var(--border-radius-medium); cursor:pointer; background:var(--color-fill-1);">
+          <span class="giencoder-mentions-avatar" style="width:24px; height:24px; border-radius:50%; background:var(--color-primary-light-2); color:var(--color-primary-6); display:inline-flex; align-items:center; justify-content:center; font-size:11px; flex-shrink:0;">张</span>
+          <span style="font-size:var(--font-size-body-3); color:var(--color-text-1);">张伟</span>
+          <span style="margin-left:auto; font-size:var(--font-size-body-1); color:var(--color-text-4);">@zhangwei</span>
+        </li>
+        <li class="giencoder-mentions-option" role="option" aria-selected="false" style="display:flex; align-items:center; gap:8px; height:32px; padding:0 8px; margin-bottom:2px; border-radius:var(--border-radius-medium); cursor:pointer;">
+          <span class="giencoder-mentions-avatar" style="width:24px; height:24px; border-radius:50%; background:var(--color-success-light-1); color:var(--color-success-6); display:inline-flex; align-items:center; justify-content:center; font-size:11px; flex-shrink:0;">三</span>
+          <span style="font-size:var(--font-size-body-3); color:var(--color-text-1);">张三</span>
+          <span style="margin-left:auto; font-size:var(--font-size-body-1); color:var(--color-text-4);">@zhangsan</span>
+        </li>
+        <li class="giencoder-mentions-option" role="option" aria-selected="false" style="display:flex; align-items:center; gap:8px; height:32px; padding:0 8px; margin-bottom:2px; border-radius:var(--border-radius-medium); cursor:pointer;">
+          <span class="giencoder-mentions-avatar" style="width:24px; height:24px; border-radius:50%; background:var(--color-warning-light-1); color:var(--color-warning-6); display:inline-flex; align-items:center; justify-content:center; font-size:11px; flex-shrink:0;">无</span>
+          <span style="font-size:var(--font-size-body-3); color:var(--color-text-1);">张无忌</span>
+          <span style="margin-left:auto; font-size:var(--font-size-body-1); color:var(--color-text-4);">@zhangwuji</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+<script>
+/* ============================================================
+ * 源启 Mentions 交互脚本（component-mentions）
+ * 1) 点击文本域：聚焦
+ * 2) 输入 @ ：显示匹配下拉（克隆既有下拉，fixed 定位到文本域下，展开/收起带过渡动画）；无 @ 隐藏
+ * 3) 点击匹配项：插入 "@用户名 " 到文本域（替换光标前 @词）+ 同步高亮标记 + 收起
+ * 4) 静态展示下拉项点击同样插入文本域
+ * 5) 点击外部 / Esc：收起
+ * ============================================================ */
+(function () {
+  'use strict';
+
+  function $(sel, root) { return (root || document).querySelector(sel); }
+  function $$(sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); }
+
+  var ta = $('.giencoder-mentions-textarea');
+  var hl = $('.giencoder-mentions-highlight');
+  var srcDropdown = $('.giencoder-mentions-dropdown');
+  if (!ta || !srcDropdown) return;
+
+  function escapeHtml(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+  function renderHighlight() {
+    if (!hl) return;
+    hl.innerHTML = escapeHtml(ta.value).replace(
+      /@([\u4e00-\u9fa5A-Za-z0-9_]+)/g,
+      '<mark class="giencoder-mentions-mark" style="background:var(--color-primary-light-1); color:var(--color-primary-6); border-radius:2px;">@$1</mark>'
+    );
+  }
+
+  // 交互下拉：克隆静态下拉
+  var popup = srcDropdown.cloneNode(true);
+  popup.removeAttribute('data-component');
+  popup.classList.add('giencoder-mentions-popup');
+  popup.style.position = 'fixed';
+  popup.style.zIndex = '1000';
+  document.body.appendChild(popup);
+
+  var hideTimer = null;
+  function showPopup() {
+    var r = ta.getBoundingClientRect();
+    popup.style.left = Math.min(r.left, Math.max(8, window.innerWidth - (popup.offsetWidth || 280) - 8)) + 'px';
+    popup.style.top = (r.bottom + 4) + 'px';
+    popup.classList.add('giencoder-mentions-open');
+    if (hideTimer) { clearTimeout(hideTimer); hideTimer = null; }
+    void popup.offsetHeight; /* 先定格隐藏态（opacity:0），下一帧再过渡 */
+    requestAnimationFrame(function () {
+      if (popup && popup.parentNode) popup.classList.add('giencoder-popup-open');
+    });
+  }
+  function hidePopup() {
+    popup.classList.remove('giencoder-popup-open');
+    if (hideTimer) { clearTimeout(hideTimer); }
+    hideTimer = setTimeout(function () {
+      hideTimer = null;
+      if (popup && popup.parentNode) {
+        popup.classList.remove('giencoder-popup-open');
+        popup.classList.remove('giencoder-mentions-open');
+      }
+    }, 200);
+  }
+
+  // 1) 点击文本域聚焦
+  ta.addEventListener('click', function () { ta.focus(); });
+
+  // 2) 输入 @ 显示下拉
+  ta.addEventListener('input', function () {
+    if (ta.value.indexOf('@') >= 0) showPopup(); else hidePopup();
+  });
+  ta.addEventListener('focus', function () {
+    if (ta.value.indexOf('@') >= 0) showPopup();
+  });
+
+  // 5) 外部点击 / Esc 收起
+  document.addEventListener('click', function (ev) {
+    if (popup.contains(ev.target) || ta.contains(ev.target)) return;
+    hidePopup();
+  });
+  document.addEventListener('keydown', function (ev) {
+    if (ev.key === 'Escape') hidePopup();
+  });
+
+  // 3) 4) 匹配项点击：插入文本域
+  function insertMention(li) {
+    var name = '';
+    $$('span', li).forEach(function (s, i) { if (i === 1) name = s.textContent.trim(); });
+    if (!name) name = (li.textContent || '').trim().split(/\s+/)[0] || '用户';
+    var v = ta.value;
+    var idx = v.lastIndexOf('@');
+    if (idx >= 0) {
+      var rest = v.slice(idx + 1).replace(/^[\u4e00-\u9fa5A-Za-z0-9_]*/, '');
+      v = v.slice(0, idx) + '@' + name + ' ' + rest;
+    } else {
+      v = (v ? v + ' ' : '') + '@' + name + ' ';
+    }
+    ta.value = v;
+    renderHighlight();
+    hidePopup();
+    ta.focus();
+  }
+  $$('.giencoder-mentions-option').forEach(function (li) {
+    li.addEventListener('click', function (ev) {
+      ev.stopPropagation();
+      insertMention(li);
+    });
+  });
+})();
+</script>
+    </main>
+  </div>
+<script src="preview-copy.js"></script>
+</body>
+</html>

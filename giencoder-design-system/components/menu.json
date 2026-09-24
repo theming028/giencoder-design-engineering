@@ -1,0 +1,190 @@
+{
+  "schemaVersion": 3,
+  "slug": "menu",
+  "name": "Menu",
+  "category": "navigation",
+  "giencoderSource": {
+    "component": "Menu",
+    "version": "2.66.16",
+    "mapsFrom": "sidenav/topnav"
+  },
+  "summary": "导航菜单：支持纵向/横向/弹出模式与折叠态，子菜单展开收起，含选中态与深色主题。",
+  "variants": [
+    {
+      "name": "vertical",
+      "description": "纵向菜单，子菜单内嵌展开",
+      "whenToUse": "侧边栏主导航"
+    },
+    {
+      "name": "horizontal",
+      "description": "横向菜单，子菜单弹出",
+      "whenToUse": "顶部导航"
+    },
+    {
+      "name": "pop",
+      "description": "纵向弹出模式，子菜单以浮层展示",
+      "whenToUse": "折叠侧边栏的浮层导航"
+    },
+    {
+      "name": "collapse",
+      "description": "折叠态（collapse=true），仅显示图标",
+      "whenToUse": "窄屏/收起侧边栏"
+    },
+    {
+      "name": "dark",
+      "description": "深色主题（theme=dark）",
+      "whenToUse": "深色侧边栏"
+    },
+    {
+      "name": "light",
+      "description": "浅色主题（theme=light，默认）",
+      "whenToUse": "浅色侧边栏/顶部导航"
+    }
+  ],
+  "sizes": [
+    {
+      "name": "default",
+      "value": "默认尺寸",
+      "usage": "无尺寸枚举，高度由组件默认行高控制"
+    }
+  ],
+  "states": [
+    {
+      "name": "default",
+      "description": "普通菜单项",
+      "visual": "文字 --color-text-1/2，透明背景"
+    },
+    {
+      "name": "hover",
+      "description": "菜单项悬停",
+      "visual": "浅色主题背景 --color-fill-2；深色主题 --color-menu-dark-hover"
+    },
+    {
+      "name": "selected",
+      "description": "选中项",
+      "visual": "浅色主题文字 --color-primary-6 + 左侧指示条；深色主题文字 --color-primary-6"
+    },
+    {
+      "name": "disabled",
+      "description": "禁用项",
+      "visual": "文字 --color-text-4，不可交互"
+    },
+    {
+      "name": "expanded",
+      "description": "子菜单展开态",
+      "visual": "子项内嵌（vertical）或浮层展示（pop/horizontal）"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "Menu 容器",
+      "element": "ul[role=menu]",
+      "description": "菜单根节点，mode 决定排布方向"
+    },
+    {
+      "part": "MenuItem",
+      "element": "li[role=menuitem]",
+      "description": "可选中菜单项，含图标+文本"
+    },
+    {
+      "part": "SubMenu",
+      "element": "li",
+      "description": "含子菜单的项，展开/收起子级"
+    },
+    {
+      "part": "MenuGroup",
+      "element": "li",
+      "description": "分组标题，无选中能力"
+    },
+    {
+      "part": "指示条",
+      "element": "span",
+      "description": "vertical 模式选中项左侧竖条"
+    }
+  ],
+  "interaction": {
+    "hover": "菜单项悬停背景 --color-fill-2（浅色）/ --color-menu-dark-hover（深色）；水平模式 SubMenu 悬停展开",
+    "focus": "roving tabindex 管理，焦点项高亮并可用方向键移动",
+    "keyboard": [
+      "ArrowUp/ArrowDown: 在同级菜单项间移动焦点",
+      "ArrowLeft/ArrowRight: 展开/收起子菜单（垂直模式）或切换顶层项（水平模式）",
+      "Enter: 激活菜单项/选中",
+      "Home/End: 跳到同级首/末项",
+      "Esc: 关闭展开的子菜单",
+      "Tab: 焦点移入/移出整个菜单"
+    ],
+    "motion": {
+      "duration": "0.2s",
+      "easing": "standard",
+      "description": "子菜单展开/收起高度过渡；折叠态弹层淡入"
+    },
+    "behaviorNotes": "选中态由 selectedKeys + onClick 受控；collapse 时 SubMenu 以浮层呈现；深色主题由 theme=dark 驱动。"
+  },
+  "a11y": {
+    "role": "menu（容器）/ menuitem（菜单项）",
+    "ariaAttrs": [
+      "aria-expanded（含子菜单项的展开状态）",
+      "aria-haspopup（含子菜单项）",
+      "aria-selected（选中项）",
+      "aria-orientation（vertical|horizontal）",
+      "aria-disabled（禁用项）"
+    ],
+    "contrastNote": "浅色主题选中文字 --color-primary-6，深色主题 --color-menu-dark-bg 底 + 浅色文字均满足对比度",
+    "focusNote": "roving tabindex：仅焦点项在 Tab 序中，方向键在项间移动"
+  },
+  "usage": [
+    "导航层级建议不超过 2~3 级",
+    "selectedKeys 受控管理选中态",
+    "折叠模式配图标保证可读性",
+    "深色主题与深色 Sider 搭配使用"
+  ],
+  "doNotInvent": [
+    "不虚构 inline 内联模式（源启无该模式，折叠用 collapse）",
+    "不虚构菜单拖拽排序/分组折叠能力",
+    "不虚构手风琴模式（子菜单独立展开收起）"
+  ],
+  "tokensConsumed": [
+    "--color-menu-light-bg",
+    "--color-menu-dark-bg",
+    "--color-menu-dark-hover",
+    "--color-fill-2",
+    "--color-primary-6",
+    "--color-text-1",
+    "--color-text-4"
+  ],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "MenuProps",
+    "props": [
+      "_key",
+      "children",
+      "className",
+      "collapseActive",
+      "collapseDefault",
+      "disabled",
+      "ellipsisText",
+      "horizontalArrowDown",
+      "icons",
+      "inDropdown",
+      "isMenu",
+      "key",
+      "level",
+      "levelIndent",
+      "mode",
+      "onClick",
+      "onEllipsisChange",
+      "popArrowRight",
+      "popup",
+      "prefixCls",
+      "renderItemInTooltip",
+      "selectable",
+      "style",
+      "theme",
+      "title",
+      "triggerProps",
+      "wrapper"
+    ],
+    "total": 27,
+    "syncDate": "2026/08/28"
+  }
+}

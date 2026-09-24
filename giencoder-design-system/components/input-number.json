@@ -1,0 +1,180 @@
+{
+  "schemaVersion": 3,
+  "slug": "input-number",
+  "name": "InputNumber",
+  "category": "data-entry",
+  "giencoderSource": {
+    "component": "InputNumber",
+    "version": "2.66.16"
+  },
+  "summary": "数字输入组件，内置步进按钮与键盘增减，支持上下限、精度与格式化。",
+  "variants": [
+    {
+      "name": "embed",
+      "description": "默认模式：上下步进按钮内嵌右侧",
+      "whenToUse": "通用数字输入"
+    },
+    {
+      "name": "button",
+      "description": "按钮模式：左右加减按钮（mode=\"button\"）",
+      "whenToUse": "需要更大点击区域的步进场景"
+    },
+    {
+      "name": "with-format",
+      "description": "格式化展示",
+      "whenToUse": "千分位、货币等展示格式（formatter/parser）"
+    }
+  ],
+  "sizes": [
+    {
+      "name": "mini",
+      "value": "24px",
+      "usage": "紧凑表格"
+    },
+    {
+      "name": "small",
+      "value": "28px",
+      "usage": "紧凑表单"
+    },
+    {
+      "name": "medium",
+      "value": "32px",
+      "usage": "标准（默认）"
+    },
+    {
+      "name": "large",
+      "value": "36px",
+      "usage": "强调场景"
+    }
+  ],
+  "states": [
+    {
+      "name": "default",
+      "description": "未交互",
+      "visual": "白底 --color-border-2 边框"
+    },
+    {
+      "name": "hover",
+      "description": "悬停",
+      "visual": "边框 --color-border-3；步进按钮 --color-fill-2 背景"
+    },
+    {
+      "name": "focus",
+      "description": "聚焦",
+      "visual": "--color-primary-6 边框 + 光晕"
+    },
+    {
+      "name": "disabled",
+      "description": "禁用",
+      "visual": "--color-fill-2 背景，--color-text-4 文本与按钮"
+    },
+    {
+      "name": "error",
+      "description": "校验失败",
+      "visual": "--color-danger-6 边框 + 光晕"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "输入容器",
+      "element": "div",
+      "description": "包裹输入与步进控件的外框"
+    },
+    {
+      "part": "数字输入",
+      "element": "input[type=text]",
+      "description": "数字文本承载，inputMode 数字"
+    },
+    {
+      "part": "步进按钮组",
+      "element": "div",
+      "description": "上/下（或左/右）两个步进按钮，内嵌 --color-fill-2 图标"
+    },
+    {
+      "part": "前后缀",
+      "element": "span",
+      "description": "可选 prefix/suffix（如单位）"
+    }
+  ],
+  "interaction": {
+    "hover": "边框加深；步进按钮悬停背景 --color-fill-3",
+    "focus": "弧蓝边框 + 光晕；聚焦时方向键步进生效",
+    "keyboard": [
+      "ArrowUp: increase by one step",
+      "ArrowDown: decrease by one step",
+      "Enter: commit the current value",
+      "Tab: enter/leave the component",
+      "Backspace/Delete: edit the digits"
+    ],
+    "motion": {
+      "duration": "0.1s~0.2s",
+      "easing": "standard",
+      "description": "步进数值更新即时无动画；按钮按下有轻微缩放反馈"
+    },
+    "behaviorNotes": "min/max 钳制输入值，到达边界时对应步进按钮禁用变灰（--color-text-4）；precision 控制小数位；失焦自动归一化非法输入"
+  },
+  "a11y": {
+    "role": "spinbutton",
+    "ariaAttrs": [
+      "aria-valuenow",
+      "aria-valuemin",
+      "aria-valuemax",
+      "aria-valuetext",
+      "aria-invalid",
+      "aria-disabled"
+    ],
+    "contrastNote": "数值 --color-text-1 对比度充足；步进按钮图标 --color-text-2 在 --color-fill-2 上可辨识",
+    "focusNote": "弧蓝焦点环清晰；键盘步进同步更新 aria-valuenow 供屏幕阅读器播报"
+  },
+  "usage": [
+    "数量/价格/阈值等数值输入使用本组件而非 Input",
+    "设置合理 min/max 与 step 减少无效输入",
+    "金额场景配合 formatter/parser 与 precision 控制"
+  ],
+  "doNotInvent": [
+    "不要虚构滑动条（应使用 Slider）",
+    "不要虚构长按连续步进行为",
+    "不要把非数值文本（百分比范围等）交给本组件（可用 Slider）"
+  ],
+  "tokensConsumed": [
+    "--color-primary-6",
+    "--color-border-2",
+    "--color-border-3",
+    "--color-fill-2",
+    "--color-fill-3",
+    "--color-text-1",
+    "--color-text-2",
+    "--color-text-4",
+    "--color-danger-6",
+    "--transition-duration-1",
+    "--transition-timing-function-standard"
+  ],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "InputNumberProps",
+    "props": [
+      "className",
+      "defaultValue",
+      "disabled",
+      "error",
+      "formatter",
+      "input",
+      "max",
+      "min",
+      "mode",
+      "placeholder",
+      "precision",
+      "prefix",
+      "readOnly",
+      "size",
+      "step",
+      "strictMode",
+      "style",
+      "suffix",
+      "userTyping",
+      "value"
+    ],
+    "total": 20,
+    "syncDate": "2026/08/28"
+  }
+}

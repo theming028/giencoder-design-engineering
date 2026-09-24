@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>Statistic 统计数值</title>
+  <link rel="stylesheet" href="preview-scaffold.css">
+  <link rel="stylesheet" href="../colors_and_type.css">
+  <link rel="stylesheet" href="../components.css">
+  <style>
+    /* ===== Statistic 逐位数字滚动动效 ===== */
+    /* value 拆分为「数字滚轮位」+「静态字符」：每位数字 0-9 垂直滚动（overflow hidden + translateY），
+       千分位/小数点/负号等静态字符不参与滚动；列间 45ms 错峰形成波浪；respect prefers-reduced-motion */
+    .giencoder-statistic-value { display: inline-flex; align-items: baseline; font-variant-numeric: tabular-nums; }
+    .yd-digit {
+      display: inline-block; height: 1em; overflow: hidden;
+      line-height: 1; vertical-align: baseline;
+    }
+    .yd-digit__roll {
+      display: flex; flex-direction: column;
+      transform: translateY(0);
+      transition: transform 900ms cubic-bezier(0.215, 0.61, 0.355, 1);
+      will-change: transform;
+    }
+    .yd-digit__item { height: 1em; flex: 0 0 1em; display: flex; align-items: center; justify-content: center; line-height: 1; }
+    .yd-digit__sep { display: inline-block; line-height: 1; }
+    @media (prefers-reduced-motion: reduce) {
+      .yd-digit__roll { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="pv-layout">
+    <aside class="pv-sidebar">
+      <div class="pv-nav">
+        <div class="pv-menu-group">入口</div>
+        <a href="../home.html">首页</a>
+        <a href="../../GETTING-STARTED.html">使用说明书</a>
+        <div class="pv-menu-group">组件</div>
+        <a href="../index.html#general">通用</a>
+        <a href="../index.html#layout">布局</a>
+        <a href="../index.html#navigation">导航</a>
+        <a href="../index.html#data-entry">数据录入</a>
+        <a href="../index.html#data-display" class="active">数据展示</a>
+        <a href="../index.html#feedback">反馈</a>
+        <a href="../index.html#other">其他</a>
+        <div class="pv-menu-group">资源</div>
+        <a href="../index.html#uikits">页面样板</a>
+        <a href="../index.html#docs">规范文档</a>
+      </div>
+    </aside>
+    <main class="pv-content">
+  <a class="pv-back" href="../index.html#data-display">← 返回组件库</a>
+  <div class="pv-header">
+    <h1>Statistic 统计数值</h1>
+    <p>源启统计数值：标题+数值+前缀后缀，看板核心指标展示。</p>
+  </div>
+
+  <!-- ============ 变体：基础 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Default 基础统计数值</div>
+    <div class="row" style="gap:24px; flex-wrap:wrap;">
+      <div class="giencoder-statistic" data-component="statistic" data-variant="default" data-state="default" style="background:var(--color-bg-2); border:1px solid var(--color-border-2); border-radius:4px; padding:16px 20px; min-width:160px;">
+        <div class="giencoder-statistic-title" style="font-size:12px; color:var(--color-text-3);">今日任务
+          <button type="button" data-statistic-demo style="margin-left:8px; padding:1px 8px; font-size:12px; line-height:20px; color:var(--color-primary-6); background:var(--color-primary-light-1); border:1px solid var(--color-primary-6); border-radius:3px; cursor:pointer;">更新数值</button>
+        </div>
+        <div class="giencoder-statistic-content" style="font-size:28px; font-weight:600; color:var(--color-text-1); margin-top:8px;">
+          <span class="giencoder-statistic-value">12</span>
+          <span class="giencoder-statistic-suffix" style="font-size: 14px; color:var(--color-text-3); margin-left:4px;">个</span>
+        </div>
+      </div>
+      <div class="giencoder-statistic" data-component="statistic" data-variant="default" data-state="default" style="background:var(--color-bg-2); border:1px solid var(--color-border-2); border-radius:4px; padding:16px 20px; min-width:160px;">
+        <div class="giencoder-statistic-title" style="font-size:12px; color:var(--color-text-3);">活跃用户</div>
+        <div class="giencoder-statistic-content" style="font-size:28px; font-weight:600; color:var(--color-text-1); margin-top:8px;">
+          <span class="giencoder-statistic-value">2,847</span>
+        </div>
+      </div>
+      <div class="giencoder-statistic" data-component="statistic" data-variant="default" data-state="default" style="background:var(--color-bg-2); border:1px solid var(--color-border-2); border-radius:4px; padding:16px 20px; min-width:160px;">
+        <div class="giencoder-statistic-title" style="font-size:12px; color:var(--color-text-3);">本月营收</div>
+        <div class="giencoder-statistic-content" style="font-size:28px; font-weight:600; color:var(--color-text-1); margin-top:8px;">
+          <span class="giencoder-statistic-prefix" style="font-size:16px; color:var(--color-text-2); margin-right:4px;">¥</span>
+          <span class="giencoder-statistic-value">1,280,000</span>
+        </div>
+      </div>
+      <div class="giencoder-statistic" data-component="statistic" data-variant="default" data-state="default" style="background:var(--color-bg-2); border:1px solid var(--color-border-2); border-radius:4px; padding:16px 20px; min-width:160px;">
+        <div class="giencoder-statistic-title" style="font-size:12px; color:var(--color-text-3);">系统可用性</div>
+        <div class="giencoder-statistic-content" style="font-size:28px; font-weight:600; color:var(--color-success-6); margin-top:8px;">
+          <span class="giencoder-statistic-value">99.98</span>
+          <span class="giencoder-statistic-suffix" style="font-size: 14px; margin-left:4px;">%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      'use strict';
+      var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // 渲染滚轮结构：数字位 .yd-digit（内部 0-9 垂直列）+ 静态字符 .yd-digit__sep
+      function ensureDigits(el) {
+        var raw = (el.getAttribute('data-value') || el.textContent || '').trim();
+        el.setAttribute('data-value', raw);
+        if (el.dataset.built === '1') return raw;
+        el.innerHTML = '';
+        Array.prototype.forEach.call(raw, function (ch) {
+          if (/[0-9]/.test(ch)) {
+            var wrap = document.createElement('span');
+            wrap.className = 'yd-digit';
+            wrap.dataset.cur = '0';
+            var roll = document.createElement('span');
+            roll.className = 'yd-digit__roll';
+            for (var d = 0; d <= 9; d++) {
+              var item = document.createElement('span');
+              item.className = 'yd-digit__item';
+              item.textContent = d;
+              roll.appendChild(item);
+            }
+            wrap.appendChild(roll);
+            el.appendChild(wrap);
+          } else {
+            var sep = document.createElement('span');
+            sep.className = 'yd-digit__sep';
+            sep.textContent = ch;
+            el.appendChild(sep);
+          }
+        });
+        el.dataset.built = '1';
+        return raw;
+      }
+
+      // 布局兼容性：字符数相同且数字/静态字符位置一致 → 可原位滚动；否则重建（从 0 重滚）
+      function sameLayout(a, b) {
+        if (a.length !== b.length) return false;
+        for (var i = 0; i < a.length; i++) {
+          if ((/[0-9]/.test(a[i])) !== (/[0-9]/.test(b[i]))) return false;
+        }
+        return true;
+      }
+
+      // 滚动到目标值：先停帧在当前位（旧值），再过渡到目标位（新值）→ 刷新=从0滚、更新=从旧位滚
+      function rollValue(el, targetText) {
+        var raw = ensureDigits(el);
+        if (!sameLayout(raw, targetText)) {
+          el.dataset.built = '';
+          el.setAttribute('data-value', targetText); // 重建前先指向目标值，确保渲染出新布局
+          raw = ensureDigits(el);
+        }
+        el.setAttribute('data-value', targetText);
+
+        var digits = el.querySelectorAll('.yd-digit');
+        var targets = [], cur = [], ti = 0;
+        Array.prototype.forEach.call(targetText, function (ch) {
+          if (/[0-9]/.test(ch)) {
+            targets.push(parseInt(ch, 10));
+            cur.push(parseInt(digits[ti].dataset.cur, 10));
+            ti++;
+          }
+        });
+
+        var n = digits.length;
+        for (var i = 0; i < n; i++) {           // 停帧到旧位
+          var roll = digits[i].querySelector('.yd-digit__roll');
+          roll.style.transition = 'none';
+          roll.style.transitionDelay = '0ms';
+          roll.style.transform = 'translateY(' + (-cur[i]) + 'em)';
+        }
+        void el.offsetWidth;                    // reflow 确保停帧生效
+        requestAnimationFrame(function () {     // 下一帧开始过渡（错峰波浪）
+          requestAnimationFrame(function () {
+            for (var j = 0; j < n; j++) {
+              var r = digits[j].querySelector('.yd-digit__roll');
+              r.style.transition = reduceMotion ? 'none' : '';
+              r.style.transitionDelay = (j * 45) + 'ms';
+              r.style.transform = 'translateY(' + (-targets[j]) + 'em)';
+              digits[j].dataset.cur = String(targets[j]);
+            }
+          });
+        });
+      }
+
+      // 页面加载/刷新：所有 value 从 0 滚动到目标值
+      document.querySelectorAll('.giencoder-statistic-value').forEach(function (el) {
+        rollValue(el, (el.getAttribute('data-value') || el.textContent || '').trim());
+      });
+
+      // 对外更新接口：数字发生变化时调用，从当前位滚动到新值
+      window.giencoderStatistic = {
+        update: function (el, text) { rollValue(el, String(text)); }
+      };
+
+      // 演示按钮：随机更新第一个卡片数值
+      var demoBtn = document.querySelector('[data-statistic-demo]');
+      if (demoBtn) {
+        demoBtn.addEventListener('click', function () {
+          var card = demoBtn.closest('.giencoder-statistic');
+          var valEl = card.querySelector('.giencoder-statistic-value');
+          window.giencoderStatistic.update(valEl, String(Math.floor(100 + Math.random() * 8900)));
+        });
+      }
+    })();
+  </script>
+    </main>
+  </div>
+<script src="preview-copy.js"></script>
+</body>
+</html>

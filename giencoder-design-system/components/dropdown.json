@@ -1,0 +1,161 @@
+{
+  "schemaVersion": 3,
+  "slug": "dropdown",
+  "name": "Dropdown",
+  "category": "navigation",
+  "giencoderSource": {
+    "component": "Dropdown",
+    "version": "2.66.16"
+  },
+  "summary": "下拉菜单：点击/悬停/右键触发的弹出菜单，用于收纳次级操作。",
+  "variants": [
+    {
+      "name": "hover",
+      "description": "trigger=hover，悬停展开",
+      "whenToUse": "导航/工具栏上的快捷菜单"
+    },
+    {
+      "name": "click",
+      "description": "trigger=click，点击展开（默认）",
+      "whenToUse": "操作按钮的下拉动作菜单"
+    },
+    {
+      "name": "contextMenu",
+      "description": "trigger=contextMenu，右键展开",
+      "whenToUse": "表格行/列表项的右键操作菜单"
+    }
+  ],
+  "sizes": [
+    {
+      "name": "default",
+      "value": "默认尺寸",
+      "usage": "无尺寸变体，使用组件默认尺寸"
+    }
+  ],
+  "states": [
+    {
+      "name": "default",
+      "description": "菜单项默认态",
+      "visual": "文字 --color-text-1，无底色"
+    },
+    {
+      "name": "hover",
+      "description": "菜单项悬停/虚拟焦点",
+      "visual": "背景 --color-fill-2"
+    },
+    {
+      "name": "disabled",
+      "description": "菜单项禁用",
+      "visual": "文字 --color-text-4，不可选中"
+    },
+    {
+      "name": "selected",
+      "description": "菜单项选中态（带 selected 标记）",
+      "visual": "文字 --color-primary-6 或勾选图标"
+    },
+    {
+      "name": "expanded",
+      "description": "弹层展开态",
+      "visual": "--color-bg-popup 浮层 + --shadow2-down"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "触发器",
+      "element": "button/任意节点",
+      "description": "用户操作入口，控制弹层开合"
+    },
+    {
+      "part": "弹层",
+      "element": "div",
+      "description": "浮动菜单容器，portal 渲染，--z-index-popup 层级"
+    },
+    {
+      "part": "菜单项",
+      "element": "div[role=menuitem]",
+      "description": "单个动作项，可含图标/快捷键/禁用态"
+    },
+    {
+      "part": "子菜单",
+      "element": "div",
+      "description": "嵌套菜单，移入展开"
+    }
+  ],
+  "interaction": {
+    "hover": "trigger=hover 时悬停展开、移出关闭；菜单项悬停背景 --color-fill-2",
+    "focus": "触发器获得焦点后 Enter/Space/ArrowDown 可展开；展开后虚拟焦点落在菜单项上",
+    "keyboard": [
+      "ArrowUp/ArrowDown: 在菜单项间移动虚拟焦点",
+      "Enter: 选中当前项并关闭菜单",
+      "Esc: 关闭菜单并归还焦点到触发器",
+      "Tab: 关闭菜单并移动到下一焦点元素",
+      "Home/End: 跳到首/末菜单项",
+      "ArrowLeft/ArrowRight: 有子菜单时展开/收起子菜单"
+    ],
+    "motion": {
+      "duration": "0.2s",
+      "easing": "standard",
+      "description": "弹层淡入并轻微位移展开；关闭时淡出"
+    },
+    "behaviorNotes": "focusTrap: 不使用焦点陷阱，采用虚拟焦点（roving focus）管理菜单项，Tab 直接跳出弹层；escClose: Esc 关闭并归还焦点至触发器；clickOutsideClose: 点击弹层外部自动关闭。"
+  },
+  "a11y": {
+    "role": "menu（弹层）/ menuitem（菜单项）",
+    "ariaAttrs": [
+      "aria-expanded（触发器展开状态）",
+      "aria-haspopup=\"menu\"（触发器）",
+      "aria-controls（关联弹层 id）",
+      "aria-disabled（禁用项）"
+    ],
+    "contrastNote": "菜单项 hover 背景 --color-fill-2 与文字 --color-text-1 对比度满足 AA",
+    "focusNote": "弹层不 trap 焦点，Esc 归还焦点到触发器"
+  },
+  "usage": [
+    "动作超过 2 个时用 Dropdown 收纳，保持界面简洁",
+    "trigger 按场景选择：导航用 hover，操作用 click，列表用 contextMenu",
+    "菜单项不宜过多，超长列表建议分页或改用 Select",
+    "禁用项配置 disabled 保留可见性"
+  ],
+  "doNotInvent": [
+    "不虚构焦点陷阱（源启弹层为虚拟焦点，Tab 直接跳出）",
+    "不虚构无限级联菜单（子菜单层级受限且移入展开）",
+    "不虚构弹层内搜索能力"
+  ],
+  "tokensConsumed": [
+    "--color-bg-popup",
+    "--color-fill-2",
+    "--color-text-1",
+    "--color-text-4",
+    "--color-primary-6",
+    "--shadow2-down",
+    "--border-radius-medium",
+    "--z-index-popup"
+  ],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "DropdownProps",
+    "props": [
+      "buttonProps",
+      "buttonsRender",
+      "children",
+      "className",
+      "defaultPopupVisible",
+      "disabled",
+      "droplist",
+      "getPopupContainer",
+      "icon",
+      "onClick",
+      "onVisibleChange",
+      "popupVisible",
+      "position",
+      "size",
+      "style",
+      "trigger",
+      "triggerProps",
+      "type",
+      "unmountOnExit"
+    ],
+    "total": 19,
+    "syncDate": "2026/08/28"
+  }
+}

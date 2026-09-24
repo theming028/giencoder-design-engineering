@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>智能软件工厂 · 任务清单</title>
+  <link rel="stylesheet" href="../../colors_and_type.css">
+  <link rel="stylesheet" href="../../components.css">
+  <link rel="stylesheet" href="../../gienx-templates/ui-controls.css">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    button { font-family: var(--font-family); }
+    .giencoder-page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--spacing-7); flex-wrap: wrap; gap: var(--spacing-4); }
+    .giencoder-page-header-title { font-size: var(--font-size-title-2); font-weight: 600; color: var(--color-text-1); margin: 0; }
+    .giencoder-page-header-subtitle { font-size: var(--font-size-body-3); color: var(--color-text-3); margin: 0; }
+    .giencoder-page-header > div:first-child { display: flex; align-items: baseline; gap: var(--spacing-6); }
+    .giencoder-page-header-extra { display: flex; align-items: center; gap: var(--spacing-4); }
+    .giencoder-filter-bar { display: flex; align-items: center; flex-wrap: wrap; gap: var(--spacing-4); padding: var(--spacing-7); margin-bottom: var(--spacing-7); background: var(--color-bg-2); border: 1px solid var(--color-border-2); border-radius: var(--border-radius-medium); }
+    .giencoder-filter-item { display: inline-flex; flex-direction: column; gap: var(--spacing-2); }
+    .giencoder-filter-label { font-size: var(--font-size-body-1); color: var(--color-text-3); }
+    .giencoder-filter-actions { display: inline-flex; gap: var(--spacing-3); margin-left: auto; align-items: flex-end; }
+    .giencoder-table-operation { white-space: nowrap; text-align: left; }
+  </style>
+</head>
+<body>
+<div style="width:100%; height:100vh; overflow:hidden; display:flex; flex-direction:column;">
+  <header class="giencoder-top-nav" style="height:48px; background:var(--color-bg-2); box-shadow:var(--shadow1-down); display:flex; align-items:center; justify-content:space-between; padding:0 16px;">
+    <div style="display:flex; align-items:center; gap:12px;">
+      <strong style="font-size:15px; color:var(--color-text-1);">GienCoder</strong>
+      <span style="color:var(--color-text-3); font-size:12px;">智能软件工厂 · 主项目</span>
+    </div>
+    <div style="display:flex; align-items:center; gap:16px; font-size:12px; color:var(--color-text-2);">
+      
+      <span style="width:24px;height:24px;border-radius:50%;background:var(--color-primary-6);color:var(--color-white);display:flex;align-items:center;justify-content:center;font-size:12px;">艾</span>
+    </div>
+  </header>
+  <div style="display:flex; flex:1; overflow:hidden;">
+    <aside class="giencoder-sidenav" style="width:200px; background:var(--color-menu-light-bg); border-right:1px solid var(--color-border-1); padding:8px 0; overflow-y:auto;">
+      <div class="giencoder-menu giencoder-menu-vertical">
+        <div class="giencoder-menu-group-title">任务</div>
+        <div class="giencoder-menu-item giencoder-menu-item-selected">任务清单</div>
+        <div class="giencoder-menu-item">我的任务</div>
+        <div class="giencoder-menu-item">已完成</div>
+        <div class="giencoder-menu-item">已取消</div>
+        <div class="giencoder-menu-item">回收站</div>
+        <div class="giencoder-menu-item">迁移管理</div>
+        <div class="giencoder-menu-group-title">状态图例</div>
+        <div class="giencoder-menu-item">🟦 开发中</div>
+        <div class="giencoder-menu-item">🟩 已完成</div>
+        <div class="giencoder-menu-item">🟧 待开发</div>
+        <div class="giencoder-menu-item">🟥 已取消</div>
+      </div>
+    </aside>
+    <main style="flex:1; overflow-y:auto; background:var(--color-bg-1); padding:20px;">
+<div class="giencoder-page-header">
+        <div>
+          <h2 class="giencoder-page-header-title">任务清单</h2>
+          <div class="giencoder-page-header-subtitle">一级工作项负责业务归口，二级任务是唯一执行单元</div>
+        </div>
+        <div class="giencoder-page-header-extra">
+          <button class="giencoder-btn giencoder-btn-primary giencoder-btn-size-default" data-open-target="#modal-create"><svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6 1v10M1 6h10"/></svg>
+            新建一级工作项</button>
+        </div>
+      </div>
+<div class="giencoder-card">
+        <div class="giencoder-card-header">
+          <span class="giencoder-card-header-title">概览</span>
+        </div>
+        <div class="giencoder-statistic" data-component="statistic" data-variant="default" data-state="default" style="background:var(--color-bg-2);border:1px solid var(--color-border-2);border-radius:var(--border-radius-large);padding:16px 20px;min-width:160px;">
+        <div class="giencoder-statistic-title" style="font-size:12px;color:var(--color-text-3);">工作项</div>
+        <div class="giencoder-statistic-content" style="font-size:28px;font-weight:600;color:var(--color-text-1);margin-top:8px;display:flex;align-items:baseline;">
+          <span class="giencoder-statistic-value">6</span><span class="giencoder-statistic-suffix" style="font-size:14px;color:var(--color-text-3);margin-left:4px;">个</span>
+        </div>
+      </div>
+<div class="giencoder-statistic" data-component="statistic" data-variant="default" data-state="default" style="background:var(--color-bg-2);border:1px solid var(--color-border-2);border-radius:var(--border-radius-large);padding:16px 20px;min-width:160px;">
+        <div class="giencoder-statistic-title" style="font-size:12px;color:var(--color-text-3);">开发中</div>
+        <div class="giencoder-statistic-content" style="font-size:28px;font-weight:600;color:var(--color-text-1);margin-top:8px;display:flex;align-items:baseline;">
+          <span class="giencoder-statistic-value">2</span>
+        </div>
+      </div>
+<div class="giencoder-statistic" data-component="statistic" data-variant="default" data-state="default" style="background:var(--color-bg-2);border:1px solid var(--color-border-2);border-radius:var(--border-radius-large);padding:16px 20px;min-width:160px;">
+        <div class="giencoder-statistic-title" style="font-size:12px;color:var(--color-text-3);">已完成</div>
+        <div class="giencoder-statistic-content" style="font-size:28px;font-weight:600;color:var(--color-text-1);margin-top:8px;display:flex;align-items:baseline;">
+          <span class="giencoder-statistic-value">1</span>
+        </div>
+      </div>
+<div class="giencoder-statistic" data-component="statistic" data-variant="default" data-state="default" style="background:var(--color-bg-2);border:1px solid var(--color-border-2);border-radius:var(--border-radius-large);padding:16px 20px;min-width:160px;">
+        <div class="giencoder-statistic-title" style="font-size:12px;color:var(--color-text-3);">待开发</div>
+        <div class="giencoder-statistic-content" style="font-size:28px;font-weight:600;color:var(--color-text-1);margin-top:8px;display:flex;align-items:baseline;">
+          <span class="giencoder-statistic-value">1</span>
+        </div>
+      </div>
+<div class="giencoder-statistic" data-component="statistic" data-variant="default" data-state="default" style="background:var(--color-bg-2);border:1px solid var(--color-border-2);border-radius:var(--border-radius-large);padding:16px 20px;min-width:160px;">
+        <div class="giencoder-statistic-title" style="font-size:12px;color:var(--color-text-3);">同步异常</div>
+        <div class="giencoder-statistic-content" style="font-size:28px;font-weight:600;color:var(--color-text-1);margin-top:8px;display:flex;align-items:baseline;">
+          <span class="giencoder-statistic-value">3</span>
+        </div>
+      </div>
+      </div>
+<div class="giencoder-filter-bar">
+        <div class="giencoder-filter-item">
+          <span class="giencoder-filter-label">一级类型</span>
+          
+        </div>
+        <div class="giencoder-filter-item">
+          <span class="giencoder-filter-label">业务状态</span>
+          
+        </div>
+        <div class="giencoder-filter-item">
+          <span class="giencoder-filter-label">来源</span>
+          
+        </div>
+        <div class="giencoder-filter-item">
+          <span class="giencoder-filter-label">任务分类</span>
+          
+        </div>
+        <div class="giencoder-filter-actions">
+          <button class="giencoder-btn giencoder-btn-size-default">全部展开</button>
+          <button class="giencoder-btn giencoder-btn-size-default">全部折叠</button>
+        </div>
+      </div>
+<div class="giencoder-card">
+        <div class="giencoder-card-header">
+          <span class="giencoder-card-header-title">一级工作项</span>
+          <span style="font-size:var(--font-size-body-1); color:var(--color-text-3);">共 6 个</span>
+        </div>
+        <div class="giencoder-table-container" style="padding:0 16px;">
+          <table class="giencoder-table-content">
+            <thead>
+              <tr class="giencoder-table-tr">
+                                <th class="giencoder-table-th">一级工作项</th>
+                <th class="giencoder-table-th">类型</th>
+                <th class="giencoder-table-th">来源</th>
+                <th class="giencoder-table-th">业务状态</th>
+                <th class="giencoder-table-th">二级任务</th>
+                <th class="giencoder-table-th">同步</th>
+                <th class="giencoder-table-th giencoder-table-operation">操作</th>
+              </tr>
+            </thead>
+            <tbody>
+                            <tr class="giencoder-table-tr">
+                <td class="giencoder-table-td">
+                  用户登录改造
+                </td>
+                <td class="giencoder-table-td">
+                  <span class="giencoder-tag giencoder-tag-light giencoder-tag-info">business</span>
+                </td>
+                <td class="giencoder-table-td">
+                  <span class="giencoder-tag giencoder-tag-light giencoder-tag-primary">devops</span>
+                </td>
+                <td class="giencoder-table-td">
+                  <span class="giencoder-tag giencoder-tag-light giencoder-tag-warning">doing</span>
+                </td>
+                <td class="giencoder-table-td">
+                  3
+                </td>
+                <td class="giencoder-table-td">
+                  <span class="giencoder-tag giencoder-tag-light giencoder-tag-success">ok</span>
+                </td>
+                <td class="giencoder-table-td giencoder-table-operation">
+                  <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-mini" data-open-target="#modal-create">新增任务</button>
+                  <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-mini" data-open-target="#drawer-metrics">指标下钻</button>
+                  <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-mini" data-open-target="#drawer-sync">同步异常</button>
+                  <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-mini giencoder-btn-danger-text" data-open-target="#modal-delete">删除</button>
+                </td>
+              </tr>
+              <tr class="giencoder-table-tr">
+                <td class="giencoder-table-td">
+                  订单流程改造
+                </td>
+                <td class="giencoder-table-td">
+                  <span class="giencoder-tag giencoder-tag-light giencoder-tag-info">business</span>
+                </td>
+                <td class="giencoder-table-td">
+                  <span class="giencoder-tag giencoder-tag-light giencoder-tag-normal">ai</span>
+                </td>
+                <td class="giencoder-table-td">
+                  <span class="giencoder-tag giencoder-tag-light giencoder-tag-warning">doing</span>
+                </td>
+                <td class="giencoder-table-td">
+                  3
+                </td>
+                <td class="giencoder-table-td">
+                  <span class="giencoder-tag giencoder-tag-light giencoder-tag-normal">none</span>
+                </td>
+                <td class="giencoder-table-td giencoder-table-operation">
+                  <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-mini" data-open-target="#modal-create">新增任务</button>
+                  <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-mini" data-open-target="#drawer-metrics">指标下钻</button>
+                  <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-mini" data-open-target="#drawer-sync">同步异常</button>
+                  <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-mini giencoder-btn-danger-text" data-open-target="#modal-delete">删除</button>
+                </td>
+              </tr>
+              <tr class="giencoder-table-tr">
+                <td class="giencoder-table-td">
+                  登录失败时未提示错误信息
+                </td>
+                <td class="giencoder-table-td">
+                  <span class="giencoder-tag giencoder-tag-light giencoder-tag-danger">defect</span>
+                </td>
+                <td class="giencoder-table-td">
+                  <span class="giencoder-tag giencoder-tag-light giencoder-tag-normal">ai</span>
+                </td>
+                <td class="giencoder-table-td">
+                  <span class="giencoder-tag giencoder-tag-light giencoder-tag-normal">ready</span>
+                </td>
+                <td class="giencoder-table-td">
+                  1
+                </td>
+                <td class="giencoder-table-td">
+                  <span class="giencoder-tag giencoder-tag-light giencoder-tag-normal">none</span>
+                </td>
+                <td class="giencoder-table-td giencoder-table-operation">
+                  <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-mini" data-open-target="#modal-create">新增任务</button>
+                  <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-mini" data-open-target="#drawer-metrics">指标下钻</button>
+                  <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-mini" data-open-target="#drawer-sync">同步异常</button>
+                  <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-mini giencoder-btn-danger-text" data-open-target="#modal-delete">删除</button>
+                </td>
+              </tr>
+              <tr class="giencoder-table-tr">
+                <td class="giencoder-table-td">
+                  数据库查询性能优化
+                </td>
+                <td class="giencoder-table-td">
+                  <span class="giencoder-tag giencoder-tag-light giencoder-tag-normal">tech</span>
+                </td>
+                <td class="giencoder-table-td">
+                  <span class="giencoder-tag giencoder-tag-light giencoder-tag-primary">devops</span>
+                </td>
+                <td class="giencoder-table-td">
+                  <span class="giencoder-tag giencoder-tag-light giencoder-tag-success">done</span>
+                </td>
+                <td class="giencoder-table-td">
+                  2
+                </td>
+                <td class="giencoder-table-td">
+                  <span class="giencoder-tag giencoder-tag-light">conflict,fail</span>
+                </td>
+                <td class="giencoder-table-td giencoder-table-operation">
+                  <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-mini" data-open-target="#modal-create">新增任务</button>
+                  <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-mini" data-open-target="#drawer-metrics">指标下钻</button>
+                  <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-mini" data-open-target="#drawer-sync">同步异常</button>
+                  <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-mini giencoder-btn-danger-text" data-open-target="#modal-delete">删除</button>
+                </td>
+              </tr>
+              <tr class="giencoder-table-tr">
+                <td class="giencoder-table-td">
+                  权限中心接入
+                </td>
+                <td class="giencoder-table-td">
+                  <span class="giencoder-tag giencoder-tag-light giencoder-tag-info">business</span>
+                </td>
+                <td class="giencoder-table-td">
+                  <span class="giencoder-tag giencoder-tag-light giencoder-tag-primary">devops</span>
+                </td>
+                <td class="giencoder-table-td">
+                  <span class="giencoder-tag giencoder-tag-light giencoder-tag-normal">unassigned</span>
+                </td>
+                <td class="giencoder-table-td">
+                  1
+                </td>
+                <td class="giencoder-table-td">
+                  <span class="giencoder-tag giencoder-tag-light giencoder-tag-normal">none</span>
+                </td>
+                <td class="giencoder-table-td giencoder-table-operation">
+                  <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-mini" data-open-target="#modal-create">新增任务</button>
+                  <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-mini" data-open-target="#drawer-metrics">指标下钻</button>
+                  <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-mini" data-open-target="#drawer-sync">同步异常</button>
+                  <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-mini giencoder-btn-danger-text" data-open-target="#modal-delete">删除</button>
+                </td>
+              </tr>
+              <tr class="giencoder-table-tr">
+                <td class="giencoder-table-td">
+                  构建流水线提速
+                </td>
+                <td class="giencoder-table-td">
+                  <span class="giencoder-tag giencoder-tag-light giencoder-tag-normal">tech</span>
+                </td>
+                <td class="giencoder-table-td">
+                  <span class="giencoder-tag giencoder-tag-light giencoder-tag-normal">ai</span>
+                </td>
+                <td class="giencoder-table-td">
+                  <span class="giencoder-tag giencoder-tag-light giencoder-tag-danger">cancelled</span>
+                </td>
+                <td class="giencoder-table-td">
+                  1
+                </td>
+                <td class="giencoder-table-td">
+                  <span class="giencoder-tag giencoder-tag-light giencoder-tag-normal">ing</span>
+                </td>
+                <td class="giencoder-table-td giencoder-table-operation">
+                  <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-mini" data-open-target="#modal-create">新增任务</button>
+                  <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-mini" data-open-target="#drawer-metrics">指标下钻</button>
+                  <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-mini" data-open-target="#drawer-sync">同步异常</button>
+                  <button class="giencoder-btn giencoder-btn-text giencoder-btn-size-mini giencoder-btn-danger-text" data-open-target="#modal-delete">删除</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="giencoder-table-pagination" style="padding:16px;">
+          <div class="giencoder-pagination">
+            <button class="giencoder-pagination-item" aria-label="上一页"><svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M7.5 2l-4 4 4 4"/></svg></button>
+            <button class="giencoder-pagination-item giencoder-pagination-item-active">1</button>
+            <button class="giencoder-pagination-item" aria-label="下一页"><svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M4.5 2l4 4-4 4"/></svg></button>
+            <span class="giencoder-pagination-jumper">共 6 条</span>
+          </div>
+        </div>
+      </div>
+<div class="giencoder-modal-mask" data-component="modal" data-state="closed" id="modal-create" style="display:none; position:fixed; inset:0; z-index:1000; align-items:flex-start; justify-content:center; padding:48px; overflow-y:auto;">
+      <div class="giencoder-modal" role="dialog" aria-modal="true" aria-label="新建一级工作项" style="width:520px; background:var(--color-bg-2); box-shadow:var(--shadow3-down); margin:0 auto;">
+        <div class="giencoder-modal-header">
+          <div class="giencoder-modal-title">新建一级工作项</div>
+          <button class="giencoder-modal-close-btn" aria-label="关闭" data-close>
+          <svg viewBox="0 0 12 12" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 3l6 6M9 3l-6 6"/></svg>
+        </button>
+        </div>
+        <div class="giencoder-modal-content"><div class="giencoder-form" data-component="form" data-layout="vertical" data-state="default">
+  <div class="giencoder-form-item" data-component="form-item">
+        <label class="giencoder-form-label giencoder-form-label-required">一级类型</label>
+        <div class="giencoder-form-control"><label class="giencoder-radio" data-component="radio">
+        <input type="radio" class="giencoder-radio-input" name="type" checked>
+        <span class="giencoder-radio-mask"></span>
+        <span>业务需求</span>
+      </label>
+<label class="giencoder-radio" data-component="radio">
+        <input type="radio" class="giencoder-radio-input" name="type">
+        <span class="giencoder-radio-mask"></span>
+        <span>技术需求</span>
+      </label>
+<label class="giencoder-radio" data-component="radio">
+        <input type="radio" class="giencoder-radio-input" name="type">
+        <span class="giencoder-radio-mask"></span>
+        <span>缺陷</span>
+      </label></div>
+      </div>
+<div class="giencoder-form-item" data-component="form-item">
+        <label class="giencoder-form-label giencoder-form-label-required">标题</label>
+        <div class="giencoder-form-control"><div class="giencoder-input-wrapper" style="width:360px;">
+            <input class="giencoder-input" placeholder="输入一级工作项标题">
+          </div></div>
+      </div>
+<div class="giencoder-form-item" data-component="form-item">
+        <label class="giencoder-form-label">描述</label>
+        <div class="giencoder-form-control"><div class="giencoder-input-wrapper" style="width:360px;">
+            <input class="giencoder-input" placeholder="补充业务背景与目标">
+          </div></div>
+      </div>
+</div>
+        </div>
+      <div class="giencoder-modal-footer">
+          <button class="giencoder-btn giencoder-btn-secondary giencoder-btn-size-default" data-close>取消</button>
+          <button class="giencoder-btn giencoder-btn-primary giencoder-btn-size-default">创建</button>
+      </div>
+      </div>
+    </div>
+<div class="giencoder-modal-mask" data-component="modal" data-state="closed" id="modal-delete" style="display:none; position:fixed; inset:0; z-index:1000; align-items:flex-start; justify-content:center; padding:48px; overflow-y:auto;">
+      <div class="giencoder-modal" role="dialog" aria-modal="true" aria-label="确认删除" style="width:480px; background:var(--color-bg-2); box-shadow:var(--shadow3-down); margin:0 auto;">
+        <div class="giencoder-modal-header">
+          <div class="giencoder-modal-title">确认删除</div>
+          <button class="giencoder-modal-close-btn" aria-label="关闭" data-close>
+          <svg viewBox="0 0 12 12" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 3l6 6M9 3l-6 6"/></svg>
+        </button>
+        </div>
+        <div class="giencoder-modal-content"><span class="giencoder-tag giencoder-tag-light giencoder-tag-danger">危险操作</span>
+<span class="giencoder-tag giencoder-tag-light giencoder-tag-normal">删除后不可恢复，将同时删除其下全部二级任务。</span>
+        </div>
+      <div class="giencoder-modal-footer">
+          <button class="giencoder-btn giencoder-btn-secondary giencoder-btn-size-default" data-close>取消</button>
+          <button class="giencoder-btn giencoder-btn-primary giencoder-btn-size-default giencoder-btn-danger">确认删除</button>
+      </div>
+      </div>
+    </div>
+<div class="giencoder-drawer-mask" data-component="drawer" data-state="closed" id="drawer-metrics" style="display:none; position:fixed; inset:0; z-index:1000; background:var(--color-mask-bg);">
+      <div class="giencoder-drawer" role="dialog" aria-modal="true" aria-label="指标下钻 · 用户登录改造" style="position:absolute; top:0; right:0; width:420px; height:100%; background:var(--color-bg-2); box-shadow:var(--shadow3-down);">
+        <div class="giencoder-drawer-header">
+          <div class="giencoder-drawer-title">指标下钻 · 用户登录改造</div>
+          <button class="giencoder-modal-close-btn" aria-label="关闭" data-close>
+          <svg viewBox="0 0 12 12" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 3l6 6M9 3l-6 6"/></svg>
+        </button>
+        </div>
+        <div class="giencoder-drawer-content"><div class="giencoder-card">
+        <div class="giencoder-card-header">
+          <span class="giencoder-card-header-title">概览</span>
+        </div>
+        <div class="giencoder-statistic" data-component="statistic" data-variant="default" data-state="default" style="background:var(--color-bg-2);border:1px solid var(--color-border-2);border-radius:var(--border-radius-large);padding:16px 20px;min-width:160px;">
+        <div class="giencoder-statistic-title" style="font-size:12px;color:var(--color-text-3);">代码转化率</div>
+        <div class="giencoder-statistic-content" style="font-size:28px;font-weight:600;color:var(--color-text-1);margin-top:8px;display:flex;align-items:baseline;">
+          <span class="giencoder-statistic-value">85%</span>
+        </div>
+      </div>
+<div class="giencoder-statistic" data-component="statistic" data-variant="default" data-state="default" style="background:var(--color-bg-2);border:1px solid var(--color-border-2);border-radius:var(--border-radius-large);padding:16px 20px;min-width:160px;">
+        <div class="giencoder-statistic-title" style="font-size:12px;color:var(--color-text-3);">AI 生成</div>
+        <div class="giencoder-statistic-content" style="font-size:28px;font-weight:600;color:var(--color-text-1);margin-top:8px;display:flex;align-items:baseline;">
+          <span class="giencoder-statistic-value">500</span><span class="giencoder-statistic-suffix" style="font-size:14px;color:var(--color-text-3);margin-left:4px;">行</span>
+        </div>
+      </div>
+<div class="giencoder-statistic" data-component="statistic" data-variant="default" data-state="default" style="background:var(--color-bg-2);border:1px solid var(--color-border-2);border-radius:var(--border-radius-large);padding:16px 20px;min-width:160px;">
+        <div class="giencoder-statistic-title" style="font-size:12px;color:var(--color-text-3);">AI 采纳</div>
+        <div class="giencoder-statistic-content" style="font-size:28px;font-weight:600;color:var(--color-text-1);margin-top:8px;display:flex;align-items:baseline;">
+          <span class="giencoder-statistic-value">420</span><span class="giencoder-statistic-suffix" style="font-size:14px;color:var(--color-text-3);margin-left:4px;">行</span>
+        </div>
+      </div>
+<div class="giencoder-statistic" data-component="statistic" data-variant="default" data-state="default" style="background:var(--color-bg-2);border:1px solid var(--color-border-2);border-radius:var(--border-radius-large);padding:16px 20px;min-width:160px;">
+        <div class="giencoder-statistic-title" style="font-size:12px;color:var(--color-text-3);">AI 入库</div>
+        <div class="giencoder-statistic-content" style="font-size:28px;font-weight:600;color:var(--color-text-1);margin-top:8px;display:flex;align-items:baseline;">
+          <span class="giencoder-statistic-value">380</span><span class="giencoder-statistic-suffix" style="font-size:14px;color:var(--color-text-3);margin-left:4px;">行</span>
+        </div>
+      </div>
+      </div>
+<div class="giencoder-card">
+        <div class="giencoder-card-header">
+          <span class="giencoder-card-header-title">二级任务指标明细</span>
+        </div>
+        <div class="giencoder-table-container" style="padding:0 16px;">
+          <table class="giencoder-table-content">
+            <thead>
+              <tr class="giencoder-table-tr">
+                                <th class="giencoder-table-th">任务</th>
+                <th class="giencoder-table-th">状态</th>
+                <th class="giencoder-table-th">AI 采纳</th>
+              </tr>
+            </thead>
+            <tbody>
+                            <tr class="giencoder-table-tr">
+                <td class="giencoder-table-td">
+                  前端登录页改造
+                </td>
+                <td class="giencoder-table-td">
+                  <span class="giencoder-tag giencoder-tag-light giencoder-tag-warning">doing</span>
+                </td>
+                <td class="giencoder-table-td">
+                  180 行
+                </td>
+              </tr>
+              <tr class="giencoder-table-tr">
+                <td class="giencoder-table-td">
+                  登录接口改造
+                </td>
+                <td class="giencoder-table-td">
+                  <span class="giencoder-tag giencoder-tag-light giencoder-tag-success">done</span>
+                </td>
+                <td class="giencoder-table-td">
+                  150 行
+                </td>
+              </tr>
+              <tr class="giencoder-table-tr">
+                <td class="giencoder-table-td">
+                  登录链路联调
+                </td>
+                <td class="giencoder-table-td">
+                  <span class="giencoder-tag giencoder-tag-light giencoder-tag-warning">doing</span>
+                </td>
+                <td class="giencoder-table-td">
+                  30 行
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+        </div>
+      </div>
+    </div>
+<div class="giencoder-drawer-mask" data-component="drawer" data-state="closed" id="drawer-sync" style="display:none; position:fixed; inset:0; z-index:1000; background:var(--color-mask-bg);">
+      <div class="giencoder-drawer" role="dialog" aria-modal="true" aria-label="同步异常详情 · 数据库查询性能优化" style="position:absolute; top:0; right:0; width:420px; height:100%; background:var(--color-bg-2); box-shadow:var(--shadow3-down);">
+        <div class="giencoder-drawer-header">
+          <div class="giencoder-drawer-title">同步异常详情 · 数据库查询性能优化</div>
+          <button class="giencoder-modal-close-btn" aria-label="关闭" data-close>
+          <svg viewBox="0 0 12 12" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 3l6 6M9 3l-6 6"/></svg>
+        </button>
+        </div>
+        <div class="giencoder-drawer-content"><div class="giencoder-card">
+        <div class="giencoder-card-header">
+          <span class="giencoder-card-header-title">同步异常</span>
+        </div>
+        <span class="giencoder-tag giencoder-tag-light giencoder-tag-danger">慢查询索引优化 · 同步失败</span>
+<span class="giencoder-tag giencoder-tag-light giencoder-tag-danger">查询缓存策略 · 状态冲突</span>
+<span class="giencoder-tag giencoder-tag-light giencoder-tag-warning">构建流水线提速 · 同步中</span>
+      </div>
+        </div>
+      </div>
+    </div>
+    </main>
+  </div>
+</div>
+<script src="../../gienx-templates/ui-controls.js"></script>
+<script>
+(function () {
+  document.addEventListener('click', function (ev) {
+    var openBtn = ev.target.closest && ev.target.closest('[data-open-target]');
+    if (openBtn) {
+      var id = openBtn.getAttribute('data-open-target');
+      var ov = document.getElementById(id);
+      if (ov) { ov.style.display = (ov.classList.contains('giencoder-modal-mask') ? 'flex' : 'block'); }
+    }
+    var closeBtn = ev.target.closest && ev.target.closest('[data-close]');
+    if (closeBtn) {
+      var mask = closeBtn.closest('.giencoder-modal-mask, .giencoder-drawer-mask');
+      if (mask) mask.style.display = 'none';
+    }
+    if (ev.target.classList && ev.target.classList.contains('giencoder-modal-mask')) {
+      ev.target.style.display = 'none';
+    }
+  });
+})();
+</script>
+</body>
+</html>
+<!-- 由 yq-build.py 从 task-list.yq.yaml 生成（pattern: list-page） -->

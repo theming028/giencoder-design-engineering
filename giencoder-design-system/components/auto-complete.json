@@ -1,0 +1,168 @@
+{
+  "schemaVersion": 3,
+  "slug": "auto-complete",
+  "name": "AutoComplete",
+  "category": "data-entry",
+  "giencoderSource": {
+    "component": "AutoComplete",
+    "version": "2.66.16"
+  },
+  "summary": "输入联想自动补全组件，根据用户输入在弹出列表中给出候选建议，支持键盘选择确认。",
+  "variants": [
+    {
+      "name": "default",
+      "description": "标准输入框 + 下拉联想列表",
+      "whenToUse": "需要根据输入快速联想候选项的场景，如搜索、标签输入"
+    },
+    {
+      "name": "custom-option",
+      "description": "通过 renderOption 自定义选项内容",
+      "whenToUse": "候选项需要展示额外信息（图标、描述、分组）时"
+    },
+    {
+      "name": "custom-trigger",
+      "description": "通过 children 传入自定义输入元素作为触发器",
+      "whenToUse": "需要把联想能力附加到自定义输入控件上时"
+    }
+  ],
+  "sizes": [
+    {
+      "name": "mini",
+      "value": "24px",
+      "usage": "紧凑表格/工具栏"
+    },
+    {
+      "name": "small",
+      "value": "28px",
+      "usage": "紧凑表单"
+    },
+    {
+      "name": "medium",
+      "value": "32px",
+      "usage": "标准表单（默认）"
+    },
+    {
+      "name": "large",
+      "value": "36px",
+      "usage": "强调输入场景/移动端适配"
+    }
+  ],
+  "states": [
+    {
+      "name": "default",
+      "description": "未交互状态",
+      "visual": "白色背景，--color-border-2 边框"
+    },
+    {
+      "name": "hover",
+      "description": "鼠标悬停",
+      "visual": "边框加深为 --color-border-3"
+    },
+    {
+      "name": "focus",
+      "description": "键盘/点击聚焦",
+      "visual": "弧蓝边框 --color-primary-6 + 2px 光晕阴影"
+    },
+    {
+      "name": "disabled",
+      "description": "禁用状态",
+      "visual": "背景 --color-fill-2，文本 --color-text-4，光标禁用"
+    },
+    {
+      "name": "selected",
+      "description": "候选项选中",
+      "visual": "下拉项背景 --color-fill-2，文本 --color-text-1"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "触发器输入框",
+      "element": "input",
+      "description": "承载用户输入，触发联想"
+    },
+    {
+      "part": "suffix 图标",
+      "element": "span",
+      "description": "可选的下拉箭头/加载图标"
+    },
+    {
+      "part": "下拉弹层",
+      "element": "div[role=listbox]",
+      "description": "输入后弹出的候选列表，背景 --color-bg-5 + --shadow2-down"
+    },
+    {
+      "part": "候选项",
+      "element": "div[role=option]",
+      "description": "可高亮的候选条目"
+    }
+  ],
+  "interaction": {
+    "hover": "输入框边框加深；候选项悬停高亮背景 --color-fill-2",
+    "focus": "输入框弧蓝边框 + 光晕；下拉打开后焦点保持在输入框",
+    "keyboard": [
+      "ArrowUp/ArrowDown: move between candidate options",
+      "Enter: confirm the highlighted option",
+      "Esc: close the dropdown",
+      "Tab: leave the component and close the dropdown"
+    ],
+    "motion": {
+      "duration": "0.1s~0.3s",
+      "easing": "standard",
+      "description": "下拉展开使用 --transition-duration-2 标准缓动，透明度 + 位移淡入"
+    },
+    "focusTrap": "下拉打开时焦点保持在输入框，不落入弹层（列表跟随型弹层，无需 focusTrap）",
+    "escClose": "按 Esc 关闭下拉，焦点回到输入框",
+    "clickOutsideClose": "点击弹层外部自动关闭下拉（受控 popupVisible 可接管）",
+    "behaviorNotes": "输入变化触发 onSearch；候选过滤逻辑可自定义；失焦后收起选项并提交当前文本"
+  },
+  "a11y": {
+    "role": "combobox",
+    "ariaAttrs": [
+      "aria-expanded",
+      "aria-controls",
+      "aria-activedescendant",
+      "role=listbox on popup",
+      "role=option on items"
+    ],
+    "contrastNote": "输入框文本 --color-text-1 对 --color-bg-1 对比度充足；禁用态文本 --color-text-4 可辨识",
+    "focusNote": "焦点环为 2px --color-primary-6 边框 + 光晕，在浅色背景上清晰可见"
+  },
+  "usage": [
+    "候选项较多时建议限制数量并分组",
+    "配合 debounce 降低 onSearch 触发频率",
+    "回车确认后建议保持输入框焦点以支持连续输入"
+  ],
+  "doNotInvent": [
+    "不要用 AutoComplete 代替需要严格枚举的 Select",
+    "不要在弹层内放置需要焦点交互的控件（焦点不进入弹层）",
+    "不要虚构不存在的变体（如树形联想）"
+  ],
+  "tokensConsumed": [
+    "--color-bg-5",
+    "--shadow2-down",
+    "--color-border-2",
+    "--color-border-3",
+    "--color-fill-2",
+    "--color-text-1",
+    "--color-text-4",
+    "--color-primary-6",
+    "--transition-duration-2",
+    "--transition-timing-function-standard"
+  ],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "AutoCompleteProps",
+    "props": [
+      "allowClear",
+      "children",
+      "className",
+      "data",
+      "disabled",
+      "name",
+      "style",
+      "value"
+    ],
+    "total": 8,
+    "syncDate": "2026/08/28"
+  }
+}

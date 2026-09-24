@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vibe Design Playbook · 演示文稿</title>
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   Vibe Design Playbook — HTML 演示文稿（美化版）
+   视觉语言：源启 Design Token（主色 #3770F7 / 语义色 / 中性层级）
+   美化原则：内容零改动；只做排版工艺、层级、卡片质感、
+   章节色彩编码（蓝/橙/绿）、进场动效与克制的光影升级。
+═══════════════════════════════════════════════════════════════ */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  /* ── 种子令牌（Appearance / Nudge 控制点） ── */
+  --seed-bg: #FAFBFF;            /* 页面底色 */
+  --seed-surface: #FFFFFF;       /* 卡片/表面 */
+  --seed-fg: #1F1F1F;            /* 主文字 */
+  --seed-primary: #3770F7;       /* 源启主色蓝 */
+  --seed-accent: #FF7D00;        /* 强调色 */
+  --seed-radius: 16px;           /* 圆角 */
+  --seed-space: 16px;            /* 密度（间距/内边距） */
+  --seed-title: 31px;            /* 页标题字号 */
+  /* 章节色相（由种子 fg 派生明暗，自动适配深浅模式） */
+  --hue-1: #2F66F0;
+  --hue-2: #F07400;
+  --hue-3: #2FA84A;
+  /* ── 派生令牌：全部由种子计算，不落字面量 ── */
+  --primary: var(--seed-primary);
+  --primary-1: color-mix(in srgb, var(--seed-primary) 6%, var(--seed-surface));
+  --primary-3: color-mix(in srgb, var(--seed-primary) 26%, var(--seed-surface));
+  --primary-4: color-mix(in srgb, var(--seed-primary) 40%, var(--seed-surface));
+  --primary-5: color-mix(in srgb, var(--seed-primary) 58%, var(--seed-surface));
+  --primary-8: color-mix(in srgb, var(--seed-primary) 72%, var(--seed-fg));
+  --primary-9: color-mix(in srgb, var(--seed-primary) 62%, var(--seed-fg));
+  --text-1: var(--seed-fg);
+  --text-2: color-mix(in srgb, var(--seed-fg) 72%, var(--seed-surface));
+  --text-3: color-mix(in srgb, var(--seed-fg) 48%, var(--seed-surface));
+  --border: color-mix(in srgb, var(--seed-fg) 9%, var(--seed-surface));
+  --fill-1: color-mix(in srgb, var(--seed-fg) 4%, var(--seed-surface));
+  --fill-2: color-mix(in srgb, var(--seed-fg) 3%, var(--seed-surface));
+  --bg: var(--seed-surface);
+  --bg-page: var(--seed-bg);
+  --ok: #3BB346;
+  --warn: #FF7D00;
+  --danger: #F53F3F;
+  --red-1: color-mix(in srgb, var(--danger) 8%, var(--seed-surface));
+  --green-1: color-mix(in srgb, var(--ok) 8%, var(--seed-surface));
+  --orange-1: color-mix(in srgb, var(--warn) 8%, var(--seed-surface));
+  --grad-primary: linear-gradient(135deg,
+    color-mix(in srgb, var(--seed-primary) 55%, var(--seed-surface)) 0%,
+    var(--seed-primary) 48%,
+    color-mix(in srgb, var(--seed-primary) 72%, var(--seed-fg)) 100%);
+  --shadow-sm: 0 1px 2px rgba(29,33,41,.04), 0 2px 10px rgba(29,33,41,.04);
+  --shadow-md: 0 4px 14px rgba(29,33,41,.06), 0 14px 34px rgba(29,33,41,.08);
+  --shadow-lg: 0 8px 24px rgba(29,33,41,.10), 0 28px 56px rgba(46,94,206,.10);
+  --card-shadow: var(--shadow-md);
+  --radius: var(--seed-radius);
+  --ease: cubic-bezier(.22,.68,0,1);
+  /* 代码面板 token */
+  --code-bg: #0D1117;
+  --code-border: #1E2633;
+  --code-text: #E6E8EB;
+  --code-k: #FF7B72;
+  --code-s: #A5D6FF;
+  --code-c: #8B949E;
+  --code-n: #79C0FF;
+  --dot-r: #FF5F57;
+  --dot-y: #FEBC2E;
+  --dot-g: #28C840;
+  --code-scroll: #2C3644;
+  --zebra: #FAFBFD;
+  --ch: var(--primary);           /* 章节主题色，随页切换 */
+  --font: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+  --mono: "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+}
+
+/* ── 章节主题色编码（由种子 fg 派生明暗，深浅模式自动适配） ── */
+section[data-deck="2"], section[data-deck="3"], section[data-deck="4"], section[data-deck="5"],
+section[data-deck="6"], section[data-deck="7"], section[data-deck="8"], section[data-deck="9"] { --ch: color-mix(in srgb, var(--hue-1) 55%, var(--seed-fg)); }
+section[data-deck="10"], section[data-deck="11"], section[data-deck="12"],
+section[data-deck="13"], section[data-deck="14"] { --ch: color-mix(in srgb, var(--hue-2) 55%, var(--seed-fg)); }
+section[data-deck="15"], section[data-deck="16"], section[data-deck="17"], section[data-deck="18"],
+section[data-deck="19"], section[data-deck="20"], section[data-deck="21"], section[data-deck="22"] { --ch: color-mix(in srgb, var(--hue-3) 55%, var(--seed-fg)); }
+
+html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; }
+::selection { background: color-mix(in srgb, var(--primary) 18%, var(--bg)); color: var(--primary-9); }
+
+body {
+  font-family: var(--font); color: var(--text-1); line-height: 1.7; overflow: hidden;
+  background:
+    radial-gradient(1100px 560px at 88% -8%, rgba(55,112,247,.075), transparent 62%),
+    radial-gradient(900px 520px at -8% 108%, rgba(55,112,247,.055), transparent 60%),
+    var(--bg-page);
+}
+/* 细点阵肌理：位于背景之上、内容之下 */
+body::before {
+  content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background-image: radial-gradient(color-mix(in srgb, var(--seed-fg) 5%, transparent) 1px, transparent 1.2px);
+  background-size: 26px 26px;
+  -webkit-mask-image: linear-gradient(180deg, rgba(0,0,0,.8), rgba(0,0,0,.25) 55%, rgba(0,0,0,.06));
+  mask-image: linear-gradient(180deg, rgba(0,0,0,.8), rgba(0,0,0,.25) 55%, rgba(0,0,0,.06));
+}
+
+/* ── 舞台与画布 ── */
+.stage { position: fixed; inset: 0; perspective: 1400px; }
+.deck {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  transition: opacity .45s ease, transform .6s var(--ease);
+}
+.deck.is-hidden { opacity: 0; transform: translateX(-40px) scale(.985) rotateY(-4deg); pointer-events: none; }
+.deck.next-prep { opacity: 0; transform: translateX(60px) scale(1.01); }
+
+/* 进场动效（backwards：结束后不驻留，避免与 hover 冲突） */
+@keyframes deckIn { from { opacity: 0; transform: translateX(26px) scale(.992); } to { opacity: 1; transform: none; } }
+@keyframes riseIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+.deck:not(.is-hidden):not(.next-prep) { animation: deckIn .5s var(--ease) backwards; }
+.deck:not(.is-hidden) .card,
+.deck:not(.is-hidden) .chapter-card,
+.deck:not(.is-hidden) .lexitem { animation: riseIn .5s var(--ease) backwards; }
+.deck:not(.is-hidden) .card:nth-child(2), .deck:not(.is-hidden) .chapter-card:nth-child(2) { animation-delay: .06s; }
+.deck:not(.is-hidden) .card:nth-child(3), .deck:not(.is-hidden) .chapter-card:nth-child(3) { animation-delay: .12s; }
+.deck:not(.is-hidden) .card:nth-child(4) { animation-delay: .18s; }
+
+/* 单张幻灯片 */
+.slide { position: absolute; inset: 0; padding: 56px 64px 44px; overflow: hidden; }
+.stage.preview .slide { position: relative; }
+
+/* ── 顶栏（页眉） ── */
+.slide-head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border); position: relative;
+}
+.slide-head::after {
+  content: ""; position: absolute; left: 0; bottom: -1.5px; width: 64px; height: 3px;
+  background: var(--grad-primary); border-radius: 3px;
+}
+.slide-kicker {
+  font-size: 12px; letter-spacing: .18em; font-weight: 700; color: var(--ch);
+  display: flex; align-items: center; gap: 9px; text-transform: none;
+}
+.slide-kicker::before {
+  content: ""; width: 9px; height: 9px; border-radius: 3px; flex: none;
+  background: var(--ch);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--ch) 15%, transparent);
+}
+.slide-title { font-size: var(--seed-title); font-weight: 700; letter-spacing: -.02em; color: var(--text-1); line-height: 1.3; }
+.slide-sub { font-size: 14px; color: var(--text-3); margin-top: 6px; font-weight: 400; max-width: 760px; }
+.slide-meta {
+  font-size: 11.5px; color: var(--text-2); background: var(--fill-2); padding: 4px 14px;
+  border-radius: 999px; font-family: var(--mono); border: 1px solid var(--border); white-space: nowrap;
+  box-shadow: 0 1px 2px rgba(29,33,41,.03);
+}
+
+/* ── 正文排版 ── */
+.body { max-width: 1180px; }
+.lead { font-size: 18px; color: var(--text-2); line-height: 1.75; letter-spacing: -.01em; }
+.lead b, .lead strong { color: var(--text-1); }
+.grid { display: grid; gap: var(--seed-space); margin-top: 22px; }
+.g2 { grid-template-columns: repeat(2, 1fr); }
+.g3 { grid-template-columns: repeat(3, 1fr); }
+.g4 { grid-template-columns: repeat(4, 1fr); }
+.card {
+  background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: calc(var(--seed-space) + 4px) calc(var(--seed-space) + 6px); box-shadow: var(--shadow-sm); position: relative; overflow: hidden;
+  transition: transform .28s var(--ease), box-shadow .28s ease, border-color .28s ease;
+}
+.card::before {
+  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--ch), color-mix(in srgb, var(--ch) 30%, transparent) 55%, transparent);
+  transform: scaleX(.32); transform-origin: left; transition: transform .35s var(--ease);
+}
+.card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: color-mix(in srgb, var(--ch) 32%, var(--border)); }
+.card:hover::before { transform: scaleX(1); }
+.card.primary-tint {
+  background: linear-gradient(180deg, color-mix(in srgb, var(--ch) 6%, var(--bg)), var(--bg) 70%);
+  border-color: color-mix(in srgb, var(--ch) 26%, var(--border));
+}
+.card h4 {
+  font-size: 14px; font-weight: 700; margin-bottom: 8px; color: var(--text-1);
+  display: flex; align-items: center; gap: 8px; letter-spacing: -.01em;
+}
+.card h4::before {
+  content: ""; width: 6px; height: 6px; border-radius: 50%; flex: none;
+  background: var(--ch); box-shadow: 0 0 0 2.5px color-mix(in srgb, var(--ch) 16%, transparent);
+}
+.card h4 .tag { font-family: var(--mono); font-size: 10px; color: var(--ch); }
+.card p, .card li { font-size: 13px; color: var(--text-2); line-height: 1.65; }
+.card ul, .card ol { margin-left: 17px; }
+.card li { margin: 4px 0; }
+.card li b { color: var(--text-1); }
+
+.pill {
+  display: inline-block; font-family: var(--mono); font-size: 10.5px;
+  background: color-mix(in srgb, var(--ch) 7%, var(--bg)); color: color-mix(in srgb, var(--ch) 88%, var(--text-1));
+  border: 1px solid color-mix(in srgb, var(--ch) 26%, var(--border));
+  padding: 2px 10px; border-radius: 999px; letter-spacing: .02em;
+}
+
+/* 呼唤语块 */
+.quotebox {
+  position: relative; border-radius: 12px; margin-top: 22px;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--ch) 8%, var(--bg)), var(--bg) 65%);
+  border: 1px solid color-mix(in srgb, var(--ch) 20%, var(--border));
+  border-left: 4px solid var(--ch);
+  padding: 16px 22px 15px 58px;
+  box-shadow: var(--shadow-sm);
+}
+.quotebox::before {
+  content: "\201C"; position: absolute; left: 20px; top: 12px;
+  font-family: Georgia, "Times New Roman", serif; font-size: 46px; line-height: 1;
+  color: color-mix(in srgb, var(--ch) 52%, var(--bg));
+}
+.quotebox p { font-size: 15px; color: var(--text-1); font-weight: 600; letter-spacing: -.005em; }
+.quotebox .src { margin-top: 6px; font-size: 12px; color: var(--text-3); font-weight: 400; }
+
+/* 流程图 / 管线 */
+.flow { display: flex; align-items: stretch; flex-wrap: wrap; margin-top: 24px; gap: 8px; }
+.flow .step {
+  flex: 1; min-width: 130px; background: var(--bg); border: 1px solid var(--border); border-radius: 12px;
+  padding: 13px 11px; text-align: center; position: relative;
+  box-shadow: var(--shadow-sm);
+  transition: transform .25s var(--ease), box-shadow .25s ease, border-color .25s ease;
+}
+.flow .step:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.flow .step .no { font-family: var(--mono); font-size: 10px; color: var(--ch); font-weight: 700; display: block; letter-spacing: .06em; }
+.flow .step b { font-size: 13px; color: var(--text-1); display: block; margin-top: 3px; letter-spacing: -.01em; }
+.flow .step span.d { font-size: 11px; color: var(--text-3); display: block; margin-top: 3px; line-height: 1.5; }
+.flow .step.on {
+  border-color: color-mix(in srgb, var(--ch) 55%, var(--border));
+  background: linear-gradient(180deg, color-mix(in srgb, var(--ch) 8%, var(--bg)), var(--bg) 75%);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--ch) 12%, transparent), var(--shadow-sm);
+}
+.flow .step.note { border-style: dashed; box-shadow: none; }
+.flow .arrow { align-self: center; color: var(--ch); font-size: 17px; font-weight: 700; padding: 0 2px; }
+.flow .branch { align-self: center; color: var(--seed-accent); font-size: 12px; font-weight: 700; padding: 0 2px; }
+
+/* 表格 */
+table.dt {
+  width: 100%; border-collapse: separate; border-spacing: 0; margin-top: 22px; font-size: 13px;
+  border: 1px solid var(--border); border-radius: 12px; overflow: hidden; box-shadow: var(--shadow-sm);
+}
+table.dt th {
+  background: linear-gradient(180deg, color-mix(in srgb, var(--ch) 9%, var(--bg)), color-mix(in srgb, var(--ch) 4%, var(--bg)));
+  color: color-mix(in srgb, var(--ch) 68%, var(--text-1)); font-weight: 700; text-align: left;
+  padding: 10px 14px; border-bottom: 1px solid color-mix(in srgb, var(--ch) 26%, var(--border));
+  letter-spacing: .01em;
+}
+table.dt th:first-child { border-top-left-radius: 11px; }
+table.dt th:last-child { border-top-right-radius: 11px; }
+table.dt td {
+  padding: 9px 14px; border-bottom: 1px solid var(--border);
+  color: var(--text-2); vertical-align: top; background: var(--bg);
+}
+table.dt tr:nth-child(even) td { background: var(--zebra); }
+table.dt tr:last-child td { border-bottom: 0; }
+table.dt tr:last-child td:first-child { border-bottom-left-radius: 11px; }
+table.dt tr:last-child td:last-child { border-bottom-right-radius: 11px; }
+table.dt td b, table.dt td strong { color: var(--text-1); }
+table.dt tr td:first-child { color: var(--text-1); font-weight: 600; }
+table.dt .mono { font-family: var(--mono); font-size: 11px; }
+.nums td:last-child { font-family: var(--mono); text-align: right; color: color-mix(in srgb, var(--primary) 72%, var(--text-1)); font-weight: 600; }
+
+/* 代码块（终端窗口质感） */
+pre.code {
+  position: relative; background: var(--code-bg); color: var(--code-text);
+  border: 1px solid var(--code-border); border-radius: 14px; margin-top: 20px;
+  padding: 46px 22px 18px; box-shadow: var(--shadow-md);
+  font-family: var(--mono); font-size: 12px; line-height: 1.7; overflow: auto; max-height: 46vh;
+}
+pre.code::before {
+  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 32px;
+  background: linear-gradient(180deg, rgba(255,255,255,.045), transparent);
+  border-bottom: 1px solid rgba(255,255,255,.06); border-radius: 13px 13px 0 0;
+}
+pre.code::after {
+  content: ""; position: absolute; top: 12px; left: 17px; width: 9px; height: 9px; border-radius: 50%;
+  background: var(--dot-r); box-shadow: 16px 0 0 var(--dot-y), 32px 0 0 var(--dot-g);
+}
+pre.code::-webkit-scrollbar { width: 8px; height: 8px; }
+pre.code::-webkit-scrollbar-thumb { background: var(--code-scroll); border-radius: 4px; }
+pre.code .k { color: var(--code-k); } pre.code .s { color: var(--code-s); } pre.code .c { color: var(--code-c); font-style: italic; }
+pre.code .n { color: var(--code-n); } pre.code .o { color: var(--code-n); }
+
+/* 两栏：左说明 + 右代码 */
+.split { display: grid; grid-template-columns: 1fr 1.2fr; gap: 28px; margin-top: 22px; align-items: stretch; }
+.split .codepane pre { margin-top: 0; height: 100%; }
+
+/* 阻断项标签 */
+.bad { display: inline-block; font-size: 11px; font-weight: 700; padding: 2px 10px; border-radius: 8px; margin: 2px 4px 2px 0; letter-spacing: .01em; }
+.bad.b-tag { background: var(--red-1); color: var(--danger); border: 1px solid color-mix(in srgb, var(--danger) 22%, transparent); }
+.bad.g-tag { background: var(--green-1); color: var(--ok); border: 1px solid color-mix(in srgb, var(--ok) 22%, transparent); }
+.bad.o-tag { background: var(--orange-1); color: var(--warn); border: 1px solid color-mix(in srgb, var(--warn) 22%, transparent); }
+.bad.blk {
+  background: var(--text-1); color: var(--bg); border: 1px solid rgba(255,255,255,.14);
+  font-family: var(--mono); font-weight: 600; padding: 4px 12px; border-radius: 9px;
+}
+
+/* 词典词条 */
+.lexgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 20px; }
+.lexitem {
+  background: var(--bg); border: 1px solid var(--border); border-left: 3px solid var(--ch);
+  border-radius: 10px; padding: 11px 15px;
+  box-shadow: var(--shadow-sm);
+  transition: transform .22s var(--ease), box-shadow .22s ease, border-color .22s ease;
+}
+.lexitem:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); border-color: color-mix(in srgb, var(--ch) 30%, var(--border)); }
+.lexitem .en { font-family: var(--mono); font-size: 12px; font-weight: 700; color: var(--primary-9); }
+.lexitem .cn { font-size: 11px; color: var(--text-3); margin-left: 6px; }
+.lexitem p { font-size: 11.5px; color: var(--text-2); margin-top: 4px; line-height: 1.55; }
+
+/* 结语 */
+.closing { display: flex; align-items: center; justify-content: center; height: 100%; text-align: center; position: relative; }
+.closing .inner { max-width: 860px; position: relative; }
+.closing h1 { font-size: 46px; font-weight: 800; letter-spacing: -.025em; line-height: 1.15; margin-bottom: 18px; }
+.closing h1 em { font-style: normal; }
+.closing p.lead2 { font-size: 17px; color: var(--text-2); margin-bottom: 14px; line-height: 1.8; }
+.closing .rule { width: 84px; height: 4px; background: var(--grad-primary); border: 0; margin: 24px auto; border-radius: 4px; }
+.closing .src2 { font-size: 13px; color: var(--text-3); }
+
+/* 封面 */
+.cover { display: flex; flex-direction: column; justify-content: center; /*height:100%;*/ padding: 0 80px; position: relative; }
+.cover::before {
+  content: ""; position: absolute; right: -80px; top: -80px; width: 540px; height: 540px;
+  background-image:
+    linear-gradient(rgba(55,112,247,.09) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(55,112,247,.09) 1px, transparent 1px);
+  background-size: 34px 34px;
+  -webkit-mask-image: radial-gradient(circle at 70% 30%, rgba(0,0,0,.95), transparent 72%);
+  mask-image: radial-gradient(circle at 70% 30%, rgba(0,0,0,.95), transparent 72%);
+  pointer-events: none;
+}
+.cover::after {
+  content: ""; position: absolute; right: 150px; bottom: 90px; width: 270px; height: 270px; border-radius: 50%;
+  border: 1.5px dashed color-mix(in srgb, var(--primary) 32%, transparent);
+  pointer-events: none;
+}
+.cover .brand {
+  font-size: 13px; letter-spacing: .22em; color: var(--primary); font-weight: 700; margin-bottom: 26px;
+  position: relative; padding-left: 36px;
+}
+.cover .brand::before {
+  content: ""; position: absolute; left: 0; top: 50%; transform: translateY(-50%);
+  width: 24px; height: 3px; background: var(--grad-primary); border-radius: 3px;
+}
+.cover h1 { font-size: 60px; font-weight: 800; letter-spacing: -.025em; line-height: 1.14; }
+.cover h1 .en { font-family: var(--mono); font-weight: 700; color: var(--primary); font-size: .42em; letter-spacing: .06em; display: block; margin-bottom: 16px; }
+.cover .sub { font-size: 20px; color: var(--text-2); margin-top: 20px; max-width: 720px; line-height: 1.75; }
+.cover .meta { margin-top: 38px; display: flex; gap: 12px; flex-wrap: wrap; }
+.cover .meta span {
+  font-family: var(--mono); font-size: 11px; color: var(--text-2);
+  background: color-mix(in srgb, var(--seed-surface) 82%, transparent); border: 1px solid var(--border);
+  padding: 5px 14px; border-radius: 999px; box-shadow: var(--shadow-sm);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+}
+
+/* 三章导览 */
+.chapters { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; margin-top: 30px; }
+.chapter-card {
+  background: var(--bg); border: 1px solid var(--border); border-radius: 18px; padding: 26px;
+  box-shadow: var(--shadow-sm); transition: transform .25s var(--ease), box-shadow .25s ease, border-color .25s ease;
+  position: relative; overflow: hidden;
+}
+.chapter-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); border-color: var(--primary-4); }
+.chapter-card .ch-no {
+  display: inline-block; font-family: var(--mono); font-size: 11px; color: var(--primary);
+  font-weight: 700; letter-spacing: .12em;
+  background: var(--primary-1); border: 1px solid var(--primary-3);
+  padding: 3px 11px; border-radius: 999px;
+}
+.chapter-card h3 { font-size: 21px; margin: 12px 0 4px; letter-spacing: -.015em; }
+.chapter-card .en { font-size: 12px; color: var(--text-3); font-family: var(--mono); }
+.chapter-card p { font-size: 13px; color: var(--text-2); margin-top: 12px; line-height: 1.65; }
+
+/* 底部进度 */
+.progress {
+  position: fixed; left: 0; bottom: 0; height: 4px; background: var(--grad-primary); z-index: 20;
+  transition: width .35s var(--ease); border-radius: 0 2px 2px 0;
+  box-shadow: 0 0 12px color-mix(in srgb, var(--primary) 55%, transparent);
+}
+.deck-info, .hint {
+  position: fixed; bottom: 16px; font-size: 11px; color: var(--text-2);
+  background: color-mix(in srgb, var(--seed-surface) 78%, transparent); padding: 4px 13px; border-radius: 999px;
+  border: 1px solid var(--border); z-index: 21; box-shadow: var(--shadow-sm);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+}
+.deck-info { right: 18px; font-family: var(--mono); }
+.hint { left: 18px; }
+
+/* 响应式 */
+@media (max-width: 900px) {
+  .slide { padding: 28px 20px; overflow-y: auto; }
+  .g4,.g3,.g2 { grid-template-columns: 1fr; }
+  .split { grid-template-columns: 1fr; }
+  .lexgrid { grid-template-columns: 1fr 1fr; }
+  .flow { flex-direction: column; }
+  .flow .arrow { transform: rotate(90deg); align-self: center; }
+  .cover { padding: 0 28px; }
+  .cover h1 { font-size: 38px; }
+  .cover::after { display: none; }
+  .chapters { grid-template-columns: 1fr; }
+  .closing h1 { font-size: 32px; }
+  .quotebox { padding-left: 22px; }
+  .quotebox::before { display: none; }
+}
+
+/* 无障碍：偏好减弱动效时关闭动画 */
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
+</style>
+</head>
+<body>
+<main class="stage" id="stage">
+  <!-- ══════════════ 封面 ══════════════ -->
+  <section class="deck slide-wrap" data-deck="0" data-component="slide-cover">
+    <div class="slide cover">
+      <div class="brand">GienCoder 设计系统 · 深度整理</div>
+      <h1><span class="en">Vibe Design Playbook</span>从「一句话」<br>到一套会自我进化的设计系统</h1>
+      <p class="sub">把设计师脑子里的判断拆开、写清、放进链路 —— 用工程能力让 AI 产出可控、符合规范、可评估、能回流的高质量页面。</p>
+      <div class="meta">
+        <span>3 章 · 12 节</span><span>6 份设计声明</span><span>2 份执行契约</span><span>六维度评分模型</span><span>12 类 188 词审美词典</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ 总纲 ══════════════ -->
+  <section class="deck slide-wrap" data-deck="1" data-component="slide-overview">
+    <div class="slide">
+      <div class="slide-head">
+        <div><div class="slide-kicker">OVERVIEW · 总纲</div><div class="slide-title">一句总括与全书主线</div></div>
+        <div class="slide-meta">deck 002</div>
+      </div>
+      <p class="lead"><b>要义一句话：</b>设计不是靠「更聪明的 prompt」凭空生成，而是把设计师的判断拆开、写清、放进链路里 —— <b>先定义「什么算对」（声明）</b>，再给出<b>「怎么做」（契约）</b>，让 Agent 沿链路生成，由 evaluator 检查回流，再用真实案例持续校准标准。</p>
+      <div class="chapters">
+        <div class="chapter-card">
+          <div class="ch-no">CHAPTER 01</div>
+          <h3>设计工程</h3><div class="en">Design Engineering</div>
+          <p><b>生成前的可控性</b>：打开黑盒 + 声明与契约 + Skill 封装调度。地基。</p>
+        </div>
+        <div class="chapter-card">
+          <div class="ch-no">CHAPTER 02</div>
+          <h3>动态交互</h3><div class="en">Dynamic Interaction</div>
+          <p><b>运行中的适配</b>：UX→AX、GenUI、A2UI，界面随真实意图实时组织。</p>
+        </div>
+        <div class="chapter-card">
+          <div class="ch-no">CHAPTER 03</div>
+          <h3>自我进化</h3><div class="en">Self-Evolution</div>
+          <p><b>生成后的改进</b>：评估器闭环 + 标准维护，让每一版留下经验。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ 第一章封面 ══════════════ -->
+  <section class="deck slide-wrap" data-deck="2" data-component="slide-ch1-cover">
+    <div class="slide" style="background: linear-gradient(120deg, var(--primary-1), var(--bg));">
+      <div class="slide-head">
+        <div><div class="slide-kicker">CHAPTER 01 · 设计工程</div><div class="slide-title">可控的高质量生成</div></div>
+        <div class="slide-meta">3 节</div>
+      </div>
+      <p class="lead" style="max-width:780px; margin-top:26px; font-size:19px;">核心：把一项设计任务「<b>从一句话到一版原型</b>」的黑盒，拆成一条<b>可在每个环节注入能力</b>的链路。目标 = 让 AI 产出符合你的规范，而不是只生成一张「看起来是个页面」的截图。</p>
+      <div class="grid g3" style="margin-top:32px;">
+        <div class="card"><h4>1.1 Design I/O</h4><p>黑盒 → 链路。理解规划 → 搭骨架 → 填充 → 细化 → 评估。两条贯穿线：token 注入、critique 回流。</p></div>
+        <div class="card"><h4>1.2 声明与契约</h4><p>六份设计声明（定义"什么算对"）+ 两份执行契约（定义"怎么做"）。声明管方向，契约管路径。</p></div>
+        <div class="card"><h4>1.3 Skill 封装调度</h4><p>把能沉淀的判断封装成 skill，在链路对的位置自动挂载。实操：一句话 → spec → 页面 → 评估。</p></div>
+      </div>
+      <div class="quotebox"><p>「设计，是为达成某个特定目的、对各要素所做的编排方案。」</p><div class="src">Design is a plan for arranging elements ... —— Charles Eames</div></div>
+    </div>
+  </section>
+
+  <!-- ══════════════ 1.1 ══════════════ -->
+  <section class="deck slide-wrap" data-deck="3" data-component="slide-ch1-design-io">
+    <div class="slide">
+      <div class="slide-head">
+        <div><div class="slide-kicker">CHAPTER 01 · 设计工程</div><div class="slide-title">1.1 Design I/O：从黑盒到链路</div></div>
+        <div class="slide-meta">section 1.1</div>
+      </div>
+      <p class="lead"><b>Design</b> = 进入系统的设计能力（功能边界 / 业务语义 / 组件使用 / 视觉工艺 / 验收标准的判断）；<b>Output</b> = 这些判断作用后产出的界面。中间的 I/O 是一组<b>可调用、可检查、可回流</b>的接口。</p>
+      <div class="flow">
+        <div class="step on"><span class="no">①</span><b>理解 / 规划</b><span class="d">为谁做·覆盖哪些状态</span></div>
+        <div class="arrow">→</div>
+        <div class="step"><span class="no">②</span><b>搭骨架</b><span class="d">空间结构</span></div>
+        <div class="arrow">→</div>
+        <div class="step"><span class="no">③</span><b>填充</b><span class="d">组件·业务语义</span></div>
+        <div class="arrow">→</div>
+        <div class="step"><span class="no">④</span><b>细化</b><span class="d">状态·反馈·动效</span></div>
+        <div class="arrow">→</div>
+        <div class="step"><b>Prototype</b><span class="d">产出</span></div>
+        <div class="arrow">→</div>
+        <div class="step note"><b>Evaluator</b><span class="d">评估</span></div>
+        <div class="branch">达标?</div>
+      </div>
+      <div class="grid g2">
+        <div class="card primary-tint"><h4>两条贯穿支线</h4>
+          <ul>
+            <li><b>token 注入</b>：颜色 / 间距 / 字号自「搭骨架」起贯穿全局。<b>一致性 = 每一步都不破坏既有约束</b>，而非某一步做对。</li>
+            <li><b>critique 回流</b>：评估不达标时，带着<b>具体问题</b>退回相关环节，而非从头再来。</li>
+          </ul>
+        </div>
+        <div class="card"><h4>环节即接口</h4><p>环节顺序不随意、上游偏差会沿链路放大 —— <b>约束要尽早进入、每步持续检查</b>。问题定位要能落到具体环节，而不是在最外层反复改 prompt。</p>
+          <div style="margin-top:8px;"><span class="pill">spec</span> <span class="pill">template</span> <span class="pill">components</span> <span class="pill">domain.md</span> <span class="pill">craft.md</span> <span class="pill">design.md</span> <span class="pill">skill</span> <span class="pill">evaluator</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ 1.2 ══════════════ -->
+  <section class="deck slide-wrap" data-deck="4" data-component="slide-ch1-declarations">
+    <div class="slide">
+      <div class="slide-head">
+        <div><div class="slide-kicker">CHAPTER 01 · 设计工程</div><div class="slide-title">1.2 设计声明与执行契约</div></div>
+        <div class="slide-meta">section 1.2</div>
+      </div>
+      <p class="lead">实践中反复撞见的问题沉淀成两类能力：<b>声明</b>回答「什么样的设计是好的」，<b>契约</b>回答「怎么把它做出来」。二者互补，不是并列清单。</p>
+      <table class="dt">
+        <tr><th></th><th>设计声明 Design Declarations</th><th>执行契约 Execution Contracts</th></tr>
+        <tr><td>回答问题</td><td>什么样的设计是好的</td><td>怎么把它做出来</td></tr>
+        <tr><td>来源</td><td>生成结果反复错在同一类判断上</td><td>标准写了，但链路里没人调用</td></tr>
+        <tr><td>典型内容</td><td class="mono">spec · domain · craft · design.md · components · template</td><td class="mono">skill · evaluator</td></tr>
+        <tr><td>缺失后果</td><td>产物能跑，但判断失准</td><td>标准很多，但进不了流程</td></tr>
+      </table>
+      <div class="grid g2" style="margin-top:18px;">
+        <div class="card"><h4>六份声明（都回答：什么算对）</h4><ul>
+          <li><b>spec.md</b>：功能定义 — 状态流 / 边界 / 验收</li>
+          <li><b>domain.md</b>：领域语义 — 业务对象 → 视觉编码</li>
+          <li><b>craft.md</b>：通用工艺 — 挡住「AI 味」</li>
+          <li><b>design.md</b>：视觉契约 — token 单一事实源</li>
+          <li><b>components</b>：组件注册表 — 语义边界</li>
+          <li><b>template</b>：页面骨架 — 场景结构起点</li>
+        </ul></div>
+        <div class="card"><h4>两份契约（都回答：怎么做）</h4><ul>
+          <li><b>skill</b>：把能力封装成可被调度的单元</li>
+          <li><b>template</b>：从验证过的结构起点出发，而非每次空白</li>
+          <li><b>evaluator</b>：把「坏味道」判据抽象成可打分的标尺</li>
+        </ul><p style="margin-top:8px;">少了声明不知好坏；少了契约无法落地。配齐才是一套完整能力。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ 1.2 spec ══════════════ -->
+  <section class="deck slide-wrap" data-deck="5" data-component="slide-ch1-spec-layers">
+    <div class="slide">
+      <div class="slide-head">
+        <div><div class="slide-kicker">CHAPTER 01 · 设计工程</div><div class="slide-title">spec.md：功能成立的六层定义</div></div>
+        <div class="slide-meta">L1 → L6</div>
+      </div>
+      <p class="lead">规格驱动开发（SDD, Spec-Driven Development，OpenAI Sean Grove「The New Code」）：规格是人与 Agent 共同引用的<b>唯一事实源</b>，代码只是规格在某一次实现里的投影。</p>
+      <div class="flow" style="flex-direction:column; align-items:stretch; margin-top:16px;">
+        <div class="step on"><b>L1 定位与意图</b><span class="d">一句话定义 · 目标用户 · 场景清单 · <b>非目标</b></span></div>
+        <div class="step"><b>L2 信息架构</b><span class="d">空间区域划分 · 内容生长规则</span></div>
+        <div class="step"><b>L3 核心链路</b><span class="d">状态流转路径</span></div>
+        <div class="step"><b>L4 组件功能细节</b><span class="d">每个组件具体怎么表现</span></div>
+        <div class="step"><b>L5 边界条件</b><span class="d">空 · 加载 · 错误 · 权限不足</span></div>
+        <div class="step on"><b>L6 验收标准</b><span class="d">满足哪些条件才算做对</span></div>
+      </div>
+      <div class="grid g2" style="margin-top:18px;">
+        <div class="card"><h4>关键要点</h4><ul>
+          <li><b>边界清楚</b>：spec 只定义功能成立条件，视觉交给 craft/design.md，组件选型交给 components。</li>
+          <li><b>没写=不存在</b>：模型的言外之意不补。没有写的状态、边界、验收标准，最后只能「差不多」。</li>
+          <li><b>一句话需求</b> <span class="arrow" style="padding:0 4px;">→</span> ux-spec skill 展开成完整六层 spec。</li>
+        </ul></div>
+        <div class="card"><h4>行为边界声明（L1 三档自主权）</h4><ul>
+          <li><b>始终</b>：如自动保存草稿</li>
+          <li><b>询问后</b>：如发送数据到第三方</li>
+          <li><b>永不</b>：如重定向到可疑链接</li>
+        </ul><p style="margin-top:8px;">缺它 → Agent 或过度殷勤（到处"你确定吗"），或在敏感操作上擅自行动。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ 1.2 加载/边界 ══════════════ -->
+  <section class="deck slide-wrap" data-deck="6" data-component="slide-ch1-loading-domain">
+    <div class="slide">
+      <div class="slide-head">
+        <div><div class="slide-kicker">CHAPTER 01 · 设计工程</div><div class="slide-title">加载态分档 与 领域语义</div></div>
+        <div class="slide-meta">L5 · domain.md</div>
+      </div>
+      <div class="split">
+        <div>
+          <div class="card primary-tint"><h4>加载态分档（不是所有等待都需要安抚）</h4>
+            <ul>
+              <li><b>&lt;300ms</b>：不展示加载，避免闪烁</li>
+              <li><b>300ms – 2s</b>：骨架屏，稳定布局</li>
+              <li><b>&gt;2s</b>：Loader + 进度说明</li>
+              <li><b>&gt;10s</b>：超时提示 + 重试入口</li>
+            </ul>
+          </div>
+          <div class="card" style="margin-top:14px;"><h4>domain.md — 领域语义</h4><p>把业务数据和状态<b>正确编码</b>成视觉。云产品里「运行中 / 高危 / ECS / 生产环境」责任不同，混成同一种标签会导致页面整齐但<b>判断变慢</b>。缺它 → 套"换个品类也成立"的通用皮 + 系统割裂（不再信任任何颜色）。</p>
+            <div class="quotebox" style="margin-top:10px;padding:10px 14px;"><p style="font-size:12.5px;">「土气测试」：把为某产品做的插画放到卖咖啡页面仍成立 → 只是通用"高级皮"，直接压分。</p></div>
+          </div>
+        </div>
+        <div class="codepane">
+<pre class="code"><span class="c">// design.md — 视觉契约（单一事实源）</span>
+<span class="c">// 范式：所有视觉值走 var(--*)，禁止字面量</span>
+
+<span class="c">// ❌ 代码里不允许</span>
+color: <span class="s">#fff</span>; font-size: <span class="s">13px</span>;
+transition-duration: <span class="s">200ms</span>;
+
+<span class="c">// ✅ 状态变体不新造 token，按公式从基础值派生</span>
+<span class="n">--hover</span>: color-mix(
+  in oklch, var(--primary), var(--background) 8%);
+<span class="n">--disabled</span>: opacity: <span class="s">0.4</span>;
+<span class="n">--focus</span>: outline: <span class="s">2px</span> solid var(--ring);
+            <span class="c">// 不可移除</span>
+
+<span class="c">// token 没覆盖 → 记 gaps.log，拒绝生成该部分</span>
+<span class="c">// 请人补 token，而非默默写字面量（合法地失败）</span></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ craft anti-AI ══════════════ -->
+  <section class="deck slide-wrap" data-deck="7" data-component="slide-ch1-craft">
+    <div class="slide">
+      <div class="slide-head">
+        <div><div class="slide-kicker">CHAPTER 01 · 设计工程</div><div class="slide-title">craft.md：通用工艺，挡住「AI 味」</div></div>
+        <div class="slide-meta">Anti-AI-taste</div>
+      </div>
+      <div class="split">
+        <div>
+          <div class="card"><h4>机械化预检（确定性判据 → FAIL）</h4><ul>
+            <li><b>uppercase eyebrow 标签</b>：数 section 顶部的大写标签数，超过 section 总数的 1/3 直接 FAIL。<b>「九个 eyebrow 是模板，三个才是有意为之。」</b></li>
+            <li><b>字体</b>：默认禁用被 AI 滥用的 serif；换项目须换字体组。</li>
+          </ul></div>
+          <div class="card" style="margin-top:14px;"><h4>动效：每个动画都要被动机驱动</h4>
+            <p>解释「层级 / 反馈 / 状态变化」；「看起来很酷」不允许。<b>「三个有意义的动画，好过三十个无意义的闪烁。」</b></p>
+          </div>
+        </div>
+        <div>
+          <div class="card primary-tint"><h4>常见 AI 痕迹（点名清单）</h4><ul>
+            <li>混装的 serif 字体</li>
+            <li>每个标题都挂 uppercase eyebrow 标签</li>
+            <li>等大白卡、无层级网格泛滥</li>
+            <li>蓝紫渐变卡片（缺乏品牌记忆）</li>
+            <li>无意义的动效堆砌</li>
+          </ul></div>
+          <div class="quotebox" style="margin-top:14px;"><p style="font-size:13px;">判据与 evaluator 同源 —— 同一套「坏味道」标准贯穿生成与评审。</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ 1.3 skill ══════════════ -->
+  <section class="deck slide-wrap" data-deck="8" data-component="slide-ch1-skill">
+    <div class="slide">
+      <div class="slide-head">
+        <div><div class="slide-kicker">CHAPTER 01 · 设计工程</div><div class="slide-title">1.3 Skill：能力的封装与调度</div></div>
+        <div class="slide-meta">section 1.3</div>
+      </div>
+      <p class="lead"><b>现实问题</b>：知识写下来 ≠ 会被用上。Agent 不知道它存在、不知道何时该读，就形同不存在。</p>
+      <div class="grid g4">
+        <div class="card"><h4>① 触发条件</h4><p>写在 description，列出触发信号。<b>把调用时机也封装进去。</b></p></div>
+        <div class="card"><h4>② 能力主体</h4><p>固话一套原本靠经验的工作流（判断步骤）。</p></div>
+        <div class="card"><h4>③ 分层引用</h4><p>主文件讲流程，庞大细节放 references 按需读取。<b>按需加载 = 控制信息进入视野的时机与量。</b></p></div>
+        <div class="card"><h4>④ 沉淀的坑</h4><p>原则 + 已知陷阱，对应一次真实犯错，写进 skill 替所有人记住。这是最"贵"的部分。</p></div>
+      </div>
+      <div style="margin-top:18px;" class="card"><h4>调度 —— 让 skill 在对的环节自动挂载</h4>
+        <div class="flow" style="margin-top:10px;">
+          <div class="step"><b>规划</b><span class="d">design-research · ux-spec · visual-spec</span></div>
+          <div class="arrow">→</div>
+          <div class="step"><b>搭骨架</b><span class="d">variant · cloudai-picker</span></div>
+          <div class="arrow">→</div>
+          <div class="step"><b>填充</b><span class="d">cloudai 组件库</span></div>
+          <div class="arrow">→</div>
+          <div class="step"><b>细化</b><span class="d">cloudai-animation · craft</span></div>
+          <div class="arrow">→</div>
+          <div class="step"><b>评估</b><span class="d">check · review</span></div>
+        </div>
+        <p style="margin-top:10px; font-size:12.5px; color:var(--text-2);"><b>调度 vs 手动调用</b>：手动调用是人记着流程逐步喊；调度把流程固化进链路，让该出现的能力在该出现的地方自己出现。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ 1.3 实操 ══════════════ -->
+  <section class="deck slide-wrap" data-deck="9" data-component="slide-ch1-practice">
+    <div class="slide">
+      <div class="slide-head">
+        <div><div class="slide-kicker">CHAPTER 01 · 设计工程</div><div class="slide-title">实操：从一句话到一个页面</div></div>
+        <div class="slide-meta">5 步链路</div>
+      </div>
+      <table class="dt">
+        <tr><th>步骤</th><th>动作</th><th>产出 / 挂载能力</th></tr>
+        <tr><td>① 理解 / 规划</td><td class="mono">"帮我做一个 Agent 调度看板，能看到每个任务的实时状态。"</td><td><span class="pill">ux-spec</span> → 六层 spec.md；<span class="pill">design</span> → visual-spec.md</td></tr>
+        <tr><td>② 信息架构</td><td>分区 / 主次 / 任务流转</td><td><span class="pill">cloudai-picker</span> <span class="pill">template</span> <span class="pill">variant</span> → 页面骨架 / ia-variants</td></tr>
+        <tr><td>③ 组件设计</td><td>槽位映射到正确组件语义</td><td><span class="pill">components</span> <span class="pill">domain.md</span> <span class="pill">design.md</span> → 有真实组件的页面</td></tr>
+        <tr><td>④ 交互设计</td><td>补空态 / 加载 / 失败 / 无权限 / 超时反馈</td><td><span class="pill">craft.md</span> <span class="pill">cloudai-animation</span> <span class="pill">spec</span> <span class="pill">design</span></td></tr>
+        <tr><td>⑤ 评估</td><td>对照标准验收，标出回流项</td><td><span class="pill">evaluator</span> → 达标报告 / 回流意见</td></tr>
+      </table>
+      <div class="grid g2" style="margin-top:16px;">
+        <div class="card"><h4>两条交付路线</h4><ol>
+          <li><b>直接交付</b>：结构明确、规范已沉淀 → 声明契约直接生成 prototype。</li>
+          <li><b>Figma 增强</b>：视觉复杂度高 → 主链路接入 Figma MCP 推敲，确认后回写 IDE。</li>
+        </ol><p>Figma 不是前提，是复杂场景的补充能力。</p></div>
+        <div class="card"><h4>回流索引 · 看到问题 → 回到哪里</h4>
+          <ul>
+            <li>主流程能跑但空态/失败/权限缺失 → <span class="mono">spec.md</span></li>
+            <li>页面不像这个业务 → <span class="mono">domain.md</span> ／ 有 AI 味 → <span class="mono">craft.md</span></li>
+            <li>token 写散 → <span class="mono">design.md</span> ／ Badge/Tag 混用 → <span class="mono">components</span></li>
+            <li>像卡片墙不像看板 → <span class="mono">template</span> ／ 评估说不清 → <span class="mono">evaluator</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ 第二章封面 ══════════════ -->
+  <section class="deck slide-wrap" data-deck="10" data-component="slide-ch2-cover">
+    <div class="slide" style="background: linear-gradient(120deg, var(--orange-1), var(--bg));">
+      <div class="slide-head">
+        <div><div class="slide-kicker">CHAPTER 02 · 动态交互</div><div class="slide-title">体验随意图被实时组织</div></div>
+        <div class="slide-meta">4 节</div>
+      </div>
+      <p class="lead" style="max-width:790px; margin-top:26px; font-size:19px;">核心：用户带着的是<b>「意图」而不是「任务」</b>。界面不再预先画死，而是围绕上下文和任务状态<b>实时组织</b> —— 先想清任务，再决定此刻该出现什么。</p>
+      <div class="grid g3" style="margin-top:32px;">
+        <div class="card"><h4>2.1 UX → AX</h4><p>Agent Experience：压缩执行鸿沟，处理放大的评估鸿沟。过程透明度按阶段 / 风险 / 决策需要动态调节。</p></div>
+        <div class="card"><h4>2.2 GenUI</h4><p>有边界的灵活性。受控生成：Agent 输出结构化意图，客户端用组件目录 / 规则渲染。</p></div>
+        <div class="card"><h4>2.3 A2UI</h4><p>Agent 与客户端的契约，结构化 UI 描述 → 受控组件渲染。2.4 案例：OmniBox → FlexCard → GenReport。</p></div>
+      </div>
+      <div class="quotebox"><p>「UX 让路径更顺畅；AX 直接移除路径，把用户送到目标。」</p><div class="src">—— John Maeda, Design in Tech Report</div></div>
+    </div>
+  </section>
+
+  <!-- ══════════════ 2.1 UX→AX ══════════════ -->
+  <section class="deck slide-wrap" data-deck="11" data-component="slide-ch2-ux-ax">
+    <div class="slide">
+      <div class="slide-head">
+        <div><div class="slide-kicker">CHAPTER 02 · 动态交互</div><div class="slide-title">2.1 从 UX 到 AX</div></div>
+        <div class="slide-meta">section 2.1</div>
+      </div>
+      <div class="grid g2">
+        <div class="card primary-tint"><h4>UX（仍有效）</h4>
+          <ul><li>帮用户把目标翻译成系统操作：导航 / 表单 / 反馈</li><li>适合：稳定的仪表盘、设置页、审批流</li><li><b>执行鸿沟</b>：有目标但不知如何转成系统动作</li></ul>
+        </div>
+        <div class="card"><h4>AX（Agent Experience）</h4>
+          <ul><li>用户先表达意图，Agent 理解目标、补上下文、推进任务</li><li>界面承接意图表达、过程协作、证据解释、结果评估</li><li><b>评估鸿沟</b>：用户没亲手做每步 → 更需要知道做了什么 / 为什么 / 哪里不确定 / 能否撤销</li></ul>
+        </div>
+      </div>
+      <div class="card" style="margin-top:16px;"><h4>UX / AX 对照</h4>
+        <table class="dt" style="margin-top:8px;">
+          <tr><td>设计对象</td><td>用户如何操作界面</td><td>用户如何委托、验证、修正 Agent 行动</td></tr>
+          <tr><td>主要挑战</td><td>降低认知与操作成本</td><td>压缩执行鸿沟 · 处理放大的评估鸿沟</td></tr>
+          <tr><td>界面职责</td><td>入口 / 路径 / 控件 / 反馈</td><td>意图表达 · 过程协作 · 证据解释 · 结果评估</td></tr>
+          <tr><td>典型形态</td><td>页面 / 菜单 / 表单 / 按钮</td><td>输入入口 · 动态交互卡片 · 生成产物</td></tr>
+        </table>
+      </div>
+      <div class="quotebox" style="margin-top:14px;"><p style="font-size:13px;">关键原则：过程透明度<b>并非越高越好</b>。Agent 产生大量中间信息，全平铺会变成新的信息负担 —— 应根据任务阶段 / 风险等级 / 决策需要<b>动态调节界面暴露的信息层级</b>。</p></div>
+    </div>
+  </section>
+
+  <!-- ══════════════ 2.2 GenUI ══════════════ -->
+  <section class="deck slide-wrap" data-deck="12" data-component="slide-ch2-genui">
+    <div class="slide">
+      <div class="slide-head">
+        <div><div class="slide-kicker">CHAPTER 02 · 动态交互</div><div class="slide-title">2.2 GenUI：有边界的灵活性</div></div>
+        <div class="slide-meta">section 2.2</div>
+      </div>
+      <div class="split">
+        <div>
+          <div class="card primary-tint"><h4>GenUI 不是「自由生成页面」</h4>
+            <ul>
+              <li><b>定义</b>：让界面参与 Agent 系统的运行 —— 根据意图 / 上下文 / 任务状态，动态组织该出现的内容、结构、判断点。</li>
+              <li><b>出现在哪</b>：对话流 · 工作区 · 原生界面 · 生成后结果产物。</li>
+              <li><b>判断标准</b>：能否在运行时把任务状态转成可理解、可操作、可评估的界面。</li>
+            </ul>
+          </div>
+          <div class="card" style="margin-top:14px;"><h4>边界要清楚</h4><p>只在<b>任务路径、判断依据、用户决策点</b>变化的地方引入 GenUI；稳定页面（仪表盘 / 设置页 / 审批流 / 长期 IA）不必为「生成」而重新生成。</p></div>
+        </div>
+        <div>
+          <div class="card"><h4>两个判断维度</h4>
+            <ul><li><b>表达自由度</b> vs <b>产品控制权</b> —— <b>并非越自由越好</b>。</li></ul>
+            <div class="flow" style="flex-direction:column; margin-top:10px;">
+              <div class="step on"><b>受控生成（推荐）</b><span class="d">Agent 输出结构化意图 / 描述</span></div>
+              <div class="arrow" style="align-self:center;">↓</div>
+              <div class="step"><b>客户端渲染</b><span class="d">组件目录 · 渲染规则 · 交互约束</span></div>
+            </div>
+            <p style="margin-top:10px; font-size:12px; color:var(--text-2);">保留运行时组织能力，又让产品控制视觉质量、交互边界、安全风险。</p>
+          </div>
+        </div>
+      </div>
+      <div class="quotebox" style="margin-top:14px;"><p style="font-size:13px;">引入前自检：任务路径是否随上下文变化？用户是否需过程判断 / 确认 / 修正？结构化界面是否比长文本更好懂？能否被组件目录和规则约束？</p></div>
+    </div>
+  </section>
+
+  <!-- ══════════════ 2.3 A2UI ══════════════ -->
+  <section class="deck slide-wrap" data-deck="13" data-component="slide-ch2-a2ui">
+    <div class="slide">
+      <div class="slide-head">
+        <div><div class="slide-kicker">CHAPTER 02 · 动态交互</div><div class="slide-title">2.3 A2UI：对话 Loop 中的动态机制</div></div>
+        <div class="slide-meta">section 2.3</div>
+      </div>
+      <p class="lead"><b>A2UI（Agent to UI）</b>：Agent 用<b>结构化方式声明界面意图</b>，客户端用受控组件、设计系统与交互规则完成渲染。本质是 <b>Agent 与客户端之间的契约</b> —— 把「要表达什么」和「如何渲染」分开。契约的作用是定义边界。</p>
+      <div class="grid g4" style="margin-top:18px;">
+        <div class="card"><h4>① 业务数据</h4><p>指标 · 表字段 · 实例状态 · SQL 计划 · 生成资产 · 报告</p></div>
+        <div class="card"><h4>② 工作流</h4><p>任务状态 · 下一步动作 · Agent 是否暂停</p></div>
+        <div class="card"><h4>③ 组件</h4><p>客户端允许渲染的 UI 模板</p></div>
+        <div class="card"><h4>④ 交互规则</h4><p>决策策略 · 超时 · 校验 · 风险确认 · 动作分发</p></div>
+      </div>
+      <div class="split" style="margin-top:18px;">
+        <div class="card"><h4>分工方式（重点不是字段名）</h4>
+          <ul><li>Agent <b>不决定</b>按钮长相、卡片颜色、图表排版</li><li>只说明：任务状态 · 展示数据 · 可行动作 · 是否阻塞执行</li><li>客户端据此选组件、按设计系统渲染</li><li>用户点击后，客户端带上下文把动作传回 Agent —— <b>界面把用户判断重新写回任务上下文</b></li></ul>
+          <p style="margin-top:8px;"><b>FlexCard</b>：CloudAI 的落地 —— Agent 只描述意图 / 内容 / 动作 / 行为约束，渲染层映射到组件 / token / 无障碍 / 降级。</p>
+        </div>
+        <div class="codepane">
+<pre class="code"><span class="c">// A2UI 消息（简化示意）</span>
+{
+  <span class="k">"intent"</span>: <span class="s">"confirm"</span>, <span class="k">"status"</span>: <span class="s">"pending"</span>,
+  <span class="k">"title"</span>: <span class="s">"确认是否继续分析"</span>,
+  <span class="k">"context"</span>: {
+    <span class="k">"object"</span>: <span class="s">"业务对象/id"</span>,
+    <span class="k">"time_range"</span>: <span class="s">"最近 24 小时"</span>,
+    <span class="k">"finding"</span>: <span class="s">"发现 3 个异常项"</span>
+  },
+  <span class="k">"content"</span>: { <span class="k">"type"</span>: <span class="s">"options"</span>, <span class="k">"items"</span>: [
+    { <span class="k">"id"</span>: <span class="s">"item_1"</span>, <span class="k">"label"</span>: <span class="s">"选项 A"</span>,
+      <span class="k">"description"</span>: <span class="s">"影响范围最高/优先"</span> },
+    { <span class="k">"id"</span>: <span class="s">"item_2"</span>, <span class="k">"label"</span>: <span class="s">"选项 B"</span>,
+      <span class="k">"description"</span>: <span class="s">"调用上升/继续观察"</span> }
+  ]},
+  <span class="k">"actions"</span>: [
+    { <span class="k">"id"</span>: <span class="s">"analyze_selected"</span>, <span class="k">"label"</span>: <span class="s">"分析选中项"</span>, <span class="k">"primary"</span>: <span class="o">true</span> },
+    { <span class="k">"id"</span>: <span class="s">"view_all"</span>, <span class="k">"label"</span>: <span class="s">"查看全部"</span> }
+  ],
+  <span class="k">"behavior"</span>: { <span class="k">"requires_user_decision"</span>: <span class="o">true</span>,
+                <span class="k">"blocks_agent_execution"</span>: <span class="o">true</span> }
+}</pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ 2.4 案例 ══════════════ -->
+  <section class="deck slide-wrap" data-deck="14" data-component="slide-ch2-case">
+    <div class="slide">
+      <div class="slide-head">
+        <div><div class="slide-kicker">CHAPTER 02 · 动态交互</div><div class="slide-title">2.4 案例：OmniBox → FlexCard → GenReport</div></div>
+        <div class="slide-meta">section 2.4</div>
+      </div>
+      <p class="lead">典型 Agentic 云产品链路：<b>OmniBox 承接意图，FlexCard 承接过程协作，GenReport 承接结果评估</b>。</p>
+      <div class="flow">
+        <div class="step on"><b>OmniBox</b><span class="d">意图输入</span></div>
+        <div class="arrow">→</div>
+        <div class="step"><b>FlexCard</b><span class="d">过程协作</span></div>
+        <div class="arrow">→</div>
+        <div class="step"><b>GenReport</b><span class="d">结果评估</span></div>
+      </div>
+      <div class="grid g3" style="margin-top:20px;">
+        <div class="card"><h4>OmniBox · 意图结构化</h4><p>把自然语言、数据范围、知识库、指标对象、历史上下文放进同一入口。识别任务对象 / 分析维度 / 时间范围 / 权限边界 / 业务线索 → 转成 Agent 可推理上下文。</p><p style="margin-top:6px;"><i>例：</i>"基于海外业务 3 月数据生成运营月报…"</p></div>
+        <div class="card"><h4>FlexCard · 过程协作</h4><p>承接中间判断 —— 分析方向选择（产业/品牌/门店）、高权限 SQL 查询授权、可能影响数据库性能的查询。把「不确定的是什么 / 可选路径 / 会访问什么数据或风险」放同一张结构化卡片。</p></div>
+        <div class="card"><h4>GenReport · 结果评估</h4><p>复杂结果的 Artifacts 产物。不是固定模板，也不是 A2UI 卡片放大版 —— 结构 / 重点 / 证据随目标与数据状态变化，但被<b>声明式规则</b>约束（哪些指标必须出现、图表如何绑数据、洞察引用哪些证据）。</p></div>
+      </div>
+      <div class="card primary-tint" style="margin-top:16px;"><h4>一份可用 GenReport 回答 4 问</h4>
+        <p>① 关键指标表现如何？② 哪些结构性问题 / 风险值得关注？③ 证据来自哪些图表 / 明细 / 对比？④ 建议动作和后续跟踪方式是什么？</p>
+        <p style="margin-top:8px; font-size:12px; color:var(--text-2);">不是所有页面都要生成：<b>要识别哪些时刻会因意图 / 上下文 / 数据 / 决策变化而需要动态界面。</b></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ 第三章封面 ══════════════ -->
+  <section class="deck slide-wrap" data-deck="15" data-component="slide-ch3-cover">
+    <div class="slide" style="background: linear-gradient(120deg, var(--green-1), var(--bg));">
+      <div class="slide-head">
+        <div><div class="slide-kicker">CHAPTER 03 · 自我进化</div><div class="slide-title">从人工指正到评审运行时</div></div>
+        <div class="slide-meta">5 节</div>
+      </div>
+      <p class="lead" style="max-width:820px; margin-top:26px; font-size:19px;">核心：自我进化 <b>≠ AI 自夸变好</b>，而是把「稳定判断」变成一套<b>可运行的评审循环</b>，不断沉淀、回流、校准。</p>
+      <div class="grid g3" style="margin-top:32px;">
+        <div class="card"><h4>3.1 人工指正的尽头</h4><p>稳定判断应被沉淀。两个角色：生成器（提出版本）+ 评估器（审查版本）。基础闭环 4 环节。</p></div>
+        <div class="card"><h4>3.2 评估标准</h4><p>先判断页面类型，再用同一组<b>六维度模型</b>评估，仅权重不同。subcheck 让分数可追账。</p></div>
+        <div class="card"><h4>3.3–3.5 证据链 / 闸门 / 工程化</h4><p>多模态证据运行时 · 交付闸门与停止规则 · 隔离系统 + 离线标准维护。</p></div>
+      </div>
+      <div class="quotebox"><p>「AI 不是因为多跑几轮就会变好。它需要一套会看、会判、会回流、会校准的系统。」</p></div>
+    </div>
+  </section>
+
+  <!-- ══════════════ 3.1 ══════════════ -->
+  <section class="deck slide-wrap" data-deck="16" data-component="slide-ch3-manual-limit">
+    <div class="slide">
+      <div class="slide-head">
+        <div><div class="slide-kicker">CHAPTER 03 · 自我进化</div><div class="slide-title">3.1 人工指正的尽头</div></div>
+        <div class="slide-meta">section 3.1</div>
+      </div>
+      <div class="grid g2">
+        <div class="card primary-tint"><h4>为什么要沉淀稳定判断</h4>
+          <p>很多指正是重复的：<b>「第一屏看不出主任务」「CTA 与真实目标不一致」「卡片节奏太平均」「像通用模板」「指标缺来源/时间窗」「按钮点了没反馈」</b>—— 这些话在不同项目里反复出现。它们<b>不是灵感，是稳定判断。稳定判断应该被沉淀。</b></p>
+        </div>
+        <div class="card"><h4>两个基本角色</h4>
+          <ul><li><b>生成器</b>：把输入变成原型（自然语言需求 + Spec/Skills/component.md/design.md）。「提出第一版方案的人」。</li>
+          <li><b>评估器</b>：判断能否进入下一步。不生成方案、不主观打分，像<b>审稿人</b> —— 只看当前原型 + 评审标准。</li></ul>
+        </div>
+      </div>
+      <div class="flow" style="margin-top:20px;">
+        <div class="step"><b>① 生成原型</b><span class="d">基于设计输入</span></div>
+        <div class="arrow">→</div>
+        <div class="step note"><b>② 评估判别</b><span class="d">按评审维度</span></div>
+        <div class="branch">达标?</div>
+        <div class="step on"><b>✓ 输出</b><span class="d">进入最终设计</span></div>
+        <div class="step"><b>↩ 优化指令</b><span class="d">证据位置 + 影响维度 + 下轮方向</span></div>
+      </div>
+      <div class="quotebox" style="margin-top:14px;"><p style="font-size:13px;">这不是取消人，是<b>人的位置上移</b>：不再每轮循环纠错，而是修订 framework / prompt / schema / harness policy，把稳定判断写成运行时能执行的契约。分数只是外显结果，<b>证据链 + 回流路径才是价值</b>。</p></div>
+    </div>
+  </section>
+
+  <!-- ══════════════ 3.2 六维度 ══════════════ -->
+  <section class="deck slide-wrap" data-deck="17" data-component="slide-ch3-six-dimensions">
+    <div class="slide">
+      <div class="slide-head">
+        <div><div class="slide-kicker">CHAPTER 03 · 自我进化</div><div class="slide-title">3.2 评估标准：页面类型 + 六维度模型</div></div>
+        <div class="slide-meta">section 3.2</div>
+      </div>
+      <p class="lead">评估前先回答两问：<b>这一版原型属于什么页面？这类页面应按什么目标评估？</b>（解决「用错尺子」）</p>
+      <table class="dt">
+        <tr><th>页面类型</th><th>任务</th><th>主任务</th><th>典型失败方式</th></tr>
+        <tr><td>Brand Landing</td><td>转化型</td><td>注意力 → 兴趣与信任</td><td>通用模板 · 品牌记忆弱 · 承诺含混</td></tr>
+        <tr><td>Product Console</td><td>任务型</td><td>安全完成操作任务</td><td>主任务不清 · 状态断裂 · 信息密而无用</td></tr>
+        <tr><td>Conversational</td><td>任务型</td><td>对话提问·判断·恢复</td><td>轮次不清 · 回答无依据 · 缺恢复</td></tr>
+        <tr><td>Data Dashboard</td><td>判断型</td><td>判断状态·诊断变化</td><td>装饰大于含义 · 指标层级弱</td></tr>
+        <tr><td>Content / Doc</td><td>判断型</td><td>找到并应用知识</td><td>难扫描 · 结构弱 · 声明无证据</td></tr>
+      </table>
+      <div class="grid g3" style="margin-top:16px;">
+        <div class="card"><h4>业务语义层</h4><ul><li><b>Product Intent</b> 产品意图</li><li><b>Trust &amp; Domain Fit</b> 业务可信</li></ul></div>
+        <div class="card"><h4>用户任务层</h4><ul><li><b>Information Architecture</b> 信息架构</li><li><b>Interaction Readiness</b> 交互就绪</li></ul></div>
+        <div class="card"><h4>界面实现层</h4><ul><li><b>System Craft</b> 系统工艺</li><li><b>Visual &amp; Brand</b> 视觉品牌</li></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ 3.2 权重 ══════════════ -->
+  <section class="deck slide-wrap" data-deck="18" data-component="slide-ch3-weights">
+    <div class="slide">
+      <div class="slide-head">
+        <div><div class="slide-kicker">CHAPTER 03 · 自我进化</div><div class="slide-title">权重随页面类型变化</div></div>
+        <div class="slide-meta">同一维度，不同重心</div>
+      </div>
+      <p class="lead">好设计不是同一种「好看」。同一组六维度在不同页面形成不同重心 —— 既不压成一种模板，也不失去共同语言。</p>
+      <table class="dt nums">
+        <tr><th>维度</th><th>Brand Landing</th><th>Product Console</th><th>Conversational</th><th>Data Dashboard</th><th>Content / Doc</th></tr>
+        <tr><td>Visual &amp; Brand Expression</td><td>25%</td><td>8%</td><td>8%</td><td>8%</td><td>8%</td></tr>
+        <tr><td>Product Intent</td><td>20%</td><td>22%</td><td>18%</td><td>18%</td><td>18%</td></tr>
+        <tr><td>Information Architecture</td><td>18%</td><td>22%</td><td>16%</td><td>24%</td><td>28%</td></tr>
+        <tr><td>System Craft</td><td>15%</td><td>14%</td><td>12%</td><td>16%</td><td>14%</td></tr>
+        <tr><td>Trust &amp; Domain Fit</td><td>12%</td><td>18%</td><td>22%</td><td>22%</td><td>22%</td></tr>
+        <tr><td>Interaction Readiness</td><td>10%</td><td>16%</td><td>24%</td><td>12%</td><td>10%</td></tr>
+      </table>
+      <div class="split" style="margin-top:18px;">
+        <div class="card"><h4>Subcheck 让维度可追账（0–2 分）</h4>
+          <ul><li><b>2 pass</b>：基本满足，仅需轻微修整</li><li><b>1 partial</b>：部分满足，弱点已影响质量</li><li><b>0 fail / critical_fail</b>：不满足；critical 进入阻断判断</li></ul>
+        </div>
+        <div class="codepane">
+<pre class="code"><span class="c">// 维度分聚合公式：印象打分 → 证据打分</span>
+<span class="n">dimension_score</span> =
+  sum(subcheck.score)
+  / sum(subcheck.max_score) * <span class="s">10</span>;
+
+<span class="c">// 必须先检查每个 subcheck，记录</span>
+<span class="c">// evidence · deduction_reason</span>
+<span class="c">// recommendation，再向上聚合</span>
+<span class="c">// 「分数要能反推。」</span></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ 3.3 证据链 ══════════════ -->
+  <section class="deck slide-wrap" data-deck="19" data-component="slide-ch3-evidence">
+    <div class="slide">
+      <div class="slide-head">
+        <div><div class="slide-kicker">CHAPTER 03 · 自我进化</div><div class="slide-title">3.3 证据链：浏览器、截图与检查项</div></div>
+        <div class="slide-meta">section 3.3</div>
+      </div>
+      <p class="lead"><b>Evaluator ≠ 「让模型看段 HTML 再打分」</b>，而是<b>多模态证据运行时</b>：先收集证据 → 交给评审模型 → 运行时重算分数、处理阻断、生成报告。评审看的是<b>稿件</b>，不是生成器的意图。</p>
+      <div class="grid g4" style="margin-top:18px;">
+        <div class="card"><h4>DOM / CSS QA</h4><p>横向溢出 · 文字裁切 · 低对比度 · fixed 溢出 · 小点击目标 · 交互元素缺名称 · 图片损坏</p></div>
+        <div class="card"><h4>Page Profile</h4><p>section · 图片 · 链接 · 真实路径 · 占位链接 · 导航 · headline · CTA · 可点击目标</p></div>
+        <div class="card"><h4>Click Smoke</h4><p>点击后是否有 console error · page error · broken image · dialog · 无反馈</p></div>
+        <div class="card"><h4>Screenshot</h4><p>桌面 1440×1000 + full-page，供 visual review 与报告引用</p></div>
+      </div>
+      <div class="grid g2" style="margin-top:16px;">
+        <div class="card"><h4>浏览器 QA 是事实层，不是评分层</h4>
+          <p>能抓溢出 / 断图 / 太小 / 点击报错，但不能判品牌记忆、链路安心感。无 critical QA 仍可能很弱：首屏无读点 / 模块像模板 / 图表无诊断 / 点击无状态。<b>浏览器把问题变事实，模型解释影响，运行时收束分数。三者不可互相替代。</b></p>
+        </div>
+        <div class="card"><h4>截图补上 DOM 看不到的问题</h4>
+          <p>DOM 完整 ≠ 用户看到的页面成立。当 DOM/CSS 检查与截图冲突时，<b>截图证据优先</b>（用户看的是画面）。五类截图判断：</p>
+          <ul><li><b>text_readability</b> 文字真实可读</li><li><b>visual_hierarchy</b> 主次 / 阅读路径</li><li><b>composition_risk</b> 遮挡 / 空洞 / 节奏</li><li><b>brand_tone_fit</b> 品牌与品类</li><li><b>motion_purpose</b> 动效服务目标</li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ 3.4 闸门 ══════════════ -->
+  <section class="deck slide-wrap" data-deck="20" data-component="slide-ch3-gate">
+    <div class="slide">
+      <div class="slide-head">
+        <div><div class="slide-kicker">CHAPTER 03 · 自我进化</div><div class="slide-title">3.4 交付闸门：从分数到放行判断</div></div>
+        <div class="slide-meta">section 3.4</div>
+      </div>
+      <p class="lead">为什么不能只输出分数：<b>平均分会掩盖致命问题</b>。闸门回答的不是「几分」，而是「<b>能不能进入下一步</b>」。</p>
+      <table class="dt">
+        <tr><th>评审模式</th><th>阶段</th><th>阈值</th><th>交互与集成策略</th></tr>
+        <tr><td>过程稿 <b>vibe_draft</b></td><td>方向探索</td><td class="mono">7.5</td><td>先看方向 / 意图 / IA / 品牌 / 工艺；后端、路由、占位链接多为提示</td></tr>
+        <tr><td>原型 <b>prototype</b></td><td>路径演示</td><td class="mono">8.0</td><td>不要求真实后端，但主路径需可见模拟状态；交互问题影响通过</td></tr>
+        <tr><td>上线门禁 <b>release_gate</b></td><td>交付验收</td><td class="mono">8.0</td><td>要求生产化路径 / 导航 / 数据 / 关键状态；占位路径可能阻断</td></tr>
+      </table>
+      <div class="grid g2" style="margin-top:16px;">
+        <div class="card primary-tint"><h4>优化指令 = 压缩（不是愿望清单）</h4>
+          <p class="bad b-tag">❌ 继续优化视觉、增强交互、丰富内容。</p>
+          <p style="margin-top:6px;" class="bad g-tag">✅ 第一屏价值主张被产品图遮挡，影响 Product Intent 与 Visual &amp; Brand；先调标题层级 / 图文关系 / CTA 位置。</p>
+          <p style="margin-top:8px; font-size:12px; color:var(--text-2);">「为什么不能过」被翻译成下一轮能执行的工作。</p>
+        </div>
+        <div class="card"><h4>停止规则保护循环（能停也是能力）</h4>
+          <ul><li>达阈值且无阻断 → <b>通过</b></li><li>达最大轮数 → <b>停止</b></li><li>连续多轮标准差小且最佳分提升有限 → <b>平台期</b></li><li>修订导致分数明显下降 → <b>返回之前的更好版本</b></li></ul>
+          <p style="margin-top:8px;">自我进化不是无限迭代，而是在证据显示已通过 / 平台期 / 走偏时做可解释的停止判断。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ 阻断问题 ══════════════ -->
+  <section class="deck slide-wrap" data-deck="21" data-component="slide-ch3-blocking">
+    <div class="slide">
+      <div class="slide-head">
+        <div><div class="slide-kicker">CHAPTER 03 · 自我进化</div><div class="slide-title">阻断问题：不能被平均分摊薄的失败</div></div>
+        <div class="slide-meta">blocking findings</div>
+      </div>
+      <div class="lexgrid" style="grid-template-columns: repeat(3,1fr);">
+        <div class="bad blk" style="margin:0;">unclear_primary_task · 看不出要做什么</div>
+        <div class="bad blk" style="margin:0;">critical_rendering_failure · 布局/溢出/不可读</div>
+        <div class="bad blk" style="margin:0;">hero_primary_copy_unreadable · 首屏价值不可读</div>
+        <div class="bad blk" style="margin:0;">primary_visual_blocks_information · 视觉遮挡信息</div>
+        <div class="bad blk" style="margin:0;">wrong_domain_logic · 领域逻辑错误</div>
+        <div class="bad blk" style="margin:0;">broken_key_task_path · 主任务路径无法完成</div>
+        <div class="bad blk" style="margin:0;">operation_flow_has_dead_end · 主操作中断</div>
+        <div class="bad blk" style="margin:0;">disconnected_controls_or_states · 控件/状态断裂</div>
+        <div class="bad blk" style="margin:0;">broken_conversation_flow · 对话断裂</div>
+        <div class="bad blk" style="margin:0;">untrustworthy_ai_response · 回答缺证据</div>
+        <div class="bad blk" style="margin:0;">brand_tone_mismatch · 品牌语气错位</div>
+        <div class="bad blk" style="margin:0;">placeholder_missing_conversion · 占位路径主导</div>
+        <div class="bad blk" style="margin:0;">generic_template_output · 属于任何产品</div>
+        <div class="bad blk" style="margin:0;">inconsistent_design_system · 系统语法不稳</div>
+        <div class="bad blk" style="margin:0;">subcheck_evidence_missing · 缺可审计检查项</div>
+        <div class="bad blk" style="margin:0;">screenshot_review_missing · 缺截图级判断</div>
+        <div class="bad blk" style="margin:0;">critical_subcheck_failure · 关键检查项失败</div>
+      </div>
+      <div class="quotebox" style="margin-top:18px;"><p style="font-size:13px;">这些阻断问题<b>不是替代评分</b>，而是补上评分的盲点 —— 评分说「这版 7.8」，阻断要能说「即使 7.8，它也会因主路径断裂不能通过」。</p></div>
+    </div>
+  </section>
+
+  <!-- ══════════════ 3.5 工程化 ══════════════ -->
+  <section class="deck slide-wrap" data-deck="22" data-component="slide-ch3-engineering">
+    <div class="slide">
+      <div class="slide-head">
+        <div><div class="slide-kicker">CHAPTER 03 · 自我进化</div><div class="slide-title">3.5 工程化与标准维护</div></div>
+        <div class="slide-meta">section 3.5</div>
+      </div>
+      <div class="split">
+        <div>
+          <div class="card primary-tint"><h4>隔离系统保护评审对象</h4>
+            <ul><li><b>可读（外显）</b>：任务目标 · 页面原型 · 截图 · QA · 交互路径 · 六维度模型 · 权重 · 上轮结果</li>
+            <li><b>不可读（内部）</b>：生成器提示词 · 隐藏规划 · 私有推理 · 作者解释 · 无关历史</li></ul>
+            <p style="margin-top:8px; font-size:12px; color:var(--text-2);">生成器计划了完整链路但页面只有占位按钮 → 按占位按钮处理；说"后续接真实数据"但当前无路径/状态/反馈 → 仍记为证据。</p>
+          </div>
+          <div class="card" style="margin-top:14px;"><h4>报告契约（五层，进入协作）</h4>
+            <ol><li>放行结论：分数 · 阈值 · 模式 · 通过/退回原因</li><li>六维度正式评分</li><li>证据解释：截图 / 结构 / 点击 / 运行 / QA</li><li>阻断问题：为何不能放行</li><li>优化指令：下轮问题 + 证据 + 影响维度</li></ol>
+            <p style="margin-top:6px; font-size:12px; color:var(--text-2);">刻意把「评分」与「证据解释」分开；报告<b>中文优先</b>（说"原型评审"而非内部字段）。</p>
+          </div>
+        </div>
+        <div>
+          <div class="card"><h4>标准在运行时之外维护</h4>
+            <ul><li><b>好案例</b>：保护标准别过严</li><li><b>坏案例</b>：检查阻断问题能否识别</li><li><b>混合案例</b>：局部出色但主路径失败 → 校准平均分与放行关系</li><li><b>边界案例</b>：接近阈值 → 看权重/检查项稳定性</li><li><b>品类案例</b>：美妆 / 金融 / 云产品 / 文档 / 控制台 → 校准同维度在不同品类的表现</li></ul>
+            <div class="quotebox" style="margin-top:10px; padding:10px 14px;"><p style="font-size:12.5px;">「标准不是一次写完的。<b>标准是在案例里长出来的。</b>」</p></div>
+          </div>
+          <div class="card" style="margin-top:14px;"><h4>每次标准更新答 4 问</h4>
+            <ol><li>是否减少误放行？</li><li>是否造成新的误退回？</li><li>是否过度惩罚某类页面？</li><li>是否只修好一个样本却伤害了其他样本？</li></ol>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ 词典 ══════════════ -->
+  <section class="deck slide-wrap" data-deck="23" data-component="slide-lexicon">
+    <div class="slide">
+      <div class="slide-head">
+        <div><div class="slide-kicker">LEXICON · 词典精华</div><div class="slide-title">把「高级」「克制」翻译成可执行规则</div></div>
+        <div class="slide-meta">12 类 188 词</div>
+      </div>
+      <p class="lead" style="font-size:15px;">完整 188 词见站点 Lexicon 板块。以下为高频实操重点：</p>
+      <div class="lexgrid">
+        <div class="lexitem"><span class="en">Tabular nums</span><span class="cn">等宽数字</span><p>价格 / 统计 / 刷新数据必用，列中数字变化仍对齐。</p></div>
+        <div class="lexitem"><span class="en">Tracking</span><span class="cn">字间距</span><p>大写标签几乎都需要加宽。</p></div>
+        <div class="lexitem"><span class="en">Line length</span><span class="cn">行宽</span><p>≈65 字符最舒服，太宽找不到下一行。</p></div>
+        <div class="lexitem"><span class="en">Text overflow</span><span class="cn">文本溢出</span><p>用单个 unicode 字符截断、不切词。</p></div>
+        <div class="lexitem"><span class="en">OKLCH</span><span class="cn">感知均匀色彩</span><p>同 lightness 感觉一样亮，浅色降 chroma 别降 opacity。</p></div>
+        <div class="lexitem"><span class="en">Semantic token</span><span class="cn">语义 token</span><p>用用途命名而非 hex。</p></div>
+        <div class="lexitem"><span class="en">Touch target</span><span class="cn">触控目标</span><p>最小 44×44px。</p></div>
+        <div class="lexitem"><span class="en">Optimistic update</span><span class="cn">乐观更新</span><p>失败必须回滚。</p></div>
+        <div class="lexitem"><span class="en">Reduced motion</span><span class="cn">减弱动效</span><p>明显位移都要检查。动画只动 opacity + transform。</p></div>
+        <div class="lexitem"><span class="en">Empty state</span><span class="cn">空状态</span><p>解释为何 + 给首个动作；「无结果」没告诉用户任何事。</p></div>
+        <div class="lexitem"><span class="en">Progressive disclosure</span><span class="cn">渐进披露</span><p>反面：一页堆所有。</p></div>
+        <div class="lexitem"><span class="en">Front-loading</span><span class="cn">前置关键词</span><p>文案把关键词放前面，利于扫读。</p></div>
+        <div class="lexitem"><span class="en">Badge vs Tag</span><span class="cn">徽标 vs 标签</span><p>Badge 附着且信息性；Tag 独立且可移除 —— 两者不同。</p></div>
+        <div class="lexitem"><span class="en">Separetor</span><span class="cn">分隔线</span><p>常在更好的间距能解决时被过度使用。</p></div>
+        <div class="lexitem"><span class="en">Command menu</span><span class="cn">命令面板</span><p>键盘触发的搜索式执行界面，高级用户避鼠标用。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ 速查 ══════════════ -->
+  <section class="deck slide-wrap" data-deck="24" data-component="slide-quick-reference">
+    <div class="slide">
+      <div class="slide-head">
+        <div><div class="slide-kicker">QUICK REFERENCE · 日常任务速查</div><div class="slide-title">评审五步 + 回流索引</div></div>
+        <div class="slide-meta">checklist</div>
+      </div>
+      <div class="split" style="margin-top:8px;">
+        <div class="card primary-tint"><h4>评审展开前先建立尺子</h4>
+          <ol>
+            <li>判断<b>页面类型</b>（转化 / 任务 / 判断）→ 选对应权重表</li>
+            <li>用<b>六维度模型</b>逐维评审，每维拆 subcheck、记 evidence / deduction / recommendation，聚合出分（可反推）</li>
+            <li>结合<b>评审模式</b>（draft 7.5 / prototype 8.0 / release 8.0）+ <b>阻断问题</b>做放行判断（分数 vs 能否通过是两件事）</li>
+            <li>通过 → 输出；未通过 → 输出<b>压缩的优化指令</b>（问题 + 证据 + 影响维度 + 下轮方向），回流</li>
+            <li>运行时之外：用好 / 坏 / 混合 / 边界 / 品类案例持续校准标准</li>
+          </ol>
+        </div>
+        <div class="card"><h4>回流索引 · 看到问题 → 回到哪里</h4>
+          <table class="dt" style="margin-top:8px;">
+            <tr><td>主流程能跑，但空态 / 失败 / 权限态缺失</td><td class="mono">spec.md</td></tr>
+            <tr><td>页面不像这个业务</td><td class="mono">domain.md</td></tr>
+            <tr><td>页面有 AI 味</td><td class="mono">craft.md</td></tr>
+            <tr><td>色值 / 字号 / 动效时长写散</td><td class="mono">design.md</td></tr>
+            <tr><td>Badge/Tag、Dialog/Drawer 混用</td><td class="mono">components</td></tr>
+            <tr><td>结构像卡片墙，不像看板</td><td class="mono">template</td></tr>
+            <tr><td>评估说不清哪里错</td><td class="mono">evaluator</td></tr>
+          </table>
+        </div>
+      </div>
+      <div class="quotebox" style="margin-top:14px;"><p style="font-size:13px;">声明 = 目标函数，契约 = 求解过程。设计对象先是「信息如何被组织、暴露、验证」，界面只是最后可见的结果。</p></div>
+    </div>
+  </section>
+
+  <!-- ══════════════ 结语 ══════════════ -->
+  <section class="deck slide-wrap" data-deck="25" data-component="slide-closing">
+    <div class="slide closing">
+      <div class="inner">
+        <div class="brand" style="color:var(--primary); font-weight:700; letter-spacing:.22em; margin-bottom:20px;">CLOSING · 结语</div>
+        <h1>把「什么是好」<br><em style="color:var(--primary);">讲清楚</em></h1>
+        <hr class="rule">
+        <p class="lead2">三章不是三套分散能力，而是一条连续的工作方式：<b>第一章</b>解决生成前可控性，<b>第二章</b>解决运行中适配，<b>第三章</b>解决生成后改进 —— 让每一版都留下经验。</p>
+        <p class="lead2">AI 时代设计师最重要的位置：<b>不是退到旁边看模型生成，也不是把专业压成一句更聪明的 prompt，而是把「判断」本身交给系统</b> —— 什么值得突出、什么必须克制、什么状态不能缺席、什么表达会伤害信任、什么样的结果才算完成。</p>
+        <p class="lead2" style="font-weight:700; color:var(--text-1);">「真正值得投入的，不是让 AI 看起来更像设计师，而是让它持续靠近我们定义过的好。<b>定义「好」的人，仍然决定设计的边界。</b>」</p>
+        <div class="src2" style="margin-top:20px;">来源：alibaba-cloud-design.github.io/vibe-designing-playbook · 整理：艾迪 · GienCoder 设计系统</div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="progress" id="progress"></div>
+<div class="deck-info" id="deckInfo"></div>
+<div class="hint">←/→ 或 空格 翻页 · 数字跳转 · F 全屏 · 0 回到封面</div>
+
+<script>
+(function(){
+  const decks = Array.prototype.slice.call(document.querySelectorAll('.deck'));
+  let cur = 0;
+  const total = decks.length;
+
+  function show(i, immediate){
+    cur = Math.max(0, Math.min(i, total-1));
+    decks.forEach(function(d, idx){
+      d.classList.toggle('is-hidden', idx !== cur);
+      d.classList.toggle('next-prep', idx === cur+1);
+    });
+    const p = cur / (total-1) * 100;
+    document.getElementById('progress').style.width = p + '%';
+    const meta = decks[cur].querySelector('.slide-meta');
+    document.getElementById('deckInfo').textContent = (cur+1) + ' / ' + total + (meta ? ' · ' + meta.textContent : '');
+    document.title = 'Vibe Design Playbook PPT — ' + (cur+1) + '/' + total;
+  }
+
+  function go(delta){ show(cur + delta); }
+  function jump(n){ if(n>=1 && n<=total) show(n-1); }
+
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown'){ e.preventDefault(); go(1); }
+    else if(e.key === 'ArrowLeft' || e.key === 'PageUp'){ e.preventDefault(); go(-1); }
+    else if(e.key === 'Home'){ show(0); }
+    else if(e.key === 'End'){ show(total-1); }
+    else if(e.key === 'f' || e.key === 'F'){
+      if(document.fullscreenElement) document.exitFullscreen();
+      else document.documentElement.requestFullscreen();
+    }
+    else if(e.key >= '0' && e.key <= '9'){
+      if(e.key === '0') show(0);
+      else jump(parseInt(e.key,10));
+    }
+  });
+
+  document.addEventListener('click', function(e){
+    var x = e.clientX, w = window.innerWidth;
+    if(x > w - 60) go(1);
+    else if(x < 60) go(-1);
+  });
+
+  show(0, true);
+})();
+</script>
+</body>
+</html>

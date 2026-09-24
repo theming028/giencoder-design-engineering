@@ -1,0 +1,216 @@
+{
+  "schemaVersion": 3,
+  "slug": "tree",
+  "name": "Tree",
+  "category": "data-display",
+  "giencoderSource": {
+    "component": "Tree",
+    "version": "2.66.16"
+  },
+  "summary": "树形控件：展示层级数据并支持展开折叠、选择、勾选与拖拽排序",
+  "variants": [
+    {
+      "name": "default",
+      "description": "基础树：展开/折叠 + 单击选中节点",
+      "whenToUse": "目录、组织架构等层级导航"
+    },
+    {
+      "name": "checkable",
+      "description": "可勾选树：checkable 提供多选勾选框，支持父子联动",
+      "whenToUse": "权限分配、多选分类"
+    },
+    {
+      "name": "line",
+      "description": "连接线树：showLine 显示节点间的层级连接线",
+      "whenToUse": "需要清晰层级关系的展示"
+    },
+    {
+      "name": "draggable",
+      "description": "可拖拽树：draggable 拖拽节点调整层级，allowDrop 控制落点",
+      "whenToUse": "分类管理、层级重排"
+    },
+    {
+      "name": "virtualized",
+      "description": "虚拟滚动：virtualListProps 启用，仅渲染可视区节点",
+      "whenToUse": "节点数量巨大的树"
+    }
+  ],
+  "sizes": [
+    {
+      "name": "default",
+      "value": "节点行高约 32px",
+      "usage": "默认尺寸"
+    }
+  ],
+  "states": [
+    {
+      "name": "default",
+      "description": "默认状态",
+      "visual": "节点文字 --color-text-1，行背景透明"
+    },
+    {
+      "name": "hover",
+      "description": "鼠标悬停节点行",
+      "visual": "行背景 --color-fill-2，0.2s 过渡"
+    },
+    {
+      "name": "selected",
+      "description": "选中节点",
+      "visual": "节点文字变 --color-primary-6，行背景 --color-primary-1 浅蓝"
+    },
+    {
+      "name": "checked",
+      "description": "勾选/半选（checkable）",
+      "visual": "勾选框选中（半选显示半勾），文字不变色"
+    },
+    {
+      "name": "disabled",
+      "description": "禁用节点",
+      "visual": "文字透明度降低，交互失效"
+    },
+    {
+      "name": "expanded",
+      "description": "展开态",
+      "visual": "展开箭头旋转 90°，子树显示"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "tree",
+      "element": "div.giencoder-tree",
+      "description": "树容器"
+    },
+    {
+      "part": "node",
+      "element": "div.giencoder-tree-node",
+      "description": "单个节点行，blockNode 可占满整行"
+    },
+    {
+      "part": "switcher",
+      "element": "div.giencoder-tree-node-switcher",
+      "description": "展开/折叠箭头（含 loading 态）"
+    },
+    {
+      "part": "checkbox",
+      "element": "span.giencoder-checkbox",
+      "description": "勾选框（checkable 时出现，支持半选）"
+    },
+    {
+      "part": "title",
+      "element": "span.giencoder-tree-node-title",
+      "description": "节点标题，选中态样式在此"
+    },
+    {
+      "part": "icon",
+      "element": "span.giencoder-tree-node-icon",
+      "description": "节点图标位（icon 属性）"
+    }
+  ],
+  "interaction": {
+    "hover": "节点行背景高亮提示可交互",
+    "focus": "当前焦点节点行显示可见焦点环，键盘导航高亮",
+    "keyboard": [
+      "Tab: 焦点进入树并聚焦当前（或根）节点",
+      "↑/↓: 在相邻可见节点间移动焦点",
+      "→: 展开当前节点（已展开则移到第一个子节点）",
+      "←: 折叠当前节点（已折叠则移到父节点）",
+      "Enter: 选中当前节点",
+      "Space: 勾选/取消勾选当前节点（checkable）",
+      "Home/End: 跳到第一个/最后一个可见节点"
+    ],
+    "motion": {
+      "duration": "0.2s",
+      "easing": "standard",
+      "description": "展开/折叠子树 0.2s 过渡；hover 背景 0.2s 标准过渡"
+    },
+    "behaviorNotes": "选中（selectable）与勾选（checkable）相互独立；autoExpandParent 自动展开父节点；受控时用 expandedKeys/selectedKeys/checkedKeys 配合 onExpand/onSelect/onCheck；拖拽需实现 onDrop 落点逻辑"
+  },
+  "a11y": {
+    "role": "tree",
+    "ariaAttrs": [
+      "role=treeitem (节点)",
+      "aria-expanded (展开态)",
+      "aria-selected (选中态)",
+      "aria-checked (勾选态)",
+      "aria-level (层级)"
+    ],
+    "contrastNote": "选中节点文字 --color-primary-6 与背景对比 ≥ 4.5:1；勾选框状态区分明显",
+    "focusNote": "键盘导航时焦点节点必须有可见焦点环，随 ↑/↓ 移动"
+  },
+  "usage": [
+    "层级明确的数据用 Tree，扁平数据用 List/Table",
+    "大数据树开启虚拟滚动，避免渲染卡顿",
+    "勾选语义（父子联动）在受控模式下由业务维护 checkedKeys",
+    "拖拽前明确 allowDrop 规则，防止破坏数据层级"
+  ],
+  "doNotInvent": [
+    "不得虚构 Tree 的右键菜单、行内编辑等官方不存在的交互（需业务自建）",
+    "不得新增官方不存在的变体与状态",
+    "不得用 外部 CSS 框架/Lucide 替代组件与图标体系"
+  ],
+  "tokensConsumed": [
+    "--color-primary-6",
+    "--color-primary-1",
+    "--color-fill-2",
+    "--color-text-1",
+    "--color-text-2",
+    "--color-border-2",
+    "--border-radius-small"
+  ],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "TreeProps",
+    "props": [
+      "_key",
+      "_level",
+      "_lineless",
+      "allowDrop",
+      "animation",
+      "autoExpandParent",
+      "blockNode",
+      "checkStrictly",
+      "checkable",
+      "checked",
+      "checkedKeys",
+      "checkedStrategy",
+      "childrenData",
+      "className",
+      "dataRef",
+      "defaultCheckedKeys",
+      "defaultExpandedKeys",
+      "defaultSelectedKeys",
+      "disableCheckbox",
+      "disabled",
+      "dragIcon",
+      "draggable",
+      "expanded",
+      "expandedKeys",
+      "fieldNames",
+      "halfCheckedKeys",
+      "height",
+      "icon",
+      "icons",
+      "indeterminated",
+      "isLeaf",
+      "loadMore",
+      "loaded",
+      "loading",
+      "loadingIcon",
+      "multiple",
+      "parentKey",
+      "pathParentKeys",
+      "selectable",
+      "selected",
+      "selectedKeys",
+      "showLine",
+      "size",
+      "style",
+      "switcherIcon",
+      "title",
+      "treeData",
+      "visible"
+    ],
+    "total": 48,
+    "syncDate": "2026/08/28"
+  }
+}

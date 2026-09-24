@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>日历 Calendar</title>
+  <link rel="stylesheet" href="preview-scaffold.css">
+  <link rel="stylesheet" href="../colors_and_type.css">
+  <link rel="stylesheet" href="../components.css">
+  <style>
+    /* 页面级演示样式（preview-format.md §3）：组件样式并入 components.css 后可整体移除 */
+    .giencoder-calendar { display: inline-block; background: var(--color-bg-2); border: 1px solid var(--color-border-2); border-radius: var(--border-radius-medium); padding: var(--spacing-7); box-shadow: var(--shadow2-down); }
+    .giencoder-calendar-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--spacing-6); }
+    .giencoder-calendar-header-title { display: flex; align-items: center; gap: var(--spacing-4); font-size: var(--font-size-title-1); font-weight: 600; color: var(--color-text-1); }
+    .giencoder-calendar-nav-btn { width: 24px; height: 24px; border: none; background: none; border-radius: var(--border-radius-small); color: var(--color-text-3); display: inline-flex; align-items: center; justify-content: center; cursor: pointer; }
+    .giencoder-calendar-nav-btn:hover { background: var(--color-fill-1); color: var(--color-text-1); }
+    .giencoder-calendar-today-btn { border: 1px solid var(--color-border-3); background: var(--color-bg-2); border-radius: var(--border-radius-small); font-size: var(--font-size-body-2); color: var(--color-text-2); padding: 2px 10px; cursor: pointer; }
+    .giencoder-calendar-today-btn:hover { border-color: var(--color-primary-6); color: var(--color-primary-6); }
+    .giencoder-calendar-week-row, .giencoder-calendar-date-grid { display: grid; grid-template-columns: repeat(7, 40px); }
+    .giencoder-calendar-week-cell { height: 32px; display: flex; align-items: center; justify-content: center; font-size: var(--font-size-body-2); color: var(--color-text-3); }
+    .giencoder-calendar-cell { height: 40px; display: flex; align-items: center; justify-content: center; font-size: var(--font-size-body-3); color: var(--color-text-1); border-radius: var(--border-radius-circle); cursor: pointer; }
+    .giencoder-calendar-cell:hover { background: var(--color-fill-1); }
+    .giencoder-calendar-cell-other { color: var(--color-text-4); }
+    .giencoder-calendar-cell-today { border: 1px solid var(--color-primary-6); }
+    .giencoder-calendar-cell-selected { background: var(--color-primary-6); color: var(--color-white); }
+    .giencoder-calendar-cell-selected:hover { background: var(--color-primary-6); }
+    .giencoder-calendar-year-grid { display: grid; grid-template-columns: repeat(4, 76px); gap: var(--spacing-5); }
+    .giencoder-calendar-month-cell { height: 60px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--spacing-2); border: 1px solid var(--color-border-2); border-radius: var(--border-radius-medium); font-size: var(--font-size-body-3); color: var(--color-text-1); cursor: pointer; }
+    .giencoder-calendar-month-cell:hover { border-color: var(--color-primary-6); color: var(--color-primary-6); }
+    .giencoder-calendar-month-cell-current { background: var(--color-primary-1); border-color: var(--color-primary-6); color: var(--color-primary-6); font-weight: 500; }
+    .giencoder-calendar-month-cell-tag { font-size: var(--font-size-body-1); color: var(--color-text-4); }
+    .giencoder-calendar-month-cell-current .giencoder-calendar-month-cell-tag { color: var(--color-primary-6); }
+  </style>
+</head>
+<body>
+  <div class="pv-layout">
+    <aside class="pv-sidebar">
+      <div class="pv-nav">
+        <div class="pv-menu-group">入口</div>
+        <a href="../home.html">首页</a>
+        <a href="../../GETTING-STARTED.html">使用说明书</a>
+        <div class="pv-menu-group">组件</div>
+        <a href="../index.html#general">通用</a>
+        <a href="../index.html#layout">布局</a>
+        <a href="../index.html#navigation">导航</a>
+        <a href="../index.html#data-entry">数据录入</a>
+        <a href="../index.html#data-display" class="active">数据展示</a>
+        <a href="../index.html#feedback">反馈</a>
+        <a href="../index.html#other">其他</a>
+        <div class="pv-menu-group">资源</div>
+        <a href="../index.html#uikits">页面样板</a>
+        <a href="../index.html#docs">规范文档</a>
+      </div>
+    </aside>
+    <main class="pv-content">
+  <a class="pv-back" href="../index.html#data-display">← 返回组件库</a>
+  <div class="pv-header">
+    <h1>Calendar 日历</h1>
+    <p>源启日历：月视图 6×7 日期网格（周标题 一~日、今天描边、选中实心、跨月置灰），年视图 12 个月格。</p>
+  </div>
+
+  <!-- ============ 变体：月视图 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Month 月视图（2026 年 8 月，周一起始）</div>
+    <div class="row">
+      <div class="giencoder-calendar" data-component="calendar" data-variant="month" data-state="default">
+        <div class="giencoder-calendar-header">
+          <div class="giencoder-calendar-header-title">
+            <button class="giencoder-calendar-nav-btn" aria-label="上一个月"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>
+            <span>2026年8月</span>
+            <button class="giencoder-calendar-nav-btn" aria-label="下一个月"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+          </div>
+          <button class="giencoder-calendar-today-btn">今天</button>
+        </div>
+        <div class="giencoder-calendar-body">
+          <div class="giencoder-calendar-week-row">
+            <div class="giencoder-calendar-week-cell">一</div>
+            <div class="giencoder-calendar-week-cell">二</div>
+            <div class="giencoder-calendar-week-cell">三</div>
+            <div class="giencoder-calendar-week-cell">四</div>
+            <div class="giencoder-calendar-week-cell">五</div>
+            <div class="giencoder-calendar-week-cell">六</div>
+            <div class="giencoder-calendar-week-cell">日</div>
+          </div>
+          <div class="giencoder-calendar-date-grid">
+            <!-- 上月末 -->
+            <div class="giencoder-calendar-cell giencoder-calendar-cell-other">27</div>
+            <div class="giencoder-calendar-cell giencoder-calendar-cell-other">28</div>
+            <div class="giencoder-calendar-cell giencoder-calendar-cell-other">29</div>
+            <div class="giencoder-calendar-cell giencoder-calendar-cell-other">30</div>
+            <div class="giencoder-calendar-cell giencoder-calendar-cell-other">31</div>
+            <div class="giencoder-calendar-cell">1</div>
+            <div class="giencoder-calendar-cell">2</div>
+            <!-- 第 2 行 -->
+            <div class="giencoder-calendar-cell">3</div>
+            <div class="giencoder-calendar-cell">4</div>
+            <div class="giencoder-calendar-cell">5</div>
+            <div class="giencoder-calendar-cell">6</div>
+            <div class="giencoder-calendar-cell">7</div>
+            <div class="giencoder-calendar-cell">8</div>
+            <div class="giencoder-calendar-cell">9</div>
+            <!-- 第 3 行 -->
+            <div class="giencoder-calendar-cell">10</div>
+            <div class="giencoder-calendar-cell">11</div>
+            <div class="giencoder-calendar-cell">12</div>
+            <div class="giencoder-calendar-cell">13</div>
+            <div class="giencoder-calendar-cell">14</div>
+            <div class="giencoder-calendar-cell giencoder-calendar-cell-selected">15</div>
+            <div class="giencoder-calendar-cell">16</div>
+            <!-- 第 4 行 -->
+            <div class="giencoder-calendar-cell">17</div>
+            <div class="giencoder-calendar-cell">18</div>
+            <div class="giencoder-calendar-cell">19</div>
+            <div class="giencoder-calendar-cell">20</div>
+            <div class="giencoder-calendar-cell">21</div>
+            <div class="giencoder-calendar-cell">22</div>
+            <div class="giencoder-calendar-cell">23</div>
+            <!-- 第 5 行 -->
+            <div class="giencoder-calendar-cell">24</div>
+            <div class="giencoder-calendar-cell">25</div>
+            <div class="giencoder-calendar-cell">26</div>
+            <div class="giencoder-calendar-cell">27</div>
+            <div class="giencoder-calendar-cell giencoder-calendar-cell-today">28</div>
+            <div class="giencoder-calendar-cell">29</div>
+            <div class="giencoder-calendar-cell">30</div>
+            <!-- 第 6 行 -->
+            <div class="giencoder-calendar-cell">31</div>
+            <div class="giencoder-calendar-cell giencoder-calendar-cell-other">1</div>
+            <div class="giencoder-calendar-cell giencoder-calendar-cell-other">2</div>
+            <div class="giencoder-calendar-cell giencoder-calendar-cell-other">3</div>
+            <div class="giencoder-calendar-cell giencoder-calendar-cell-other">4</div>
+            <div class="giencoder-calendar-cell giencoder-calendar-cell-other">5</div>
+            <div class="giencoder-calendar-cell giencoder-calendar-cell-other">6</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 变体：年视图 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Year 年视图（12 个月格，本月高亮）</div>
+    <div class="row">
+      <div class="giencoder-calendar" data-component="calendar" data-variant="year" data-state="default">
+        <div class="giencoder-calendar-header">
+          <div class="giencoder-calendar-header-title">
+            <button class="giencoder-calendar-nav-btn" aria-label="上一年"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>
+            <span>2026年</span>
+            <button class="giencoder-calendar-nav-btn" aria-label="下一年"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+          </div>
+        </div>
+        <div class="giencoder-calendar-year-grid">
+          <div class="giencoder-calendar-month-cell">一月</div>
+          <div class="giencoder-calendar-month-cell">二月</div>
+          <div class="giencoder-calendar-month-cell">三月</div>
+          <div class="giencoder-calendar-month-cell">四月</div>
+          <div class="giencoder-calendar-month-cell">五月</div>
+          <div class="giencoder-calendar-month-cell">六月</div>
+          <div class="giencoder-calendar-month-cell">七月</div>
+          <div class="giencoder-calendar-month-cell giencoder-calendar-month-cell-current">八月<span class="giencoder-calendar-month-cell-tag">本月</span></div>
+          <div class="giencoder-calendar-month-cell">九月</div>
+          <div class="giencoder-calendar-month-cell">十月</div>
+          <div class="giencoder-calendar-month-cell">十一月</div>
+          <div class="giencoder-calendar-month-cell">十二月</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <style>
+    /* 交互脚本用（视图切换提示文字，勿并入 components.css） */
+    .giencoder-calendar-hint { font-size: var(--font-size-body-1); color: var(--color-primary-6); margin-left: 8px; }
+  </style>
+  <script>
+    /* ========== component-calendar：交互清单 ==========
+       1) 点击日期格：互斥选中 giencoder-calendar-cell-selected
+       2) 点击月视图标题：月/年视图切换（动态生成 .giencoder-calendar-year-grid，月格复用模板 class）；年视图标题点击显示反馈
+       3) 前后箭头：切换月份/年份并更新标题文本（"2026年8月" / "2026年"）
+    */
+    (function () {
+      'use strict';
+      var MONTHS = ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'];
+
+      function parseMonth(text) {
+        var m = /(\d{4})年(\d{1,2})月/.exec(text || '');
+        return m ? { y: +m[1], mo: +m[2] } : null;
+      }
+      function parseYear(text) {
+        var m = /(\d{4})年/.exec(text || '');
+        return m ? +m[1] : null;
+      }
+      function showHint(anchor, text) {
+        if (!anchor || !anchor.parentNode) return;
+        var old = anchor.parentNode.querySelector('.giencoder-calendar-hint');
+        if (old && old.parentNode) old.parentNode.removeChild(old);
+        var hint = document.createElement('span');
+        hint.className = 'giencoder-calendar-hint';
+        hint.textContent = text;
+        anchor.parentNode.insertBefore(hint, anchor.nextSibling);
+        setTimeout(function () {
+          if (hint.parentNode) hint.parentNode.removeChild(hint);
+        }, 1800);
+      }
+
+      /* ---------- 月视图 ---------- */
+      var monthCal = document.querySelector('.giencoder-calendar[data-variant="month"]');
+      if (monthCal) {
+        var title = monthCal.querySelector('.giencoder-calendar-header-title span');
+        var navs = monthCal.querySelectorAll('.giencoder-calendar-header-title .giencoder-calendar-nav-btn');
+        var body = monthCal.querySelector('.giencoder-calendar-body');
+        var weekRow = monthCal.querySelector('.giencoder-calendar-week-row');
+        var grid = monthCal.querySelector('.giencoder-calendar-date-grid');
+        var todayBtn = monthCal.querySelector('.giencoder-calendar-today-btn');
+
+        /* 1) 日期格互斥选中 */
+        if (grid) {
+          grid.addEventListener('click', function (e) {
+            var cell = e.target.closest('.giencoder-calendar-cell');
+            if (!cell) return;
+            var cells = grid.querySelectorAll('.giencoder-calendar-cell');
+            cells.forEach(function (c) { c.classList.remove('giencoder-calendar-cell-selected'); });
+            cell.classList.add('giencoder-calendar-cell-selected');
+          });
+        }
+
+        /* 2) 标题点击：月 ↔ 年视图切换 */
+        function showMonthParts(show) {
+          [weekRow, grid].forEach(function (el) {
+            if (el) el.style.display = show ? '' : 'none';
+          });
+        }
+        function buildYearGrid() {
+          var yg = document.createElement('div');
+          yg.className = 'giencoder-calendar-year-grid';
+          var st = parseMonth(title ? title.textContent : '');
+          for (var i = 1; i <= 12; i++) {
+            var cell = document.createElement('div');
+            cell.className = 'giencoder-calendar-month-cell';
+            cell.textContent = MONTHS[i - 1];
+            cell.setAttribute('data-month', i);
+            if (st && st.mo === i) cell.classList.add('giencoder-calendar-month-cell-current');
+            yg.appendChild(cell);
+          }
+          return yg;
+        }
+        function leaveYearView() {
+          var yg = body ? body.querySelector('.giencoder-calendar-year-grid') : null;
+          if (yg && yg.parentNode) yg.parentNode.removeChild(yg);
+          showMonthParts(true);
+        }
+        if (title && body) {
+          title.style.cursor = 'pointer';
+          title.addEventListener('click', function () {
+            if (body.querySelector('.giencoder-calendar-year-grid')) {
+              leaveYearView(); /* 已在年视图：再点标题切回月视图 */
+              return;
+            }
+            body.appendChild(buildYearGrid());
+            showMonthParts(false);
+          });
+          /* 年视图月格点击：切回月视图并更新标题月份 */
+          body.addEventListener('click', function (e) {
+            var cell = e.target.closest('.giencoder-calendar-month-cell');
+            if (!cell) return;
+            var mo = +cell.getAttribute('data-month');
+            var st = parseMonth(title.textContent);
+            if (st && mo >= 1 && mo <= 12) title.textContent = st.y + '年' + mo + '月';
+            leaveYearView();
+          });
+        }
+
+        /* 3) 前后箭头：切换月份，更新标题 */
+        if (title && navs.length >= 2) {
+          function shiftMonth(delta) {
+            var st = parseMonth(title.textContent);
+            if (!st) return;
+            var y = st.y;
+            var mo = st.mo + delta;
+            if (mo < 1) { mo = 12; y--; }
+            if (mo > 12) { mo = 1; y++; }
+            title.textContent = y + '年' + mo + '月';
+          }
+          navs[0].addEventListener('click', function () { shiftMonth(-1); });
+          navs[1].addEventListener('click', function () { shiftMonth(1); });
+        }
+
+        /* 今天按钮：回到 2026 年 8 月并选中今天格 */
+        if (todayBtn) {
+          todayBtn.addEventListener('click', function () {
+            leaveYearView();
+            if (title) title.textContent = '2026年8月';
+            if (grid) {
+              var todayCell = grid.querySelector('.giencoder-calendar-cell-today');
+              grid.querySelectorAll('.giencoder-calendar-cell').forEach(function (c) {
+                c.classList.remove('giencoder-calendar-cell-selected');
+              });
+              if (todayCell) todayCell.classList.add('giencoder-calendar-cell-selected');
+            }
+          });
+        }
+      }
+
+      /* ---------- 年视图 ---------- */
+      var yearCal = document.querySelector('.giencoder-calendar[data-variant="year"]');
+      if (yearCal) {
+        var yTitle = yearCal.querySelector('.giencoder-calendar-header-title span');
+        var yNavs = yearCal.querySelectorAll('.giencoder-calendar-header-title .giencoder-calendar-nav-btn');
+        if (yTitle && yNavs.length >= 2) {
+          function shiftYear(delta) {
+            var y = parseYear(yTitle.textContent);
+            if (y == null) return;
+            yTitle.textContent = (y + delta) + '年';
+          }
+          yNavs[0].addEventListener('click', function () { shiftYear(-1); });
+          yNavs[1].addEventListener('click', function () { shiftYear(1); });
+          /* 年标题点击：显示反馈 */
+          yTitle.style.cursor = 'pointer';
+          yTitle.addEventListener('click', function () {
+            showHint(yTitle, '已是年视图，点击月份格切换月份');
+          });
+        }
+        /* 月份格：互斥高亮 current（本月） */
+        var yGrid = yearCal.querySelector('.giencoder-calendar-year-grid');
+        if (yGrid) {
+          yGrid.addEventListener('click', function (e) {
+            var cell = e.target.closest('.giencoder-calendar-month-cell');
+            if (!cell) return;
+            yGrid.querySelectorAll('.giencoder-calendar-month-cell-current').forEach(function (c) {
+              c.classList.remove('giencoder-calendar-month-cell-current');
+            });
+            cell.classList.add('giencoder-calendar-month-cell-current');
+          });
+        }
+      }
+    })();
+  </script>
+    </main>
+  </div>
+<script src="preview-copy.js"></script>
+</body>
+</html>

@@ -1,0 +1,179 @@
+{
+  "schemaVersion": 3,
+  "slug": "modal",
+  "name": "Modal",
+  "category": "feedback",
+  "giencoderSource": {
+    "component": "Modal",
+    "version": "2.66.16"
+  },
+  "summary": "对话框，以遮罩 + 居中面板打断用户流程以完成确认、输入等关键操作，支持焦点锁定、Esc 与遮罩点击关闭。",
+  "variants": [
+    {
+      "name": "default",
+      "description": "标准对话框：标题栏 + 右上关闭 + 内容 + 页脚",
+      "whenToUse": "需要用户确认或填写信息的阻断式任务"
+    },
+    {
+      "name": "simple",
+      "description": "简洁模式（simple=true）：无分割线、底部按钮居中、默认不显示右上关闭图标",
+      "whenToUse": "轻量确认/提示弹窗"
+    },
+    {
+      "name": "confirm",
+      "description": "方法型确认框（Modal.confirm/info/success/warning/error）",
+      "whenToUse": "代码触发的一次性确认、提示、错误弹窗"
+    }
+  ],
+  "sizes": [
+    {
+      "name": "default",
+      "value": "宽度默认 520px（simple 模式 464px）",
+      "usage": "通过 width 属性自定义宽度"
+    }
+  ],
+  "states": [
+    {
+      "name": "default",
+      "description": "打开状态",
+      "visual": "遮罩 + 面板居中（alignCenter 默认 true）"
+    },
+    {
+      "name": "loading",
+      "description": "确认按钮加载中",
+      "visual": "confirmLoading=true 时确认按钮转圈并防重复提交"
+    },
+    {
+      "name": "focus",
+      "description": "焦点锁定在弹窗内",
+      "visual": "autoFocus 聚焦首个可聚焦元素，FocusLock 内循环"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "wrapper",
+      "element": "div.giencoder-modal-wrapper",
+      "description": "遮罩容器"
+    },
+    {
+      "part": "mask",
+      "element": "div.giencoder-modal-mask",
+      "description": "遮罩层（mask 默认 true）"
+    },
+    {
+      "part": "panel",
+      "element": "div.giencoder-modal[role=dialog]",
+      "description": "对话框面板，原生 role=\"dialog\" aria-modal=\"true\""
+    },
+    {
+      "part": "title-bar",
+      "element": "div.giencoder-modal-header",
+      "description": "标题栏 + 右上关闭按钮（role=button，aria-label=\"Close\"）"
+    },
+    {
+      "part": "body",
+      "element": "div.giencoder-modal-content",
+      "description": "内容区"
+    },
+    {
+      "part": "footer",
+      "element": "div.giencoder-modal-footer",
+      "description": "页脚：取消 + 确认（footer=null 隐藏）"
+    }
+  ],
+  "interaction": {
+    "hover": "遮罩无反馈；面板内按钮常规 hover",
+    "focus": "打开时 autoFocus（默认 true）聚焦弹窗内首个可聚焦元素，焦点锁定",
+    "keyboard": [
+      "Tab: 焦点在弹窗内循环（FocusLock，focusLock 默认 true）",
+      "Shift+Tab: 焦点反向循环",
+      "Esc: 关闭弹窗（escToExit 默认 true，触发 onCancel）",
+      "Enter: 触发聚焦的按钮（确认/取消）"
+    ],
+    "motion": {
+      "duration": "0.2s~0.3s",
+      "easing": "decelerate",
+      "description": "面板缩放 + 淡入，遮罩淡入"
+    },
+    "behaviorNotes": "focusTrap：react-focus-lock，focusLock 默认 true；escClose：escToExit 默认 true；clickOutsideClose：maskClosable 默认 true，点击遮罩关闭；打开期间锁定 body 滚动"
+  },
+  "a11y": {
+    "role": "dialog",
+    "ariaAttrs": [
+      "aria-modal=\"true\"（原生输出）",
+      "aria-label=\"Close\"（关闭按钮，原生输出）"
+    ],
+    "contrastNote": "面板 --color-bg-2 与 --color-text-1 对比度 ≥ 4.5:1；遮罩 --color-mask-bg 隔离背景",
+    "focusNote": "focusLock 默认开启 + autoFocus 默认聚焦首个可聚焦元素；焦点不会逃逸到背景页面"
+  },
+  "usage": [
+    "visible/onCancel 受控使用；onOk 返回 Promise 时自动进入 confirmLoading",
+    "footer=null 隐藏页脚，footer 函数式自定义按钮",
+    "maskClosable 控制遮罩点击关闭，escToExit 控制 Esc 关闭",
+    "hideCancel 仅保留确认按钮",
+    "Modal.confirm/info/success/warning/error 方法型调用（simple 样式）"
+  ],
+  "doNotInvent": [
+    "不得虚构额外变体或尺寸档位",
+    "不得移除 role=\"dialog\"/aria-modal 与焦点锁定",
+    "不得用 外部 CSS 框架/Lucide 替代 源启组件与 token"
+  ],
+  "tokensConsumed": [
+    "--color-bg-2",
+    "--color-mask-bg",
+    "--shadow3-down",
+    "--color-border-1",
+    "--font-size-title-1",
+    "--font-size-body-3",
+    "--spacing-8",
+    "--spacing-9",
+    "--border-radius-medium",
+    "--z-index-modal"
+  ],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "ModalProps",
+    "props": [
+      "afterClose",
+      "afterOpen",
+      "alignCenter",
+      "autoFocus",
+      "cancelButtonProps",
+      "cancelText",
+      "className",
+      "closable",
+      "closeIcon",
+      "confirmLoading",
+      "content",
+      "escToExit",
+      "focusLock",
+      "footer",
+      "getChildrenPopupContainer",
+      "getPopupContainer",
+      "hideCancel",
+      "icon",
+      "isNotice",
+      "mask",
+      "maskClosable",
+      "maskStyle",
+      "modalRender",
+      "mountOnEnter",
+      "noticeType",
+      "okButtonProps",
+      "okText",
+      "onCancel",
+      "onConfirm",
+      "onOk",
+      "prefixCls",
+      "simple",
+      "style",
+      "title",
+      "unmountOnExit",
+      "visible",
+      "wrapClassName",
+      "wrapStyle"
+    ],
+    "total": 38,
+    "syncDate": "2026/08/28"
+  }
+}

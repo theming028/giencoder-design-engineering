@@ -1,0 +1,177 @@
+{
+  "schemaVersion": 3,
+  "slug": "switch",
+  "name": "Switch",
+  "category": "data-entry",
+  "giencoderSource": {
+    "component": "Switch",
+    "version": "2.66.16"
+  },
+  "summary": "开关：二态即时切换控件，支持文字/图标、加载与禁用态。",
+  "variants": [
+    {
+      "name": "circle",
+      "description": "type=circle 圆形开关（默认形态）",
+      "whenToUse": "常规开关，紧凑圆钮"
+    },
+    {
+      "name": "round",
+      "description": "type=round 圆角矩形开关",
+      "whenToUse": "需要更大按击面积的开关"
+    },
+    {
+      "name": "line",
+      "description": "type=line 线性开关",
+      "whenToUse": "轻量线条风格设置项"
+    },
+    {
+      "name": "with-text",
+      "description": "checkedText/unCheckedText 开关内文字",
+      "whenToUse": "需要展示开/关语义文字（如 开/关）"
+    },
+    {
+      "name": "with-icon",
+      "description": "checkedIcon/unCheckedIcon 图标",
+      "whenToUse": "用图标表达开关语义"
+    }
+  ],
+  "sizes": [
+    {
+      "name": "small",
+      "value": "28px × 16px",
+      "usage": "紧凑场景"
+    },
+    {
+      "name": "default",
+      "value": "40px × 22px",
+      "usage": "默认尺寸"
+    }
+  ],
+  "states": [
+    {
+      "name": "default",
+      "description": "关闭态",
+      "visual": "底 --color-fill-3，滑块白色"
+    },
+    {
+      "name": "checked",
+      "description": "开启态",
+      "visual": "底填充 --color-primary-6，滑块右移"
+    },
+    {
+      "name": "hover",
+      "description": "鼠标悬停",
+      "visual": "未选中底加深一档，选中底过渡主色加深"
+    },
+    {
+      "name": "focus",
+      "description": "键盘焦点",
+      "visual": "可见焦点环"
+    },
+    {
+      "name": "disabled",
+      "description": "禁用态",
+      "visual": "整体灰化，滑块不可拖动"
+    },
+    {
+      "name": "loading",
+      "description": "加载中",
+      "visual": "滑块位置显示加载指示器，禁止交互"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "switch",
+      "element": "button/div",
+      "description": "开关容器，承载 checked 背景"
+    },
+    {
+      "part": "knob",
+      "element": "span",
+      "description": "滑块圆钮，位移表达开关状态"
+    },
+    {
+      "part": "text",
+      "element": "span",
+      "description": "开关内文字（with-text）"
+    },
+    {
+      "part": "icon",
+      "element": "svg",
+      "description": "开关内图标（with-icon）"
+    },
+    {
+      "part": "loading-icon",
+      "element": "svg",
+      "description": "加载指示器（loading）"
+    }
+  ],
+  "interaction": {
+    "hover": "未选中底 --color-fill-3 加深，选中底主色加深一档，0.1s",
+    "focus": "可见焦点环",
+    "keyboard": [
+      "Tab: 焦点进入/离开开关",
+      "Space: 切换开关状态",
+      "Enter: 切换开关状态"
+    ],
+    "motion": {
+      "duration": "0.1s~0.2s",
+      "easing": "standard",
+      "description": "滑块平移 0.2s 标准曲线，背景色过渡 0.1s"
+    },
+    "behaviorNotes": "loading 时禁用一切交互；受控 checked/onChange；line 型为线性形态，滑块轨迹更细"
+  },
+  "a11y": {
+    "role": "switch",
+    "ariaAttrs": [
+      "aria-checked",
+      "aria-disabled",
+      "aria-label"
+    ],
+    "contrastNote": "选中底 --color-primary-6 与白色滑块对比清晰；未选中底 --color-fill-3 为中性层级",
+    "focusNote": "可见焦点环，Space/Enter 均可切换状态"
+  },
+  "usage": [
+    "二态即时生效的设置项（权限/通知开关）",
+    "需要语义说明时用 with-text/with-icon",
+    "紧凑空间用 small 尺寸",
+    "异步提交场景用 loading 防重复操作",
+    "与 Form 集成受控 checked"
+  ],
+  "doNotInvent": [
+    "不得虚构三态 indeterminate（官方仅二态）",
+    "不得用 Checkbox 视觉冒充 Switch",
+    "不得在 loading 下仍响应点击",
+    "不得自定义滑块轨迹形状脱离 type 三形态"
+  ],
+  "tokensConsumed": [
+    "--color-primary-6",
+    "--color-primary-7",
+    "--color-fill-3",
+    "--color-bg-white",
+    "--color-text-1",
+    "--border-radius-circle"
+  ],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "SwitchProps",
+    "props": [
+      "checked",
+      "checkedIcon",
+      "checkedText",
+      "children",
+      "className",
+      "defaultChecked",
+      "disabled",
+      "loading",
+      "onChange",
+      "size",
+      "style",
+      "type",
+      "uncheckedIcon",
+      "uncheckedText"
+    ],
+    "total": 14,
+    "syncDate": "2026/08/28"
+  }
+}

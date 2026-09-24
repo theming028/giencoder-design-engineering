@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>新建资源 · 表单页样板</title>
+  <link rel="stylesheet" href="../../colors_and_type.css">
+  <link rel="stylesheet" href="../../components.css">
+  <link rel="stylesheet" href="../ui-controls.css">
+  <style>
+    /* ═══ 页面级布局样式（仅用 Design Token，禁止硬编码 hex） ═══ */
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    button { font-family: var(--font-family); }
+
+    /* ---- PageHeader 页头 ---- */
+    .giencoder-page-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: var(--spacing-7); flex-wrap: wrap; gap: var(--spacing-4);
+    }
+    .giencoder-page-header-title { font-size: var(--font-size-title-2); font-weight: 600; color: var(--color-text-1); margin: 0; }
+    .giencoder-page-header-subtitle { font-size: var(--font-size-body-3); color: var(--color-text-3); margin: 0; }
+    /* 标题 + 副标题横向组合：副标题置于主标题右侧，间距 12px（--spacing-6） */
+    .giencoder-page-header > div:first-child { display: flex; align-items: baseline; gap: var(--spacing-6); }
+    .giencoder-page-header-extra { display: flex; align-items: center; gap: var(--spacing-3); }
+
+    /* ---- 表单布局 ---- */
+    .giencoder-form-page-body { max-width: 720px; }
+    .giencoder-form-item {
+      display: flex; gap: var(--spacing-6); margin-bottom: var(--spacing-9);
+      align-items: flex-start;
+    }
+    .giencoder-form-label {
+      width: 100px; flex-shrink: 0; text-align: right; padding-top: 6px;
+      font-size: var(--font-size-body-3); color: var(--color-text-1); line-height: 1.5715;
+    }
+    .giencoder-form-label-required::before {
+      content: '*'; color: var(--color-danger-6); margin-right: var(--spacing-2);
+      font-family: SimSun, serif;
+    }
+    .giencoder-form-control { flex: 1; min-width: 0; }
+
+    /* Select 走 components.css + ui-controls.css 标准组件样式，此处不再内联复刻 */
+
+    /* ---- 底部操作条 ---- */
+    .giencoder-form-footer {
+      display: flex; justify-content: flex-end; gap: var(--spacing-3);
+      margin-top: var(--spacing-9); padding-top: var(--spacing-7);
+      border-top: 1px solid var(--color-border-2);
+    }
+  </style>
+</head>
+<body>
+<div style="width:100%; height:100vh; overflow:hidden; display:flex; flex-direction:column;">
+  <header class="giencoder-top-nav" style="height:48px; background:var(--color-bg-2); box-shadow:var(--shadow1-down); display:flex; align-items:center; justify-content:space-between; padding:0 16px;">
+    <div style="display:flex; align-items:center; gap:12px;">
+      <strong style="font-size:15px; color:var(--color-text-1);">源启</strong>
+      <span style="color:var(--color-text-3); font-size:12px;">中电金信 · 云服务平台</span>
+    </div>
+    <div style="display:flex; align-items:center; gap:16px; font-size:12px; color:var(--color-text-2);">
+      <span>帮助</span><span>通知</span>
+      <span style="width:24px;height:24px;border-radius:50%;background:var(--color-primary-6);color:var(--color-white);display:flex;align-items:center;justify-content:center;font-size:12px;">张</span>
+    </div>
+  </header>
+  <div style="display:flex; flex:1; overflow:hidden;">
+    <aside class="giencoder-sidenav" style="width:200px; background:var(--color-menu-light-bg); border-right:1px solid var(--color-border-1); padding:8px 0; overflow-y:auto;">
+      <div class="giencoder-menu giencoder-menu-vertical">
+        <div class="giencoder-menu-group-title">总览</div>
+        <div class="giencoder-menu-item">工作台</div>
+        <div class="giencoder-menu-item giencoder-menu-item-selected">资源管理</div>
+        <div class="giencoder-menu-item">监控告警</div>
+        <div class="giencoder-menu-group-title">系统</div>
+        <div class="giencoder-menu-item">系统设置</div>
+      </div>
+    </aside>
+    <main style="flex:1; overflow-y:auto; background:var(--color-bg-1); padding:20px;">
+
+      <!-- ============ PageHeader：标题 + 保存/取消 ============ -->
+      <div class="giencoder-page-header">
+        <div>
+          <h2 class="giencoder-page-header-title">新建资源</h2>
+          <div class="giencoder-page-header-subtitle">创建云资源实例，填写基础信息与部署配置</div>
+        </div>
+        <div class="giencoder-page-header-extra">
+          <button class="giencoder-btn giencoder-btn-secondary giencoder-btn-size-default">取消</button>
+          <button class="giencoder-btn giencoder-btn-primary giencoder-btn-size-default">保存</button>
+        </div>
+      </div>
+
+      <!-- ============ Card + Form ============ -->
+      <div class="giencoder-form-page-body">
+        <div class="giencoder-card">
+          <div class="giencoder-card-header">
+            <span class="giencoder-card-header-title">基础信息</span>
+          </div>
+          <div class="giencoder-card-body">
+            <form class="giencoder-form">
+
+              <!-- 名称 Input 必填 -->
+              <div class="giencoder-form-item">
+                <label class="giencoder-form-label giencoder-form-label-required" for="f-name">资源名称</label>
+                <div class="giencoder-form-control">
+                  <div class="giencoder-input-wrapper" style="width:100%;">
+                    <input class="giencoder-input" id="f-name" placeholder="请输入资源名称，如：订单中心微服务">
+                  </div>
+                  <div class="giencoder-form-help">名称长度 2-32 个字符，创建后不可修改</div>
+                </div>
+              </div>
+
+              <!-- 描述 Textarea -->
+              <div class="giencoder-form-item">
+                <label class="giencoder-form-label" for="f-desc">资源描述</label>
+                <div class="giencoder-form-control">
+                  <div class="giencoder-textarea-wrapper">
+                    <textarea class="giencoder-textarea" id="f-desc" rows="3" placeholder="请输入资源用途与功能说明（可选）"></textarea>
+                  </div>
+                  <div class="giencoder-form-help">最多 200 字</div>
+                </div>
+              </div>
+
+              <!-- Select 环境 -->
+              <div class="giencoder-form-item">
+                <label class="giencoder-form-label giencoder-form-label-required" for="f-env">部署环境</label>
+                <div class="giencoder-form-control">
+                  <div class="giencoder-select" data-component="select" data-variant="single" data-state="default" style="width: 100%;">
+                    <div class="giencoder-select-view" id="f-env" tabindex="0" role="combobox" aria-expanded="false" aria-haspopup="listbox">
+                      <span class="giencoder-select-view-text">生产环境</span>
+                      <span class="giencoder-select-suffix">
+                        <svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 4l4 4 4-4"/></svg>
+                      </span>
+                    </div>
+                    <div class="giencoder-select-popup" style="display:none;">
+                      <ul class="giencoder-select-option-list" role="listbox">
+                        <li class="giencoder-select-option giencoder-select-option-selected" role="option" aria-selected="true">生产环境</li>
+                        <li class="giencoder-select-option" role="option" aria-selected="false">预发环境</li>
+                        <li class="giencoder-select-option" role="option" aria-selected="false">测试环境</li>
+                        <li class="giencoder-select-option" role="option" aria-selected="false">开发环境</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Radio.Group 环境类型 -->
+              <div class="giencoder-form-item">
+                <label class="giencoder-form-label giencoder-form-label-required">环境类型</label>
+                <div class="giencoder-form-control">
+                  <div class="giencoder-radio-group giencoder-radio-group-button">
+                    <span class="giencoder-radio-button-slider" aria-hidden="true"></span>
+                    <label class="giencoder-radio-button giencoder-radio-button-checked">
+                      <input type="radio" class="giencoder-radio-input" name="env-type" checked>
+                      <span>标准环境</span>
+                    </label>
+                    <label class="giencoder-radio-button">
+                      <input type="radio" class="giencoder-radio-input" name="env-type">
+                      <span>高可用环境</span>
+                    </label>
+                    <label class="giencoder-radio-button">
+                      <input type="radio" class="giencoder-radio-input" name="env-type">
+                      <span>容灾环境</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Switch 开关配置 -->
+              <div class="giencoder-form-item">
+                <label class="giencoder-form-label" for="f-switch">自动部署</label>
+                <div class="giencoder-form-control">
+                  <div style="display:flex; align-items:center; gap:var(--spacing-4);">
+                    <button class="giencoder-switch giencoder-switch-checked" id="f-switch" role="switch" aria-checked="true" type="button">
+                      <span class="giencoder-switch-text">开</span>
+                      <span class="giencoder-switch-handle"></span>
+                    </button>
+                    <span style="font-size:var(--font-size-body-3); color:var(--color-text-2);">保存后立即触发自动化部署流程</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 校验错误示例 -->
+              <div class="giencoder-form-item">
+                <label class="giencoder-form-label giencoder-form-label-required" for="f-domain">访问域名</label>
+                <div class="giencoder-form-control">
+                  <div class="giencoder-input-wrapper giencoder-input-error" style="width:100%;">
+                    <span class="giencoder-input-prefix">https://</span>
+                    <input class="giencoder-input" id="f-domain" value="invalid domain" aria-invalid="true">
+                  </div>
+                  <div class="giencoder-form-message giencoder-form-message-error">域名格式不正确，请输入合法域名</div>
+                </div>
+              </div>
+
+              <!-- 校验错误示例：必填缺失 -->
+              <div class="giencoder-form-item">
+                <label class="giencoder-form-label giencoder-form-label-required" for="f-owner">负责人</label>
+                <div class="giencoder-form-control">
+                  <div class="giencoder-input-wrapper" style="width:100%;">
+                    <input class="giencoder-input" id="f-owner" value="">
+                  </div>
+                  <div class="giencoder-form-message giencoder-form-message-error">请输入负责人姓名</div>
+                </div>
+              </div>
+
+            </form>
+          </div>
+        </div>
+
+        <!-- ============ 底部操作条 ============ -->
+        <div class="giencoder-form-footer">
+          <button class="giencoder-btn giencoder-btn-secondary giencoder-btn-size-default">取消</button>
+          <button class="giencoder-btn giencoder-btn-primary giencoder-btn-size-default">保存</button>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+</body>
+<script>
+  /* 分段单选（Radio.Group Button 形态）：滑块指示器滑动定位 + 同组互斥 */
+  (function () {
+    function moveSlider(group) {
+      var slider = group.querySelector('.giencoder-radio-button-slider');
+      var checked = group.querySelector('.giencoder-radio-button-checked');
+      if (!slider || !checked) { return; }
+      slider.style.width = checked.offsetWidth + 'px';
+      slider.style.transform = 'translateX(' + (checked.offsetLeft - 2) + 'px)';
+    }
+    document.querySelectorAll('.giencoder-radio-group-button').forEach(function (group) {
+      moveSlider(group);
+      group.addEventListener('click', function (e) {
+        var label = e.target.closest('.giencoder-radio-button');
+        if (!label) { return; }
+        group.querySelectorAll('.giencoder-radio-button').forEach(function (b) {
+          b.classList.remove('giencoder-radio-button-checked');
+          var inp = b.querySelector('.giencoder-radio-input');
+          if (inp) { inp.checked = false; }
+        });
+        label.classList.add('giencoder-radio-button-checked');
+        var inp = label.querySelector('.giencoder-radio-input');
+        if (inp) { inp.checked = true; }
+        moveSlider(group);
+      });
+    });
+  })();
+</script>
+<script src="../ui-controls.js"></script>
+</html>
+<!-- 模板说明: 本页面为 form-page 页面样板，生成新页面时复制此文件修改内容区 -->

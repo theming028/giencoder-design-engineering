@@ -1,0 +1,213 @@
+{
+  "schemaVersion": 3,
+  "slug": "table",
+  "name": "Table",
+  "category": "data-display",
+  "giencoderSource": {
+    "component": "Table",
+    "version": "2.66.16"
+  },
+  "summary": "表格：以行列结构展示与操作结构化数据，支持排序、筛选、分页、固定列头、行选择、树形数据、虚拟滚动与列宽拖拽",
+  "variants": [
+    {
+      "name": "default",
+      "description": "基础表格：bordered 边框 + split 分割线 + hover 行高亮",
+      "whenToUse": "通用结构化数据展示"
+    },
+    {
+      "name": "borderless",
+      "description": "开放式表格：无左右外边框、无圆角，仅保留行间分割线，表头浅灰底",
+      "whenToUse": "以卡片承载内容、需开放式观感的列表页"
+    },
+    {
+      "name": "stripe",
+      "description": "斑马纹表格：stripe 开启隔行变色",
+      "whenToUse": "行数较多、需提升可读性的场景"
+    },
+    {
+      "name": "sortable",
+      "description": "可排序：列配置 sortable + sorter 点击表头排序",
+      "whenToUse": "数值、时间、名称等需要排序的列"
+    },
+    {
+      "name": "filterable",
+      "description": "可筛选：列配置 filterable + filters 弹出筛选面板",
+      "whenToUse": "状态、分类等枚举维度筛选"
+    },
+    {
+      "name": "fixed",
+      "description": "固定列/固定表头：scroll.y 固定表头、columns[].fixed 固定左右列",
+      "whenToUse": "长表格滚动查看时保持表头与关键列可见"
+    },
+    {
+      "name": "row-selection",
+      "description": "行选择：rowSelection 提供 checkbox/radio 多选或单选，支持全选",
+      "whenToUse": "批量操作、勾选目标行"
+    },
+    {
+      "name": "expanded",
+      "description": "展开行：expandedRowRender 展开详情行",
+      "whenToUse": "主行 + 次要详情信息的层级展示"
+    },
+    {
+      "name": "tree",
+      "description": "树形数据：data 含 children 时渲染树形层级，可展开折叠",
+      "whenToUse": "组织架构、目录层级等树形数据表格"
+    },
+    {
+      "name": "virtualized",
+      "description": "虚拟滚动：virtualListProps 启用，仅渲染可视区行",
+      "whenToUse": "万级以上的大数据量表格"
+    }
+  ],
+  "sizes": [
+    {
+      "name": "default",
+      "value": "行高约 40px（含边框）",
+      "usage": "默认尺寸"
+    }
+  ],
+  "states": [
+    {
+      "name": "default",
+      "description": "默认状态",
+      "visual": "表头 --color-bg-2，行白底，行间 --color-border-1 分割线"
+    },
+    {
+      "name": "hover",
+      "description": "鼠标悬停行",
+      "visual": "行背景 --color-fill-1 高亮，0.2s 过渡"
+    },
+    {
+      "name": "selected",
+      "description": "rowSelection 选中的行",
+      "visual": "行高亮为 --color-primary-1 底 + 主色竖条（--color-primary-6）"
+    },
+    {
+      "name": "loading",
+      "description": "数据加载中",
+      "visual": "表格区域覆盖 Spin 加载指示"
+    },
+    {
+      "name": "empty",
+      "description": "无数据",
+      "visual": "展示空态（noDataElement 可自定义）"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "table",
+      "element": "table.giencoder-table",
+      "description": "表格主体，thead + tbody"
+    },
+    {
+      "part": "thead",
+      "element": "thead",
+      "description": "表头行容器"
+    },
+    {
+      "part": "th",
+      "element": "th.giencoder-table-th",
+      "description": "表头单元格：含排序/筛选图标区、列宽拖拽手柄（columnResizable）"
+    },
+    {
+      "part": "tbody",
+      "element": "tbody",
+      "description": "数据行容器"
+    },
+    {
+      "part": "td",
+      "element": "td.giencoder-table-td",
+      "description": "数据单元格，支持 ellipsis 省略 + tooltip"
+    },
+    {
+      "part": "checkbox",
+      "element": "th/td .giencoder-checkbox",
+      "description": "行选择列：表头全选 + 行内单选/多选"
+    },
+    {
+      "part": "expand",
+      "element": "td .giencoder-table-expand",
+      "description": "展开行开关图标"
+    },
+    {
+      "part": "pagination-stats",
+      "element": "div.giencoder-pagination-stats",
+      "description": "分页器左侧统计文字（如「共 128 条」），浅灰文字（--color-text-3）+ body-3 字号；可选元素，无统计时可省略"
+    },
+    {
+      "part": "pagination",
+      "element": "div.giencoder-pagination",
+      "description": "分页器，承载在 div.giencoder-table-pagination 容器内。默认 relative 贴表格（pagePosition=top 时置于表头之上，否则置于表格底部）；调用方可在视图层将 .giencoder-table-pagination 改为 position:fixed（bottom:0）使其脱离表格布局、始终固定在视口底部不随内容滚动；此时调用方需为内容区预留底部空间（≥56px）以避免遮挡最后一行；含 stats 时容器用 justify-content:space-between 让 stats 居左、按钮组居右"
+    },
+    {
+      "part": "context-menu",
+      "element": "div.giencoder-table-context-menu[role=menu]",
+      "description": "数据行右键菜单：菜单项（role=menuitem）由该行操作列 td.giencoder-table-operation 内按钮动态生成，功能等价；danger 操作前以分隔线（role=separator）分组"
+    }
+  ],
+    "interaction": {
+      "hover": "行 hover 背景高亮；可交互单元格（排序、筛选、展开）hover 反馈图标与文字颜色变化",
+      "focus": "表头排序/筛选按钮、行内可交互元素获得可见焦点环",
+      "contextmenu": "数据行（tbody tr）右键弹出上下文菜单，菜单项由该行操作列按钮动态生成（结构性等价：文本、danger 态一致）；无操作列的行不拦截右键；菜单定位跟随鼠标并防视口溢出，Esc/点击外部/滚动/resize 关闭；菜单打开时所属行高亮 --color-primary-light-1（与行选择选中一致），关闭即还原；菜单项默认深色文字，删除项红色；danger 操作前以分隔线分组",
+      "sort": "点击 sortable 表头：状态循环 none→asc→desc→none，按列值实际重排 tbody 行；多列互斥（同时仅一列处于 asc/desc，其他列回到 none）；重排后行选中态、复选框勾选、表头全选联动状态全部保持；**默认图标保持静态（始终灰色指上，不变色、不旋转），仅靠 data-sort 属性表达排序状态**——避免 SVG 跳动造成的'翻转'错觉；调用方如需视觉反馈，可通过自定义选择器覆盖（示例见 components.css 注释）；列值默认按 td 文本字典序，调用方可在 JS 中维护业务权重映射（例：状态列已停止<待处理<运行中）",
+      "keyboard": [
+        "Tab: 依次聚焦表头排序/筛选按钮与行内可交互元素",
+        "Enter: 触发已聚焦的排序/筛选/展开操作",
+        "Space: 在聚焦的行复选框上切换选中（rowSelection）",
+        "↑/↓/←/→: 按 grid 模式在单元格间移动焦点（需实现方配合 aria 网格键盘导航）",
+        "右键菜单打开后：Esc 关闭（菜单项不参与键盘焦点导航，鼠标点击触发）"
+      ],
+    "motion": {
+      "duration": "0.2s",
+      "easing": "standard",
+      "description": "行 hover 0.2s 过渡；排序/筛选图标状态切换 0.2s"
+    },
+    "drag": "拖拽表头右缘手柄调整列宽：非末列与右邻列反向分配宽度（总宽不变，仅主动列+右邻两列变化，其他列稳定无瞬时位移）；末列直接改列宽，超出容器宽由 .giencoder-table-container 的 overflow:auto 横向滚动承接；最小列宽 56px",
+    "behaviorNotes": "排序/筛选为列级配置；固定表头通过 scroll.y 实现，固定列通过 columns[].fixed；树形数据依赖 data 的 children 字段与 rowKey；虚拟滚动需固定行高方可生效；列宽拖拽通过 columnResizable 开启，手柄由 th 右缘承载"
+  },
+  "a11y": {
+    "role": "table",
+    "ariaAttrs": [
+      "aria-sort (th 排序状态 ascending/descending)",
+      "aria-selected (选中行)",
+      "aria-expanded (展开行)",
+      "aria-label (表格用途说明)"
+    ],
+    "contrastNote": "正文 --color-text-1 与背景对比度 ≥ 4.5:1；选中行主色竖条与行背景对比明显",
+    "focusNote": "排序/筛选按钮保留可见焦点环；行内操作元素需可 Tab 到达；右键菜单为鼠标主导交互，不参与键盘焦点导航，Esc 关闭"
+  },
+  "usage": [
+    "列多时用 scroll 固定表头与关键列，避免横向迷失",
+    "数据量上万且需滚动浏览时启用虚拟滚动",
+    "行选择默认 checkStrictly 父子独立，树形数据按需关闭父子联动",
+    "排序/筛选逻辑通过 sorter/onFilter 交由组件触发，业务只维护数据",
+    "右键菜单依赖操作列：仅当行存在 td.giencoder-table-operation 内按钮时显示，菜单项与操作按钮保持功能等价"
+  ],
+  "doNotInvent": [
+    "不得虚构单元格编辑、列隐藏面板等 Table 未内置能力（需业务自建）",
+    "不得新增官方不存在的变体 class 与状态",
+    "不得用 外部 CSS 框架/Lucide 替代组件与图标体系"
+  ],
+  "tokensConsumed": [
+    "--color-bg-2",
+    "--color-border-1",
+    "--color-border-2",
+    "--color-fill-1",
+    "--color-primary-6",
+    "--color-primary-1",
+    "--color-text-1",
+    "--color-text-2",
+    "--font-size-body-3"
+  ],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "TableProps",
+    "props": [
+      "children",
+      "fixed"
+    ],
+    "total": 2,
+    "syncDate": "2026/08/28"
+  }
+}

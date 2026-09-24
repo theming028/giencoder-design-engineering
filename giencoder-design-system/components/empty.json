@@ -1,0 +1,105 @@
+{
+  "schemaVersion": 3,
+  "slug": "empty",
+  "name": "Empty",
+  "category": "data-display",
+  "giencoderSource": {
+    "component": "Empty",
+    "version": "2.66.16"
+  },
+  "summary": "空状态，在无数据场景展示插画图标、说明文案与可选操作。",
+  "variants": [
+    {
+      "name": "默认空状态",
+      "description": "内置空状态插画图标 + 默认说明",
+      "whenToUse": "列表/表格无数据时的通用提示"
+    },
+    {
+      "name": "自定义图标",
+      "description": "icon 自定义图标内容",
+      "whenToUse": "按场景替换语义图标（如搜索无结果）"
+    },
+    {
+      "name": "自定义图片",
+      "description": "imgSrc 自定义图片",
+      "whenToUse": "品牌插画或情感化空状态"
+    },
+    {
+      "name": "带操作",
+      "description": "children 放置操作按钮（如刷新、新建）",
+      "whenToUse": "引导用户执行动作以恢复数据"
+    }
+  ],
+  "sizes": [],
+  "states": [
+    {
+      "name": "default",
+      "description": "常规展示态",
+      "visual": "图标与说明文字均使用 --color-text-3"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "图标",
+      "element": "div.giencoder-empty-image",
+      "description": "内置插画或自定义 icon/imgSrc"
+    },
+    {
+      "part": "说明",
+      "element": "div.giencoder-empty-description",
+      "description": "空状态描述文案（description）"
+    },
+    {
+      "part": "操作区",
+      "element": "div.giencoder-empty-children",
+      "description": "可选的操作按钮区"
+    }
+  ],
+  "interaction": {
+    "hover": "无交互反馈（纯展示）；children 操作按钮提供各自 hover 态",
+    "focus": "不可聚焦；children 按钮提供焦点环",
+    "keyboard": [
+      "无键盘交互（纯展示）；children 操作按钮遵循按钮组件 Tab/Enter/Space 交互"
+    ],
+    "motion": {
+      "duration": "0.1s",
+      "easing": "linear",
+      "description": "无动效（纯展示组件）"
+    },
+    "behaviorNotes": "description 默认为中文提示；通过 children 引导用户操作。"
+  },
+  "a11y": {
+    "role": "img",
+    "ariaAttrs": [
+      "aria-label: 空状态说明文案"
+    ],
+    "contrastNote": "说明文字 --color-text-3 在 --color-bg-1 背景上满足可读对比度",
+    "focusNote": "插画与文案不可聚焦；操作按钮提供可见焦点环"
+  },
+  "usage": [
+    "文案应说明为何为空并给出下一步指引",
+    "空状态应与页面整体居中布局，视觉留白充足",
+    "图标保持装饰性，关键信息放在 description 文案中"
+  ],
+  "doNotInvent": [
+    "不虚构自动加载重试等行为",
+    "不杜撰多种内置插画风格（仅一种内置插画）",
+    "不在纯展示空状态上添加键盘操作"
+  ],
+  "tokensConsumed": [
+    "--color-text-3"
+  ],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "EmptyProps",
+    "props": [
+      "className",
+      "description",
+      "icon",
+      "imgSrc",
+      "style"
+    ],
+    "total": 5,
+    "syncDate": "2026/08/28"
+  }
+}

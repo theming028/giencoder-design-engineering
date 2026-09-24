@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>自动补全 AutoComplete</title>
+  <link rel="stylesheet" href="preview-scaffold.css">
+  <link rel="stylesheet" href="../colors_and_type.css">
+  <link rel="stylesheet" href="../components.css">
+  <style>
+    .giencoder-autocomplete { position: relative; }
+    .giencoder-autocomplete-popup {
+      position: absolute; top: calc(100% + 4px); left: 0; right: 0; z-index: 10;
+      background: var(--color-bg-popup); border: 1px solid var(--color-border-2);
+      border-radius: var(--border-radius-large); box-shadow: var(--shadow2-down);
+      padding: var(--spacing-3);
+    }
+    /* ===== 交互动效用：弹层展开/收起过渡 ===== */
+    .giencoder-autocomplete-popup {
+      opacity: 0; visibility: hidden; transform: translateY(4px);
+      transition: opacity .2s cubic-bezier(0.34, 0.69, 0.1, 1), transform .2s var(--transition-timing-function-spring), visibility .2s;
+    }
+    .giencoder-autocomplete-popup.giencoder-popup-open {
+      opacity: 1; visibility: visible; transform: translateY(0);
+    }
+    .giencoder-autocomplete-list { list-style: none; margin: 0; padding: 0; }
+    .giencoder-autocomplete-item {
+      display: flex; align-items: center; height: 32px; padding: 0 var(--spacing-6); margin-bottom: 2px; border-radius: var(--border-radius-medium);
+      font-size: var(--font-size-body-3); color: var(--color-text-1); cursor: pointer;
+    }
+    .giencoder-autocomplete-item:hover { background: var(--color-fill-1); }
+    .giencoder-autocomplete-item-active { background: var(--color-fill-2); }
+    .giencoder-autocomplete-empty {
+      padding: var(--spacing-7) var(--spacing-6); text-align: center;
+      color: var(--color-text-3); font-size: var(--font-size-body-2);
+    }
+  </style>
+</head>
+<body>
+  <div class="pv-layout">
+    <aside class="pv-sidebar">
+      <div class="pv-nav">
+        <div class="pv-menu-group">入口</div>
+        <a href="../home.html">首页</a>
+        <a href="../../GETTING-STARTED.html">使用说明书</a>
+        <div class="pv-menu-group">组件</div>
+        <a href="../index.html#general">通用</a>
+        <a href="../index.html#layout">布局</a>
+        <a href="../index.html#navigation">导航</a>
+        <a href="../index.html#data-entry" class="active">数据录入</a>
+        <a href="../index.html#data-display">数据展示</a>
+        <a href="../index.html#feedback">反馈</a>
+        <a href="../index.html#other">其他</a>
+        <div class="pv-menu-group">资源</div>
+        <a href="../index.html#uikits">页面样板</a>
+        <a href="../index.html#docs">规范文档</a>
+      </div>
+    </aside>
+    <main class="pv-content">
+  <a class="pv-back" href="../index.html#data-entry">← 返回组件库</a>
+  <div class="pv-header">
+    <h1>AutoComplete</h1>
+    <p>输入框联想补全：键入关键词即时弹出匹配列表，支持键盘高亮与无匹配结果空态。</p>
+  </div>
+
+  <!-- ============ 变体：基础联想补全 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Basic 基础联想补全（高亮选中项）</div>
+    <div class="row">
+      <div class="giencoder-autocomplete" data-component="auto-complete" data-variant="basic" data-state="default" style="width:280px;">
+        <div class="giencoder-input-wrapper">
+          <input class="giencoder-input" value="北" placeholder="请输入">
+          <span class="giencoder-input-suffix">
+            <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="7" cy="7" r="4.5"/><path d="M10.5 10.5L14 14"/></svg>
+          </span>
+        </div>
+        <div class="giencoder-autocomplete-popup" role="listbox">
+          <ul class="giencoder-autocomplete-list">
+            <li class="giencoder-autocomplete-item" role="option" aria-selected="false">北京</li>
+            <li class="giencoder-autocomplete-item giencoder-autocomplete-item-active" role="option" aria-selected="true">北海</li>
+            <li class="giencoder-autocomplete-item" role="option" aria-selected="false">北海公园</li>
+            <li class="giencoder-autocomplete-item" role="option" aria-selected="false">北戴河</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 变体：无匹配结果 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Empty 无匹配结果</div>
+    <div class="row">
+      <div class="giencoder-autocomplete" data-component="auto-complete" data-variant="empty" data-state="default" style="width:280px;">
+        <div class="giencoder-input-wrapper">
+          <input class="giencoder-input" value="xyz" placeholder="请输入">
+          <span class="giencoder-input-suffix">
+            <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="7" cy="7" r="4.5"/><path d="M10.5 10.5L14 14"/></svg>
+          </span>
+        </div>
+        <div class="giencoder-autocomplete-popup" role="listbox">
+          <div class="giencoder-autocomplete-empty">无匹配结果</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+  (function () {
+    'use strict';
+    /* component-auto-complete — 交互清单：
+     * 1. 点击输入框展开/收起联想下拉（opacity/translateY 过渡动画）
+     * 2. 点击联想项：高亮 giencoder-autocomplete-item-active 并填入输入框 + 收起
+     * 3. "无匹配结果"（giencoder-autocomplete-empty）非 item，不可点
+     */
+    document.querySelectorAll('.giencoder-autocomplete').forEach(function (ac) {
+      var input = ac.querySelector('.giencoder-input');
+      var popup = ac.querySelector('.giencoder-autocomplete-popup');
+      if (!input || !popup) return;
+      var items = Array.prototype.slice.call(popup.querySelectorAll('.giencoder-autocomplete-item'));
+
+      var hideTimer = null;
+      function isOpen() { return popup.classList.contains('giencoder-popup-open'); }
+      function openPopup() {
+        if (hideTimer) { clearTimeout(hideTimer); hideTimer = null; }
+        popup.style.display = '';
+        void popup.offsetHeight; /* 先定格隐藏态（opacity:0），下一帧再过渡 */
+        requestAnimationFrame(function () {
+          if (popup && popup.parentNode) popup.classList.add('giencoder-popup-open');
+        });
+      }
+      function closePopup() {
+        if (!isOpen()) return;
+        popup.classList.remove('giencoder-popup-open');
+        if (hideTimer) { clearTimeout(hideTimer); }
+        hideTimer = setTimeout(function () {
+          hideTimer = null;
+          if (popup && popup.parentNode) popup.style.display = 'none';
+        }, 200);
+      }
+
+      /* 初始化：模板中默认展开的弹层补 open class（交互动效），保持静态展示可见 */
+      if (popup.style.display !== 'none') popup.classList.add('giencoder-popup-open');
+
+      input.addEventListener('click', function (ev) {
+        ev.stopPropagation();
+        if (isOpen()) closePopup(); else openPopup();
+      });
+
+      items.forEach(function (item) {
+        item.addEventListener('click', function (ev) {
+          ev.stopPropagation();
+          items.forEach(function (it) { it.classList.remove('giencoder-autocomplete-item-active'); });
+          item.classList.add('giencoder-autocomplete-item-active');
+          input.value = item.textContent;
+          closePopup();
+        });
+      });
+    });
+  })();
+  </script>
+    </main>
+  </div>
+<script src="preview-copy.js"></script>
+</body>
+</html>

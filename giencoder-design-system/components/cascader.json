@@ -1,0 +1,184 @@
+{
+  "schemaVersion": 3,
+  "slug": "cascader",
+  "name": "Cascader",
+  "category": "data-entry",
+  "giencoderSource": {
+    "component": "Cascader",
+    "version": "2.66.16"
+  },
+  "summary": "级联选择组件，以多级联动面板展示层级数据（如地区/分类），支持单选、多选与勾选。",
+  "variants": [
+    {
+      "name": "default",
+      "description": "单选级联，多列面板逐级展开",
+      "whenToUse": "需要从层级数据中单选一个完整路径的场景"
+    },
+    {
+      "name": "multiple",
+      "description": "多选级联，选中项以标签展示",
+      "whenToUse": "需要同时选择多个层级路径时"
+    },
+    {
+      "name": "checkable",
+      "description": "勾选模式，父子节点联动",
+      "whenToUse": "按层级树勾选（组织架构、权限树）"
+    },
+    {
+      "name": "with-path",
+      "description": "在输入框展示完整路径",
+      "whenToUse": "需要确认选中项完整层级语义时（showPath）"
+    }
+  ],
+  "sizes": [
+    {
+      "name": "mini",
+      "value": "24px",
+      "usage": "紧凑表格"
+    },
+    {
+      "name": "small",
+      "value": "28px",
+      "usage": "紧凑表单"
+    },
+    {
+      "name": "medium",
+      "value": "32px",
+      "usage": "标准表单（默认）"
+    },
+    {
+      "name": "large",
+      "value": "36px",
+      "usage": "强调场景"
+    }
+  ],
+  "states": [
+    {
+      "name": "default",
+      "description": "未交互",
+      "visual": "白底 --color-border-2 边框"
+    },
+    {
+      "name": "hover",
+      "description": "悬停",
+      "visual": "边框 --color-border-3；面板内选项悬停 --color-fill-2"
+    },
+    {
+      "name": "focus",
+      "description": "聚焦",
+      "visual": "--color-primary-6 边框 + 光晕"
+    },
+    {
+      "name": "active",
+      "description": "选项选中",
+      "visual": "选项文字 --color-primary-6，背景 --color-fill-2"
+    },
+    {
+      "name": "disabled",
+      "description": "禁用",
+      "visual": "--color-fill-2 背景，--color-text-4 文本"
+    },
+    {
+      "name": "loading",
+      "description": "懒加载中",
+      "visual": "选项尾部 loading 图标旋转"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "触发器",
+      "element": "div[role=combobox]",
+      "description": "展示选中路径或占位符，可点击展开"
+    },
+    {
+      "part": "展开箭头",
+      "element": "span",
+      "description": "suffix 箭头，弹层打开时旋转 180°"
+    },
+    {
+      "part": "弹出面板",
+      "element": "div[role=listbox]",
+      "description": "多列面板，--color-bg-5 背景 + --shadow2-down"
+    },
+    {
+      "part": "级联列",
+      "element": "div",
+      "description": "每级一个滚动列，列间 --color-border-2 分隔"
+    },
+    {
+      "part": "级联选项",
+      "element": "div[role=option]",
+      "description": "含子级的选项显示展开箭头"
+    }
+  ],
+  "interaction": {
+    "hover": "触发器边框加深；面板选项悬停 --color-fill-2",
+    "focus": "触发器弧蓝边框 + 光晕；面板打开后焦点保持在触发器",
+    "keyboard": [
+      "ArrowUp/ArrowDown: move between options in the current column",
+      "ArrowLeft/ArrowRight: switch between parent/child columns",
+      "Enter: select or expand the current option",
+      "Esc: close the panel",
+      "Tab: leave the component and close the panel"
+    ],
+    "motion": {
+      "duration": "0.1s~0.3s",
+      "easing": "standard",
+      "description": "面板展开淡入；多选标签添加使用轻微缩放动画"
+    },
+    "focusTrap": "面板打开时焦点保持在触发器，不落入面板（多列面板由方向键驱动）",
+    "escClose": "按 Esc 关闭面板并保持当前选中值",
+    "clickOutsideClose": "点击面板外部关闭面板",
+    "behaviorNotes": "懒加载时加载子级后自动展开；checkStrictly 控制父子联动；多选时面板顶部展示已选项"
+  },
+  "a11y": {
+    "role": "combobox",
+    "ariaAttrs": [
+      "aria-expanded",
+      "aria-haspopup",
+      "aria-controls",
+      "role=listbox on panel",
+      "role=option on items",
+      "aria-selected"
+    ],
+    "contrastNote": "选中项 --color-primary-6 文字在 --color-bg-1 上对比度达标（弧蓝 #3770F7 约 5.2:1）",
+    "focusNote": "焦点指示为弧蓝边框 + 光晕；键盘导航时面板列跟随高亮"
+  },
+  "usage": [
+    "数据层级建议不超过 4 级以免面板过宽",
+    "懒加载场景配合 loadData 按需请求",
+    "多选场景明确 checkStrictly 父子联动语义"
+  ],
+  "doNotInvent": [
+    "不要用于非层级平铺数据（应使用 Select）",
+    "不要虚构不存在的模式（如无确认型级联）",
+    "不要在面板列内混用 Checkbox 与单选模式"
+  ],
+  "tokensConsumed": [
+    "--color-bg-5",
+    "--color-primary-6",
+    "--shadow2-down",
+    "--color-border-2",
+    "--color-border-3",
+    "--color-fill-2",
+    "--color-text-1",
+    "--color-text-2",
+    "--color-text-4",
+    "--transition-duration-2",
+    "--transition-timing-function-standard"
+  ],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "CascaderProps",
+    "props": [
+      "children",
+      "disableCheckbox",
+      "disabled",
+      "isLeaf",
+      "label",
+      "value"
+    ],
+    "total": 6,
+    "syncDate": "2026/08/28"
+  }
+}

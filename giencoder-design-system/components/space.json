@@ -1,0 +1,131 @@
+{
+  "schemaVersion": 3,
+  "slug": "space",
+  "name": "Space",
+  "category": "general",
+  "giencoderSource": {
+    "component": "Space",
+    "version": "2.66.16"
+  },
+  "summary": "统一间距的水平/垂直容器，支持对齐、换行与 split 分隔符。",
+  "variants": [
+    {
+      "name": "horizontal",
+      "description": "水平排列（默认）",
+      "whenToUse": "行内一组按钮/标签"
+    },
+    {
+      "name": "vertical",
+      "description": "垂直排列",
+      "whenToUse": "纵向堆叠内容"
+    },
+    {
+      "name": "with-split",
+      "description": "split 分隔符（ReactNode）",
+      "whenToUse": "面包屑/步骤式分隔"
+    }
+  ],
+  "sizes": [
+    {
+      "name": "mini",
+      "value": "4px",
+      "usage": "紧凑间距（--spacing-1）"
+    },
+    {
+      "name": "small",
+      "value": "8px",
+      "usage": "默认间距（--spacing-2）"
+    },
+    {
+      "name": "medium",
+      "value": "16px",
+      "usage": "常规间距（--spacing-4）"
+    },
+    {
+      "name": "large",
+      "value": "24px",
+      "usage": "宽松间距（--spacing-6）"
+    }
+  ],
+  "states": [
+    {
+      "name": "default",
+      "description": "常规排列",
+      "visual": "子项按方向/间距排列"
+    },
+    {
+      "name": "empty",
+      "description": "无子项",
+      "visual": "容器不产生额外间距"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "root",
+      "element": "div（display:flex）",
+      "description": "容器，direction/align/wrap 控制"
+    },
+    {
+      "part": "item",
+      "element": "div（子项包裹）",
+      "description": "每个子项，间距经 margin 实现"
+    },
+    {
+      "part": "split",
+      "element": "span/自定义节点",
+      "description": "split 分隔符（可选）"
+    }
+  ],
+  "interaction": {
+    "hover": "无交互反馈（纯布局）",
+    "focus": "无焦点",
+    "keyboard": [
+      "无键盘交互（纯布局）"
+    ],
+    "motion": {
+      "duration": "0.1s",
+      "easing": "linear",
+      "description": "无内置动效；wrap 换行即时生效"
+    },
+    "behaviorNotes": "默认 direction=horizontal、size=small(8px)；size 支持 [水平,垂直] 数组；split 仅视觉分隔不参与语义"
+  },
+  "a11y": {
+    "role": "generic（纯布局容器）",
+    "ariaAttrs": [],
+    "contrastNote": "纯布局不承载信息，无对比度要求",
+    "focusNote": "无焦点（纯布局）"
+  },
+  "usage": [
+    "成组操作按钮用 Space 统一间距",
+    "复杂 flex 布局（grow/shrink）用 Grid 而非 Space",
+    "分隔符用 split 保持间距一致",
+    "大段内容堆叠用 vertical"
+  ],
+  "doNotInvent": [
+    "不虚构 inline/block 模式（源启无）",
+    "不为 Space 子项杜撰 flex 能力",
+    "不新增间距档位"
+  ],
+  "tokensConsumed": [
+    "--spacing-1",
+    "--spacing-2",
+    "--spacing-4",
+    "--spacing-6"
+  ],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "SpaceProps",
+    "props": [
+      "align",
+      "children",
+      "className",
+      "direction",
+      "size",
+      "split",
+      "style",
+      "wrap"
+    ],
+    "total": 8,
+    "syncDate": "2026/08/28"
+  }
+}

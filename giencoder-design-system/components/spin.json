@@ -1,0 +1,152 @@
+{
+  "schemaVersion": 3,
+  "slug": "spin",
+  "name": "Spin",
+  "category": "feedback",
+  "giencoderSource": {
+    "component": "Spin",
+    "version": "2.66.16"
+  },
+  "summary": "加载中，页面/区块加载数据时的状态指示器，可包裹内容显示遮罩层，支持延迟显示与加载文案。",
+  "variants": [
+    {
+      "name": "default",
+      "description": "旋转图标加载（可选 tip 文案）",
+      "whenToUse": "常规加载指示"
+    },
+    {
+      "name": "dot",
+      "description": "点状动画加载（dot=true）",
+      "whenToUse": "轻量加载场景"
+    },
+    {
+      "name": "wrap",
+      "description": "包裹内容模式：子内容上覆盖半透明遮罩层",
+      "whenToUse": "区块内容加载（loading 仅在含 children 时生效）"
+    },
+    {
+      "name": "custom",
+      "description": "自定义加载元素（icon 自动旋转 / element 不旋转）",
+      "whenToUse": "品牌化加载动画或 gif 图"
+    }
+  ],
+  "sizes": [
+    {
+      "name": "small",
+      "value": "14px",
+      "usage": "小尺寸图标（官方示例）"
+    },
+    {
+      "name": "medium",
+      "value": "20px",
+      "usage": "默认图标尺寸（size 未传时，--spin-font-size-icon）"
+    },
+    {
+      "name": "large",
+      "value": "32px",
+      "usage": "大尺寸图标（官方示例）"
+    }
+  ],
+  "states": [
+    {
+      "name": "default",
+      "description": "非加载状态",
+      "visual": "仅渲染子内容，无指示器"
+    },
+    {
+      "name": "loading",
+      "description": "加载状态",
+      "visual": "图标旋转（--color-primary-6）或内容遮罩层（--color-spin-layer-bg）"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "wrapper",
+      "element": "div.giencoder-spin",
+      "description": "根容器（block=true 时为块级）"
+    },
+    {
+      "part": "icon",
+      "element": "span.giencoder-spin-icon",
+      "description": "旋转加载图标（IconLoading / DotLoading，--color-primary-6）"
+    },
+    {
+      "part": "tip",
+      "element": "div.giencoder-spin-tip",
+      "description": "加载文案（--font-size-body-3，--color-primary-6）"
+    },
+    {
+      "part": "children",
+      "element": "div.giencoder-spin-children",
+      "description": "被包裹的内容"
+    },
+    {
+      "part": "loading-layer",
+      "element": "div.giencoder-spin-loading-layer",
+      "description": "内容遮罩层（仅包裹模式加载时）"
+    }
+  ],
+  "interaction": {
+    "hover": "无（指示器无悬停反馈）",
+    "focus": "无（指示器不可聚焦）",
+    "keyboard": [
+      "无键盘交互（纯展示/加载指示）"
+    ],
+    "motion": {
+      "duration": "1s",
+      "easing": "linear",
+      "description": "图标持续旋转循环动画（--transition-duration-loading）"
+    },
+    "behaviorNotes": "delay 延迟显示（ms）避免闪烁；loading 仅在含 children 时生效；包裹模式下加载时内容被 --color-spin-layer-bg 半透明遮罩覆盖；dot 模式使用 --color-primary-2/4/5/6 多色点阵"
+  },
+  "a11y": {
+    "role": "status",
+    "ariaAttrs": [
+      "aria-busy（官方默认未输出，建议由使用方透传）",
+      "aria-label（tip 文案，建议）"
+    ],
+    "contrastNote": "图标/文案 --color-primary-6 与背景对比明显；遮罩 --color-spin-layer-bg 半透明，不遮挡内容可读性",
+    "focusNote": "指示器无需焦点；建议使用方在包裹模式透传 aria-busy 通知读屏"
+  },
+  "usage": [
+    "无 children 时展示独立指示器，有 children 时展示遮罩层",
+    "size 为 number（fontSize），官方示例 14/20/32，默认 20",
+    "delay 延迟出现避免快速加载闪烁",
+    "tip 提供加载文案",
+    "dot 切换点状动画"
+  ],
+  "doNotInvent": [
+    "不得虚构 size 枚举档位（官方为 number 类型）",
+    "不得声称官方自动输出 aria-busy（需使用方透传）",
+    "不得用 外部 CSS 框架/Lucide 替代 源启图标与 token"
+  ],
+  "tokensConsumed": [
+    "--color-primary-6",
+    "--color-primary-2",
+    "--color-primary-4",
+    "--color-primary-5",
+    "--color-spin-layer-bg",
+    "--font-size-body-3",
+    "--transition-duration-loading",
+    "--spacing-3"
+  ],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "SpinProps",
+    "props": [
+      "block",
+      "children",
+      "className",
+      "delay",
+      "dot",
+      "element",
+      "icon",
+      "loading",
+      "size",
+      "style",
+      "tip"
+    ],
+    "total": 11,
+    "syncDate": "2026/08/28"
+  }
+}

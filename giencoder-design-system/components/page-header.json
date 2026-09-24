@@ -1,0 +1,146 @@
+{
+  "schemaVersion": 3,
+  "slug": "page-header",
+  "name": "PageHeader",
+  "category": "navigation",
+  "giencoderSource": {
+    "component": "PageHeader",
+    "version": "2.66.16"
+  },
+  "summary": "页头：返回按钮 + 面包屑 + 标题 + 操作区 + 底部扩展区的页面头部组合。",
+  "variants": [
+    {
+      "name": "default",
+      "description": "标题+副标题基础形态",
+      "whenToUse": "内容页顶部标题区"
+    },
+    {
+      "name": "back",
+      "description": "带返回按钮（showBackButton）",
+      "whenToUse": "详情页/表单页返回上级"
+    },
+    {
+      "name": "breadcrumb",
+      "description": "标题上方嵌入面包屑",
+      "whenToUse": "层级较深页面的位置定位"
+    },
+    {
+      "name": "extra",
+      "description": "带 extra 操作区",
+      "whenToUse": "页面级操作按钮（新建/导出等）"
+    },
+    {
+      "name": "footer",
+      "description": "带底部扩展区",
+      "whenToUse": "页头下方补充说明或操作条"
+    }
+  ],
+  "sizes": [
+    {
+      "name": "default",
+      "value": "默认尺寸",
+      "usage": "无尺寸变体，标题字号由 --font-size-title-2 决定"
+    }
+  ],
+  "states": [
+    {
+      "name": "default",
+      "description": "默认页头",
+      "visual": "标题 --font-size-title-2，底色 --color-bg-2"
+    },
+    {
+      "name": "hover",
+      "description": "返回按钮悬停",
+      "visual": "背景 --color-fill-2 圆形反馈"
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "返回按钮",
+      "element": "button",
+      "description": "showBackButton 时显示，触发 onBack"
+    },
+    {
+      "part": "面包屑",
+      "element": "nav",
+      "description": "可选的面包屑导航"
+    },
+    {
+      "part": "标题",
+      "element": "div",
+      "description": "主标题，--font-size-title-2"
+    },
+    {
+      "part": "副标题",
+      "element": "div",
+      "description": "subTitle 辅助说明"
+    },
+    {
+      "part": "操作区",
+      "element": "div",
+      "description": "extra 内容，页面级操作入口"
+    },
+    {
+      "part": "底部扩展区",
+      "element": "div",
+      "description": "footer 内容区"
+    }
+  ],
+  "interaction": {
+    "hover": "返回按钮悬停出现圆形背景反馈",
+    "focus": "返回按钮及 extra 内可交互元素可获得焦点",
+    "keyboard": [
+      "Tab: 依次聚焦返回按钮与 extra 操作区元素",
+      "Enter/Space: 触发返回按钮（onBack）"
+    ],
+    "motion": {
+      "duration": "0.1s~0.2s",
+      "easing": "standard",
+      "description": "按钮状态过渡，无页头整体动画"
+    },
+    "behaviorNotes": "返回按钮行为由 onBack 回调驱动，未配置时不显示；面包屑/标题/操作区/底部区均为可选插槽。"
+  },
+  "a11y": {
+    "role": "none（容器，标题语义由内部 heading 承载）",
+    "ariaAttrs": [
+      "aria-label（可选，标识页面区域）"
+    ],
+    "contrastNote": "标题 --color-text-1 与 --color-bg-2 背景对比度满足 AA",
+    "focusNote": "返回按钮为真实 button，Tab 可达"
+  },
+  "usage": [
+    "标题简明，必要时配副标题补充说明",
+    "返回按钮仅在存在上级页面语义时使用",
+    "extra 放置页面级操作，避免按钮过多",
+    "footer 用于分隔的补充内容"
+  ],
+  "doNotInvent": [
+    "不虚构页头吸顶固定能力（需自行包裹 Affix）",
+    "不虚构返回按钮的自动历史回退（需业务实现 onBack）",
+    "不虚构页头折叠/收起能力"
+  ],
+  "tokensConsumed": [
+    "--font-size-title-2",
+    "--color-text-1",
+    "--color-text-2",
+    "--color-bg-2",
+    "--color-fill-2"
+  ],
+  "assetsConsumed": [],
+  "propsIndex": {
+    "interface": "PageHeaderProps",
+    "props": [
+      "backIcon",
+      "breadcrumb",
+      "className",
+      "extra",
+      "footer",
+      "onBack",
+      "style",
+      "subTitle",
+      "title"
+    ],
+    "total": 9,
+    "syncDate": "2026/08/28"
+  }
+}

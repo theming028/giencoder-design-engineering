@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>Rate 评分</title>
+  <link rel="stylesheet" href="preview-scaffold.css">
+  <link rel="stylesheet" href="../colors_and_type.css">
+  <link rel="stylesheet" href="../components.css">
+  <style>
+    /* 交互动效用：星形变色 0.15s 过渡 + 点击 scale 弹跳 0.2s（overshoot） */
+    .giencoder-rate svg {
+      transition: color 0.15s var(--transition-timing-function-standard);
+    }
+    @keyframes giencoder-rate-star-bounce {
+      0%   { transform: scale(1); }
+      40%  { transform: scale(1.3); }
+      100% { transform: scale(1); }
+    }
+    .giencoder-rate-unit-bounce {
+      animation: giencoder-rate-star-bounce 0.2s var(--transition-timing-function-overshoot);
+    }
+  </style>
+</head>
+<body>
+  <div class="pv-layout">
+    <aside class="pv-sidebar">
+      <div class="pv-nav">
+        <div class="pv-menu-group">入口</div>
+        <a href="../home.html">首页</a>
+        <a href="../../GETTING-STARTED.html">使用说明书</a>
+        <div class="pv-menu-group">组件</div>
+        <a href="../index.html#general">通用</a>
+        <a href="../index.html#layout">布局</a>
+        <a href="../index.html#navigation">导航</a>
+        <a href="../index.html#data-entry" class="active">数据录入</a>
+        <a href="../index.html#data-display">数据展示</a>
+        <a href="../index.html#feedback">反馈</a>
+        <a href="../index.html#other">其他</a>
+        <div class="pv-menu-group">资源</div>
+        <a href="../index.html#uikits">页面样板</a>
+        <a href="../index.html#docs">规范文档</a>
+      </div>
+    </aside>
+    <main class="pv-content">
+  <a class="pv-back" href="../index.html#data-entry">← 返回组件库</a>
+  <div class="pv-header">
+    <h1>Rate 评分</h1>
+    <p>源启评分：五星评分，全星 --color-orange-6 填充、空星 --color-fill-3，支持半选、清除、禁用与文字说明。</p>
+  </div>
+
+  <!-- 星形符号：path 多边形 -->
+  <svg width="0" height="0" style="position:absolute;" aria-hidden="true">
+    <defs>
+      <symbol id="giencoder-star" viewBox="0 0 24 24">
+        <path fill="currentColor" d="M12 2.5l2.9 6.1 6.7.9-4.9 4.6 1.2 6.6L12 17.4 6.1 20.7l1.2-6.6-4.9-4.6 6.7-.9z"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <!-- ============ 变体：默认 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Default 全星（默认值 5，--color-orange-6 填充）</div>
+    <div class="row" style="gap:8px; align-items:center;">
+      <span class="giencoder-rate" data-component="rate" data-variant="default" data-state="default" style="display:inline-flex; gap:4px;">
+        <svg width="20" height="20" style="color:var(--color-orange-6); cursor:pointer;"><use href="#giencoder-star"/></svg>
+        <svg width="20" height="20" style="color:var(--color-orange-6); cursor:pointer;"><use href="#giencoder-star"/></svg>
+        <svg width="20" height="20" style="color:var(--color-orange-6); cursor:pointer;"><use href="#giencoder-star"/></svg>
+        <svg width="20" height="20" style="color:var(--color-orange-6); cursor:pointer;"><use href="#giencoder-star"/></svg>
+        <svg width="20" height="20" style="color:var(--color-orange-6); cursor:pointer;"><use href="#giencoder-star"/></svg>
+      </span>
+    </div>
+  </div>
+
+  <!-- ============ 变体：半选 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Half 半选（4.5 分）+ 文字说明</div>
+    <div class="row" style="gap:8px; align-items:center;">
+      <span class="giencoder-rate" data-component="rate" data-variant="half" data-state="default" style="display:inline-flex; gap:4px; align-items:center;">
+        <svg width="20" height="20" style="color:var(--color-orange-6); cursor:pointer;"><use href="#giencoder-star"/></svg>
+        <svg width="20" height="20" style="color:var(--color-orange-6); cursor:pointer;"><use href="#giencoder-star"/></svg>
+        <svg width="20" height="20" style="color:var(--color-orange-6); cursor:pointer;"><use href="#giencoder-star"/></svg>
+        <svg width="20" height="20" style="color:var(--color-orange-6); cursor:pointer;"><use href="#giencoder-star"/></svg>
+        <span class="giencoder-rate-half" style="position:relative; display:inline-flex; width:20px; height:20px;">
+          <svg width="20" height="20" style="color:var(--color-fill-3); position:absolute; left:0; top:0;"><use href="#giencoder-star"/></svg>
+          <span style="position:absolute; left:0; top:0; width:50%; height:100%; overflow:hidden;">
+            <svg width="20" height="20" style="color:var(--color-orange-6); display:block;"><use href="#giencoder-star"/></svg>
+          </span>
+        </span>
+        <span class="giencoder-rate-text" style="font-size:var(--font-size-body-3); color:var(--color-text-3); margin-left:8px;">4.5 分</span>
+      </span>
+    </div>
+  </div>
+
+  <!-- ============ 变体：清除 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Clear 可清除（空星 --color-fill-3 + × 按钮）</div>
+    <div class="row" style="gap:8px; align-items:center;">
+      <span class="giencoder-rate" data-component="rate" data-variant="clear" data-state="default" style="display:inline-flex; gap:4px; align-items:center;">
+        <svg width="20" height="20" style="color:var(--color-orange-6); cursor:pointer;"><use href="#giencoder-star"/></svg>
+        <svg width="20" height="20" style="color:var(--color-orange-6); cursor:pointer;"><use href="#giencoder-star"/></svg>
+        <svg width="20" height="20" style="color:var(--color-orange-6); cursor:pointer;"><use href="#giencoder-star"/></svg>
+        <svg width="20" height="20" style="color:var(--color-fill-3); cursor:pointer;"><use href="#giencoder-star"/></svg>
+        <svg width="20" height="20" style="color:var(--color-fill-3); cursor:pointer;"><use href="#giencoder-star"/></svg>
+        <button class="giencoder-rate-clear" type="button" aria-label="清除评分" style="margin-left:8px; width:18px; height:18px; border-radius:50%; border:1px solid var(--color-border-3); background:var(--color-bg-2); color:var(--color-text-3); cursor:pointer; display:inline-flex; align-items:center; justify-content:center; font-size:12px; line-height:1; padding:0;">×</button>
+      </span>
+    </div>
+  </div>
+
+  <!-- ============ 变体：禁用 ============ -->
+  <div class="pv-section">
+    <div class="pv-section__title">Disabled 禁用（灰化）</div>
+    <div class="row" style="gap:8px; align-items:center;">
+      <span class="giencoder-rate giencoder-rate-disabled" data-component="rate" data-variant="disabled" data-state="disabled" style="display:inline-flex; gap:4px; opacity:0.45; cursor:not-allowed;">
+        <svg width="20" height="20" style="color:var(--color-fill-3);"><use href="#giencoder-star"/></svg>
+        <svg width="20" height="20" style="color:var(--color-fill-3);"><use href="#giencoder-star"/></svg>
+        <svg width="20" height="20" style="color:var(--color-fill-3);"><use href="#giencoder-star"/></svg>
+        <svg width="20" height="20" style="color:var(--color-fill-3);"><use href="#giencoder-star"/></svg>
+        <svg width="20" height="20" style="color:var(--color-fill-3);"><use href="#giencoder-star"/></svg>
+      </span>
+      <span style="font-size:var(--font-size-body-1); color:var(--color-text-4);">不可评分</span>
+    </div>
+  </div>
+
+  <script>
+    /* 源启交互脚本 — rate
+     * 1. 点击第 N 颗星：第 N 颗及之前 --color-orange-6 全亮，之后 --color-fill-3 灰
+     * 2. 清除按钮（×）点击清空
+     * 3. 禁用组无效
+     * 4. hover 预览效果
+     */
+    (function () {
+      'use strict';
+      var ORANGE = 'var(--color-orange-6)';
+      var GRAY = 'var(--color-fill-3)';
+
+      function collectUnits(rate) {
+        var units = [];
+        var children = rate.children;
+        for (var i = 0; i < children.length; i++) {
+          var el = children[i];
+          if (el.tagName === 'svg' || el.classList.contains('giencoder-rate-half')) {
+            units.push(el);
+          }
+        }
+        return units;
+      }
+
+      function setUnitState(unit, state) {
+        // state: 'full' | 'half' | 'empty'
+        if (unit.tagName === 'svg') {
+          unit.style.color = state === 'full' ? ORANGE : GRAY;
+          return;
+        }
+        // 半星单元：外层背景 svg + 内层前景 svg
+        var bg = unit.querySelector('svg');
+        var inner = unit.querySelector('span svg');
+        if (state === 'full') {
+          if (bg) { bg.style.color = ORANGE; }
+          if (inner) { inner.style.color = ORANGE; }
+        } else if (state === 'half') {
+          if (bg) { bg.style.color = GRAY; }
+          if (inner) { inner.style.color = ORANGE; }
+        } else {
+          if (bg) { bg.style.color = GRAY; }
+          if (inner) { inner.style.color = GRAY; }
+        }
+      }
+
+      function paint(rate, value) {
+        var units = rate._units;
+        if (!units || !units.length) { return; }
+        units.forEach(function (unit, idx) {
+          if (idx < Math.floor(value)) {
+            setUnitState(unit, 'full');
+          } else if (idx === Math.floor(value) && value % 1 !== 0) {
+            setUnitState(unit, 'half');
+          } else {
+            setUnitState(unit, 'empty');
+          }
+        });
+        var text = rate.querySelector('.giencoder-rate-text');
+        if (text) {
+          text.textContent = (value % 1 === 0 ? value : value.toFixed(1)) + ' 分';
+        }
+      }
+
+      // 从 DOM 初始状态推算当前分值（整星=1，半星=0.5）
+      function readInitial(units) {
+        var v = 0;
+        units.forEach(function (unit) {
+          if (unit.tagName === 'svg') {
+            if ((unit.style.color || '').indexOf('orange') !== -1) { v += 1; }
+          } else {
+            var bg = unit.querySelector('svg');
+            var inner = unit.querySelector('span svg');
+            var bgOrange = bg && (bg.style.color || '').indexOf('orange') !== -1;
+            var innerOrange = inner && (inner.style.color || '').indexOf('orange') !== -1;
+            if (bgOrange && innerOrange) { v += 1; }
+            else if (innerOrange) { v += 0.5; }
+          }
+        });
+        return v;
+      }
+
+      var rates = document.querySelectorAll('.giencoder-rate');
+      rates.forEach(function (rate) {
+        if (rate.classList.contains('giencoder-rate-disabled')) { return; }
+        var units = collectUnits(rate);
+        if (!units.length) { return; }
+        rate._units = units;
+        rate._value = readInitial(units);
+
+        units.forEach(function (unit, idx) {
+          unit.addEventListener('click', function () {
+            rate._value = idx + 1;
+            paint(rate, idx + 1);
+            /* 动效：点击星星 scale 弹跳（重触发动画） */
+            unit.classList.remove('giencoder-rate-unit-bounce');
+            void unit.offsetWidth;
+            unit.classList.add('giencoder-rate-unit-bounce');
+          });
+          unit.addEventListener('mouseenter', function () {
+            paint(rate, idx + 1);
+          });
+          unit.addEventListener('mouseleave', function () {
+            paint(rate, rate._value);
+          });
+        });
+
+        var clearBtn = rate.querySelector('.giencoder-rate-clear');
+        if (clearBtn) {
+          clearBtn.addEventListener('click', function () {
+            rate._value = 0;
+            paint(rate, 0);
+          });
+        }
+      });
+    })();
+  </script>
+    </main>
+  </div>
+<script src="preview-copy.js"></script>
+</body>
+</html>
