@@ -10,16 +10,6 @@ import os
 import re
 from pathlib import Path
 
-# ── 设计系统 Token 白名单 ──
-TOKEN_PATTERNS = [
-    r'var\(--color-',
-    r'var\(--font-size-',
-    r'var\(--font-family',
-    r'var\(--border-radius-',
-    r'var\(--spacing-',
-    r'var\(--transition-',
-]
-
 # 允许的硬编码色值（设计稿 DevMode 直接给的，不强制改 token）
 ALLOWED_HEX = {
     '#FFFFFF', '#FFF', '#ffffff', '#fff',
@@ -95,8 +85,6 @@ def check_hardcoded_px_fontsize(content, filename):
     issues = []
     # 匹配 font-size: XXpx 或 fontSize:XXpx
     px_pattern = re.compile(r'font-?size[`:]*\s*(\d+)px', re.IGNORECASE)
-    # 也匹配 font: ... XXpx/...
-    font_shorthand = re.compile(r'font[`:]*\s*\d+\s*([^/]+/[^;}`]+)', re.IGNORECASE)
     
     for i, line in enumerate(content.split('\n'), 1):
         if 'var(--font' in line:
@@ -256,7 +244,7 @@ def generate_gaps_log(issues, output_dir):
 def main():
     if len(sys.argv) < 2:
         print("用法: python3 verify-design.py <pages-dir>")
-        print("示例: python3 verify-design.py /Users/shaoyuming/Documents/GienCoderDesignEngineering/pages")
+        print("示例: python3 verify-design.py ./pages")
         sys.exit(1)
     
     pages_dir = sys.argv[1]

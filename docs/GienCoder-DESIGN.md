@@ -102,7 +102,7 @@ colors:
     primary_6: "#5497FF"      # 暗色弧蓝基准
     menu_bg:   "#232324"
 typography:
-  fontFamily: "Inter, -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', 'noto sans', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif"
+  fontFamily: "Mona Sans VF, -apple-system, BlinkMacSystemFont, Segoe UI, Noto Sans Backtick Fix, Noto Sans, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji"
   codeFamily: "Consolas, Menlo, monospace"
   lineHeightBase: 1.5715
   fontSizeBase: "14px"
@@ -360,7 +360,7 @@ components:
 
 ## 3. Typography
 
-> 源码字体栈与层级见 YAML `typography.*`。基准正文 **14px**，行高基准 `lineHeightBase` = **1.5715**。中文优先 `PingFang SC / Hiragino Sans GB / noto sans / Microsoft YaHei`，西文优先 `Inter`，代码用 `Consolas / Menlo`。
+> 源码字体栈与层级见 YAML `typography.*`。基准正文 **14px**，行高基准 `lineHeightBase` = **1.5715**。首选 `Mona Sans VF`，回退 `-apple-system / BlinkMacSystemFont / Segoe UI / Noto Sans`，表情符号用 `Apple Color Emoji / Segoe UI Emoji`，代码用 `Consolas / Menlo`。
 
 | 角色 | Token | fontSize | fontWeight | lineHeight | letterSpacing | 典型用途 |
 |------|-------|----------|-----------|------------|---------------|----------|

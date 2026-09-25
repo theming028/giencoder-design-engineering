@@ -1,16 +1,34 @@
 #!/usr/bin/env bash
 # ═══════════════════════════════════════════════════════════
 # GienCoder Design Engineering — 构建脚本
-# 为每个页面生成独立 HTML，共享 CSS/JS 分离到 assets/ 目录
+# 从 Vite 源工程构建出独立单文件 HTML（CSS/JS 全部内联）
+#
+# 用法：
+#   ./build.sh <源工程目录> <输出目录>
+#   或通过环境变量：
+#   PROJECT_DIR=/path/to/cloudai-demo OUTPUT_DIR=/path/to/pages ./build.sh
+#
+# 前置条件：源工程需有 package.json + vite（viteSingleFile 插件）
 # ═══════════════════════════════════════════════════════════
 set -e
 
-PROJECT_DIR="/private/tmp/cloudai-demo"
-OUTPUT_DIR="/Users/shaoyuming/Documents/GienCoderDesignEngineering/pages"
+PROJECT_DIR="${PROJECT_DIR:-$1}"
+OUTPUT_DIR="${OUTPUT_DIR:-$2}"
+
+if [ -z "$PROJECT_DIR" ] || [ -z "$OUTPUT_DIR" ]; then
+  echo "用法: ./build.sh <源工程目录> <输出目录>"
+  echo "示例: ./build.sh /private/tmp/cloudai-demo ./pages"
+  exit 1
+fi
+
+if [ ! -f "$PROJECT_DIR/package.json" ]; then
+  echo "❌ 源工程目录缺少 package.json: $PROJECT_DIR"
+  exit 1
+fi
 
 echo "🧹 清理旧产物..."
-rm -rf "$OUTPUT_DIR"
 mkdir -p "$OUTPUT_DIR"
+rm -rf "${OUTPUT_DIR:?}"/*
 
 cd "$PROJECT_DIR"
 

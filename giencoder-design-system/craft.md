@@ -28,8 +28,8 @@
 
 ## 字体与排版
 
-- 中文 UI 默认使用 `var(--font-family)`（MiSans）
-- 英文/数字 Helvetica Neue fallback
+- 中文 UI 默认使用 `var(--font-family)`（Mona Sans VF）
+- 回退 Helvetica / Arial / Noto Sans
 - 粗体标题，禁用斜体（UI 与文档均禁用）
 - 文本字重最小 400
 

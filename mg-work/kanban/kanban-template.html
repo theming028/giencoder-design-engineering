@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="zh-CN" giencoder-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>任务看板 · 研发工作台</title>
+    <link rel="stylesheet" href="../giencoder-design-system/colors_and_type.css" />
+    <style>
+      :root {
+        --kb-appbar: #DAE3ED;
+        --kb-surround: #E5EDF5;
+        --kb-st-coop: #3686FF;   --kb-st-coop-tint: rgba(54, 134, 255, 0.12);
+        --kb-st-review: #E59800; --kb-st-review-tint: rgba(229, 152, 0, 0.14);
+        --kb-st-delay: #FF6157;  --kb-st-delay-tint: rgba(255, 97, 87, 0.12);
+        --kb-st-cancel: #F3881E; --kb-st-cancel-tint: rgba(243, 136, 30, 0.14);
+        --kb-col-todo: #A9A9A9;
+        --kb-tag-blue-bg: var(--color-primary-light-2); --kb-tag-blue-tx: var(--color-primary-6);
+        --kb-tag-purple-bg: rgb(var(--purple-2)); --kb-tag-purple-tx: rgb(var(--purple-6));
+        --kb-tag-magenta-bg: rgb(var(--magenta-2)); --kb-tag-magenta-tx: rgb(var(--magenta-6));
+        --kb-tag-num-bg: var(--color-fill-2); --kb-tag-num-tx: var(--color-text-2);
+        --kb-tag-high-bg: rgb(var(--red-2)); --kb-tag-high-tx: rgb(var(--red-6));
+        --kb-tag-mid-bg: rgb(var(--orange-2)); --kb-tag-mid-tx: rgb(var(--orange-6));
+        --kb-tag-low-bg: var(--color-fill-2); --kb-tag-low-tx: var(--color-text-3);
+        --kb-confirm: #F36C1D;
+        --kb-exec-bg: var(--color-primary-light-2); --kb-exec-tx: var(--color-primary-6);
+      }
+      [giencoder-theme='dark'] {
+        --kb-appbar: var(--color-bg-1);
+        --kb-surround: var(--color-bg-1);
+        --kb-tag-blue-bg: rgba(var(--giencoderblue-6), 0.24);
+        --kb-tag-purple-bg: rgba(var(--purple-6), 0.24);
+        --kb-tag-magenta-bg: rgba(var(--magenta-6), 0.24);
+        --kb-tag-high-bg: rgba(var(--red-6), 0.24);
+        --kb-tag-mid-bg: rgba(var(--orange-6), 0.24);
+        --kb-exec-bg: rgba(var(--giencoderblue-6), 0.24);
+      }
+      [giencoder-theme='dark'] .kb-appseg { background: rgba(255, 255, 255, 0.08); }
+      [giencoder-theme='dark'] .kb-appseg-btn.is-on { background: var(--color-bg-3); box-shadow: none; }
+      [giencoder-theme='dark'] .kb-fab { border: 1px solid var(--color-border-2); }
+      html, body { margin: 0; padding: 0; }
+      body { background: var(--kb-surround); }
+      .kb-screen { min-height: 100vh; display: flex; flex-direction: column; }
+
+      /* ===== app bar ===== */
+      .kb-appbar {
+        flex: none; height: 48px; display: flex; align-items: center;
+        padding: 0 20px; background: var(--kb-appbar);
+      }
+      .kb-dots { display: flex; gap: 8px; margin-right: 28px; }
+      .kb-dots i { width: 12px; height: 12px; border-radius: 50%; }
+      .kb-dots i:nth-child(1) { background: #FF5F57; }
+      .kb-dots i:nth-child(2) { background: #FEBC2E; }
+      .kb-dots i:nth-child(3) { background: #28C840; }
+      .kb-ws { display: flex; align-items: center; gap: 8px; }
+      .kb-ws-ava {
+        width: 24px; height: 24px; border-radius: 6px; background: var(--color-primary-6);
+        color: #fff; font-size: 13px; font-weight: 600; display: flex; align-items: center; justify-content: center;
+      }
+      .kb-ws-name { color: var(--color-text-1); font-size: 13px; font-weight: 500; }
+      .kb-ws svg { width: 12px; height: 12px; color: var(--color-text-2); }
+      .kb-appseg {
+        position: absolute; left: 50%; transform: translateX(-50%);
+        display: flex; align-items: center; gap: 4px; padding: 4px;
+        background: rgba(255, 255, 255, 0.45); border-radius: 10px;
+      }
+      .kb-appseg-btn {
+        display: flex; align-items: center; gap: 6px; padding: 5px 16px; border-radius: 8px;
+        color: var(--color-text-2); font-size: 13px; font-weight: 500; cursor: pointer;
+      }
+      .kb-appseg-btn svg { width: 14px; height: 14px; }
+      .kb-appseg-btn.is-on { background: var(--color-bg-1); color: var(--color-text-1); box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08); }
+      .kb-appright { margin-left: auto; display: flex; align-items: center; gap: 16px; }
+      .kb-comment-pill {
+        display: flex; align-items: center; gap: 6px; padding: 4px 12px;
+        background: var(--color-bg-1); border-radius: 999px;
+        color: var(--color-text-2); font-size: 12px; font-weight: 500;
+      }
+      .kb-comment-pill svg { width: 14px; height: 14px; }
+      .kb-side-ico { width: 16px; height: 16px; color: var(--color-text-2); }
+
+      /* ===== board panel ===== */
+      .kb-panel {
+        position: relative; flex: 1 0 842px; margin: 0 8px 10px;
+        background: var(--color-bg-1); border-radius: 12px; overflow: hidden;
+      }
+
+      /* ===== topbar ===== */
+      .kb-topbar { position: absolute; left: 0; top: 0; width: 100%; height: 48px; }
+      .kb-search {
+        position: absolute; left: 20px; top: 8px; width: 200px; height: 32px;
+        background: var(--color-fill-1); border-radius: 8px;
+      }
+      .kb-search-ico { position: absolute; left: 12px; top: 8px; width: 16px; height: 16px; line-height: 0; }
+      .kb-search-txt {
+        position: absolute; left: 36px; top: 5px; color: var(--color-text-1);
+        font-size: 14px; font-weight: 500; line-height: 22px; white-space: nowrap;
+      }
+      .kb-search-arw { position: absolute; left: 180px; top: 10px; width: 12px; height: 12px; color: var(--color-neutral-7); line-height: 0; }
+      .kb-radio {
+        position: absolute; left: 228px; top: 8px; height: 32px;
+        display: flex; align-items: center; background: var(--color-fill-1); border-radius: 6px;
+      }
+      .kb-radio-btn {
+        display: flex; align-items: center; padding: 5px 24px; border-radius: 8px;
+        color: var(--color-text-1); font-size: 14px; font-weight: 500; line-height: 22px;
+        white-space: nowrap; cursor: pointer; border: 1px solid transparent;
+      }
+      .kb-radio-btn.is-on {
+        gap: 4px; background: var(--color-bg-1); border-color: var(--color-border-2); color: var(--color-primary-6);
+      }
+      .kb-radio-ico { width: 14px; height: 14px; color: var(--color-primary-6); line-height: 0; flex: none; }
+      .kb-updatetime { position: absolute; right: 20px; top: 12px; width: 179px; height: 24px; }
+      .kb-updatetime-txt {
+        position: absolute; left: 0; top: 4px; width: 131px; color: var(--color-text-3);
+        font-size: 12px; line-height: 16px; white-space: nowrap; overflow: hidden;
+      }
+      .kb-vdiv { position: absolute; width: 1px; background: var(--color-border-2); }
+      .kb-refresh {
+        position: absolute; left: 155px; top: 0; width: 24px; height: 24px;
+        display: flex; align-items: center; justify-content: center; padding: 5px; border-radius: 4px;
+        color: var(--color-neutral-7); cursor: pointer; line-height: 0;
+      }
+      .kb-refresh:hover { background: var(--color-fill-2); }
+      .kb-refresh svg { width: 14px; height: 14px; }
+
+      /* ===== stats row ===== */
+      .kb-stats { position: absolute; left: 20px; top: 64px; display: flex; gap: 16px; }
+      .kb-create {
+        position: relative; width: 184px; height: 64px;
+        display: flex; align-items: center; justify-content: center; gap: 4px;
+        background: #EFF4FF; border: 1px solid #D9E3FE; border-radius: 8px; cursor: pointer;
+        color: var(--color-primary-6);
+      }
+      [giencoder-theme='dark'] .kb-create { background: rgba(var(--giencoderblue-6), 0.16); border-color: rgba(var(--giencoderblue-6), 0.32); }
+      .kb-create svg { width: 14px; height: 14px; line-height: 0; }
+      .kb-create span { font-size: 14px; font-weight: 500; line-height: 22px; white-space: nowrap; }
+      .kb-stat {
+        position: relative; width: 284px; height: 64px;
+        background: var(--color-bg-1); border: 1px solid var(--color-border-1);
+        border-radius: 8px; cursor: pointer;
+      }
+      .kb-stat.is-active { box-shadow: 0 1px 8px rgba(0, 0, 0, 0.06); }
+      .kb-stat--coop { --st: var(--kb-st-coop); --st-tint: var(--kb-st-coop-tint); }
+      .kb-stat--review { --st: var(--kb-st-review); --st-tint: var(--kb-st-review-tint); }
+      .kb-stat--delay { --st: var(--kb-st-delay); --st-tint: var(--kb-st-delay-tint); }
+      .kb-stat--cancel { --st: var(--kb-st-cancel); --st-tint: var(--kb-st-cancel-tint); }
+      .kb-stat-tile {
+        position: absolute; left: 12px; top: 12px; width: 40px; height: 40px;
+        background: var(--st-tint); border-radius: 6px;
+        display: flex; align-items: center; justify-content: center; color: var(--st); line-height: 0;
+      }
+      .kb-stat-tile svg { width: 20px; height: 20px; }
+      .kb-stat-label {
+        position: absolute; left: 68px; top: 22px; color: var(--color-text-1);
+        font-size: 14px; font-weight: 500; line-height: 20px; white-space: nowrap;
+      }
+      .kb-stat-num {
+        position: absolute; right: 16px; top: 16px; height: 32px;
+        display: flex; align-items: center; gap: 8px;
+      }
+      .kb-stat-num b { color: var(--color-text-1); font-size: 24px; font-weight: 500; line-height: 32px; }
+      .kb-stat-arrow { width: 16px; height: 16px; color: var(--color-text-1); line-height: 0; }
+      .kb-stat-arrow svg { width: 16px; height: 16px; }
+
+      .kb-divider { position: absolute; left: 20px; top: 148px; width: 1384px; height: 1px; background: var(--color-border-1); }
+
+      /* ===== board header ===== */
+      .kb-boardhead { position: absolute; left: 20px; top: 168px; width: 479px; height: 28px; }
+      .kb-bh-title { position: absolute; left: 0; top: 2px; color: var(--color-text-1); font-size: 16px; font-weight: 500; line-height: 24px; white-space: nowrap; }
+      .kb-select {
+        position: absolute; left: 120px; top: 0; width: 101px; height: 28px;
+        display: flex; align-items: center; padding: 3px 8px 3px 12px;
+        background: var(--color-bg-1); border: 1px solid var(--color-border-2); border-radius: 6px; cursor: pointer;
+      }
+      .kb-select .kb-lbl { color: var(--color-neutral-7); font-size: 13px; line-height: 20px; white-space: nowrap; }
+      .kb-select .kb-val { color: var(--color-text-1); font-size: 13px; line-height: 20px; white-space: nowrap; padding-right: 4px; }
+      .kb-select .kb-chev { margin-left: auto; width: 12px; height: 12px; color: var(--color-neutral-7); line-height: 0; flex: none; }
+      .kb-select .kb-chev svg { width: 12px; height: 12px; }
+      .kb-datebtn {
+        position: absolute; left: 229px; top: 0; width: 250px; height: 28px;
+        display: flex; align-items: center; justify-content: center; gap: 8px; padding: 3px 12px;
+        background: var(--color-bg-1); border: 1px solid var(--color-border-2); border-radius: 6px; cursor: pointer;
+      }
+      .kb-datebtn .kb-lbl { color: var(--color-neutral-7); font-size: 13px; line-height: 20px; white-space: nowrap; }
+      .kb-datebtn .kb-val { color: var(--color-text-1); font-size: 13px; line-height: 20px; white-space: nowrap; }
+      .kb-datebtn .kb-cal { width: 14px; height: 14px; color: var(--color-neutral-7); line-height: 0; flex: none; }
+      .kb-datebtn .kb-cal svg { width: 14px; height: 14px; }
+
+      /* ===== kanban columns ===== */
+      .kb-columns { position: absolute; left: 20px; top: 216px; width: 1384px; height: 614px; display: flex; gap: 16px; }
+      .kb-col { position: relative; width: 334px; display: flex; flex-direction: column; background: var(--color-fill-1); border-radius: 8px; overflow: hidden; }
+      .kb-col--todo { --st: var(--kb-col-todo); }
+      .kb-col--doing { --st: var(--kb-st-coop); }
+      .kb-col--done { --st: var(--color-success-6); }
+      .kb-col--stop { --st: var(--kb-st-delay); }
+      .kb-col-head { flex: none; height: 44px; display: flex; align-items: center; gap: 8px; padding: 0 12px; }
+      .kb-col-bar { width: 4px; height: 16px; border-radius: 2px; background: var(--st); flex: none; }
+      .kb-col-name { color: var(--color-text-1); font-size: 14px; font-weight: 500; line-height: 22px; }
+      .kb-col-cnt { color: var(--color-text-3); font-size: 13px; line-height: 20px; }
+      .kb-col-cnt::before { content: '•'; font-size: 10px; margin-right: 6px; vertical-align: 1px; }
+      .kb-col-body { flex: 1; overflow: hidden; padding: 0 8px; display: flex; flex-direction: column; gap: 8px; }
+      .kb-col-body.is-fade { -webkit-mask-image: linear-gradient(#000 82%, transparent 99%); mask-image: linear-gradient(#000 82%, transparent 99%); }
+      .kb-card {
+        flex: none; background: var(--color-bg-1); border: 1px solid var(--color-border-2);
+        border-radius: 8px; padding: 12px; cursor: pointer;
+      }
+      .kb-card.is-dashed { border-style: dashed; border-color: var(--color-warning-6); }
+      .kb-card-title { color: var(--color-text-1); font-size: 14px; font-weight: 400; line-height: 22px; }
+      .kb-card-tags { display: flex; align-items: center; gap: 8px; margin-top: 8px; }
+      .kb-tag { font-size: 12px; line-height: 18px; padding: 1px 6px; border-radius: 4px; white-space: nowrap; }
+      .kb-tag--blue { background: var(--kb-tag-blue-bg); color: var(--kb-tag-blue-tx); }
+      .kb-tag--purple { background: var(--kb-tag-purple-bg); color: var(--kb-tag-purple-tx); }
+      .kb-tag--magenta { background: var(--kb-tag-magenta-bg); color: var(--kb-tag-magenta-tx); }
+      .kb-tag--num { background: var(--kb-tag-num-bg); color: var(--kb-tag-num-tx); }
+      .kb-tag--high { background: var(--kb-tag-high-bg); color: var(--kb-tag-high-tx); }
+      .kb-tag--mid { background: var(--kb-tag-mid-bg); color: var(--kb-tag-mid-tx); }
+      .kb-tag--low { background: var(--kb-tag-low-bg); color: var(--kb-tag-low-tx); }
+      .kb-card-foot { display: flex; align-items: center; margin-top: 8px; min-height: 20px; }
+      .kb-card-foot .kb-lbl { color: var(--color-text-3); font-size: 12px; line-height: 18px; white-space: nowrap; }
+      .kb-card-foot .kb-val { color: var(--color-text-2); font-size: 12px; line-height: 18px; white-space: nowrap; }
+      .kb-card-foot .kb-sp { margin-left: auto; display: flex; align-items: center; gap: 4px; color: var(--color-text-3); font-size: 12px; line-height: 18px; }
+      .kb-card-foot .kb-sp svg { width: 14px; height: 14px; line-height: 0; }
+      .kb-btn-confirm {
+        margin-left: auto; display: flex; align-items: center; gap: 4px; padding: 2px 10px;
+        background: var(--kb-confirm); border-radius: 6px; color: #fff; font-size: 12px; font-weight: 500; line-height: 18px;
+      }
+      .kb-btn-confirm svg { width: 12px; height: 12px; line-height: 0; }
+      .kb-btn-exec {
+        margin-left: auto; padding: 2px 16px; background: var(--kb-exec-bg); border-radius: 6px;
+        color: var(--kb-exec-tx); font-size: 12px; font-weight: 500; line-height: 18px;
+      }
+      .kb-running { margin-left: auto; display: flex; align-items: center; gap: 4px; color: var(--color-primary-6); font-size: 12px; line-height: 18px; }
+      .kb-running svg { width: 12px; height: 12px; line-height: 0; animation: kb-spin 1s linear infinite; }
+      @keyframes kb-spin { to { transform: rotate(360deg); } }
+      .kb-col-scroll { position: absolute; right: 2px; top: 44px; width: 6px; height: 250px; border-radius: 3px; background: var(--color-fill-4); opacity: 0.55; }
+      .kb-col-more {
+        flex: none; display: flex; align-items: center; justify-content: center; gap: 6px;
+        padding: 16px 0 20px; color: var(--color-text-3); font-size: 12px; line-height: 18px;
+      }
+      .kb-col-more svg { width: 12px; height: 12px; line-height: 0; animation: kb-spin 1s linear infinite; }
+
+      /* ===== floating action ===== */
+      .kb-fab {
+        position: absolute; right: 20px; bottom: 20px; width: 44px; height: 44px;
+        background: var(--color-bg-1); border-radius: 50%; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+        display: flex; align-items: center; justify-content: center; color: var(--color-text-2); cursor: pointer;
+      }
+      .kb-fab svg { width: 20px; height: 20px; line-height: 0; }
+    </style>
+  </head>
+  <body>
+    <div class="kb-screen">
+
+      <!-- ===== app bar (restored from root frame) ===== -->
+      <div class="kb-appbar">
+        <span class="kb-dots"><i></i><i></i><i></i></span>
+        <span class="kb-ws">
+          <span class="kb-ws-ava">P</span>
+          <span class="kb-ws-name">PAA团队工作空间</span>
+          <svg viewBox="0 0 12 12" fill="none"><path d="M3 4.5 6 7.5 9 4.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <span class="kb-appseg">
+          <span class="kb-appseg-btn">
+            <svg viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="8" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M5 12.5h4M7 10v2.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+            基础
+          </span>
+          <span class="kb-appseg-btn is-on">
+            <svg viewBox="0 0 14 14" fill="none"><rect x="1.5" y="1.5" width="4.4" height="4.4" rx="1" stroke="currentColor" stroke-width="1.2"/><rect x="8.1" y="1.5" width="4.4" height="4.4" rx="1" stroke="currentColor" stroke-width="1.2"/><rect x="1.5" y="8.1" width="4.4" height="4.4" rx="1" stroke="currentColor" stroke-width="1.2"/><rect x="8.1" y="8.1" width="4.4" height="4.4" rx="1" stroke="currentColor" stroke-width="1.2"/></svg>
+            研发工作台
+          </span>
+        </span>
+        <span class="kb-appright">
+          <span class="kb-comment-pill">
+            <svg viewBox="0 0 14 14" fill="none"><path d="M12 6.5c0 2.8-2.24 5-5 5-.62 0-1.21-.11-1.76-.32L2 12l.9-2.6A4.98 4.98 0 0 1 2 6.5c0-2.8 2.24-5 5-5s5 2.2 5 5Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><path d="M4.8 5.6h4.4M4.8 7.6h2.8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+            3
+          </span>
+          <svg class="kb-side-ico" viewBox="0 0 16 16" fill="none"><rect x="1.5" y="2.5" width="13" height="11" rx="2" stroke="currentColor" stroke-width="1.2"/><path d="M10.5 2.5v11" stroke="currentColor" stroke-width="1.2"/></svg>
+        </span>
+      </div>
+
+      <!-- ===== board panel ===== -->
+      <div class="kb-panel" role="region" aria-label="任务看板">
+
+        <!-- topbar (restored 1333:18255) -->
+        <div class="kb-topbar">
+          <div class="kb-search" role="search">
+            <span class="kb-search-ico">{{ICONRAW:svg_186b82ab}}</span>
+            <span class="kb-search-txt">我的坚果云</span>
+            <span class="kb-search-arw">{{ICON:svg_55f7cbed}}</span>
+          </div>
+          <div class="kb-radio" role="tablist">
+            <span class="kb-radio-btn" role="tab" aria-selected="false">需求看板</span>
+            <span class="kb-radio-btn is-on" role="tab" aria-selected="true">
+              <span class="kb-radio-ico">{{ICON:svg_9cbe8683}}</span>任务看板
+            </span>
+          </div>
+          <div class="kb-updatetime">
+            <span class="kb-updatetime-txt">数据更新于 08/15 10:30</span>
+            <span class="kb-vdiv" style="left: 143px; top: 4px; height: 16px"></span>
+            <span class="kb-refresh" title="刷新">{{ICON:svg_7b524f64}}</span>
+          </div>
+        </div>
+
+        <!-- stats row (restored 1333:18136/18143/18151/18159/18163) -->
+        <div class="kb-stats">
+          <div class="kb-create">{{ICON:svg_ab25986b}}<span>创建任务</span></div>
+          <div class="kb-stat kb-stat--coop is-active">
+            <span class="kb-stat-tile">{{ICON:svg_236804b5}}</span>
+            <span class="kb-stat-label">待协作</span>
+            <span class="kb-stat-num"><b>5</b><span class="kb-stat-arrow">{{ICON:svg_dbc742e2}}</span></span>
+          </div>
+          <div class="kb-stat kb-stat--review">
+            <span class="kb-stat-tile">{{ICON:svg_04d63a19}}</span>
+            <span class="kb-stat-label">待评审</span>
+            <span class="kb-stat-num"><b>1</b></span>
+          </div>
+          <div class="kb-stat kb-stat--delay">
+            <span class="kb-stat-tile">{{ICON:svg_cb9b27fc}}</span>
+            <span class="kb-stat-label">已延期</span>
+            <span class="kb-stat-num"><b>7</b></span>
+          </div>
+          <div class="kb-stat kb-stat--cancel">
+            <span class="kb-stat-tile">{{ICON:svg_519f4bd9}}</span>
+            <span class="kb-stat-label">已取消</span>
+            <span class="kb-stat-num"><b>40</b></span>
+          </div>
+        </div>
+
+        <div class="kb-divider"></div>
+
+        <!-- board header (restored 1333:18171) -->
+        <div class="kb-boardhead">
+          <span class="kb-bh-title">我的工作任务</span>
+          <span class="kb-vdiv" style="left: 108px; top: 6px; height: 16px"></span>
+          <div class="kb-select" role="button">
+            <span class="kb-lbl">类型：</span>
+            <span class="kb-val">全部</span>
+            <span class="kb-chev">{{ICON:svg_55f7cbed}}</span>
+          </div>
+          <div class="kb-datebtn" role="button">
+            <span class="kb-lbl">本月：</span>
+            <span class="kb-val">2026/08/01 - 2026/08/31</span>
+            <span class="kb-cal">{{ICON:svg_110a5651}}</span>
+          </div>
+        </div>
+
+        <!-- kanban columns (restored from root board 553:06620) -->
+        <div class="kb-columns">
+
+          <div class="kb-col kb-col--todo">
+            <div class="kb-col-head"><span class="kb-col-bar"></span><span class="kb-col-name">待开始</span><span class="kb-col-cnt">12</span></div>
+            <div class="kb-col-body is-fade">
+              <div class="kb-card">
+                <div class="kb-card-title">端到端流程初始化：用户输入业务需求，生成交付状态跟踪表，启动整...</div>
+                <div class="kb-card-tags"><span class="kb-tag kb-tag--blue">拆分需求项</span><span class="kb-tag kb-tag--num">TASK-001</span><span class="kb-tag kb-tag--high">高</span></div>
+                <div class="kb-card-foot"><span class="kb-lbl">计划完成：</span><span class="kb-val">2026/08/31</span></div>
+              </div>
+              <div class="kb-card">
+                <div class="kb-card-title">读取业务方原始需求文档</div>
+                <div class="kb-card-tags"><span class="kb-tag kb-tag--purple">拆分需求条目</span><span class="kb-tag kb-tag--num">TASK-002</span><span class="kb-tag kb-tag--mid">中</span></div>
+                <div class="kb-card-foot"><span class="kb-lbl">计划完成：</span><span class="kb-val">2026/08/31</span></div>
+              </div>
+              <div class="kb-card">
+                <div class="kb-card-title">生成产品需求文档：基于原始需求登记表，生成结构化的 PRD 产品需...</div>
+                <div class="kb-card-tags"><span class="kb-tag kb-tag--magenta">拆分子条目</span><span class="kb-tag kb-tag--num">TASK-003</span><span class="kb-tag kb-tag--low">低</span></div>
+                <div class="kb-card-foot"><span class="kb-lbl">计划完成：</span><span class="kb-val">2026/08/31</span></div>
+              </div>
+              <div class="kb-card">
+                <div class="kb-card-title">作为网站访客，我希望能够顺利加载并浏览网页内容，以便获取所需信...</div>
+                <div class="kb-card-tags"><span class="kb-tag kb-tag--blue">拆分需求项</span><span class="kb-tag kb-tag--num">TASK-004</span><span class="kb-tag kb-tag--low">低</span></div>
+                <div class="kb-card-foot"><span class="kb-lbl">计划完成：</span><span class="kb-val">2026/08/31</span></div>
+              </div>
+              <div class="kb-card">
+                <div class="kb-card-title">生成产品需求文档，获取所需信息或完成操作后提交到git。</div>
+                <div class="kb-card-tags"><span class="kb-tag kb-tag--blue">拆分需求项</span><span class="kb-tag kb-tag--num">TASK-004</span><span class="kb-tag kb-tag--low">低</span></div>
+                <div class="kb-card-foot"><span class="kb-lbl">计划完成：</span><span class="kb-val">2026/08/31</span></div>
+              </div>
+            </div>
+            <span class="kb-col-scroll"></span>
+          </div>
+
+          <div class="kb-col kb-col--doing">
+            <div class="kb-col-head"><span class="kb-col-bar"></span><span class="kb-col-name">进行中</span><span class="kb-col-cnt">2</span></div>
+            <div class="kb-col-body">
+              <div class="kb-card is-dashed">
+                <div class="kb-card-title">个人工作台设计和开发</div>
+                <div class="kb-card-tags"><span class="kb-tag kb-tag--blue">拆分需求项</span><span class="kb-tag kb-tag--num">TASK-001</span><span class="kb-tag kb-tag--high">高</span></div>
+                <div class="kb-card-foot"><span class="kb-lbl">计划完成：</span><span class="kb-val">2026/08/31</span>
+                  <span class="kb-btn-confirm"><svg viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.2"/><path d="M6 3.4v3.2M6 8.4v.2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>待确认</span>
+                </div>
+              </div>
+              <div class="kb-card">
+                <div class="kb-card-title">端到端流程初始化：用户输入业务需求，生成交付状态跟踪表，启动整个...</div>
+                <div class="kb-card-tags"><span class="kb-tag kb-tag--blue">拆分需求项</span><span class="kb-tag kb-tag--num">TASK-001</span><span class="kb-tag kb-tag--high">高</span></div>
+                <div class="kb-card-foot"><span class="kb-lbl">计划完成：</span><span class="kb-val">2026/08/31</span><span class="kb-btn-exec">执行</span></div>
+              </div>
+              <div class="kb-card">
+                <div class="kb-card-title">读取业务方原始需求文档</div>
+                <div class="kb-card-tags"><span class="kb-tag kb-tag--purple">拆分需求条目</span><span class="kb-tag kb-tag--num">TASK-002</span><span class="kb-tag kb-tag--mid">中</span></div>
+                <div class="kb-card-foot"><span class="kb-lbl">计划完成：</span><span class="kb-val">2026/08/31</span>
+                  <span class="kb-running"><svg viewBox="0 0 12 12" fill="none"><path d="M6 1a5 5 0 1 1-4.7 3.3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>执行中</span>
+                </div>
+              </div>
+              <div class="kb-card">
+                <div class="kb-card-title">登录失败时未提示错误信息</div>
+                <div class="kb-card-tags"><span class="kb-tag kb-tag--magenta">拆分子条目</span><span class="kb-tag kb-tag--num">TASK-002</span><span class="kb-tag kb-tag--mid">中</span></div>
+                <div class="kb-card-foot"><span class="kb-lbl">计划完成：</span><span class="kb-val">2026/08/31</span>
+                  <span class="kb-sp"><svg viewBox="0 0 14 14" fill="none"><path d="M12 6.5c0 2.8-2.24 5-5 5-.62 0-1.21-.11-1.76-.32L2 12l.9-2.6A4.98 4.98 0 0 1 2 6.5c0-2.8 2.24-5 5-5s5 2.2 5 5Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><path d="M4.8 5.6h4.4M4.8 7.6h2.8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>1</span>
+                </div>
+              </div>
+              <div class="kb-card">
+                <div class="kb-card-title">登录失败时未提示错误信息</div>
+                <div class="kb-card-tags"><span class="kb-tag kb-tag--magenta">拆分子条目</span><span class="kb-tag kb-tag--num">TASK-002</span><span class="kb-tag kb-tag--mid">中</span></div>
+                <div class="kb-card-foot"><span class="kb-lbl">计划完成：</span><span class="kb-val">2026/08/31</span>
+                  <span class="kb-sp"><svg viewBox="0 0 14 14" fill="none"><path d="M12 6.5c0 2.8-2.24 5-5 5-.62 0-1.21-.11-1.76-.32L2 12l.9-2.6A4.98 4.98 0 0 1 2 6.5c0-2.8 2.24-5 5-5s5 2.2 5 5Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><path d="M4.8 5.6h4.4M4.8 7.6h2.8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>3</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="kb-col kb-col--stop">
+            <div class="kb-col-head"><span class="kb-col-bar"></span><span class="kb-col-name">已终止</span><span class="kb-col-cnt">3</span></div>
+            <div class="kb-col-body">
+              <div class="kb-card">
+                <div class="kb-card-title">最近三天的记忆合并</div>
+                <div class="kb-card-tags"><span class="kb-tag kb-tag--blue">拆分需求项</span><span class="kb-tag kb-tag--num">TASK-001</span><span class="kb-tag kb-tag--high">高</span></div>
+                <div class="kb-card-foot"><span class="kb-lbl">终止原因：</span><span class="kb-val">需求范围调整</span></div>
+              </div>
+              <div class="kb-card">
+                <div class="kb-card-title">读取业务方原始需求文档</div>
+                <div class="kb-card-tags"><span class="kb-tag kb-tag--purple">拆分需求条目</span><span class="kb-tag kb-tag--num">TASK-002</span><span class="kb-tag kb-tag--mid">中</span></div>
+                <div class="kb-card-foot"><span class="kb-lbl">终止原因：</span><span class="kb-val">需求范围调整</span></div>
+              </div>
+              <div class="kb-card">
+                <div class="kb-card-title">生成产品需求文档：基于原始需求登记表，生成结构化的 PRD 产品需求文...</div>
+                <div class="kb-card-tags"><span class="kb-tag kb-tag--magenta">拆分子条目</span><span class="kb-tag kb-tag--num">TASK-002</span><span class="kb-tag kb-tag--mid">中</span></div>
+                <div class="kb-card-foot"><span class="kb-lbl">终止原因：</span><span class="kb-val">技术选项调整</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="kb-col kb-col--done">
+            <div class="kb-col-head"><span class="kb-col-bar"></span><span class="kb-col-name">已完成</span><span class="kb-col-cnt">3</span></div>
+            <div class="kb-col-body">
+              <div class="kb-card">
+                <div class="kb-card-title">读取业务方原始需求文档</div>
+                <div class="kb-card-tags"><span class="kb-tag kb-tag--blue">拆分需求项</span><span class="kb-tag kb-tag--num">TASK-001</span><span class="kb-tag kb-tag--high">高</span></div>
+                <div class="kb-card-foot"><span class="kb-lbl">完成于：</span><span class="kb-val">2026/08/31 10:21</span>
+                  <span class="kb-sp"><svg viewBox="0 0 14 14" fill="none"><path d="M12 6.5c0 2.8-2.24 5-5 5-.62 0-1.21-.11-1.76-.32L2 12l.9-2.6A4.98 4.98 0 0 1 2 6.5c0-2.8 2.24-5 5-5s5 2.2 5 5Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><path d="M4.8 5.6h4.4M4.8 7.6h2.8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>7</span>
+                </div>
+              </div>
+              <div class="kb-card">
+                <div class="kb-card-title">生成结构化的 PRD 产品需求文档</div>
+                <div class="kb-card-tags"><span class="kb-tag kb-tag--blue">拆分需求项</span><span class="kb-tag kb-tag--num">TASK-001</span><span class="kb-tag kb-tag--high">高</span></div>
+                <div class="kb-card-foot"><span class="kb-lbl">完成于：</span><span class="kb-val">2026/08/31 10:21</span>
+                  <span class="kb-sp"><svg viewBox="0 0 14 14" fill="none"><path d="M12 6.5c0 2.8-2.24 5-5 5-.62 0-1.21-.11-1.76-.32L2 12l.9-2.6A4.98 4.98 0 0 1 2 6.5c0-2.8 2.24-5 5-5s5 2.2 5 5Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><path d="M4.8 5.6h4.4M4.8 7.6h2.8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>3</span>
+                </div>
+              </div>
+              <div class="kb-card">
+                <div class="kb-card-title">作为网站访客，我希望能够顺利加载并浏览网页内容，以便获取所需信息或...</div>
+                <div class="kb-card-tags"><span class="kb-tag kb-tag--purple">拆分需求条目</span><span class="kb-tag kb-tag--num">TASK-002</span><span class="kb-tag kb-tag--mid">中</span></div>
+                <div class="kb-card-foot"><span class="kb-lbl">完成于：</span><span class="kb-val">2026/08/31 10:21</span>
+                  <span class="kb-sp"><svg viewBox="0 0 14 14" fill="none"><path d="M12 6.5c0 2.8-2.24 5-5 5-.62 0-1.21-.11-1.76-.32L2 12l.9-2.6A4.98 4.98 0 0 1 2 6.5c0-2.8 2.24-5 5-5s5 2.2 5 5Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><path d="M4.8 5.6h4.4M4.8 7.6h2.8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>11</span>
+                </div>
+              </div>
+              <div class="kb-card">
+                <div class="kb-card-title">生成交付状态跟踪表，启动整个流程</div>
+                <div class="kb-card-tags"><span class="kb-tag kb-tag--purple">拆分需求条目</span><span class="kb-tag kb-tag--num">TASK-002</span><span class="kb-tag kb-tag--mid">中</span></div>
+                <div class="kb-card-foot"><span class="kb-lbl">完成于：</span><span class="kb-val">2026/08/31 10:21</span>
+                  <span class="kb-sp"><svg viewBox="0 0 14 14" fill="none"><path d="M12 6.5c0 2.8-2.24 5-5 5-.62 0-1.21-.11-1.76-.32L2 12l.9-2.6A4.98 4.98 0 0 1 2 6.5c0-2.8 2.24-5 5-5s5 2.2 5 5Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><path d="M4.8 5.6h4.4M4.8 7.6h2.8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>3</span>
+                </div>
+              </div>
+              <div class="kb-col-more">
+                <svg viewBox="0 0 12 12" fill="none"><path d="M6 1a5 5 0 1 1-4.7 3.3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+                加载第 16-30 条
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- floating action -->
+        <div class="kb-fab" title="智能助手">
+          <svg viewBox="0 0 20 20" fill="none"><rect x="2.5" y="4.5" width="13" height="11" rx="3" stroke="currentColor" stroke-width="1.3"/><path d="M6.5 9.5v1.5M10 9.5v1.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="M14.5 2.5l.6 1.4 1.4.6-1.4.6-.6 1.4-.6-1.4-1.4-.6 1.4-.6.6-1.4Z" fill="currentColor"/></svg>
+        </div>
+
+      </div>
+    </div>
+    <script>
+      // Sync theme with dev workbench if opened from it; default light.
+      (function () {
+        try {
+          var t = localStorage.getItem('giencoder-theme');
+          if (t === 'dark' || location.hash === '#dark') document.documentElement.setAttribute('giencoder-theme', 'dark');
+        } catch (e) {}
+      })();
+    </script>
+  </body>
+</html>

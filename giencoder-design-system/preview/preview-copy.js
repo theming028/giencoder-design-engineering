@@ -525,14 +525,14 @@
       '.' + M + '{position:fixed;z-index:99999;margin:0;padding:4px;min-width:150px;' +
       'background:#fff;border:1px solid #e5e6eb;border-radius:4px;' +
       'box-shadow:0 6px 20px rgba(15,23,42,.12);list-style:none;display:none;' +
-      'font:500 14px/1.4 -apple-system,BlinkMacSystemFont,"Helvetica Neue","Noto Sans SC",sans-serif;}' +
+      'font:500 14px/1.4 "Mona Sans VF",-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans Backtick Fix","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";}' +
       '.' + M + '.open{display:block;animation:gcCopyIn .15s ease-out;}' +
       '@keyframes gcCopyIn{from{opacity:0;transform:scale(.96) translateY(-2px);}to{opacity:1;transform:none;}}' +
       '.' + I + '{padding:6px 12px;color:#1d2129;cursor:pointer;border-radius:2px;white-space:nowrap;}' +
       '.' + I + ':hover{background:#f7f8fa;}' +
       '.' + T + '{position:fixed;z-index:100000;left:50%;top:64px;transform:translateX(-50%);' +
       'padding:6px 14px;background:#1d2129;color:#fff;border-radius:4px;pointer-events:none;' +
-      'font:500 13px/1.4 -apple-system,BlinkMacSystemFont,"Helvetica Neue","Noto Sans SC",sans-serif;' +
+      'font:500 13px/1.4 "Mona Sans VF",-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans Backtick Fix","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";' +
       'opacity:0;transition:opacity .2s;}' +
       '.' + T + '.show{opacity:1;}';
     document.head.appendChild(st);

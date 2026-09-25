@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><style>
+  body { margin: 0; background: #fff; font: 12px monospace; }
+  .row { display: flex; align-items: flex-start; gap: 12px; padding: 8px; border-bottom: 1px solid #ccc; }
+  .lbl { writing-mode: vertical-rl; color: #c00; }
+  canvas { image-rendering: pixelated; outline: 1px solid #888; }
+</style></head>
+<body>
+<div id="stack"></div>
+<script>
+const regions = [
+  ['tags', 36, 362, 230, 26, 4],
+  ['dots', 28, 280, 420, 18, 3],
+  ['buttons', 600, 355, 110, 140, 3],
+  ['loader', 1150, 720, 290, 160, 2],
+  ['comment', 1340, 360, 80, 26, 4],
+  ['colhead1', 28, 276, 340, 34, 3],
+  ['card1', 36, 308, 320, 112, 3],
+  ['boardhead', 20, 210, 500, 40, 3],
+  ['appbar', 0, 0, 720, 48, 2],
+  ['appbar2', 720, 0, 720, 48, 2]
+];
+(async () => {
+  const bmp = await createImageBitmap(await (await fetch('board-design.png')).blob());
+  for (const [name, x, y, w, h, s] of regions) {
+    const row = document.createElement('div'); row.className = 'row';
+    const lbl = document.createElement('div'); lbl.className = 'lbl'; lbl.textContent = name;
+    const c = document.createElement('canvas');
+    c.width = w * s; c.height = h * s;
+    const ctx = c.getContext('2d');
+    ctx.imageSmoothingEnabled = false;
+    ctx.drawImage(bmp, x, y, w, h, 0, 0, w * s, h * s);
+    row.append(lbl, c); document.getElementById('stack').append(row);
+  }
+  document.title = 'done';
+})();
+</script>
+</body>
+</html>

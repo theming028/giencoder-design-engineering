@@ -105,8 +105,8 @@
 ### 3.1 字体族
 
 ```
---font-family: Inter, -apple-system, BlinkMacSystemFont, PingFang SC, Hiragino Sans GB,
-  noto sans, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif;
+--font-family: "Mona Sans VF", -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans Backtick Fix",
+  "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
 --code-family: Consolas, Menlo;
 --line-height-base: 1.5715;
 --font-size-body: 14px;   /* 全局基准字号 */

@@ -64,7 +64,10 @@ python3 -m http.server 8080
 - **设计系统**：唯一依赖 GienCoder Design System（giencoder），不引入外部 CSS 框架
 - **边框补偿**：容器有 `border` + `box-sizing: border-box` 时，子元素 `left/top` 减去 border 宽度补偿偏移
 
-## 技术栈
+## 技术栈（源工程）
+
+> 注意：本仓库仅包含**构建产物**和设计系统规范，React/Vite 源工程不在本仓库中。
+> `build.sh` 需指定外部源工程目录才能重新构建。
 
 - React 18 + TypeScript
 - Vite 8（构建工具，`viteSingleFile` 内联输出）
@@ -74,7 +77,7 @@ python3 -m http.server 8080
 ## 目录结构
 
 ```
-GienCoderDesignEngineering/
+giencoder-design-engineering/
 ├── pages/                          ← 交付页面（6 个独立 HTML）
 │   ├── base.html
 │   ├── dev.html
@@ -83,21 +86,22 @@ GienCoderDesignEngineering/
 │   ├── skills.html
 │   └── settings.html
 ├── giencoder-design-system/       ← 设计系统规范
-│   ├── components/                 ← 组件 JSON 规范（48 个）
-│   ├── preview/                    ← 组件预览页（48 个 HTML）
+│   ├── components/                 ← 组件 JSON 规范（72 个）
+│   ├── preview/                    ← 组件预览页
 │   ├── components.css              ← 组件样式
-│   ├── colors_and_type.css        ← 色彩与字体样式
+│   ├── colors_and_type.css        ← 色彩与字体样式（Token 唯一权威来源）
 │   ├── tokens.md                   ← 设计令牌文档
 │   └── ...
-├── assets/                         ← 图标资源
-│   └── icons/
-├── GienCoder-DESIGN.md             ← 设计规范主文档
-├── GETTING-STARTED.html           ← 使用说明书
+├── assets/                         ← 图标资源（icons/）
+├── docs/                           ← 设计文档（GienCoder-DESIGN.md、Playbook 等）
+├── mg-work/                        ← MasterGo DSL 快照与切图
+├── build.sh                        ← 构建脚本（需外部源工程）
+├── verify-design.py                ← 构建后质量验证脚本
 └── README.md                       ← 本文件
 ```
 
 ## 版本
 
-- **交付日期**：2024-09-24
+- **交付日期**：2026-09-24
 - **构建工具**：Vite 8 + viteSingleFile
 - **设计稿**：MasterGo file=193158744355579
