@@ -338,6 +338,8 @@ svg.animate-spin{width:14px!important;height:14px!important}
       /* 组件内文字与 Select 保持全局统一（14px / --font-size-body-3） */
       .rq-dp-lbl { flex: none; color: var(--color-neutral-7); font-size: var(--font-size-body-3); line-height: 20px; white-space: nowrap; }
       .kb-boardhead .giencoder-date-picker .giencoder-input { font-size: var(--font-size-body-3); }
+      /* 浮窗投影与 select 下拉统一（全局规范） */
+      .giencoder-date-picker-popup { box-shadow: 0 8px 20px #0000001a; }
       .kb-boardhead { position: absolute; left: 20px; top: 168px; width: 479px; height: 28px; }
       .kb-bh-title { position: absolute; left: 0; top: 2px; color: var(--color-text-1); font-size: 16px; font-weight: 500; line-height: 24px; white-space: nowrap; }
       /* ===== kanban columns ===== */
@@ -405,7 +407,7 @@ svg.animate-spin{width:14px!important;height:14px!important}
       .giencoder-date-picker-popup {
         position: absolute; top: calc(100% + 4px); left: 0; z-index: 10;
         background: var(--color-bg-popup); border: 1px solid var(--color-border-2);
-        border-radius: var(--border-radius-large); box-shadow: var(--shadow2-down);
+        border-radius: var(--border-radius-large); box-shadow: 0 8px 20px #0000001a;
         padding: var(--spacing-6);
       }
       .giencoder-date-picker-panels { display: flex; gap: var(--spacing-9); }
