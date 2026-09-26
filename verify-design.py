@@ -19,6 +19,11 @@ ALLOWED_HEX = {
     '#6B6B6B', '#868686', '#8E8E8E', '#A9A9A9', '#BEBEBE',
     '#A0BAF7', '#D3E2FF', '#ECF2FF',
     '#DAE3ED', '#E2E3E4',
+    # 看板页 MasterGo DevMode 直出（kanban topbar/矩形204、create 卡片）
+    '#EBECED', '#EFF4FF', '#D9E3FE',
+    # 需求看板 DevMode 直出（769:13709：表头/分页条/状态徽标/统计卡 tile）
+    '#FAFAFA', '#E3EEFF', '#E2F4E4', '#FDE2E3', '#FFECD9',
+    '#5592EB', '#009E61', '#F3881E', 'rgba(247, 101, 96, 0.12)',
     'rgba(255, 255, 255, 0.85)', 'rgba(255, 255, 255, 0.88)',
     'rgba(255, 255, 255, 0.5)', 'rgba(255, 255, 255, 0.9)',
     'rgba(0, 0, 0, 0.04)', 'rgba(0, 0, 0, 0.08)', 'rgba(0, 0, 0, 0.1)',
@@ -59,7 +64,7 @@ def check_hardcoded_hex(content, filename):
         r'(?:color|background|borderColor|border-color|boxShadow|box-shadow)'
         r'\s*[`:]\s*'
         r'(?![^`]*var\()'  # 同行没有 var(
-        r'(#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8}))',
+        r'(#(?:[0-9a-fA-F]{8}|[0-9a-fA-F]{6}|[0-9a-fA-F]{3}))',
         re.IGNORECASE
     )
     

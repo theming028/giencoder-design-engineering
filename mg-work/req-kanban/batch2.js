@@ -1,0 +1,43 @@
+const http = require('http');
+const fs = require('fs');
+const path = require('path');
+const PORT = 20678;
+const PROJECT_DIR = 'E://GienCoder//giencoder-design-engineering';
+const NODES = [
+  ['r14', '769:23096'],  // 矩形487 白行背景
+  ['r15', '769:23097'],  // 矩形488 F7行背景
+  ['r16', '769:26731'],  // 矩形486 表头背景
+  ['r17', '769:23177'],  // 矩形490 FAFAFA
+  ['r18', '769:29215'],  // 矩形473 stats卡背景
+  ['r19', '769:29226'],  // 矩形463 stats卡背景2
+  ['r20', '817:12185'],  // 矩形493 分页条背景
+  ['r21', '769:13722'],  // 直线45
+];
+function call(tool, args) {
+  return new Promise((resolve) => {
+    const body = JSON.stringify({ jsonrpc: '2.0', id: Date.now() + Math.floor(Math.random()*1000),
+      method: 'tools/call', params: { name: tool, arguments: args } });
+    const req = http.request({ host: '127.0.0.1', port: PORT, path: '/mcp', method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json, text/event-stream',
+        'Content-Length': Buffer.byteLength(body) }, timeout: 170000 }, (res) => {
+      const chunks = [];
+      res.on('data', d => chunks.push(d));
+      res.on('end', () => {
+        const raw = Buffer.concat(chunks).toString('utf8');
+        const p = [];
+        for (const l of raw.split(/\r?\n/)) if (l.startsWith('data:')) p.push(l.slice(5).trim());
+        resolve(p.length ? p.join('\n') : raw);
+      });
+    });
+    req.on('error', e => resolve('REQ_ERROR: ' + e.message));
+    req.on('timeout', () => { req.destroy(); resolve('REQ_TIMEOUT'); });
+    req.write(body); req.end();
+  });
+}
+(async () => {
+  for (const [dir, nid] of NODES) {
+    const resp = await call('get_frontend_code', { projectDir: PROJECT_DIR, targetNodeId: nid, frontendFramework: 'html', outDir: 'mg-work/req-kanban/' + dir, fileName: 'node.html' });
+    console.log(dir, nid, resp.includes('成功') ? 'OK' : 'FAIL');
+  }
+  console.log('DONE');
+})();
