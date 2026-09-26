@@ -791,7 +791,8 @@ header div:has(> div.relative > button[aria-label="切换侧边栏"]) { display:
       /* --- 主体：左列自适应 + 右栏 320 --- */
       .kb-crt-body { flex: 1; min-height: 0; display: flex; padding: 0; overflow: hidden; }
       .kb-crt-main {
-        flex: 1; min-width: 0; display: flex; flex-direction: column;
+        flex: 1 1 80%; box-sizing: border-box; min-width: 0;
+        display: flex; flex-direction: column;
         padding: 24px 40px 0; overflow: hidden;
       }
       /* 任务类型：设计稿为「填充」单选（fill-1 底、无描边、无投影，标签内联在值前） */
@@ -813,14 +814,14 @@ header div:has(> div.relative > button[aria-label="切换侧边栏"]) { display:
       .kb-crt-main .kb-crt-type + .kb-crt-title { margin-top: 16px; }
       /* 任务标题：设计稿 880x40、圆角 8（DS 中为 36x4） */
       .kb-crt-main .kb-crt-title {
-        width: 100%; max-width: 880px; height: 40px; flex: none;
+        width: 100%; height: 40px; flex: none;
         border-radius: var(--border-radius-large); padding: 0 12px;
       }
       .kb-crt-title .giencoder-input { color: var(--color-text-1); }
       .kb-crt-title .giencoder-input::placeholder { color: var(--color-text-3); }
       /* 富文本编辑器：设计稿 880x320，1px #F2F2F2 + 圆角 8；高度可随窗口收缩 */
       .kb-crt-editor {
-        margin-top: 20px; width: 100%; max-width: 880px;
+        margin-top: 20px; width: 100%;
         flex: 1 1 320px; min-height: 140px; max-height: 320px;
         display: flex; flex-direction: column;
         border: 1px solid var(--color-border-1); border-radius: var(--border-radius-large);
@@ -884,7 +885,8 @@ header div:has(> div.relative > button[aria-label="切换侧边栏"]) { display:
       .kb-crt-uprm:hover { color: var(--color-text-1); }
       /* --- 右栏：320 宽，左描边 #EBECED --- */
       .kb-crt-aside {
-        width: 320px; flex: none; display: flex; flex-direction: column;
+        flex: 1 1 20%; box-sizing: border-box; min-width: 0;
+        display: flex; flex-direction: column;
         border-left: 1px solid var(--kb-crt-divider);
       }
       .kb-crt-aside-head {
@@ -895,8 +897,8 @@ header div:has(> div.relative > button[aria-label="切换侧边栏"]) { display:
       .kb-crt-aside-body { padding: 24px; display: flex; flex-direction: column; gap: 12px; }
       .kb-crt-row { display: flex; align-items: center; }
       .kb-crt-lbl { width: 80px; flex: none; font-size: var(--font-size-body-3); color: var(--color-text-1); }
-      .kb-crt-fld { width: 192px; flex: none; }
-      .kb-crt-date, .kb-crt-date .giencoder-input-wrapper { width: 192px; min-width: 192px; }
+      .kb-crt-fld { flex: 1 1 0; min-width: 0; }
+      .kb-crt-date, .kb-crt-date .giencoder-input-wrapper { width: auto; min-width: 0; }
       .kb-crt-date .kb-crt-date-input { color: var(--color-text-1); }
       .kb-crt-date .kb-crt-date-input::placeholder { color: rgb(var(--gray-5)); }
       .kb-crt-date .giencoder-date-picker-popup { left: auto; right: 0; }
