@@ -1,0 +1,352 @@
+✅ 成功获取节点代码
+- 节点: 创建任务 - 1 (875:13276)
+- 根节点: 875:13276
+- 父容器方向: row
+- Server 资源上下文: 11 个临时 Artifact。
+- 后续动作: 当前仅做“读取/同步上下文”，等待用户明确说明修改内容。
+- 充满语义提示(parentDirection=row): 宽度充满=主轴充满(优先 flex-1)；高度充满=交叉轴充满(优先 self-stretch)。
+
+代码内容：
+
+<div
+  data-node-id="875:13276"
+  data-name="创建任务 - 1"
+  style="width: 1440px; height: 900px; background: #FFFFFF; overflow: hidden; position: relative">
+  <img
+    data-node-id="875:13280"
+    data-name="image"
+    style="position: absolute; left: 0px; top: 0px; z-index: 0; width: 1440px; height: 900px; object-fit: cover"
+    src="./asset/images/image-875-13280.png"
+    title="image" />
+  <div
+    data-node-id="875:13382"
+    data-name="矩形 220"
+    style="position: absolute; left: 0px; top: 0px; z-index: 1">
+    <img src="./asset/icons/svg_8e860390.svg" style="color: rgba(0,0,0,0.32)" />
+  </div>
+  <div
+    data-node-id="1343:18348"
+    data-name="容器 15"
+    style="width: 1280px; height: 820px; position: absolute; left: 80px; top: 40px; z-index: 2">
+    <div
+      data-node-id="vc875:15980"
+      data-name="矩形 203"
+      style="position: absolute; left: 0px; top: 0px; z-index: 0">
+      <img src="./asset/icons/svg_05b193cd.svg" style="color: #FFFFFF" />
+    </div>
+    <div
+      data-node-id="1343:18336"
+      data-name="容器 3"
+      style="width: 1280px; height: 48px; position: absolute; left: 0px; top: 0px; z-index: 1">
+      <div
+        data-node-id="vc875:15936"
+        data-name="矩形 204"
+        style="position: absolute; left: 0px; top: 0px; z-index: 0">
+        <img src="./asset/icons/svg_b8cb8c33.svg" style="color: #FFFFFF" />
+      </div>
+      <div
+        data-node-id="1343:18335"
+        data-name="容器 2"
+        style="width: 40px; height: 28px; position: absolute; left: 1216px; top: 10px; z-index: 1">
+        <div
+          data-node-id="vc875:16398"
+          data-name="直线 38"
+          style="position: absolute; left: 0px; top: 6px; z-index: 0">
+          <img src="./asset/icons/svg_2dea00e1.svg" style="color: #E5E5E5" />
+        </div>
+        <ui-component
+          data-node-id="vc875:16405"
+          data-name="icon-wrapper"
+          style="width: 28px; height: 28px; display: flex; justify-content: center; align-items: center; flex-direction: column"
+          name="icon-wrapper"
+          props='{"尺寸":"16"}'></ui-component>
+      </div>
+      <ui-component
+        data-node-id="vc875:16188"
+        data-name="text/text"
+        style="width: 96px; height: 24px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+        name="text/text"
+        props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+        text='{"中电金信":"创建工作任务"}'></ui-component>
+    </div>
+    <div
+      data-node-id="vc875:15979"
+      data-name="矩形 205"
+      style="position: absolute; left: 960px; top: 48px; z-index: 2">
+      <img src="./asset/icons/svg_96228d69.svg" style="color: #FFFFFF" />
+    </div>
+    <div
+      data-node-id="1343:18341"
+      data-name="容器 8"
+      style="width: 1280px; height: 56px; position: absolute; left: 0px; top: 764px; z-index: 3">
+      <div
+        data-node-id="vc875:16514"
+        data-name="矩形 221"
+        style="position: absolute; left: 0px; top: 0px; z-index: 0">
+        <img src="./asset/icons/svg_40e9e0d1.svg" style="color: #FFFFFF" />
+      </div>
+      <div
+        data-node-id="1343:18340"
+        data-name="容器 7"
+        style="width: 350px; height: 32px; position: absolute; left: 906px; top: 12px; z-index: 1">
+        <ui-component
+          data-node-id="vc875:16607"
+          data-name="text/text"
+          style="width: 76px; height: 32px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+          name="text/text"
+          props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+          text='{"中电金信":"取消"}'></ui-component>
+        <ui-component
+          data-node-id="vc875:16667"
+          data-name="text/text"
+          style="width: 146px; height: 32px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+          name="text/text"
+          props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+          text='{"中电金信":"保存并继续创建"}'></ui-component>
+        <ui-component
+          data-node-id="vc875:16613"
+          data-name="text/text"
+          style="width: 104px; height: 32px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+          name="text/text"
+          props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+          text='{"中电金信":"创建任务"}'></ui-component>
+      </div>
+    </div>
+    <div
+      data-node-id="vc875:30757"
+      data-name="组 10397"
+      style="width: 319px; height: 40px; position: absolute; left: 961px; top: 48px; z-index: 4">
+      <div
+        data-node-id="vc875:30751"
+        data-name="矩形 330"
+        style="position: absolute; left: 0px; top: 0px; z-index: 0">
+        <img src="./asset/icons/svg_db31979c.svg" style="color: #F5F6F7" />
+      </div>
+      <ui-component
+        data-node-id="vc875:16748"
+        data-name="text/text"
+        style="width: 56px; height: 22px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+        name="text/text"
+        props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+        text='{"中电金信":"任务属性"}'></ui-component>
+    </div>
+    <div
+      data-node-id="1343:18344"
+      data-name="容器 11"
+      style="width: 272px; height: 32px; position: absolute; left: 984px; top: 200px; z-index: 5">
+      <ui-component
+        data-node-id="vc875:17198"
+        data-name="text/text"
+        style="width: 56px; height: 22px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+        name="text/text"
+        props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+        text='{"中电金信":"关联需求"}'></ui-component>
+      <ui-component
+        data-node-id="vc875:17203"
+        data-name="select"
+        style="width: 192px; height: 32px; display: flex; justify-content: flex-start; align-items: center; gap: 8px"
+        name="select"
+        props='{"尺寸":"中","填充":"false","多选":"false","悬停":"false","聚焦":"false","禁用":"false"}'
+        text='{"中电金信":"任务类型 *","请选择":"请选择"}'></ui-component>
+    </div>
+    <div
+      data-node-id="1343:18345"
+      data-name="容器 12"
+      style="width: 272px; height: 32px; position: absolute; left: 984px; top: 244px; z-index: 6">
+      <ui-component
+        data-node-id="vc875:17220"
+        data-name="text/text"
+        style="width: 56px; height: 22px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+        name="text/text"
+        props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+        text='{"中电金信":"前置任务"}'></ui-component>
+      <ui-component
+        data-node-id="vc875:17225"
+        data-name="select"
+        style="width: 192px; height: 32px; display: flex; justify-content: flex-start; align-items: center; gap: 8px"
+        name="select"
+        props='{"尺寸":"中","填充":"false","多选":"false","悬停":"false","聚焦":"false","禁用":"true"}'
+        text='{"中电金信":"标题：","请选择":"-"}'></ui-component>
+    </div>
+    <div
+      data-node-id="1343:18342"
+      data-name="容器 9"
+      style="width: 272px; height: 32px; position: absolute; left: 984px; top: 112px; z-index: 7">
+      <ui-component
+        data-node-id="vc875:17288"
+        data-name="text/text"
+        style="width: 28px; height: 22px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+        name="text/text"
+        props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+        text='{"中电金信":"状态"}'></ui-component>
+      <ui-component
+        data-node-id="vc875:17293"
+        data-name="select"
+        style="width: 192px; height: 32px; display: flex; justify-content: flex-start; align-items: center; gap: 8px"
+        name="select"
+        props='{"尺寸":"中","填充":"false","多选":"false","悬停":"false","聚焦":"false","禁用":"false"}'
+        text='{"中电金信":"任务类型 *","请选择":"请选择"}'></ui-component>
+    </div>
+    <div
+      data-node-id="1343:18343"
+      data-name="容器 10"
+      style="width: 272px; height: 32px; position: absolute; left: 984px; top: 156px; z-index: 8">
+      <ui-component
+        data-node-id="vc875:17342"
+        data-name="text/text"
+        style="width: 42px; height: 22px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+        name="text/text"
+        props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+        text='{"中电金信":"优先级"}'></ui-component>
+      <ui-component
+        data-node-id="vc875:17347"
+        data-name="select"
+        style="width: 192px; height: 32px; display: flex; justify-content: flex-start; align-items: center; gap: 8px"
+        name="select"
+        props='{"尺寸":"中","填充":"false","多选":"false","悬停":"false","聚焦":"false","禁用":"false"}'
+        text='{"中电金信":"任务类型 *","请选择":"请选择"}'></ui-component>
+    </div>
+    <div
+      data-node-id="1343:18346"
+      data-name="容器 13"
+      style="width: 272px; height: 32px; position: absolute; left: 984px; top: 288px; z-index: 9">
+      <ui-component
+        data-node-id="vc875:17364"
+        data-name="text/text"
+        style="width: 42px; height: 22px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+        name="text/text"
+        props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+        text='{"中电金信":"责任人"}'></ui-component>
+      <ui-component
+        data-node-id="vc875:17369"
+        data-name="select"
+        style="width: 192px; height: 32px; display: flex; justify-content: flex-start; align-items: center; gap: 8px"
+        name="select"
+        props='{"尺寸":"中","填充":"false","多选":"false","悬停":"false","聚焦":"false","禁用":"false"}'
+        text='{"中电金信":"任务类型 *","请选择":"请选择"}'></ui-component>
+    </div>
+    <div
+      data-node-id="1343:18347"
+      data-name="容器 14"
+      style="width: 272px; height: 32px; position: absolute; left: 984px; top: 332px; z-index: 10">
+      <ui-component
+        data-node-id="vc875:17386"
+        data-name="text/text"
+        style="width: 56px; height: 22px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+        name="text/text"
+        props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+        text='{"中电金信":"预期完成"}'></ui-component>
+      <ui-component
+        data-node-id="vc875:17505"
+        data-name="datepicker"
+        style="width: 192px; height: 32px; display: flex; justify-content: flex-start; align-items: flex-start"
+        name="datepicker"
+        props='{"尺寸":"中","填充":"false","范围":"false","悬停":"false","禁用":"false"}'
+        text='{"选择日期":"选择日期"}'></ui-component>
+    </div>
+    <ui-component
+      data-node-id="vc875:17648"
+      data-name="select"
+      style="width: 168px; height: 32px; display: flex; justify-content: flex-start; align-items: center; gap: 8px"
+      name="select"
+      props='{"尺寸":"中","填充":"false","多选":"false","悬停":"false","聚焦":"false","禁用":"false"}'
+      text='{"中电金信":"任务类型 *","请选择":"请选择"}'></ui-component>
+    <div
+      data-node-id="1343:18337"
+      data-name="容器 4"
+      style="width: 880px; height: 40px; position: absolute; left: 40px; top: 120px; z-index: 12">
+      <div
+        data-node-id="vc875:17727"
+        data-name="矩形 479"
+        style="position: absolute; left: 0px; top: 0px; z-index: 0">
+        <img src="./asset/icons/svg_4599c4b8.svg" />
+      </div>
+      <ui-component
+        data-node-id="vc875:17765"
+        data-name="text/text"
+        style="width: 98px; height: 22px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+        name="text/text"
+        props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+        text='{"中电金信":"请输入任务标题"}'></ui-component>
+    </div>
+    <div
+      data-node-id="1343:18338"
+      data-name="容器 5"
+      style="width: 880px; height: 320px; position: absolute; left: 40px; top: 180px; z-index: 13">
+      <div
+        data-node-id="vc875:17936"
+        data-name="矩形 329"
+        style="width: 880px; height: 320px; background: #FFFFFF; border-style: solid; border-color: #F2F2F2; border-width: 1px; border-radius: 8px; position: absolute; left: 0px; top: 0px; z-index: 0"></div>
+      <div
+        data-node-id="vc875:31345"
+        data-name="组 10400"
+        style="width: 880px; height: 36px; position: absolute; left: 0px; top: 0px; z-index: 1">
+        <div
+          data-node-id="vc875:17935"
+          data-name="矩形 299"
+          style="position: absolute; left: 0px; top: 0px; z-index: 0">
+          <img src="./asset/icons/svg_960ee6d4.svg" />
+        </div>
+        <img
+          data-node-id="vc875:17926"
+          data-name="image"
+          style="position: absolute; left: 12px; top: 4px; z-index: 1; width: 444px; height: 28px; object-fit: cover; mix-blend-mode: multiply"
+          src="./asset/images/image-vc875-17926.png"
+          title="image" />
+        <ui-component
+          data-node-id="vc875:17944"
+          data-name="icon-wrapper"
+          style="width: 16px; height: 16px; display: flex; justify-content: center; align-items: center; flex-direction: column"
+          name="icon-wrapper"
+          props='{"尺寸":"16"}'></ui-component>
+      </div>
+      <ui-component
+        data-node-id="vc875:17939"
+        data-name="text/text"
+        style="width: 420px; height: 48px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+        name="text/text"
+        props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+        text='{"中电金信":"你可以通过用户故事的形式描述任务。\n基本格式：作为某个角色，我需要做某些事情，以便实现什么目标。"}'></ui-component>
+    </div>
+    <div
+      data-node-id="1343:18339"
+      data-name="容器 6"
+      style="width: 243px; height: 90px; position: absolute; left: 40px; top: 520px; z-index: 14">
+      <ui-component
+        data-node-id="vc875:24368"
+        data-name="components/description-item/label"
+        style="width: 28px; height: 30px; display: flex; justify-content: flex-start; align-items: center; gap: 4px"
+        name="components/description-item/label"
+        props='{"尺寸":"上标题","对齐":"左对齐"}'></ui-component>
+      <ui-component
+        data-node-id="vc875:25267"
+        data-name="Button"
+        style="width: 106px; height: 32px; display: flex; justify-content: center; align-items: center; gap: 4px"
+        name="Button"
+        props='{"类型":"次要按钮","种类":"标准","形状":"长方形","尺寸":"中","状态":"默认"}'
+        text='{"Button Text":"上传文件"}'></ui-component>
+      <ui-component
+        data-node-id="vc875:19934"
+        data-name="text/text"
+        style="width: 243px; height: 20px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+        name="text/text"
+        props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+        text='{"中电金信":"支持最多上传5个文件，单个文件不超过10MB"}'></ui-component>
+    </div>
+    <ui-component
+      data-node-id="vc875:32075"
+      data-name="Message"
+      style="width: 200px; height: 48px; display: flex; justify-content: flex-start; align-items: center; gap: 8px"
+      name="Message"
+      props='{"类型":"错误"}'
+      text='{"这是一条报错的信息":"「任务类型」不能为空"}'></ui-component>
+    <ui-component
+      data-node-id="vc875:32164"
+      data-name="Message"
+      style="width: 200px; height: 48px; display: flex; justify-content: flex-start; align-items: center; gap: 8px"
+      name="Message"
+      props='{"类型":"错误"}'
+      text='{"这是一条报错的信息":"「任务标题」不能为空"}'></ui-component>
+  </div>
+</div>
+
