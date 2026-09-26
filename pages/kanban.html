@@ -318,8 +318,9 @@ header div:has(> div.relative > button[aria-label="切换侧边栏"]) { display:
 
       /* ===== stats row ===== */
       .kb-stats { position: absolute; left: 20px; right: 20px; top: 64px; display: flex; gap: 16px; }
+      /* 与 .kb-stat 同为弹性等宽：5 张卡（创建/待协作/待评审/已延期/已取消）按比例均分 */
       .kb-create {
-        position: relative; flex: none; width: 184px; height: 64px;
+        position: relative; flex: 1 1 0; min-width: 0; height: 64px;
         display: flex; align-items: center; justify-content: center; gap: 4px;
         background: #EFF4FF; border: 1px solid #D9E3FE; border-radius: 8px; cursor: pointer;
         color: var(--color-primary-6);
@@ -878,14 +879,36 @@ header div:has(> div.relative > button[aria-label="切换侧边栏"]) { display:
       .kb-crt-upbtn:hover { background: var(--color-fill-2); border-color: transparent; box-shadow: none; }
       .kb-crt-upbtn:active { background: var(--color-fill-2); border-color: transparent; box-shadow: none; }
       .kb-crt-uptip { margin-top: 8px; font-size: var(--font-size-body-1); line-height: 20px; color: var(--color-text-3); }
-      .kb-crt-uplist { margin: 8px 0 0; padding: 0; list-style: none; }
-      .kb-crt-upitem { display: flex; align-items: center; gap: 8px; font-size: var(--font-size-body-1); color: var(--color-text-2); }
-      .kb-crt-upname { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-      .kb-crt-uprm { display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; flex: none; border: none; background: none; cursor: pointer; color: var(--color-text-3); padding: 0; line-height: 0; }
+      /* 附件列表：设计稿 1343:18391 —— 卡 256x56 / 底 fill-1 / 圆角 8 / 三栏均分 gap 8
+         卡内：40x40 白底文件图标（border fill-2, 圆角 4）；右侧 14x14 移除图标 */
+      .kb-crt-uplist {
+        margin: 12px 0 0; padding: 0; list-style: none;
+        display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px;
+      }
+      .kb-crt-uplist[hidden] { display: none; }
+      .kb-crt-uplist .kb-crt-upitem {
+        position: relative; box-sizing: border-box; height: 56px; min-width: 0;
+        display: flex; align-items: center; gap: 8px; padding: 0 8px;
+        background: var(--color-fill-1); border-radius: var(--border-radius-large);
+      }
+      .kb-crt-upfile {
+        flex: none; width: 40px; height: 40px; box-sizing: border-box;
+        display: flex; align-items: center; justify-content: center;
+        background: var(--color-bg-1); border: 1px solid var(--color-fill-2);
+        border-radius: var(--border-radius-medium); color: var(--color-text-2); line-height: 0;
+      }
+      .kb-crt-upfile svg { width: 18px; height: 18px; }
+      .kb-crt-upinfo { flex: 1 1 0; min-width: 0; padding-right: 22px; display: flex; flex-direction: column; gap: 4px; }
+      .kb-crt-upname { font-size: var(--font-size-body-3); line-height: 16px; color: var(--color-text-1); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+      .kb-crt-upmeta { display: flex; align-items: center; gap: 6px; font-size: var(--font-size-body-2); line-height: 16px; color: var(--color-text-3); }
+      .kb-crt-updot { flex: none; width: 3px; height: 3px; border-radius: 50%; background: rgb(var(--gray-4)); }
+      .kb-crt-upprog { flex: none; width: 150px; max-width: 100%; height: 4px; border-radius: 2px; background: var(--color-fill-3); overflow: hidden; }
+      .kb-crt-upprog i { display: block; height: 100%; border-radius: 2px; background: var(--color-primary-6); transition: width 1.2s linear; }
+      .kb-crt-uprm { position: absolute; right: 12px; top: 16px; width: 14px; height: 14px; display: inline-flex; align-items: center; justify-content: center; flex: none; border: none; background: none; cursor: pointer; color: var(--color-text-3); padding: 0; line-height: 0; }
       .kb-crt-uprm:hover { color: var(--color-text-1); }
       /* --- 右栏：320 宽，左描边 #EBECED --- */
       .kb-crt-aside {
-        flex: 1 1 20%; box-sizing: border-box; min-width: 0;
+        flex: 1 1 20%; box-sizing: border-box; min-width: 320px;
         display: flex; flex-direction: column;
         border-left: 1px solid var(--kb-crt-divider);
       }
@@ -898,7 +921,9 @@ header div:has(> div.relative > button[aria-label="切换侧边栏"]) { display:
       .kb-crt-row { display: flex; align-items: center; }
       .kb-crt-lbl { width: 80px; flex: none; font-size: var(--font-size-body-3); color: var(--color-text-1); }
       .kb-crt-fld { flex: 1 1 0; min-width: 0; }
-      .kb-crt-date, .kb-crt-date .giencoder-input-wrapper { width: auto; min-width: 0; }
+      /* 六个字段的可视框宽度一律由 .kb-crt-fld 决定，避免 date-picker 与 select 出现宽度差 */
+      .kb-crt-fld > .giencoder-select-view,
+      .kb-crt-date .giencoder-input-wrapper { width: 100%; box-sizing: border-box; }
       .kb-crt-date .kb-crt-date-input { color: var(--color-text-1); }
       .kb-crt-date .kb-crt-date-input::placeholder { color: rgb(var(--gray-5)); }
       .kb-crt-date .giencoder-date-picker-popup { left: auto; right: 0; }
@@ -911,14 +936,10 @@ header div:has(> div.relative > button[aria-label="切换侧边栏"]) { display:
         display: flex; gap: 12px; z-index: 2;
       }
       .kb-crt-msgs[hidden] { display: none; }
-      .kb-crt-msg {
-        display: flex; align-items: center; gap: 8px; height: 32px; padding: 0 16px;
-        background: var(--color-bg-2); border-radius: var(--border-radius-medium);
-        box-shadow: var(--shadow2-down); font-size: var(--font-size-body-3); white-space: nowrap;
-      }
-      .kb-crt-msg[hidden] { display: none; }
-      .kb-crt-msg-ico { display: inline-flex; color: var(--color-danger-6); }
-      .kb-crt-msg-tx { color: var(--color-danger-6); }
+      /* 校验提示直接采用 DS Message 组件：尺寸/白底/圆角/阴影/内边距全部由
+         .giencoder-message 提供，此处仅保留视图适配层（error 语义图标色 + hidden 支持） */
+      .kb-crt-msgs .giencoder-message { white-space: nowrap; }
+      .kb-crt-msgs .giencoder-message-icon { display: inline-flex; flex: none; color: var(--color-danger-6); }
 </style>
 <script>
 (function () {
@@ -1117,7 +1138,32 @@ header div:has(> div.relative > button[aria-label="切换侧边栏"]) { display:
         "              上传文件",
         "            </button>",
         "            <div class=\"kb-crt-uptip\">支持最多上传5个文件，单个文件不超过10MB</div>",
-        "            <ul class=\"kb-crt-uplist\" hidden></ul>",
+        "            <ul class=\"kb-crt-uplist\">",
+        "            <li class=\"giencoder-upload-list-item kb-crt-upitem\">",
+        "              <span class=\"kb-crt-upfile\"><svg viewBox=\"0 0 18 18\" width=\"18\" height=\"18\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M10.2 2.2H5.4a1.6 1.6 0 0 0-1.6 1.6v10.4a1.6 1.6 0 0 0 1.6 1.6h7.2a1.6 1.6 0 0 0 1.6-1.6V6.4z\"/><path d=\"M10.2 2.2v4.2h4.2\"/><path d=\"M6.9 10.6h4.2M6.9 13.2h2.6\"/></svg></span>",
+        "              <span class=\"kb-crt-upinfo\">",
+        "                <span class=\"kb-crt-upname\">业务方原始需求文档</span>",
+        "                <span class=\"kb-crt-upprog\" role=\"progressbar\" aria-valuenow=\"66\" aria-valuemin=\"0\" aria-valuemax=\"100\"><i style=\"width:53%\"></i></span>",
+        "              </span>",
+        "              <button class=\"kb-crt-uprm\" type=\"button\" aria-label=\"移除\"><svg viewBox=\"0 0 14 14\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.3\" stroke-linecap=\"round\"><path d=\"M3.2 3.2l7.6 7.6M10.8 3.2l-7.6 7.6\"/></svg></button>",
+        "            </li>",
+        "            <li class=\"giencoder-upload-list-item kb-crt-upitem\">",
+        "              <span class=\"kb-crt-upfile\"><svg viewBox=\"0 0 18 18\" width=\"18\" height=\"18\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M10.2 2.2H5.4a1.6 1.6 0 0 0-1.6 1.6v10.4a1.6 1.6 0 0 0 1.6 1.6h7.2a1.6 1.6 0 0 0 1.6-1.6V6.4z\"/><path d=\"M10.2 2.2v4.2h4.2\"/><path d=\"M6.9 10.6h4.2M6.9 13.2h2.6\"/></svg></span>",
+        "              <span class=\"kb-crt-upinfo\">",
+        "                <span class=\"kb-crt-upname\">结构化的 PRD 产品需求文档</span>",
+        "                <span class=\"kb-crt-upmeta\">DOCX<span class=\"kb-crt-updot\"></span>256KB</span>",
+        "              </span>",
+        "              <button class=\"kb-crt-uprm\" type=\"button\" aria-label=\"移除\"><svg viewBox=\"0 0 14 14\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.3\" stroke-linecap=\"round\"><path d=\"M3.2 3.2l7.6 7.6M10.8 3.2l-7.6 7.6\"/></svg></button>",
+        "            </li>",
+        "            <li class=\"giencoder-upload-list-item kb-crt-upitem\">",
+        "              <span class=\"kb-crt-upfile\"><svg viewBox=\"0 0 18 18\" width=\"18\" height=\"18\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M10.2 2.2H5.4a1.6 1.6 0 0 0-1.6 1.6v10.4a1.6 1.6 0 0 0 1.6 1.6h7.2a1.6 1.6 0 0 0 1.6-1.6V6.4z\"/><path d=\"M10.2 2.2v4.2h4.2\"/><path d=\"M6.9 10.6h4.2M6.9 13.2h2.6\"/></svg></span>",
+        "              <span class=\"kb-crt-upinfo\">",
+        "                <span class=\"kb-crt-upname\">结构化的 PRD 产品需求文档</span>",
+        "                <span class=\"kb-crt-upmeta\">DOCX<span class=\"kb-crt-updot\"></span>256KB</span>",
+        "              </span>",
+        "              <button class=\"kb-crt-uprm\" type=\"button\" aria-label=\"移除\"><svg viewBox=\"0 0 14 14\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.3\" stroke-linecap=\"round\"><path d=\"M3.2 3.2l7.6 7.6M10.8 3.2l-7.6 7.6\"/></svg></button>",
+        "            </li>",
+        "            </ul>",
         "          </div>",
         "        </div>",
         "      </div>",
@@ -1144,13 +1190,13 @@ header div:has(> div.relative > button[aria-label="切换侧边栏"]) { display:
         "      <button class=\"giencoder-btn giencoder-btn-primary giencoder-btn-size-default kb-crt-btn\" type=\"button\" data-crt-submit=\"1\">创建任务</button>",
         "    </div>",
         "    <div class=\"kb-crt-msgs\" hidden>",
-        "      <div class=\"giencoder-message kb-crt-msg\" data-component=\"message\" data-variant=\"error\" data-state=\"default\" role=\"alert\" data-err=\"type\" hidden>",
-        "        <span class=\"kb-crt-msg-ico\"><svg viewBox=\"0 0 16 16\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\"><circle cx=\"8\" cy=\"8\" r=\"6.5\"/><path d=\"M5.6 5.6l4.8 4.8M10.4 5.6l-4.8 4.8\"/></svg></span>",
-        "        <span class=\"kb-crt-msg-tx\">「任务类型」不能为空</span>",
+        "      <div class=\"giencoder-message\" data-component=\"message\" data-variant=\"error\" data-state=\"default\" role=\"status\" data-err=\"type\" hidden>",
+        "        <span class=\"giencoder-message-icon\"><svg viewBox=\"0 0 16 16\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\"><circle cx=\"8\" cy=\"8\" r=\"6.5\"/><path d=\"M5.6 5.6l4.8 4.8M10.4 5.6l-4.8 4.8\"/></svg></span>",
+        "        <span class=\"giencoder-message-content\">「任务类型」不能为空</span>",
         "      </div>",
-        "      <div class=\"giencoder-message kb-crt-msg\" data-component=\"message\" data-variant=\"error\" data-state=\"default\" role=\"alert\" data-err=\"title\" hidden>",
-        "        <span class=\"kb-crt-msg-ico\"><svg viewBox=\"0 0 16 16\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\"><circle cx=\"8\" cy=\"8\" r=\"6.5\"/><path d=\"M5.6 5.6l4.8 4.8M10.4 5.6l-4.8 4.8\"/></svg></span>",
-        "        <span class=\"kb-crt-msg-tx\">「任务标题」不能为空</span>",
+        "      <div class=\"giencoder-message\" data-component=\"message\" data-variant=\"error\" data-state=\"default\" role=\"status\" data-err=\"title\" hidden>",
+        "        <span class=\"giencoder-message-icon\"><svg viewBox=\"0 0 16 16\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\"><circle cx=\"8\" cy=\"8\" r=\"6.5\"/><path d=\"M5.6 5.6l4.8 4.8M10.4 5.6l-4.8 4.8\"/></svg></span>",
+        "        <span class=\"giencoder-message-content\">「任务标题」不能为空</span>",
         "      </div>",
         "    </div>",
         "  </div>",
@@ -1569,7 +1615,42 @@ header div:has(> div.relative > button[aria-label="切换侧边栏"]) { display:
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && !modal.hidden) close();
     });
-    /* 上传：按钮唤起文件选择，选中后列出文件名 */
+    /* 附件项：选中后先「上传中」（进度条），1.2s 后转「已上传」（格式 · 大小）
+       结构对齐设计稿 1343:18391 */
+    var UP_FILE_SVG = '<svg viewBox="0 0 18 18" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10.2 2.2H5.4a1.6 1.6 0 0 0-1.6 1.6v10.4a1.6 1.6 0 0 0 1.6 1.6h7.2a1.6 1.6 0 0 0 1.6-1.6V6.4z"/><path d="M10.2 2.2v4.2h4.2"/><path d="M6.9 10.6h4.2M6.9 13.2h2.6"/></svg>';
+    var UP_RM_SVG = '<svg viewBox="0 0 14 14" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M3.2 3.2l7.6 7.6M10.8 3.2l-7.6 7.6"/></svg>';
+    function upFmtSize(b) {
+      if (b >= 1048576) return (b / 1048576).toFixed(1) + 'MB';
+      if (b >= 1024) return Math.round(b / 1024) + 'KB';
+      return b + 'B';
+    }
+    function makeUpItem(file) {
+      var li = document.createElement('li');
+      li.className = 'giencoder-upload-list-item kb-crt-upitem';
+      li.innerHTML =
+        '<span class="kb-crt-upfile">' + UP_FILE_SVG + '</span>' +
+        '<span class="kb-crt-upinfo">' +
+          '<span class="kb-crt-upname"></span>' +
+          '<span class="kb-crt-upprog" role="progressbar" aria-valuemin="0" aria-valuemax="100"><i style="width:0%"></i></span>' +
+        '</span>' +
+        '<button class="kb-crt-uprm" type="button" aria-label="移除">' + UP_RM_SVG + '</button>';
+      li.querySelector('.kb-crt-upname').textContent = file.name;
+      var fill = li.querySelector('.kb-crt-upprog i');
+      if (fill) requestAnimationFrame(function () { fill.style.width = '100%'; });
+      setTimeout(function () {
+        var info = li.querySelector('.kb-crt-upinfo');
+        if (!info) return;
+        var ext = (file.name.indexOf('.') > -1 ? file.name.split('.').pop() : '').toUpperCase();
+        info.innerHTML =
+          '<span class="kb-crt-upname"></span>' +
+          '<span class="kb-crt-upmeta"><span class="kb-crt-upmeta-ext"></span>' +
+          '<span class="kb-crt-updot"></span><span class="kb-crt-upmeta-size"></span></span>';
+        info.querySelector('.kb-crt-upname').textContent = file.name;
+        info.querySelector('.kb-crt-upmeta-ext').textContent = ext;
+        info.querySelector('.kb-crt-upmeta-size').textContent = upFmtSize(file.size);
+      }, 1200);
+      return li;
+    }
     var upBtn = modal.querySelector('.kb-crt-upbtn');
     var fileInput = modal.querySelector('.kb-crt-file');
     if (upBtn && fileInput) {
@@ -1577,22 +1658,8 @@ header div:has(> div.relative > button[aria-label="切换侧边栏"]) { display:
       fileInput.addEventListener('change', function () {
         if (!list) return;
         var fs = fileInput.files || [];
-        for (var i = 0; i < fs.length; i++) {
-          var li = document.createElement('li');
-          li.className = 'giencoder-upload-list-item kb-crt-upitem';
-          var nm = document.createElement('span');
-          nm.className = 'kb-crt-upname';
-          nm.textContent = fs[i].name;
-          li.appendChild(nm);
-          var rm = document.createElement('button');
-          rm.type = 'button';
-          rm.className = 'kb-crt-uprm';
-          rm.setAttribute('aria-label', '移除');
-          rm.innerHTML = '<svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"><path d="M3 3l6 6M9 3l-6 6"/></svg>';
-          li.appendChild(rm);
-          list.appendChild(li);
-        }
-        list.hidden = !fs.length;
+        for (var i = 0; i < fs.length; i++) list.appendChild(makeUpItem(fs[i]));
+        list.hidden = !list.children.length;
       });
       if (list) {
         list.addEventListener('click', function (e) {

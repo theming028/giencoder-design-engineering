@@ -1,0 +1,194 @@
+✅ 成功获取节点代码
+- 节点: 容器 23 (1343:18391)
+- 根节点: vc875:30768
+- 父容器方向: row
+- Server 资源上下文: 1 个临时 Artifact。
+- 后续动作: 当前仅做“读取/同步上下文”，等待用户明确说明修改内容。
+- 充满语义提示(parentDirection=row): 宽度充满=主轴充满(优先 flex-1)；高度充满=交叉轴充满(优先 self-stretch)。
+
+代码内容：
+
+<div
+  data-node-id="1343:18391"
+  data-name="容器 23"
+  style="width: 784px; height: 56px; position: relative">
+  <div
+    data-node-id="1343:18387"
+    data-name="容器 19"
+    style="width: 256px; height: 56px; position: absolute; left: 264px; top: 0px; z-index: 0">
+    <div
+      data-node-id="vc875:31909"
+      data-name="矩形 480"
+      style="width: 256px; height: 56px; background: #F7F7F7; border-radius: 8px; position: absolute; left: 0px; top: 0px; z-index: 0"></div>
+    <div
+      data-node-id="vc875:32001"
+      data-name="组 10415"
+      style="width: 40px; height: 40px; position: absolute; left: 8px; top: 8px; z-index: 1">
+      <div
+        data-node-id="vc875:31910"
+        data-name="矩形 481"
+        style="width: 40px; height: 40px; background: #FFFFFF; border-style: solid; border-color: #F2F2F2; border-width: 1px; border-radius: 4px; position: absolute; left: 0px; top: 0px; z-index: 0"></div>
+      <ui-component
+        data-node-id="vc875:32002"
+        data-name="icon-wrapper"
+        style="width: 18px; height: 18px; display: flex; justify-content: center; align-items: center; flex-direction: column"
+        name="icon-wrapper"
+        props='{"尺寸":"18"}'></ui-component>
+    </div>
+    <div
+      data-node-id="1343:18388"
+      data-name="容器 20"
+      style="width: 151px; height: 36px; position: absolute; left: 56px; top: 10px; z-index: 2">
+      <ui-component
+        data-node-id="vc875:31912"
+        data-name="text/text"
+        style="width: 151px; height: 16px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+        name="text/text"
+        props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+        text='{"中电金信":"结构化的 PRD 产品需求文..."}'></ui-component>
+      <div
+        data-node-id="vc875:31917"
+        data-name="组 10409"
+        style="width: 88px; height: 16px; position: absolute; left: 0px; top: 20px; z-index: 1">
+        <ui-component
+          data-node-id="vc875:31918"
+          data-name="text/text"
+          style="width: 35px; height: 16px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+          name="text/text"
+          props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+          text='{"中电金信":"DOCX"}'></ui-component>
+        <ui-component
+          data-node-id="vc875:31923"
+          data-name="text/text"
+          style="width: 38px; height: 16px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+          name="text/text"
+          props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+          text='{"中电金信":"256KB"}'></ui-component>
+        <div
+          data-node-id="vc875:31928"
+          data-name="圆形 8"
+          style="position: absolute; left: 38px; top: 6px; z-index: 2">
+          <img src="./asset/icons/svg_9ddc2d77.svg" style="color: #C9C9C9" />
+        </div>
+      </div>
+    </div>
+    <ui-component
+      data-node-id="vc875:31929"
+      data-name="icon-wrapper"
+      style="width: 14px; height: 14px; display: flex; justify-content: center; align-items: center; flex-direction: column"
+      name="icon-wrapper"
+      props='{"尺寸":"14"}'></ui-component>
+  </div>
+  <div
+    data-node-id="1343:18390"
+    data-name="容器 22"
+    style="width: 256px; height: 56px; position: absolute; left: 528px; top: 0px; z-index: 1">
+    <div
+      data-node-id="vc875:32014"
+      data-name="矩形 480"
+      style="width: 256px; height: 56px; background: #F7F7F7; border-radius: 8px; position: absolute; left: 0px; top: 0px; z-index: 0"></div>
+    <div
+      data-node-id="vc875:32015"
+      data-name="组 10415"
+      style="width: 40px; height: 40px; position: absolute; left: 8px; top: 8px; z-index: 1">
+      <div
+        data-node-id="vc875:32016"
+        data-name="矩形 481"
+        style="width: 40px; height: 40px; background: #FFFFFF; border-style: solid; border-color: #F2F2F2; border-width: 1px; border-radius: 4px; position: absolute; left: 0px; top: 0px; z-index: 0"></div>
+      <ui-component
+        data-node-id="vc875:32017"
+        data-name="icon-wrapper"
+        style="width: 18px; height: 18px; display: flex; justify-content: center; align-items: center; flex-direction: column"
+        name="icon-wrapper"
+        props='{"尺寸":"18"}'></ui-component>
+    </div>
+    <div
+      data-node-id="1343:18389"
+      data-name="容器 21"
+      style="width: 151px; height: 36px; position: absolute; left: 56px; top: 10px; z-index: 2">
+      <ui-component
+        data-node-id="vc875:32019"
+        data-name="text/text"
+        style="width: 151px; height: 16px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+        name="text/text"
+        props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+        text='{"中电金信":"结构化的 PRD 产品需求文..."}'></ui-component>
+      <div
+        data-node-id="vc875:32024"
+        data-name="组 10409"
+        style="width: 88px; height: 16px; position: absolute; left: 0px; top: 20px; z-index: 1">
+        <ui-component
+          data-node-id="vc875:32025"
+          data-name="text/text"
+          style="width: 35px; height: 16px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+          name="text/text"
+          props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+          text='{"中电金信":"DOCX"}'></ui-component>
+        <ui-component
+          data-node-id="vc875:32030"
+          data-name="text/text"
+          style="width: 38px; height: 16px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+          name="text/text"
+          props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+          text='{"中电金信":"256KB"}'></ui-component>
+        <div
+          data-node-id="vc875:32035"
+          data-name="圆形 8"
+          style="position: absolute; left: 38px; top: 6px; z-index: 2">
+          <img src="./asset/icons/svg_9ddc2d77.svg" style="color: #C9C9C9" />
+        </div>
+      </div>
+    </div>
+    <ui-component
+      data-node-id="vc875:32036"
+      data-name="icon-wrapper"
+      style="width: 14px; height: 14px; display: flex; justify-content: center; align-items: center; flex-direction: column"
+      name="icon-wrapper"
+      props='{"尺寸":"14"}'></ui-component>
+  </div>
+  <div
+    data-node-id="vc875:32073"
+    data-name="组 10418"
+    data-type="component"
+    style="width: 256px; height: 56px; position: absolute; left: 0px; top: 0px; z-index: 2">
+    <div
+      data-node-id="vc875:31688"
+      data-name="矩形 480"
+      style="width: 256px; height: 56px; background: #F7F7F7; border-radius: 8px; position: absolute; left: 0%; right: 0%; top: 0%; bottom: 0%; z-index: 0"></div>
+    <ui-component
+      data-node-id="vc875:31689"
+      data-name="text/text"
+      style="width: 108px; height: 16px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+      name="text/text"
+      props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+      text='{"中电金信":"业务方原始需求文档"}'></ui-component>
+    <ui-component
+      data-node-id="vc875:31778"
+      data-name="icon-wrapper"
+      style="width: 14px; height: 14px; display: flex; justify-content: center; align-items: center; flex-direction: column"
+      name="icon-wrapper"
+      props='{"尺寸":"14"}'></ui-component>
+    <div
+      data-node-id="vc875:32000"
+      data-name="组 10414"
+      style="width: 40px; height: 40px; position: absolute; left: 8px; top: 8px; z-index: 3">
+      <div
+        data-node-id="vc875:31711"
+        data-name="矩形 481"
+        style="width: 40px; height: 40px; background: #FFFFFF; border-style: solid; border-color: #F2F2F2; border-width: 1px; border-radius: 4px; position: absolute; left: 0%; right: 0%; top: 0%; bottom: 0%; z-index: 0"></div>
+      <ui-component
+        data-node-id="vc875:31985"
+        data-name="icon-wrapper"
+        style="width: 18px; height: 18px; display: flex; justify-content: center; align-items: center; flex-direction: column"
+        name="icon-wrapper"
+        props='{"尺寸":"18"}'></ui-component>
+    </div>
+    <ui-component
+      data-node-id="vc875:32047"
+      data-name="progress-line"
+      style="width: 150px; height: 4px; display: flex; justify-content: flex-start; align-items: center; gap: 8px"
+      name="progress-line"
+      props='{"尺寸":"中","状态":"默认"}'
+      text='{"66%":"66%"}'></ui-component>
+  </div>
+</div>
