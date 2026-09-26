@@ -1,0 +1,234 @@
+容器 141 [] width: 936px height: 1024px position: relative
+  矩形 205 [] position: absolute left: 676px top: 48px
+     [] color: #FFFFFF
+  矩形 481 [] width: 6px height: 320px background: rgba(0,0,0,0.16) border-radius: 6px position: absolute left: 926px top: 52px
+  容器 121 [] width: 220px height: 96px position: absolute left: 696px top: 908px
+    容器 120 [] width: 220px height: 24px position: absolute left: 0px top: 16px
+      矩形 478 [] position: absolute left: 0px top: 0px
+         [] color: #FFFFFF
+      容器 119 [] width: 92px height: 20px position: absolute left: 8px top: 2px
+        text/text [] width: 24px height: 20px TEXT={"中电金信":"秦怡"} PROPS={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}
+        text/text [] width: 36px height: 20px TEXT={"中电金信":"创建者"} PROPS={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}
+    容器 118 [] width: 220px height: 24px position: absolute left: 0px top: 44px
+      矩形 478 [] position: absolute left: 0px top: 0px
+         [] color: #FFFFFF
+      容器 117 [] width: 166px height: 20px position: absolute left: 8px top: 2px
+        text/text [] width: 98px height: 20px TEXT={"中电金信":"2026/08/12 15:27"} PROPS={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}
+        text/text [] width: 48px height: 20px TEXT={"中电金信":"创建时间"} PROPS={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}
+    容器 116 [] width: 220px height: 24px position: absolute left: 0px top: 72px
+      矩形 478 [] position: absolute left: 0px top: 0px
+         [] color: #FFFFFF
+      容器 115 [] width: 116px height: 20px position: absolute left: 8px top: 2px
+        text/text [] width: 48px height: 20px TEXT={"中电金信":"半小时前"} PROPS={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}
+        text/text [] width: 48px height: 20px TEXT={"中电金信":"最后更新"} PROPS={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}
+    直线 46 [] position: absolute left: 8px top: 0px
+       [] color: #F2F2F2
+  容器 68 [] width: 675px height: 88px position: absolute left: 0px top: 48px
+    矩形 479 [] position: absolute left: 0px top: 0px
+       [] color: #FAFAFA
+    text/title [] width: 588px height: 56px gap: 8px
+  容器 74 [] width: 598px height: 374px position: absolute left: 40px top: 160px
+    蒙版组 2 [] width: 598px height: 336px position: absolute left: 0px top: 0px
+      text/text [] width: 598px height: 336px TEXT={"中电金信":"第二步：定义状态流转规则（启动整个流程）\n\n状态标识采用“交通灯”模式，方便直观管理：\n󰀠未开始：任务尚未启动。\n󰀠进行中：任务已启动，正在执行。\n󰀠已完成：任务成功完成并通过质量门禁。\n󰀠阻塞/异
+    divider [] width: 598px height: 22px gap: 16px TEXT={"中电金信":"展开全文"} PROPS={"类型":"水平","虚线":"false","文本":"true","⬑对齐":"居中"}
+  容器 77 [] width: 340px height: 70px position: absolute left: 40px top: 558px
+    Link [] width: 69px height: 22px gap: 4px border-radius: 4px position: absolute left: 0px top: 0px
+      容器 [] width: 14px height: 14px color: #6B6B6B
+      2个附件 [] color: #6B6B6B font-size: 14px font-weight: 500
+    容器 75 [] width: 193px height: 36px position: absolute left: 0px top: 34px
+      矩形 234 [] position: absolute left: 0px top: 0px
+         [] color: #F7F7F7
+      组 10226 [] width: 169px height: 20px position: absolute left: 12px top: 8px
+        容器 [] position: absolute left: 0px top: 3px
+           [] color: #6B6B6B
+        text/text [] width: 151px height: 20px TEXT={"中电金信":"端到端流程初始化：用..."} PROPS={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}
+    容器 76 [] width: 139px height: 36px position: absolute left: 201px top: 34px
+      矩形 234 [] position: absolute left: 0px top: 0px
+         [] color: #F7F7F7
+      组 10228 [] width: 115px height: 20px position: absolute left: 12px top: 8px
+        text/text [] width: 97px height: 20px TEXT={"中电金信":"TaskBoard.png"} PROPS={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}
+        容器 [] position: absolute left: 0px top: 3px
+           [] color: #6B6B6B
+  容器 91 [] width: 596px height: 154px position: absolute left: 40px top: 652px
+    Link [] width: 93px height: 22px gap: 4px border-radius: 4px position: absolute left: 0px top: 0px
+      容器 [] width: 14px height: 14px color: #6B6B6B
+      3个 AI 产物 [] color: #6B6B6B font-size: 14px font-weight: 500
+    容器 80 [] width: 294px height: 56px position: absolute left: 0px top: 34px
+      矩形 336 [] position: absolute left: 0px top: 0px
+         [] color: #F7F7F7
+      容器 79 [] width: 171px height: 40px position: absolute left: 12px top: 8px
+        容器 78 [] width: 123px height: 40px position: absolute left: 48px top: 0px
+          Link [] width: 123px height: 22px gap: 4px border-radius: 4px position: absolute left: 0px top: 0px
+            prd-template.html [] color: #1F1F1F font-size: 14px font-weight: 500
+          Link [] width: 36px height: 16px gap: 4px border-radius: 4px position: absolute left: 0px top: 24px
+            128KB [] color: #868686 font-size: 12px
+        直线 33 [] position: absolute left: 36px top: 8px
+           [] color: #C9C9C9
+        容器 [] position: absolute left: 0px top: 8px
+           [] color: #327FCB
+    容器 86 [] width: 294px height: 56px position: absolute left: 0px top: 98px
+      矩形 336 [] position: absolute left: 0px top: 0px
+         [] color: #F7F7F7
+      容器 85 [] width: 257px height: 40px position: absolute left: 12px top: 8px
+        容器 [] position: absolute left: 0px top: 8px
+           [] color: #6B6B6B
+        容器 84 [] width: 209px height: 40px position: absolute left: 48px top: 0px
+          Link [] width: 209px height: 22px gap: 4px border-radius: 4px position: absolute left: 0px top: 0px
+            端到端初始化 - 任务分析报告.md [] color: #1F1F1F font-size: 14px font-weight: 500
+          Link [] width: 36px height: 16px gap: 4px border-radius: 4px position: absolute left: 0px top: 24px
+            128KB [] color: #868686 font-size: 12px
+        直线 33 [] position: absolute left: 36px top: 8px
+           [] color: #C9C9C9
+    容器 83 [] width: 294px height: 56px position: absolute left: 302px top: 34px
+      矩形 336 [] position: absolute left: 0px top: 0px
+         [] color: #F7F7F7
+      容器 82 [] width: 170px height: 40px position: absolute left: 12px top: 8px
+        容器 [] position: absolute left: 0px top: 8px
+           [] 
+        容器 81 [] width: 122px height: 40px position: absolute left: 48px top: 0px
+          Link [] width: 122px height: 22px gap: 4px border-radius: 4px position: absolute left: 0px top: 0px
+            spec-template.md [] color: #1F1F1F font-size: 14px font-weight: 500
+          Link [] width: 36px height: 16px gap: 4px border-radius: 4px position: absolute left: 0px top: 24px
+            128KB [] color: #868686 font-size: 12px
+        直线 33 [] position: absolute left: 36px top: 8px
+           [] color: #C9C9C9
+  容器 90 [] width: 294px height: 90px position: absolute left: 40px top: 830px
+    Link [] width: 46px height: 22px gap: 4px border-radius: 4px position: absolute left: 0px top: 0px
+      容器 [] width: 14px height: 14px color: #6B6B6B
+      文件 [] color: #6B6B6B font-size: 14px font-weight: 500
+    容器 89 [] width: 294px height: 56px position: absolute left: 0px top: 34px
+      矩形 336 [] position: absolute left: 0px top: 0px
+         [] color: #F7F7F7
+      容器 88 [] width: 173px height: 40px position: absolute left: 12px top: 8px
+        容器 [] position: absolute left: 0px top: 8px
+           [] 
+        容器 87 [] width: 125px height: 40px position: absolute left: 48px top: 0px
+          Link [] width: 125px height: 22px gap: 4px border-radius: 4px position: absolute left: 0px top: 0px
+            概要设计-Steps.md [] color: #1F1F1F font-size: 14px font-weight: 500
+          Link [] width: 28px height: 16px gap: 4px border-radius: 4px position: absolute left: 0px top: 24px
+            17KB [] color: #868686 font-size: 12px
+        直线 33 [] position: absolute left: 36px top: 8px
+           [] color: #C9C9C9
+  矩形 219 [] width: 6px height: 250px background: rgba(0,0,0,0.16) border-radius: 6px position: absolute left: 666px top: 52px
+  容器 132 [] width: 16px height: 40px position: absolute left: 667px top: 72px
+    矩形 235 [] width: 16px height: 40px background: #FFFFFF border-radius: 16px position: absolute left: 0px top: 0px
+    容器 [] position: absolute left: 1px top: 13px
+       [] color: #6B6B6B
+  直线 45 [] position: absolute left: 704px top: 352px
+     [] color: #F2F2F2
+  容器 114 [] width: 193px height: 274px position: absolute left: 704px top: 368px
+    Link [] width: 66px height: 20px gap: 4px TEXT={"文字链接":"任务动态"} PROPS={"类型":"默认","状态":"默认"}
+    容器 113 [] width: 193px height: 242px position: absolute left: 0px top: 32px
+      直线 50 [] position: absolute left: 2px top: 7px
+         [] color: #F2F2F2
+      容器 112 [] width: 145px height: 42px position: absolute left: 0px top: 0px
+        容器 104 [] width: 127px height: 42px position: absolute left: 18px top: 0px
+          容器 67 [] width: 127px height: 20px gap: 8px position: absolute left: 0px top: 0px
+            text/text []  TEXT={"中电金信":"Agent"} PROPS={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}
+            text/text []  TEXT={"中电金信":"完成了任务开发"} PROPS={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}
+          text/text [] width: 24px height: 20px TEXT={"中电金信":"刚刚"} PROPS={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}
+        圆形 3 [] position: absolute left: 0px top: 7px
+           [] color: #C9C9C9
+      容器 111 [] width: 193px height: 42px position: absolute left: 0px top: 50px
+        容器 102 [] width: 175px height: 42px position: absolute left: 18px top: 0px
+          容器 67 [] width: 175px height: 20px gap: 8px position: absolute left: 0px top: 0px
+            text/text []  TEXT={"中电金信":"Agent"} PROPS={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}
+            text/text []  TEXT={"中电金信":"已确认任务目标和优先级"} PROPS={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}
+          text/text [] width: 48px height: 20px TEXT={"中电金信":"半小时前"} PROPS={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}
+        圆形 4 [] position: absolute left: 0px top: 7px
+           [] color: #C9C9C9
+      容器 110 [] width: 158px height: 42px position: absolute left: 0px top: 100px
+        容器 105 [] width: 140px height: 42px position: absolute left: 18px top: 0px
+          容器 67 [] width: 140px height: 20px gap: 8px position: absolute left: 0px top: 0px
+            text/text []  TEXT={"中电金信":"邵禹铭"} PROPS={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}
+            text/text []  TEXT={"中电金信":"状态更新为进行中"} PROPS={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}
+          text/text [] width: 59px height: 20px TEXT={"中电金信":"昨天 10:02"} PROPS={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}
+        圆形 5 [] position: absolute left: 0px top: 7px
+           [] color: #C9C9C9
+      容器 109 [] width: 170px height: 42px position: absolute left: 0px top: 150px
+        容器 106 [] width: 152px height: 42px position: absolute left: 18px top: 0px
+          容器 67 [] width: 152px height: 20px gap: 8px position: absolute left: 0px top: 0px
+            text/text []  TEXT={"中电金信":"邵禹铭"} PROPS={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}
+            text/text []  TEXT={"中电金信":"补充了需求说明材料"} PROPS={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}
+          text/text [] width: 67px height: 20px TEXT={"中电金信":"08/12 09:27"} PROPS={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}
+        圆形 6 [] position: absolute left: 0px top: 7px
+           [] color: #C9C9C9
+      容器 108 [] width: 158px height: 42px position: absolute left: 0px top: 200px
+        容器 107 [] width: 140px height: 42px position: absolute left: 18px top: 0px
+          容器 67 [] width: 140px height: 20px gap: 8px position: absolute left: 0px top: 0px
+            text/text []  TEXT={"中电金信":"系统"} PROPS={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}
+            text/text []  TEXT={"中电金信":"已同步最新处理进展"} PROPS={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}
+          text/text [] width: 62px height: 20px TEXT={"中电金信":"08/11 16:51"} PROPS={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}
+        圆形 7 [] position: absolute left: 0px top: 7px
+           [] color: #C9C9C9
+  矩形 478 [] position: absolute left: 696px top: 168px
+     [] color: #FFFFFF
+  矩形 478 [] position: absolute left: 696px top: 202px
+     [] color: #FFFFFF
+  矩形 478 [] position: absolute left: 696px top: 270px
+     [] color: #FFFFFF
+  矩形 478 [] position: absolute left: 696px top: 304px
+     [] color: #FFFFFF
+  矩形 478 [] position: absolute left: 696px top: 134px
+     [] color: #FFFFFF
+  矩形 478 [] position: absolute left: 696px top: 236px
+     [] color: #FFFFFF
+  容器 101 [] width: 195px height: 262px position: absolute left: 704px top: 68px
+    Link [] width: 66px height: 20px gap: 4px TEXT={"文字链接":"任务属性"} PROPS={"类型":"默认","状态":"默认"}
+    容器 100 [] width: 195px height: 224px position: absolute left: 0px top: 38px
+      容器 97 [] width: 110px height: 20px position: absolute left: 0px top: 0px
+        text/text [] width: 24px height: 20px TEXT={"中电金信":"状态"} PROPS={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}
+        badge/status [] width: 46px height: 20px gap: 4px TEXT={"状态":"进行中"} PROPS={"类型":"进行中"}
+      容器 95 [] width: 116px height: 20px position: absolute left: 0px top: 68px
+        text/text [] width: 52px height: 18px TEXT={"中电金信":"高优先级"} PROPS={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}
+        text/text [] width: 36px height: 20px TEXT={"中电金信":"优先级"} PROPS={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}
+      容器 94 [] width: 136px height: 20px position: absolute left: 0px top: 102px
+        text/text [] width: 72px height: 20px TEXT={"中电金信":"演练指挥系统"} PROPS={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}
+        text/text [] width: 24px height: 20px TEXT={"中电金信":"项目"} PROPS={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}
+      容器 98 [] width: 161px height: 20px position: absolute left: 0px top: 170px
+        text/text [] width: 97px height: 20px TEXT={"中电金信":"2026/08/01 10:12"} PROPS={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}
+        text/text [] width: 48px height: 20px TEXT={"中电金信":"实际开始"} PROPS={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}
+      容器 99 [] width: 162px height: 20px position: absolute left: 0px top: 204px
+        text/text [] width: 98px height: 20px TEXT={"中电金信":"2026/08/12 15:27"} PROPS={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}
+        text/text [] width: 48px height: 20px TEXT={"中电金信":"实际完成"} PROPS={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}
+      容器 96 [] width: 100px height: 20px position: absolute left: 0px top: 34px
+        text/text [] width: 36px height: 20px TEXT={"中电金信":"执行人"} PROPS={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}
+        text/text [] width: 36px height: 20px TEXT={"中电金信":"邵禹铭"} PROPS={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}
+      容器 93 [] width: 195px height: 20px position: absolute left: 0px top: 136px
+        text/text [] width: 48px height: 20px TEXT={"中电金信":"来源需求"} PROPS={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}
+        容器 92 [] width: 131px height: 20px position: absolute left: 64px top: 0px
+          text/text [] width: 115px height: 20px TEXT={"中电金信":"GienX端到端初始化..."} PROPS={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}
+          general/link-to [] position: absolute left: 0px top: 4px
+             [] color: #6B6B6B
+  容器 73 [] width: 936px height: 48px position: absolute left: 0px top: 0px
+    矩形 204 [] position: absolute left: 0px top: 0px
+       [] color: #FFFFFF
+    容器 69 [] width: 100px height: 28px position: absolute left: 20px top: 10px
+      text/text [] width: 64px height: 24px TEXT={"中电金信":"任务详情"} PROPS={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}
+      组 10170 [] width: 28px height: 28px position: absolute left: 0px top: 0px
+        矩形 462 [] width: 28px height: 28px background: #FFFFFF border-radius: 6px position: absolute left: 0px top: 0px
+        icon-wrapper [] width: 16px height: 16px PROPS={"尺寸":"16"}
+    容器 72 [] width: 452px height: 28px position: absolute left: 464px top: 10px
+      容器 71 [] width: 60px height: 28px position: absolute left: 392px top: 0px
+        组 10204 [] width: 28px height: 28px position: absolute left: 0px top: 0px
+          矩形 462 [] width: 28px height: 28px background: #FFFFFF border-radius: 6px position: absolute left: 0px top: 0px
+          icon-wrapper [] width: 16px height: 16px PROPS={"尺寸":"16"}
+        组 10205 [] width: 28px height: 28px position: absolute left: 32px top: 0px
+          矩形 462 [] width: 28px height: 28px background: #FFFFFF border-radius: 6px position: absolute left: 0px top: 0px
+          icon-wrapper [] width: 16px height: 16px PROPS={"尺寸":"16"}
+      直线 48 [] position: absolute left: 380px top: 4px
+         [] color: #E5E5E5
+      容器 70 [] width: 368px height: 28px position: absolute left: 0px top: 0px
+        Button [] width: 70px height: 28px gap: 4px background: #FFFFFF border-style: solid border-color: #E5E5E5 border-width: 1px border-radius: 6px position: absolute left: 106px top: 0
+          容器 [] width: 14px height: 14px color: #1F1F1F
+          转派 [] color: #1F1F1F font-size: 14px
+        Button [] width: 98px height: 28px gap: 4px background: #3770F7 border-radius: 6px position: absolute left: 0px top: 0px
+          容器 [] width: 14px height: 14px color: #FFFFFF
+          开始任务 [] color: #FFFFFF font-size: 14px font-weight: 500
+        Button [] width: 70px height: 28px gap: 4px background: #FFFFFF border-style: solid border-color: #E5E5E5 border-width: 1px border-radius: 6px position: absolute left: 184px top: 0
+          容器 [] width: 14px height: 14px color: #1F1F1F
+          协作 [] color: #1F1F1F font-size: 14px
+        Button [] width: 70px height: 28px gap: 4px TEXT={"取消":"编辑"} PROPS={"类型":"次要按钮","种类":"标准","形状":"长方形","尺寸":"迷你","状态":"默认"}
+        组 10331 [] width: 28px height: 28px position: absolute left: 340px top: 0px
+          矩形 494 [] width: 28px height: 28px background: #FFFFFF border-style: solid border-color: #E5E5E5 border-width: 1px border-radius: 6px position: absolute left: 0px top: 0px
+          icon-wrapper [] width: 14px height: 14px PROPS={"尺寸":"14"}
