@@ -272,6 +272,10 @@ svg.animate-spin{width:14px!important;height:14px!important}
         position: absolute; left: 228px; top: 8px; height: 32px;
         display: flex; align-items: center; background: var(--color-fill-1); border-radius: 6px;
       }
+      /* 左偏移由 JS 按项目选择器实际宽度 + 8px 自适应（选择器宽度随项目名伸缩） */
+
+      /* ===== 顶栏：项目选择器与看板切换的间距自适应 ===== */
+
       .kb-radio-btn {
         display: flex; align-items: center; padding: 5px 24px; border-radius: 8px;
         color: var(--color-text-1); font-size: 14px; font-weight: 500; line-height: 22px;
@@ -575,6 +579,8 @@ svg.animate-spin{width:14px!important;height:14px!important}
       /* 表格：设计系统 Table / borderless 变体（开放式：无外边框、无圆角、无斑马纹，仅行间分割线） */
       .rq-table {
         flex: 1; min-height: 0; display: flex; flex-direction: column; margin: 15px 20px 0;
+        /* giencoder-table 自带 width:100%，叠加上 20px 左右外边距会溢出 main；改按父级内宽收缩 */
+        width: calc(100% - 40px); min-width: 0;
       }
       /* 表格容器：四边 1px 边框 + 圆角（设计稿实测 左边框 x=29 / 上边框 y=265 / 下边框 y=485 / 圆角 8px） */
       .rq-tblscroll {
@@ -971,6 +977,23 @@ svg.animate-spin{width:14px!important;height:14px!important}
     });
   }
 
+  /* ===== 顶栏：kb-radio 跟随 kb-proj-select，固定 8px 间隙 ===== */
+  function bindTopbar(root) {
+    var sel = root.querySelector('.kb-proj-select');
+    var radio = root.querySelector('.kb-radio');
+    if (!sel || !radio) return;
+    var GAP = 8;
+    function place() {
+      var host = radio.offsetParent || sel.parentElement;
+      if (!host) return;
+      var hr = host.getBoundingClientRect(), sr = sel.getBoundingClientRect();
+      radio.style.left = Math.round(sr.right - hr.left + GAP) + 'px';
+    }
+    place();
+    if (window.ResizeObserver) new ResizeObserver(place).observe(sel);
+    else window.addEventListener('resize', place);
+  }
+
   function inject() {
     var main = document.querySelector('main');
     if (!main || main.querySelector('.kb-panel')) return false;
@@ -980,6 +1003,7 @@ svg.animate-spin{width:14px!important;height:14px!important}
     main.appendChild(wrap);
     bindComponents(wrap);
     bindFab(wrap);
+    bindTopbar(wrap);
     bindDashedCards(wrap);
     bindReqPage(wrap);
     return true;
