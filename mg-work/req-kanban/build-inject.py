@@ -66,7 +66,8 @@ RQ_CSS = '''      /* ===== 需求看板 rq-* (769:13709)：仅做视图适配，
         background: var(--color-bg-1); border: 1px solid var(--color-border-1);
         border-radius: 8px; cursor: pointer;
       }
-      .rq-stat:hover, .rq-stat.is-active { border-color: var(--color-border-2); box-shadow: 0 1px 8px rgba(0, 0, 0, 0.06); }
+      /* is-active 仅是 hover 态：默认无投影，悬停才深一级边框 + 浅投影 */
+      .rq-stat:hover { border-color: var(--color-border-2); box-shadow: 0 1px 8px rgba(0, 0, 0, 0.06); }
       .rq-stat-tile {
         position: absolute; left: 12px; top: 12px; width: 40px; height: 40px; border-radius: 6px;
         display: flex; align-items: center; justify-content: center; line-height: 0;
@@ -86,19 +87,33 @@ RQ_CSS = '''      /* ===== 需求看板 rq-* (769:13709)：仅做视图适配，
       .rq-bh-controls { display: flex; align-items: center; gap: 12px; margin-left: auto; }
       .rq-bh-filters { display: flex; align-items: center; gap: 12px; }
       .rq-bh-filters .giencoder-select, .rq-bh-filters .giencoder-date-picker { position: relative; flex: none; }
+      .rq-bh-filters .giencoder-select[data-size="small"] .giencoder-select-view { min-height: 28px; height: 28px; padding: 0 8px 0 12px; border-radius: 6px; }
+      /* popup 宽度跟随触发框（覆盖组件默认 min-width:200px，避免 101px 触发框被撑开错位） */
+      .rq-bh-filters .giencoder-select .giencoder-select-popup { width: auto; min-width: 100%; }
+      .rq-bh-filters .giencoder-select-view { gap: 4px; justify-content: flex-start; }
+      .rq-bh-filters .giencoder-select-view .rq-sel-lbl { flex: none; color: var(--color-neutral-7); }
+      .rq-bh-filters .giencoder-select-view-text { flex: 1; min-width: 0; }
+      .rq-bh-filters .giencoder-select[data-size="small"] .giencoder-select-view { min-height: 28px; height: 28px; padding: 0 8px 0 12px; border-radius: 6px; }
+      /* popup 宽度跟随触发框（覆盖组件默认 min-width:200px，避免 101px 触发框被撑开错位） */
+      .rq-bh-filters .giencoder-select .giencoder-select-popup { width: auto; min-width: 100%; }
+      .rq-bh-filters .giencoder-select-view { gap: 4px; justify-content: flex-start; }
+      .rq-bh-filters .giencoder-select-view .rq-sel-lbl { flex: none; color: var(--color-neutral-7); }
+      .rq-bh-filters .giencoder-select-view-text { flex: 1; min-width: 0; }
       .rq-search { flex: none; }
-      /* 表格：giencoder Table 组件 + 视图适配（矩形486 白底圆角8，容器裁切） */
+      /* 表格：设计系统 Table / borderless 变体（开放式：无外边框、无圆角、无斑马纹，仅行间分割线） */
       .rq-table {
         flex: 1; min-height: 0; display: flex; flex-direction: column; margin: 15px 20px 0;
-        background: var(--color-bg-1); border: 1px solid var(--color-border-1); border-radius: 8px; overflow: hidden;
       }
       .rq-tblscroll { flex: 1; min-height: 0; }
       .rq-tbl { table-layout: fixed; min-width: 940px; }
-      /* 表头底：设计稿 #FAFAFA（组件默认 --color-fill-1），行高 36 */
-      .rq-table .giencoder-table-th { background: #FAFAFA; }
+      /* borderless 契约：去掉表头底色与容器边框，仅保留行间 1px 分割线 */
+      .rq-table.giencoder-table-borderless .giencoder-table-th {
+        background: transparent; border-bottom: 1px solid var(--color-border-1);
+      }
+      .rq-table .giencoder-table-th { height: 32px; padding: 6px 12px; background: transparent; }
       .rq-table .giencoder-table-td { height: 36px; padding: 6px 12px; }
-      /* stripe 变体：隔行变色（table.json variant=stripe） */
-      .rq-table tbody .giencoder-table-tr:nth-child(even) .giencoder-table-td { background: var(--color-fill-1); }
+      .rq-table .giencoder-table-tr:last-child .giencoder-table-td { border-bottom: none; }
+      /* 行 hover 高亮（契约 hover 态） */
       .rq-table tbody .giencoder-table-tr:hover .giencoder-table-td { background: var(--color-fill-1); }
       .rq-td { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
       .rq-td-idx { color: var(--color-text-3); }
@@ -151,8 +166,13 @@ si = page.find('.kb-panel {')
 style_end = page.rfind('</style>', 0, si)
 style_end = page.find('</style>', si)
 assert si > 0 and style_end > si
-if '/* ===== 需求看板 rq-*' not in page:
-    page = page[:style_end] + RQ_CSS + page[style_end:]
+# rq-* 样式块整体替换（可重复执行：删旧块再插新块）
+_old_i = page.find('/* ===== 需求看板 rq-*')
+if _old_i > 0:
+    _old_end = page.find('</style>', _old_i)
+    page = page[:_old_i] + page[_old_end:]
+    style_end = page.find('</style>', page.find('.kb-panel {'))
+page = page[:style_end] + RQ_CSS + page[style_end:]
 
 # ---------- 5. 注入交互 JS（切换/分页/加载状态机） ----------
 REQ_JS = '''
