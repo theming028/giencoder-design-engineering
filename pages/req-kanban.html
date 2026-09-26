@@ -259,11 +259,11 @@ header div:has(> div.relative > button[aria-label="切换侧边栏"]) { display:
       .kb-proj-select { position: absolute; left: 20px; top: 8px; width: max-content; min-width: 140px; max-width: 360px; }
       .kb-proj-select .giencoder-select-view {
         height: 32px; min-height: 32px; padding: 0 12px; border-radius: 8px;
-        background: var(--color-fill-1); border-color: transparent; box-shadow: none;
+        background: var(--color-fill-2); border-color: transparent; box-shadow: none;
       }
-      .kb-proj-select .giencoder-select-view:hover { background: var(--color-fill-2); box-shadow: none; }
+      .kb-proj-select .giencoder-select-view:hover { background: var(--color-fill-3); box-shadow: none; }
       .kb-proj-select .giencoder-select-view[aria-expanded='true'] {
-        background: var(--color-fill-1); border-color: var(--color-primary-6); box-shadow: none;
+        background: var(--color-fill-2); border-color: var(--color-primary-6); box-shadow: none;
       }
       .kb-proj-select .kb-proj-ico { width: 16px; height: 16px; line-height: 0; flex: none; }
       .kb-proj-select .kb-proj-ico svg { width: 16px; height: 16px; display: block; }
@@ -275,7 +275,7 @@ header div:has(> div.relative > button[aria-label="切换侧边栏"]) { display:
       .kb-proj-select .giencoder-select-view-text { flex: 0 1 auto; }
       .kb-radio {
         position: absolute; left: 228px; top: 8px; height: 32px;
-        display: flex; align-items: center; background: var(--color-fill-1); border-radius: 6px;
+        display: flex; align-items: center; background: var(--color-fill-2); border-radius: 6px;
       }
       /* 左偏移由 JS 按项目选择器实际宽度 + 8px 自适应（选择器宽度随项目名伸缩） */
 
@@ -393,7 +393,6 @@ header div:has(> div.relative > button[aria-label="切换侧边栏"]) { display:
       .kb-running { margin-left: auto; display: flex; align-items: center; gap: 4px; color: var(--color-primary-6); font-size: 12px; line-height: 18px; }
       .kb-running svg { width: 12px; height: 12px; line-height: 0; animation: kb-spin 1s linear infinite; }
       @keyframes kb-spin { to { transform: rotate(360deg); } }
-      .kb-col-scroll { position: absolute; right: 2px; top: 44px; width: 6px; height: 250px; border-radius: 3px; background: var(--color-fill-4); opacity: 0.55; }
       .kb-col-more {
         flex: none; display: flex; align-items: center; justify-content: center; gap: 6px;
         padding: 16px 0 20px; color: var(--color-text-3); font-size: 12px; line-height: 18px;
@@ -597,7 +596,7 @@ header div:has(> div.relative > button[aria-label="切换侧边栏"]) { display:
       .rq-type--entry { background: #FFECD9; color: #F3881E; }
       .rq-type--sub { background: #E0F5F2; color: #0FA79A; }
       .rq-td-time { color: var(--color-text-3); }
-      .rq-status { display: inline-flex; align-items: center; gap: 4px; height: 22px; padding: 0 8px; border-radius: 4px; font-size: var(--font-size-body-3); line-height: 22px; white-space: nowrap; }
+      .rq-status { display: inline-flex; align-items: center; gap: 4px; height: 22px; padding: 0 8px; border-radius: 4px; font-size: var(--font-size-body-1); line-height: 22px; white-space: nowrap; }
       .rq-status svg { width: 12px; height: 12px; }
       .rq-status--todo { background: var(--color-fill-2); color: var(--color-neutral-7); }
       .rq-status--doing { background: #E3EEFF; color: #5592EB; }
