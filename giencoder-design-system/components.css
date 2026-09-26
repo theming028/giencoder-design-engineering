@@ -292,6 +292,9 @@
 }
 .giencoder-select-view {
   display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  /* 定宽容器里必须 border-box：否则 width 只是内容宽，padding+border 会外溢，
+     右侧 suffix 箭头被挤出容器（与 .giencoder-input-wrapper 的盒模型保持一致） */
+  box-sizing: border-box; min-width: 0; flex-wrap: nowrap;
   min-height: 32px; padding: 0 12px; background: var(--color-bg-2);
   border: 1px solid var(--color-border-2); border-radius: var(--border-radius-medium); cursor: pointer;
   /* Secondary 按钮同款表面层机制：外扩 1px 同色 spread 补齐表面 + 轻投影抬升；
@@ -319,6 +322,8 @@
 }
 .giencoder-select-view:focus-visible { border-color: var(--color-primary-6); box-shadow: 0 0 0 2px var(--color-primary-light-2); outline: none; }
 .giencoder-select-view-text { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--color-text-1); }
+/* 值文本（view 内展示已选值的常规节点）：单行省略，抗挤压——窄容器下截断而不是换行/外溢 */
+.giencoder-select-value { flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--color-text-1); }
 .giencoder-select-placeholder { color: var(--color-text-3); }
 .giencoder-select-suffix { display: inline-flex; align-items: center; color: var(--color-text-3); flex-shrink: 0; transition: transform var(--transition-duration-2) var(--transition-timing-function-spring); }
 /* 有值清除：suffix 内箭头 + 清除 X 同框，hover 时箭头隐去、X 浮现；点击 X 清除所选（JS 维护 .giencoder-select-has-value） */

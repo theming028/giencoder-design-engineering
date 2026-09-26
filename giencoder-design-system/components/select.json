@@ -147,7 +147,7 @@
       "easing": "standard",
       "description": "面板展开 0.2s 标准曲线，选项 hover 底色 0.1s"
     },
-    "behaviorNotes": "弹层型组件：focusTrap——下拉打开时焦点受限并维护 activedescendant；escClose——Esc 关闭面板；clickOutsideClose——点击外部区域关闭面板。remote 模式输入触发 onSearch 防抖查询"
+    "behaviorNotes": "弹层型组件：focusTrap——下拉打开时焦点受限并维护 activedescendant；escClose——Esc 关闭面板；clickOutsideClose——点击外部区域关闭面板。remote 模式输入触发 onSearch 防抖查询 尺寸/盒模型：选择框为 border-box——外部给定 width 即\"含内距与边框\"的最终宽度，因此定宽容器（如 117/120px 的筛选器）不会因 padding+border 外溢而把右侧箭头挤出容器；值文本 .giencoder-select-value 单行省略（nowrap + ellipsis），窄容器下截断而非换行。"
   },
   "a11y": {
     "role": "combobox",
