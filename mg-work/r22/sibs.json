@@ -1,0 +1,3 @@
+✗ Evaluation error: TypeError: Cannot read properties of null (reading 'parentElement')
+    at <anonymous>:1:255
+    at <anonymous>:1:361
