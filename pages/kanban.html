@@ -600,11 +600,11 @@ header div:has(> div.relative > button[aria-label="切换侧边栏"]) { display:
         -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
       }
       .kb-coop-dialog {
-        position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
-        width: min(1280px, calc(100% - 64px));
-        height: min(820px, calc(100% - 24px));
+        position: absolute; left: 50%; top: 0; transform: translateX(-50%);
+        width: var(--kb-coop-width);
+        height: auto; max-height: calc(100% - var(--kb-coop-gap-bottom));
         display: flex; flex-direction: column; overflow: hidden;
-        background: var(--kb-coop-bg); border-radius: var(--border-radius-xl);
+        background: var(--kb-coop-bg); border-radius: 12px;
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.16);
       }
       /* 头部：pad 16/24，标题与关闭键同轴居中（设计稿标题中心距顶 31px、关闭键中心 33.5px） */
@@ -718,21 +718,22 @@ header div:has(> div.relative > button[aria-label="切换侧边栏"]) { display:
       /* r13-1 纵向拉伸：top:0 + bottom:48px ⇒ height 自动填满两者之间，
          内容不足时也保持"顶贴 main 顶、底距 main 底 48px"，表体撑满剩余空间 */
       .kb-coop-dialog {
-        top: 50%; bottom: auto;
-        border-radius: var(--border-radius-xl);
+        top: 0; bottom: var(--kb-coop-gap-bottom);
+        height: auto; max-height: none;
+        border-radius: 0 0 12px 12px;
         /* r13-4 展开/收起：基准点取顶边 —— 打开时自上而下展开，关闭时自下而上收回。
            位移只做 12px + 轻微 scaleY，投影与圆角不受影响（不用 clip-path，
            否则会把 box-shadow 一起裁掉） */
         opacity: 0;
-        transform-origin: center center;
-        transform: translate(-50%, -50%) translateY(-12px) scaleY(0.97);
+        transform-origin: top center;
+        transform: translateX(-50%) translateY(-12px) scaleY(0.97);
         transition: opacity 130ms var(--transition-timing-function-standard),
                     transform 160ms var(--transition-timing-function-standard);
         will-change: transform, opacity;
       }
       .kb-coop.is-open .kb-coop-dialog {
         opacity: 1;
-        transform: translate(-50%, -50%) translateY(0) scaleY(1);
+        transform: translateX(-50%) translateY(0) scaleY(1);
       }
       /* 遮罩同步淡入淡出 */
       .kb-coop-mask { opacity: 0; transition: opacity 150ms var(--transition-timing-function-standard); }
