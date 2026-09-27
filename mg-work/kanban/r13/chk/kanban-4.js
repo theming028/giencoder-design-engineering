@@ -11,7 +11,9 @@
       document.addEventListener('click', function (ev) {
         var card = ev.target.closest && ev.target.closest('.kb-card');
         if (!card) return;
-        if (card.classList.contains('is-dashed')) return;
+        /* 第 26 轮第 8 项：虚线卡（「进行中」首卡的待确认态）也要能进详情页，
+           改为「只放行带标题的真实任务卡」，占位卡依然不跳。 */
+        if (!card.querySelector('.kb-card-title')) return;
         if (ev.target.closest('button, a, input, textarea, select, [data-nogo]')) return;
         location.href = 'task-detail.html';
       });

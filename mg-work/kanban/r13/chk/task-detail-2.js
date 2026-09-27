@@ -84,7 +84,7 @@
         "            <div class=\"td-attr-row\"><span class=\"td-attr-k\">实际完成</span><span class=\"td-attr-v\">2026/08/12 15:27</span></div>",
         "          </div>",
         "        </section>",
-        "        <section>",
+        "        <section class=\"td-side-dyn\">",
         "          <h2>任务动态</h2>",
         "          <ul class=\"td-tl\">",
         "            <li><div class=\"td-tl-line1\"><span class=\"td-tl-who\">Agent</span><span class=\"td-tl-what\">完成了任务开发</span></div><span class=\"td-tl-time\">刚刚</span></li>",
@@ -115,7 +115,7 @@
         "        <div class=\"td-right-acts\">",
         "          <button class=\"giencoder-btn giencoder-btn-secondary giencoder-btn-size-default giencoder-btn-icon td-round-btn\" type=\"button\" aria-label=\"新会话\"><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"16\" height=\"16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-plus\" aria-hidden=\"true\"><path d=\"M5 12h14\"/><path d=\"M12 5v14\"/></svg></button>",
         "          <button class=\"giencoder-btn giencoder-btn-secondary giencoder-btn-size-default giencoder-btn-icon td-round-btn\" type=\"button\" aria-label=\"会话历史\"><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"16\" height=\"16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-history\" aria-hidden=\"true\"><path d=\"M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8\"/><path d=\"M3 3v5h5\"/><path d=\"M12 7v5l4 2\"/></svg></button>",
-        "          <button class=\"giencoder-btn giencoder-btn-secondary giencoder-btn-size-default giencoder-btn-icon td-round-btn\" type=\"button\" aria-label=\"全屏\"><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"16\" height=\"16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-maximize\" aria-hidden=\"true\"><path d=\"M8 3H5a2 2 0 0 0-2 2v3\"/><path d=\"M21 8V5a2 2 0 0 0-2-2h-3\"/><path d=\"M3 16v3a2 2 0 0 0 2 2h3\"/><path d=\"M16 21h3a2 2 0 0 0 2-2v-3\"/></svg></button>",
+        "          <button class=\"giencoder-btn giencoder-btn-secondary giencoder-btn-size-default giencoder-btn-icon td-round-btn\" type=\"button\" aria-label=\"全屏\" aria-pressed=\"false\" title=\"全屏\" data-td-fullscreen=\"1\"><svg class=\"td-ico-max\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"16\" height=\"16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M8 3H5a2 2 0 0 0-2 2v3\"/><path d=\"M21 8V5a2 2 0 0 0-2-2h-3\"/><path d=\"M3 16v3a2 2 0 0 0 2 2h3\"/><path d=\"M16 21h3a2 2 0 0 0 2-2v-3\"/></svg><svg class=\"td-ico-min\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"16\" height=\"16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M8 3v3a2 2 0 0 1-2 2H3\"/><path d=\"M21 8h-3a2 2 0 0 1-2-2V3\"/><path d=\"M3 16h3a2 2 0 0 1 2 2v3\"/><path d=\"M16 21v-3a2 2 0 0 1 2-2h3\"/></svg></button>",
         "        </div>",
         "      </header>",
         "      <div class=\"td-chat\">",
@@ -133,7 +133,7 @@
         "          <p>好的，收到您的需求。这是一个典型的“从需求到交付”的端到端流程初始化场景。我将为您设计一个完整的交付状态跟踪表，并定义启动整个流程所需的初始状态和关键节点。</p>",
         "          <p>我先把几个核心不确定性列出来，请你选择倾向，不确定的地方我会标注我的判断。</p>",
         "          <div class=\"td-ai-file\"><span class=\"td-file-ico\"><svg viewBox=\"0 0 16 16\" width=\"16\" height=\"16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M9 1.8H4.6a1.4 1.4 0 0 0-1.4 1.4v9.6a1.4 1.4 0 0 0 1.4 1.4h6.8a1.4 1.4 0 0 0 1.4-1.4V5.2z\"/><path d=\"M9 1.8v3.4h3.8\"/></svg></span><span class=\"td-file-body\"><span class=\"td-file-tx\">端到端初始化 - 任务分析报告.md</span><span class=\"td-file-size\">128KB</span></span></div>",
-        "          <div class=\"td-ai-foot\"><span>输出完成</span><span class=\"td-sep\"></span><span>Token 速率：256/s</span></div>",
+        "          <div class=\"td-ai-foot\"><span class=\"td-ai-foot-ico\"><svg viewBox=\"0 0 12 12\" width=\"12\" height=\"12\" fill=\"none\" aria-hidden=\"true\"><circle cx=\"6\" cy=\"6\" r=\"6\" fill=\"currentColor\"/><path class=\"td-ico-check\" d=\"M3.3 6.1l1.9 1.85 3.5-3.75\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg></span><span>输出完成</span><span class=\"td-sep\"></span><span class=\"td-ai-foot-ico\"><svg viewBox=\"0 0 12 12\" width=\"12\" height=\"12\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.1\" stroke-linecap=\"round\" aria-hidden=\"true\"><circle cx=\"6\" cy=\"6\" r=\"5\"/><path d=\"M6 6l2.4-2.4\"/><circle cx=\"6\" cy=\"6\" r=\".75\" fill=\"currentColor\" stroke=\"none\"/><path d=\"M3.5 3.9l.75.75\"/><path d=\"M2.9 6.5h1.05\"/><path d=\"M9.1 6.5H8.05\"/></svg></span><span>Token 速率：256/s</span></div>",
         "        </div>",
         "      </div>",
         "        <!-- 复用基础工作台的对话框模块（pages/base.html，结构与类名一致） -->",
@@ -242,6 +242,18 @@
         }
         descBtn.textContent = open ? '收起' : '展开全文';
         descBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+    }
+
+    /* AI 会话全屏 / 取消全屏（第 26 轮第 5 项）：形态完全由 CSS 的 .td-root.is-fullscreen 决定，
+       这里只切类并同步按钮语义（aria-label / title / aria-pressed），图标显隐由 .td-ico-max/.td-ico-min 控制。 */
+    var fsBtn = wrap.querySelector('[data-td-fullscreen]');
+    if (fsBtn) {
+      fsBtn.addEventListener('click', function () {
+        var on = root.classList.toggle('is-fullscreen');
+        fsBtn.setAttribute('aria-label', on ? '取消全屏' : '全屏');
+        fsBtn.setAttribute('title', on ? '取消全屏' : '全屏');
+        fsBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
       });
     }
 

@@ -35,5 +35,45 @@
           if (!n || n === groupOf() || !FILE[n]) return;
           location.href = FILE[n];
         }, true);
+
+        /* 高亮纠偏：dev.html 上外壳把 activeTab 算成了「基础工作台」（第 10 轮遗留），
+           页签高亮与实际页面自相矛盾（实测该页 DOM 与 base.html 完全一致）。
+           仅在「DOM 分组 ≠ 文件分组」时纠偏 —— 实测 9 页里只有 dev.html 命中，其余是空操作。
+           形态与外挂一致：选中项 = 图标 + 完整文案，未选中项 = 去掉图标 + 前 2 字。
+           图标直接从「原选中项」搬过来，不硬编码路径。 */
+        var LABEL = { base: '基础工作台', dev: '研发工作台' };
+        function setText(btn, text) {
+          for (var i = btn.childNodes.length - 1; i >= 0; i--) {
+            if (btn.childNodes[i].nodeType === 3) btn.removeChild(btn.childNodes[i]);
+          }
+          btn.appendChild(document.createTextNode(text));
+        }
+        function reconcile() {
+          var tl = document.querySelector('[role="tablist"][aria-label="工作台切换"]');
+          if (!tl) return false;
+          var btns = tl.querySelectorAll('[data-tab]');
+          if (!btns.length) return false;
+          var cur = tl.querySelector('[data-tab][aria-selected="true"]');
+          var dom = cur && cur.getAttribute('data-tab');
+          if (dom === fileGroup) return true;
+          var iconEl = cur && cur.querySelector('svg');
+          var icon = iconEl ? iconEl.outerHTML : '';
+          [].forEach.call(btns, function (b) {
+            var k = b.getAttribute('data-tab'), want = (k === fileGroup), s = b.querySelector('svg');
+            b.setAttribute('aria-selected', want ? 'true' : 'false');
+            if (s) b.removeChild(s);
+            if (want) {
+              if (icon) b.insertAdjacentHTML('afterbegin', icon);
+              setText(b, LABEL[k] || k);
+            } else {
+              setText(b, (LABEL[k] || k).slice(0, 2));
+            }
+          });
+          return true;
+        }
+        if (!reconcile()) {
+          var lo = new MutationObserver(function () { if (reconcile()) lo.disconnect(); });
+          lo.observe(document.body, { childList: true, subtree: true });
+        }
       })();
     
