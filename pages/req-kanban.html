@@ -221,9 +221,13 @@ header div:has(> div.relative > button[aria-label="切换侧边栏"]) { display:
         --kb-st-delay: #FF6157;  --kb-st-delay-tint: rgba(255, 97, 87, 0.12);
         --kb-st-cancel: #F3881E; --kb-st-cancel-tint: rgba(243, 136, 30, 0.14);
         --kb-col-todo: #A9A9A9;
-        --kb-tag-blue-bg: var(--color-primary-light-2); --kb-tag-blue-tx: var(--color-primary-6);
-        --kb-tag-purple-bg: rgb(var(--purple-2)); --kb-tag-purple-tx: rgb(var(--purple-6));
-        --kb-tag-magenta-bg: rgb(var(--magenta-2)); --kb-tag-magenta-tx: rgb(var(--magenta-6));
+        /* r27#4: 三个标签配色对齐设计稿（画板 553:06620 的 1x 导出 board-design.png 逐像素实测，
+           导出无色彩空间偏移：同图 #3770F7/#FF6157/#1F1F1F 均精确出现）。
+           实测 —— 拆分需求项 #E7F0FF/#3D6EBF、拆分需求条目 #F5E8FF/#7A4B9E、拆分子条目 #FFE8F1/#A74B6F。
+           原实现误用 -2 档底色 + -6 档文字，明显偏艳。 */
+        --kb-tag-blue-bg: #E7F0FF;    --kb-tag-blue-tx: #3D6EBF;
+        --kb-tag-purple-bg: #F5E8FF;  --kb-tag-purple-tx: #7A4B9E;
+        --kb-tag-magenta-bg: #FFE8F1; --kb-tag-magenta-tx: #A74B6F;
         --kb-tag-num-bg: var(--color-fill-2); --kb-tag-num-tx: var(--color-text-2);
         --kb-tag-high-bg: rgb(var(--red-2)); --kb-tag-high-tx: rgb(var(--red-6));
         --kb-tag-mid-bg: rgb(var(--orange-2)); --kb-tag-mid-tx: rgb(var(--orange-6));
@@ -237,6 +241,10 @@ header div:has(> div.relative > button[aria-label="切换侧边栏"]) { display:
         --kb-tag-blue-bg: rgba(var(--giencoderblue-6), 0.24);
         --kb-tag-purple-bg: rgba(var(--purple-6), 0.24);
         --kb-tag-magenta-bg: rgba(var(--magenta-6), 0.24);
+        /* r27#4: 亮色底/文字改字面值后需在暗色下补回主题自适应文字色，暗色表现与本轮前一致 */
+        --kb-tag-blue-tx: var(--color-primary-6);
+        --kb-tag-purple-tx: rgb(var(--purple-6));
+        --kb-tag-magenta-tx: rgb(var(--magenta-6));
         --kb-tag-high-bg: rgba(var(--red-6), 0.24);
         --kb-tag-mid-bg: rgba(var(--orange-6), 0.24);
         --kb-exec-bg: rgba(var(--giencoderblue-6), 0.24);

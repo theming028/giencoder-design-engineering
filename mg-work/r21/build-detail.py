@@ -191,6 +191,21 @@ CSS = r"""<style>
       .td-attr-v { color: var(--td-strong); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
       .td-attr-link { display: inline-flex; align-items: center; gap: 4px; color: var(--td-strong); text-decoration: none; min-width: 0; }
       .td-attr-link svg { width: 14px; height: 14px; flex: none; color: var(--td-ink-2); }
+      /* ★ 第 27 轮第 3 项：来源需求的链接要显示更多文字。
+         原因有两个：(1) 原来的「…」是**写死在文案里**的，永远只到「GienX端到端初始化…」9 字；
+         (2) 值列只有 145px，链接实测 149px 反而溢出 4px 被裁。
+         改法：放真实完整标题 + 真截断；并允许该行折行 2 行（-webkit-line-clamp:2 会自动补结尾省略号），
+         label 顶对齐。实测单行仅能显示约 6 个汉字，折 2 行后可显示约 26 个字符。
+         另外按设计稿把链接图标移到文字**前面**（设计稿 = 🔗 GienX端到端初始化…）。 */
+      .td-side .td-attr-row.is-wrap { align-items: flex-start; }
+      .td-side .td-attr-row.is-wrap .td-attr-v {
+        white-space: normal; text-overflow: clip;
+        display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2;
+      }
+      .td-side .td-attr-row.is-wrap .td-attr-link { display: inline; }
+      .td-side .td-attr-row.is-wrap .td-attr-link svg {
+        display: inline-block; vertical-align: -2px; margin-right: 4px;
+      }
       /* ★ 信息列所有属性组统一为「左右布局」（第 24 轮第 5 项 + 第 26 轮第 4 项）
          设计稿实测：7 行的 label 全部从 x=712.5 起、值全部从 x=776.5 起 → label 列固定 **64px**；
          行距：值行 pitch = 34px（行高 20 + 间距 14）。按要求「稍微收一下」→ 间距 14 → 10（pitch 30）。
@@ -298,6 +313,10 @@ CSS = r"""<style>
       }
       .td-ai-foot { display: flex; align-items: center; gap: 8px; font-size: var(--font-size-body-3); color: var(--td-meta); }
       .td-ai-foot .td-sep { width: 1px; height: 12px; background: var(--color-border-2); }
+      /* 第 27 轮第 2 项：图标与文字之间的间距减半（8px → 4px）。
+         做法是把「图标 + 文字」包成 .td-ai-foot-item（组内 gap 4px），
+         组与组之间的间隔仍走外层 .td-ai-foot 的 gap 8px，互不影响。 */
+      .td-ai-foot-item { display: inline-flex; align-items: center; gap: 4px; }
       /* 底行图标（第 26 轮第 7 项）：设计稿 2x 逐像素实测 ——
          「输出完成」前是**实心圆 + 白色对勾**（12×12，色 (134,134,134) = --color-text-3，与同行文字同色）；
          「Token 速率」前是一个**仪表盘**图标（同为 12×12）。图标与文字间距 7.5px ≈ gap 8px。 */
@@ -379,6 +398,34 @@ LINK_ICO = ('<svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke=
             'stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">'
             '<path d="M6.4 9.6a2.6 2.6 0 0 0 3.7 0l2-2a2.6 2.6 0 0 0-3.7-3.7l-1 1"/>'
             '<path d="M9.6 6.4a2.6 2.6 0 0 0-3.7 0l-2 2a2.6 2.6 0 0 0 3.7 3.7l1-1"/></svg>')
+# 分组标题图标（第 27 轮第 1 项，按设计稿 622:13950 实测校正）：
+#   设计稿里三个分组的图标**不是同一个**（我们原来三处都用了「链接」图标，是错的）：
+#     「2 个附件」  → 回形针（paperclip）
+#     「3 个 AI 产物」→ 文件夹（folder）
+#     「文件」      → 文件夹（folder）
+#   实测：图标字形约 26×23（2x，即 13×11.5 @1x）→ 用 14px 盒；图标↔文字间距 10px(2x)=5px，
+#   与现有 .td-sec-head gap 4px 基本一致；图标与标题文字同色（实测同为 (107,107,107)）→ 直接 currentColor 继承。
+#
+#   ⚠️ 第 27 轮补充校正：先用的 lucide 斜向回形针 / 闭合文件夹与设计稿形状不符。
+#      对设计稿 622:13950 的图标做 ASCII 位图读取（阈值扫描）后确认真实笔画：
+#        「2 个附件」= **竖直**回形针：一个竖直闭合外环（胶囊，7×11 @1x）＋ 内层 U ＋ 右侧游离端短线
+#                      （@2x 四根竖线 x100-102 / 106-108 / 112-114 / 118-120，外环顶 y1222 封口、底 y1243 圆底）
+#        「3 个 AI 产物」「文件」= **打开态**文件夹：带标签页的外轮廓（**左边／顶边／右边，底边不画**）
+#                      ＋ 内嵌前板（完整圆角矩形，其底边即文件夹底边 → 底部只有一条线）
+#                      （@2x：外左竖 x98 贯通 y1413..1432；页签顶 y1410 x99..107，主体顶 y1414..1416；
+#                        内板顶 y1418 x101..122、内板左竖 x101）
+#      形状选型在 mg-work/r27/cand.html 里逐一对渲染比对（A~H 八版），最终取候选 C / E。
+CLIP_ICO = ('<svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" '
+            'stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
+            '<path d="M2.9 5.5v4a3.5 3.5 0 0 0 7 0v-4a3.5 3.5 0 0 0-7 0z"/>'
+            '<path d="M6.4 6.2v3.6a1.75 1.75 0 0 0 3.5 0V6.2"/>'
+            '<path d="M12.7 3.2v7.6"/></svg>')
+FOLDER_ICO = ('<svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" '
+              'stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
+              '<path d="M2.6 12.6V5.3a1.5 1.5 0 0 1 1.5-1.5h2.4c.5 0 .97.25 1.25.67l.5.76c.28.42.75.67 1.25.67'
+              'h3.9a1.5 1.5 0 0 1 1.5 1.5v5.2"/>'
+              '<path d="M4.7 8.4h7.2a1.1 1.1 0 0 1 1.1 1.1v2a1.1 1.1 0 0 1-1.1 1.1H4.7a1.1 1.1 0 0 1-1.1-1.1'
+              'v-2a1.1 1.1 0 0 1 1.1-1.1z"/></svg>')
 # 「输出完成」前的图标（第 26 轮第 7 项）：实心圆 + 白色对勾，设计稿实测 12×12。
 # 圆填 currentColor；对勾描边走 .td-ico-check → var(--color-bg-1)（不写死 #fff，保持 token 化）。
 DONE_ICO = ('<svg viewBox="0 0 12 12" width="12" height="12" fill="none" aria-hidden="true">'
@@ -412,9 +459,10 @@ def tl(who, what, when):
             % (who, what, when))
 
 
-def attr(k, v):
-    return ('<div class="td-attr-row"><span class="td-attr-k">%s</span>'
-            '<span class="td-attr-v">%s</span></div>' % (k, v))
+def attr(k, v, wrap=False):
+    """一行左右属性。wrap=True -> 值列允许折行 2 行（第 27 轮第 3 项：来源需求链接要显示更多文字）。"""
+    return ('<div class="td-attr-row%s"><span class="td-attr-k">%s</span>'
+            '<span class="td-attr-v">%s</span></div>' % (' is-wrap' if wrap else '', k, v))
 
 
 BADGE = ('<span class="giencoder-badge giencoder-badge-status">'
@@ -470,14 +518,14 @@ HTML = """<div class="td-root" role="region" aria-label="任务详情">
         </div>
         <div class="td-expand"><span class="td-expand-line"></span><button class="giencoder-btn giencoder-btn-text giencoder-btn-size-small td-expand-btn" type="button" aria-expanded="false" aria-controls="td-desc-body" data-td-desc-toggle="1">展开全文</button><span class="td-expand-line"></span></div>
         <section class="td-sec">
-          <div class="td-sec-head">__LINKICO__2个附件</div>
+          <div class="td-sec-head">__CLIPICO__2个附件</div>
           <div class="td-files">
             __ATT1__
             __ATT2__
           </div>
         </section>
         <section class="td-sec">
-          <div class="td-sec-head">__LINKICO__3个 AI 产物</div>
+          <div class="td-sec-head">__FOLDERICO__3个 AI 产物</div>
           <div class="td-files">
             __AI1__
             __AI2__
@@ -485,7 +533,7 @@ HTML = """<div class="td-root" role="region" aria-label="任务详情">
           </div>
         </section>
         <section class="td-sec">
-          <div class="td-sec-head">__LINKICO__文件</div>
+          <div class="td-sec-head">__FOLDERICO__文件</div>
           <div class="td-files">
             __F1__
           </div>
@@ -553,7 +601,7 @@ HTML = """<div class="td-root" role="region" aria-label="任务详情">
           <p>好的，收到您的需求。这是一个典型的“从需求到交付”的端到端流程初始化场景。我将为您设计一个完整的交付状态跟踪表，并定义启动整个流程所需的初始状态和关键节点。</p>
           <p>我先把几个核心不确定性列出来，请你选择倾向，不确定的地方我会标注我的判断。</p>
           <div class="td-ai-file"><span class="td-file-ico">__FILEICO__</span><span class="td-file-body"><span class="td-file-tx">端到端初始化 - 任务分析报告.md</span><span class="td-file-size">128KB</span></span></div>
-          <div class="td-ai-foot"><span class="td-ai-foot-ico">__DONEICO__</span><span>输出完成</span><span class="td-sep"></span><span class="td-ai-foot-ico">__GAUGEICO__</span><span>Token 速率：256/s</span></div>
+          <div class="td-ai-foot"><span class="td-ai-foot-item"><span class="td-ai-foot-ico">__DONEICO__</span><span>输出完成</span></span><span class="td-sep"></span><span class="td-ai-foot-item"><span class="td-ai-foot-ico">__GAUGEICO__</span><span>Token 速率：256/s</span></span></div>
         </div>
       </div>
         <!-- 复用基础工作台的对话框模块（pages/base.html，结构与类名一致） -->
@@ -612,6 +660,8 @@ HTML = """<div class="td-root" role="region" aria-label="任务详情">
 
 repl = {
     "__LINKICO__": LINK_ICO,
+    "__CLIPICO__": CLIP_ICO,
+    "__FOLDERICO__": FOLDER_ICO,
     "__FILEICO__": FILE_ICO,
     "__DONEICO__": DONE_ICO,
     "__GAUGEICO__": GAUGE_ICO,
@@ -626,7 +676,9 @@ repl = {
     "__A3__": attr("优先级", '<span class="giencoder-tag giencoder-tag-danger td-tag-prio">'
                            '<span class="giencoder-tag-content">高优先级</span></span>'),
     "__A4__": attr("项目", "演练指挥系统"),
-    "__A5__": attr("来源需求", '<a class="td-attr-link" href="#">GienX端到端初始化…%s</a>' % LINK_ICO),
+    "__A5__": attr("来源需求",
+                   '<a class="td-attr-link" href="#">%sGienX端到端初始化：用户输入业务流程描述，自动生成需求条目并触发全链路交付</a>' % LINK_ICO,
+                   True),
     "__A6__": attr("实际开始", "2026/08/01 10:12"),
     "__A7__": attr("实际完成", "2026/08/12 15:27"),
     "__T1__": tl("Agent", "完成了任务开发", "刚刚"),
