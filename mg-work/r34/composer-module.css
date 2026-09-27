@@ -1,0 +1,230 @@
+/* .md 徽标是双色实心图标，颜色走 CSS（SVG 内不写死色值） */
+      .td-ico-md-body { fill: var(--td-ico-md); }
+.td-ico-md-fold { fill: var(--td-ico-md-fold); }
+.td-ico-md-mark { fill: none; stroke: var(--color-bg-1); stroke-width: 1.1; stroke-linecap: round; stroke-linejoin: round; }
+.td-ico-md-mark.is-solid { fill: var(--color-bg-1); stroke: none; }
+/* ★ 第 28 轮第 3 项：来源需求是链接，hover 时文字变主题蓝。
+         与 `.td-ai-meta a:hover`（第 305 行）保持同一套交互语言：文字用 --color-primary-6(#3770F7)，
+         前置图标（回形针）同步变色，避免出现「文字蓝、图标灰」的割裂。
+         ⚠️ 本页无 `[giencoder-theme='dark']` CSS 分支（DS 的 components.css 也没有），
+         故无需补主题前缀规则；但若将来加暗色 token，需同步补一份带前缀的 hover。 */
+      .td-attr-link:hover, .td-attr-link:focus-visible { color: var(--color-primary-6); }
+/* -------------------- 右栏 -------------------- */
+      .td-right {
+        flex: none; width: var(--td-right-w); box-sizing: border-box;
+        display: flex; flex-direction: column; overflow: hidden;
+        background: var(--color-bg-1); border-radius: 8px;
+        box-shadow: var(--td-panel-shadow);   /* 同左栏：设计稿无描边，只有柔和投影 */
+      }
+.td-right-inner { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+.td-right-bar {
+        height: 64px; flex: none; box-sizing: border-box;
+        display: flex; align-items: flex-start; gap: 8px; padding: 12px 20px 0;
+      }
+.td-right-head { min-width: 0; flex: 1; }
+.td-right-title {
+        font-size: var(--font-size-body-3); font-weight: 500; line-height: 24px; color: var(--td-strong);
+        overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+      }
+.td-right-time { font-size: var(--font-size-body-1); line-height: 16px; color: var(--td-meta); }
+.td-right-acts { display: flex; align-items: center; gap: 8px; flex: none; }
+/* 适配层：DS Button(secondary + size-mini + icon) → 设计稿 24×24 / 无边 / radius 4 */
+      .td-round-btn { box-sizing: border-box; width: 32px; padding: 0; border-color: transparent; line-height: 0; }
+.td-chat { flex: 1; min-height: 0; overflow: auto; padding: 16px 20px 8px; display: flex; flex-direction: column; }
+/* ★ 第 29 轮第 2 项：消息列独立成一个内层列 —— 全屏时只收窄它，.td-chat 保持满宽，
+         这样滚动条仍贴面板边缘（不跟着 860 一起缩进去）。 */
+      .td-chat-inner { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.td-msg-user {
+        align-self: flex-end; max-width: 100%; box-sizing: border-box;
+        padding: 8px 12px; border-radius: var(--border-radius-large);
+        background: var(--td-bubble);
+        font-size: var(--font-size-body-3); line-height: 24px; color: var(--td-strong);
+      }
+.td-msg-ai { display: flex; flex-direction: column; gap: 8px; }
+.td-ai-head { display: flex; align-items: center; gap: 8px; }
+.td-ai-avatar {
+        width: 24px; height: 24px; flex: none; border-radius: 50%;
+        background: var(--color-primary-light-2, var(--td-card));
+        display: inline-flex; align-items: center; justify-content: center;
+        color: var(--color-primary-6); line-height: 0;
+      }
+.td-ai-name { font-size: var(--font-size-body-3); font-weight: 500; color: var(--td-strong); line-height: 22px; }
+.td-ai-meta { display: flex; align-items: center; gap: 8px; font-size: var(--font-size-body-3); color: var(--td-meta); }
+.td-ai-meta a { display: inline-flex; align-items: center; gap: 4px; color: var(--td-meta); text-decoration: none; }
+.td-ai-meta a:hover { color: var(--color-primary-6); }
+.td-ai-meta svg { width: 14px; height: 14px; flex: none; }
+/* 第 26 轮第 6 项：AI 消息正文墨色加深（原 --color-text-2 → 最深一级 --color-text-1） */
+      .td-msg-ai p { margin: 0; font-size: var(--font-size-body-3); line-height: 24px; color: var(--color-text-1); }
+/* ★ 第 32 轮第 3 项：AI 消息里的文件卡**不再是独立形态**。
+         原先是 `.td-ai-file`（281×56 的 div、无链接无 hover），与「3 个 AI 产物」的
+         `.td-file--lg`（294×56、<a> + hover 加深）视觉/交互不一致。
+         现改为复用同一个卡片构造函数（`__AIFILE__` → fcard(..., big=True)），
+         两处为**同一组件**：同宽同高、同图标盒、同竖分隔线、同 hover 交互。
+         已删除 `.td-ai-file` 全部样式（下方原注释保留作历史记录）：
+         第 28 轮第 5 项曾按设计稿把它标定为 281×56 / 图标 24 / 竖分隔线；第 32 轮统一到 294。 */
+      .td-ai-foot { display: flex; align-items: center; gap: 8px; font-size: var(--font-size-body-3); color: var(--td-meta); }
+.td-ai-foot .td-sep { width: 1px; height: 12px; background: var(--color-border-2); }
+/* 第 27 轮第 2 项：图标与文字之间的间距减半（8px → 4px）。
+         做法是把「图标 + 文字」包成 .td-ai-foot-item（组内 gap 4px），
+         组与组之间的间隔仍走外层 .td-ai-foot 的 gap 8px，互不影响。 */
+      .td-ai-foot-item { display: inline-flex; align-items: center; gap: 4px; }
+/* 底行图标（第 26 轮第 7 项）：设计稿 2x 逐像素实测 ——
+         「输出完成」前是**实心圆 + 白色对勾**（12×12，色 (134,134,134) = --color-text-3，与同行文字同色）；
+         「Token 速率」前是一个**仪表盘**图标（同为 12×12）。图标与文字间距 7.5px ≈ gap 8px。 */
+      .td-ai-foot-ico { width: 12px; height: 12px; flex: none; line-height: 0; color: var(--td-meta); }
+/* 对勾用面板底色（不是写死 #fff），保持 token 化 */
+      .td-ai-foot-ico .td-ico-check { stroke: var(--color-bg-1); }
+/* -------------------- 底部输入区（复用基础工作台对话框模块） -------------------- */
+      /* 模块本体来自 pages/base.html，本页只负责外层定位；不新增同义类 */
+      .td-composer { flex: none; margin: 8px 20px 20px; }
+/* 补齐 base 页使用、本页 Tailwind 产物未包含的 3 个任意值类 */
+      .td-composer .min-h-\[96px\] { min-height: 96px; }
+.td-composer .gap-\[2px\] { gap: 2px; }
+.td-composer .bg-\[var\(--color-fill-3\)\] { background: var(--color-fill-3); }
+/* 窄容器收敛：480 右栏可用 414px，模块工具栏自然宽 489px
+         → 收起占位最大的「标准模式」选择器、组内间距 8→4、文本不换行；其余控件全部保留 */
+      .td-composer .giencoder-select[style*="width: 96px"] { display: none; }
+.td-composer .flex.items-center.gap-\[8px\] { gap: 4px; }
+.td-composer .flex.items-center.gap-2 { gap: 4px; }
+.td-composer [aria-label="数字分身"] { white-space: nowrap; }
+/* ================= 对话框三个弹层（★ 第 28 轮第 4 项） =================
+         结构与尺寸对齐 pages/base.html 里同一个对话框模块（该页是 Vite 产物，只能作真值参考）：
+           (1) 添加菜单   180×92 / 圆角 8 / 白底 + inset 0 0 0 1px #E5E5E5 + blur(20px)
+                        两个 168×32 菜单项（left 6 / top 6 与 top 54），中间 148×1 分隔线（top 45.5）
+           (2) 技能面板   原 760×320 居中 → 本页右栏窄（480，可用 414），760 会溢出，
+                        故宽度改为 min(760px, 100%)，其余几何（圆角 12 / 88% 白 + blur / 底部 44px 操作条）不变
+           (3) 大模型下拉 沿用 DS Select 契约结构（.giencoder-select-popup / -option），只补开合与选中
+         ⚠️ 三个弹层都靠 hidden 属性或内联 display 控制显隐，显式补 [hidden] 规则以免被 display 覆盖。 */
+      .td-add-pop[hidden], .td-skill-pop[hidden] { display: none !important; }
+.td-add-pop {
+        position: absolute; left: 0; bottom: calc(100% + 4px); width: 180px; height: 92px;
+        background: var(--color-bg-5); border-radius: var(--border-radius-large);
+        box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.1), inset 0 0 0 1px var(--color-border-2);
+        -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); z-index: 9999;
+      }
+.td-add-item {
+        position: absolute; left: 6px; width: 168px; height: 32px;
+        border-radius: var(--border-radius-medium); cursor: pointer;
+        color: var(--td-ico-gray);
+        transition: background-color 0.1s ease;
+      }
+.td-add-item:hover, .td-add-item:focus-visible { background: var(--color-fill-2); outline: none; }
+.td-add-item > svg { position: absolute; left: 10px; top: 9px; width: 14px; height: 14px; }
+.td-add-item > span {
+        position: absolute; left: 32px; top: 5px;
+        font-size: var(--font-size-body-3); line-height: 22px; color: var(--color-text-1);
+      }
+.td-add-item[data-td-add="file"] { top: 6px; }
+.td-add-item[data-td-add="kb"] { top: 54px; }
+.td-add-sep { position: absolute; left: 16px; top: 45.5px; width: 148px; height: 1px; background: var(--color-fill-2); }
+.td-skill-pop {
+        position: absolute; left: 50%; transform: translateX(-50%); bottom: calc(100% + 8px);
+        width: min(760px, 100%); height: 320px; box-sizing: border-box; overflow: hidden;
+        border-radius: var(--border-radius-xl); border: 1px solid var(--color-border-2);
+        background: rgba(255, 255, 255, 0.88);
+        -webkit-backdrop-filter: blur(10px) saturate(100%); backdrop-filter: blur(10px) saturate(100%);
+        box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.08), inset 0 3px 3px 0 var(--color-bg-5);
+        z-index: 9998;
+      }
+.td-skill-list { position: absolute; left: 0; right: 0; top: 0; bottom: 44px; overflow-y: auto; overflow-x: hidden; padding: 12px 12px 6px; }
+.td-skill-list::-webkit-scrollbar { width: 6px; }
+.td-skill-list::-webkit-scrollbar-thumb { background: var(--color-border-2); border-radius: 3px; }
+.td-skill-row {
+        position: relative; height: 32px; border-radius: var(--border-radius-medium); cursor: pointer;
+        transition: background-color 0.1s ease;
+      }
+.td-skill-row:hover, .td-skill-row.is-active { background: var(--color-fill-2); }
+.td-skill-ico { position: absolute; left: 11px; top: 10px; width: 12px; height: 12px; color: var(--td-ico-gray); line-height: 0; }
+.td-skill-ico svg { display: block; width: 100%; height: 100%; }
+.td-skill-ico.is-goal { left: 10px; top: 9px; width: 14px; height: 14px; color: var(--td-ico-skill); }
+.td-skill-txt { position: absolute; left: 34px; top: 5px; right: 46px; display: flex; gap: 12px; align-items: center; overflow: hidden; }
+.td-skill-name { flex: none; font-size: var(--font-size-body-3); line-height: 22px; color: var(--color-text-1); }
+.td-skill-desc {
+        flex: 1 1 0; min-width: 0; font-size: var(--font-size-body-1); line-height: 22px; color: var(--color-text-3);
+        overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+      }
+.td-skill-row.is-goal .td-skill-name { color: var(--td-ico-skill); }
+.td-skill-tag {
+        position: absolute; right: 6px; top: 6px; box-sizing: border-box; height: 20px; padding: 0 6px;
+        background: var(--color-bg-5); border: 1px solid var(--color-fill-2); border-radius: 3px;
+        font-size: 11px; line-height: 18px; color: var(--color-text-3);
+      }
+.td-skill-group { margin: 12px 0 8px 7px; font-size: var(--font-size-body-1); font-weight: 500; line-height: 20px; color: var(--color-text-3); }
+.td-skill-foot { position: absolute; left: 12px; right: 12px; bottom: 12px; height: 44px; }
+.td-skill-foot::before { content: ''; position: absolute; left: 0; top: 0; width: 100%; height: 1px; background: var(--color-fill-2); }
+.td-skill-foot > div { position: absolute; left: 0; top: 12px; display: flex; gap: 8px; }
+.td-skill-foot .giencoder-btn { width: 88px; }
+.td-skill-x {
+        position: absolute; right: 32px; top: 10px; width: 12px; height: 12px; padding: 0;
+        display: inline-flex; align-items: center; justify-content: center;
+        border: 0; background: none; color: var(--color-text-4); cursor: pointer; line-height: 0; z-index: 3;
+      }
+.td-skill-x:hover { color: var(--color-text-1); }
+.td-skill-x svg { display: block; width: 100%; height: 100%; }
+/* 大模型 / 标准模式下拉：完全沿用 DS 契约的开合机制
+         —— gienx-templates/ui-controls.css 里 `.giencoder-select-popup` 默认 opacity:0 / visibility:hidden /
+            translate:0 4px / scale:.96，加 `.giencoder-popup-open` 后 spring 过渡到展开态。
+         ⚠️ 第 28 轮踩坑：最初用内联 `style.display = 'block' | 'none'` 代替该类 —— display 确实是 block，
+           但 **opacity 仍为 0、visibility 仍为 hidden，页面上完全看不到**（getBoundingClientRect 却完全正常，
+           极易误判为"已实现"）。必须用 `.giencoder-popup-open`。
+         这里只补两处方向适配（选择器限定在组件类上，不改组件本体）： */
+      .td-composer .giencoder-select-popup {
+        /* ① DS 默认向下展开（top: calc(100% + 4px)），但本页 AI 对话框固定在右栏底部，
+              实测弹层 rect bottom 1005 > 视口 900 → 只剩 37px 可见、4 个选项有 3 个点不到。
+              选择器锚点在底部 ⇒ 翻转为向上展开，与「添加菜单」(.td-add-pop) 朝向一致。 */
+        top: auto;
+        bottom: calc(100% + 4px);
+        /* ② 缩放原点随之从顶边翻到底边 */
+        transform-origin: bottom center;
+      }
+/* -------------------- AI 会话全屏 / 取消全屏（第 26 轮第 5 项） --------------------
+         点右栏右上角「全屏」→ 整个 AI 对话框向左扩展到最大化：左栏（含信息列）与拖动条让位隐藏，
+         .td-right 由固定宽改为 flex:1 撑满 .td-root（x8 ~ x1432）。
+         再点一次（图标已换成「取消全屏」）恢复原状；全屏态下 Esc 也先退出全屏（见页尾脚本）。
+         两个图标用类切换显隐，避免 JS 改 innerHTML。 */
+      .td-root.is-fullscreen .td-left,
+      .td-root.is-fullscreen .td-gutter { display: none; }
+.td-root.is-fullscreen .td-right { flex: 1 1 auto; width: auto; }
+/* ★ 第 29 轮第 2 项：全屏后内容区（消息列 + 输入区）最大宽度 860px 并水平居中。
+         · 消息列：.td-chat 靠 align-items:center 把内层 860 列居中；
+         · 输入区：.td-composer 自身收成 860，左右留 auto（保留原有上下 8/20 边距）。
+         两者同宽同中心 ⇒ 输入框与消息列左右边缘严格对齐。 */
+      .td-root.is-fullscreen .td-chat { align-items: center; }
+.td-root.is-fullscreen .td-chat-inner { width: 100%; max-width: var(--td-fs-content); }
+.td-root.is-fullscreen .td-composer {
+        width: 100%; max-width: var(--td-fs-content);
+        margin-left: auto; margin-right: auto;
+      }
+.td-ico-min { display: none; }
+.td-root.is-fullscreen .td-ico-max { display: none; }
+.td-root.is-fullscreen .td-ico-min { display: block; }
+.td-root.is-collapsed .td-right-inner { display: none; }
+.td-root.is-dragging .td-right { transition: none; }
+.td-bar, .td-right-bar { cursor: grab; touch-action: none; }
+.td-bar .giencoder-btn, .td-right-bar .giencoder-btn { cursor: pointer; }
+.td-root.is-xdrag .td-bar, .td-root.is-xdrag .td-right-bar { cursor: grabbing; }
+/* 跟手/回弹期间的位移过渡由 JS 用 Web Animations 驱动；这里只给「提示态」加过渡。
+         （will-change 只在交互期开，长期挂着会白白提升图层） */
+      .td-left, .td-right {
+        outline: 2px solid transparent; outline-offset: -2px;
+        transition: outline-color 140ms var(--transition-timing-function-standard),
+                    box-shadow 180ms var(--transition-timing-function-standard);
+      }
+.td-root.is-xdrag .td-left, .td-root.is-xdrag .td-right,
+      .td-root.is-swap-fly .td-left, .td-root.is-swap-fly .td-right { will-change: transform; }
+.td-root.is-xdrag.is-xarmed .td-left,
+      .td-root.is-xdrag.is-xarmed .td-right { outline-color: var(--color-primary-6); }
+/* 主动栏轻微的「拎起来」：加深投影（复用既有面板投影变量，不新增色值） */
+      .td-root.is-xdrag .td-left.is-xdrag-panel,
+      .td-root.is-xdrag .td-right.is-xdrag-panel { box-shadow: var(--td-panel-shadow), 0 8px 24px rgba(0, 0, 0, 0.10); }
+/* 让位栏：轻微降透明，暗示它正在被替换 */
+      .td-root.is-xdrag .td-left.is-xdrag-peer,
+      .td-root.is-xdrag .td-right.is-xdrag-peer { opacity: 0.88; }
+/* FLIP 飞行期：两栏都进独立层叠上下文，**被拖的那一栏**抬到 z=3 并加深投影，
+         避免两栏重叠时看着像穿模（is-fly-left / is-fly-right 由 JS 按 d.panel 打） */
+      .td-root.is-swap-fly .td-left,
+      .td-root.is-swap-fly .td-right { position: relative; z-index: 1; }
+.td-root.is-swap-fly.is-fly-left .td-left,
+      .td-root.is-swap-fly.is-fly-right .td-right {
+        z-index: 3; box-shadow: var(--td-panel-shadow), 0 10px 28px rgba(0, 0, 0, 0.12);
+      }

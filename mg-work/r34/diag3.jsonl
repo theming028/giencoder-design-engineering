@@ -1,0 +1,8 @@
+{"step": "hitTest", "data": {"btn": [993, 835, 32, 32], "center": [1009, 851], "atCenter": "path.[object SVGAnimatedString]", "atCenterIsBtn": true, "maskZ": "65", "drawerZ": "70", "maskRect": [0, 48, 1440, 852], "drawerZPos": "70"}}
+{"step": "prog", "data": {"drawer": [960, 48, 480, 852], "open": false, "addHidden": false}}
+{"step": "progAfter", "data": {"drawer": [1440, 48, 480, 852], "open": false, "addHidden": false}}
+{"step": "beforeSkill", "data": {"drawer": [1440, 48, 480, 852], "open": false, "skillBtn": [1509, 835, 32, 32]}}
+{"step": "afterSkill", "data": {"drawer": [1440, 48, 480, 852], "open": false, "skillHidden": true, "skillRect": [0, 0, 0, 0]}}
+{"step": "reOpen", "data": {"drawer": [960, 48, 480, 852], "open": true}}
+{"step": "progSkill", "data": {"drawer": [960, 48, 480, 852], "open": false, "skillHidden": false, "skillRect": [981, 399, 438, 320]}}
+{"step": "progFs", "data": {"cls": "td-right av-chat-drawer is-fullscreen", "open": false, "rect": [1440, 48, 1440, 852], "chatInner": "860px"}}

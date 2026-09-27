@@ -1,0 +1,4 @@
+FAIL txt attempt 1: ❌ 获取失败: timeout
+FAIL txt attempt 2: ❌ 获取失败: 请求超时 (120s),请确认 MCP server 是否可达
+FAIL txt attempt 3: ❌ 获取失败: timeout
+FAIL txt attempt 4: ❌ 获取失败: timeout

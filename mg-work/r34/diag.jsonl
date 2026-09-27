@@ -1,0 +1,6 @@
+{"step": "ref_addpop", "data": {"__parse_error__": "Expecting value: line 1 column 5 (char 4)", "raw": "    at <anonymous>:1:1028"}}
+{"step": "av_state", "data": {"open": true, "drawer": [960, 48, 480, 852]}}
+{"step": "av_addpop", "data": {"__parse_error__": "Expecting value: line 1 column 5 (char 4)", "raw": "    at <anonymous>:1:1170"}}
+{"step": "av_addpop_open", "data": {"hidden": false, "vis": ["block", "visible", "1"], "rect": [1473, 739, 180, 92], "pos": "absolute", "left": "0px", "bottom": "36px", "offP": "DIV.giencoder-select"}}
+{"step": "av_skill_after", "data": {"hidden": true, "disp": "none", "vis": "visible", "op": "1", "rect": [0, 0, 0, 0], "btnRect": [1509, 835, 32, 32], "btnExpanded": "false", "elAtCenter": null, "pos": "absolute", "left": "50%", "bottom": "calc(100% + 8px)"}}
+{"step": "av_fs_after", "data": {"cls": "td-right av-chat-drawer", "btnRect": [1868, 60, 32, 32], "elAtCenter": null}}

@@ -1,0 +1,4 @@
+{"step": "detail", "data": {"__parse_error__": "Expecting value: line 1 column 1 (char 0)", "raw": "✗ Evaluation error: SyntaxError: missing ) after argument list"}}
+{"step": "detailSkill", "data": {"rect": [973, 391, 438, 320], "radius": "12px"}}
+{"step": "detailAdd", "data": {"rect": [985, 731, 180, 92], "radius": "8px"}}
+{"step": "avClosed", "data": {"trig": [926, 73, 192, 32], "drawer": [1440, 48, 480, 852], "row": [466, 73, 768, 48]}}
