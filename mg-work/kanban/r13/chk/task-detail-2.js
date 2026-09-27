@@ -198,12 +198,48 @@
     var back = wrap.querySelector('[data-td-back]');
     if (back) back.addEventListener('click', function () { location.href = 'kanban.html'; });
 
-    /* 描述区：展开全文 / 收起 */
+    /* 描述区：展开全文 / 收起（第 25 轮第 4 项：加 max-height 微动效）
+       max-height 从 px → none 不可动画，所以全程只用像素值过渡，
+       过渡结束后才把内联值清掉（回到 CSS 的 374px / none）。 */
     var descBody = wrap.querySelector('[data-td-desc]');
     var descBtn = wrap.querySelector('[data-td-desc-toggle]');
     if (descBody && descBtn) {
+      var COLLAPSED_H = parseFloat(getComputedStyle(descBody).maxHeight) || 374;
+      var descBusy = false;
+      function onDescEnd(fn) {
+        var done = false;
+        function once() { if (done) return; done = true; descBody.removeEventListener('transitionend', once); fn(); }
+        descBody.addEventListener('transitionend', once);
+        setTimeout(once, 420);   /* 兜底：transitionend 可能因高度无变化而不触发 */
+      }
       descBtn.addEventListener('click', function () {
-        var open = descBody.classList.toggle('is-open');
+        if (descBusy) return;
+        var open = !descBody.classList.contains('is-open');
+        var curH = descBody.getBoundingClientRect().height;
+        descBusy = true;
+        descBody.classList.add('is-animating');
+        if (open) {
+          /* 先离屏量出展开后的真实高度（临时 max-height:none），再回到当前高度起跑 */
+          descBody.style.maxHeight = 'none';
+          var fullH = descBody.getBoundingClientRect().height;
+          descBody.style.maxHeight = curH + 'px';
+          descBody.classList.add('is-open');
+          requestAnimationFrame(function () { descBody.style.maxHeight = fullH + 'px'; });
+          onDescEnd(function () {
+            descBusy = false;
+            descBody.classList.remove('is-animating');
+            if (descBody.classList.contains('is-open')) descBody.style.maxHeight = 'none';
+          });
+        } else {
+          descBody.style.maxHeight = curH + 'px';   /* 从 none 落到确定像素值，才能起跑 */
+          descBody.classList.remove('is-open');
+          requestAnimationFrame(function () { descBody.style.maxHeight = COLLAPSED_H + 'px'; });
+          onDescEnd(function () {
+            descBusy = false;
+            descBody.classList.remove('is-animating');
+            descBody.style.maxHeight = '';
+          });
+        }
         descBtn.textContent = open ? '收起' : '展开全文';
         descBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
       });
@@ -328,9 +364,12 @@
     bindDetail(wrap);
     return true;
   }
-  /* 注意：两个动作都要执行，不能短路（页签在 React 挂载后才出现，可能晚于注入） */
+  /* 注意：两个动作都要执行，不能短路（页签在 React 挂载后才出现，可能晚于注入）。
+     inject() 只在首次真正插入时返回 true，所以这里补一个「已注入」判断，
+     否则 ready() 永远返回 false、MutationObserver 永不卸载、每次 DOM 变更都白跑一遍。
+     页签点击（第 25 轮第 3 项）改由公共片段 SHELL_TABS 承担，见文件尾部。 */
   function ready() {
-    var injected = inject();
+    var injected = inject() || !!document.querySelector('.td-root');
     var tabbed = syncShellTab();
     return injected && tabbed;
   }

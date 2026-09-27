@@ -109,7 +109,9 @@ CSS = r"""<style>
         border-bottom: 1px solid var(--td-hairline);
         font-size: 18px; font-weight: 600; line-height: 28px; color: var(--td-strong);
       }
-      .td-desc { padding: 24px 40px 0; font-size: var(--font-size-body-3); line-height: 24px; color: var(--color-text-2); }
+      /* 描述区正文（第 25 轮第 1 项）：正文用最深一级墨色 --color-text-1(#1F1F1F)。
+         设计稿 2x 实测该区最暗像素恰为 (31,31,31) = text-1，与标题/值同级。 */
+      .td-desc { padding: 24px 40px 0; font-size: var(--font-size-body-3); line-height: 24px; color: var(--color-text-1); }
       .td-desc p { margin: 0 0 12px; }
       /* 描述区列表（第 24 轮第 3 项）：设计稿每行前面是一个小圆点。
          全站 `ol,ul,menu{list-style:none}` 把默认圆点清掉了 → 用 ::before 还原。
@@ -121,9 +123,18 @@ CSS = r"""<style>
         content: ''; position: absolute; left: 7px; top: 10px;
         width: 4px; height: 4px; border-radius: 50%; background: currentColor;
       }
-      /* 描述区折叠：默认限高（设计稿 374），点「展开全文」展开 */
-      .td-desc-body { max-height: 374px; overflow: hidden; }
+      /* 描述区折叠（第 25 轮第 4 项）：默认限高（设计稿 374），点「展开全文」平滑过渡。
+         ⚠️ max-height 从 px 到 none 不可动画 → 过渡始终在**像素值**之间做，
+         由 JS 在过渡结束后才把内联 max-height 置 none（见 bindDetail）。 */
+      .td-desc-body {
+        max-height: 374px; overflow: hidden;
+        transition: max-height 320ms var(--transition-timing-function-standard, cubic-bezier(0.4, 0, 0.2, 1));
+      }
       .td-desc-body.is-open { max-height: none; }
+      .td-desc-body.is-animating { will-change: max-height; }
+      @media (prefers-reduced-motion: reduce) {
+        .td-desc-body { transition: none; }
+      }
       .td-expand { display: flex; align-items: center; gap: 16px; margin: 12px 40px 0; }
       .td-expand-line { flex: 1; height: 1px; background: var(--td-line); }
       .td-expand-btn { flex: none; }
@@ -167,9 +178,10 @@ CSS = r"""<style>
         margin: 0 0 16px; font-size: var(--font-size-body-3); font-weight: 500;
         color: var(--color-text-1); line-height: 20px;
       }
-      /* 信息列正文：设计稿实测为 12px / 行高 20（text/text 高 20，容器 100 行距 34 = 20 + 14） */
+      /* 信息列正文（第 25 轮第 2 项）：字号统一 14px（--font-size-body-3）。
+         ⚠️ 唯一例外：`.td-tl-time`（任务动态里的时间）保持原 12px，不改。 */
       .td-attr { margin: 0; display: flex; flex-direction: column; gap: 14px; }
-      .td-attr-row { display: flex; align-items: center; gap: 8px; font-size: var(--font-size-body-1); line-height: 20px; }
+      .td-attr-row { display: flex; align-items: center; gap: 8px; font-size: var(--font-size-body-3); line-height: 20px; }
       .td-attr-k { flex: none; color: var(--td-meta); }
       .td-attr-v { color: var(--td-strong); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
       .td-attr-link { display: inline-flex; align-items: center; gap: 4px; color: var(--td-strong); text-decoration: none; min-width: 0; }
@@ -188,7 +200,7 @@ CSS = r"""<style>
       .td-side-attr .td-attr-v .giencoder-tag.td-tag-prio {
         height: 18px; padding: 0 1px; border-radius: var(--border-radius-medium);
         background: var(--color-danger-light-1); color: var(--color-danger-6);
-        font-size: var(--font-size-body-1); line-height: 1;
+        font-size: var(--font-size-body-3); line-height: 1;   /* 随信息列统一 14px */
       }
       /* 信息列底部：创建者 / 创建时间 / 最后更新（设计稿 容器 121 220×96，行高 24、行距 28、首行距分割线 16） */
       .td-side-foot { margin-top: auto; padding-top: 16px; border-top: 1px solid var(--td-line); }
@@ -206,9 +218,10 @@ CSS = r"""<style>
         border-radius: 50%; background: rgb(var(--gray-4)); box-sizing: border-box;
         border: 1px solid var(--color-bg-1);
       }
-      .td-tl-line1 { display: flex; gap: 8px; font-size: var(--font-size-body-1); line-height: 20px; }
+      .td-tl-line1 { display: flex; gap: 8px; font-size: var(--font-size-body-3); line-height: 20px; }
       .td-tl-who { color: var(--td-strong); flex: none; }
       .td-tl-what { color: var(--color-text-2); }
+      /* ⚠️ 第 25 轮第 2 项例外：任务动态的「时间」字号保持 12px，不随信息列统一到 14px */
       .td-tl-time { display: block; margin-top: 2px; font-size: var(--font-size-body-1); line-height: 20px; color: var(--td-meta); }
       /* -------------------- 拖动条 -------------------- */
       .td-gutter {
@@ -601,12 +614,48 @@ __LINES__
     var back = wrap.querySelector('[data-td-back]');
     if (back) back.addEventListener('click', function () { location.href = 'kanban.html'; });
 
-    /* 描述区：展开全文 / 收起 */
+    /* 描述区：展开全文 / 收起（第 25 轮第 4 项：加 max-height 微动效）
+       max-height 从 px → none 不可动画，所以全程只用像素值过渡，
+       过渡结束后才把内联值清掉（回到 CSS 的 374px / none）。 */
     var descBody = wrap.querySelector('[data-td-desc]');
     var descBtn = wrap.querySelector('[data-td-desc-toggle]');
     if (descBody && descBtn) {
+      var COLLAPSED_H = parseFloat(getComputedStyle(descBody).maxHeight) || 374;
+      var descBusy = false;
+      function onDescEnd(fn) {
+        var done = false;
+        function once() { if (done) return; done = true; descBody.removeEventListener('transitionend', once); fn(); }
+        descBody.addEventListener('transitionend', once);
+        setTimeout(once, 420);   /* 兜底：transitionend 可能因高度无变化而不触发 */
+      }
       descBtn.addEventListener('click', function () {
-        var open = descBody.classList.toggle('is-open');
+        if (descBusy) return;
+        var open = !descBody.classList.contains('is-open');
+        var curH = descBody.getBoundingClientRect().height;
+        descBusy = true;
+        descBody.classList.add('is-animating');
+        if (open) {
+          /* 先离屏量出展开后的真实高度（临时 max-height:none），再回到当前高度起跑 */
+          descBody.style.maxHeight = 'none';
+          var fullH = descBody.getBoundingClientRect().height;
+          descBody.style.maxHeight = curH + 'px';
+          descBody.classList.add('is-open');
+          requestAnimationFrame(function () { descBody.style.maxHeight = fullH + 'px'; });
+          onDescEnd(function () {
+            descBusy = false;
+            descBody.classList.remove('is-animating');
+            if (descBody.classList.contains('is-open')) descBody.style.maxHeight = 'none';
+          });
+        } else {
+          descBody.style.maxHeight = curH + 'px';   /* 从 none 落到确定像素值，才能起跑 */
+          descBody.classList.remove('is-open');
+          requestAnimationFrame(function () { descBody.style.maxHeight = COLLAPSED_H + 'px'; });
+          onDescEnd(function () {
+            descBusy = false;
+            descBody.classList.remove('is-animating');
+            descBody.style.maxHeight = '';
+          });
+        }
         descBtn.textContent = open ? '收起' : '展开全文';
         descBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
       });
@@ -731,9 +780,12 @@ __LINES__
     bindDetail(wrap);
     return true;
   }
-  /* 注意：两个动作都要执行，不能短路（页签在 React 挂载后才出现，可能晚于注入） */
+  /* 注意：两个动作都要执行，不能短路（页签在 React 挂载后才出现，可能晚于注入）。
+     inject() 只在首次真正插入时返回 true，所以这里补一个「已注入」判断，
+     否则 ready() 永远返回 false、MutationObserver 永不卸载、每次 DOM 变更都白跑一遍。
+     页签点击（第 25 轮第 3 项）改由公共片段 SHELL_TABS 承担，见文件尾部。 */
   function ready() {
-    var injected = inject();
+    var injected = inject() || !!document.querySelector('.td-root');
     var tabbed = syncShellTab();
     return injected && tabbed;
   }
@@ -748,7 +800,8 @@ lines = [l for l in HTML.split("\n")]
 js_lines = ",\n".join('        ' + json.dumps(l, ensure_ascii=False) for l in lines)
 JS = JS.replace("__LINES__", js_lines)
 
-# ---- 尾部：主题同步 + 返回看板（替换原来的看板↔需求看板切换） ----
+# ---- 尾部：主题同步 + 返回看板 + 公共片段（顶栏页签可点击，第 25 轮第 3 项） ----
+SHELL_TABS = io.open("mg-work/shell-tabs.snippet.html", encoding="utf-8").read()
 TAIL = """<script>
       // Sync theme with dev workbench if opened from it; default light.
       (function () {
@@ -767,6 +820,7 @@ TAIL = """<script>
         location.href = 'kanban.html';
       });
     </script>
+  """ + SHELL_TABS + """
   </body>
 </html>
 """
