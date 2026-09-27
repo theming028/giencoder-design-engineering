@@ -1,0 +1,20 @@
+{"step": "2a", "data": {"left": [8, 48, 936, 844], "right": [952, 48, 480, 844], "gutter": [944, 48, 8, 844], "root": [8, 48, 1424, 844], "leftMinCss": "480px", "gap": 716, "capExpect": 200}}
+{"step": "2b20", "data": {"moved": true, "panelTx": 20, "peerTx": -3, "scale": 1, "transform": "matrix(1, 0, 0, 1, 20, 0)"}}
+{"step": "2b120", "data": {"dx": 120, "panelTx": 120, "peerTx": -17, "armed": true}}
+{"step": "2b400", "data": {"dx": 400, "panelTx": 256, "peerTx": -36, "scale": 1, "panelShadow": "rgba(0, 0, 0, 0.06) 0px 1px 3px 0px, rgba(0, 0, 0, 0.1) 0px 8px 24px 0px"}}
+{"step": "2b_back", "data": {"dx": 20, "panelTx": 20, "peerTx": -3}}
+{"step": "2c", "data": {"swapped": false, "leftRect": [8, 48, 936, 844], "panelTransform": "none", "inlinePanel": ""}}
+{"step": "2d", "data": {"lastDx": 210, "panelTx": 203, "peerTx": -28}}
+{"step": "2d_after", "data": {"swapped": false, "left": [8, 48, 936, 844]}}
+{"step": "2e_mid", "data": {"sign": 1, "armed": true, "panelTx": 200}}
+{"step": "2e", "data": {"swapped": true, "left": [496, 48, 936, 844], "right": [8, 48, 480, 844]}}
+{"step": "2e_reset", "data": {"swapped": false, "left": [8, 48, 936, 844], "right": [952, 48, 480, 844]}}
+{"step": "1a", "data": {"exists": true, "shadow": "rgba(0, 0, 0, 0.1) 0px 8px 20px 0px", "shadow3tok": "0 8px 20px #0000001a", "shadow2tok": "0 4px 10px #0000001a"}}
+{"step": "3a", "data": {"ai": {"tag": "A", "cls": "td-file td-file--lg", "href": "#", "rect": [972, 381, 294, 56], "bg": "rgb(247, 247, 247)", "radius": "8px", "icoRect": [984, 397, 24, 24], "icoColor": "rgb(107, 107, 107)", "sepRect": [1020, 397, 1, 24], "sepColor": "rgb(201, 201, 201)", "bodyDisplay": "flex", "txFs": "14px", "txFw": "500", "txColor": "rgb(31, 31, 31)", "sizeFs": "12px", "sizeColor": "rgb(134, 134, 134)", "kids": ["td-file-ico", "td-file-sep", "td-file-body"]}, "prod": {"tag": "A", "cls": "td-file td-file--lg", "href": "#", "rect": [48, 805, 294, 56], "bg": "rgb(247, 247, 247)", "radius": "8px", "icoRect": [60, 821, 24, 24], "icoColor": "rgb(107, 107, 107)", "sepRect": [96, 821, 1, 24], "sepColor": "rgb(201, 201, 201)", "bodyDisplay": "flex", "txFs": "14px", "txFw": "500", "txColor": "rgb(31, 31, 31)", "sizeFs": "12px", "sizeColor": "rgb(134, 134, 134)", "kids": ["td-file-ico", "td-file-sep", "td-file-body"]}}}
+{"step": "3b_ai", "data": {"which": "ai", "bg": "rgb(242, 242, 242)", "cursor": "pointer"}}
+{"step": "3b_prod", "data": {"which": "prod", "bg": "rgb(242, 242, 242)", "cursor": "pointer"}}
+{"step": "4a", "data": {"left": [8, 48, 480, 844], "right": [496, 48, 936, 844], "gutter": [488, 48, 8, 844], "rightWvar": "936px", "leftMinCss": "480px", "noOverflow": true, "rootScrollW": 1424, "rootClientW": 1424}}
+{"step": "4a_reset", "data": {"right": [952, 48, 480, 844], "left": [8, 48, 936, 844], "rightWvar": "480px"}}
+{"step": "4b_mid", "data": {"collapsed": true, "right": [1384, 48, 48, 844]}}
+{"step": "4b", "data": {"collapsed": true, "rightW": "48px"}}
+{"step": "4b_reset", "data": {"collapsed": false, "right": [952, 48, 480, 844]}}

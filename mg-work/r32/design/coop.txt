@@ -1,0 +1,646 @@
+✅ 成功获取节点代码
+- 节点: 详情页 - 2 (622:20081)
+- 根节点: 622:20081
+- 父容器方向: row
+- Server 资源上下文: 10 个临时 Artifact。
+- 后续动作: 当前仅做“读取/同步上下文”，等待用户明确说明修改内容。
+- 充满语义提示(parentDirection=row): 宽度充满=主轴充满(优先 flex-1)；高度充满=交叉轴充满(优先 self-stretch)。
+
+代码内容：
+
+<div
+  data-node-id="622:20081"
+  data-name="详情页 - 2"
+  style="width: 1440px; height: 900px; background: #ECF1F6; overflow: hidden; position: relative">
+  <img
+    data-node-id="769:13108"
+    data-name="image"
+    style="position: absolute; left: 0px; top: 0px; z-index: 0; width: 1440px; height: 900px; object-fit: cover"
+    src="./asset/images/image-769-13108.png"
+    title="image" />
+  <div
+    data-node-id="769:16115"
+    data-name="矩形 220"
+    style="width: 1440px; height: 900px; background: rgba(0,0,0,0.4); backdrop-filter: blur(10px); position: absolute; left: 0px; top: 0px; z-index: 1"></div>
+  <div
+    data-node-id="1345:18388"
+    data-name="容器 153"
+    style="width: 640px; height: 640px; position: absolute; left: 60px; top: 130px; z-index: 2">
+    <div
+      data-node-id="769:16482"
+      data-name="矩形 221"
+      style="position: absolute; left: 0px; top: 0px; z-index: 0">
+      <img
+        src="./asset/icons/svg_a8aab8aa.svg"
+        style="color: rgba(255,255,255,0.95)" />
+    </div>
+    <div
+      data-node-id="769:16699"
+      data-name="组 10289"
+      style="width: 592px; height: 28px; position: absolute; left: 24px; top: 20px; z-index: 1">
+      <ui-component
+        data-node-id="769:16513"
+        data-name="text/title"
+        style="width: 64px; height: 24px; display: flex; justify-content: flex-start; align-items: flex-end; gap: 8px"
+        name="text/title"
+        props="{}"></ui-component>
+      <ui-component
+        data-node-id="769:16502"
+        data-name="icon-wrapper"
+        style="width: 28px; height: 28px; display: flex; justify-content: center; align-items: center; flex-direction: column"
+        name="icon-wrapper"
+        props='{"尺寸":"16"}'></ui-component>
+    </div>
+    <div
+      data-node-id="769:16483"
+      data-name="矩形 222"
+      style="position: absolute; left: 24px; top: 150px; z-index: 2">
+      <img src="./asset/icons/svg_40805e0b.svg" />
+    </div>
+    <div
+      data-node-id="769:16727"
+      data-name="矩形 480"
+      style="width: 6px; height: 320px; background: rgba(0,0,0,0.16); border-radius: 6px; position: absolute; left: 606px; top: 154px; z-index: 3"></div>
+    <div
+      data-node-id="1345:18386"
+      data-name="容器 152"
+      style="width: 142px; height: 32px; position: absolute; left: 474px; top: 584px; z-index: 4">
+      <ui-component
+        data-node-id="769:20002"
+        data-name="Button"
+        style="width: 60px; height: 32px; display: flex; justify-content: center; align-items: center; gap: 4px"
+        name="Button"
+        props='{"类型":"次要按钮","种类":"标准","形状":"长方形","尺寸":"中","状态":"默认"}'
+        text='{"取消":"取消"}'></ui-component>
+      <ui-component
+        data-node-id="769:16503"
+        data-name="Button"
+        style="width: 74px; height: 32px; display: flex; justify-content: center; align-items: center; gap: 4px"
+        name="Button"
+        props='{"类型":"主要按钮","种类":"标准","形状":"长方形","尺寸":"中","状态":"默认"}'
+        text='{"保存":"下一步"}'></ui-component>
+    </div>
+    <div
+      data-node-id="1345:18376"
+      data-name="容器 150"
+      style="width: 592px; height: 32px; position: absolute; left: 24px; top: 64px; z-index: 5">
+      <div
+        data-node-id="1345:18374"
+        data-name="容器 148"
+        style="width: 298px; height: 32px; position: absolute; left: 0px; top: 0px; z-index: 0">
+        <div
+          data-node-id="769:17054"
+          data-name="矩形 483"
+          style="position: absolute; left: 0px; top: 0px; z-index: 0">
+          <img src="./asset/icons/svg_1f31218d.svg" />
+        </div>
+        <ui-component
+          data-node-id="769:16807"
+          data-name="text/text"
+          style="width: 84px; height: 22px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+          name="text/text"
+          props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+          text='{"中电金信":"选择阶段产物"}'></ui-component>
+      </div>
+      <div
+        data-node-id="1345:18375"
+        data-name="容器 149"
+        style="width: 298px; height: 32px; position: absolute; left: 294px; top: 0px; z-index: 1">
+        <div
+          data-node-id="769:17059"
+          data-name="矩形 484"
+          style="position: absolute; left: 0px; top: 0px; z-index: 0">
+          <img src="./asset/icons/svg_05a44714.svg" style="color: #F2F2F2" />
+        </div>
+        <ui-component
+          data-node-id="769:16914"
+          data-name="text/text"
+          style="width: 70px; height: 22px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+          name="text/text"
+          props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+          text='{"中电金信":"选择协作者"}'></ui-component>
+      </div>
+    </div>
+    <div
+      data-node-id="1345:18384"
+      data-name="容器 151"
+      style="width: 560px; height: 270px; position: absolute; left: 40px; top: 166px; z-index: 6">
+      <div
+        data-node-id="769:19129"
+        data-name="矩形 486"
+        style="position: absolute; left: 0px; top: 0px; z-index: 0">
+        <img src="./asset/icons/svg_2db74dad.svg" style="color: #F7F7F7" />
+      </div>
+      <div
+        data-node-id="769:19180"
+        data-name="矩形 487"
+        style="position: absolute; left: 0px; top: 34px; z-index: 1">
+        <img src="./asset/icons/svg_ba12d47c.svg" style="color: #FFFFFF" />
+      </div>
+      <div
+        data-node-id="769:19181"
+        data-name="矩形 488"
+        style="position: absolute; left: 0px; top: 68px; z-index: 2">
+        <img src="./asset/icons/svg_ba12d47c.svg" style="color: #FFFFFF" />
+      </div>
+      <div
+        data-node-id="769:19182"
+        data-name="矩形 489"
+        style="position: absolute; left: 0px; top: 102px; z-index: 3">
+        <img src="./asset/icons/svg_ba12d47c.svg" style="color: #FFFFFF" />
+      </div>
+      <div
+        data-node-id="769:19183"
+        data-name="矩形 490"
+        style="position: absolute; left: 0px; top: 136px; z-index: 4">
+        <img src="./asset/icons/svg_ba12d47c.svg" style="color: #FFFFFF" />
+      </div>
+      <div
+        data-node-id="769:19184"
+        data-name="矩形 491"
+        style="position: absolute; left: 0px; top: 170px; z-index: 5">
+        <img src="./asset/icons/svg_ba12d47c.svg" style="color: #FFFFFF" />
+      </div>
+      <div
+        data-node-id="769:19185"
+        data-name="矩形 492"
+        style="position: absolute; left: 0px; top: 204px; z-index: 6">
+        <img src="./asset/icons/svg_ba12d47c.svg" style="color: #FFFFFF" />
+      </div>
+      <div
+        data-node-id="769:19186"
+        data-name="矩形 493"
+        style="position: absolute; left: 0px; top: 238px; z-index: 7">
+        <img src="./asset/icons/svg_ba12d47c.svg" style="color: #FFFFFF" />
+      </div>
+      <ui-component
+        data-node-id="769:19037"
+        data-name="checkbox"
+        style="width: 223px; height: 22px; display: flex; justify-content: flex-start; align-items: center; gap: 6px"
+        name="checkbox"
+        props='{"选中":"true","半选":"false","禁用":"true","悬停":"false"}'
+        text='{"复选框":"设置-工作项-关系-了解更多.html"}'></ui-component>
+      <ui-component
+        data-node-id="769:19042"
+        data-name="checkbox"
+        style="width: 101px; height: 22px; display: flex; justify-content: flex-start; align-items: center; gap: 6px"
+        name="checkbox"
+        props='{"选中":"true","半选":"false","禁用":"true","悬停":"false"}'
+        text='{"复选框":"用户故事.md"}'></ui-component>
+      <ui-component
+        data-node-id="769:19047"
+        data-name="checkbox"
+        style="width: 100px; height: 22px; display: flex; justify-content: flex-start; align-items: center; gap: 6px"
+        name="checkbox"
+        props='{"选中":"true","半选":"false","禁用":"true","悬停":"false"}'
+        text='{"复选框":"AGENTS.md"}'></ui-component>
+      <ui-component
+        data-node-id="769:19052"
+        data-name="checkbox"
+        style="width: 102px; height: 22px; display: flex; justify-content: flex-start; align-items: center; gap: 6px"
+        name="checkbox"
+        props='{"选中":"true","半选":"false","禁用":"true","悬停":"false"}'
+        text='{"复选框":"README.md"}'></ui-component>
+      <ui-component
+        data-node-id="769:19057"
+        data-name="checkbox"
+        style="width: 82px; height: 22px; display: flex; justify-content: flex-start; align-items: center; gap: 6px"
+        name="checkbox"
+        props='{"选中":"true","半选":"false","禁用":"true","悬停":"false"}'
+        text='{"复选框":"SKILL.md"}'></ui-component>
+      <ui-component
+        data-node-id="769:19062"
+        data-name="checkbox"
+        style="width: 81px; height: 22px; display: flex; justify-content: flex-start; align-items: center; gap: 6px"
+        name="checkbox"
+        props='{"选中":"true","半选":"false","禁用":"true","悬停":"false"}'
+        text='{"复选框":"附件1.xlsx"}'></ui-component>
+      <ui-component
+        data-node-id="769:19067"
+        data-name="checkbox"
+        style="width: 78px; height: 22px; display: flex; justify-content: flex-start; align-items: center; gap: 6px"
+        name="checkbox"
+        props='{"选中":"true","半选":"false","禁用":"true","悬停":"false"}'
+        text='{"复选框":"附件2.rar"}'></ui-component>
+      <ui-component
+        data-node-id="769:19172"
+        data-name="checkbox"
+        style="width: 170px; height: 22px; display: flex; justify-content: flex-start; align-items: center; gap: 6px"
+        name="checkbox"
+        props='{"选中":"true","半选":"false","禁用":"true","悬停":"false"}'
+        text='{"复选框":"研发协同主页-空间.html"}'></ui-component>
+    </div>
+    <ui-component
+      data-node-id="769:19190"
+      data-name="悬停Hand/Pointing"
+      style
+      name="悬停Hand/Pointing"
+      props="{}"></ui-component>
+    <ui-component
+      data-node-id="769:19221"
+      data-name="divider"
+      style="width: 592px; height: 22px; display: flex; justify-content: center; align-items: center; gap: 16px"
+      name="divider"
+      props='{"类型":"水平","虚线":"false","文本":"true","⬑对齐":"居中"}'
+      text='{"中电金信":"选择需要流转到下一阶段的协作产物"}'></ui-component>
+    <ui-component
+      data-node-id="769:19248"
+      data-name="text/text"
+      style="width: 104px; height: 22px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+      name="text/text"
+      props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+      text='{"中电金信":"已选 8/8 个产物"}'></ui-component>
+  </div>
+  <ui-component
+    data-node-id="769:20012"
+    data-name="Message"
+    style="width: 144px; height: 48px; display: flex; justify-content: flex-start; align-items: center; gap: 8px"
+    name="Message"
+    props='{"类型":"成功"}'
+    text='{"这是一条成功的信息":"任务已经转派"}'></ui-component>
+  <div
+    data-node-id="1345:18418"
+    data-name="容器 160"
+    style="width: 640px; height: 640px; position: absolute; left: 740px; top: 130px; z-index: 4">
+    <div
+      data-node-id="769:19307"
+      data-name="矩形 221"
+      style="position: absolute; left: 0px; top: 0px; z-index: 0">
+      <img
+        src="./asset/icons/svg_a8aab8aa.svg"
+        style="color: rgba(255,255,255,0.95)" />
+    </div>
+    <div
+      data-node-id="769:19308"
+      data-name="组 10289"
+      style="width: 592px; height: 28px; position: absolute; left: 24px; top: 20px; z-index: 1">
+      <ui-component
+        data-node-id="769:19309"
+        data-name="text/title"
+        style="width: 64px; height: 24px; display: flex; justify-content: flex-start; align-items: flex-end; gap: 8px"
+        name="text/title"
+        props="{}"></ui-component>
+      <ui-component
+        data-node-id="769:19317"
+        data-name="icon-wrapper"
+        style="width: 28px; height: 28px; display: flex; justify-content: center; align-items: center; flex-direction: column"
+        name="icon-wrapper"
+        props='{"尺寸":"16"}'></ui-component>
+    </div>
+    <div
+      data-node-id="1345:18416"
+      data-name="容器 159"
+      style="width: 210px; height: 32px; position: absolute; left: 406px; top: 584px; z-index: 2">
+      <ui-component
+        data-node-id="769:19325"
+        data-name="Button"
+        style="width: 60px; height: 32px; display: flex; justify-content: center; align-items: center; gap: 4px"
+        name="Button"
+        props='{"类型":"主要按钮","种类":"标准","形状":"长方形","尺寸":"中","状态":"默认"}'
+        text='{"保存":"提交"}'></ui-component>
+      <ui-component
+        data-node-id="769:19516"
+        data-name="Button"
+        style="width: 74px; height: 32px; display: flex; justify-content: center; align-items: center; gap: 4px"
+        name="Button"
+        props='{"类型":"次要按钮","种类":"标准","形状":"长方形","尺寸":"中","状态":"默认"}'
+        text='{"取消":"上一步"}'></ui-component>
+      <ui-component
+        data-node-id="769:19647"
+        data-name="Button"
+        style="width: 60px; height: 32px; display: flex; justify-content: center; align-items: center; gap: 4px"
+        name="Button"
+        props='{"类型":"次要按钮","种类":"标准","形状":"长方形","尺寸":"中","状态":"默认"}'
+        text='{"取消":"取消"}'></ui-component>
+    </div>
+    <ui-component
+      data-node-id="769:19402"
+      data-name="divider"
+      style="width: 592px; height: 22px; display: flex; justify-content: center; align-items: center; gap: 16px"
+      name="divider"
+      props='{"类型":"水平","虚线":"false","文本":"true","⬑对齐":"居中"}'
+      text='{"中电金信":"将当前任务 (含产物) 流转给下一位协作者"}'></ui-component>
+    <ui-component
+      data-node-id="769:19407"
+      data-name="text/text"
+      style="width: 113px; height: 22px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+      name="text/text"
+      props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+      text='{"中电金信":"已选 1/7 位协作者"}'></ui-component>
+    <div
+      data-node-id="1345:18409"
+      data-name="容器 156"
+      style="width: 592px; height: 32px; position: absolute; left: 24px; top: 64px; z-index: 5">
+      <div
+        data-node-id="1345:18408"
+        data-name="容器 155"
+        style="width: 298px; height: 32px; position: absolute; left: 294px; top: 0px; z-index: 0">
+        <div
+          data-node-id="769:19339"
+          data-name="矩形 484"
+          style="position: absolute; left: 0px; top: 0px; z-index: 0">
+          <img src="./asset/icons/svg_d4ad7667.svg" />
+        </div>
+        <ui-component
+          data-node-id="769:19340"
+          data-name="text/text"
+          style="width: 70px; height: 22px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+          name="text/text"
+          props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+          text='{"中电金信":"选择协作者"}'></ui-component>
+      </div>
+      <div
+        data-node-id="1345:18407"
+        data-name="容器 154"
+        style="width: 300px; height: 32px; position: absolute; left: 0px; top: 0px; z-index: 1">
+        <div
+          data-node-id="769:19332"
+          data-name="矩形 483"
+          style="position: absolute; left: 0px; top: 0px; z-index: 0">
+          <img src="./asset/icons/svg_cff71fef.svg" style="color: #F2F2F2" />
+        </div>
+        <div
+          data-node-id="769:19503"
+          data-name="组 10298"
+          style="width: 102px; height: 22px; position: absolute; left: 99px; top: 5px; z-index: 1">
+          <ui-component
+            data-node-id="769:19333"
+            data-name="text/text"
+            style="width: 84px; height: 22px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+            name="text/text"
+            props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+            text='{"中电金信":"选择阶段产物"}'></ui-component>
+          <ui-component
+            data-node-id="769:19494"
+            data-name="icon-wrapper"
+            style="width: 14px; height: 14px; display: flex; justify-content: center; align-items: center; flex-direction: column"
+            name="icon-wrapper"
+            props='{"尺寸":"14"}'></ui-component>
+        </div>
+      </div>
+    </div>
+    <div
+      data-node-id="769:19318"
+      data-name="矩形 222"
+      style="position: absolute; left: 24px; top: 150px; z-index: 6">
+      <img src="./asset/icons/svg_40805e0b.svg" />
+    </div>
+    <div
+      data-node-id="1345:18411"
+      data-name="容器 158"
+      style="width: 560px; height: 32px; position: absolute; left: 40px; top: 166px; z-index: 7">
+      <div
+        data-node-id="769:20543"
+        data-name="矩形 480"
+        style="position: absolute; left: 0px; top: 0px; z-index: 0">
+        <img src="./asset/icons/svg_c479512c.svg" />
+      </div>
+      <ui-component
+        data-node-id="769:20544"
+        data-name="text/text"
+        style="width: 70px; height: 22px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+        name="text/text"
+        props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+        text='{"中电金信":"搜索协作者"}'></ui-component>
+      <ui-component
+        data-node-id="769:20550"
+        data-name="icon-wrapper"
+        style="width: 14px; height: 14px; display: flex; justify-content: center; align-items: center; flex-direction: column"
+        name="icon-wrapper"
+        props='{"尺寸":"14"}'></ui-component>
+    </div>
+    <div
+      data-node-id="769:19319"
+      data-name="矩形 480"
+      style="width: 6px; height: 128px; background: rgba(0,0,0,0.16); border-radius: 6px; position: absolute; left: 606px; top: 214px; z-index: 8"></div>
+    <div
+      data-node-id="1345:18410"
+      data-name="容器 157"
+      style="width: 560px; height: 236px; position: absolute; left: 40px; top: 214px; z-index: 9">
+      <div
+        data-node-id="769:19353"
+        data-name="矩形 486"
+        style="position: absolute; left: 0px; top: 0px; z-index: 0">
+        <img src="./asset/icons/svg_2db74dad.svg" style="color: #F7F7F7" />
+      </div>
+      <div
+        data-node-id="769:20615"
+        data-name="组 10281"
+        style="width: 153px; height: 22px; position: absolute; left: 38px; top: 5px; z-index: 1">
+        <ui-component
+          data-node-id="769:20616"
+          data-name="Avatar"
+          style="width: 20px; height: 20px; display: flex; justify-content: center; align-items: center; flex-direction: column"
+          name="Avatar"
+          props='{"形状":"圆形","类型":"字符","尺寸":"迷你","交互":"无"}'
+          text='{"铭":"铭"}'></ui-component>
+        <ui-component
+          data-node-id="769:20620"
+          data-name="text/text"
+          style="width: 125px; height: 22px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+          name="text/text"
+          props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+          text='{"中电金信":"邵禹铭 (P0098602)"}'></ui-component>
+      </div>
+      <div
+        data-node-id="769:19354"
+        data-name="矩形 487"
+        style="position: absolute; left: 0px; top: 34px; z-index: 2">
+        <img src="./asset/icons/svg_ba12d47c.svg" style="color: #FFFFFF" />
+      </div>
+      <div
+        data-node-id="769:20692"
+        data-name="组 10283"
+        style="width: 140px; height: 22px; position: absolute; left: 38px; top: 39px; z-index: 3">
+        <ui-component
+          data-node-id="769:20699"
+          data-name="Avatar"
+          style="width: 20px; height: 20px; display: flex; justify-content: center; align-items: center; flex-direction: column"
+          name="Avatar"
+          props='{"形状":"圆形","类型":"字符","尺寸":"迷你","交互":"无"}'
+          text='{"铭":"怡"}'></ui-component>
+        <ui-component
+          data-node-id="769:20693"
+          data-name="text/text"
+          style="width: 112px; height: 22px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+          name="text/text"
+          props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+          text='{"中电金信":"秦怡 (P0098603)"}'></ui-component>
+      </div>
+      <ui-component
+        data-node-id="769:20225"
+        data-name="checkbox"
+        style="width: 14px; height: 14px; display: flex; justify-content: flex-start; align-items: center; gap: 6px"
+        name="checkbox"
+        props='{"选中":"true","半选":"false","禁用":"false","悬停":"false"}'
+        text='{"复选框":"复选框"}'></ui-component>
+      <div
+        data-node-id="769:19355"
+        data-name="矩形 488"
+        style="position: absolute; left: 0px; top: 68px; z-index: 5">
+        <img src="./asset/icons/svg_ba12d47c.svg" style="color: #FFFFFF" />
+      </div>
+      <div
+        data-node-id="769:20772"
+        data-name="组 10304"
+        style="width: 154px; height: 22px; position: absolute; left: 38px; top: 73px; z-index: 6">
+        <ui-component
+          data-node-id="769:20773"
+          data-name="Avatar"
+          style="width: 20px; height: 20px; display: flex; justify-content: center; align-items: center; flex-direction: column"
+          name="Avatar"
+          props='{"形状":"圆形","类型":"字符","尺寸":"迷你","交互":"无"}'
+          text='{"铭":"毅"}'></ui-component>
+        <ui-component
+          data-node-id="769:20779"
+          data-name="text/text"
+          style="width: 126px; height: 22px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+          name="text/text"
+          props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+          text='{"中电金信":"韩佳毅 (P0098604)"}'></ui-component>
+      </div>
+      <ui-component
+        data-node-id="769:20270"
+        data-name="checkbox"
+        style="width: 14px; height: 14px; display: flex; justify-content: flex-start; align-items: center; gap: 6px"
+        name="checkbox"
+        props='{"选中":"false","半选":"false","禁用":"false","悬停":"false"}'
+        text='{"复选框":"复选框"}'></ui-component>
+      <div
+        data-node-id="769:19356"
+        data-name="矩形 489"
+        style="position: absolute; left: 0px; top: 102px; z-index: 8">
+        <img src="./asset/icons/svg_ba12d47c.svg" style="color: #FFFFFF" />
+      </div>
+      <div
+        data-node-id="769:20852"
+        data-name="组 10305"
+        style="width: 140px; height: 22px; position: absolute; left: 38px; top: 107px; z-index: 9">
+        <ui-component
+          data-node-id="769:20859"
+          data-name="Avatar"
+          style="width: 20px; height: 20px; display: flex; justify-content: center; align-items: center; flex-direction: column"
+          name="Avatar"
+          props='{"形状":"圆形","类型":"字符","尺寸":"迷你","交互":"无"}'
+          text='{"铭":"帆"}'></ui-component>
+        <ui-component
+          data-node-id="769:20853"
+          data-name="text/text"
+          style="width: 112px; height: 22px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+          name="text/text"
+          props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+          text='{"中电金信":"顾帆 (P0098605)"}'></ui-component>
+      </div>
+      <ui-component
+        data-node-id="769:20315"
+        data-name="checkbox"
+        style="width: 14px; height: 14px; display: flex; justify-content: flex-start; align-items: center; gap: 6px"
+        name="checkbox"
+        props='{"选中":"false","半选":"false","禁用":"false","悬停":"false"}'
+        text='{"复选框":"复选框"}'></ui-component>
+      <div
+        data-node-id="769:19357"
+        data-name="矩形 490"
+        style="position: absolute; left: 0px; top: 136px; z-index: 11">
+        <img src="./asset/icons/svg_ba12d47c.svg" style="color: #FFFFFF" />
+      </div>
+      <div
+        data-node-id="769:20932"
+        data-name="组 10306"
+        style="width: 154px; height: 22px; position: absolute; left: 38px; top: 141px; z-index: 12">
+        <ui-component
+          data-node-id="769:20939"
+          data-name="Avatar"
+          style="width: 20px; height: 20px; display: flex; justify-content: center; align-items: center; flex-direction: column"
+          name="Avatar"
+          props='{"形状":"圆形","类型":"字符","尺寸":"迷你","交互":"无"}'
+          text='{"铭":"怡"}'></ui-component>
+        <ui-component
+          data-node-id="769:20933"
+          data-name="text/text"
+          style="width: 126px; height: 22px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+          name="text/text"
+          props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+          text='{"中电金信":"姜嘉怡 (P0098606)"}'></ui-component>
+      </div>
+      <ui-component
+        data-node-id="769:20360"
+        data-name="checkbox"
+        style="width: 14px; height: 14px; display: flex; justify-content: flex-start; align-items: center; gap: 6px"
+        name="checkbox"
+        props='{"选中":"false","半选":"false","禁用":"false","悬停":"false"}'
+        text='{"复选框":"复选框"}'></ui-component>
+      <div
+        data-node-id="769:19358"
+        data-name="矩形 491"
+        style="position: absolute; left: 0px; top: 170px; z-index: 14">
+        <img src="./asset/icons/svg_ba12d47c.svg" style="color: #FFFFFF" />
+      </div>
+      <div
+        data-node-id="769:21012"
+        data-name="组 10307"
+        style="width: 139px; height: 22px; position: absolute; left: 38px; top: 175px; z-index: 15">
+        <ui-component
+          data-node-id="769:21019"
+          data-name="Avatar"
+          style="width: 20px; height: 20px; display: flex; justify-content: center; align-items: center; flex-direction: column"
+          name="Avatar"
+          props='{"形状":"圆形","类型":"字符","尺寸":"迷你","交互":"无"}'
+          text='{"铭":"甜"}'></ui-component>
+        <ui-component
+          data-node-id="769:21013"
+          data-name="text/text"
+          style="width: 111px; height: 22px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+          name="text/text"
+          props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+          text='{"中电金信":"朱甜 (P0098607)"}'></ui-component>
+      </div>
+      <ui-component
+        data-node-id="769:20405"
+        data-name="checkbox"
+        style="width: 14px; height: 14px; display: flex; justify-content: flex-start; align-items: center; gap: 6px"
+        name="checkbox"
+        props='{"选中":"false","半选":"false","禁用":"false","悬停":"false"}'
+        text='{"复选框":"复选框"}'></ui-component>
+      <div
+        data-node-id="769:19359"
+        data-name="矩形 492"
+        style="position: absolute; left: 0px; top: 204px; z-index: 17">
+        <img src="./asset/icons/svg_ba12d47c.svg" style="color: #FFFFFF" />
+      </div>
+      <div
+        data-node-id="769:21092"
+        data-name="组 10308"
+        style="width: 154px; height: 22px; position: absolute; left: 38px; top: 209px; z-index: 18">
+        <ui-component
+          data-node-id="769:21099"
+          data-name="Avatar"
+          style="width: 20px; height: 20px; display: flex; justify-content: center; align-items: center; flex-direction: column"
+          name="Avatar"
+          props='{"形状":"圆形","类型":"字符","尺寸":"迷你","交互":"无"}'
+          text='{"铭":"辰"}'></ui-component>
+        <ui-component
+          data-node-id="769:21093"
+          data-name="text/text"
+          style="width: 126px; height: 22px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+          name="text/text"
+          props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+          text='{"中电金信":"齐瑞辰 (P0098608)"}'></ui-component>
+      </div>
+      <ui-component
+        data-node-id="769:20450"
+        data-name="checkbox"
+        style="width: 14px; height: 14px; display: flex; justify-content: flex-start; align-items: center; gap: 6px"
+        name="checkbox"
+        props='{"选中":"false","半选":"false","禁用":"false","悬停":"false"}'
+        text='{"复选框":"复选框"}'></ui-component>
+      <ui-component
+        data-node-id="769:20159"
+        data-name="checkbox"
+        style="width: 14px; height: 14px; display: flex; justify-content: flex-start; align-items: center; gap: 6px"
+        name="checkbox"
+        props='{"选中":"false","半选":"false","禁用":"false","悬停":"false"}'
+        text='{"复选框":"复选框"}'></ui-component>
+    </div>
+  </div>
+</div>

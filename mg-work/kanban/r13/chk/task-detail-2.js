@@ -11,7 +11,7 @@
         "      <div class=\"td-bar-actions\">",
         "        <button class=\"giencoder-btn giencoder-btn-primary giencoder-btn-size-small td-btn\" type=\"button\">开始任务</button>",
         "        <span class=\"giencoder-popover-reference\"><button class=\"giencoder-btn giencoder-btn-secondary giencoder-btn-size-small td-btn\" type=\"button\" data-td-dispatch aria-haspopup=\"dialog\" aria-expanded=\"false\">转派</button></span>",
-        "        <button class=\"giencoder-btn giencoder-btn-secondary giencoder-btn-size-small td-btn\" type=\"button\">协作</button>",
+        "        <button class=\"giencoder-btn giencoder-btn-secondary giencoder-btn-size-small td-btn\" type=\"button\" data-td-coop=\"1\" aria-haspopup=\"dialog\" aria-expanded=\"false\">协作</button>",
         "        <button class=\"giencoder-btn giencoder-btn-secondary giencoder-btn-size-small td-btn\" type=\"button\">编辑</button>",
         "        <button class=\"giencoder-btn giencoder-btn-secondary giencoder-btn-size-small giencoder-btn-icon td-iconbtn\" type=\"button\" aria-label=\"更多操作\">",
         "          <svg viewBox=\"0 0 16 16\" width=\"16\" height=\"16\" fill=\"currentColor\"><circle cx=\"3.4\" cy=\"8\" r=\"1.3\"/><circle cx=\"8\" cy=\"8\" r=\"1.3\"/><circle cx=\"12.6\" cy=\"8\" r=\"1.3\"/></svg>",
@@ -139,7 +139,7 @@
         "            </div>",
         "            <p>好的，收到您的需求。这是一个典型的“从需求到交付”的端到端流程初始化场景。我将为您设计一个完整的交付状态跟踪表，并定义启动整个流程所需的初始状态和关键节点。</p>",
         "            <p>我先把几个核心不确定性列出来，请你选择倾向，不确定的地方我会标注我的判断。</p>",
-        "            <div class=\"td-ai-file\"><span class=\"td-file-ico\"><svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.45\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4.5 1.5H18.8A1.5 1.5 0 0 1 20.3 3V15.6L16.6 21H4.5A1.5 1.5 0 0 0 3 19.5V3A1.5 1.5 0 0 1 4.5 1.5Z\"/><path d=\"M15 21v-5.25H20.3\"/><path d=\"M7.5 7.2h7.5\"/><path d=\"M7.5 11h7.5\"/><path d=\"M7.5 14.7h3.5\"/></svg></span><span class=\"td-file-sep\" aria-hidden=\"true\"></span><span class=\"td-file-body\"><span class=\"td-file-tx\">端到端初始化 - 任务分析报告.md</span><span class=\"td-file-size\">128KB</span></span></div>",
+        "            <a class=\"td-file td-file--lg\" href=\"#\" title=\"端到端初始化 - 任务分析报告.md\"><span class=\"td-file-ico\"><svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.45\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4.5 1.5H18.8A1.5 1.5 0 0 1 20.3 3V15.6L16.6 21H4.5A1.5 1.5 0 0 0 3 19.5V3A1.5 1.5 0 0 1 4.5 1.5Z\"/><path d=\"M15 21v-5.25H20.3\"/><path d=\"M7.5 7.2h7.5\"/><path d=\"M7.5 11h7.5\"/><path d=\"M7.5 14.7h3.5\"/></svg></span><span class=\"td-file-sep\" aria-hidden=\"true\"></span><span class=\"td-file-body\"><span class=\"td-file-tx\">端到端初始化 - 任务分析报告.md</span><span class=\"td-file-size\">128KB</span></span></a>",
         "            <div class=\"td-ai-foot\"><span class=\"td-ai-foot-item\"><span class=\"td-ai-foot-ico\"><svg viewBox=\"0 0 12 12\" width=\"12\" height=\"12\" fill=\"none\" aria-hidden=\"true\"><circle cx=\"6\" cy=\"6\" r=\"6\" fill=\"currentColor\"/><path class=\"td-ico-check\" d=\"M3.3 6.1l1.9 1.85 3.5-3.75\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg></span><span>输出完成</span></span><span class=\"td-sep\"></span><span class=\"td-ai-foot-item\"><span class=\"td-ai-foot-ico\"><svg viewBox=\"0 0 12 12\" width=\"12\" height=\"12\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.1\" stroke-linecap=\"round\" aria-hidden=\"true\"><circle cx=\"6\" cy=\"6\" r=\"5\"/><path d=\"M6 6l2.4-2.4\"/><circle cx=\"6\" cy=\"6\" r=\".75\" fill=\"currentColor\" stroke=\"none\"/><path d=\"M3.5 3.9l.75.75\"/><path d=\"M2.9 6.5h1.05\"/><path d=\"M9.1 6.5H8.05\"/></svg></span><span>Token 速率：256/s</span></span></div>",
         "          </div>",
         "        </div>",
@@ -222,6 +222,71 @@
         "      <span>展</span><span>开</span><span>AI</span><span>会</span><span>话</span>",
         "    </button>",
         "  </aside>",
+        "</div>",
+        "",
+        "<!-- ★ 第 32 轮第 5 项：顶栏「协作」→ 分步模态弹窗（设计稿节点 622:20081）",
+        "     全部用 DS 契约组装（Modal / Steps / Checkbox / List / Avatar / Input / Button），",
+        "     结构说明与设计稿实测真值见上方 CSS 段注释。",
+        "     显隐开关 = 根节点 .td-coop 的 is-open + hidden（配合 <html data-td-coop-open> 供 Esc 链判断）。 -->",
+        "<div class=\"td-coop\" hidden>",
+        "  <div class=\"giencoder-modal-wrapper\">",
+        "    <div class=\"giencoder-modal-mask\" data-td-coop-mask=\"1\"></div>",
+        "    <div class=\"giencoder-modal td-coop-dialog\" role=\"dialog\" aria-modal=\"true\" aria-label=\"任务协作\" tabindex=\"-1\">",
+        "      <div class=\"giencoder-modal-header\">",
+        "        <span class=\"giencoder-modal-title\">任务协作</span>",
+        "        <button class=\"giencoder-modal-close-btn\" type=\"button\" aria-label=\"Close\" data-td-coop-close=\"1\"><svg viewBox=\"0 0 16 16\" width=\"16\" height=\"16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" aria-hidden=\"true\"><path d=\"M3.8 3.8l8.4 8.4M12.2 3.8l-8.4 8.4\"/></svg></button>",
+        "      </div>",
+        "      <div class=\"giencoder-steps giencoder-steps-horizontal td-coop-steps\" role=\"list\" aria-label=\"协作流程\">",
+        "        <div class=\"giencoder-steps-item is-active\" role=\"listitem\" aria-current=\"step\" data-td-step=\"1\">",
+        "          <span class=\"giencoder-steps-icon\" aria-hidden=\"true\"><svg viewBox=\"0 0 14 14\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M2.6 7.5l3 3L11.4 4.2\"/></svg></span>",
+        "          <span class=\"giencoder-steps-content\"><span class=\"giencoder-steps-title\">选择阶段产物</span></span>",
+        "        </div>",
+        "        <div class=\"giencoder-steps-item\" role=\"listitem\" data-td-step=\"2\">",
+        "          <span class=\"giencoder-steps-icon\" aria-hidden=\"true\"><svg viewBox=\"0 0 14 14\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M2.6 7.5l3 3L11.4 4.2\"/></svg></span>",
+        "          <span class=\"giencoder-steps-content\"><span class=\"giencoder-steps-title\">选择协作者</span></span>",
+        "        </div>",
+        "      </div>",
+        "      <div class=\"td-coop-dvd\" role=\"separator\"><span class=\"td-coop-dvd-tx\" data-td-coop-hint=\"1\">选择需要流转到下一阶段的协作产物</span></div>",
+        "      <div class=\"giencoder-modal-content\">",
+        "        <div class=\"td-coop-pane\" data-td-pane=\"1\">",
+        "          <div class=\"giencoder-list td-coop-list giencoder-scroll-thin\" role=\"group\" aria-label=\"阶段产物\">",
+        "            <label class=\"giencoder-list-item giencoder-list-item-hoverable td-coop-row\" data-size=\"small\"><span class=\"giencoder-checkbox td-coop-cb\"><input class=\"giencoder-checkbox-input\" type=\"checkbox\" checked><span class=\"giencoder-checkbox-mask\"></span><span class=\"td-coop-tx\">研发协同主页-空间.html</span></span></label>",
+        "            <label class=\"giencoder-list-item giencoder-list-item-hoverable td-coop-row\" data-size=\"small\"><span class=\"giencoder-checkbox td-coop-cb\"><input class=\"giencoder-checkbox-input\" type=\"checkbox\" checked><span class=\"giencoder-checkbox-mask\"></span><span class=\"td-coop-tx\">设置-工作项-关系-了解更多.html</span></span></label>",
+        "            <label class=\"giencoder-list-item giencoder-list-item-hoverable td-coop-row\" data-size=\"small\"><span class=\"giencoder-checkbox td-coop-cb\"><input class=\"giencoder-checkbox-input\" type=\"checkbox\" checked><span class=\"giencoder-checkbox-mask\"></span><span class=\"td-coop-tx\">用户故事.md</span></span></label>",
+        "            <label class=\"giencoder-list-item giencoder-list-item-hoverable td-coop-row\" data-size=\"small\"><span class=\"giencoder-checkbox td-coop-cb\"><input class=\"giencoder-checkbox-input\" type=\"checkbox\" checked><span class=\"giencoder-checkbox-mask\"></span><span class=\"td-coop-tx\">AGENTS.md</span></span></label>",
+        "            <label class=\"giencoder-list-item giencoder-list-item-hoverable td-coop-row\" data-size=\"small\"><span class=\"giencoder-checkbox td-coop-cb\"><input class=\"giencoder-checkbox-input\" type=\"checkbox\" checked><span class=\"giencoder-checkbox-mask\"></span><span class=\"td-coop-tx\">README.md</span></span></label>",
+        "            <label class=\"giencoder-list-item giencoder-list-item-hoverable td-coop-row\" data-size=\"small\"><span class=\"giencoder-checkbox td-coop-cb\"><input class=\"giencoder-checkbox-input\" type=\"checkbox\" checked><span class=\"giencoder-checkbox-mask\"></span><span class=\"td-coop-tx\">SKILL.md</span></span></label>",
+        "            <label class=\"giencoder-list-item giencoder-list-item-hoverable td-coop-row\" data-size=\"small\"><span class=\"giencoder-checkbox td-coop-cb\"><input class=\"giencoder-checkbox-input\" type=\"checkbox\" checked><span class=\"giencoder-checkbox-mask\"></span><span class=\"td-coop-tx\">附件1.xlsx</span></span></label>",
+        "            <label class=\"giencoder-list-item giencoder-list-item-hoverable td-coop-row\" data-size=\"small\"><span class=\"giencoder-checkbox td-coop-cb\"><input class=\"giencoder-checkbox-input\" type=\"checkbox\" checked><span class=\"giencoder-checkbox-mask\"></span><span class=\"td-coop-tx\">附件2.rar</span></span></label>",
+        "          </div>",
+        "        </div>",
+        "        <div class=\"td-coop-pane\" data-td-pane=\"2\" hidden>",
+        "          <div class=\"giencoder-input-wrapper\" data-size=\"medium\">",
+        "            <span class=\"giencoder-input-prefix\" aria-hidden=\"true\"><svg viewBox=\"0 0 14 14\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\"><circle cx=\"6.1\" cy=\"6.1\" r=\"4.35\"/><path d=\"M9.3 9.3l3.1 3.1\"/></svg></span>",
+        "            <input class=\"giencoder-input\" type=\"text\" placeholder=\"搜索协作者\" aria-label=\"搜索协作者\" autocomplete=\"off\">",
+        "          </div>",
+        "          <div class=\"giencoder-list td-coop-members giencoder-scroll-thin\" role=\"group\" aria-label=\"协作者\">",
+        "            <label class=\"giencoder-list-item giencoder-list-item-hoverable td-coop-row\" data-size=\"small\" data-td-midx=\"0\"><span class=\"giencoder-checkbox td-coop-cb\"><input class=\"giencoder-checkbox-input\" type=\"checkbox\"><span class=\"giencoder-checkbox-mask\"></span></span><span class=\"giencoder-list-item-meta\"><span class=\"giencoder-avatar giencoder-avatar-circle giencoder-avatar-text td-coop-av\" style=\"--avatar-bg: var(--avatar-bg-1)\" aria-hidden=\"true\">铭</span><span class=\"giencoder-list-item-title td-coop-mname\">邵禹铭 <span class=\"td-coop-mid\">(P0098602)</span></span></span></label>",
+        "            <label class=\"giencoder-list-item giencoder-list-item-hoverable td-coop-row\" data-size=\"small\" data-td-midx=\"1\"><span class=\"giencoder-checkbox td-coop-cb\"><input class=\"giencoder-checkbox-input\" type=\"checkbox\"><span class=\"giencoder-checkbox-mask\"></span></span><span class=\"giencoder-list-item-meta\"><span class=\"giencoder-avatar giencoder-avatar-circle giencoder-avatar-text td-coop-av\" style=\"--avatar-bg: var(--avatar-bg-2)\" aria-hidden=\"true\">怡</span><span class=\"giencoder-list-item-title td-coop-mname\">秦怡 <span class=\"td-coop-mid\">(P0098603)</span></span></span></label>",
+        "            <label class=\"giencoder-list-item giencoder-list-item-hoverable td-coop-row\" data-size=\"small\" data-td-midx=\"2\"><span class=\"giencoder-checkbox td-coop-cb\"><input class=\"giencoder-checkbox-input\" type=\"checkbox\"><span class=\"giencoder-checkbox-mask\"></span></span><span class=\"giencoder-list-item-meta\"><span class=\"giencoder-avatar giencoder-avatar-circle giencoder-avatar-text td-coop-av\" style=\"--avatar-bg: var(--avatar-bg-3)\" aria-hidden=\"true\">毅</span><span class=\"giencoder-list-item-title td-coop-mname\">韩佳毅 <span class=\"td-coop-mid\">(P0098604)</span></span></span></label>",
+        "            <label class=\"giencoder-list-item giencoder-list-item-hoverable td-coop-row\" data-size=\"small\" data-td-midx=\"3\"><span class=\"giencoder-checkbox td-coop-cb\"><input class=\"giencoder-checkbox-input\" type=\"checkbox\"><span class=\"giencoder-checkbox-mask\"></span></span><span class=\"giencoder-list-item-meta\"><span class=\"giencoder-avatar giencoder-avatar-circle giencoder-avatar-text td-coop-av\" style=\"--avatar-bg: var(--avatar-bg-4)\" aria-hidden=\"true\">帆</span><span class=\"giencoder-list-item-title td-coop-mname\">顾帆 <span class=\"td-coop-mid\">(P0098605)</span></span></span></label>",
+        "            <label class=\"giencoder-list-item giencoder-list-item-hoverable td-coop-row\" data-size=\"small\" data-td-midx=\"4\"><span class=\"giencoder-checkbox td-coop-cb\"><input class=\"giencoder-checkbox-input\" type=\"checkbox\"><span class=\"giencoder-checkbox-mask\"></span></span><span class=\"giencoder-list-item-meta\"><span class=\"giencoder-avatar giencoder-avatar-circle giencoder-avatar-text td-coop-av\" style=\"--avatar-bg: var(--avatar-bg-5)\" aria-hidden=\"true\">怡</span><span class=\"giencoder-list-item-title td-coop-mname\">姜嘉怡 <span class=\"td-coop-mid\">(P0098606)</span></span></span></label>",
+        "            <label class=\"giencoder-list-item giencoder-list-item-hoverable td-coop-row\" data-size=\"small\" data-td-midx=\"5\"><span class=\"giencoder-checkbox td-coop-cb\"><input class=\"giencoder-checkbox-input\" type=\"checkbox\"><span class=\"giencoder-checkbox-mask\"></span></span><span class=\"giencoder-list-item-meta\"><span class=\"giencoder-avatar giencoder-avatar-circle giencoder-avatar-text td-coop-av\" style=\"--avatar-bg: var(--avatar-bg-6)\" aria-hidden=\"true\">甜</span><span class=\"giencoder-list-item-title td-coop-mname\">朱甜 <span class=\"td-coop-mid\">(P0098607)</span></span></span></label>",
+        "            <label class=\"giencoder-list-item giencoder-list-item-hoverable td-coop-row\" data-size=\"small\" data-td-midx=\"6\"><span class=\"giencoder-checkbox td-coop-cb\"><input class=\"giencoder-checkbox-input\" type=\"checkbox\"><span class=\"giencoder-checkbox-mask\"></span></span><span class=\"giencoder-list-item-meta\"><span class=\"giencoder-avatar giencoder-avatar-circle giencoder-avatar-text td-coop-av\" style=\"--avatar-bg: var(--avatar-bg-7)\" aria-hidden=\"true\">辰</span><span class=\"giencoder-list-item-title td-coop-mname\">齐瑞辰 <span class=\"td-coop-mid\">(P0098608)</span></span></span></label>",
+        "          </div>",
+        "        </div>",
+        "      </div>",
+        "      <div class=\"giencoder-modal-footer\">",
+        "        <span class=\"td-coop-count\" data-td-coop-count=\"1\"></span>",
+        "        <div class=\"td-coop-btns\">",
+        "          <button class=\"giencoder-btn giencoder-btn-secondary giencoder-btn-size-default td-coop-btn\" type=\"button\" data-td-coop-cancel=\"1\">取消</button>",
+        "          <button class=\"giencoder-btn giencoder-btn-primary giencoder-btn-size-default td-coop-btn\" type=\"button\" data-td-coop-next=\"1\">下一步</button>",
+        "          <button class=\"giencoder-btn giencoder-btn-secondary giencoder-btn-size-default td-coop-btn\" type=\"button\" data-td-coop-prev=\"1\" hidden>上一步</button>",
+        "          <button class=\"giencoder-btn giencoder-btn-primary giencoder-btn-size-default td-coop-btn\" type=\"button\" data-td-coop-submit=\"1\" hidden>提交</button>",
+        "        </div>",
+        "      </div>",
+        "    </div>",
+        "  </div>",
         "</div>"
 ].join('\n');
 
@@ -394,8 +459,15 @@
     var DEFAULT_W = 480;   /* 右栏默认宽（设计稿实测） */
     var MIN_W = 100;       /* 拖到此值以下即自动折叠（第24轮：原 320） */
     var COLLAPSED_W = 48;  /* 折叠条宽（设计稿实测 1343:18532 = 48×844） */
-    var LEFT_MIN = 320;    /* 左栏保底 */
+    var LEFT_MIN = 480;    /* 左栏保底（★ 第32轮第4项：320 → 480，与 CSS --td-left-min 同值） */
     var dragging = false, curW = DEFAULT_W;
+
+    /* 右栏可达到的最大宽度 = 根容器宽 − 拖动条宽 − 左栏保底。
+       ★ 第 32 轮修正：原先漏算拖动条 8px，导致钳位后左栏实际只剩 LEFT_MIN−8，
+         触发 CSS min-width 兜底 → 两栏总宽超容器（溢出）。 */
+    function maxRightW() {
+      return root.getBoundingClientRect().width - gutter.getBoundingClientRect().width - LEFT_MIN;
+    }
 
     function setWidth(w) {
       curW = w;
@@ -408,7 +480,7 @@
     function widthFrom(clientX) {
       var box = root.getBoundingClientRect();
       var w = root.classList.contains('is-swapped') ? (clientX - box.left) : (box.right - clientX);
-      var maxW = box.width - LEFT_MIN;
+      var maxW = maxRightW();
       if (w > maxW) w = maxW;
       if (w < 0) w = 0;
       return w;
@@ -457,7 +529,7 @@
     /* 键盘可达：默认 ← 变宽 / → 变窄（到阈值即折叠）；两栏互换后方向随之取反 */
     gutter.addEventListener('keydown', function (e) {
       var step = 24;
-      var maxW = root.getBoundingClientRect().width - LEFT_MIN;
+      var maxW = maxRightW();
       var swapped = root.classList.contains('is-swapped');
       var widerKey = swapped ? 'ArrowRight' : 'ArrowLeft';
       var narrowKey = swapped ? 'ArrowLeft' : 'ArrowRight';
@@ -487,20 +559,32 @@
          · 静止态仍只切 .is-swapped（CSS row-reverse），DOM 顺序不动。
 
        第 30 轮的五个手感优化：
-         ① 跟手位移（橡皮筋，不是硬限幅）：|dx| ≤ cap(两栏中心距 ×14%，实测约 100px) 时 1:1 跟手；
-            超出后每多拖 1px 只走 RB=0.18px → 大拖不会「顶住不动」，但越拖越沉；
-            另一栏反向 12% 微移「让位」→ 拖起来立刻有物理反馈，两栏又不会在途中就交叉重叠；
+         ① 跟手位移（橡皮筋，不是硬限幅）：|dx| ≤ cap 时 1:1 跟手；超出后按 RB 继续走，
+            不会「顶住不动」；另一栏反向微移「让位」→ 立刻有物理反馈，两栏不会交叉重叠；
          ② FLIP 滑动：松手判定换位时，先记 first rect → 切类 → 记 last rect →
             用 Web Animations 从 translateX(dx) 滑回 0，两栏真的横着挪过去（不是瞬移）；
             飞行期被拖的那一栏加 is-fly-left/right → z=3 + 加深投影（「拎起来」）；
          ③ 回弹：未达阈值时把跟手位移用同一条曲线弹回 0，而不是瞬间归位；
          ④ 甩动判定：|v| ≥ 0.6 px/ms 且方向正确 ⇒ 即使位移不够也换位（短促快拖也能换）。
+       ★ 第 32 轮第 2 项（用户仍反馈「拖拽过程不流畅」）修掉两处根因：
+         · cap 14%→28%（≈100px → ≈200px）、RB 0.18→0.28：上一版拖过 100px 后卡片几乎不跟手，
+           手感上就是「卡住了」；现在指针走多远卡片走多远。
+         · **去掉 scale(1.006)**：「拎起来」只由投影 + z-index 表达。scale 会让这种大尺寸、
+           文字密集的滚动容器**每帧重新栅格化**（掉帧主因）。
+         · 位移写入用 **rAF 合并**（一帧只写一次 transform）；去掉 pointermove 里的
+           preventDefault（非被动监听器会让浏览器等回调 → 输入延迟）。
        曲线统一 cubic-bezier(0.22, 1, 0.36, 1)：起步快、收尾稳、**无过冲**（不会越界出容器）。
        prefers-reduced-motion 下跳过所有位移动画，只切类。 */
     var SWAP_T = 72;              /* 距离阈值 px（原 80：略微降低，配合甩动判定更好触发） */
     var SWAP_FLICK = 0.6;         /* 甩动速度阈值 px/ms */
     var SWAP_DUR = 400;           /* FLIP 滑动时长 ms */
-    var RB = 0.18;                /* 橡皮筋系数：超出限幅后每多拖 1px 只走 0.18px */
+    /* ★ 第 32 轮第 2 项重新调参：上一版 cap = 两栏中心距 ×14%（1440 下仅 ~100px）+
+       RB 0.18，超过 100px 后卡片几乎不跟手 —— 用户反馈「拖拽过程不流畅」的主因。
+       现在 1:1 跟手区放宽到中心距 ×28%（≈200px，是换位阈值 72px 的 2.8 倍），
+       超出后按 0.28 继续走（原来 0.18）→ 指针走多远卡片就走多远，绝不「顶住不动」。 */
+    var FOLLOW = 0.28;            /* 1:1 跟手区间（× 两栏中心距） */
+    var RB = 0.28;                /* 超出限幅后的橡皮筋系数 */
+    var PEER = 0.14;              /* 让位栏反向跟随比例 */
     var SWAP_EASE = 'cubic-bezier(0.22, 1, 0.36, 1)';
     var reduceMotion = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
     var xdrag = null;
@@ -532,12 +616,23 @@
         var gap = Math.abs((b.left + b.width / 2) - (a.left + a.width / 2));
         xdrag = {
           bar: bar, panel: panel, other: other,
-          x0: e.clientX, dx: 0, applied: 0, v: 0, moved: false, tPrev: e.timeStamp,
-          cap: Math.max(24, Math.round(gap * 0.14)),   /* 跟手限幅：一次性算好，避免 pointermove 里反复取 rect */
+          x0: e.clientX, dx: 0, applied: 0, peer: 0, v: 0, moved: false, tPrev: e.timeStamp,
+          cap: Math.max(48, Math.round(gap * FOLLOW)),   /* 跟手限幅：一次性算好，避免 pointermove 里反复取 rect */
           dir: (b.left + b.width / 2) >= (a.left + a.width / 2) ? 1 : -1
         };
         if (bar.setPointerCapture) { try { bar.setPointerCapture(e.pointerId); } catch (err) {} }
       });
+
+      /* ★ 第 32 轮：位移写入用 rAF 合并 —— 指针事件一帧内可能来好几个，
+         每个都写一次 transform 会白白多做几次样式计算/绘制。这里一帧只写一次。 */
+      var rafId = 0;
+      function paint() {
+        rafId = 0;
+        var d = xdrag;
+        if (!d || reduceMotion) return;
+        d.panel.style.transform = 'translate3d(' + d.applied + 'px,0,0)';
+        d.other.style.transform = 'translate3d(' + d.peer + 'px,0,0)';
+      }
 
       bar.addEventListener('pointermove', function (e) {
         var d = xdrag;
@@ -555,19 +650,15 @@
           d.other.classList.add('is-xdrag-peer');
         }
         root.classList.toggle('is-xarmed', (d.dx * d.dir >= SWAP_T) || (d.v * d.dir >= SWAP_FLICK));
-        if (!reduceMotion) {
-          /* ③ 橡皮筋阻尼（不是硬限幅）：|dx| ≤ cap 时 1:1 跟手；
-             超出后按 RB 系数继续走（cap + 超出量*0.18）→ 大拖也不会「顶住不动」，
-             但越拖越沉，视觉上明确「这里拖不过去」。*/
-          var abs = Math.abs(d.dx);
-          var raw = abs <= d.cap ? abs : d.cap + (abs - d.cap) * RB;
-          var applied = (d.dx < 0 ? -1 : 1) * Math.round(raw);
-          var k = Math.min(1, Math.abs(applied) / d.cap);   /* 0~1：越接近目标位置，主动栏越「浮起来」 */
-          d.applied = applied;
-          d.panel.style.transform = 'translate3d(' + applied + 'px,0,0) scale(' + (1 + 0.006 * k).toFixed(4) + ')';
-          d.other.style.transform = 'translate3d(' + Math.round(applied * -0.12) + 'px,0,0)';
-        }
-        e.preventDefault();
+        /* 跟手：|dx| ≤ cap 时 **纯 1:1**（指针走多少卡片走多少，不加任何缓动/缩放）；
+           超出后按 RB 系数继续走 → 越拖越沉但不顶死。
+           ★ 第 32 轮去掉了上一版的 scale(1.006)：「拎起来」只靠投影 + z-index 表达。
+           scale 会让这种大尺寸、文字密集的滚动容器每帧重新栅格化（明显的掉帧源）。 */
+        var abs = Math.abs(d.dx);
+        var raw = abs <= d.cap ? abs : d.cap + (abs - d.cap) * RB;
+        d.applied = (d.dx < 0 ? -1 : 1) * Math.round(raw);
+        d.peer = Math.round(d.applied * -PEER);
+        if (!rafId) rafId = requestAnimationFrame(paint);
       });
 
       function endSwap() {
@@ -610,7 +701,7 @@
         } else {
           /* ③ 回弹 */
           slideBack(d.panel, d.applied, 260);
-          slideBack(d.other, Math.round(d.applied * -0.12), 260);
+          slideBack(d.other, d.peer, 260);
         }
       }
       bar.addEventListener('pointerup', endSwap);
@@ -786,6 +877,25 @@
   var DP_SEARCH_SVG = '<svg viewBox="0 0 14 14" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><circle cx="6.1" cy="6.1" r="4.35"/><path d="M9.3 9.3l3.1 3.1"/></svg>';
   var DP_MSG_SVG = '<svg viewBox="0 0 14 14" width="14" height="14" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="6.2" fill="currentColor"/><path d="M4.3 7.2l1.9 1.9 3.5-3.7" stroke="var(--color-white)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
+  /* ---------- 全局轻提示：DS Message（第 19 轮全局约定：凡消息提示一律用它）----------
+     ★ 第 32 轮：由转派浮窗（第 31 轮）与协作弹窗（第 5 项）共用同一实例。 */
+  function tdToast(text) {
+    var box = document.querySelector('.td-dp-msg');
+    if (!box) {
+      box = document.createElement('div');
+      box.className = 'td-dp-msg';
+      box.innerHTML = '<div class="giencoder-message" role="status">' +
+        '<span class="giencoder-message-icon" aria-hidden="true">' + DP_MSG_SVG + '</span>' +
+        '<span class="giencoder-message-content"></span></div>';
+      box.hidden = true;
+      document.body.appendChild(box);
+    }
+    box.querySelector('.giencoder-message-content').textContent = text;
+    box.hidden = false;
+    clearTimeout(box._t);
+    box._t = setTimeout(function () { box.hidden = true; }, 2400);
+  }
+
   function bindDispatchPicker() {
     var btn = document.querySelector('[data-td-dispatch]');
     if (!btn || btn.hasAttribute('data-td-dp-bound')) return;
@@ -899,23 +1009,8 @@
       flag(false);
     }
 
-    /* 转派结果：写回 aside「执行人」+ 一条 DS Message 提示 */
-    function toast(text) {
-      var box = document.querySelector('.td-dp-msg');
-      if (!box) {
-        box = document.createElement('div');
-        box.className = 'td-dp-msg';
-        box.innerHTML = '<div class="giencoder-message" role="status">' +
-          '<span class="giencoder-message-icon" aria-hidden="true">' + DP_MSG_SVG + '</span>' +
-          '<span class="giencoder-message-content"></span></div>';
-        box.hidden = true;
-        document.body.appendChild(box);
-      }
-      box.querySelector('.giencoder-message-content').textContent = text;
-      box.hidden = false;
-      clearTimeout(box._t);
-      box._t = setTimeout(function () { box.hidden = true; }, 2400);
-    }
+    /* 转派结果：写回 aside「执行人」+ 一条 DS Message 提示（实现见模块级 tdToast） */
+    var toast = tdToast;
 
     function confirm() {
       var m = DISPATCH_MEMBERS[cur];
@@ -945,6 +1040,135 @@
     document.addEventListener('td:close-dispatch', close);
   }
 
+  /* ---------- 顶栏「协作」→ 分步模态弹窗（★ 第 32 轮第 5 项，设计稿节点 622:20081） ----------
+     完全按 DS 契约组装（结构说明 + 设计稿实测真值见 HTML / CSS 段注释）：
+       遮罩/面板 div.giencoder-modal-wrapper > div.giencoder-modal-mask + div.giencoder-modal[role=dialog]
+       步骤条  .giencoder-steps[role=list] > .giencoder-steps-item[role=listitem][aria-current=step]
+               + .giencoder-steps-icon（仅已完成态显示对勾）+ .giencoder-steps-title
+       产物行  .giencoder-list-item[data-size=small] > .giencoder-checkbox（input + mask + 文本）
+       成员行  同上 + .giencoder-list-item-meta > .giencoder-avatar + .giencoder-list-item-title
+       搜索框  .giencoder-input-wrapper[data-size=medium] + -input-prefix + -input
+     显隐：根 .td-coop 的 hidden + is-open；同时写 <html data-td-coop-open> 供页尾 Esc 链判断。
+     步骤切换：当前态 is-active，已完成 is-finish（带对勾）；点步骤条可跳转（steps.json clickable）。
+     每次打开复位：勾选态回到初始快照（产物全选 / 成员未选）+ 搜索清空 + 回到 Step1。
+     关闭途径：取消 / 右上 X / 点遮罩 / Esc（页尾 Esc 链派发 td:close-coop）+ 提交。 */
+  function bindCoop() {
+    var btn = document.querySelector('[data-td-coop]');
+    var root = document.querySelector('.td-coop');
+    if (!btn || !root || btn.hasAttribute('data-td-coop-bound')) return;
+    btn.setAttribute('data-td-coop-bound', '1');
+
+    var dialog = root.querySelector('.giencoder-modal');
+    var maskEl = root.querySelector('[data-td-coop-mask]');
+    var hintEl = root.querySelector('[data-td-coop-hint]');
+    var countEl = root.querySelector('[data-td-coop-count]');
+    var panes = [].slice.call(root.querySelectorAll('[data-td-pane]'));
+    var stepEls = [].slice.call(root.querySelectorAll('[data-td-step]'));
+    var btnNext = root.querySelector('[data-td-coop-next]');
+    var btnPrev = root.querySelector('[data-td-coop-prev]');
+    var btnSubmit = root.querySelector('[data-td-coop-submit]');
+    var searchEl = root.querySelector('[data-td-pane="2"] .giencoder-input');
+    var mrows = [].slice.call(root.querySelectorAll('[data-td-midx]'));
+    var HINTS = { 1: '选择需要流转到下一阶段的协作产物', 2: '将当前任务 (含产物) 流转给下一位协作者' };
+    var step = 1;
+    /* 初始勾选态快照（产物默认全选、成员默认未选）→ 每次打开复位，避免残留上一轮选择 */
+    var allBoxes = [].slice.call(root.querySelectorAll('.giencoder-checkbox-input'));
+    var defaults = allBoxes.map(function (b) { return b.checked; });
+    function resetChecks() {
+      allBoxes.forEach(function (b, i) { b.checked = defaults[i]; });
+    }
+
+    function boxes(pane) {
+      return [].slice.call(root.querySelectorAll('[data-td-pane="' + pane + '"] .giencoder-checkbox-input'));
+    }
+    function checked(n) { return boxes(n).filter(function (c) { return c.checked; }).length; }
+    function countText() {
+      return step === 1
+        ? '已选 ' + checked(1) + '/' + boxes(1).length + ' 个产物'
+        : '已选 ' + checked(2) + '/' + mrows.length + ' 位协作者';
+    }
+    function syncCount() { countEl.textContent = countText(); }
+
+    function filter() {
+      var q = (searchEl.value || '').replace(/\s+/g, '').toLowerCase();
+      mrows.forEach(function (r) {
+        var t = r.textContent.replace(/\s+/g, '').toLowerCase();
+        r.hidden = !!q && t.indexOf(q) < 0;
+      });
+    }
+
+    function goStep(n) {
+      step = n;
+      panes.forEach(function (p) { p.hidden = (+p.getAttribute('data-td-pane')) !== n; });
+      stepEls.forEach(function (s) {
+        var k = +s.getAttribute('data-td-step');
+        s.classList.toggle('is-active', k === n);
+        s.classList.toggle('is-finish', k < n);
+        if (k === n) s.setAttribute('aria-current', 'step'); else s.removeAttribute('aria-current');
+      });
+      btnNext.hidden = n !== 1;
+      btnPrev.hidden = n !== 2;
+      btnSubmit.hidden = n !== 2;
+      hintEl.textContent = HINTS[n];
+      syncCount();
+    }
+
+    function flag(on) { document.documentElement.toggleAttribute('data-td-coop-open', on); }
+
+    function open() {
+      resetChecks();
+      goStep(1);
+      searchEl.value = '';
+      filter();
+      root.hidden = false;
+      btn.setAttribute('aria-expanded', 'true');
+      flag(true);
+      void root.offsetWidth;   /* 强制 reflow，保证 is-open 的过渡真正触发 */
+      root.classList.add('is-open');
+      dialog.focus();
+    }
+
+    function close() {
+      if (root.hidden) return;
+      root.classList.remove('is-open');
+      root.hidden = true;
+      btn.setAttribute('aria-expanded', 'false');
+      flag(false);
+    }
+
+    function submit() {
+      var n = checked(1);
+      var m = mrows.filter(function (r) { return r.querySelector('.giencoder-checkbox-input').checked; });
+      close();
+      tdToast('已流转 ' + n + ' 个产物给 ' + m.length + ' 位协作者');
+    }
+
+    btn.addEventListener('click', function () { if (root.hidden) open(); else close(); });
+    root.querySelector('[data-td-coop-close]').addEventListener('click', close);
+    root.querySelector('[data-td-coop-cancel]').addEventListener('click', close);
+    maskEl.addEventListener('click', close);
+    btnNext.addEventListener('click', function () { goStep(2); });
+    btnPrev.addEventListener('click', function () { goStep(1); });
+    btnSubmit.addEventListener('click', submit);
+    searchEl.addEventListener('input', filter);
+    /* 点步骤条跳转（steps.json variants.clickable） */
+    stepEls.forEach(function (s) {
+      s.addEventListener('click', function () {
+        var k = +s.getAttribute('data-td-step');
+        if (k !== step) goStep(k);
+      });
+    });
+    /* 搜索框里按 Esc：页尾 Esc 链对 INPUT 直接 return → 弹窗内自行处理 */
+    root.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') { e.stopPropagation(); close(); }
+    });
+    /* 勾选框变化 → 计数实时更新（change 冒泡到根节点） */
+    root.addEventListener('change', function (e) {
+      if (e.target && e.target.classList && e.target.classList.contains('giencoder-checkbox-input')) syncCount();
+    });
+    document.addEventListener('td:close-coop', close);
+  }
+
   function inject() {
     var main = document.querySelector('main');
     if (!main || main.querySelector('.td-root')) return false;
@@ -955,6 +1179,7 @@
     bindDetail(wrap);
     bindDescImagePreview(wrap);
     bindDispatchPicker();
+    bindCoop();
     return true;
   }
   /* 注意：两个动作都要执行，不能短路（页签在 React 挂载后才出现，可能晚于注入）。

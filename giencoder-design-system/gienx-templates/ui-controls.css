@@ -110,12 +110,15 @@
 /* ---- Popover 弹层：定位 + 开合动效（.giencoder-popup-open）----
    契约 anatomy 的 popup = div.giencoder-popover（渲染到 popupContainer，默认 body）；
    静态结构见 components.css，开合动效按约定收敛到本文件。
-   参数与 Select 弹层完全一致（淡入 .2s / 收起 .15s + translateY(4px) + scale(.96)，origin top center）。 */
+   参数与 Select 弹层完全一致（淡入 .2s / 收起 .15s + translateY(4px) + scale(.96)，origin top center）。
+   ★ 第 32 轮：投影由 --shadow2-down(0 4px 10px) 改为 **--shadow3-down(0 8px 20px)**，
+     与 Select 弹层保持一致（产品页编译产物实测 .giencoder-select-popup 为
+     `box-shadow: 0 8px 20px #0000001a`；components.css 里原先标的 shadow2-down 是遗留偏差，已同步）。 */
 .giencoder-popover {
   position: absolute; z-index: var(--z-index-popup);
   box-sizing: border-box; min-width: 240px;
   background: var(--color-bg-popup); border: 1px solid var(--color-border-2);
-  border-radius: var(--border-radius-large); box-shadow: var(--shadow2-down);
+  border-radius: var(--border-radius-large); box-shadow: var(--shadow3-down);
   opacity: 0;
   visibility: hidden;
   translate: 0 4px;

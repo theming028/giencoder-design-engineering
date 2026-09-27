@@ -222,7 +222,7 @@ header div:has(> div.relative > button[aria-label="切换侧边栏"]) { display:
         --td-side-min: 266px;        /* 信息列最小宽度（第26轮第1项：280 → 266，比例减少 5%） */
         --td-right-w: 480px;         /* 右栏默认宽（设计稿实测） */
         --td-right-min: 100px;       /* 拖到此值以下，松手即自动折叠（第24轮：原 320） */
-        --td-left-min: 320px;        /* 左栏保底宽（与 JS LEFT_MIN 一致） */
+        --td-left-min: 480px;        /* 左栏保底宽（★ 第32轮第4项：320 → 480，与右栏默认宽同值；与 JS LEFT_MIN 一致） */
         --td-collapsed-w: 48px;      /* 折叠条宽（设计稿实测） */
         --td-card: var(--color-fill-1);        /* #F7F7F7 卡片底 */
         --td-line: var(--color-fill-2);        /* #F2F2F2 分隔线 */
@@ -410,8 +410,8 @@ header div:has(> div.relative > button[aria-label="切换侧边栏"]) { display:
       .td-file--lg { width: 294px; height: 56px; padding: 0 12px; align-items: center; gap: 12px; border-radius: var(--border-radius-large); }
       .td-file--lg .td-file-ico { width: 24px; height: 24px; }
       .td-file-sep { flex: none; width: 1px; height: 24px; background: var(--color-border-3); }
-      .td-file--lg .td-file-body, .td-ai-file .td-file-body { display: flex; flex-direction: column; gap: 0; min-width: 0; }
-      .td-file--lg .td-file-tx, .td-ai-file .td-file-tx { font-size: var(--font-size-body-3); font-weight: 500; line-height: 22px; }
+      .td-file--lg .td-file-body { display: flex; flex-direction: column; gap: 0; min-width: 0; }
+      .td-file--lg .td-file-tx { font-size: var(--font-size-body-3); font-weight: 500; line-height: 22px; }
       .td-file-size { font-size: var(--font-size-body-1); line-height: 16px; color: var(--td-meta); }
       /* .md 徽标是双色实心图标，颜色走 CSS（SVG 内不写死色值） */
       .td-ico-md-body { fill: var(--td-ico-md); }
@@ -577,19 +577,13 @@ header div:has(> div.relative > button[aria-label="切换侧边栏"]) { display:
       .td-ai-meta svg { width: 14px; height: 14px; flex: none; }
       /* 第 26 轮第 6 项：AI 消息正文墨色加深（原 --color-text-2 → 最深一级 --color-text-1） */
       .td-msg-ai p { margin: 0; font-size: var(--font-size-body-3); line-height: 24px; color: var(--color-text-1); }
-      /* ★ 第 28 轮第 5 项：AI 消息里的文件卡按设计稿重标定（设计稿实测卡左 972 / 上 486）：
-         281×56 / 圆角 8 / 底 #F7F7F7(=--td-card) 三项原本已对，缺的是：
-         (1) 图标盒 16 → **24×24**（字形 17×20，居中 → 图标左缘距卡左 12px，实测 15.5 与 12+3.5 吻合）；
-         (2) 图标与文字之间缺一条 **1×24 的竖分隔线**（--color-border-3），线心距卡左 48px；
-         (3) 文案块缺左右两行结构（.td-file-body 的 column 布局此前只挂在 .td-file--lg 上，
-             本卡内的两个 span 于是并排在一行 → 「…报告.md128KB」），已在上方补进选择器。
-         间距 12 + 24 + 12 + 1 + 12 = 61 → 文字左缘实测 60.5 ✓ */
-      .td-ai-file {
-        box-sizing: border-box; width: 281px; max-width: 100%; height: 56px;
-        display: flex; align-items: center; gap: 12px; padding: 0 12px;
-        background: var(--td-card); border-radius: var(--border-radius-large);
-      }
-      .td-ai-file .td-file-ico { width: 24px; height: 24px; flex: none; color: var(--td-ico-gray); line-height: 0; }
+      /* ★ 第 32 轮第 3 项：AI 消息里的文件卡**不再是独立形态**。
+         原先是 `.td-ai-file`（281×56 的 div、无链接无 hover），与「3 个 AI 产物」的
+         `.td-file--lg`（294×56、<a> + hover 加深）视觉/交互不一致。
+         现改为复用同一个卡片构造函数（`__AIFILE__` → fcard(..., big=True)），
+         两处为**同一组件**：同宽同高、同图标盒、同竖分隔线、同 hover 交互。
+         已删除 `.td-ai-file` 全部样式（下方原注释保留作历史记录）：
+         第 28 轮第 5 项曾按设计稿把它标定为 281×56 / 图标 24 / 竖分隔线；第 32 轮统一到 294。 */
       .td-ai-foot { display: flex; align-items: center; gap: 8px; font-size: var(--font-size-body-3); color: var(--td-meta); }
       .td-ai-foot .td-sep { width: 1px; height: 12px; background: var(--color-border-2); }
       /* 第 27 轮第 2 项：图标与文字之间的间距减半（8px → 4px）。
@@ -751,16 +745,18 @@ header div:has(> div.relative > button[aria-label="切换侧边栏"]) { display:
          与既有交互互斥：全屏态 .td-left/.td-gutter 已 display:none；折叠态 .td-right-inner 已 display:none。
 
          ★ 第 30 轮的观感优化（原实现 = 瞬间切类 + 260ms 透明度闪一下 → 生硬）：
-           · 跟手：拖动中主动栏按指针位移 —— **橡皮筋**而非硬限幅：|dx| ≤ cap(两栏中心距 14%)
-             时 1:1 跟手；超出后每多拖 1px 只走 0.18px（`RB`），越拖越沉但不「顶住不动」；
-             另一栏反向微移 12% 「让位」，让两栏立刻有物理联动感；
+           · 跟手：拖动中主动栏按指针位移 —— **橡皮筋**而非硬限幅：|dx| ≤ cap 时 1:1 跟手；
+             超出后继续按 RB 走（越拖越沉但不「顶住不动」）；
+             另一栏反向微移「让位」，让两栏立刻有物理联动感；
            · 真实滑动：交换用 FLIP（先记 rect → 切类 → 再记 rect → 从 translateX(dx) 滑回 0），
              两栏真的横move过去；飞行期把**被拖的那一栏**抬到 z=3 并加深投影（is-fly-left/right），
              读起来像「把卡片拎起来挪过去」，而不是两张不透明卡片硬生生对穿；
            · 回弹：未达阈值时把跟手位移用同一条曲线弹回 0，不再瞬间归位；
            · 甩动：|v| ≥ 0.6 px/ms 且方向正确时，位移不足 72px 也换位（短促快拖可换）；
            · 统一曲线 cubic-bezier(0.22,1,0.36,1)（ease-out-quint：起步快、收尾稳，无过冲不越界）；
-           · prefers-reduced-motion 下跳过全部位移动画，只切类。 */
+           · prefers-reduced-motion 下跳过全部位移动画，只切类。
+         ★ 第 32 轮第 2 项：cap 14%→28%、RB 0.18→0.28（跟手区 ≈200px，指针走多远卡片走多远）；
+           并**去掉 scale**（大尺寸文字密集容器每帧重栅格化 = 掉帧），位移改为 rAF 合并写入。 */
       .td-root.is-swapped { flex-direction: row-reverse; }
       .td-bar, .td-right-bar { cursor: grab; touch-action: none; }
       .td-bar .giencoder-btn, .td-right-bar .giencoder-btn { cursor: pointer; }
@@ -894,6 +890,176 @@ header div:has(> div.relative > button[aria-label="切换侧边栏"]) { display:
       .td-dp-msg .giencoder-message-icon { display: inline-flex; color: var(--color-success-6); }
 
       /* ------------------------------------------------------------------
+         ★ 第 32 轮第 5 项：顶栏「协作」→ 分步模态弹窗（设计稿节点 622:20081，640×640）
+         组件一律用 DS 契约组装，不自造同义结构：
+           遮罩/面板 div.giencoder-modal-wrapper > div.giencoder-modal-mask
+                    + div.giencoder-modal[role=dialog]（modal.json anatomy 全套：
+                      -header / -title / -close-btn / -content / -footer）
+           步骤条   .giencoder-steps.giencoder-steps-horizontal（steps.json anatomy：
+                    div[role=list] / div[role=listitem] / 节点 span / 标题）
+           行       .giencoder-list-item[data-size=small].giencoder-list-item-hoverable（list.json）
+           勾选框   .giencoder-checkbox + -checkbox-input + -checkbox-mask（checkbox.json anatomy：
+                    label / input[type=checkbox] / span 选框 / span 文本）
+           头像     .giencoder-avatar + -circle + -text（avatar.json）
+           搜索框   .giencoder-input-wrapper[data-size=medium] + -input-prefix + -input
+           按钮     .giencoder-btn + -primary/-secondary + -size-default
+           滚动条   .giencoder-scroll-thin
+         本段只写「视图适配层」（设计稿实测尺寸/间距/字色 + DS 未定义的形态）。
+         设计稿实测（mg-work/r32/design/coop.png 1440×900 1x，坐标即设计稿坐标）：
+           遮罩 rgba(0,0,0,.4) + backdrop-filter blur(10px)（面板外取样 #959697）；
+                DS --color-mask-bg 是 rgba(31,31,31,.6) → 本弹窗按设计稿取值
+           面板 640×640 @(60,130) · 底 rgba(255,255,255,.95)（合成 ≈ #FEFEFE）
+                · **圆角 16px**（左下角剖面拟合 r=16：y769→内缩14 / y764→4 / y760→2 / y757→1 逐点吻合；
+                  DS 圆角档只有 0/2/4/8/12/50% → 适配层）
+                · 面板 640 的纵向节奏（逐段闭合）：
+                  header 46 + 18 + steps 32 + 19 + divider 24 + 11 + content 410 + footer 80 = 640
+           标题「任务协作」16px 墨色盒 @(25,24..38) · 关闭 X 28×28（右内距 24，图标 16 居中）
+           步骤条 592×32 @y64 · **两段咬合**：段1 右端尖角凸 6px / 段2 左端凹 6px，段间重叠 6px
+                （逐行实测：段1 右缘 y64→317 / y72→321；段2 左缘 y64→316 / y72→319，中线最右）
+                · 当前态 底 #ECF2FF + 1px #D3E2FF（= 本页已有的 --td-dp-on-bg / --td-dp-on-line）
+                  文字 14px --color-primary-6
+                · 未开始 底 --color-fill-2 + 文字 14px --color-text-2
+                · 已完成 底 --color-fill-2 + 14px 对勾 + 文字 14px --color-text-1
+                · 文字墨色高 13、段内居中（实测 step1 x132..213 / step2 x440..500）
+           分割线 @y126（1px --color-border-1，实测 #EFEFEF）+ 14px --color-text-3 说明文字居中
+                （文字墨色盒 x209..430 / w222 / 高 13 —— 12px 下只有 190×11，故取 14px）
+           内容区 592×410 @y150 · 1px --color-border-1（实测 #F2F2F2）+ **r6**
+                · 内距 15（= 设计稿 16 − 容器 1px 边框；写 16 会让行卡落到 x41、行宽掉到 558）
+                Step1 行 560×32 + 2 间距（DS List 本体 `+` 选择器就是 2px）· hover --color-fill-1
+                      内距 8 · 勾选框 14×14 @x48 · 文件名 14px @x68（DS checkbox 本体 gap 6）
+                Step2 搜索框 560×32 @y166（1px --color-border-2，实测 #E5E5E5）
+                      内距 0 12 0 10 · 放大镜 14 @x50 · 占位文字 14px @x77
+                      成员列表 @y214（距搜索框 16）· 行内距 8
+                      勾选框 14 @x48 → gap 16 → 头像 20 @x78 → gap 8 → 姓名 14px @x105 + 工号 text-3
+           底栏 按钮 32 高 @y584 · 右内距 24 · 按钮间距 8
+                Step1 取消 60 + 下一步 74 · Step2 取消 60 + 上一步 74 + 提交 60
+                （DS .giencoder-btn 本体已是 14px 字 + padding 0 16px → 2 字 60 / 3 字 74，
+                  与设计稿完全一致，无需改 padding）
+                左侧计数 14px --color-text-3 @(24,593)「已选 N/8 个产物」/「已选 N/7 位协作者」
+                （设计稿墨色盒 101×13 / 起点 x25；12px 下只有 83×11 → 取 14px）
+         设计稿未定义处取 DS 既有约定：开合动效（modal.json motion：.2s decelerate，面板缩放 + 淡入）、
+         遮罩点击关闭、Esc 关闭。
+         ⚠️ 设计稿把勾选框标为「选中+禁用」（浅蓝 #B4C9FC = --color-primary-3），但需求是
+            「用户按步骤执行选择」→ 取 DS checkbox.json 的可交互选中态 --color-primary-6；
+            产物默认全选 8/8（与设计稿初始态一致）。
+         ------------------------------------------------------------------ */
+      .td-coop { position: fixed; inset: 0; z-index: 1050; display: flex; align-items: center; justify-content: center; }
+      .td-coop[hidden] { display: none; }
+      .td-coop .giencoder-modal-wrapper { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+      .td-coop .giencoder-modal-mask {
+        position: absolute; inset: 0; background: rgba(0, 0, 0, 0.4);
+        -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+        opacity: 0; transition: opacity .2s cubic-bezier(0.34, 0.69, 0.1, 1);
+      }
+      .td-coop.is-open .giencoder-modal-mask { opacity: 1; }
+      .td-coop .giencoder-modal {
+        position: relative; box-sizing: border-box;
+        width: 640px; height: 640px; max-height: calc(100vh - 48px);
+        display: flex; flex-direction: column;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 16px; box-shadow: var(--shadow3-down);
+        transform-origin: top center;
+        opacity: 0; transform: translateY(-8px) scale(0.98);
+        transition: opacity .2s cubic-bezier(0.34, 0.69, 0.1, 1), transform .2s var(--transition-timing-function-spring);
+      }
+      .td-coop.is-open .giencoder-modal { opacity: 1; transform: none; }
+      /* header：内距 18 + 行高 28 = 46；steps 上外边距相应 20→18，纵向节奏不变（仍在 y64 起步）。
+         ⚠️ 内距是 18 而非 16：设计稿标题「任务协作」墨色盒落在 y24..39，
+            DS 字体度量下 16px 字在 28 行盒内墨色只会到 y22..37 → 需要下移 2px 对齐 */
+      .td-coop .giencoder-modal-header {
+        flex: none; height: 46px; box-sizing: border-box;
+        padding: 18px 24px 0; border-bottom: none; align-items: flex-start;
+      }
+      .td-coop .giencoder-modal-title { font-size: 16px; line-height: 28px; font-weight: 600; }
+      .td-coop .giencoder-modal-close-btn {
+        width: 28px; height: 28px; padding: 0; flex: none;
+        align-items: center; justify-content: center; border-radius: var(--td-radius-card);
+      }
+      /* ---- 步骤条：592×32，两段咬合（段1 右尖角 6px / 段2 左凹 6px，段间重叠 6px） ---- */
+      .td-coop .giencoder-steps { flex: none; display: flex; height: 32px; margin: 18px 24px 0; }
+      .td-coop .giencoder-steps-item {
+        flex: 1 1 0; min-width: 0; height: 32px; box-sizing: border-box;
+        display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 6px;
+        background: var(--color-fill-2); border: 1px solid transparent;
+        border-radius: var(--td-radius-card);
+        font-size: 14px; line-height: 22px; color: var(--color-text-2); cursor: pointer;
+      }
+      /* DS Steps 的连接线伪元素在本形态下不需要（两段自成一体）→ 整段压掉 */
+      .td-coop .giencoder-steps-item::after { content: none !important; }
+      .td-coop .giencoder-steps-item:first-child {
+        margin-right: -6px; z-index: 1;
+        clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 50%, calc(100% - 6px) 100%, 0 100%);
+      }
+      .td-coop .giencoder-steps-item:last-child {
+        clip-path: polygon(6px 0, 100% 0, 100% 100%, 6px 100%, 0 50%);
+      }
+      .td-coop .giencoder-steps-item.is-active {
+        background: var(--td-dp-on-bg); border-color: var(--td-dp-on-line); color: var(--color-primary-6);
+      }
+      .td-coop .giencoder-steps-item.is-finish { color: var(--color-text-1); }
+      /* 节点 span：DS 本体是 32 圆底，本形态只保留 14px 对勾（仅已完成态出现） */
+      .td-coop .giencoder-steps-icon {
+        width: 14px; height: 14px; background: none; border-radius: 0;
+        font-size: 0; color: inherit; display: none;
+      }
+      .td-coop .giencoder-steps-item.is-finish .giencoder-steps-icon { display: inline-flex; }
+      .td-coop .giencoder-steps-title { font-size: 14px; font-weight: 400; color: inherit; }
+      /* ---- 分割线：两段线 + 12px 说明文字居中（DS divider 契约 anatomy = div + span） ---- */
+      /* 下外边距 11（不是 12）：分割线底 y139 + 11 = 内容区顶 y150（设计稿实测），
+         写 12 会让内容区整体下移 1px（150 → 151），进而内容区高度掉到 409（应 410） */
+      .td-coop-dvd { flex: none; display: flex; align-items: center; gap: 4px; height: 24px; margin: 19px 24px 11px; }
+      .td-coop-dvd::before, .td-coop-dvd::after { content: ''; flex: 1 1 0; height: 1px; background: var(--color-border-1); }
+      .td-coop-dvd-tx { flex: none; font-size: 14px; line-height: 20px; color: var(--color-text-3); }
+      /* ---- 内容区：592×410，1px 边框 + r6 + 内距 15 ----
+         内距 15（不是 16）：容器自带 1px 边框，设计稿行卡左缘在面板内 x40，
+         边框占 x24 → 内容从 25，25 + 15 = 40；写 16 会让行卡落到 41、行宽掉到 558（应 560） */
+      .td-coop .giencoder-modal-content {
+        flex: 1 1 auto; min-height: 0; box-sizing: border-box;
+        margin: 0 24px; padding: 15px;
+        border: 1px solid var(--color-border-1); border-radius: var(--td-radius-card);
+        /* 内容区是**纯白**卡片（设计稿实测 #FFFFFF），与面板底 rgba(255,255,255,.95)
+           合成出的 #F9F9F9 不同 —— 少了这层白底，内容区会跟着面板变灰（实测 250 → 应 255） */
+        background: var(--color-bg-5);
+        overflow: hidden;
+      }
+      .td-coop-pane { display: flex; flex-direction: column; height: 100%; min-height: 0; }
+      .td-coop-pane[hidden] { display: none; }
+      /* ---- 行（产物 / 成员共用）：560×32 + 2 间距（DS List 的 `+` 选择器），内距 8 ---- */
+      .td-coop .td-coop-row {
+        flex: none; box-sizing: border-box; height: 32px; min-height: 32px;
+        gap: 16px; padding: 0 8px; border-radius: var(--td-radius-card);
+        font-size: 14px; color: var(--color-text-1);
+      }
+      .td-coop .td-coop-row[hidden] { display: none; }
+      .td-coop .td-coop-cb { flex: none; }
+      .td-coop .td-coop-tx { font-size: 14px; line-height: 22px; }
+      .td-coop .td-coop-av { width: 20px; height: 20px; --avatar-color: var(--color-white); }
+      .td-coop .td-coop-mname { font-size: 14px; line-height: 22px; }
+      .td-coop .td-coop-mid { color: var(--color-text-3); }
+      .td-coop .td-coop-list { flex: 0 1 auto; min-height: 0; overflow-y: auto; }
+      /* ---- 搜索框（560×32 @y166，距成员列表 16） ---- */
+      .td-coop .giencoder-input-wrapper { flex: none; width: 100%; box-sizing: border-box; padding: 0 12px 0 10px; }
+      .td-coop .giencoder-input-prefix { margin-right: 12px; color: var(--color-text-3); }
+      .td-coop .giencoder-input { font-size: 14px; }
+      .td-coop .giencoder-input::placeholder { color: var(--color-text-3); }
+      .td-coop .td-coop-members { margin-top: 16px; flex: 0 1 auto; min-height: 0; overflow-y: auto; }
+      /* ---- 底栏：24 + 32 + 24 = 80 ---- */
+      .td-coop .giencoder-modal-footer {
+        flex: none; box-sizing: border-box; height: 80px;
+        padding: 24px; border-top: none; gap: 8px;
+        align-items: center; justify-content: space-between;
+      }
+      /* 计数文字 14px（不是 12px）：设计稿墨色盒 101×13 / 起点 x25，12px 下只有 83×11 */
+      .td-coop-count { font-size: 14px; line-height: 22px; color: var(--color-text-3); }
+      .td-coop-btns { display: flex; align-items: center; gap: 8px; }
+      /* 按钮宽度对齐设计稿（取消/提交 60、下一步/上一步 74）：
+         DS .giencoder-btn 是 14px 字 + padding 0 16px + 1px 边框 → 2 字 62 / 3 字 76，各多 2px；
+         改内距 15 后 2 字 = 28+30+2 = 60、3 字 = 42+30+2 = 74，与设计稿逐值吻合 */
+      .td-coop .td-coop-btn { padding: 0 15px; }
+      /* .giencoder-btn 是 inline-flex，会盖掉 hidden 属性自带的 display:none → 显式补规则 */
+      .td-coop .td-coop-btn[hidden] { display: none; }
+
+      /* ------------------------------------------------------------------
          ★ 第 31 轮：转派浮窗用到的 DS 组件样式（构建期从 DS 源文件实时抽取）
          不要在这里手写这些组件的样式 —— 改样式请改 DS 源文件：
            · 静态结构（Popover / List / Avatar 形状与字符头像 / 细滚动条）
@@ -983,12 +1149,15 @@ header div:has(> div.relative > button[aria-label="切换侧边栏"]) { display:
       /* ---- Popover 弹层：定位 + 开合动效（.giencoder-popup-open）----
          契约 anatomy 的 popup = div.giencoder-popover（渲染到 popupContainer，默认 body）；
          静态结构见 components.css，开合动效按约定收敛到本文件。
-         参数与 Select 弹层完全一致（淡入 .2s / 收起 .15s + translateY(4px) + scale(.96)，origin top center）。 */
+         参数与 Select 弹层完全一致（淡入 .2s / 收起 .15s + translateY(4px) + scale(.96)，origin top center）。
+         ★ 第 32 轮：投影由 --shadow2-down(0 4px 10px) 改为 **--shadow3-down(0 8px 20px)**，
+           与 Select 弹层保持一致（产品页编译产物实测 .giencoder-select-popup 为
+           `box-shadow: 0 8px 20px #0000001a`；components.css 里原先标的 shadow2-down 是遗留偏差，已同步）。 */
       .giencoder-popover {
         position: absolute; z-index: var(--z-index-popup);
         box-sizing: border-box; min-width: 240px;
         background: var(--color-bg-popup); border: 1px solid var(--color-border-2);
-        border-radius: var(--border-radius-large); box-shadow: var(--shadow2-down);
+        border-radius: var(--border-radius-large); box-shadow: var(--shadow3-down);
         opacity: 0;
         visibility: hidden;
         translate: 0 4px;
@@ -1114,7 +1283,7 @@ header div:has(> div.relative > button[aria-label="切换侧边栏"]) { display:
         "      <div class=\"td-bar-actions\">",
         "        <button class=\"giencoder-btn giencoder-btn-primary giencoder-btn-size-small td-btn\" type=\"button\">开始任务</button>",
         "        <span class=\"giencoder-popover-reference\"><button class=\"giencoder-btn giencoder-btn-secondary giencoder-btn-size-small td-btn\" type=\"button\" data-td-dispatch aria-haspopup=\"dialog\" aria-expanded=\"false\">转派</button></span>",
-        "        <button class=\"giencoder-btn giencoder-btn-secondary giencoder-btn-size-small td-btn\" type=\"button\">协作</button>",
+        "        <button class=\"giencoder-btn giencoder-btn-secondary giencoder-btn-size-small td-btn\" type=\"button\" data-td-coop=\"1\" aria-haspopup=\"dialog\" aria-expanded=\"false\">协作</button>",
         "        <button class=\"giencoder-btn giencoder-btn-secondary giencoder-btn-size-small td-btn\" type=\"button\">编辑</button>",
         "        <button class=\"giencoder-btn giencoder-btn-secondary giencoder-btn-size-small giencoder-btn-icon td-iconbtn\" type=\"button\" aria-label=\"更多操作\">",
         "          <svg viewBox=\"0 0 16 16\" width=\"16\" height=\"16\" fill=\"currentColor\"><circle cx=\"3.4\" cy=\"8\" r=\"1.3\"/><circle cx=\"8\" cy=\"8\" r=\"1.3\"/><circle cx=\"12.6\" cy=\"8\" r=\"1.3\"/></svg>",
@@ -1242,7 +1411,7 @@ header div:has(> div.relative > button[aria-label="切换侧边栏"]) { display:
         "            </div>",
         "            <p>好的，收到您的需求。这是一个典型的“从需求到交付”的端到端流程初始化场景。我将为您设计一个完整的交付状态跟踪表，并定义启动整个流程所需的初始状态和关键节点。</p>",
         "            <p>我先把几个核心不确定性列出来，请你选择倾向，不确定的地方我会标注我的判断。</p>",
-        "            <div class=\"td-ai-file\"><span class=\"td-file-ico\"><svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.45\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4.5 1.5H18.8A1.5 1.5 0 0 1 20.3 3V15.6L16.6 21H4.5A1.5 1.5 0 0 0 3 19.5V3A1.5 1.5 0 0 1 4.5 1.5Z\"/><path d=\"M15 21v-5.25H20.3\"/><path d=\"M7.5 7.2h7.5\"/><path d=\"M7.5 11h7.5\"/><path d=\"M7.5 14.7h3.5\"/></svg></span><span class=\"td-file-sep\" aria-hidden=\"true\"></span><span class=\"td-file-body\"><span class=\"td-file-tx\">端到端初始化 - 任务分析报告.md</span><span class=\"td-file-size\">128KB</span></span></div>",
+        "            <a class=\"td-file td-file--lg\" href=\"#\" title=\"端到端初始化 - 任务分析报告.md\"><span class=\"td-file-ico\"><svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.45\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4.5 1.5H18.8A1.5 1.5 0 0 1 20.3 3V15.6L16.6 21H4.5A1.5 1.5 0 0 0 3 19.5V3A1.5 1.5 0 0 1 4.5 1.5Z\"/><path d=\"M15 21v-5.25H20.3\"/><path d=\"M7.5 7.2h7.5\"/><path d=\"M7.5 11h7.5\"/><path d=\"M7.5 14.7h3.5\"/></svg></span><span class=\"td-file-sep\" aria-hidden=\"true\"></span><span class=\"td-file-body\"><span class=\"td-file-tx\">端到端初始化 - 任务分析报告.md</span><span class=\"td-file-size\">128KB</span></span></a>",
         "            <div class=\"td-ai-foot\"><span class=\"td-ai-foot-item\"><span class=\"td-ai-foot-ico\"><svg viewBox=\"0 0 12 12\" width=\"12\" height=\"12\" fill=\"none\" aria-hidden=\"true\"><circle cx=\"6\" cy=\"6\" r=\"6\" fill=\"currentColor\"/><path class=\"td-ico-check\" d=\"M3.3 6.1l1.9 1.85 3.5-3.75\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg></span><span>输出完成</span></span><span class=\"td-sep\"></span><span class=\"td-ai-foot-item\"><span class=\"td-ai-foot-ico\"><svg viewBox=\"0 0 12 12\" width=\"12\" height=\"12\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.1\" stroke-linecap=\"round\" aria-hidden=\"true\"><circle cx=\"6\" cy=\"6\" r=\"5\"/><path d=\"M6 6l2.4-2.4\"/><circle cx=\"6\" cy=\"6\" r=\".75\" fill=\"currentColor\" stroke=\"none\"/><path d=\"M3.5 3.9l.75.75\"/><path d=\"M2.9 6.5h1.05\"/><path d=\"M9.1 6.5H8.05\"/></svg></span><span>Token 速率：256/s</span></span></div>",
         "          </div>",
         "        </div>",
@@ -1325,6 +1494,71 @@ header div:has(> div.relative > button[aria-label="切换侧边栏"]) { display:
         "      <span>展</span><span>开</span><span>AI</span><span>会</span><span>话</span>",
         "    </button>",
         "  </aside>",
+        "</div>",
+        "",
+        "<!-- ★ 第 32 轮第 5 项：顶栏「协作」→ 分步模态弹窗（设计稿节点 622:20081）",
+        "     全部用 DS 契约组装（Modal / Steps / Checkbox / List / Avatar / Input / Button），",
+        "     结构说明与设计稿实测真值见上方 CSS 段注释。",
+        "     显隐开关 = 根节点 .td-coop 的 is-open + hidden（配合 <html data-td-coop-open> 供 Esc 链判断）。 -->",
+        "<div class=\"td-coop\" hidden>",
+        "  <div class=\"giencoder-modal-wrapper\">",
+        "    <div class=\"giencoder-modal-mask\" data-td-coop-mask=\"1\"></div>",
+        "    <div class=\"giencoder-modal td-coop-dialog\" role=\"dialog\" aria-modal=\"true\" aria-label=\"任务协作\" tabindex=\"-1\">",
+        "      <div class=\"giencoder-modal-header\">",
+        "        <span class=\"giencoder-modal-title\">任务协作</span>",
+        "        <button class=\"giencoder-modal-close-btn\" type=\"button\" aria-label=\"Close\" data-td-coop-close=\"1\"><svg viewBox=\"0 0 16 16\" width=\"16\" height=\"16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" aria-hidden=\"true\"><path d=\"M3.8 3.8l8.4 8.4M12.2 3.8l-8.4 8.4\"/></svg></button>",
+        "      </div>",
+        "      <div class=\"giencoder-steps giencoder-steps-horizontal td-coop-steps\" role=\"list\" aria-label=\"协作流程\">",
+        "        <div class=\"giencoder-steps-item is-active\" role=\"listitem\" aria-current=\"step\" data-td-step=\"1\">",
+        "          <span class=\"giencoder-steps-icon\" aria-hidden=\"true\"><svg viewBox=\"0 0 14 14\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M2.6 7.5l3 3L11.4 4.2\"/></svg></span>",
+        "          <span class=\"giencoder-steps-content\"><span class=\"giencoder-steps-title\">选择阶段产物</span></span>",
+        "        </div>",
+        "        <div class=\"giencoder-steps-item\" role=\"listitem\" data-td-step=\"2\">",
+        "          <span class=\"giencoder-steps-icon\" aria-hidden=\"true\"><svg viewBox=\"0 0 14 14\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M2.6 7.5l3 3L11.4 4.2\"/></svg></span>",
+        "          <span class=\"giencoder-steps-content\"><span class=\"giencoder-steps-title\">选择协作者</span></span>",
+        "        </div>",
+        "      </div>",
+        "      <div class=\"td-coop-dvd\" role=\"separator\"><span class=\"td-coop-dvd-tx\" data-td-coop-hint=\"1\">选择需要流转到下一阶段的协作产物</span></div>",
+        "      <div class=\"giencoder-modal-content\">",
+        "        <div class=\"td-coop-pane\" data-td-pane=\"1\">",
+        "          <div class=\"giencoder-list td-coop-list giencoder-scroll-thin\" role=\"group\" aria-label=\"阶段产物\">",
+        "            <label class=\"giencoder-list-item giencoder-list-item-hoverable td-coop-row\" data-size=\"small\"><span class=\"giencoder-checkbox td-coop-cb\"><input class=\"giencoder-checkbox-input\" type=\"checkbox\" checked><span class=\"giencoder-checkbox-mask\"></span><span class=\"td-coop-tx\">研发协同主页-空间.html</span></span></label>",
+        "            <label class=\"giencoder-list-item giencoder-list-item-hoverable td-coop-row\" data-size=\"small\"><span class=\"giencoder-checkbox td-coop-cb\"><input class=\"giencoder-checkbox-input\" type=\"checkbox\" checked><span class=\"giencoder-checkbox-mask\"></span><span class=\"td-coop-tx\">设置-工作项-关系-了解更多.html</span></span></label>",
+        "            <label class=\"giencoder-list-item giencoder-list-item-hoverable td-coop-row\" data-size=\"small\"><span class=\"giencoder-checkbox td-coop-cb\"><input class=\"giencoder-checkbox-input\" type=\"checkbox\" checked><span class=\"giencoder-checkbox-mask\"></span><span class=\"td-coop-tx\">用户故事.md</span></span></label>",
+        "            <label class=\"giencoder-list-item giencoder-list-item-hoverable td-coop-row\" data-size=\"small\"><span class=\"giencoder-checkbox td-coop-cb\"><input class=\"giencoder-checkbox-input\" type=\"checkbox\" checked><span class=\"giencoder-checkbox-mask\"></span><span class=\"td-coop-tx\">AGENTS.md</span></span></label>",
+        "            <label class=\"giencoder-list-item giencoder-list-item-hoverable td-coop-row\" data-size=\"small\"><span class=\"giencoder-checkbox td-coop-cb\"><input class=\"giencoder-checkbox-input\" type=\"checkbox\" checked><span class=\"giencoder-checkbox-mask\"></span><span class=\"td-coop-tx\">README.md</span></span></label>",
+        "            <label class=\"giencoder-list-item giencoder-list-item-hoverable td-coop-row\" data-size=\"small\"><span class=\"giencoder-checkbox td-coop-cb\"><input class=\"giencoder-checkbox-input\" type=\"checkbox\" checked><span class=\"giencoder-checkbox-mask\"></span><span class=\"td-coop-tx\">SKILL.md</span></span></label>",
+        "            <label class=\"giencoder-list-item giencoder-list-item-hoverable td-coop-row\" data-size=\"small\"><span class=\"giencoder-checkbox td-coop-cb\"><input class=\"giencoder-checkbox-input\" type=\"checkbox\" checked><span class=\"giencoder-checkbox-mask\"></span><span class=\"td-coop-tx\">附件1.xlsx</span></span></label>",
+        "            <label class=\"giencoder-list-item giencoder-list-item-hoverable td-coop-row\" data-size=\"small\"><span class=\"giencoder-checkbox td-coop-cb\"><input class=\"giencoder-checkbox-input\" type=\"checkbox\" checked><span class=\"giencoder-checkbox-mask\"></span><span class=\"td-coop-tx\">附件2.rar</span></span></label>",
+        "          </div>",
+        "        </div>",
+        "        <div class=\"td-coop-pane\" data-td-pane=\"2\" hidden>",
+        "          <div class=\"giencoder-input-wrapper\" data-size=\"medium\">",
+        "            <span class=\"giencoder-input-prefix\" aria-hidden=\"true\"><svg viewBox=\"0 0 14 14\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\"><circle cx=\"6.1\" cy=\"6.1\" r=\"4.35\"/><path d=\"M9.3 9.3l3.1 3.1\"/></svg></span>",
+        "            <input class=\"giencoder-input\" type=\"text\" placeholder=\"搜索协作者\" aria-label=\"搜索协作者\" autocomplete=\"off\">",
+        "          </div>",
+        "          <div class=\"giencoder-list td-coop-members giencoder-scroll-thin\" role=\"group\" aria-label=\"协作者\">",
+        "            <label class=\"giencoder-list-item giencoder-list-item-hoverable td-coop-row\" data-size=\"small\" data-td-midx=\"0\"><span class=\"giencoder-checkbox td-coop-cb\"><input class=\"giencoder-checkbox-input\" type=\"checkbox\"><span class=\"giencoder-checkbox-mask\"></span></span><span class=\"giencoder-list-item-meta\"><span class=\"giencoder-avatar giencoder-avatar-circle giencoder-avatar-text td-coop-av\" style=\"--avatar-bg: var(--avatar-bg-1)\" aria-hidden=\"true\">铭</span><span class=\"giencoder-list-item-title td-coop-mname\">邵禹铭 <span class=\"td-coop-mid\">(P0098602)</span></span></span></label>",
+        "            <label class=\"giencoder-list-item giencoder-list-item-hoverable td-coop-row\" data-size=\"small\" data-td-midx=\"1\"><span class=\"giencoder-checkbox td-coop-cb\"><input class=\"giencoder-checkbox-input\" type=\"checkbox\"><span class=\"giencoder-checkbox-mask\"></span></span><span class=\"giencoder-list-item-meta\"><span class=\"giencoder-avatar giencoder-avatar-circle giencoder-avatar-text td-coop-av\" style=\"--avatar-bg: var(--avatar-bg-2)\" aria-hidden=\"true\">怡</span><span class=\"giencoder-list-item-title td-coop-mname\">秦怡 <span class=\"td-coop-mid\">(P0098603)</span></span></span></label>",
+        "            <label class=\"giencoder-list-item giencoder-list-item-hoverable td-coop-row\" data-size=\"small\" data-td-midx=\"2\"><span class=\"giencoder-checkbox td-coop-cb\"><input class=\"giencoder-checkbox-input\" type=\"checkbox\"><span class=\"giencoder-checkbox-mask\"></span></span><span class=\"giencoder-list-item-meta\"><span class=\"giencoder-avatar giencoder-avatar-circle giencoder-avatar-text td-coop-av\" style=\"--avatar-bg: var(--avatar-bg-3)\" aria-hidden=\"true\">毅</span><span class=\"giencoder-list-item-title td-coop-mname\">韩佳毅 <span class=\"td-coop-mid\">(P0098604)</span></span></span></label>",
+        "            <label class=\"giencoder-list-item giencoder-list-item-hoverable td-coop-row\" data-size=\"small\" data-td-midx=\"3\"><span class=\"giencoder-checkbox td-coop-cb\"><input class=\"giencoder-checkbox-input\" type=\"checkbox\"><span class=\"giencoder-checkbox-mask\"></span></span><span class=\"giencoder-list-item-meta\"><span class=\"giencoder-avatar giencoder-avatar-circle giencoder-avatar-text td-coop-av\" style=\"--avatar-bg: var(--avatar-bg-4)\" aria-hidden=\"true\">帆</span><span class=\"giencoder-list-item-title td-coop-mname\">顾帆 <span class=\"td-coop-mid\">(P0098605)</span></span></span></label>",
+        "            <label class=\"giencoder-list-item giencoder-list-item-hoverable td-coop-row\" data-size=\"small\" data-td-midx=\"4\"><span class=\"giencoder-checkbox td-coop-cb\"><input class=\"giencoder-checkbox-input\" type=\"checkbox\"><span class=\"giencoder-checkbox-mask\"></span></span><span class=\"giencoder-list-item-meta\"><span class=\"giencoder-avatar giencoder-avatar-circle giencoder-avatar-text td-coop-av\" style=\"--avatar-bg: var(--avatar-bg-5)\" aria-hidden=\"true\">怡</span><span class=\"giencoder-list-item-title td-coop-mname\">姜嘉怡 <span class=\"td-coop-mid\">(P0098606)</span></span></span></label>",
+        "            <label class=\"giencoder-list-item giencoder-list-item-hoverable td-coop-row\" data-size=\"small\" data-td-midx=\"5\"><span class=\"giencoder-checkbox td-coop-cb\"><input class=\"giencoder-checkbox-input\" type=\"checkbox\"><span class=\"giencoder-checkbox-mask\"></span></span><span class=\"giencoder-list-item-meta\"><span class=\"giencoder-avatar giencoder-avatar-circle giencoder-avatar-text td-coop-av\" style=\"--avatar-bg: var(--avatar-bg-6)\" aria-hidden=\"true\">甜</span><span class=\"giencoder-list-item-title td-coop-mname\">朱甜 <span class=\"td-coop-mid\">(P0098607)</span></span></span></label>",
+        "            <label class=\"giencoder-list-item giencoder-list-item-hoverable td-coop-row\" data-size=\"small\" data-td-midx=\"6\"><span class=\"giencoder-checkbox td-coop-cb\"><input class=\"giencoder-checkbox-input\" type=\"checkbox\"><span class=\"giencoder-checkbox-mask\"></span></span><span class=\"giencoder-list-item-meta\"><span class=\"giencoder-avatar giencoder-avatar-circle giencoder-avatar-text td-coop-av\" style=\"--avatar-bg: var(--avatar-bg-7)\" aria-hidden=\"true\">辰</span><span class=\"giencoder-list-item-title td-coop-mname\">齐瑞辰 <span class=\"td-coop-mid\">(P0098608)</span></span></span></label>",
+        "          </div>",
+        "        </div>",
+        "      </div>",
+        "      <div class=\"giencoder-modal-footer\">",
+        "        <span class=\"td-coop-count\" data-td-coop-count=\"1\"></span>",
+        "        <div class=\"td-coop-btns\">",
+        "          <button class=\"giencoder-btn giencoder-btn-secondary giencoder-btn-size-default td-coop-btn\" type=\"button\" data-td-coop-cancel=\"1\">取消</button>",
+        "          <button class=\"giencoder-btn giencoder-btn-primary giencoder-btn-size-default td-coop-btn\" type=\"button\" data-td-coop-next=\"1\">下一步</button>",
+        "          <button class=\"giencoder-btn giencoder-btn-secondary giencoder-btn-size-default td-coop-btn\" type=\"button\" data-td-coop-prev=\"1\" hidden>上一步</button>",
+        "          <button class=\"giencoder-btn giencoder-btn-primary giencoder-btn-size-default td-coop-btn\" type=\"button\" data-td-coop-submit=\"1\" hidden>提交</button>",
+        "        </div>",
+        "      </div>",
+        "    </div>",
+        "  </div>",
         "</div>"
 ].join('\n');
 
@@ -1497,8 +1731,15 @@ header div:has(> div.relative > button[aria-label="切换侧边栏"]) { display:
     var DEFAULT_W = 480;   /* 右栏默认宽（设计稿实测） */
     var MIN_W = 100;       /* 拖到此值以下即自动折叠（第24轮：原 320） */
     var COLLAPSED_W = 48;  /* 折叠条宽（设计稿实测 1343:18532 = 48×844） */
-    var LEFT_MIN = 320;    /* 左栏保底 */
+    var LEFT_MIN = 480;    /* 左栏保底（★ 第32轮第4项：320 → 480，与 CSS --td-left-min 同值） */
     var dragging = false, curW = DEFAULT_W;
+
+    /* 右栏可达到的最大宽度 = 根容器宽 − 拖动条宽 − 左栏保底。
+       ★ 第 32 轮修正：原先漏算拖动条 8px，导致钳位后左栏实际只剩 LEFT_MIN−8，
+         触发 CSS min-width 兜底 → 两栏总宽超容器（溢出）。 */
+    function maxRightW() {
+      return root.getBoundingClientRect().width - gutter.getBoundingClientRect().width - LEFT_MIN;
+    }
 
     function setWidth(w) {
       curW = w;
@@ -1511,7 +1752,7 @@ header div:has(> div.relative > button[aria-label="切换侧边栏"]) { display:
     function widthFrom(clientX) {
       var box = root.getBoundingClientRect();
       var w = root.classList.contains('is-swapped') ? (clientX - box.left) : (box.right - clientX);
-      var maxW = box.width - LEFT_MIN;
+      var maxW = maxRightW();
       if (w > maxW) w = maxW;
       if (w < 0) w = 0;
       return w;
@@ -1560,7 +1801,7 @@ header div:has(> div.relative > button[aria-label="切换侧边栏"]) { display:
     /* 键盘可达：默认 ← 变宽 / → 变窄（到阈值即折叠）；两栏互换后方向随之取反 */
     gutter.addEventListener('keydown', function (e) {
       var step = 24;
-      var maxW = root.getBoundingClientRect().width - LEFT_MIN;
+      var maxW = maxRightW();
       var swapped = root.classList.contains('is-swapped');
       var widerKey = swapped ? 'ArrowRight' : 'ArrowLeft';
       var narrowKey = swapped ? 'ArrowLeft' : 'ArrowRight';
@@ -1590,20 +1831,32 @@ header div:has(> div.relative > button[aria-label="切换侧边栏"]) { display:
          · 静止态仍只切 .is-swapped（CSS row-reverse），DOM 顺序不动。
 
        第 30 轮的五个手感优化：
-         ① 跟手位移（橡皮筋，不是硬限幅）：|dx| ≤ cap(两栏中心距 ×14%，实测约 100px) 时 1:1 跟手；
-            超出后每多拖 1px 只走 RB=0.18px → 大拖不会「顶住不动」，但越拖越沉；
-            另一栏反向 12% 微移「让位」→ 拖起来立刻有物理反馈，两栏又不会在途中就交叉重叠；
+         ① 跟手位移（橡皮筋，不是硬限幅）：|dx| ≤ cap 时 1:1 跟手；超出后按 RB 继续走，
+            不会「顶住不动」；另一栏反向微移「让位」→ 立刻有物理反馈，两栏不会交叉重叠；
          ② FLIP 滑动：松手判定换位时，先记 first rect → 切类 → 记 last rect →
             用 Web Animations 从 translateX(dx) 滑回 0，两栏真的横着挪过去（不是瞬移）；
             飞行期被拖的那一栏加 is-fly-left/right → z=3 + 加深投影（「拎起来」）；
          ③ 回弹：未达阈值时把跟手位移用同一条曲线弹回 0，而不是瞬间归位；
          ④ 甩动判定：|v| ≥ 0.6 px/ms 且方向正确 ⇒ 即使位移不够也换位（短促快拖也能换）。
+       ★ 第 32 轮第 2 项（用户仍反馈「拖拽过程不流畅」）修掉两处根因：
+         · cap 14%→28%（≈100px → ≈200px）、RB 0.18→0.28：上一版拖过 100px 后卡片几乎不跟手，
+           手感上就是「卡住了」；现在指针走多远卡片走多远。
+         · **去掉 scale(1.006)**：「拎起来」只由投影 + z-index 表达。scale 会让这种大尺寸、
+           文字密集的滚动容器**每帧重新栅格化**（掉帧主因）。
+         · 位移写入用 **rAF 合并**（一帧只写一次 transform）；去掉 pointermove 里的
+           preventDefault（非被动监听器会让浏览器等回调 → 输入延迟）。
        曲线统一 cubic-bezier(0.22, 1, 0.36, 1)：起步快、收尾稳、**无过冲**（不会越界出容器）。
        prefers-reduced-motion 下跳过所有位移动画，只切类。 */
     var SWAP_T = 72;              /* 距离阈值 px（原 80：略微降低，配合甩动判定更好触发） */
     var SWAP_FLICK = 0.6;         /* 甩动速度阈值 px/ms */
     var SWAP_DUR = 400;           /* FLIP 滑动时长 ms */
-    var RB = 0.18;                /* 橡皮筋系数：超出限幅后每多拖 1px 只走 0.18px */
+    /* ★ 第 32 轮第 2 项重新调参：上一版 cap = 两栏中心距 ×14%（1440 下仅 ~100px）+
+       RB 0.18，超过 100px 后卡片几乎不跟手 —— 用户反馈「拖拽过程不流畅」的主因。
+       现在 1:1 跟手区放宽到中心距 ×28%（≈200px，是换位阈值 72px 的 2.8 倍），
+       超出后按 0.28 继续走（原来 0.18）→ 指针走多远卡片就走多远，绝不「顶住不动」。 */
+    var FOLLOW = 0.28;            /* 1:1 跟手区间（× 两栏中心距） */
+    var RB = 0.28;                /* 超出限幅后的橡皮筋系数 */
+    var PEER = 0.14;              /* 让位栏反向跟随比例 */
     var SWAP_EASE = 'cubic-bezier(0.22, 1, 0.36, 1)';
     var reduceMotion = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
     var xdrag = null;
@@ -1635,12 +1888,23 @@ header div:has(> div.relative > button[aria-label="切换侧边栏"]) { display:
         var gap = Math.abs((b.left + b.width / 2) - (a.left + a.width / 2));
         xdrag = {
           bar: bar, panel: panel, other: other,
-          x0: e.clientX, dx: 0, applied: 0, v: 0, moved: false, tPrev: e.timeStamp,
-          cap: Math.max(24, Math.round(gap * 0.14)),   /* 跟手限幅：一次性算好，避免 pointermove 里反复取 rect */
+          x0: e.clientX, dx: 0, applied: 0, peer: 0, v: 0, moved: false, tPrev: e.timeStamp,
+          cap: Math.max(48, Math.round(gap * FOLLOW)),   /* 跟手限幅：一次性算好，避免 pointermove 里反复取 rect */
           dir: (b.left + b.width / 2) >= (a.left + a.width / 2) ? 1 : -1
         };
         if (bar.setPointerCapture) { try { bar.setPointerCapture(e.pointerId); } catch (err) {} }
       });
+
+      /* ★ 第 32 轮：位移写入用 rAF 合并 —— 指针事件一帧内可能来好几个，
+         每个都写一次 transform 会白白多做几次样式计算/绘制。这里一帧只写一次。 */
+      var rafId = 0;
+      function paint() {
+        rafId = 0;
+        var d = xdrag;
+        if (!d || reduceMotion) return;
+        d.panel.style.transform = 'translate3d(' + d.applied + 'px,0,0)';
+        d.other.style.transform = 'translate3d(' + d.peer + 'px,0,0)';
+      }
 
       bar.addEventListener('pointermove', function (e) {
         var d = xdrag;
@@ -1658,19 +1922,15 @@ header div:has(> div.relative > button[aria-label="切换侧边栏"]) { display:
           d.other.classList.add('is-xdrag-peer');
         }
         root.classList.toggle('is-xarmed', (d.dx * d.dir >= SWAP_T) || (d.v * d.dir >= SWAP_FLICK));
-        if (!reduceMotion) {
-          /* ③ 橡皮筋阻尼（不是硬限幅）：|dx| ≤ cap 时 1:1 跟手；
-             超出后按 RB 系数继续走（cap + 超出量*0.18）→ 大拖也不会「顶住不动」，
-             但越拖越沉，视觉上明确「这里拖不过去」。*/
-          var abs = Math.abs(d.dx);
-          var raw = abs <= d.cap ? abs : d.cap + (abs - d.cap) * RB;
-          var applied = (d.dx < 0 ? -1 : 1) * Math.round(raw);
-          var k = Math.min(1, Math.abs(applied) / d.cap);   /* 0~1：越接近目标位置，主动栏越「浮起来」 */
-          d.applied = applied;
-          d.panel.style.transform = 'translate3d(' + applied + 'px,0,0) scale(' + (1 + 0.006 * k).toFixed(4) + ')';
-          d.other.style.transform = 'translate3d(' + Math.round(applied * -0.12) + 'px,0,0)';
-        }
-        e.preventDefault();
+        /* 跟手：|dx| ≤ cap 时 **纯 1:1**（指针走多少卡片走多少，不加任何缓动/缩放）；
+           超出后按 RB 系数继续走 → 越拖越沉但不顶死。
+           ★ 第 32 轮去掉了上一版的 scale(1.006)：「拎起来」只靠投影 + z-index 表达。
+           scale 会让这种大尺寸、文字密集的滚动容器每帧重新栅格化（明显的掉帧源）。 */
+        var abs = Math.abs(d.dx);
+        var raw = abs <= d.cap ? abs : d.cap + (abs - d.cap) * RB;
+        d.applied = (d.dx < 0 ? -1 : 1) * Math.round(raw);
+        d.peer = Math.round(d.applied * -PEER);
+        if (!rafId) rafId = requestAnimationFrame(paint);
       });
 
       function endSwap() {
@@ -1713,7 +1973,7 @@ header div:has(> div.relative > button[aria-label="切换侧边栏"]) { display:
         } else {
           /* ③ 回弹 */
           slideBack(d.panel, d.applied, 260);
-          slideBack(d.other, Math.round(d.applied * -0.12), 260);
+          slideBack(d.other, d.peer, 260);
         }
       }
       bar.addEventListener('pointerup', endSwap);
@@ -1889,6 +2149,25 @@ header div:has(> div.relative > button[aria-label="切换侧边栏"]) { display:
   var DP_SEARCH_SVG = '<svg viewBox="0 0 14 14" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><circle cx="6.1" cy="6.1" r="4.35"/><path d="M9.3 9.3l3.1 3.1"/></svg>';
   var DP_MSG_SVG = '<svg viewBox="0 0 14 14" width="14" height="14" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="6.2" fill="currentColor"/><path d="M4.3 7.2l1.9 1.9 3.5-3.7" stroke="var(--color-white)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
+  /* ---------- 全局轻提示：DS Message（第 19 轮全局约定：凡消息提示一律用它）----------
+     ★ 第 32 轮：由转派浮窗（第 31 轮）与协作弹窗（第 5 项）共用同一实例。 */
+  function tdToast(text) {
+    var box = document.querySelector('.td-dp-msg');
+    if (!box) {
+      box = document.createElement('div');
+      box.className = 'td-dp-msg';
+      box.innerHTML = '<div class="giencoder-message" role="status">' +
+        '<span class="giencoder-message-icon" aria-hidden="true">' + DP_MSG_SVG + '</span>' +
+        '<span class="giencoder-message-content"></span></div>';
+      box.hidden = true;
+      document.body.appendChild(box);
+    }
+    box.querySelector('.giencoder-message-content').textContent = text;
+    box.hidden = false;
+    clearTimeout(box._t);
+    box._t = setTimeout(function () { box.hidden = true; }, 2400);
+  }
+
   function bindDispatchPicker() {
     var btn = document.querySelector('[data-td-dispatch]');
     if (!btn || btn.hasAttribute('data-td-dp-bound')) return;
@@ -2002,23 +2281,8 @@ header div:has(> div.relative > button[aria-label="切换侧边栏"]) { display:
       flag(false);
     }
 
-    /* 转派结果：写回 aside「执行人」+ 一条 DS Message 提示 */
-    function toast(text) {
-      var box = document.querySelector('.td-dp-msg');
-      if (!box) {
-        box = document.createElement('div');
-        box.className = 'td-dp-msg';
-        box.innerHTML = '<div class="giencoder-message" role="status">' +
-          '<span class="giencoder-message-icon" aria-hidden="true">' + DP_MSG_SVG + '</span>' +
-          '<span class="giencoder-message-content"></span></div>';
-        box.hidden = true;
-        document.body.appendChild(box);
-      }
-      box.querySelector('.giencoder-message-content').textContent = text;
-      box.hidden = false;
-      clearTimeout(box._t);
-      box._t = setTimeout(function () { box.hidden = true; }, 2400);
-    }
+    /* 转派结果：写回 aside「执行人」+ 一条 DS Message 提示（实现见模块级 tdToast） */
+    var toast = tdToast;
 
     function confirm() {
       var m = DISPATCH_MEMBERS[cur];
@@ -2048,6 +2312,135 @@ header div:has(> div.relative > button[aria-label="切换侧边栏"]) { display:
     document.addEventListener('td:close-dispatch', close);
   }
 
+  /* ---------- 顶栏「协作」→ 分步模态弹窗（★ 第 32 轮第 5 项，设计稿节点 622:20081） ----------
+     完全按 DS 契约组装（结构说明 + 设计稿实测真值见 HTML / CSS 段注释）：
+       遮罩/面板 div.giencoder-modal-wrapper > div.giencoder-modal-mask + div.giencoder-modal[role=dialog]
+       步骤条  .giencoder-steps[role=list] > .giencoder-steps-item[role=listitem][aria-current=step]
+               + .giencoder-steps-icon（仅已完成态显示对勾）+ .giencoder-steps-title
+       产物行  .giencoder-list-item[data-size=small] > .giencoder-checkbox（input + mask + 文本）
+       成员行  同上 + .giencoder-list-item-meta > .giencoder-avatar + .giencoder-list-item-title
+       搜索框  .giencoder-input-wrapper[data-size=medium] + -input-prefix + -input
+     显隐：根 .td-coop 的 hidden + is-open；同时写 <html data-td-coop-open> 供页尾 Esc 链判断。
+     步骤切换：当前态 is-active，已完成 is-finish（带对勾）；点步骤条可跳转（steps.json clickable）。
+     每次打开复位：勾选态回到初始快照（产物全选 / 成员未选）+ 搜索清空 + 回到 Step1。
+     关闭途径：取消 / 右上 X / 点遮罩 / Esc（页尾 Esc 链派发 td:close-coop）+ 提交。 */
+  function bindCoop() {
+    var btn = document.querySelector('[data-td-coop]');
+    var root = document.querySelector('.td-coop');
+    if (!btn || !root || btn.hasAttribute('data-td-coop-bound')) return;
+    btn.setAttribute('data-td-coop-bound', '1');
+
+    var dialog = root.querySelector('.giencoder-modal');
+    var maskEl = root.querySelector('[data-td-coop-mask]');
+    var hintEl = root.querySelector('[data-td-coop-hint]');
+    var countEl = root.querySelector('[data-td-coop-count]');
+    var panes = [].slice.call(root.querySelectorAll('[data-td-pane]'));
+    var stepEls = [].slice.call(root.querySelectorAll('[data-td-step]'));
+    var btnNext = root.querySelector('[data-td-coop-next]');
+    var btnPrev = root.querySelector('[data-td-coop-prev]');
+    var btnSubmit = root.querySelector('[data-td-coop-submit]');
+    var searchEl = root.querySelector('[data-td-pane="2"] .giencoder-input');
+    var mrows = [].slice.call(root.querySelectorAll('[data-td-midx]'));
+    var HINTS = { 1: '选择需要流转到下一阶段的协作产物', 2: '将当前任务 (含产物) 流转给下一位协作者' };
+    var step = 1;
+    /* 初始勾选态快照（产物默认全选、成员默认未选）→ 每次打开复位，避免残留上一轮选择 */
+    var allBoxes = [].slice.call(root.querySelectorAll('.giencoder-checkbox-input'));
+    var defaults = allBoxes.map(function (b) { return b.checked; });
+    function resetChecks() {
+      allBoxes.forEach(function (b, i) { b.checked = defaults[i]; });
+    }
+
+    function boxes(pane) {
+      return [].slice.call(root.querySelectorAll('[data-td-pane="' + pane + '"] .giencoder-checkbox-input'));
+    }
+    function checked(n) { return boxes(n).filter(function (c) { return c.checked; }).length; }
+    function countText() {
+      return step === 1
+        ? '已选 ' + checked(1) + '/' + boxes(1).length + ' 个产物'
+        : '已选 ' + checked(2) + '/' + mrows.length + ' 位协作者';
+    }
+    function syncCount() { countEl.textContent = countText(); }
+
+    function filter() {
+      var q = (searchEl.value || '').replace(/\s+/g, '').toLowerCase();
+      mrows.forEach(function (r) {
+        var t = r.textContent.replace(/\s+/g, '').toLowerCase();
+        r.hidden = !!q && t.indexOf(q) < 0;
+      });
+    }
+
+    function goStep(n) {
+      step = n;
+      panes.forEach(function (p) { p.hidden = (+p.getAttribute('data-td-pane')) !== n; });
+      stepEls.forEach(function (s) {
+        var k = +s.getAttribute('data-td-step');
+        s.classList.toggle('is-active', k === n);
+        s.classList.toggle('is-finish', k < n);
+        if (k === n) s.setAttribute('aria-current', 'step'); else s.removeAttribute('aria-current');
+      });
+      btnNext.hidden = n !== 1;
+      btnPrev.hidden = n !== 2;
+      btnSubmit.hidden = n !== 2;
+      hintEl.textContent = HINTS[n];
+      syncCount();
+    }
+
+    function flag(on) { document.documentElement.toggleAttribute('data-td-coop-open', on); }
+
+    function open() {
+      resetChecks();
+      goStep(1);
+      searchEl.value = '';
+      filter();
+      root.hidden = false;
+      btn.setAttribute('aria-expanded', 'true');
+      flag(true);
+      void root.offsetWidth;   /* 强制 reflow，保证 is-open 的过渡真正触发 */
+      root.classList.add('is-open');
+      dialog.focus();
+    }
+
+    function close() {
+      if (root.hidden) return;
+      root.classList.remove('is-open');
+      root.hidden = true;
+      btn.setAttribute('aria-expanded', 'false');
+      flag(false);
+    }
+
+    function submit() {
+      var n = checked(1);
+      var m = mrows.filter(function (r) { return r.querySelector('.giencoder-checkbox-input').checked; });
+      close();
+      tdToast('已流转 ' + n + ' 个产物给 ' + m.length + ' 位协作者');
+    }
+
+    btn.addEventListener('click', function () { if (root.hidden) open(); else close(); });
+    root.querySelector('[data-td-coop-close]').addEventListener('click', close);
+    root.querySelector('[data-td-coop-cancel]').addEventListener('click', close);
+    maskEl.addEventListener('click', close);
+    btnNext.addEventListener('click', function () { goStep(2); });
+    btnPrev.addEventListener('click', function () { goStep(1); });
+    btnSubmit.addEventListener('click', submit);
+    searchEl.addEventListener('input', filter);
+    /* 点步骤条跳转（steps.json variants.clickable） */
+    stepEls.forEach(function (s) {
+      s.addEventListener('click', function () {
+        var k = +s.getAttribute('data-td-step');
+        if (k !== step) goStep(k);
+      });
+    });
+    /* 搜索框里按 Esc：页尾 Esc 链对 INPUT 直接 return → 弹窗内自行处理 */
+    root.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') { e.stopPropagation(); close(); }
+    });
+    /* 勾选框变化 → 计数实时更新（change 冒泡到根节点） */
+    root.addEventListener('change', function (e) {
+      if (e.target && e.target.classList && e.target.classList.contains('giencoder-checkbox-input')) syncCount();
+    });
+    document.addEventListener('td:close-coop', close);
+  }
+
   function inject() {
     var main = document.querySelector('main');
     if (!main || main.querySelector('.td-root')) return false;
@@ -2058,6 +2451,7 @@ header div:has(> div.relative > button[aria-label="切换侧边栏"]) { display:
     bindDetail(wrap);
     bindDescImagePreview(wrap);
     bindDispatchPicker();
+    bindCoop();
     return true;
   }
   /* 注意：两个动作都要执行，不能短路（页签在 React 挂载后才出现，可能晚于注入）。
@@ -2094,6 +2488,12 @@ header div:has(> div.relative > button[aria-label="切换侧边栏"]) { display:
            预览侧监听自定义事件 td:close-image-preview（见 bindDescImagePreview）。 */
         if (document.documentElement.hasAttribute('data-td-img-preview')) {
           document.dispatchEvent(new CustomEvent('td:close-image-preview'));
+          return;
+        }
+        /* ★ 第 32 轮第 5 项：协作模态弹窗次优先（模态层级最高，Esc 只关它）。
+           弹窗侧监听自定义事件 td:close-coop（见 bindCoop）。 */
+        if (document.documentElement.hasAttribute('data-td-coop-open')) {
+          document.dispatchEvent(new CustomEvent('td:close-coop'));
           return;
         }
         /* ★ 第 31 轮：转派成员浮窗次优先（不是模态，但浮在顶栏之上，Esc 应先收它）。

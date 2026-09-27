@@ -146,7 +146,7 @@ chk("1e", "搜索框圆角 6px", d.get("searchRadius") == "6px", d.get("searchRa
 chk("1e", "行圆角 6px", d.get("rowRadius") == "6px", d.get("rowRadius"), "6px")
 chk("1e", "按钮圆角 6px", d.get("okRadius") == "6px", d.get("okRadius"), "6px")
 chk("1e", "头像圆角 50%", d.get("avRadius") == "50%", d.get("avRadius"), "50%")
-chk("1e", "投影 = shadow2-down(0 4px 10px rgba(0,0,0,.1))", "0px 4px 10px" in (d.get("panelShadow") or "") and "0.1" in (d.get("panelShadow") or ""), d.get("panelShadow"), "含 0px 4px 10px / 0.1")
+chk("1e", "投影 = shadow3-down(0 8px 20px rgba(0,0,0,.1))（第32轮第1项：与 Select 弹层一致，原 shadow2-down）", "0px 8px 20px" in (d.get("panelShadow") or "") and "0.1" in (d.get("panelShadow") or ""), d.get("panelShadow"), "含 0px 8px 20px / 0.1")
 chk("1e", "标题 14px/lh22/400", d.get("titleFs") == "14px" and d.get("titleLh") == "22px" and d.get("titleWeight") == "400", [d.get("titleFs"), d.get("titleLh"), d.get("titleWeight")], ["14px", "22px", "400"])
 chk("1e", "标题 #1F1F1F", rgbv(d.get("titleColor")) == "rgb(31, 31, 31)", d.get("titleColor"), "rgb(31, 31, 31)")
 chk("1e", "副标题 12px/lh16", d.get("subFs") == "12px" and d.get("subLh") == "16px", [d.get("subFs"), d.get("subLh")], ["12px", "16px"])

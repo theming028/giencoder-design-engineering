@@ -3,7 +3,7 @@
 ##################################################
 --- 1a. 基线与触发按钮契约 ---
 --- 1b. 点击「转派」→ 浮窗打开（class / 标记 / aria / 位置） ---
-md5 11-dp-open = 47da403e4261c3c331cd04c37a83d985
+md5 11-dp-open = c1c10f1cc4ade05765c1580d3d008c51
 --- 1c. 内部结构契约（DS 类名 / role / 尺寸档 / 数量） ---
 --- 1d. 几何真值（面板内相对坐标；设计稿：标题文字盒(16,16)h22/副标题(16,42)h16/搜索288x32@(16,70)/列表@(16,118)h297/行32/头像20/按钮288x32@(16,432)） ---
 --- 1e. 配色 / 字号 / 圆角 / 投影真值 ---
@@ -30,12 +30,12 @@ md5 11-dp-open = 47da403e4261c3c331cd04c37a83d985
 ================ probe31.jsonl ================
 29 mg-work/r31/probe31.jsonl
 ================ shots ================
-total 1152
+total 1168
 drwxr-xr-x 1 Administrator 197121      0 Sep 27 12:53 .
-drwxr-xr-x 1 Administrator 197121      0 Sep 27 12:52 ..
--rw-r--r-- 1 Administrator 197121 200002 Sep 27 13:08 10-dp-btn.png
--rw-r--r-- 1 Administrator 197121 196147 Sep 27 13:09 11-dp-open.png
--rw-r--r-- 1 Administrator 197121 196047 Sep 27 13:09 12-dp-hover.png
--rw-r--r-- 1 Administrator 197121 195899 Sep 27 13:09 13-dp-selected.png
--rw-r--r-- 1 Administrator 197121 179510 Sep 27 13:09 14-dp-empty.png
--rw-r--r-- 1 Administrator 197121 199626 Sep 27 13:09 15-dp-msg.png
+drwxr-xr-x 1 Administrator 197121      0 Sep 27 13:13 ..
+-rw-r--r-- 1 Administrator 197121 199998 Sep 27 14:05 10-dp-btn.png
+-rw-r--r-- 1 Administrator 197121 197179 Sep 27 14:05 11-dp-open.png
+-rw-r--r-- 1 Administrator 197121 197109 Sep 27 14:05 12-dp-hover.png
+-rw-r--r-- 1 Administrator 197121 196966 Sep 27 14:05 13-dp-selected.png
+-rw-r--r-- 1 Administrator 197121 180494 Sep 27 14:05 14-dp-empty.png
+-rw-r--r-- 1 Administrator 197121 199622 Sep 27 14:06 15-dp-msg.png

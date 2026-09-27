@@ -10,6 +10,12 @@
           document.dispatchEvent(new CustomEvent('td:close-image-preview'));
           return;
         }
+        /* ★ 第 32 轮第 5 项：协作模态弹窗次优先（模态层级最高，Esc 只关它）。
+           弹窗侧监听自定义事件 td:close-coop（见 bindCoop）。 */
+        if (document.documentElement.hasAttribute('data-td-coop-open')) {
+          document.dispatchEvent(new CustomEvent('td:close-coop'));
+          return;
+        }
         /* ★ 第 31 轮：转派成员浮窗次优先（不是模态，但浮在顶栏之上，Esc 应先收它）。
            浮窗侧监听自定义事件 td:close-dispatch（见 bindDispatchPicker）。 */
         if (document.documentElement.hasAttribute('data-td-dp-open')) {
