@@ -150,8 +150,18 @@
   --color-primary-10: rgb(var(--giencoderblue-10));
   --color-success-6: rgb(var(--green-6));
   --color-success-5: rgb(var(--green-5));
+  /* warning 色阶补全至与 primary 同宽（1..10）：此前只有 5/6，
+     导致「橙色降两级」这类需求没有语义 token 可用 */
+  --color-warning-10: rgb(var(--orange-10));
+  --color-warning-9: rgb(var(--orange-9));
+  --color-warning-8: rgb(var(--orange-8));
+  --color-warning-7: rgb(var(--orange-7));
   --color-warning-6: rgb(var(--orange-6));
   --color-warning-5: rgb(var(--orange-5));
+  --color-warning-4: rgb(var(--orange-4));
+  --color-warning-3: rgb(var(--orange-3));
+  --color-warning-2: rgb(var(--orange-2));
+  --color-warning-1: rgb(var(--orange-1));
   --color-danger-6: rgb(var(--red-6));
   --color-danger-5: rgb(var(--red-5));
   --color-link-6: rgb(var(--giencoderblue-6));
@@ -473,8 +483,18 @@ body[giencoder-theme='dark'], [giencoder-theme='dark'] {
   --color-primary-7: rgb(var(--giencoderblue-7));
   --color-success-6: rgb(var(--green-6));
   --color-success-5: rgb(var(--green-5));
+  /* warning 色阶补全至与 primary 同宽（1..10）：此前只有 5/6，
+     导致「橙色降两级」这类需求没有语义 token 可用 */
+  --color-warning-10: rgb(var(--orange-10));
+  --color-warning-9: rgb(var(--orange-9));
+  --color-warning-8: rgb(var(--orange-8));
+  --color-warning-7: rgb(var(--orange-7));
   --color-warning-6: rgb(var(--orange-6));
   --color-warning-5: rgb(var(--orange-5));
+  --color-warning-4: rgb(var(--orange-4));
+  --color-warning-3: rgb(var(--orange-3));
+  --color-warning-2: rgb(var(--orange-2));
+  --color-warning-1: rgb(var(--orange-1));
   --color-danger-6: rgb(var(--red-6));
   --color-danger-5: rgb(var(--red-5));
   --color-link-6: rgb(var(--giencoderblue-6));

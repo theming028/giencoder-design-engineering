@@ -1,0 +1,36 @@
+{"step": "A1", "data": {"bg": "rgb(255, 255, 255)", "bg5": "#fff", "border": "rgb(229, 229, 229)", "bw": "1px", "radius": "6px", "b1": "rgb(242, 242, 242)", "b2": "rgb(229, 229, 229)"}}
+{"step": "A2", "data": {"txt": "选择需要流转到下一阶段的协作产物", "fs": "14px", "body3": "14px", "lh": "20px"}}
+{"step": "A3", "data": {"wrap": [424, 194, 592, 32], "n": 2, "g0": {"rect": [424, 194, 296, 32], "clip": "polygon(0px 0px, calc(100% - 7px) 0px, 100% 50%, calc(100% - 7px) 100%, 0px 100%)", "margin": "0px", "z": "auto", "bg": "rgb(236, 242, 255)", "border": "1px rgb(211, 226, 255)"}, "g1": {"rect": [720, 194, 296, 32], "clip": "polygon(0px 0px, 100% 0px, 100% 100%, 0px 100%, 5px 50%)", "margin": "0px", "z": "auto", "bg": "rgb(242, 242, 242)", "border": "1px rgba(0, 0, 0, 0)"}, "g2": null}}
+{"step": "B0", "data": {"btn": true, "modal": true, "bound": "1", "hidden": true, "aria": "false"}}
+{"step": "B1", "data": {"hidden": false, "open": true, "isEdit": true, "flag": true, "aria": "true", "crt": [8, 48, 1424, 844], "crtPos": "absolute", "varW": "80%", "dlg": [150, 48, 1139, 796], "dlgW": "1139.19px", "rTL": "0px", "rBR": "12px", "bg": "rgb(255, 255, 255)", "shadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgba(0, 0, 0, 0.08) 0px 1px 2px 0px", "host": "min-w-0 flex-1 h-full overflow-hidden rounded-lg border bg-w", "title": "编辑工作任务", "role": "dialog", "ariaModal": "true"}}
+{"step": "B2", "data": {"foot": [150, 788, 1139, 56], "pad": "0px 24px", "h": "56px", "btns": [{"tx": "取消", "rect": [1098, 801, 78, 32], "disp": "flex", "cls": "giencoder-btn giencoder-btn-secondary giencoder-btn-size-default kb-crt-btn"}, {"tx": "保存并继续创建", "rect": [0, 0, 0, 0], "disp": "none", "cls": "giencoder-btn giencoder-btn-secondary giencoder-btn-size-default kb-crt-btn"}, {"tx": "保存", "rect": [1188, 801, 78, 32], "disp": "flex", "cls": "giencoder-btn giencoder-btn-primary giencoder-btn-size-default kb-crt-btn"}], "keepDisp": "none"}}
+{"step": "B3", "data": {"type": {"val": "拆分需求项", "hasValue": true, "selected": "拆分需求项"}, "rows": [{"lbl": "状态", "val": "进行中", "hasValue": false}, {"lbl": "优先级", "val": "高", "hasValue": false}, {"lbl": "关联需求", "val": "端到端流程初始化：用户输入业务需求…", "hasValue": false}, {"lbl": "前置任务", "val": "端到端流程初始化", "hasValue": false}, {"lbl": "责任人", "val": "邵禹铭", "hasValue": false}, {"lbl": "预期完成", "val": null, "hasValue": null}], "titleVal": "端到端流程初始化：用户输入业务流并触发全链路交付", "descLen": 112, "descHead": "作为研发负责人，我需要把「业务方原始需求 → 需求条目 → 任务交付」这条链路一", "dateVal": "2026/08/20", "calSel": "20", "upCount": 3, "upNames": ["业务方原始需求文档", "结构化的 PRD 产品需求文档 DOCX256KB", "结构化的 PRD 产品需求文档 DOCX256KB"]}}
+{"step": "B4", "data": {"head": [0, 0, 1139, 48], "headH": "48px", "body": [0, 48, 1139, 692], "main": [0, 48, 819, 692], "aside": [819, 48, 320, 692], "asideHead": [820, 48, 319, 40], "asideBody": [820, 88, 319, 300], "row0": [844, 112, 271, 32], "rows": 6, "lbl": [844, 118, 80, 21], "fld": [924, 112, 191, 32], "dialogW": 1139, "dialogH": 796}}
+{"step": "B5", "data": {"open": true, "display": "block", "aria": "true", "optCount": 4}}
+{"step": "B5b", "data": {"val": "待开始", "popOpen": false}}
+{"step": "B6", "data": {"hidden": true, "open": false, "flag": false, "aria": "false"}}
+{"step": "B7", "data": {"hidden": true, "flag": false, "msgText": "任务已保存", "msgCls": "giencoder-message", "msgRole": "status"}}
+{"step": "B8", "data": {"msgsHidden": false, "errTitleHidden": false, "errText": "「任务标题」不能为空", "errRole": "status", "inputErr": true, "modalHidden": false}}
+{"step": "C1", "data": {"exists": true, "open": true, "crt": [9, 49, 1422, 842], "dlg": [151, 49, 1138, 794], "dlgW": "1137.59px", "radius": "0px 12px", "headH": "48px", "footH": "56px", "title": "创建工作任务", "keepDisp": "flex", "btns": ["取消:flex", "保存并继续创建:flex", "创建任务:flex"]}}
+{"step": "C2", "data": {"found": true, "lane": "进行中", "idxInLane": 1, "orderInCol": 0, "stroke": "rgb(255, 182, 93)", "dash": "4px, 3px", "w4": "rgb(255, 182, 93)", "w6": "rgb(255, 125, 0)", "restFw": "400", "restH": 106}}
+{"step": "C3", "data": {"rest": [{"fw": "400", "h": 126}, {"fw": "400", "h": 104}, {"fw": "400", "h": 126}, {"fw": "400", "h": 126}, {"fw": "400", "h": 126}, {"fw": "400", "h": 106}, {"fw": "400", "h": 126}, {"fw": "400", "h": 104}, {"fw": "400", "h": 104}, {"fw": "400", "h": 104}, {"fw": "400", "h": 104}, {"fw": "400", "h": 104}, {"fw": "400", "h": 126}, {"fw": "400", "h": 104}, {"fw": "400", "h": 104}, {"fw": "400", "h": 126}, {"fw": "400", "h": 104}], "n": 17}}
+{"step": "C4", "data": {"fw": "500", "h": 106, "stroke": "rgb(255, 182, 93)"}}
+{"step": "C6_0", "data": {"i": 0, "fw": "500", "cardH": 126}}
+{"step": "C6_1", "data": {"i": 1, "fw": "500", "cardH": 104}}
+{"step": "C6_2", "data": {"i": 2, "fw": "500", "cardH": 126}}
+{"step": "C6_3", "data": {"i": 3, "fw": "500", "cardH": 126}}
+{"step": "C6_4", "data": {"i": 4, "fw": "500", "cardH": 126}}
+{"step": "C6_5", "data": {"i": 5, "fw": "500", "cardH": 106}}
+{"step": "C6_6", "data": {"i": 6, "fw": "500", "cardH": 126}}
+{"step": "C6_7", "data": {"i": 7, "fw": "500", "cardH": 104}}
+{"step": "C6_8", "data": {"i": 8, "fw": "500", "cardH": 104}}
+{"step": "C6_9", "data": {"i": 9, "fw": "500", "cardH": 104}}
+{"step": "C6_10", "data": {"i": 10, "fw": "500", "cardH": 104}}
+{"step": "C6_11", "data": {"i": 11, "fw": "500", "cardH": 104}}
+{"step": "C6_12", "data": {"i": 12, "fw": "500", "cardH": 126}}
+{"step": "C6_13", "data": {"i": 13, "fw": "500", "cardH": 104}}
+{"step": "C6_14", "data": {"i": 14, "fw": "500", "cardH": 104}}
+{"step": "C6_15", "data": {"i": 15, "fw": "500", "cardH": 126}}
+{"step": "C6_16", "data": {"i": 16, "fw": "500", "cardH": 104}}
+{"step": "D1", "data": {"bgImgLayers": 1, "bgImg": "radial-gradient(circle, rgba(55, 112, 247, 0.1) 1.5px, rgba(0, 0, 0, 0) 1.5px)", "bgRepeat": "repeat", "bgSize": "20px 20px", "hasDot": true, "diffusion": []}}
+{"step": "D2", "data": {"n": 1, "list": [{"tag": "MAIN", "cls": "min-w-0 flex-1 h-full overflow-hidden rounde", "pos": "static", "layers": 1}]}}

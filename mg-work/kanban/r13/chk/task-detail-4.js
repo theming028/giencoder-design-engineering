@@ -10,6 +10,12 @@
           document.dispatchEvent(new CustomEvent('td:close-image-preview'));
           return;
         }
+        /* ★ 第 33 轮第 4 项：任务编辑弹窗（与看板创建弹窗同一个，层级仅次图片预览）。
+           弹窗侧监听自定义事件 td:close-edit（见 bindEditTask）。 */
+        if (document.documentElement.hasAttribute('data-td-edit-open')) {
+          document.dispatchEvent(new CustomEvent('td:close-edit'));
+          return;
+        }
         /* ★ 第 32 轮第 5 项：协作模态弹窗次优先（模态层级最高，Esc 只关它）。
            弹窗侧监听自定义事件 td:close-coop（见 bindCoop）。 */
         if (document.documentElement.hasAttribute('data-td-coop-open')) {

@@ -12,7 +12,7 @@
         "        <button class=\"giencoder-btn giencoder-btn-primary giencoder-btn-size-small td-btn\" type=\"button\">开始任务</button>",
         "        <span class=\"giencoder-popover-reference\"><button class=\"giencoder-btn giencoder-btn-secondary giencoder-btn-size-small td-btn\" type=\"button\" data-td-dispatch aria-haspopup=\"dialog\" aria-expanded=\"false\">转派</button></span>",
         "        <button class=\"giencoder-btn giencoder-btn-secondary giencoder-btn-size-small td-btn\" type=\"button\" data-td-coop=\"1\" aria-haspopup=\"dialog\" aria-expanded=\"false\">协作</button>",
-        "        <button class=\"giencoder-btn giencoder-btn-secondary giencoder-btn-size-small td-btn\" type=\"button\">编辑</button>",
+        "        <button class=\"giencoder-btn giencoder-btn-secondary giencoder-btn-size-small td-btn\" type=\"button\" data-td-edit=\"1\" aria-haspopup=\"dialog\" aria-expanded=\"false\">编辑</button>",
         "        <button class=\"giencoder-btn giencoder-btn-secondary giencoder-btn-size-small giencoder-btn-icon td-iconbtn\" type=\"button\" aria-label=\"更多操作\">",
         "          <svg viewBox=\"0 0 16 16\" width=\"16\" height=\"16\" fill=\"currentColor\"><circle cx=\"3.4\" cy=\"8\" r=\"1.3\"/><circle cx=\"8\" cy=\"8\" r=\"1.3\"/><circle cx=\"12.6\" cy=\"8\" r=\"1.3\"/></svg>",
         "        </button>",
@@ -287,6 +287,118 @@
         "      </div>",
         "    </div>",
         "  </div>",
+        "<!-- r15: 创建任务弹窗（设计稿 875:13276；1280x820 面板，组件走 giencoder 契约类 + kb-crt- 视图适配） -->",
+        "<div class=\"kb-crt\" hidden>",
+        "  <div class=\"giencoder-modal-mask kb-crt-mask\" data-crt-close=\"1\"></div>",
+        "  <div class=\"giencoder-modal kb-crt-dialog\" role=\"dialog\" aria-modal=\"true\" tabindex=\"-1\" aria-label=\"创建工作任务\">",
+        "    <div class=\"giencoder-modal-header kb-crt-head\">",
+        "      <div class=\"giencoder-modal-title\">创建工作任务</div>",
+        "      <div class=\"kb-crt-head-act\">",
+        "        <span class=\"kb-crt-head-line\"></span>",
+        "        <button class=\"giencoder-modal-close-btn kb-crt-close\" type=\"button\" aria-label=\"Close\" data-crt-close=\"1\">",
+        "          <svg viewBox=\"0 0 16 16\" width=\"16\" height=\"16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\"><path d=\"M4.2 4.2l7.6 7.6M11.8 4.2l-7.6 7.6\"/></svg>",
+        "        </button>",
+        "      </div>",
+        "    </div>",
+        "    <div class=\"giencoder-modal-content kb-crt-body\">",
+        "      <div class=\"kb-crt-main\">",
+        "        <div class=\"giencoder-select kb-crt-type\" data-component=\"select\" data-variant=\"single\" data-state=\"default\">",
+        "          <div class=\"giencoder-select-view\" tabindex=\"0\" role=\"combobox\" aria-expanded=\"false\" aria-haspopup=\"listbox\">",
+        "            <span class=\"kb-crt-type-lbl\">任务类型<i class=\"kb-crt-req\" aria-hidden=\"true\">*</i></span>",
+        "            <span class=\"giencoder-select-view-text\" data-placeholder=\"请选择\">请选择</span>",
+        "            <span class=\"giencoder-select-suffix\"><svg class=\"giencoder-select-arrow\" viewBox=\"0 0 12 12\" width=\"12\" height=\"12\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\"><path d=\"M2 4l4 4 4-4\"/></svg><button class=\"giencoder-select-clear\" type=\"button\" aria-label=\"清除选择\"><svg viewBox=\"0 0 12 12\" width=\"12\" height=\"12\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\"><path d=\"M3 3l6 6M9 3l-6 6\"/></svg></button></span>",
+        "          </div>",
+        "          <div class=\"giencoder-select-popup\" style=\"display:none;\">",
+        "            <ul class=\"giencoder-select-option-list\" role=\"listbox\">",
+        "              <li class=\"giencoder-select-option\" role=\"option\" aria-selected=\"false\">拆分需求项</li>",
+        "              <li class=\"giencoder-select-option\" role=\"option\" aria-selected=\"false\">拆分需求条目</li>",
+        "              <li class=\"giencoder-select-option\" role=\"option\" aria-selected=\"false\">拆分子条目</li>",
+        "              <li class=\"giencoder-select-option\" role=\"option\" aria-selected=\"false\">技术调研</li>",
+        "              <li class=\"giencoder-select-option\" role=\"option\" aria-selected=\"false\">缺陷修复</li>",
+        "            </ul>",
+        "          </div>",
+        "        </div>",
+        "        <div class=\"giencoder-input-wrapper kb-crt-title\" data-component=\"input\" data-variant=\"default\" data-size=\"large\" data-state=\"default\">",
+        "          <input class=\"giencoder-input\" placeholder=\"请输入任务标题\" aria-label=\"任务标题\">",
+        "        </div>",
+        "        <div class=\"kb-crt-editor\">",
+        "          <div class=\"kb-crt-toolbar\" role=\"toolbar\" aria-label=\"编辑器工具栏\"><button class=\"kb-crt-tb kb-crt-tb--sel\" type=\"button\" style=\"left:12px;width:41px\"><span class=\"kb-crt-tb-title\">标题3</span><svg class=\"kb-crt-tbcaret\" viewBox=\"0 0 10 10\" width=\"10\" height=\"10\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.3\" stroke-linecap=\"round\"><path d=\"M1.6 3.4L5 6.8l3.4-3.4\"/></svg></button><button class=\"kb-crt-tb kb-crt-tb--lone\" type=\"button\" style=\"left:104px;width:12px\"><svg class=\"kb-crt-tbcaret\" viewBox=\"0 0 10 10\" width=\"10\" height=\"10\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.3\" stroke-linecap=\"round\"><path d=\"M1.6 3.4L5 6.8l3.4-3.4\"/></svg></button><button class=\"kb-crt-tb kb-crt-tb--b\" type=\"button\" style=\"left:122px;width:28px\" disabled aria-label=\"加粗\"><span class=\"kb-crt-glyph\">B</span></button><button class=\"kb-crt-tb kb-crt-tb--i\" type=\"button\" style=\"left:150px;width:28px\" aria-label=\"斜体\"><span class=\"kb-crt-glyph\">I</span></button><button class=\"kb-crt-tb kb-crt-tb--s\" type=\"button\" style=\"left:177px;width:28px\" aria-label=\"删除线\"><span class=\"kb-crt-glyph\">S</span></button><button class=\"kb-crt-tb kb-crt-tb--u\" type=\"button\" style=\"left:204px;width:28px\" aria-label=\"下划线\"><span class=\"kb-crt-glyph\">U</span></button><button class=\"kb-crt-tb kb-crt-tb--t\" type=\"button\" style=\"left:241px;width:28px\" aria-label=\"清除格式\"><span class=\"kb-crt-glyph\">T</span><svg class=\"kb-crt-tbcaret\" viewBox=\"0 0 10 10\" width=\"10\" height=\"10\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.3\" stroke-linecap=\"round\"><path d=\"M1.6 3.4L5 6.8l3.4-3.4\"/></svg></button><span class=\"kb-crt-tbsep\" style=\"left:277px\"></span><button class=\"kb-crt-tb kb-crt-tb--a\" type=\"button\" style=\"left:289px;width:28px\" aria-label=\"文字颜色\"><span class=\"kb-crt-glyph\">A</span><svg class=\"kb-crt-tbcaret\" viewBox=\"0 0 10 10\" width=\"10\" height=\"10\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.3\" stroke-linecap=\"round\"><path d=\"M1.6 3.4L5 6.8l3.4-3.4\"/></svg></button><button class=\"kb-crt-tb kb-crt-tb--hl\" type=\"button\" style=\"left:329px;width:28px\" aria-label=\"高亮\"><span class=\"kb-crt-tbico\"><svg viewBox=\"0 0 16 16\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.3\" stroke-linejoin=\"round\"><path d=\"M9.4 2.2l4.4 4.4-6.2 6.2H3.2v-4.4z\"/><path d=\"M8 3.6l4.4 4.4\" stroke-width=\"1.1\"/><path d=\"M2 13.6h8\" stroke-width=\"1.6\"/></svg></span><svg class=\"kb-crt-tbcaret\" viewBox=\"0 0 10 10\" width=\"10\" height=\"10\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.3\" stroke-linecap=\"round\"><path d=\"M1.6 3.4L5 6.8l3.4-3.4\"/></svg></button><span class=\"kb-crt-tbsep\" style=\"left:366px\"></span><button class=\"kb-crt-tb kb-crt-tb--align\" type=\"button\" style=\"left:379px;width:28px\" aria-label=\"对齐\"><span class=\"kb-crt-tbico\"><svg viewBox=\"0 0 16 16\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\"><path d=\"M2.4 3.6h11.2M2.4 8h7.4M2.4 12.4h11.2\"/></svg></span><svg class=\"kb-crt-tbcaret\" viewBox=\"0 0 10 10\" width=\"10\" height=\"10\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.3\" stroke-linecap=\"round\"><path d=\"M1.6 3.4L5 6.8l3.4-3.4\"/></svg></button><button class=\"kb-crt-tb kb-crt-tb--ul\" type=\"button\" style=\"left:410px;width:28px\" aria-label=\"无序列表\"><span class=\"kb-crt-tbico\"><svg viewBox=\"0 0 16 16\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\"><path d=\"M5.6 4h8.4M5.6 8h8.4M5.6 12h8.4\"/><circle cx=\"2.6\" cy=\"4\" r=\".95\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"2.6\" cy=\"8\" r=\".95\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"2.6\" cy=\"12\" r=\".95\" fill=\"currentColor\" stroke=\"none\"/></svg></span></button><button class=\"kb-crt-tb kb-crt-tb--ol\" type=\"button\" style=\"left:433px;width:28px\" aria-label=\"有序列表\"><span class=\"kb-crt-tbico\"><svg viewBox=\"0 0 16 16\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\"><path d=\"M6.4 4h7.6M6.4 8h7.6M6.4 12h7.6\"/><text x=\"1.2\" y=\"5.6\" font-size=\"5\" fill=\"currentColor\" stroke=\"none\" font-family=\"Arial, sans-serif\">1</text><text x=\"1.2\" y=\"9.9\" font-size=\"5\" fill=\"currentColor\" stroke=\"none\" font-family=\"Arial, sans-serif\">2</text><text x=\"1.2\" y=\"14.2\" font-size=\"5\" fill=\"currentColor\" stroke=\"none\" font-family=\"Arial, sans-serif\">3</text></svg></span></button><button class=\"kb-crt-tb kb-crt-tb--img\" type=\"button\" style=\"left:464px;width:28px\" aria-label=\"插入图片\"><span class=\"kb-crt-tbico\"><svg viewBox=\"0 0 16 16\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linejoin=\"round\"><rect x=\"1.6\" y=\"2.6\" width=\"12.8\" height=\"10.8\" rx=\"1.6\"/><circle cx=\"5.4\" cy=\"6.2\" r=\"1.1\"/><path d=\"M2.4 11.4l3.6-3.2 3 2.6 2-1.8 2.6 2.4\"/></svg></span></button></div>",
+        "          <div class=\"kb-crt-editor-body\">",
+        "            <textarea class=\"kb-crt-textarea\" aria-label=\"任务描述\" placeholder=\"你可以通过用户故事的形式描述任务。&#10;基本格式：作为某个角色，我需要做某些事情，以便实现什么目标。\"></textarea>",
+        "          </div>",
+        "        </div>",
+        "        <div class=\"kb-crt-attach\">",
+        "          <div class=\"kb-crt-attach-lbl\">附件</div>",
+        "          <div class=\"kb-crt-upload\" data-component=\"upload\" data-variant=\"click\" data-state=\"default\">",
+        "            <input class=\"kb-crt-file\" type=\"file\" multiple hidden aria-hidden=\"true\">",
+        "            <button class=\"giencoder-btn giencoder-btn-size-default giencoder-upload-trigger kb-crt-upbtn\" type=\"button\">",
+        "              <svg viewBox=\"0 0 16 16\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M8 12V2.6M4.6 6L8 2.6 11.4 6\"/><path d=\"M2.2 13.4h11.6\"/></svg>",
+        "              上传文件",
+        "            </button>",
+        "            <div class=\"kb-crt-uptip\">支持最多上传5个文件，单个文件不超过10MB</div>",
+        "            <ul class=\"kb-crt-uplist\">",
+        "            <li class=\"giencoder-upload-list-item kb-crt-upitem\">",
+        "              <span class=\"kb-crt-upfile\"><svg viewBox=\"0 0 18 18\" width=\"18\" height=\"18\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M10.2 2.2H5.4a1.6 1.6 0 0 0-1.6 1.6v10.4a1.6 1.6 0 0 0 1.6 1.6h7.2a1.6 1.6 0 0 0 1.6-1.6V6.4z\"/><path d=\"M10.2 2.2v4.2h4.2\"/><path d=\"M6.9 10.6h4.2M6.9 13.2h2.6\"/></svg></span>",
+        "              <span class=\"kb-crt-upinfo\">",
+        "                <span class=\"kb-crt-upname\">业务方原始需求文档</span>",
+        "                <span class=\"kb-crt-upprog\" role=\"progressbar\" aria-valuenow=\"66\" aria-valuemin=\"0\" aria-valuemax=\"100\"><i style=\"width:53%\"></i></span>",
+        "              </span>",
+        "              <button class=\"kb-crt-uprm\" type=\"button\" aria-label=\"移除\"><svg viewBox=\"0 0 14 14\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.3\" stroke-linecap=\"round\"><path d=\"M3.2 3.2l7.6 7.6M10.8 3.2l-7.6 7.6\"/></svg></button>",
+        "            </li>",
+        "            <li class=\"giencoder-upload-list-item kb-crt-upitem\">",
+        "              <span class=\"kb-crt-upfile\"><svg viewBox=\"0 0 18 18\" width=\"18\" height=\"18\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M10.2 2.2H5.4a1.6 1.6 0 0 0-1.6 1.6v10.4a1.6 1.6 0 0 0 1.6 1.6h7.2a1.6 1.6 0 0 0 1.6-1.6V6.4z\"/><path d=\"M10.2 2.2v4.2h4.2\"/><path d=\"M6.9 10.6h4.2M6.9 13.2h2.6\"/></svg></span>",
+        "              <span class=\"kb-crt-upinfo\">",
+        "                <span class=\"kb-crt-upname\">结构化的 PRD 产品需求文档</span>",
+        "                <span class=\"kb-crt-upmeta\">DOCX<span class=\"kb-crt-updot\"></span>256KB</span>",
+        "              </span>",
+        "              <button class=\"kb-crt-uprm\" type=\"button\" aria-label=\"移除\"><svg viewBox=\"0 0 14 14\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.3\" stroke-linecap=\"round\"><path d=\"M3.2 3.2l7.6 7.6M10.8 3.2l-7.6 7.6\"/></svg></button>",
+        "            </li>",
+        "            <li class=\"giencoder-upload-list-item kb-crt-upitem\">",
+        "              <span class=\"kb-crt-upfile\"><svg viewBox=\"0 0 18 18\" width=\"18\" height=\"18\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M10.2 2.2H5.4a1.6 1.6 0 0 0-1.6 1.6v10.4a1.6 1.6 0 0 0 1.6 1.6h7.2a1.6 1.6 0 0 0 1.6-1.6V6.4z\"/><path d=\"M10.2 2.2v4.2h4.2\"/><path d=\"M6.9 10.6h4.2M6.9 13.2h2.6\"/></svg></span>",
+        "              <span class=\"kb-crt-upinfo\">",
+        "                <span class=\"kb-crt-upname\">结构化的 PRD 产品需求文档</span>",
+        "                <span class=\"kb-crt-upmeta\">DOCX<span class=\"kb-crt-updot\"></span>256KB</span>",
+        "              </span>",
+        "              <button class=\"kb-crt-uprm\" type=\"button\" aria-label=\"移除\"><svg viewBox=\"0 0 14 14\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.3\" stroke-linecap=\"round\"><path d=\"M3.2 3.2l7.6 7.6M10.8 3.2l-7.6 7.6\"/></svg></button>",
+        "            </li>",
+        "            </ul>",
+        "          </div>",
+        "        </div>",
+        "      </div>",
+        "      <aside class=\"kb-crt-aside\" aria-label=\"任务属性\">",
+        "        <div class=\"kb-crt-aside-head\">任务属性</div>",
+        "        <div class=\"kb-crt-aside-body\">",
+        "          <div class=\"kb-crt-row\"><span class=\"kb-crt-lbl\">状态</span><div class=\"giencoder-select kb-crt-fld kb-crt-ph\"><div class=\"giencoder-select-view\" tabindex=\"0\" role=\"combobox\" aria-expanded=\"false\" aria-haspopup=\"listbox\"><span class=\"giencoder-select-view-text\" data-placeholder=\"请选择\">请选择</span><span class=\"giencoder-select-suffix\"><svg class=\"giencoder-select-arrow\" viewBox=\"0 0 12 12\" width=\"12\" height=\"12\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\"><path d=\"M2 4l4 4 4-4\"/></svg><button class=\"giencoder-select-clear\" type=\"button\" aria-label=\"清除选择\"><svg viewBox=\"0 0 12 12\" width=\"12\" height=\"12\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\"><path d=\"M3 3l6 6M9 3l-6 6\"/></svg></button></span></div><div class=\"giencoder-select-popup\" style=\"display:none;\"><ul class=\"giencoder-select-option-list\" role=\"listbox\"><li class=\"giencoder-select-option\" role=\"option\" aria-selected=\"false\">待开始</li><li class=\"giencoder-select-option\" role=\"option\" aria-selected=\"false\">进行中</li><li class=\"giencoder-select-option\" role=\"option\" aria-selected=\"false\">已终止</li><li class=\"giencoder-select-option\" role=\"option\" aria-selected=\"false\">已完成</li></ul></div></div></div><div class=\"kb-crt-row\"><span class=\"kb-crt-lbl\">优先级</span><div class=\"giencoder-select kb-crt-fld kb-crt-ph\"><div class=\"giencoder-select-view\" tabindex=\"0\" role=\"combobox\" aria-expanded=\"false\" aria-haspopup=\"listbox\"><span class=\"giencoder-select-view-text\" data-placeholder=\"请选择\">请选择</span><span class=\"giencoder-select-suffix\"><svg class=\"giencoder-select-arrow\" viewBox=\"0 0 12 12\" width=\"12\" height=\"12\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\"><path d=\"M2 4l4 4 4-4\"/></svg><button class=\"giencoder-select-clear\" type=\"button\" aria-label=\"清除选择\"><svg viewBox=\"0 0 12 12\" width=\"12\" height=\"12\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\"><path d=\"M3 3l6 6M9 3l-6 6\"/></svg></button></span></div><div class=\"giencoder-select-popup\" style=\"display:none;\"><ul class=\"giencoder-select-option-list\" role=\"listbox\"><li class=\"giencoder-select-option\" role=\"option\" aria-selected=\"false\">高</li><li class=\"giencoder-select-option\" role=\"option\" aria-selected=\"false\">中</li><li class=\"giencoder-select-option\" role=\"option\" aria-selected=\"false\">低</li></ul></div></div></div><div class=\"kb-crt-row\"><span class=\"kb-crt-lbl\">关联需求</span><div class=\"giencoder-select kb-crt-fld kb-crt-ph\"><div class=\"giencoder-select-view\" tabindex=\"0\" role=\"combobox\" aria-expanded=\"false\" aria-haspopup=\"listbox\"><span class=\"giencoder-select-view-text\" data-placeholder=\"请选择\">请选择</span><span class=\"giencoder-select-suffix\"><svg class=\"giencoder-select-arrow\" viewBox=\"0 0 12 12\" width=\"12\" height=\"12\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\"><path d=\"M2 4l4 4 4-4\"/></svg><button class=\"giencoder-select-clear\" type=\"button\" aria-label=\"清除选择\"><svg viewBox=\"0 0 12 12\" width=\"12\" height=\"12\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\"><path d=\"M3 3l6 6M9 3l-6 6\"/></svg></button></span></div><div class=\"giencoder-select-popup\" style=\"display:none;\"><ul class=\"giencoder-select-option-list\" role=\"listbox\"><li class=\"giencoder-select-option\" role=\"option\" aria-selected=\"false\">端到端流程初始化：用户输入业务需求…</li><li class=\"giencoder-select-option\" role=\"option\" aria-selected=\"false\">读取业务方原始需求文档</li><li class=\"giencoder-select-option\" role=\"option\" aria-selected=\"false\">生成结构化的 PRD 产品需求文档</li></ul></div></div></div><div class=\"kb-crt-row\"><span class=\"kb-crt-lbl\">前置任务</span><div class=\"giencoder-select kb-crt-fld giencoder-select-disabled\"><div class=\"giencoder-select-view\" role=\"combobox\" aria-expanded=\"false\" aria-haspopup=\"listbox\" aria-disabled=\"true\"><span class=\"giencoder-select-view-text\">-</span></div></div></div><div class=\"kb-crt-row\"><span class=\"kb-crt-lbl\">责任人</span><div class=\"giencoder-select kb-crt-fld kb-crt-ph\"><div class=\"giencoder-select-view\" tabindex=\"0\" role=\"combobox\" aria-expanded=\"false\" aria-haspopup=\"listbox\"><span class=\"giencoder-select-view-text\" data-placeholder=\"请选择\">请选择</span><span class=\"giencoder-select-suffix\"><svg class=\"giencoder-select-arrow\" viewBox=\"0 0 12 12\" width=\"12\" height=\"12\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\"><path d=\"M2 4l4 4 4-4\"/></svg><button class=\"giencoder-select-clear\" type=\"button\" aria-label=\"清除选择\"><svg viewBox=\"0 0 12 12\" width=\"12\" height=\"12\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\"><path d=\"M3 3l6 6M9 3l-6 6\"/></svg></button></span></div><div class=\"giencoder-select-popup\" style=\"display:none;\"><ul class=\"giencoder-select-option-list\" role=\"listbox\"><li class=\"giencoder-select-option\" role=\"option\" aria-selected=\"false\">邵禹铭</li><li class=\"giencoder-select-option\" role=\"option\" aria-selected=\"false\">张一鸣</li><li class=\"giencoder-select-option\" role=\"option\" aria-selected=\"false\">李明轩</li><li class=\"giencoder-select-option\" role=\"option\" aria-selected=\"false\">王思远</li></ul></div></div></div><div class=\"kb-crt-row\"><span class=\"kb-crt-lbl\">预期完成</span>",
+        "            <div class=\"giencoder-date-picker kb-crt-fld kb-crt-date\" data-component=\"date-picker\" data-variant=\"default\" data-state=\"default\">",
+        "              <div class=\"giencoder-input-wrapper\" role=\"combobox\" aria-expanded=\"false\" tabindex=\"0\">",
+        "                <input class=\"giencoder-input kb-crt-date-input\" placeholder=\"选择日期\" readonly aria-label=\"预期完成\">",
+        "                <span class=\"giencoder-input-suffix\"><svg viewBox=\"0 0 14 14\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\"><rect x=\"1.8\" y=\"2.6\" width=\"10.4\" height=\"9.6\" rx=\"1.6\"/><path d=\"M1.8 5.6h10.4M4.8 1.4v2.4M9.2 1.4v2.4\" stroke-linecap=\"round\"/></svg></span>",
+        "              </div>",
+        "              <div class=\"giencoder-date-picker-popup\" style=\"display:none;\">",
+        "                <div class=\"giencoder-date-picker-panels\"><div class=\"giencoder-calendar\"><div class=\"giencoder-calendar-header\"><button class=\"giencoder-calendar-nav\" type=\"button\" aria-label=\"上个月\"><svg viewBox=\"0 0 12 12\" width=\"12\" height=\"12\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\"><path d=\"M7.5 2l-4 4 4 4\"/></svg></button><span class=\"giencoder-calendar-title\">2026年8月</span><button class=\"giencoder-calendar-nav\" type=\"button\" aria-label=\"下个月\"><svg viewBox=\"0 0 12 12\" width=\"12\" height=\"12\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\"><path d=\"M4.5 2l4 4-4 4\"/></svg></button></div><div class=\"giencoder-calendar-weekdays\"><span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span></div><div class=\"giencoder-calendar-grid\"><span class=\"giencoder-calendar-cell giencoder-calendar-cell-other\">26</span><span class=\"giencoder-calendar-cell giencoder-calendar-cell-other\">27</span><span class=\"giencoder-calendar-cell giencoder-calendar-cell-other\">28</span><span class=\"giencoder-calendar-cell giencoder-calendar-cell-other\">29</span><span class=\"giencoder-calendar-cell giencoder-calendar-cell-other\">30</span><span class=\"giencoder-calendar-cell giencoder-calendar-cell-other\">31</span><span class=\"giencoder-calendar-cell\">1</span><span class=\"giencoder-calendar-cell\">2</span><span class=\"giencoder-calendar-cell\">3</span><span class=\"giencoder-calendar-cell\">4</span><span class=\"giencoder-calendar-cell\">5</span><span class=\"giencoder-calendar-cell\">6</span><span class=\"giencoder-calendar-cell\">7</span><span class=\"giencoder-calendar-cell\">8</span><span class=\"giencoder-calendar-cell\">9</span><span class=\"giencoder-calendar-cell\">10</span><span class=\"giencoder-calendar-cell\">11</span><span class=\"giencoder-calendar-cell\">12</span><span class=\"giencoder-calendar-cell\">13</span><span class=\"giencoder-calendar-cell\">14</span><span class=\"giencoder-calendar-cell\">15</span><span class=\"giencoder-calendar-cell\">16</span><span class=\"giencoder-calendar-cell\">17</span><span class=\"giencoder-calendar-cell\">18</span><span class=\"giencoder-calendar-cell\">19</span><span class=\"giencoder-calendar-cell\">20</span><span class=\"giencoder-calendar-cell\">21</span><span class=\"giencoder-calendar-cell\">22</span><span class=\"giencoder-calendar-cell\">23</span><span class=\"giencoder-calendar-cell\">24</span><span class=\"giencoder-calendar-cell\">25</span><span class=\"giencoder-calendar-cell\">26</span><span class=\"giencoder-calendar-cell\">27</span><span class=\"giencoder-calendar-cell\">28</span><span class=\"giencoder-calendar-cell\">29</span><span class=\"giencoder-calendar-cell\">30</span><span class=\"giencoder-calendar-cell\">31</span><span class=\"giencoder-calendar-cell giencoder-calendar-cell-other\">1</span><span class=\"giencoder-calendar-cell giencoder-calendar-cell-other\">2</span><span class=\"giencoder-calendar-cell giencoder-calendar-cell-other\">3</span><span class=\"giencoder-calendar-cell giencoder-calendar-cell-other\">4</span><span class=\"giencoder-calendar-cell giencoder-calendar-cell-other\">5</span></div></div></div>",
+        "              </div>",
+        "            </div>",
+        "          </div>",
+        "        </div>",
+        "      </aside>",
+        "    </div>",
+        "    <div class=\"giencoder-modal-footer kb-crt-foot\">",
+        "      <button class=\"giencoder-btn giencoder-btn-secondary giencoder-btn-size-default kb-crt-btn\" type=\"button\" data-crt-close=\"1\">取消</button>",
+        "      <button class=\"giencoder-btn giencoder-btn-secondary giencoder-btn-size-default kb-crt-btn\" type=\"button\" data-crt-keep=\"1\">保存并继续创建</button>",
+        "      <button class=\"giencoder-btn giencoder-btn-primary giencoder-btn-size-default kb-crt-btn\" type=\"button\" data-crt-submit=\"1\">创建任务</button>",
+        "    </div>",
+        "    <div class=\"kb-crt-msgs\" hidden>",
+        "      <div class=\"giencoder-message\" data-component=\"message\" data-variant=\"error\" data-state=\"default\" role=\"status\" data-err=\"type\" hidden>",
+        "        <span class=\"giencoder-message-icon\"><svg viewBox=\"0 0 16 16\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\"><circle cx=\"8\" cy=\"8\" r=\"6.5\"/><path d=\"M5.6 5.6l4.8 4.8M10.4 5.6l-4.8 4.8\"/></svg></span>",
+        "        <span class=\"giencoder-message-content\">「任务类型」不能为空</span>",
+        "      </div>",
+        "      <div class=\"giencoder-message\" data-component=\"message\" data-variant=\"error\" data-state=\"default\" role=\"status\" data-err=\"title\" hidden>",
+        "        <span class=\"giencoder-message-icon\"><svg viewBox=\"0 0 16 16\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\"><circle cx=\"8\" cy=\"8\" r=\"6.5\"/><path d=\"M5.6 5.6l4.8 4.8M10.4 5.6l-4.8 4.8\"/></svg></span>",
+        "        <span class=\"giencoder-message-content\">「任务标题」不能为空</span>",
+        "      </div>",
+        "    </div>",
+        "  </div>",
+        "</div>",
         "</div>"
 ].join('\n');
 
@@ -1169,6 +1281,339 @@
     document.addEventListener('td:close-coop', close);
   }
 
+  /* ---------- 顶栏「编辑」→ 任务编辑弹窗（★ 第 33 轮第 4 项） ----------
+     与看板「创建任务」弹窗是**同一个弹窗**：DOM + CSS 在构建期从 pages/kanban.html 原样抽取
+     （见文件末尾「KANBAN_CRT 抽取」段），Select / DatePicker 交互也直接复用看板的
+     bindComponents（构建期从看板抽取，见下一行的占位替换）。
+     本函数只负责「编辑态」的三件事：
+       ① 文案切换：标题「编辑工作任务」/ 主按钮「保存」/ 隐藏「保存并继续创建」
+       ② 打开时用当前任务数据预填（任务类型 / 标题 / 描述 / 6 个属性字段 / 预期完成）
+       ③ 开合与关闭途径：取消 / 右上 X / 点遮罩 / Esc / 保存（必填校验走 DS Message） */
+  function bindComponents(root) {
+    function $(s, r) { return (r || document).querySelector(s); }
+    function $$(s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
+    function pad2(n) { return (n < 10 ? '0' : '') + n; }
+    /* 浮窗互斥：打开一个下拉前，收起页面内其他下拉浮窗 */
+    function closeOtherPopups(except) {
+      $$('.giencoder-select-popup').forEach(function (p) {
+        if (p === except) return;
+        p.classList.remove('giencoder-popup-open'); p.style.display = 'none';
+      });
+      $$('.giencoder-date-picker-popup').forEach(function (p) {
+        if (p === except) return;
+        p.classList.remove('giencoder-panel-open'); p.style.display = 'none';
+      });
+    }
+
+    /* ---- Select：展开/收起、选项互斥、清除、外部点击收起 ---- */
+    $$('.giencoder-select', root).forEach(function (sel) {
+      if (sel.classList.contains('giencoder-select-disabled') || sel._bound) return;
+      var view = $('.giencoder-select-view', sel);
+      var popup = $('.giencoder-select-popup', sel);
+      /* r13: 先确认结构完整再打 _bound —— 否则缺浮层的选择器被永久标记为已绑定，后续补上浮层也不会再绑 */
+      if (!view || !popup) return;
+      sel._bound = true;
+      var options = $$('.giencoder-select-option', popup);
+      var textEl = $('.giencoder-select-view-text', view);
+      var clearBtn = $('.giencoder-select-clear', sel);
+      var placeholder = textEl ? (textEl.getAttribute('data-placeholder') || '') : '';
+
+      function open() {
+        closeOtherPopups(popup);
+        popup.style.display = '';
+        requestAnimationFrame(function () { if (popup.isConnected) popup.classList.add('giencoder-popup-open'); });
+        view.setAttribute('aria-expanded', 'true');
+      }
+      function close() {
+        popup.classList.remove('giencoder-popup-open');
+        setTimeout(function () {
+          if (popup.isConnected && !popup.classList.contains('giencoder-popup-open')) popup.style.display = 'none';
+        }, 200);
+        view.setAttribute('aria-expanded', 'false');
+      }
+      function isOpen() { return popup.classList.contains('giencoder-popup-open'); }
+
+      view.addEventListener('click', function (ev) { ev.stopPropagation(); isOpen() ? close() : open(); });
+      view.addEventListener('keydown', function (ev) {
+        if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); isOpen() ? close() : open(); }
+        if (ev.key === 'Escape') close();
+      });
+      options.forEach(function (opt) {
+        opt.addEventListener('click', function (ev) {
+          ev.stopPropagation();
+          if (opt.classList.contains('giencoder-select-option-disabled')) return;
+          options.forEach(function (o) { o.classList.remove('giencoder-select-option-selected'); o.setAttribute('aria-selected', 'false'); });
+          opt.classList.add('giencoder-select-option-selected');
+          opt.setAttribute('aria-selected', 'true');
+          if (textEl) textEl.textContent = opt.textContent;
+          sel.classList.add('giencoder-select-has-value');
+          close();
+        });
+      });
+      if (clearBtn) {
+        clearBtn.addEventListener('click', function (ev) {
+          ev.stopPropagation();
+          options.forEach(function (o) { o.classList.remove('giencoder-select-option-selected'); o.setAttribute('aria-selected', 'false'); });
+          if (textEl) textEl.textContent = placeholder;
+          sel.classList.remove('giencoder-select-has-value');
+          close();
+        });
+      }
+    });
+
+    /* ---- DatePicker(range)：展开/收起、范围两击选择、月份导航、外部收起 ---- */
+    $$('.giencoder-date-picker', root).forEach(function (picker) {
+      if (picker._bound) return;
+      var trigger = $('.giencoder-input-wrapper', picker);
+      var popup = $('.giencoder-date-picker-popup', picker);
+      var input = trigger ? $('.giencoder-input', trigger) : null;
+      /* r13: 同上 */
+      if (!trigger || !popup || !input) return;
+      picker._bound = true;
+
+      var isRange = picker.getAttribute('data-variant') === 'range';
+      var range = { start: null, end: null };
+
+      function setOpen(open) {
+        trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+        if (open) {
+          closeOtherPopups(popup);
+          popup.style.display = 'block';
+          requestAnimationFrame(function () { if (popup.isConnected) popup.classList.add('giencoder-panel-open'); });
+        } else {
+          popup.classList.remove('giencoder-panel-open');
+          setTimeout(function () {
+            if (popup.isConnected && !popup.classList.contains('giencoder-panel-open')) popup.style.display = 'none';
+          }, 200);
+        }
+      }
+      trigger.addEventListener('click', function (ev) {
+        ev.stopPropagation();
+        setOpen(!popup.classList.contains('giencoder-panel-open'));
+      });
+      trigger.addEventListener('keydown', function (ev) {
+        if (ev.key === 'Escape') setOpen(false);
+      });
+
+      /* 月份导航：标题加减一月，range 变体第二面板联动 +1 月 */
+      $$('.giencoder-calendar-nav', picker).forEach(function (nav) {
+        nav.addEventListener('click', function (ev) {
+          ev.stopPropagation();
+          var back = nav.getAttribute('aria-label') === '上个月';
+          var delta = back ? -1 : 1;
+          var cals = $$('.giencoder-calendar', picker);
+          cals.forEach(function (cal, idx) {
+            var title = $('.giencoder-calendar-title', cal);
+            if (!title) return;
+            var m = title.textContent.match(/(\d{4})年(\d{1,2})月/);
+            if (!m) return;
+            var y = +m[1], mo = +m[2] + delta * (isRange && idx === 1 ? 1 : 1);
+            if (isRange) { /* 双面板保持相差一个月：统一按左面板推进 */ }
+            if (mo < 1) { mo = 12; y -= 1; }
+            if (mo > 12) { mo = 1; y += 1; }
+            title.textContent = y + '年' + mo + '月';
+          });
+          if (isRange && cals.length > 1) {
+            /* 右面板 = 左面板 + 1 月 */
+            var lt = $('.giencoder-calendar-title', cals[0]).textContent.match(/(\d{4})年(\d{1,2})月/);
+            var y = +lt[1], mo = +lt[2] + 1;
+            if (mo > 12) { mo = 1; y += 1; }
+            $('.giencoder-calendar-title', cals[1]).textContent = y + '年' + mo + '月';
+          }
+        });
+      });
+
+      /* 日期格点击：range 两击起止 / single 互斥选中；跨月与空格忽略 */
+      $$('.giencoder-calendar-cell', picker).forEach(function (cell) {
+        if (cell.classList.contains('giencoder-calendar-cell-empty')) return;
+        cell.addEventListener('click', function (ev) {
+          ev.stopPropagation();
+          if (cell.classList.contains('giencoder-calendar-cell-other')) return;
+          var day = parseInt(cell.textContent, 10);
+          if (isNaN(day)) return;
+          var cal = cell.closest('.giencoder-calendar');
+          var title = cal ? $('.giencoder-calendar-title', cal) : null;
+          var m = title ? title.textContent.match(/(\d{4})年(\d{1,2})月/) : null;
+          var date = (m ? +m[1] : 2026) + '/' + pad2(m ? +m[2] : 8) + '/' + pad2(day);
+
+          if (isRange) {
+            if (!range.start || (range.start && range.end)) { range.start = date; range.end = null; }
+            else { range.end = date; }
+            input.value = range.end ? range.start + ' - ' + range.end : range.start;
+            if (range.start && range.end) setOpen(false);
+            return;
+          }
+          $$('.giencoder-calendar-cell', picker).forEach(function (c) { c.classList.remove('giencoder-calendar-cell-selected'); });
+          cell.classList.add('giencoder-calendar-cell-selected');
+          input.value = date;
+          setOpen(false);
+        });
+      });
+    });
+  }
+  function bindEditTask() {
+    var modal = document.querySelector('.kb-crt');
+    var trigger = document.querySelector('[data-td-edit]');
+    if (!modal || !trigger || trigger.hasAttribute('data-td-edit-bound')) return;
+    trigger.setAttribute('data-td-edit-bound', '1');
+
+    /* .kb-crt 是 position:absolute; inset:0 —— 绝对定位基准必须是 main（与看板同理，
+       挂在 .td-root 里会被左栏宽度限制） */
+    var host = document.querySelector('main');
+    if (host) {
+      host.classList.add('td-main-rel');
+      if (modal.parentElement !== host) host.appendChild(modal);
+    }
+    bindComponents(modal);
+
+    var dialog = modal.querySelector('.kb-crt-dialog');
+    var titleInput = modal.querySelector('.kb-crt-title .giencoder-input');
+    var textarea = modal.querySelector('.kb-crt-textarea');
+    var dateInput = modal.querySelector('.kb-crt-date-input');
+    var msgs = modal.querySelector('.kb-crt-msgs');
+    var typeSel = modal.querySelector('.kb-crt-type');
+    var closeTimer = null;
+
+    /* ---- 编辑态数据（取自当前任务详情：标题 / 状态 / 执行人 / 优先级 / 来源需求等） ---- */
+    var EDIT = {
+      fields: {
+        '任务类型': '拆分需求项',
+        '状态': '进行中',
+        '优先级': '高',
+        '关联需求': '端到端流程初始化：用户输入业务需求…',
+        '前置任务': '端到端流程初始化',
+        '责任人': '邵禹铭'
+      },
+      title: '端到端流程初始化：用户输入业务流并触发全链路交付',
+      desc: '作为研发负责人，我需要把「业务方原始需求 → 需求条目 → 任务交付」这条链路一次性初始化，'
+          + '以便后续任务可以按状态流转自动推进。\n\n'
+          + '第一步：梳理端到端交付链路\n'
+          + '第二步：定义状态流转规则（启动整个流程）\n'
+          + '第三步：设定交付物标准',
+      date: '2026/08/20'
+    };
+
+    function resetPopups() {
+      modal.querySelectorAll('.giencoder-select-popup, .giencoder-date-picker-popup').forEach(function (p) {
+        p.classList.remove('giencoder-popup-open', 'giencoder-panel-open');
+        p.style.display = 'none';
+      });
+    }
+    function setErr(name, on) {
+      if (msgs) {
+        var m = msgs.querySelector('[data-err="' + name + '"]');
+        if (m) m.hidden = !on;
+        msgs.hidden = !msgs.querySelector('.giencoder-message:not([hidden])');
+      }
+      if (name === 'type' && typeSel) typeSel.classList.toggle('kb-crt-err', on);
+      if (name === 'title' && titleInput) titleInput.parentElement.classList.toggle('giencoder-input-error', on);
+    }
+    function clearErrs() { setErr('type', false); setErr('title', false); }
+
+    /* 行标签：.kb-crt-row > .kb-crt-lbl（属性行）/ .kb-crt-type > .kb-crt-type-lbl（任务类型，带 *） */
+    function rowLabel(row) {
+      var el = row.querySelector('.kb-crt-lbl, .kb-crt-type-lbl');
+      return el ? el.textContent.replace(/\*/g, '').replace(/\s+/g, '') : '';
+    }
+    /* 预填一个 DS Select：视图文案 + has-value 类 + 命中项勾选（选项表里没有时也写视图） */
+    function fillSelect(row, value) {
+      var txt = row.querySelector('.giencoder-select-view-text');
+      var opts = row.querySelectorAll('.giencoder-select-option');
+      var hit = null;
+      for (var j = 0; j < opts.length; j++) {
+        if (opts[j].textContent.trim() === value) { hit = opts[j]; break; }
+      }
+      if (txt) txt.textContent = value;
+      row.classList.add('giencoder-select-has-value');
+      if (hit) {
+        for (var k = 0; k < opts.length; k++) {
+          opts[k].classList.remove('giencoder-select-option-selected');
+          opts[k].setAttribute('aria-selected', 'false');
+        }
+        hit.classList.add('giencoder-select-option-selected');
+        hit.setAttribute('aria-selected', 'true');
+      }
+    }
+    function fillForm() {
+      var wanted = EDIT.fields;
+      Array.prototype.forEach.call(modal.querySelectorAll('.kb-crt-row, .kb-crt-type'), function (row) {
+        var lbl = rowLabel(row);
+        if (wanted.hasOwnProperty(lbl)) fillSelect(row, wanted[lbl]);
+      });
+      if (titleInput) titleInput.value = EDIT.title;
+      if (textarea) textarea.value = EDIT.desc;
+      if (dateInput) dateInput.value = EDIT.date;
+      /* 日历里点亮预填日期那一格（单面板，标题 2026年8月；跨月空格跳过） */
+      var day = String(+EDIT.date.split('/')[2]);
+      Array.prototype.forEach.call(modal.querySelectorAll('.giencoder-calendar-cell'), function (c) {
+        if (c.classList.contains('giencoder-calendar-cell-selected')) c.classList.remove('giencoder-calendar-cell-selected');
+        if (!c.classList.contains('giencoder-calendar-cell-other') && c.textContent.trim() === day) {
+          c.classList.add('giencoder-calendar-cell-selected');
+        }
+      });
+    }
+    /* 与创建弹窗共用同一 DOM，编辑态只改三处文本 + 收起「保存并继续创建」 */
+    function applyEditTexts() {
+      var t = modal.querySelector('.giencoder-modal-header .giencoder-modal-title');
+      if (t) t.textContent = '编辑工作任务';
+      if (dialog) dialog.setAttribute('aria-label', '编辑工作任务');
+      var sb = modal.querySelector('[data-crt-submit]');
+      if (sb) sb.textContent = '保存';
+      modal.classList.add('is-edit');
+    }
+
+    function flag(on) { document.documentElement.toggleAttribute('data-td-edit-open', on); }
+    function open() {
+      if (closeTimer) { clearTimeout(closeTimer); closeTimer = null; }
+      resetPopups(); clearErrs(); applyEditTexts(); fillForm();
+      modal.hidden = false;
+      trigger.setAttribute('aria-expanded', 'true');
+      flag(true);
+      void modal.offsetWidth;   /* 先落定初始样式，再加 is-open 才有过渡 */
+      modal.classList.add('is-open');
+      if (dialog) dialog.focus({ preventScroll: true });
+    }
+    function close() {
+      if (modal.hidden) return;
+      resetPopups();
+      modal.classList.remove('is-open');
+      trigger.setAttribute('aria-expanded', 'false');
+      flag(false);
+      if (closeTimer) clearTimeout(closeTimer);
+      /* 等 200ms 过渡走完再 hidden，否则面板瞬间消失、没有收起动画 */
+      closeTimer = setTimeout(function () { closeTimer = null; modal.hidden = true; }, 200);
+    }
+    /* 保存：必填校验（任务类型 / 任务标题）→ DS Message（结构同看板创建弹窗） */
+    function submit() {
+      var okType = !!(typeSel && typeSel.classList.contains('giencoder-select-has-value'));
+      var okTitle = !!(titleInput && titleInput.value.trim());
+      setErr('type', !okType);
+      setErr('title', !okTitle);
+      if (!okType || !okTitle) return;
+      close();
+      tdToast('任务已保存');
+    }
+
+    trigger.addEventListener('click', function () { if (modal.hidden) open(); else close(); });
+    modal.addEventListener('click', function (e) {
+      var t = e.target;
+      if (t && t.closest && t.closest('[data-crt-close]')) { close(); return; }
+      if (t && t.closest && t.closest('.giencoder-select-option')) setErr('type', false);
+    });
+    var sb = modal.querySelector('[data-crt-submit]');
+    if (sb) sb.addEventListener('click', submit);
+    if (titleInput) {
+      titleInput.addEventListener('input', function () {
+        if (titleInput.value.trim()) setErr('title', false);
+      });
+    }
+    /* 焦点在弹窗内（含标题输入框）时按 Esc：页尾 Esc 链对 INPUT 直接 return，这里自行处理 */
+    modal.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') { e.stopPropagation(); close(); }
+    });
+    document.addEventListener('td:close-edit', close);
+  }
+
   function inject() {
     var main = document.querySelector('main');
     if (!main || main.querySelector('.td-root')) return false;
@@ -1180,6 +1625,7 @@
     bindDescImagePreview(wrap);
     bindDispatchPicker();
     bindCoop();
+    bindEditTask();
     return true;
   }
   /* 注意：两个动作都要执行，不能短路（页签在 React 挂载后才出现，可能晚于注入）。

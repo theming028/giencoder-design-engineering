@@ -17,15 +17,22 @@ DST = "pages/task-detail.html"
 
 s = io.open(SRC, encoding="utf-8").read()
 
-# ---- 骨架切分（偏移来自实测） ----
-HEAD_END = s.find("</head>")                 # 327967
-CSS_START = 335412                            # 页面 CSS <style>
-JS_START = 381834                             # 页面 JS <script>
-BODY_TAIL = 516461                            # 主题同步 script 起
+# ---- 骨架切分 ----
+# ⚠️ 第 33 轮修复：原来 CSS_START / BODY_TAIL 是**写死的字符偏移**（335412 / 516461）。
+#    看板页一改（本轮给 kanban.html 补 --color-warning-1..10，+618 字符），偏移即失准，
+#    `mid` 会在 SKILL_DATA 的 `</script>` 之前收尾 → 该 </script> 被切掉，
+#    整页 <script>/</script> 错位（check-syntax.py 报 HAS_FAIL，且页面结构被破坏）。
+#    现在全部改为「按锚点取」，kanban.html 随意增删都不会再漂。
+HEAD_END = s.find("</head>")                      # </head> 起点
+_SKILL = s.find("var SKILL_DATA")
+assert _SKILL > 0, "看板里找不到 SKILL_DATA 段"
+CSS_START = s.find("</script>", _SKILL) + len("</script>")   # SKILL_DATA 的 </script> 之后
+assert CSS_START > _SKILL, "SKILL_DATA 的 </script> 未找到"
 
 head = s[:HEAD_END]
-mid = s[HEAD_END:CSS_START]                   # </head><body> + SKILL_DATA
-tail_from = s[BODY_TAIL:]                     # 主题同步 + 看板切换 + </body></html>
+mid = s[HEAD_END:CSS_START]                       # </head><body> + SKILL_DATA（含 </script>）
+assert "var SKILL_DATA" in mid, "mid 段丢了 SKILL_DATA"
+assert mid.rstrip().endswith("</script>"), "mid 段未在 SKILL_DATA 的 </script> 处收尾"
 
 head = head.replace("<title>任务看板 · 研发工作台</title>",
                     "<title>任务详情 · 研发工作台</title>", 1)
@@ -790,12 +797,18 @@ __DS_PICKER_TOKENS__
       }
       /* DS Steps 的连接线伪元素在本形态下不需要（两段自成一体）→ 整段压掉 */
       .td-coop .giencoder-steps-item::after { content: none !important; }
+      /* ---- 两段衔接：**向右的箭头**（第 33 轮第 2 项） ----
+         设计稿逐像素实测（面板 steps 容器左缘 x=84 / 宽 592）：
+           段1 平边止于 x289（相对 289），右尖顶点 x296（= 容器半宽）；尖深 7
+           段2 平边起于 x294（相对 294），左凹顶点 x301；凹深 7；尖↔凹 之间留白 5px
+         实现：两段各 50%（296），段1 用「右侧凸尖」clip、段2 用「左侧凹口」clip。
+         ⚠️ 段2 必须是**凹口**（polygon 末点在左边两角之间插入内凹顶点），不能再用
+            对称的「左凸尖」——那样两段会重叠、后者盖前者，视觉变成向左的箭头。 */
       .td-coop .giencoder-steps-item:first-child {
-        margin-right: -6px; z-index: 1;
-        clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 50%, calc(100% - 6px) 100%, 0 100%);
+        clip-path: polygon(0 0, calc(100% - 7px) 0, 100% 50%, calc(100% - 7px) 100%, 0 100%);
       }
       .td-coop .giencoder-steps-item:last-child {
-        clip-path: polygon(6px 0, 100% 0, 100% 100%, 6px 100%, 0 50%);
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 5px 50%);
       }
       .td-coop .giencoder-steps-item.is-active {
         background: var(--td-dp-on-bg); border-color: var(--td-dp-on-line); color: var(--color-primary-6);
@@ -813,14 +826,18 @@ __DS_PICKER_TOKENS__
          写 12 会让内容区整体下移 1px（150 → 151），进而内容区高度掉到 409（应 410） */
       .td-coop-dvd { flex: none; display: flex; align-items: center; gap: 4px; height: 24px; margin: 19px 24px 11px; }
       .td-coop-dvd::before, .td-coop-dvd::after { content: ''; flex: 1 1 0; height: 1px; background: var(--color-border-1); }
-      .td-coop-dvd-tx { flex: none; font-size: 14px; line-height: 20px; color: var(--color-text-3); }
+      /* 说明文字 14px（= --font-size-body-3）。第 33 轮第 3 项：改为 token 驱动，
+         避免被任何全局字号规则覆盖成 12px */
+      .td-coop-dvd-tx { flex: none; font-size: var(--font-size-body-3); line-height: 20px; color: var(--color-text-3); }
       /* ---- 内容区：592×410，1px 边框 + r6 + 内距 15 ----
          内距 15（不是 16）：容器自带 1px 边框，设计稿行卡左缘在面板内 x40，
-         边框占 x24 → 内容从 25，25 + 15 = 40；写 16 会让行卡落到 41、行宽掉到 558（应 560） */
+         边框占 x24 → 内容从 25，25 + 15 = 40；写 16 会让行卡落到 41、行宽掉到 558（应 560）
+         边框色：第 33 轮第 1 项按要求用 border-2（#E5E5E5）——设计稿实测是 border-1（#F2F2F2），
+         此处按需求「加深一级」处理，属**刻意偏离设计稿**。 */
       .td-coop .giencoder-modal-content {
         flex: 1 1 auto; min-height: 0; box-sizing: border-box;
         margin: 0 24px; padding: 15px;
-        border: 1px solid var(--color-border-1); border-radius: var(--td-radius-card);
+        border: 1px solid var(--color-border-2); border-radius: var(--td-radius-card);
         /* 内容区是**纯白**卡片（设计稿实测 #FFFFFF），与面板底 rgba(255,255,255,.95)
            合成出的 #F9F9F9 不同 —— 少了这层白底，内容区会跟着面板变灰（实测 250 → 应 255） */
         background: var(--color-bg-5);
@@ -881,6 +898,21 @@ __DS_PICKER_TOKENS__
            · 全屏遮罩 + 开合动效   giencoder-design-system/gienx-templates/ui-controls.css
          ------------------------------------------------------------------ */
       __DS_IMAGE_CSS__
+
+      /* ------------------------------------------------------------------
+         ★ 第 33 轮第 4 项：顶栏「编辑」→ 任务编辑弹窗
+         与看板「创建任务」弹窗**同一份样式**：构建期从 pages/kanban.html 的
+         「r15-create-modal-css」段原样抽取（看板一改、重跑本脚本即同步）。
+         ⚠️ CSS 注释里禁止出现内嵌的注释定界符（第 33 轮踩过：注释被提前闭合，
+            紧随其后的第一条规则 .kb-crt 被解析器当作该「野规则」的声明块整块吞掉
+            → .kb-crt 实测 position:static、--kb-crt-width 为空、弹窗缩成 712px）。
+         本页只加一条「编辑态」视图适配（隐藏「保存并继续创建」），写在下面。
+         ------------------------------------------------------------------ */
+      __KANBAN_CRT_CSS__
+      /* 编辑弹窗的绝对定位基准：与看板一致，把 .kb-crt 挂到 <main> 下（class 由 bindEditTask 加） */
+      main.td-main-rel { position: relative; }
+      /* 编辑态：与创建弹窗同一个 DOM，仅隐藏「保存并继续创建」 */
+      .kb-crt.is-edit .kb-crt-foot [data-crt-keep] { display: none; }
     </style>"""
 
 # ============================== HTML ==============================
@@ -1060,7 +1092,7 @@ HTML = """<div class="td-root" role="region" aria-label="任务详情">
         <button class="giencoder-btn giencoder-btn-primary giencoder-btn-size-small td-btn" type="button">开始任务</button>
         <span class="giencoder-popover-reference"><button class="giencoder-btn giencoder-btn-secondary giencoder-btn-size-small td-btn" type="button" data-td-dispatch aria-haspopup="dialog" aria-expanded="false">转派</button></span>
         <button class="giencoder-btn giencoder-btn-secondary giencoder-btn-size-small td-btn" type="button" data-td-coop="1" aria-haspopup="dialog" aria-expanded="false">协作</button>
-        <button class="giencoder-btn giencoder-btn-secondary giencoder-btn-size-small td-btn" type="button">编辑</button>
+        <button class="giencoder-btn giencoder-btn-secondary giencoder-btn-size-small td-btn" type="button" data-td-edit="1" aria-haspopup="dialog" aria-expanded="false">编辑</button>
         <button class="giencoder-btn giencoder-btn-secondary giencoder-btn-size-small giencoder-btn-icon td-iconbtn" type="button" aria-label="更多操作">
           <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><circle cx="3.4" cy="8" r="1.3"/><circle cx="8" cy="8" r="1.3"/><circle cx="12.6" cy="8" r="1.3"/></svg>
         </button>
@@ -1329,6 +1361,7 @@ HTML = """<div class="td-root" role="region" aria-label="任务详情">
       </div>
     </div>
   </div>
+  __KANBAN_CRT_HTML__
 </div>"""
 
 repl = {
@@ -2258,6 +2291,178 @@ __LINES__
     document.addEventListener('td:close-coop', close);
   }
 
+  /* ---------- 顶栏「编辑」→ 任务编辑弹窗（★ 第 33 轮第 4 项） ----------
+     与看板「创建任务」弹窗是**同一个弹窗**：DOM + CSS 在构建期从 pages/kanban.html 原样抽取
+     （见文件末尾「KANBAN_CRT 抽取」段），Select / DatePicker 交互也直接复用看板的
+     bindComponents（构建期从看板抽取，见下一行的占位替换）。
+     本函数只负责「编辑态」的三件事：
+       ① 文案切换：标题「编辑工作任务」/ 主按钮「保存」/ 隐藏「保存并继续创建」
+       ② 打开时用当前任务数据预填（任务类型 / 标题 / 描述 / 6 个属性字段 / 预期完成）
+       ③ 开合与关闭途径：取消 / 右上 X / 点遮罩 / Esc / 保存（必填校验走 DS Message） */
+  __KANBAN_BINDCOMPONENTS__
+  function bindEditTask() {
+    var modal = document.querySelector('.kb-crt');
+    var trigger = document.querySelector('[data-td-edit]');
+    if (!modal || !trigger || trigger.hasAttribute('data-td-edit-bound')) return;
+    trigger.setAttribute('data-td-edit-bound', '1');
+
+    /* .kb-crt 是 position:absolute; inset:0 —— 绝对定位基准必须是 main（与看板同理，
+       挂在 .td-root 里会被左栏宽度限制） */
+    var host = document.querySelector('main');
+    if (host) {
+      host.classList.add('td-main-rel');
+      if (modal.parentElement !== host) host.appendChild(modal);
+    }
+    bindComponents(modal);
+
+    var dialog = modal.querySelector('.kb-crt-dialog');
+    var titleInput = modal.querySelector('.kb-crt-title .giencoder-input');
+    var textarea = modal.querySelector('.kb-crt-textarea');
+    var dateInput = modal.querySelector('.kb-crt-date-input');
+    var msgs = modal.querySelector('.kb-crt-msgs');
+    var typeSel = modal.querySelector('.kb-crt-type');
+    var closeTimer = null;
+
+    /* ---- 编辑态数据（取自当前任务详情：标题 / 状态 / 执行人 / 优先级 / 来源需求等） ---- */
+    var EDIT = {
+      fields: {
+        '任务类型': '拆分需求项',
+        '状态': '进行中',
+        '优先级': '高',
+        '关联需求': '端到端流程初始化：用户输入业务需求…',
+        '前置任务': '端到端流程初始化',
+        '责任人': '邵禹铭'
+      },
+      title: '端到端流程初始化：用户输入业务流并触发全链路交付',
+      desc: '作为研发负责人，我需要把「业务方原始需求 → 需求条目 → 任务交付」这条链路一次性初始化，'
+          + '以便后续任务可以按状态流转自动推进。\n\n'
+          + '第一步：梳理端到端交付链路\n'
+          + '第二步：定义状态流转规则（启动整个流程）\n'
+          + '第三步：设定交付物标准',
+      date: '2026/08/20'
+    };
+
+    function resetPopups() {
+      modal.querySelectorAll('.giencoder-select-popup, .giencoder-date-picker-popup').forEach(function (p) {
+        p.classList.remove('giencoder-popup-open', 'giencoder-panel-open');
+        p.style.display = 'none';
+      });
+    }
+    function setErr(name, on) {
+      if (msgs) {
+        var m = msgs.querySelector('[data-err="' + name + '"]');
+        if (m) m.hidden = !on;
+        msgs.hidden = !msgs.querySelector('.giencoder-message:not([hidden])');
+      }
+      if (name === 'type' && typeSel) typeSel.classList.toggle('kb-crt-err', on);
+      if (name === 'title' && titleInput) titleInput.parentElement.classList.toggle('giencoder-input-error', on);
+    }
+    function clearErrs() { setErr('type', false); setErr('title', false); }
+
+    /* 行标签：.kb-crt-row > .kb-crt-lbl（属性行）/ .kb-crt-type > .kb-crt-type-lbl（任务类型，带 *） */
+    function rowLabel(row) {
+      var el = row.querySelector('.kb-crt-lbl, .kb-crt-type-lbl');
+      return el ? el.textContent.replace(/\*/g, '').replace(/\s+/g, '') : '';
+    }
+    /* 预填一个 DS Select：视图文案 + has-value 类 + 命中项勾选（选项表里没有时也写视图） */
+    function fillSelect(row, value) {
+      var txt = row.querySelector('.giencoder-select-view-text');
+      var opts = row.querySelectorAll('.giencoder-select-option');
+      var hit = null;
+      for (var j = 0; j < opts.length; j++) {
+        if (opts[j].textContent.trim() === value) { hit = opts[j]; break; }
+      }
+      if (txt) txt.textContent = value;
+      row.classList.add('giencoder-select-has-value');
+      if (hit) {
+        for (var k = 0; k < opts.length; k++) {
+          opts[k].classList.remove('giencoder-select-option-selected');
+          opts[k].setAttribute('aria-selected', 'false');
+        }
+        hit.classList.add('giencoder-select-option-selected');
+        hit.setAttribute('aria-selected', 'true');
+      }
+    }
+    function fillForm() {
+      var wanted = EDIT.fields;
+      Array.prototype.forEach.call(modal.querySelectorAll('.kb-crt-row, .kb-crt-type'), function (row) {
+        var lbl = rowLabel(row);
+        if (wanted.hasOwnProperty(lbl)) fillSelect(row, wanted[lbl]);
+      });
+      if (titleInput) titleInput.value = EDIT.title;
+      if (textarea) textarea.value = EDIT.desc;
+      if (dateInput) dateInput.value = EDIT.date;
+      /* 日历里点亮预填日期那一格（单面板，标题 2026年8月；跨月空格跳过） */
+      var day = String(+EDIT.date.split('/')[2]);
+      Array.prototype.forEach.call(modal.querySelectorAll('.giencoder-calendar-cell'), function (c) {
+        if (c.classList.contains('giencoder-calendar-cell-selected')) c.classList.remove('giencoder-calendar-cell-selected');
+        if (!c.classList.contains('giencoder-calendar-cell-other') && c.textContent.trim() === day) {
+          c.classList.add('giencoder-calendar-cell-selected');
+        }
+      });
+    }
+    /* 与创建弹窗共用同一 DOM，编辑态只改三处文本 + 收起「保存并继续创建」 */
+    function applyEditTexts() {
+      var t = modal.querySelector('.giencoder-modal-header .giencoder-modal-title');
+      if (t) t.textContent = '编辑工作任务';
+      if (dialog) dialog.setAttribute('aria-label', '编辑工作任务');
+      var sb = modal.querySelector('[data-crt-submit]');
+      if (sb) sb.textContent = '保存';
+      modal.classList.add('is-edit');
+    }
+
+    function flag(on) { document.documentElement.toggleAttribute('data-td-edit-open', on); }
+    function open() {
+      if (closeTimer) { clearTimeout(closeTimer); closeTimer = null; }
+      resetPopups(); clearErrs(); applyEditTexts(); fillForm();
+      modal.hidden = false;
+      trigger.setAttribute('aria-expanded', 'true');
+      flag(true);
+      void modal.offsetWidth;   /* 先落定初始样式，再加 is-open 才有过渡 */
+      modal.classList.add('is-open');
+      if (dialog) dialog.focus({ preventScroll: true });
+    }
+    function close() {
+      if (modal.hidden) return;
+      resetPopups();
+      modal.classList.remove('is-open');
+      trigger.setAttribute('aria-expanded', 'false');
+      flag(false);
+      if (closeTimer) clearTimeout(closeTimer);
+      /* 等 200ms 过渡走完再 hidden，否则面板瞬间消失、没有收起动画 */
+      closeTimer = setTimeout(function () { closeTimer = null; modal.hidden = true; }, 200);
+    }
+    /* 保存：必填校验（任务类型 / 任务标题）→ DS Message（结构同看板创建弹窗） */
+    function submit() {
+      var okType = !!(typeSel && typeSel.classList.contains('giencoder-select-has-value'));
+      var okTitle = !!(titleInput && titleInput.value.trim());
+      setErr('type', !okType);
+      setErr('title', !okTitle);
+      if (!okType || !okTitle) return;
+      close();
+      tdToast('任务已保存');
+    }
+
+    trigger.addEventListener('click', function () { if (modal.hidden) open(); else close(); });
+    modal.addEventListener('click', function (e) {
+      var t = e.target;
+      if (t && t.closest && t.closest('[data-crt-close]')) { close(); return; }
+      if (t && t.closest && t.closest('.giencoder-select-option')) setErr('type', false);
+    });
+    var sb = modal.querySelector('[data-crt-submit]');
+    if (sb) sb.addEventListener('click', submit);
+    if (titleInput) {
+      titleInput.addEventListener('input', function () {
+        if (titleInput.value.trim()) setErr('title', false);
+      });
+    }
+    /* 焦点在弹窗内（含标题输入框）时按 Esc：页尾 Esc 链对 INPUT 直接 return，这里自行处理 */
+    modal.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') { e.stopPropagation(); close(); }
+    });
+    document.addEventListener('td:close-edit', close);
+  }
+
   function inject() {
     var main = document.querySelector('main');
     if (!main || main.querySelector('.td-root')) return false;
@@ -2269,6 +2474,7 @@ __LINES__
     bindDescImagePreview(wrap);
     bindDispatchPicker();
     bindCoop();
+    bindEditTask();
     return true;
   }
   /* 注意：两个动作都要执行，不能短路（页签在 React 挂载后才出现，可能晚于注入）。
@@ -2286,6 +2492,77 @@ __LINES__
   }
 })();
 </script>"""
+
+# ============ ★ 第 33 轮第 4 项：从看板抽取「创建任务」弹窗（CSS / HTML / 组件绑定） ============
+# 详情页顶栏「编辑」打开的弹窗与看板「创建任务」弹窗**同源同貌**，因此不在这里重写一遍副本，
+# 而是在构建期从 pages/kanban.html 原样抽取：
+#   CSS  ← `/* r15-create-modal-css */` 段（.kb-crt 全套 86 条选择器）
+#   HTML ← KB_HTML 字符串数组里 `<!-- r15: 创建任务弹窗` 起的片段（反解 JS 转义）
+#   JS   ← bindComponents()（Select 开合/选中/清除 + DatePicker 日历，通用无看板耦合，实测 0 处 kb-/td- 引用）
+# 看板一改、重跑本脚本即同步；本地只加「编辑态」适配（见 CSS 段 .kb-crt.is-edit 与 bindEditTask）。
+
+
+def kanban_seg(start, end, keep_end=True):
+    """在 kanban.html 源码里抽取 start..end 片段（keep_end=False 时不含 end）。"""
+    i = s.find(start)
+    assert i > 0, "看板里找不到起点 %r" % start
+    j = s.find(end, i + len(start))
+    assert j > 0, "看板里找不到终点 %r" % end
+    return s[i:j + (len(end) if keep_end else 0)]
+
+
+_KANBAN_CRT_CSS = kanban_seg(
+    "      /* r15-create-modal-css */",
+    "      .kb-crt-msgs .giencoder-message-icon "
+    "{ display: inline-flex; flex: none; color: var(--color-danger-6); }")
+KANBAN_CRT_CSS = (
+    "      /* ⚠️ 以下「创建 / 编辑任务」弹窗样式由 build-detail.py 在构建期从 pages/kanban.html 抽取，请勿在此手改。\n"
+    "         源 ← pages/kanban.html 的 r15-create-modal-css 段（与看板创建弹窗同一份，保证两页完全一致）*/\n"
+    + _KANBAN_CRT_CSS
+)
+# 防回归（第 33 轮踩坑）：注释头里若出现内嵌的注释定界符，注释会被提前闭合，
+# 紧随其后的第一条规则（.kb-crt）会被解析器当成「野规则」的声明块整块吞掉。
+_CRT_HDR = KANBAN_CRT_CSS.split(_KANBAN_CRT_CSS)[0]
+assert _CRT_HDR.count("/*") == 1 and _CRT_HDR.count("*/") == 1, (
+    "CSS 注释头不得内嵌注释定界符：%r" % _CRT_HDR)
+assert ".kb-crt-dialog {" in KANBAN_CRT_CSS and KANBAN_CRT_CSS.count(".kb-crt") > 80, "创建弹窗 CSS 抽取异常"
+
+
+def js_string_array_to_html(block):
+    """把 KB_HTML 这种 `["<div ...>", "  <span ...>", ...].join('\\n')` 的字符串数组反解成 HTML"""
+    out = []
+    for ln in block.split("\n"):
+        t = ln.strip()
+        if not t:
+            continue
+        if t.startswith('"'):
+            t = t[1:]
+        if t.endswith('",'):
+            t = t[:-2]
+        elif t.endswith('"'):
+            t = t[:-1]
+        t = t.replace('\\"', '"').replace("\\\\", "\\")
+        out.append(t)
+    return "\n".join(out)
+
+
+KANBAN_CRT_HTML = js_string_array_to_html(
+    kanban_seg('"<!-- r15: 创建任务弹窗', '"].join(', keep_end=False))
+assert '<div class="kb-crt" hidden>' in KANBAN_CRT_HTML, "创建弹窗 HTML 抽取失败"
+assert KANBAN_CRT_HTML.rstrip().endswith("</div>"), "创建弹窗 HTML 结尾异常"
+assert "data-crt-submit" in KANBAN_CRT_HTML and "kb-crt-aside" in KANBAN_CRT_HTML, "创建弹窗 HTML 结构不完整"
+HTML = HTML.replace("  __KANBAN_CRT_HTML__", KANBAN_CRT_HTML)
+assert "__KANBAN_CRT_HTML__" not in HTML, "创建弹窗 HTML 占位符未替换"
+
+_KANBAN_BIND = kanban_seg("  function bindComponents(root) {",
+                          "\n  document.addEventListener('click', function (ev) {",
+                          keep_end=False).rstrip()
+assert _KANBAN_BIND.startswith("  function bindComponents(root)"), "bindComponents 起点异常"
+assert _KANBAN_BIND.endswith("}"), "bindComponents 结尾异常"
+assert "giencoder-calendar-cell" in _KANBAN_BIND, "bindComponents 抽取不完整"
+KANBAN_BINDCOMPONENTS = _KANBAN_BIND
+JS = JS.replace("  __KANBAN_BINDCOMPONENTS__", KANBAN_BINDCOMPONENTS)
+assert "__KANBAN_BINDCOMPONENTS__" not in JS, "bindComponents 占位符未替换"
 
 lines = [l for l in HTML.split("\n")]
 js_lines = ",\n".join('        ' + json.dumps(l, ensure_ascii=False) for l in lines)
@@ -2312,6 +2589,12 @@ TAIL = """<script>
            预览侧监听自定义事件 td:close-image-preview（见 bindDescImagePreview）。 */
         if (document.documentElement.hasAttribute('data-td-img-preview')) {
           document.dispatchEvent(new CustomEvent('td:close-image-preview'));
+          return;
+        }
+        /* ★ 第 33 轮第 4 项：任务编辑弹窗（与看板创建弹窗同一个，层级仅次图片预览）。
+           弹窗侧监听自定义事件 td:close-edit（见 bindEditTask）。 */
+        if (document.documentElement.hasAttribute('data-td-edit-open')) {
+          document.dispatchEvent(new CustomEvent('td:close-edit'));
           return;
         }
         /* ★ 第 32 轮第 5 项：协作模态弹窗次优先（模态层级最高，Esc 只关它）。
@@ -2417,6 +2700,10 @@ DS_IMAGE_CSS = (
 )
 CSS = CSS.replace("__DS_IMAGE_CSS__", DS_IMAGE_CSS)
 assert "__DS_IMAGE_CSS__" not in CSS, "Image 样式占位符未替换"
+
+# ---- ★ 第 33 轮第 4 项：创建/编辑任务弹窗样式（构建期从 pages/kanban.html 原样抽取）----
+CSS = CSS.replace("      __KANBAN_CRT_CSS__", KANBAN_CRT_CSS)
+assert "__KANBAN_CRT_CSS__" not in CSS, "创建弹窗样式占位符未替换"
 
 out = head + mid + CSS + "\n" + JS + "\n" + TAIL
 io.open(DST, "w", encoding="utf-8", newline="").write(out)

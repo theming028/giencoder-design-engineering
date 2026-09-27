@@ -1,0 +1,31 @@
+##################################################
+# 第 32 轮第 5 项：协作分步模态弹窗
+##################################################
+--- 5a. 初始：弹窗未打开 ---
+--- 5b. 点「协作」→ 打开（遮罩 + 面板几何/圆角/投影） ---
+--- 5c. 纵向节奏：header / steps / dvd / content / footer 逐段 ---
+--- 5d. Step1 产物行：pitch / 勾选框 / 文本 ---
+--- 5e. 取消一个产物 → 计数实时更新 ---
+--- 5f. 下一步 → Step2（搜索框 + 成员行 + 底栏按钮切换 + hint 文案） ---
+--- 5g. 搜索过滤（输入「邵」→ 仅 1 行） ---
+--- 5h. 选 2 位协作者 → 计数 ---
+--- 5i. 上一步 → 回 Step1（状态保留 + 底栏按钮回切） ---
+--- 5j. 点步骤条跳转（clickable） ---
+--- 5k. 提交 → 关闭 + DS Message 提示 ---
+--- 5l. 取消按钮关闭 ---
+--- 5m. 右上 X 关闭 ---
+--- 5n. 点遮罩关闭 ---
+--- 5o. Esc 关闭（页尾 Esc 链 → td:close-coop） ---
+--- 5p. 事件 td:close-coop 可外部派发 ---
+--- 5q. 重新打开 = 复位到 Step1（不残留上次选择） ---
+
+================ probe32b.jsonl ================
+23 mg-work/r32/probe32b.jsonl
+-rw-r--r-- 1 Administrator 197121 200043 Sep 27 14:45 31-prod-card-hover.png
+-rw-r--r-- 1 Administrator 197121 182072 Sep 27 14:46 40-left-min480.png
+-rw-r--r-- 1 Administrator 197121 136626 Sep 27 14:46 41-collapsed.png
+-rw-r--r-- 1 Administrator 197121 159489 Sep 27 14:47 50-coop-open.png
+-rw-r--r-- 1 Administrator 197121 168881 Sep 27 14:47 51-coop-step2.png
+-rw-r--r-- 1 Administrator 197121 199998 Sep 27 14:48 52-coop-submit-toast.png
+-rw-r--r-- 1 Administrator 197121 159393 Sep 27 13:54 coop-s1.png
+-rw-r--r-- 1 Administrator 197121 168819 Sep 27 13:54 coop-s2.png

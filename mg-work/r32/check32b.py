@@ -102,10 +102,13 @@ chk("5c", "关闭 X 28×28 @(588,18)（右内距 24）", eqr(d.get("close"), [58
 chk("5c", "★ 步骤条 592×32 @(24,64)", eqr(d.get("steps"), [24, 64, 592, 32]), rel(d.get("steps")), [24, 64, 592, 32])
 chk("5c", "步骤条外边距 18px 24px 0", d.get("stepsMargin") == "18px 24px 0px", d.get("stepsMargin"), "18px 24px 0px")
 chk("5c", "两段（steps-item）", d.get("stepCount") == 2, d.get("stepCount"), 2)
-chk("5c", "★ 两段各 299×32（咬合 6px 后合计 592）", d.get("stepRects") == [[424, 194, 299, 32], [717, 194, 299, 32]], d.get("stepRects"), "各自 299×32")
+chk("5c", "★ 两段各 296×32（首尾相接合计 592，无重叠）", d.get("stepRects") == [[424, 194, 296, 32], [720, 194, 296, 32]], d.get("stepRects"), "各自 296×32")
 chk("5c", "当前段底 #ECF2FF + 1px #D3E2FF，字 primary-6", d.get("step0Bg") == "rgb(236, 242, 255)" and d.get("step0Border") == "rgb(211, 226, 255) / 1px" and d.get("step0Color") == "rgb(55, 112, 247)", [d.get("step0Bg"), d.get("step0Border"), d.get("step0Color")], ["rgb(236, 242, 255)", "rgb(211, 226, 255) / 1px", "rgb(55, 112, 247)"])
 chk("5c", "未开始段底 fill-2 + 字 text-2", d.get("step1Bg") == "rgb(242, 242, 242)" and d.get("step1Color") == "rgb(78, 78, 78)", [d.get("step1Bg"), d.get("step1Color")], ["rgb(242, 242, 242)", "rgb(78, 78, 78)"])
-chk("5c", "★ 咬合尖角：段1 右尖 6px / 段2 左凹 6px（clip-path）", "calc(100% - 6px)" in (d.get("step0After") or "") and "6px 0px" in (d.get("step1Clip") or ""), [d.get("step0After"), d.get("step1Clip")], "6px 咬合")
+chk("5c", "★ 衔接处 = 向右箭头：段1 右凸尖 7px + 段2 左凹口 5px（第33轮第2项改版，原对称咬合 6px 已废弃）",
+    ("calc(100% - 7px) 0px" in (d.get("step0After") or "") and "100% 50%" in (d.get("step0After") or "")
+     and "5px 50%" in (d.get("step1Clip") or "") and "100% 50%" not in (d.get("step1Clip") or "")),
+    [d.get("step0After"), d.get("step1Clip")], "段1 …calc(100% - 7px) 0px, 100% 50%… / 段2 …5px 50%")
 chk("5c", "段1 为当前态（is-active + aria-current=step），无对勾", d.get("step0Active") is True and d.get("step0Current") == "step" and d.get("step0Icon") == "none", [d.get("step0Active"), d.get("step0Current"), d.get("step0Icon")], [True, "step", "none"])
 chk("5c", "段2 未开始（无 is-active / 无对勾）", d.get("step1Icon") == "none", d.get("step1Icon"), "none")
 chk("5c", "★ 分割线行 592×24 @(24,115)（线心 y126）", eqr(d.get("dvd"), [24, 115, 592, 24]), rel(d.get("dvd")), [24, 115, 592, 24])

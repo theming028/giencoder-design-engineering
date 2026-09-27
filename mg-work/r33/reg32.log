@@ -1,0 +1,30 @@
+##################################################
+# 第 32 轮：投影 / 拖动 / 卡片统一 / 左栏下限
+##################################################
+--- 2a. 基线：两栏几何 + 跟手限幅预期 ---
+--- 2b. 按住左栏标题栏拖动 → 1:1 跟手 ---
+--- 2d. 连发多帧位移（rAF 合并后终值须等于最后指针位置对应的位移） ---
+--- 2e. 朝对方方向超过阈值松手 → 换位（回归） ---
+--- 1a. 转派浮窗投影（打开后读 computed shadow） ---
+--- 3a. AI 对话框文件卡 vs 「3个AI产物」同名卡（同组件？） ---
+--- 3b. 两者 hover 交互一致（真实 hover 后比背景色） ---
+--- 4a. 拖动条向左拉到极限 → 左栏应停在 480 ---
+--- 4b. 拖动条向右拉到极限 → 右栏折叠（回归） ---
+
+================ probe32.jsonl ================
+20 mg-work/r32/probe32.jsonl
+total 2152
+drwxr-xr-x 1 Administrator 197121      0 Sep 27 13:57 .
+drwxr-xr-x 1 Administrator 197121      0 Sep 27 14:02 ..
+-rw-r--r-- 1 Administrator 197121 197179 Sep 27 14:45 10-dp-shadow.png
+-rw-r--r-- 1 Administrator 197121 199998 Sep 27 14:44 20-drag-tracking.png
+-rw-r--r-- 1 Administrator 197121 203462 Sep 27 14:45 21-swap-after.png
+-rw-r--r-- 1 Administrator 197121 200068 Sep 27 14:45 30-ai-card-hover.png
+-rw-r--r-- 1 Administrator 197121 200043 Sep 27 14:45 31-prod-card-hover.png
+-rw-r--r-- 1 Administrator 197121 182072 Sep 27 14:46 40-left-min480.png
+-rw-r--r-- 1 Administrator 197121 136626 Sep 27 14:46 41-collapsed.png
+-rw-r--r-- 1 Administrator 197121 159393 Sep 27 14:02 50-coop-open.png
+-rw-r--r-- 1 Administrator 197121 168819 Sep 27 14:02 51-coop-step2.png
+-rw-r--r-- 1 Administrator 197121 199998 Sep 27 14:03 52-coop-submit-toast.png
+-rw-r--r-- 1 Administrator 197121 159393 Sep 27 13:54 coop-s1.png
+-rw-r--r-- 1 Administrator 197121 168819 Sep 27 13:54 coop-s2.png
