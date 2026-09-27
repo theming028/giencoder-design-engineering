@@ -1,0 +1,26 @@
+=== 4e. 大模型下拉：点击展开 ===
+"{\"n\":2,\"text\":\"DeepSeek-V4-Pro\",\"display\":\"none\",\"opts\":[\"DeepSeek-V4-Pro\",\"GLM-5.2-公司共用\",\"Qwen 3.8-max(disabled)\",\"Kimi-2.6\"]}"
+"{\"display\":\"block\",\"aria\":\"true\",\"popFlag\":true,\"box\":\"192x142\"}"
+=== 4f. 选中 GLM-5.2-公司共用 → 文案回写 + 关闭 ===
+"{\"textAfter\":\"GLM-5.2-公司共用\",\"selected\":[\"GLM-5.2-公司共用\"],\"display\":\"none\",\"popFlag\":false}"
+=== 4f2. 点禁用项 → 不选中、不关闭 ===
+"{\"text\":\"GLM-5.2-公司共用\",\"display\":\"block\"}"
+
+=== 1. 按住左栏标题栏向右拖 → 两栏互换 ===
+grab at 148,72
+"{\"duringCls\":\"td-root is-xdrag is-xarmed\"}"
+"{\"rootCls\":\"td-root is-swapped\",\"flexDir\":\"row-reverse\",\"leftL\":496,\"rightL\":8,\"rightIsLeft\":true,\"sideBorder\":\"1px\"}"
+=== 1b. 反向拖回（标题栏此时在右侧，向左拖） ===
+grab at 636,72
+"{\"rootCls\":\"td-root\",\"leftL\":8,\"rightL\":952,\"restored\":true}"
+=== 1c. 纯点击标题栏（位移<6px）→ 不应互换 ===
+"{\"before\":\"td-root\"}"
+"{\"after\":\"td-root\"}"
+=== 1d. 点顶栏「转派」按钮 → 不应触发拖动 ===
+"{\"afterBtnClick\":\"td-root\"}"
+=== 1e. 互换后再拖（向右 140px）→ 复原 + 拖动条方向取反 ===
+"{\"cls\":\"td-root is-swapped\",\"rightW\":480,\"gutterAria\":\"480\"}"
+"{\"afterSwappedGutterRight\":524}"
+=== 1f. 复原态下拖动条：向左拖 → 右栏变宽（方向仍正确） ===
+"{\"afterNormalGutterLeft\":488}"
+DONE

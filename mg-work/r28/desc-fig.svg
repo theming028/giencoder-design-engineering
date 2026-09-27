@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1240 620" width="1240" height="620" role="img" aria-label="端到端交付链路 8 个阶段示意图">
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#A9A9A9"/></marker></defs>
+<rect width="1240" height="620" rx="16" fill="#F7F7F7"/>
+<path d="M1070 240 V310 H170 V380" fill="none" stroke="#DCDCDC" stroke-width="2" stroke-linecap="round" marker-end="url(#ah)"/>
+<path d="M298 190 H342" fill="none" stroke="#DCDCDC" stroke-width="2" stroke-linecap="round" marker-end="url(#ah)"/>
+<path d="M598 190 H642" fill="none" stroke="#DCDCDC" stroke-width="2" stroke-linecap="round" marker-end="url(#ah)"/>
+<path d="M898 190 H942" fill="none" stroke="#DCDCDC" stroke-width="2" stroke-linecap="round" marker-end="url(#ah)"/>
+<path d="M298 430 H342" fill="none" stroke="#DCDCDC" stroke-width="2" stroke-linecap="round" marker-end="url(#ah)"/>
+<path d="M598 430 H642" fill="none" stroke="#DCDCDC" stroke-width="2" stroke-linecap="round" marker-end="url(#ah)"/>
+<path d="M898 430 H942" fill="none" stroke="#DCDCDC" stroke-width="2" stroke-linecap="round" marker-end="url(#ah)"/>
+<rect x="50" y="140" width="240" height="100" rx="12" fill="#FFFFFF" stroke="#E5E5E5"/>
+<circle cx="80" cy="174" r="13" fill="#E8F0FE"/>
+<text x="80" y="178" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#3770F7">1</text>
+<text x="104" y="179" font-family="PingFang SC, Microsoft YaHei, Helvetica, Arial, sans-serif" font-size="15" font-weight="500" fill="#1F1F1F">需求澄清</text>
+<text x="80" y="214" font-family="PingFang SC, Microsoft YaHei, Helvetica, Arial, sans-serif" font-size="12" fill="#868686">明确输入、输出与责任人</text>
+<rect x="350" y="140" width="240" height="100" rx="12" fill="#FFFFFF" stroke="#E5E5E5"/>
+<circle cx="380" cy="174" r="13" fill="#E8F0FE"/>
+<text x="380" y="178" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#3770F7">2</text>
+<text x="404" y="179" font-family="PingFang SC, Microsoft YaHei, Helvetica, Arial, sans-serif" font-size="15" font-weight="500" fill="#1F1F1F">方案设计</text>
+<text x="380" y="214" font-family="PingFang SC, Microsoft YaHei, Helvetica, Arial, sans-serif" font-size="12" fill="#868686">概要设计与接口定义</text>
+<rect x="650" y="140" width="240" height="100" rx="12" fill="#FFFFFF" stroke="#E5E5E5"/>
+<circle cx="680" cy="174" r="13" fill="#E8F0FE"/>
+<text x="680" y="178" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#3770F7">3</text>
+<text x="704" y="179" font-family="PingFang SC, Microsoft YaHei, Helvetica, Arial, sans-serif" font-size="15" font-weight="500" fill="#1F1F1F">任务拆分</text>
+<text x="680" y="214" font-family="PingFang SC, Microsoft YaHei, Helvetica, Arial, sans-serif" font-size="12" fill="#868686">拆到可独立交付的粒度</text>
+<rect x="950" y="140" width="240" height="100" rx="12" fill="#FFFFFF" stroke="#E5E5E5"/>
+<circle cx="980" cy="174" r="13" fill="#E8F0FE"/>
+<text x="980" y="178" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#3770F7">4</text>
+<text x="1004" y="179" font-family="PingFang SC, Microsoft YaHei, Helvetica, Arial, sans-serif" font-size="15" font-weight="500" fill="#1F1F1F">开发实现</text>
+<text x="980" y="214" font-family="PingFang SC, Microsoft YaHei, Helvetica, Arial, sans-serif" font-size="12" fill="#868686">编码与单元测试</text>
+<rect x="50" y="380" width="240" height="100" rx="12" fill="#FFFFFF" stroke="#E5E5E5"/>
+<circle cx="80" cy="414" r="13" fill="#E8F0FE"/>
+<text x="80" y="418" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#3770F7">5</text>
+<text x="104" y="419" font-family="PingFang SC, Microsoft YaHei, Helvetica, Arial, sans-serif" font-size="15" font-weight="500" fill="#1F1F1F">自测验证</text>
+<text x="80" y="454" font-family="PingFang SC, Microsoft YaHei, Helvetica, Arial, sans-serif" font-size="12" fill="#868686">用例通过率与缺陷收敛</text>
+<rect x="350" y="380" width="240" height="100" rx="12" fill="#FFFFFF" stroke="#E5E5E5"/>
+<circle cx="380" cy="414" r="13" fill="#E8F0FE"/>
+<text x="380" y="418" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#3770F7">6</text>
+<text x="404" y="419" font-family="PingFang SC, Microsoft YaHei, Helvetica, Arial, sans-serif" font-size="15" font-weight="500" fill="#1F1F1F">联调验收</text>
+<text x="380" y="454" font-family="PingFang SC, Microsoft YaHei, Helvetica, Arial, sans-serif" font-size="12" fill="#868686">跨系统联调与验收确认</text>
+<rect x="650" y="380" width="240" height="100" rx="12" fill="#FFFFFF" stroke="#E5E5E5"/>
+<circle cx="680" cy="414" r="13" fill="#E8F0FE"/>
+<text x="680" y="418" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#3770F7">7</text>
+<text x="704" y="419" font-family="PingFang SC, Microsoft YaHei, Helvetica, Arial, sans-serif" font-size="15" font-weight="500" fill="#1F1F1F">灰度发布</text>
+<text x="680" y="454" font-family="PingFang SC, Microsoft YaHei, Helvetica, Arial, sans-serif" font-size="12" fill="#868686">分批放量并观察核心指标</text>
+<rect x="950" y="380" width="240" height="100" rx="12" fill="#FFFFFF" stroke="#E5E5E5"/>
+<circle cx="980" cy="414" r="13" fill="#E8F0FE"/>
+<text x="980" y="418" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#3770F7">8</text>
+<text x="1004" y="419" font-family="PingFang SC, Microsoft YaHei, Helvetica, Arial, sans-serif" font-size="15" font-weight="500" fill="#1F1F1F">交付归档</text>
+<text x="980" y="454" font-family="PingFang SC, Microsoft YaHei, Helvetica, Arial, sans-serif" font-size="12" fill="#868686">交付物登记与版本留存</text>
+</svg>

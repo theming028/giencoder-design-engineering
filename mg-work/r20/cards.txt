@@ -1,0 +1,3 @@
+event: message
+data: {"result":{"content":[{"type":"text","text":"❌ 获取失败: TargetNodePageMismatch: expected=875:13275, actual=pu489:07981"}],"isError":true},"jsonrpc":"2.0","id":7}
+

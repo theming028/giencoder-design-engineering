@@ -33,6 +33,7 @@
         "        <div class=\"td-desc\">",
         "          <div class=\"td-desc-body\" id=\"td-desc-body\" data-td-desc=\"1\">",
         "            <p>第一步：梳理端到端交付链路</p>",
+        "            <img src=\"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjQwIDYyMCIgd2lkdGg9IjEyNDAiIGhlaWdodD0iNjIwIiByb2xlPSJpbWciIGFyaWEtbGFiZWw9Iuerr+WIsOerr+S6pOS7mOmTvui3ryA4IOS4qumYtuauteekuuaEj+WbviI+CjxkZWZzPjxtYXJrZXIgaWQ9ImFoIiB2aWV3Qm94PSIwIDAgMTAgMTAiIHJlZlg9IjkiIHJlZlk9IjUiIG1hcmtlcldpZHRoPSI2IiBtYXJrZXJIZWlnaHQ9IjYiIG9yaWVudD0iYXV0by1zdGFydC1yZXZlcnNlIj48cGF0aCBkPSJNMCAwIEwxMCA1IEwwIDEwIHoiIGZpbGw9IiNBOUE5QTkiLz48L21hcmtlcj48L2RlZnM+CjxyZWN0IHdpZHRoPSIxMjQwIiBoZWlnaHQ9IjYyMCIgcng9IjE2IiBmaWxsPSIjRjdGN0Y3Ii8+CjxwYXRoIGQ9Ik0xMDcwIDI0MCBWMzEwIEgxNzAgVjM4MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjRENEQ0RDIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgbWFya2VyLWVuZD0idXJsKCNhaCkiLz4KPHBhdGggZD0iTTI5OCAxOTAgSDM0MiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjRENEQ0RDIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgbWFya2VyLWVuZD0idXJsKCNhaCkiLz4KPHBhdGggZD0iTTU5OCAxOTAgSDY0MiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjRENEQ0RDIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgbWFya2VyLWVuZD0idXJsKCNhaCkiLz4KPHBhdGggZD0iTTg5OCAxOTAgSDk0MiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjRENEQ0RDIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgbWFya2VyLWVuZD0idXJsKCNhaCkiLz4KPHBhdGggZD0iTTI5OCA0MzAgSDM0MiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjRENEQ0RDIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgbWFya2VyLWVuZD0idXJsKCNhaCkiLz4KPHBhdGggZD0iTTU5OCA0MzAgSDY0MiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjRENEQ0RDIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgbWFya2VyLWVuZD0idXJsKCNhaCkiLz4KPHBhdGggZD0iTTg5OCA0MzAgSDk0MiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjRENEQ0RDIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgbWFya2VyLWVuZD0idXJsKCNhaCkiLz4KPHJlY3QgeD0iNTAiIHk9IjE0MCIgd2lkdGg9IjI0MCIgaGVpZ2h0PSIxMDAiIHJ4PSIxMiIgZmlsbD0iI0ZGRkZGRiIgc3Ryb2tlPSIjRTVFNUU1Ii8+CjxjaXJjbGUgY3g9IjgwIiBjeT0iMTc0IiByPSIxMyIgZmlsbD0iI0U4RjBGRSIvPgo8dGV4dCB4PSI4MCIgeT0iMTc4IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iUGluZ0ZhbmcgU0MsIE1pY3Jvc29mdCBZYUhlaSwgSGVsdmV0aWNhLCBBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMyIgZm9udC13ZWlnaHQ9IjYwMCIgZmlsbD0iIzM3NzBGNyI+MTwvdGV4dD4KPHRleHQgeD0iMTA0IiB5PSIxNzkiIGZvbnQtZmFtaWx5PSJQaW5nRmFuZyBTQywgTWljcm9zb2Z0IFlhSGVpLCBIZWx2ZXRpY2EsIEFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE1IiBmb250LXdlaWdodD0iNTAwIiBmaWxsPSIjMUYxRjFGIj7pnIDmsYLmvoTmuIU8L3RleHQ+Cjx0ZXh0IHg9IjgwIiB5PSIyMTQiIGZvbnQtZmFtaWx5PSJQaW5nRmFuZyBTQywgTWljcm9zb2Z0IFlhSGVpLCBIZWx2ZXRpY2EsIEFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjEyIiBmaWxsPSIjODY4Njg2Ij7mmI7noa7ovpPlhaXjgIHovpPlh7rkuI7otKPku7vkuro8L3RleHQ+CjxyZWN0IHg9IjM1MCIgeT0iMTQwIiB3aWR0aD0iMjQwIiBoZWlnaHQ9IjEwMCIgcng9IjEyIiBmaWxsPSIjRkZGRkZGIiBzdHJva2U9IiNFNUU1RTUiLz4KPGNpcmNsZSBjeD0iMzgwIiBjeT0iMTc0IiByPSIxMyIgZmlsbD0iI0U4RjBGRSIvPgo8dGV4dCB4PSIzODAiIHk9IjE3OCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IlBpbmdGYW5nIFNDLCBNaWNyb3NvZnQgWWFIZWksIEhlbHZldGljYSwgQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTMiIGZvbnQtd2VpZ2h0PSI2MDAiIGZpbGw9IiMzNzcwRjciPjI8L3RleHQ+Cjx0ZXh0IHg9IjQwNCIgeT0iMTc5IiBmb250LWZhbWlseT0iUGluZ0ZhbmcgU0MsIE1pY3Jvc29mdCBZYUhlaSwgSGVsdmV0aWNhLCBBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNSIgZm9udC13ZWlnaHQ9IjUwMCIgZmlsbD0iIzFGMUYxRiI+5pa55qGI6K6+6K6hPC90ZXh0Pgo8dGV4dCB4PSIzODAiIHk9IjIxNCIgZm9udC1mYW1pbHk9IlBpbmdGYW5nIFNDLCBNaWNyb3NvZnQgWWFIZWksIEhlbHZldGljYSwgQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTIiIGZpbGw9IiM4Njg2ODYiPuamguimgeiuvuiuoeS4juaOpeWPo+WumuS5iTwvdGV4dD4KPHJlY3QgeD0iNjUwIiB5PSIxNDAiIHdpZHRoPSIyNDAiIGhlaWdodD0iMTAwIiByeD0iMTIiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZT0iI0U1RTVFNSIvPgo8Y2lyY2xlIGN4PSI2ODAiIGN5PSIxNzQiIHI9IjEzIiBmaWxsPSIjRThGMEZFIi8+Cjx0ZXh0IHg9IjY4MCIgeT0iMTc4IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iUGluZ0ZhbmcgU0MsIE1pY3Jvc29mdCBZYUhlaSwgSGVsdmV0aWNhLCBBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMyIgZm9udC13ZWlnaHQ9IjYwMCIgZmlsbD0iIzM3NzBGNyI+MzwvdGV4dD4KPHRleHQgeD0iNzA0IiB5PSIxNzkiIGZvbnQtZmFtaWx5PSJQaW5nRmFuZyBTQywgTWljcm9zb2Z0IFlhSGVpLCBIZWx2ZXRpY2EsIEFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE1IiBmb250LXdlaWdodD0iNTAwIiBmaWxsPSIjMUYxRjFGIj7ku7vliqHmi4bliIY8L3RleHQ+Cjx0ZXh0IHg9IjY4MCIgeT0iMjE0IiBmb250LWZhbWlseT0iUGluZ0ZhbmcgU0MsIE1pY3Jvc29mdCBZYUhlaSwgSGVsdmV0aWNhLCBBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMiIgZmlsbD0iIzg2ODY4NiI+5ouG5Yiw5Y+v54us56uL5Lqk5LuY55qE57KS5bqmPC90ZXh0Pgo8cmVjdCB4PSI5NTAiIHk9IjE0MCIgd2lkdGg9IjI0MCIgaGVpZ2h0PSIxMDAiIHJ4PSIxMiIgZmlsbD0iI0ZGRkZGRiIgc3Ryb2tlPSIjRTVFNUU1Ii8+CjxjaXJjbGUgY3g9Ijk4MCIgY3k9IjE3NCIgcj0iMTMiIGZpbGw9IiNFOEYwRkUiLz4KPHRleHQgeD0iOTgwIiB5PSIxNzgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJQaW5nRmFuZyBTQywgTWljcm9zb2Z0IFlhSGVpLCBIZWx2ZXRpY2EsIEFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjEzIiBmb250LXdlaWdodD0iNjAwIiBmaWxsPSIjMzc3MEY3Ij40PC90ZXh0Pgo8dGV4dCB4PSIxMDA0IiB5PSIxNzkiIGZvbnQtZmFtaWx5PSJQaW5nRmFuZyBTQywgTWljcm9zb2Z0IFlhSGVpLCBIZWx2ZXRpY2EsIEFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE1IiBmb250LXdlaWdodD0iNTAwIiBmaWxsPSIjMUYxRjFGIj7lvIDlj5Hlrp7njrA8L3RleHQ+Cjx0ZXh0IHg9Ijk4MCIgeT0iMjE0IiBmb250LWZhbWlseT0iUGluZ0ZhbmcgU0MsIE1pY3Jvc29mdCBZYUhlaSwgSGVsdmV0aWNhLCBBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMiIgZmlsbD0iIzg2ODY4NiI+57yW56CB5LiO5Y2V5YWD5rWL6K+VPC90ZXh0Pgo8cmVjdCB4PSI1MCIgeT0iMzgwIiB3aWR0aD0iMjQwIiBoZWlnaHQ9IjEwMCIgcng9IjEyIiBmaWxsPSIjRkZGRkZGIiBzdHJva2U9IiNFNUU1RTUiLz4KPGNpcmNsZSBjeD0iODAiIGN5PSI0MTQiIHI9IjEzIiBmaWxsPSIjRThGMEZFIi8+Cjx0ZXh0IHg9IjgwIiB5PSI0MTgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJQaW5nRmFuZyBTQywgTWljcm9zb2Z0IFlhSGVpLCBIZWx2ZXRpY2EsIEFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjEzIiBmb250LXdlaWdodD0iNjAwIiBmaWxsPSIjMzc3MEY3Ij41PC90ZXh0Pgo8dGV4dCB4PSIxMDQiIHk9IjQxOSIgZm9udC1mYW1pbHk9IlBpbmdGYW5nIFNDLCBNaWNyb3NvZnQgWWFIZWksIEhlbHZldGljYSwgQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTUiIGZvbnQtd2VpZ2h0PSI1MDAiIGZpbGw9IiMxRjFGMUYiPuiHqua1i+mqjOivgTwvdGV4dD4KPHRleHQgeD0iODAiIHk9IjQ1NCIgZm9udC1mYW1pbHk9IlBpbmdGYW5nIFNDLCBNaWNyb3NvZnQgWWFIZWksIEhlbHZldGljYSwgQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTIiIGZpbGw9IiM4Njg2ODYiPueUqOS+i+mAmui/h+eOh+S4jue8uumZt+aUtuaVmzwvdGV4dD4KPHJlY3QgeD0iMzUwIiB5PSIzODAiIHdpZHRoPSIyNDAiIGhlaWdodD0iMTAwIiByeD0iMTIiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZT0iI0U1RTVFNSIvPgo8Y2lyY2xlIGN4PSIzODAiIGN5PSI0MTQiIHI9IjEzIiBmaWxsPSIjRThGMEZFIi8+Cjx0ZXh0IHg9IjM4MCIgeT0iNDE4IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iUGluZ0ZhbmcgU0MsIE1pY3Jvc29mdCBZYUhlaSwgSGVsdmV0aWNhLCBBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMyIgZm9udC13ZWlnaHQ9IjYwMCIgZmlsbD0iIzM3NzBGNyI+NjwvdGV4dD4KPHRleHQgeD0iNDA0IiB5PSI0MTkiIGZvbnQtZmFtaWx5PSJQaW5nRmFuZyBTQywgTWljcm9zb2Z0IFlhSGVpLCBIZWx2ZXRpY2EsIEFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE1IiBmb250LXdlaWdodD0iNTAwIiBmaWxsPSIjMUYxRjFGIj7ogZTosIPpqozmlLY8L3RleHQ+Cjx0ZXh0IHg9IjM4MCIgeT0iNDU0IiBmb250LWZhbWlseT0iUGluZ0ZhbmcgU0MsIE1pY3Jvc29mdCBZYUhlaSwgSGVsdmV0aWNhLCBBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMiIgZmlsbD0iIzg2ODY4NiI+6Leo57O757uf6IGU6LCD5LiO6aqM5pS256Gu6K6kPC90ZXh0Pgo8cmVjdCB4PSI2NTAiIHk9IjM4MCIgd2lkdGg9IjI0MCIgaGVpZ2h0PSIxMDAiIHJ4PSIxMiIgZmlsbD0iI0ZGRkZGRiIgc3Ryb2tlPSIjRTVFNUU1Ii8+CjxjaXJjbGUgY3g9IjY4MCIgY3k9IjQxNCIgcj0iMTMiIGZpbGw9IiNFOEYwRkUiLz4KPHRleHQgeD0iNjgwIiB5PSI0MTgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJQaW5nRmFuZyBTQywgTWljcm9zb2Z0IFlhSGVpLCBIZWx2ZXRpY2EsIEFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjEzIiBmb250LXdlaWdodD0iNjAwIiBmaWxsPSIjMzc3MEY3Ij43PC90ZXh0Pgo8dGV4dCB4PSI3MDQiIHk9IjQxOSIgZm9udC1mYW1pbHk9IlBpbmdGYW5nIFNDLCBNaWNyb3NvZnQgWWFIZWksIEhlbHZldGljYSwgQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTUiIGZvbnQtd2VpZ2h0PSI1MDAiIGZpbGw9IiMxRjFGMUYiPueBsOW6puWPkeW4gzwvdGV4dD4KPHRleHQgeD0iNjgwIiB5PSI0NTQiIGZvbnQtZmFtaWx5PSJQaW5nRmFuZyBTQywgTWljcm9zb2Z0IFlhSGVpLCBIZWx2ZXRpY2EsIEFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjEyIiBmaWxsPSIjODY4Njg2Ij7liIbmibnmlL7ph4/lubbop4Llr5/moLjlv4PmjIfmoIc8L3RleHQ+CjxyZWN0IHg9Ijk1MCIgeT0iMzgwIiB3aWR0aD0iMjQwIiBoZWlnaHQ9IjEwMCIgcng9IjEyIiBmaWxsPSIjRkZGRkZGIiBzdHJva2U9IiNFNUU1RTUiLz4KPGNpcmNsZSBjeD0iOTgwIiBjeT0iNDE0IiByPSIxMyIgZmlsbD0iI0U4RjBGRSIvPgo8dGV4dCB4PSI5ODAiIHk9IjQxOCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IlBpbmdGYW5nIFNDLCBNaWNyb3NvZnQgWWFIZWksIEhlbHZldGljYSwgQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTMiIGZvbnQtd2VpZ2h0PSI2MDAiIGZpbGw9IiMzNzcwRjciPjg8L3RleHQ+Cjx0ZXh0IHg9IjEwMDQiIHk9IjQxOSIgZm9udC1mYW1pbHk9IlBpbmdGYW5nIFNDLCBNaWNyb3NvZnQgWWFIZWksIEhlbHZldGljYSwgQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTUiIGZvbnQtd2VpZ2h0PSI1MDAiIGZpbGw9IiMxRjFGMUYiPuS6pOS7mOW9kuahozwvdGV4dD4KPHRleHQgeD0iOTgwIiB5PSI0NTQiIGZvbnQtZmFtaWx5PSJQaW5nRmFuZyBTQywgTWljcm9zb2Z0IFlhSGVpLCBIZWx2ZXRpY2EsIEFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjEyIiBmaWxsPSIjODY4Njg2Ij7kuqTku5jniannmbvorrDkuI7niYjmnKznlZnlrZg8L3RleHQ+Cjwvc3ZnPg==\" width=\"1240\" height=\"620\" alt=\"端到端交付链路示意图：需求澄清、方案设计、任务拆分、开发实现、自测验证、联调验收、灰度发布、交付归档 共 8 个阶段\" data-td-desc-img=\"1\">",
         "            <p>从业务方原始需求进入系统开始，到最终交付物归档为止，完整链路包含需求澄清、方案设计、任务拆分、开发实现、自测验证、联调验收、灰度发布与交付归档共 8 个阶段。每个阶段都需要明确输入、输出、责任人与准入准出条件，避免出现“任务已发起但无人认领”或“交付物缺失但流程已关闭”的情况。</p>",
         "            <p>第二步：定义状态流转规则（启动整个流程）</p>",
         "            <p>状态标识采用“交通灯”模式，方便直观管理：</p>",
@@ -52,22 +53,22 @@
         "        <section class=\"td-sec\">",
         "          <div class=\"td-sec-head\"><svg viewBox=\"0 0 16 16\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M2.9 5.5v4a3.5 3.5 0 0 0 7 0v-4a3.5 3.5 0 0 0-7 0z\"/><path d=\"M6.4 6.2v3.6a1.75 1.75 0 0 0 3.5 0V6.2\"/><path d=\"M12.7 3.2v7.6\"/></svg>2个附件</div>",
         "          <div class=\"td-files\">",
-        "            <a class=\"td-file\" href=\"#\" title=\"端到端流程初始化：用户输入业务流程并触发全链路交付.docx\"><span class=\"td-file-ico\"><svg viewBox=\"0 0 16 16\" width=\"16\" height=\"16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M9 1.8H4.6a1.4 1.4 0 0 0-1.4 1.4v9.6a1.4 1.4 0 0 0 1.4 1.4h6.8a1.4 1.4 0 0 0 1.4-1.4V5.2z\"/><path d=\"M9 1.8v3.4h3.8\"/></svg></span><span class=\"td-file-tx\">端到端流程初始化：用户输入业务流程并触发全链路交付.docx</span></a>",
-        "            <a class=\"td-file\" href=\"#\" title=\"TaskBoard.png\"><span class=\"td-file-ico\"><svg viewBox=\"0 0 16 16\" width=\"16\" height=\"16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M9 1.8H4.6a1.4 1.4 0 0 0-1.4 1.4v9.6a1.4 1.4 0 0 0 1.4 1.4h6.8a1.4 1.4 0 0 0 1.4-1.4V5.2z\"/><path d=\"M9 1.8v3.4h3.8\"/></svg></span><span class=\"td-file-tx\">TaskBoard.png</span></a>",
+        "            <a class=\"td-file\" href=\"#\" title=\"端到端流程初始化：用户输入业务流程并触发全链路交付.docx\"><span class=\"td-file-ico\"><svg viewBox=\"0 0 16 16\" width=\"16\" height=\"16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M8 1.5H2.6A1.1 1.1 0 0 0 1.5 2.6V12.9A1.1 1.1 0 0 0 2.6 14H10.4A1.1 1.1 0 0 0 11.5 12.9V5.75Z\"/><path d=\"M7 1.5v4.25H11.5\"/><path d=\"M3.7 7.6h4.5\"/><path d=\"M3.7 10.2h3.1\"/></svg></span><span class=\"td-file-tx\">端到端流程初始化：用户输入业务流程并触发全链路交付.docx</span></a>",
+        "            <a class=\"td-file\" href=\"#\" title=\"TaskBoard.png\"><span class=\"td-file-ico\"><svg viewBox=\"0 0 16 16\" width=\"16\" height=\"16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M8 1.5H2.6A1.1 1.1 0 0 0 1.5 2.6V12.9A1.1 1.1 0 0 0 2.6 14H10.4A1.1 1.1 0 0 0 11.5 12.9V5.75Z\"/><path d=\"M7 1.5v4.25H11.5\"/><path d=\"M3.7 7.6h4.5\"/><path d=\"M3.7 10.2h3.1\"/></svg></span><span class=\"td-file-tx\">TaskBoard.png</span></a>",
         "          </div>",
         "        </section>",
         "        <section class=\"td-sec\">",
         "          <div class=\"td-sec-head\"><svg viewBox=\"0 0 16 16\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M2.6 12.6V5.3a1.5 1.5 0 0 1 1.5-1.5h2.4c.5 0 .97.25 1.25.67l.5.76c.28.42.75.67 1.25.67h3.9a1.5 1.5 0 0 1 1.5 1.5v5.2\"/><path d=\"M4.7 8.4h7.2a1.1 1.1 0 0 1 1.1 1.1v2a1.1 1.1 0 0 1-1.1 1.1H4.7a1.1 1.1 0 0 1-1.1-1.1v-2a1.1 1.1 0 0 1 1.1-1.1z\"/></svg>3个 AI 产物</div>",
         "          <div class=\"td-files\">",
-        "            <a class=\"td-file td-file--lg\" href=\"#\" title=\"prd-template.html\"><span class=\"td-file-ico\"><svg viewBox=\"0 0 16 16\" width=\"16\" height=\"16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M9 1.8H4.6a1.4 1.4 0 0 0-1.4 1.4v9.6a1.4 1.4 0 0 0 1.4 1.4h6.8a1.4 1.4 0 0 0 1.4-1.4V5.2z\"/><path d=\"M9 1.8v3.4h3.8\"/></svg></span><span class=\"td-file-body\"><span class=\"td-file-tx\">prd-template.html</span><span class=\"td-file-size\">128KB</span></span></a>",
-        "            <a class=\"td-file td-file--lg\" href=\"#\" title=\"端到端初始化 - 任务分析报告.md\"><span class=\"td-file-ico\"><svg viewBox=\"0 0 16 16\" width=\"16\" height=\"16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M9 1.8H4.6a1.4 1.4 0 0 0-1.4 1.4v9.6a1.4 1.4 0 0 0 1.4 1.4h6.8a1.4 1.4 0 0 0 1.4-1.4V5.2z\"/><path d=\"M9 1.8v3.4h3.8\"/></svg></span><span class=\"td-file-body\"><span class=\"td-file-tx\">端到端初始化 - 任务分析报告.md</span><span class=\"td-file-size\">128KB</span></span></a>",
-        "            <a class=\"td-file td-file--lg\" href=\"#\" title=\"spec-template.md\"><span class=\"td-file-ico\"><svg viewBox=\"0 0 16 16\" width=\"16\" height=\"16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M9 1.8H4.6a1.4 1.4 0 0 0-1.4 1.4v9.6a1.4 1.4 0 0 0 1.4 1.4h6.8a1.4 1.4 0 0 0 1.4-1.4V5.2z\"/><path d=\"M9 1.8v3.4h3.8\"/></svg></span><span class=\"td-file-body\"><span class=\"td-file-tx\">spec-template.md</span><span class=\"td-file-size\">128KB</span></span></a>",
+        "            <a class=\"td-file td-file--lg\" href=\"#\" title=\"prd-template.html\"><span class=\"td-file-ico is-web\"><svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"9.6\"/><ellipse cx=\"12\" cy=\"12\" rx=\"3.4\" ry=\"9.6\"/><path d=\"M2.4 12h19.2\" stroke-linecap=\"round\"/></svg></span><span class=\"td-file-sep\" aria-hidden=\"true\"></span><span class=\"td-file-body\"><span class=\"td-file-tx\">prd-template.html</span><span class=\"td-file-size\">128KB</span></span></a>",
+        "            <a class=\"td-file td-file--lg\" href=\"#\" title=\"端到端初始化 - 任务分析报告.md\"><span class=\"td-file-ico\"><svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.45\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4.5 1.5H18.8A1.5 1.5 0 0 1 20.3 3V15.6L16.6 21H4.5A1.5 1.5 0 0 0 3 19.5V3A1.5 1.5 0 0 1 4.5 1.5Z\"/><path d=\"M15 21v-5.25H20.3\"/><path d=\"M7.5 7.2h7.5\"/><path d=\"M7.5 11h7.5\"/><path d=\"M7.5 14.7h3.5\"/></svg></span><span class=\"td-file-sep\" aria-hidden=\"true\"></span><span class=\"td-file-body\"><span class=\"td-file-tx\">端到端初始化 - 任务分析报告.md</span><span class=\"td-file-size\">128KB</span></span></a>",
+        "            <a class=\"td-file td-file--lg\" href=\"#\" title=\"spec-template.md\"><span class=\"td-file-ico\"><svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\" aria-hidden=\"true\"><path class=\"td-ico-md-body\" d=\"M3 1h12v5.5h6V23H3z\"/><path class=\"td-ico-md-fold\" d=\"M15 1l6 5.5h-6z\"/><path class=\"td-ico-md-mark\" d=\"M5 16.5v-5l3.35 3.5L11.7 11.5v5\"/><path class=\"td-ico-md-mark\" d=\"M15.9 11.5v5\"/><path class=\"td-ico-md-mark is-solid\" d=\"M13.9 14.15h4l-2 2.5z\"/></svg></span><span class=\"td-file-sep\" aria-hidden=\"true\"></span><span class=\"td-file-body\"><span class=\"td-file-tx\">spec-template.md</span><span class=\"td-file-size\">128KB</span></span></a>",
         "          </div>",
         "        </section>",
         "        <section class=\"td-sec\">",
         "          <div class=\"td-sec-head\"><svg viewBox=\"0 0 16 16\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M2.6 12.6V5.3a1.5 1.5 0 0 1 1.5-1.5h2.4c.5 0 .97.25 1.25.67l.5.76c.28.42.75.67 1.25.67h3.9a1.5 1.5 0 0 1 1.5 1.5v5.2\"/><path d=\"M4.7 8.4h7.2a1.1 1.1 0 0 1 1.1 1.1v2a1.1 1.1 0 0 1-1.1 1.1H4.7a1.1 1.1 0 0 1-1.1-1.1v-2a1.1 1.1 0 0 1 1.1-1.1z\"/></svg>文件</div>",
         "          <div class=\"td-files\">",
-        "            <a class=\"td-file td-file--lg\" href=\"#\" title=\"概要设计-Steps.md\"><span class=\"td-file-ico\"><svg viewBox=\"0 0 16 16\" width=\"16\" height=\"16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M9 1.8H4.6a1.4 1.4 0 0 0-1.4 1.4v9.6a1.4 1.4 0 0 0 1.4 1.4h6.8a1.4 1.4 0 0 0 1.4-1.4V5.2z\"/><path d=\"M9 1.8v3.4h3.8\"/></svg></span><span class=\"td-file-body\"><span class=\"td-file-tx\">概要设计-Steps.md</span><span class=\"td-file-size\">17KB</span></span></a>",
+        "            <a class=\"td-file td-file--lg\" href=\"#\" title=\"概要设计-Steps.md\"><span class=\"td-file-ico\"><svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\" aria-hidden=\"true\"><path class=\"td-ico-md-body\" d=\"M3 1h12v5.5h6V23H3z\"/><path class=\"td-ico-md-fold\" d=\"M15 1l6 5.5h-6z\"/><path class=\"td-ico-md-mark\" d=\"M5 16.5v-5l3.35 3.5L11.7 11.5v5\"/><path class=\"td-ico-md-mark\" d=\"M15.9 11.5v5\"/><path class=\"td-ico-md-mark is-solid\" d=\"M13.9 14.15h4l-2 2.5z\"/></svg></span><span class=\"td-file-sep\" aria-hidden=\"true\"></span><span class=\"td-file-body\"><span class=\"td-file-tx\">概要设计-Steps.md</span><span class=\"td-file-size\">17KB</span></span></a>",
         "          </div>",
         "        </section>",
         "      </div>",
@@ -132,7 +133,7 @@
         "          </div>",
         "          <p>好的，收到您的需求。这是一个典型的“从需求到交付”的端到端流程初始化场景。我将为您设计一个完整的交付状态跟踪表，并定义启动整个流程所需的初始状态和关键节点。</p>",
         "          <p>我先把几个核心不确定性列出来，请你选择倾向，不确定的地方我会标注我的判断。</p>",
-        "          <div class=\"td-ai-file\"><span class=\"td-file-ico\"><svg viewBox=\"0 0 16 16\" width=\"16\" height=\"16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M9 1.8H4.6a1.4 1.4 0 0 0-1.4 1.4v9.6a1.4 1.4 0 0 0 1.4 1.4h6.8a1.4 1.4 0 0 0 1.4-1.4V5.2z\"/><path d=\"M9 1.8v3.4h3.8\"/></svg></span><span class=\"td-file-body\"><span class=\"td-file-tx\">端到端初始化 - 任务分析报告.md</span><span class=\"td-file-size\">128KB</span></span></div>",
+        "          <div class=\"td-ai-file\"><span class=\"td-file-ico\"><svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.45\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4.5 1.5H18.8A1.5 1.5 0 0 1 20.3 3V15.6L16.6 21H4.5A1.5 1.5 0 0 0 3 19.5V3A1.5 1.5 0 0 1 4.5 1.5Z\"/><path d=\"M15 21v-5.25H20.3\"/><path d=\"M7.5 7.2h7.5\"/><path d=\"M7.5 11h7.5\"/><path d=\"M7.5 14.7h3.5\"/></svg></span><span class=\"td-file-sep\" aria-hidden=\"true\"></span><span class=\"td-file-body\"><span class=\"td-file-tx\">端到端初始化 - 任务分析报告.md</span><span class=\"td-file-size\">128KB</span></span></div>",
         "          <div class=\"td-ai-foot\"><span class=\"td-ai-foot-item\"><span class=\"td-ai-foot-ico\"><svg viewBox=\"0 0 12 12\" width=\"12\" height=\"12\" fill=\"none\" aria-hidden=\"true\"><circle cx=\"6\" cy=\"6\" r=\"6\" fill=\"currentColor\"/><path class=\"td-ico-check\" d=\"M3.3 6.1l1.9 1.85 3.5-3.75\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg></span><span>输出完成</span></span><span class=\"td-sep\"></span><span class=\"td-ai-foot-item\"><span class=\"td-ai-foot-ico\"><svg viewBox=\"0 0 12 12\" width=\"12\" height=\"12\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.1\" stroke-linecap=\"round\" aria-hidden=\"true\"><circle cx=\"6\" cy=\"6\" r=\"5\"/><path d=\"M6 6l2.4-2.4\"/><circle cx=\"6\" cy=\"6\" r=\".75\" fill=\"currentColor\" stroke=\"none\"/><path d=\"M3.5 3.9l.75.75\"/><path d=\"M2.9 6.5h1.05\"/><path d=\"M9.1 6.5H8.05\"/></svg></span><span>Token 速率：256/s</span></span></div>",
         "        </div>",
         "      </div>",
@@ -143,10 +144,14 @@
         "            <div class=\"mt-auto flex items-center justify-between\">",
         "              <div class=\"flex items-center gap-[8px]\">",
         "                <div class=\"giencoder-select\" style=\"flex-direction: row; align-items: flex-start; position: relative;\">",
-        "                  <button type=\"button\" aria-label=\"添加\" aria-haspopup=\"menu\" aria-expanded=\"false\" class=\"flex size-8 items-center justify-center rounded-full border border-[var(--color-border-1)] text-[var(--color-text-2)] transition-colors hover:bg-[var(--color-fill-1)] hover:[color:var(--color-text-1)]\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-plus size-[14px]\" aria-hidden=\"true\"><path d=\"M5 12h14\"></path><path d=\"M12 5v14\"></path></svg></button>",
-        "                  <div role=\"menu\" aria-label=\"添加内容\"></div>",
+        "                  <button type=\"button\" aria-label=\"添加\" aria-haspopup=\"menu\" aria-expanded=\"false\" data-td-add-btn=\"1\" class=\"flex size-8 items-center justify-center rounded-full border border-[var(--color-border-1)] text-[var(--color-text-2)] transition-colors hover:bg-[var(--color-fill-1)] hover:[color:var(--color-text-1)]\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-plus size-[14px]\" aria-hidden=\"true\"><path d=\"M5 12h14\"></path><path d=\"M12 5v14\"></path></svg></button>",
+        "                  <div role=\"menu\" aria-label=\"添加内容\" class=\"td-add-pop\" data-td-add-pop=\"1\" hidden>",
+        "                    <div role=\"menuitem\" tabindex=\"-1\" class=\"td-add-item\" data-td-add=\"file\"><svg viewBox=\"0 0 14 14\" width=\"14\" height=\"14\" fill=\"currentColor\" fill-rule=\"evenodd\" aria-hidden=\"true\"><path d=\"M1.5,1.9C1.5,1.2,2.1,0.6,2.8,0.6C2.8,0.6,9.8,0.6,9.8,0.6C9.8,0.6,12.4,3.2,12.4,3.2C12.4,3.2,12.4,12.2,12.4,12.2C12.4,12.9,11.9,13.5,11.2,13.5C11.2,13.5,2.8,13.5,2.8,13.5C2.1,13.5,1.5,12.9,1.5,12.2C1.5,12.2,1.5,1.9,1.5,1.9C1.5,1.9,1.5,1.9,1.5,1.9ZM9.3,1.9C9.3,1.9,2.8,1.9,2.8,1.9C2.8,1.9,2.8,12.2,2.8,12.2C2.8,12.2,11.2,12.2,11.2,12.2C11.2,12.2,11.2,3.8,11.2,3.8C11.2,3.8,9.3,1.9,9.3,1.9C9.3,1.9,9.3,1.9,9.3,1.9ZM9.5,6.7C9.5,6.7,4.4,6.7,4.4,6.7C4.4,6.7,4.4,5.4,4.4,5.4C4.4,5.4,9.5,5.4,9.5,5.4C9.5,6.7,9.5,6.7,9.5,6.7C9.5,6.7,9.5,6.7,9.5,6.7ZM7.6,9.3C7.6,9.3,4.4,9.3,4.4,9.3C4.4,9.3,4.4,8,4.4,8C4.4,8,7.6,8,7.6,8C7.6,9.3,7.6,9.3,7.6,9.3C7.6,9.3,7.6,9.3,7.6,9.3Z\"/></svg><span>添加本地文件</span></div>",
+        "                    <span class=\"td-add-sep\" aria-hidden=\"true\"></span>",
+        "                    <div role=\"menuitem\" tabindex=\"-1\" class=\"td-add-item\" data-td-add=\"kb\"><svg viewBox=\"0 0 14 14\" width=\"14\" height=\"14\" fill=\"currentColor\" fill-rule=\"evenodd\" aria-hidden=\"true\"><path d=\"M12.2,10.8L2.9,10.8C2.5,10.8,2.2,11.1,2.2,11.4C2.2,11.8,2.5,12.1,2.9,12.1L12.2,12.1L12.2,13.4L2.9,13.4C1.8,13.4,1,12.5,1,11.4L1,1.8C1,1.4,1.1,1.1,1.4,0.9C1.6,0.6,1.9,0.5,2.2,0.5L12.2,0.5L12.2,10.8ZM2.2,9.5C2.3,9.5,2.4,9.5,2.6,9.5L10.9,9.5L10.9,1.8L2.2,1.8L2.2,9.5ZM4.1,5L9.1,5L9.1,3.7L4.1,3.7L4.1,5Z\"/></svg><span>知识库</span></div>",
+        "                  </div>",
         "                </div>",
-        "                <button type=\"button\" aria-label=\"技能\" aria-haspopup=\"listbox\" aria-expanded=\"false\" class=\"flex size-8 items-center justify-center rounded-full border border-[var(--color-border-1)] text-[var(--color-text-2)] transition-colors hover:bg-[var(--color-fill-1)] hover:[color:var(--color-text-1)]\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-wrench size-[14px]\" aria-hidden=\"true\"><path d=\"M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.106-3.105c.32-.322.863-.22.983.218a6 6 0 0 1-8.259 7.057l-7.91 7.91a1 1 0 0 1-2.999-3l7.91-7.91a6 6 0 0 1 7.057-8.259c.438.12.54.662.219.984z\"></path></svg></button>",
+        "                <button type=\"button\" aria-label=\"技能\" aria-haspopup=\"listbox\" aria-expanded=\"false\" data-td-skill-btn=\"1\" class=\"flex size-8 items-center justify-center rounded-full border border-[var(--color-border-1)] text-[var(--color-text-2)] transition-colors hover:bg-[var(--color-fill-1)] hover:[color:var(--color-text-1)]\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-wrench size-[14px]\" aria-hidden=\"true\"><path d=\"M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.106-3.105c.32-.322.863-.22.983.218a6 6 0 0 1-8.259 7.057l-7.91 7.91a1 1 0 0 1-2.999-3l7.91-7.91a6 6 0 0 1 7.057-8.259c.438.12.54.662.219.984z\"></path></svg></button>",
         "                <div class=\"avatar-wrap relative flex items-center\">",
         "                  <button type=\"button\" aria-label=\"数字分身\" aria-pressed=\"true\" class=\"flex h-8 items-center gap-[2px] rounded-full px-3 py-[5px] text-[14px] leading-[19px] transition-colors\" style=\"background: rgb(236, 242, 255); color: rgb(55, 112, 247); border: 1px solid rgb(211, 226, 255);\"><svg viewBox=\"0 0 14 14\" width=\"14\" height=\"14\" class=\"size-[14px]\"><path d=\"M6.988754947683716,13.43000001192093C5.103876847683716,13.43000001192093,3.4284298476837156,12.17341601192093,2.9048526476837155,10.497968511920929L2.590706447683716,10.812115011920929C2.381275537683716,11.02154501192093,1.9624137876837158,11.02154501192093,1.6482674076837158,10.812115011920929C1.334121017683716,10.602683011920929,1.4388364836837158,10.183822411920929,1.6482674076837158,9.869675411920928L2.6954218476837157,8.822521011920928L2.6954218476837157,7.984796811920929C2.2765598876837156,7.670650811920929,2.067129017683716,7.147073111920929,2.067129017683716,6.623495911920929L2.067129017683716,3.586747711920929C2.067129017683716,2.539593411920929,2.9048526476837155,1.701869811920929,3.952006847683716,1.701869811920929L6.360462447683716,1.701869811920929L6.360462447683716,1.1782926319209288C6.360462447683716,0.8641463219209289,6.674608947683716,0.550000011920929,6.988754947683716,0.550000011920929C7.302901547683716,0.550000011920929,7.617047547683716,0.8641463219209289,7.617047547683716,1.1782926319209288L7.617047547683716,1.701869811920929L10.025503347683715,1.701869811920929C11.072657847683717,1.701869811920929,11.910381047683716,2.539593411920929,11.910381047683716,3.586747711920929L11.910381047683716,6.623495911920929C11.910381047683716,7.147073111920929,11.700949047683716,7.670649811920929,11.282088547683715,7.984796811920929L11.282088547683715,8.822521011920928L12.329243047683716,9.869675411920928C12.538674047683715,10.079107111920928,12.538674047683715,10.497968511920929,12.329243047683716,10.812115011920929C12.119811047683715,11.126262011920929,11.700951047683716,11.02154501192093,11.386802947683716,10.812115011920929L11.072657847683717,10.497968511920929C10.549079147683717,12.17341601192093,8.873632647683717,13.43000001192093,6.988754947683716,13.43000001192093ZM3.9520075476837158,9.13666611192093C3.9520075476837158,10.81211401192093,5.313308247683716,12.173413011920928,6.988754947683716,12.173413011920928C8.664201947683715,12.173413011920928,10.025503347683715,10.81211401192093,10.025503347683715,9.13666611192093L10.025503347683715,8.50837351192093L3.9520075476837158,8.50837351192093L3.9520075476837158,9.13666611192093ZM3.9520075476837158,3.063170711920929C3.6378612476837158,3.063170711920929,3.3237144476837157,3.2726017119209287,3.3237144476837157,3.586747911920929L3.3237144476837157,6.623495911920929C3.3237144476837157,6.937641911920929,3.6378610476837157,7.251788411920929,3.952006847683716,7.251788411920929L10.025502447683715,7.251788411920929C10.339648447683716,7.251788411920929,10.549078247683715,7.042357311920929,10.549078247683715,6.728210711920929L10.549078247683715,3.586747511920929C10.549078247683715,3.272601211920929,10.339647547683716,3.0631702119209288,10.025502447683715,3.0631702119209288L3.9520075476837158,3.063170711920929ZM8.873633647683715,6.099919111920929C8.559487547683716,6.099919111920929,8.245341047683716,5.785772111920929,8.245341047683716,5.471626611920929L8.245341047683716,4.843334011920929C8.140625747683716,4.424471911920929,8.454771747683715,4.1103256119209295,8.873633647683715,4.1103256119209295C9.292495947683715,4.1103256119209295,9.501925747683716,4.424471911920929,9.501925747683716,4.738618211920929L9.501925747683716,5.366911211920929C9.501925747683716,5.785772111920929,9.187779647683715,6.099919111920929,8.873633647683715,6.099919111920929ZM5.103877547683716,6.099919111920929C4.789731547683716,6.099919111920929,4.475585247683716,5.785772111920929,4.475585247683716,5.471626611920929L4.475585247683716,4.843334011920929C4.475585247683716,4.424471911920929,4.789731547683716,4.1103256119209295,5.103877547683716,4.1103256119209295C5.418023847683716,4.1103256119209295,5.732170347683716,4.424471911920929,5.732170347683716,4.738618211920929L5.732170347683716,5.366911211920929C5.836885647683716,5.785772111920929,5.5227391476837155,6.099919111920929,5.103877547683716,6.099919111920929Z\" fill=\"currentColor\" fill-rule=\"evenodd\"></path></svg>艾迪</button>",
         "                  <div role=\"tooltip\" class=\"avatar-tooltip\">停用数字分身</div>",
@@ -174,11 +179,33 @@
         "                    <ul class=\"giencoder-select-option-list\" role=\"listbox\" aria-label=\"大模型选择\">",
         "                      <li class=\"giencoder-select-option giencoder-select-option-selected\" role=\"option\" aria-selected=\"true\">DeepSeek-V4-Pro</li>",
         "                      <li class=\"giencoder-select-option\" role=\"option\" aria-selected=\"false\">GLM-5.2-公司共用</li>",
+        "                      <li class=\"giencoder-select-option giencoder-select-option-disabled\" role=\"option\" aria-selected=\"false\" aria-disabled=\"true\">Qwen 3.8-max</li>",
+        "                      <li class=\"giencoder-select-option\" role=\"option\" aria-selected=\"false\">Kimi-2.6</li>",
         "                    </ul>",
         "                  </div>",
         "                </div>",
         "                <button type=\"button\" aria-label=\"优化提示词\" class=\"flex size-8 items-center justify-center rounded-full transition-colors hover:bg-[var(--color-fill-1)]\" style=\"background: rgb(255, 255, 255);\"><svg viewBox=\"0 0 14.08 14.06\" width=\"14\" height=\"14\" fill=\"none\"><path d=\"M9.1414957,4.6432233C8.8303785,4.9347887,8.3439808,4.9266973,8.0427332,4.6249452C7.7414865,4.3231936,7.7342105,3.8367827,8.0262985,3.5261555L9.7009659,1.8514888C10.009434,1.5430192,10.509562,1.5430192,10.818031,1.8514888C11.126502,2.1599586,11.126502,2.6600869,10.818032,2.9685569L9.1405592,4.6432233L9.1414957,4.6432233Z\" fill=\"#BEBEBE\"></path><path d=\"M11.878967,7.1103153L9.5091734,7.1103153C9.0621662,7.1256995,8.6914234,6.7674994,8.6914234,6.3202286C8.6914234,5.8729568,9.0621662,5.5147567,9.5091734,5.5301414L11.879902,5.5301414C12.326908,5.5147567,12.697651,5.8729568,12.697651,6.3202286C12.697649,6.7674994,12.326908,7.1256995,11.879902,7.1103153L11.878967,7.1103153Z\" fill=\"#BEBEBE\"></path><path d=\"M4.1137528,4.8761797C3.9033761,4.8776922,3.7011769,4.7947903,3.5524123,4.6460304L1.8777457,2.971364C1.569276,2.6628945,1.569276,2.162766,1.8777457,1.8542962C2.1862154,1.5458264,2.6863437,1.5458263,2.9948137,1.854296L4.6694798,3.5289626C4.8958349,3.7551589,4.9632897,4.0956059,4.8402843,4.3910227C4.717279,4.68644,4.4281397,4.8784089,4.1081395,4.8771148L4.1137528,4.8761797Z\" fill=\"#BEBEBE\"></path><path d=\"M6.3497601,0C6.7863712,0,7.1403146,0.35394344,7.1403146,0.79055488L7.1403146,3.1612837C7.1256599,3.5870585,6.7762556,3.9246454,6.3502278,3.9246454C5.9242005,3.9246454,5.5747943,3.5870588,5.5601397,3.1612837L5.5601397,0.79055488C5.5601397,0.35430831,5.9135146,0.00051608856,6.3497601,0Z\" fill=\"#BEBEBE\"></path><path d=\"M0.819619,5.5301414L3.1884768,5.5301414C3.6354835,5.5147562,4.0062251,5.8729568,4.0062251,6.3202286C4.0062251,6.7674994,3.6354835,7.1256995,3.1884768,7.1103153L0.81774795,7.1103153C0.37074119,7.1256995,0,6.7674994,0,6.3202286C2.5033659e-8,5.8729568,0.37074125,5.5147562,0.81774795,5.5301414L0.819619,5.5301414Z\" fill=\"#BEBEBE\"></path><path d=\"M3.5570905,7.9972339C3.8655162,7.6885071,4.3658547,7.6883845,4.6744308,7.9969606C4.9830074,8.3055372,4.9828858,8.8058758,4.6741581,9.1143007L2.9994922,10.788968C2.688375,11.08053,2.2019811,11.072435,1.9007362,10.770686C1.5994915,10.468936,1.5922134,9.9825287,1.8842953,9.6718998L3.5570905,7.9972339Z\" fill=\"#BEBEBE\"></path><path d=\"M6.3497601,8.6886187C6.7863712,8.6886187,7.1403146,9.0425615,7.1403146,9.4791737L7.1403146,11.849901C7.1256599,12.275676,6.7762556,12.613264,6.3502278,12.613264C5.9242005,12.613264,5.5747943,12.275676,5.5601397,11.849901L5.5601397,9.4791737C5.5601397,9.0429258,5.9135141,8.6891346,6.3497601,8.6886187Z\" fill=\"#BEBEBE\"></path><path d=\"M5.9540148,5.9240155C6.2626376,5.6159139,6.7624602,5.6159139,7.0710826,5.9240155L9.1424294,7.9953628L10.817097,9.6700287L13.785653,12.650749C14.077717,12.96138,14.070429,13.447771,13.769192,13.749513C13.467955,14.051255,12.981577,14.059359,12.670459,13.767816L5.9577575,7.0410843C5.6478443,6.7339692,5.6457491,6.2337155,5.9530797,5.9240155L5.9540148,5.9240155Z\" fill=\"#BEBEBE\"></path></svg></button>",
         "                <button type=\"button\" aria-label=\"发送\" disabled class=\"flex shrink-0 !size-8 !rounded-full !p-0 items-center justify-center transition-colors\" style=\"background: var(--color-fill-3); cursor: not-allowed; opacity: 0.5;\"><svg viewBox=\"8.82 10.73 14.08 11.38\" width=\"14\" height=\"14\" fill=\"none\"><path d=\"M9.028238606,34.839137L11.6378174,29.1173639C11.6825285,28.9479885,11.6825285,28.7663059,11.6378174,28.6000094L9.028238606,22.87514764C8.88469238,22.32391092,9.31768426,21.81578781,9.7224375,22.065230064L19.998936,28.4367857C20.267201,28.6030817,20.267201,29.1050444,19.998936,29.2713394L9.7224375,35.649054C9.31768426,35.898499,8.88469242,35.390374,9.028238606,34.839137Z\" fill=\"#FFFFFF\" transform=\"matrix(0,-1,1,0,-13,31)\"></path></svg></button>",
+        "              </div>",
+        "            </div>",
+        "            <!-- 技能面板（★ 第 28 轮第 4 项）：结构与内容对齐 pages/base.html 实测面板。",
+        "                 放在对话框根容器内、absolute 定位于其上方（bottom: calc(100% + 8px)）。 -->",
+        "            <div class=\"giencoder-select td-skill-pop\" role=\"listbox\" aria-label=\"技能选择\" data-td-skill-pop=\"1\" hidden>",
+        "              <div class=\"td-skill-list\">",
+        "                <div class=\"td-skill-row is-goal is-active\" role=\"option\" tabindex=\"-1\"><span class=\"td-skill-ico is-goal\"><svg viewBox=\"0 0 14.076962 14.882011\" width=\"14\" height=\"14\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M7.3,0.6C6.9,0.5,6.4,0.7,6.4,1.2L6.4,7.6C6.4,7.9,6.7,8.2,7,8.2C7.3,8.2,7.6,7.9,7.6,7.6L7.6,6.2L11.9,4C12.1,3.9,12.3,3.7,12.3,3.5C12.3,3.3,12.1,3.1,11.9,3L7.3,0.6ZM7.6,2.1L10.4,3.5L7.6,4.9L7.6,2.1ZM4.9,2.3C4.7,2.3,4.6,2.3,4.4,2.4C0,4.5,0.2,11,4.7,13C9.3,14.9,14.1,10.5,12.5,5.8C12.4,5.5,12.1,5.3,11.8,5.4C11.5,5.5,11.3,5.8,11.4,6.1C12.7,10,8.9,13.5,5.2,11.9C1.5,10.3,1.3,5.2,4.9,3.4C5.2,3.3,5.3,2.9,5.2,2.6C5.1,2.5,5,2.4,4.9,2.3ZM4.2,5.5C4.3,5.4,4.4,5.3,4.6,5.3C4.7,5.2,4.9,5.3,5,5.4C5.3,5.6,5.3,5.9,5.1,6.2C4.1,7.5,4.8,9.5,6.5,9.9C8.1,10.3,9.6,8.8,9.3,7.1C9.2,6.8,9.4,6.5,9.7,6.4C10.1,6.4,10.4,6.6,10.4,6.9C10.9,9.4,8.7,11.6,6.2,11C3.8,10.4,2.7,7.5,4.2,5.5Z\"/></svg></span><span class=\"td-skill-txt\"><span class=\"td-skill-name\">Goal</span><span class=\"td-skill-desc\">构建一个以实现目标为结果的任务，持续运行直到全部完成。</span></span></div>",
+        "                <div class=\"td-skill-group\">技能 Skills</div>",
+        "                <div class=\"td-skill-row\" role=\"option\" tabindex=\"-1\"><span class=\"td-skill-ico\"><svg viewBox=\"0 0 14 14\" width=\"12\" height=\"12\" aria-hidden=\"true\"><path d=\"M24.2,2.6C25.4,4.2,25.3,6.5,23.8,7.9C22.7,9.1,21.1,9.4,19.7,8.9L15.7,12.9C15.5,13,15.3,13,15.1,12.9L13.1,10.9C13,10.7,13,10.5,13.1,10.3L17.1,6.3C16.6,4.9,16.9,3.3,18.1,2.2C19.5,0.7,21.8,0.6,23.4,1.8L21,4.2L21.8,5L24.2,2.6ZM23.9,4.5L23.9,4.5L22.1,6.3C21.9,6.4,21.6,6.4,21.4,6.3L19.7,4.6C19.6,4.4,19.6,4.1,19.7,3.9L21.5,2.1L21.5,2.1C20.6,2,19.6,2.2,18.9,2.9L18.8,3C18,3.8,17.8,4.9,18.1,6L18.1,6L18.3,6.6L14.3,10.6L15.4,11.7L19.4,7.7L20,7.9C21.1,8.2,22.2,8,23,7.2C23.8,6.4,24,5.5,23.9,4.5Z\" fill=\"currentColor\" transform=\"matrix(-1,0,0,1,26,0)\"/></svg></span><span class=\"td-skill-txt\"><span class=\"td-skill-name\">systematic-debugging</span><span class=\"td-skill-desc\">一个用于调试软件问题的结构化方法，强制要求在提出修复方案前进行根本原因分析。</span></span><span class=\"td-skill-tag\">预置</span></div>",
+        "                <div class=\"td-skill-row\" role=\"option\" tabindex=\"-1\"><span class=\"td-skill-ico\"><svg viewBox=\"0 0 14 14\" width=\"12\" height=\"12\" aria-hidden=\"true\"><path d=\"M24.2,2.6C25.4,4.2,25.3,6.5,23.8,7.9C22.7,9.1,21.1,9.4,19.7,8.9L15.7,12.9C15.5,13,15.3,13,15.1,12.9L13.1,10.9C13,10.7,13,10.5,13.1,10.3L17.1,6.3C16.6,4.9,16.9,3.3,18.1,2.2C19.5,0.7,21.8,0.6,23.4,1.8L21,4.2L21.8,5L24.2,2.6ZM23.9,4.5L23.9,4.5L22.1,6.3C21.9,6.4,21.6,6.4,21.4,6.3L19.7,4.6C19.6,4.4,19.6,4.1,19.7,3.9L21.5,2.1L21.5,2.1C20.6,2,19.6,2.2,18.9,2.9L18.8,3C18,3.8,17.8,4.9,18.1,6L18.1,6L18.3,6.6L14.3,10.6L15.4,11.7L19.4,7.7L20,7.9C21.1,8.2,22.2,8,23,7.2C23.8,6.4,24,5.5,23.9,4.5Z\" fill=\"currentColor\" transform=\"matrix(-1,0,0,1,26,0)\"/></svg></span><span class=\"td-skill-txt\"><span class=\"td-skill-name\">writing-skills</span><span class=\"td-skill-desc\">将测试驱动开发方法应用于Claude技能文档创建。</span></span><span class=\"td-skill-tag\">预置</span></div>",
+        "                <div class=\"td-skill-row\" role=\"option\" tabindex=\"-1\"><span class=\"td-skill-ico\"><svg viewBox=\"0 0 14 14\" width=\"12\" height=\"12\" aria-hidden=\"true\"><path d=\"M24.2,2.6C25.4,4.2,25.3,6.5,23.8,7.9C22.7,9.1,21.1,9.4,19.7,8.9L15.7,12.9C15.5,13,15.3,13,15.1,12.9L13.1,10.9C13,10.7,13,10.5,13.1,10.3L17.1,6.3C16.6,4.9,16.9,3.3,18.1,2.2C19.5,0.7,21.8,0.6,23.4,1.8L21,4.2L21.8,5L24.2,2.6ZM23.9,4.5L23.9,4.5L22.1,6.3C21.9,6.4,21.6,6.4,21.4,6.3L19.7,4.6C19.6,4.4,19.6,4.1,19.7,3.9L21.5,2.1L21.5,2.1C20.6,2,19.6,2.2,18.9,2.9L18.8,3C18,3.8,17.8,4.9,18.1,6L18.1,6L18.3,6.6L14.3,10.6L15.4,11.7L19.4,7.7L20,7.9C21.1,8.2,22.2,8,23,7.2C23.8,6.4,24,5.5,23.9,4.5Z\" fill=\"currentColor\" transform=\"matrix(-1,0,0,1,26,0)\"/></svg></span><span class=\"td-skill-txt\"><span class=\"td-skill-name\">create-ex</span><span class=\"td-skill-desc\">Distill an ex-partner into an AI Skill. Import WeChat history, photos, social media posts, generate...</span></span><span class=\"td-skill-tag\">预置</span></div>",
+        "                <div class=\"td-skill-row\" role=\"option\" tabindex=\"-1\"><span class=\"td-skill-ico\"><svg viewBox=\"0 0 14 14\" width=\"12\" height=\"12\" aria-hidden=\"true\"><path d=\"M24.2,2.6C25.4,4.2,25.3,6.5,23.8,7.9C22.7,9.1,21.1,9.4,19.7,8.9L15.7,12.9C15.5,13,15.3,13,15.1,12.9L13.1,10.9C13,10.7,13,10.5,13.1,10.3L17.1,6.3C16.6,4.9,16.9,3.3,18.1,2.2C19.5,0.7,21.8,0.6,23.4,1.8L21,4.2L21.8,5L24.2,2.6ZM23.9,4.5L23.9,4.5L22.1,6.3C21.9,6.4,21.6,6.4,21.4,6.3L19.7,4.6C19.6,4.4,19.6,4.1,19.7,3.9L21.5,2.1L21.5,2.1C20.6,2,19.6,2.2,18.9,2.9L18.8,3C18,3.8,17.8,4.9,18.1,6L18.1,6L18.3,6.6L14.3,10.6L15.4,11.7L19.4,7.7L20,7.9C21.1,8.2,22.2,8,23,7.2C23.8,6.4,24,5.5,23.9,4.5Z\" fill=\"currentColor\" transform=\"matrix(-1,0,0,1,26,0)\"/></svg></span><span class=\"td-skill-txt\"><span class=\"td-skill-name\">nuwa-skill</span><span class=\"td-skill-desc\">女娲（Nuwa）：输入任何人的名字，自动调研 → 提取思维框架 → 生成可运行的视角技能。</span></span><span class=\"td-skill-tag\">自有</span></div>",
+        "                <div class=\"td-skill-row\" role=\"option\" tabindex=\"-1\"><span class=\"td-skill-ico\"><svg viewBox=\"0 0 14 14\" width=\"12\" height=\"12\" aria-hidden=\"true\"><path d=\"M24.2,2.6C25.4,4.2,25.3,6.5,23.8,7.9C22.7,9.1,21.1,9.4,19.7,8.9L15.7,12.9C15.5,13,15.3,13,15.1,12.9L13.1,10.9C13,10.7,13,10.5,13.1,10.3L17.1,6.3C16.6,4.9,16.9,3.3,18.1,2.2C19.5,0.7,21.8,0.6,23.4,1.8L21,4.2L21.8,5L24.2,2.6ZM23.9,4.5L23.9,4.5L22.1,6.3C21.9,6.4,21.6,6.4,21.4,6.3L19.7,4.6C19.6,4.4,19.6,4.1,19.7,3.9L21.5,2.1L21.5,2.1C20.6,2,19.6,2.2,18.9,2.9L18.8,3C18,3.8,17.8,4.9,18.1,6L18.1,6L18.3,6.6L14.3,10.6L15.4,11.7L19.4,7.7L20,7.9C21.1,8.2,22.2,8,23,7.2C23.8,6.4,24,5.5,23.9,4.5Z\" fill=\"currentColor\" transform=\"matrix(-1,0,0,1,26,0)\"/></svg></span><span class=\"td-skill-txt\"><span class=\"td-skill-name\">subagent-driven-development</span><span class=\"td-skill-desc\">将实施计划分解为独立任务的工作流，每个任务由新的AI子代理处理，并经过规...</span></span><span class=\"td-skill-tag\">自有</span></div>",
+        "              </div>",
+        "              <button type=\"button\" class=\"td-skill-x\" aria-label=\"关闭技能面板\" data-td-skill-close=\"1\"><svg viewBox=\"0 0 10.4989 10.487117\" width=\"12\" height=\"12\" aria-hidden=\"true\"><path d=\"M7.5,10.5L3,10.5L1.8,10.5C1.8,10.5,1.7,10.5,1.7,10.4C1.6,10.5,1.4,10.4,1.4,10.3L0.8,9.8C0.7,9.7,0.7,9.5,0.8,9.3L3.3,6.1C3.4,6,3.7,6,3.8,6.1L4.3,6.6C4.5,6.8,4.5,7,4.3,7.1L2.9,9L6.9,9C8,8.9,8.9,8,9,6.9L9,4.1C9,3.9,9.2,3.7,9.4,3.7L10.1,3.7C10.3,3.7,10.5,3.9,10.5,4.1L10.5,4.5L10.5,7.1L10.5,7.5C10.5,9.1,9.2,10.5,7.5,10.5Z\" fill=\"currentColor\"/></svg></button>",
+        "              <div class=\"td-skill-foot\">",
+        "                <div>",
+        "                  <button type=\"button\" class=\"giencoder-btn giencoder-btn-size-default giencoder-btn-secondary\">安装技能</button>",
+        "                  <button type=\"button\" class=\"giencoder-btn giencoder-btn-size-default giencoder-btn-secondary\">管理技能</button>",
+        "                </div>",
         "              </div>",
         "            </div>",
         "          </div>",
@@ -257,8 +284,102 @@
       });
     }
 
+    /* ================= 对话框三个弹层（★ 第 28 轮第 4 项） =================
+       行为对齐 pages/base.html 实测：
+         · 点「添加」按钮 → 在按钮上方弹出 180×92 菜单（两项 + 分隔线）；再点按钮关闭；
+         · 点「技能」按钮 → 在对话框上方弹出 760×320 面板（Goal + 技能列表 + 底部两个按钮）；
+         · 点「大模型 / 标准模式」视图 → 展开 DS Select 弹层；
+         · 点菜单项 / 技能行 / 模型项 → **只关闭弹层**（base 实测：不写 textarea、也没有隐藏的
+           input[type=file]，所以「添加本地文件」这里同样只关闭，保持一致）；
+         · 点弹层外部 → 全部关闭；
+         · Esc → 全部关闭。⚠️ base 里 Esc 不关技能面板，但本页 Esc 是「返回任务看板」的全局快捷键，
+           必须先吃掉这次 Esc，否则会误跳转 → 用自定义事件 td:close-popovers 与页尾脚本约定（见 TAIL）。 */
+    var opAdd = null, opSkill = null, opSel = null;
+    function popFlag() { document.documentElement.toggleAttribute('data-td-pop-open', !!(opAdd || opSkill || opSel)); }
+    function closeAdd() { if (!opAdd) return; opAdd.pop.hidden = true; opAdd.btn.setAttribute('aria-expanded', 'false'); opAdd = null; popFlag(); }
+    function closeSkill() { if (!opSkill) return; opSkill.pop.hidden = true; opSkill.btn.setAttribute('aria-expanded', 'false'); opSkill = null; popFlag(); }
+    function closeSel() { if (!opSel) return; opSel.pop.style.display = 'none'; opSel.view.setAttribute('aria-expanded', 'false'); opSel = null; popFlag(); }
+    function closePops() { closeAdd(); closeSkill(); closeSel(); }
+
+    var addBtn = wrap.querySelector('[data-td-add-btn]');
+    var addPop = wrap.querySelector('[data-td-add-pop]');
+    if (addBtn && addPop) {
+      addBtn.addEventListener('click', function () {
+        closeSkill(); closeSel();
+        if (opAdd) { closeAdd(); return; }
+        addPop.hidden = false;
+        addBtn.setAttribute('aria-expanded', 'true');
+        opAdd = { btn: addBtn, pop: addPop }; popFlag();
+        var f = addPop.querySelector('[role="menuitem"]');
+        if (f) f.focus();
+      });
+      Array.prototype.forEach.call(addPop.querySelectorAll('[role="menuitem"]'), function (it) {
+        it.addEventListener('click', function () { closeAdd(); });
+      });
+    }
+
+    var skillBtn = wrap.querySelector('[data-td-skill-btn]');
+    var skillPop = wrap.querySelector('[data-td-skill-pop]');
+    if (skillBtn && skillPop) {
+      skillBtn.addEventListener('click', function () {
+        closeAdd(); closeSel();
+        if (opSkill) { closeSkill(); return; }
+        skillPop.hidden = false;
+        skillBtn.setAttribute('aria-expanded', 'true');
+        opSkill = { btn: skillBtn, pop: skillPop }; popFlag();
+      });
+      Array.prototype.forEach.call(skillPop.querySelectorAll('.td-skill-row'), function (row) {
+        row.addEventListener('click', function () { closeSkill(); });
+      });
+      var skillX = skillPop.querySelector('[data-td-skill-close]');
+      if (skillX) skillX.addEventListener('click', function () { closeSkill(); skillBtn.focus(); });
+    }
+
+    /* 大模型 / 标准模式：DS Select 契约结构 —— 视图点击开合、选项点击选中并回写文案 */
+    Array.prototype.forEach.call(wrap.querySelectorAll('.td-composer .giencoder-select'), function (sel) {
+      var view = sel.querySelector('.giencoder-select-view');
+      var pop = sel.querySelector('.giencoder-select-popup');
+      if (!view || !pop) return;
+      view.addEventListener('click', function () {
+        closeAdd(); closeSkill();
+        if (opSel && opSel.pop === pop) { closeSel(); return; }
+        closeSel();
+        pop.style.display = 'block';
+        view.setAttribute('aria-expanded', 'true');
+        opSel = { view: view, pop: pop }; popFlag();
+      });
+      view.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); view.click(); }
+      });
+      Array.prototype.forEach.call(pop.querySelectorAll('.giencoder-select-option'), function (opt) {
+        opt.addEventListener('click', function () {
+          if (opt.classList.contains('giencoder-select-option-disabled')) return;
+          Array.prototype.forEach.call(pop.querySelectorAll('.giencoder-select-option'), function (o) {
+            o.classList.remove('giencoder-select-option-selected');
+            o.setAttribute('aria-selected', 'false');
+          });
+          opt.classList.add('giencoder-select-option-selected');
+          opt.setAttribute('aria-selected', 'true');
+          var txt = view.querySelector('.giencoder-select-view-text');
+          if (txt) txt.textContent = opt.textContent.trim();
+          closeSel();
+        });
+      });
+    });
+
+    /* 点弹层与触发器以外的任何地方 → 全部关闭
+       ⚠️ 「技能」按钮本身不在 .giencoder-select 里，必须单独列出，否则它的 click 会先打开面板、
+          紧接着冒泡到 document 又被立刻关掉。 */
+    document.addEventListener('click', function (e) {
+      if (!opAdd && !opSkill && !opSel) return;
+      if (e.target.closest && e.target.closest('.td-add-pop, .td-skill-pop, .giencoder-select, [data-td-skill-btn]')) return;
+      closePops();
+    });
+    document.addEventListener('td:close-popovers', closePops);
+
     var gutter = wrap.querySelector('[data-td-gutter]');
     var right = wrap.querySelector('.td-right');
+    var left = wrap.querySelector('.td-left');
     if (!gutter || !right) return;
 
     var DEFAULT_W = 480;   /* 右栏默认宽（设计稿实测） */
@@ -271,6 +392,17 @@
       curW = w;
       root.style.setProperty('--td-right-w', w + 'px');
       gutter.setAttribute('aria-valuenow', String(Math.round(w)));
+    }
+    /* 由指针 x 反推右栏应有的宽度。
+       第 28 轮第 1 项：两栏可互换位置（.is-swapped → row-reverse）后 .td-right 会跑到左侧、
+       拖动条落在它**右侧**，此时宽度与 clientX 是正相关（原来恒为负相关）→ 必须按状态取反。 */
+    function widthFrom(clientX) {
+      var box = root.getBoundingClientRect();
+      var w = root.classList.contains('is-swapped') ? (clientX - box.left) : (box.right - clientX);
+      var maxW = box.width - LEFT_MIN;
+      if (w > maxW) w = maxW;
+      if (w < 0) w = 0;
+      return w;
     }
     function collapse() {
       root.classList.add('is-collapsed');
@@ -291,11 +423,7 @@
     });
     gutter.addEventListener('pointermove', function (e) {
       if (!dragging) return;
-      var box = root.getBoundingClientRect();
-      var w = box.right - e.clientX;
-      var maxW = box.width - LEFT_MIN;
-      if (w > maxW) w = maxW;
-      if (w < 0) w = 0;
+      var w = widthFrom(e.clientX);
       /* 第 24 轮第 4 项：拖到 100px 以下立刻折叠成窄条（实时反馈）；
          继续向左拖回 100px 以上则恢复跟随鼠标。松手时以 curW 判定最终状态。 */
       if (w < MIN_W) {
@@ -317,12 +445,15 @@
     }
     gutter.addEventListener('pointerup', endDrag);
     gutter.addEventListener('pointercancel', endDrag);
-    /* 键盘可达：← 变宽 / → 变窄（到阈值即折叠） */
+    /* 键盘可达：默认 ← 变宽 / → 变窄（到阈值即折叠）；两栏互换后方向随之取反 */
     gutter.addEventListener('keydown', function (e) {
       var step = 24;
       var maxW = root.getBoundingClientRect().width - LEFT_MIN;
-      if (e.key === 'ArrowLeft') { expand(Math.min(curW + step, maxW)); e.preventDefault(); }
-      else if (e.key === 'ArrowRight') {
+      var swapped = root.classList.contains('is-swapped');
+      var widerKey = swapped ? 'ArrowRight' : 'ArrowLeft';
+      var narrowKey = swapped ? 'ArrowLeft' : 'ArrowRight';
+      if (e.key === widerKey) { expand(Math.min(curW + step, maxW)); e.preventDefault(); }
+      else if (e.key === narrowKey) {
         var nw = curW - step;
         if (nw < MIN_W) collapse(); else expand(nw);
         e.preventDefault();
@@ -334,6 +465,59 @@
       e.preventDefault();
       expand(DEFAULT_W);
     });
+
+    /* ---------- 按住标题栏左右拖动互换两栏位置（★ 第 28 轮第 1 项） ----------
+       判定规则：
+         · pointerdown 必须落在 .td-bar / .td-right-bar 上，且**不在按钮/链接/输入控件**上
+           （否则会和顶栏那些按钮的点击抢事件）；
+         · 位移 < 6px 视为点击（不进入拖动态、不 preventDefault、不影响原有点击）；
+         · 位移在「指向另一栏」的方向上 ≥ SWAP_T px 才真正互换 —— 方向在 pointerdown 时按两栏
+           实测中心算出，所以交换后再拖同一个标题栏会自动反向（不会出现「单向死锁」）。
+       互换本身只切 .is-swapped（CSS row-reverse），DOM 顺序不动。 */
+    var SWAP_T = 80;
+    var xdrag = null;
+    function bindSwapBar(bar, panel) {
+      if (!bar) return;
+      bar.addEventListener('pointerdown', function (e) {
+        if (e.button !== 0) return;
+        if (e.target.closest('button, a, input, textarea, select, [role="combobox"]')) return;
+        if (root.classList.contains('is-fullscreen') || root.classList.contains('is-collapsed')) return;
+        var other = (panel === left) ? right : left;
+        var a = panel.getBoundingClientRect(), b = other.getBoundingClientRect();
+        xdrag = {
+          x0: e.clientX, dx: 0, moved: false,
+          dir: (b.left + b.width / 2) >= (a.left + a.width / 2) ? 1 : -1
+        };
+        if (bar.setPointerCapture) { try { bar.setPointerCapture(e.pointerId); } catch (err) {} }
+      });
+      bar.addEventListener('pointermove', function (e) {
+        if (!xdrag) return;
+        xdrag.dx = e.clientX - xdrag.x0;
+        if (!xdrag.moved) {
+          if (Math.abs(xdrag.dx) < 6) return;
+          xdrag.moved = true;
+          root.classList.add('is-xdrag');
+        }
+        root.classList.toggle('is-xarmed', xdrag.dx * xdrag.dir >= SWAP_T);
+        e.preventDefault();
+      });
+      function endSwap() {
+        if (!xdrag) return;
+        var d = xdrag;
+        xdrag = null;
+        root.classList.remove('is-xdrag', 'is-xarmed');
+        if (!d.moved) return;
+        if (d.dx * d.dir >= SWAP_T) {
+          root.classList.toggle('is-swapped');
+          root.classList.add('is-swap-anim');
+          setTimeout(function () { root.classList.remove('is-swap-anim'); }, 320);
+        }
+      }
+      bar.addEventListener('pointerup', endSwap);
+      bar.addEventListener('pointercancel', endSwap);
+    }
+    bindSwapBar(wrap.querySelector('.td-bar'), left);
+    bindSwapBar(wrap.querySelector('.td-right-bar'), right);
   }
 
   /* 外壳页签：本页归属研发工作台。React 外壳按「文件名 → 路由」判页签

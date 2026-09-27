@@ -1,0 +1,82 @@
+=== 0. 基线：布局未被破坏 ===
+"{\"sideW\":266,\"leftL\":8,\"leftW\":936,\"rightL\":952,\"rightW\":480,\"scroll\":\"1440/1440\"}"
+
+=== 7. giencoder-tag-content 字号 ===
+"{\"tagCls\":\"giencoder-tag giencoder-tag-danger td-tag-prio\",\"contentFs\":\"12px\",\"tagFs\":\"12px\",\"contentLh\":\"12px\",\"box\":\"52x18\"}"
+
+=== 3. .td-attr-link hover 变主题蓝 ===
+"{\"before\":{\"color\":\"rgb(31, 31, 31)\",\"iconColor\":\"rgb(87, 98, 109)\",\"textDecoration\":\"none\"}}"
+"{\"after\":{\"color\":\"rgb(55, 112, 247)\",\"iconColor\":\"rgb(55, 112, 247)\",\"primary6\":\"rgb(55, 112, 247)\"}}"
+
+=== 6. 卡片图标 / 分隔线（附件 / AI 产物 / 文件） ===
+"{\"cards\":[{\"name\":\"端到端流程初始化：用户输入业务流程并触发全链路交付.docx\",\"big\":false,\"h\":36,\"w\":426,\"radius\":\"6px\",\"icoBox\":\"16x16\",\"icoLeft\":12,\"icoCls\":\"td-file-ico\",\"icoColor\":\"rgb(107, 107, 107)\",\"shapes\":4,\"sep\":null,\"sepColor\":null,\"sepLeft\":null},{\"name\":\"TaskBoard.png\",\"big\":false,\"h\":36,\"w\":134,\"radius\":\"6px\",\"icoBox\":\"16x16\",\"icoLeft\":12,\"icoCls\":\"td-file-ico\",\"icoColor\":\"rgb(107, 107, 107)\",\"shapes\":4,\"sep\":null,\"sepColor\":null,\"sepLeft\":null},{\"name\":\"prd-template.html\",\"big\":true,\"h\":56,\"w\":294,\"radius\":\"8px\",\"icoBox\":\"24x24\",\"icoLeft\":12,\"icoCls\":\"td-file-ico is-web\",\"icoColor\":\"rgb(50, 127, 203)\",\"shapes\":3,\"sep\":\"1x24\",\"sepColor\":\"rgb(201, 201, 201)\",\"sepLeft\":48},{\"name\":\"端到端初始化 - 任务分析报告.md\",\"big\":true,\"h\":56,\"w\":294,\"radius\":\"8px\",\"icoBox\":\"24x24\",\"icoLeft\":12,\"icoCls\":\"td-file-ico\",\"icoColor\":\"rgb(107, 107, 107)\",\"shapes\":5,\"sep\":\"1x24\",\"sepColor\":\"rgb(201, 201, 201)\",\"sepLeft\":48},{\"name\":\"spec-template.md\",\"big\":true,\"h\":56,\"w\":294,\"radius\":\"8px\",\"icoBox\":\"24x24\",\"icoLeft\":12,\"icoCls\":\"td-file-ico\",\"icoColor\":\"rgb(107, 107, 107)\",\"shapes\":5,\"sep\":\"1x24\",\"sepColor\":\"rgb(201, 201, 201)\",\"sepLeft\":48},{\"name\":\"概要设计-Steps.md\",\"big\":true,\"h\":56,\"w\":294,\"radius\":\"8px\",\"icoBox\":\"24x24\",\"icoLeft\":12,\"icoCls\":\"td-file-ico\",\"icoColor\":\"rgb(107, 107, 107)\",\"shapes\":5,\"sep\":\"1x24\",\"sepColor\":\"rgb(201, 201, 201)\",\"sepLeft\":48}]}"
+--- 6b. 图标实际着墨尺寸（渲染盒 vs 笔画） ---
+"[{\"cls\":\"td-file-ico\",\"vb\":\"0 0 16 16\",\"render\":\"16x16\"},{\"cls\":\"td-file-ico\",\"vb\":\"0 0 16 16\",\"render\":\"16x16\"},{\"cls\":\"td-file-ico is-web\",\"vb\":\"0 0 24 24\",\"render\":\"24x24\"},{\"cls\":\"td-file-ico\",\"vb\":\"0 0 24 24\",\"render\":\"24x24\"},{\"cls\":\"td-file-ico\",\"vb\":\"0 0 24 24\",\"render\":\"24x24\"},{\"cls\":\"td-file-ico\",\"vb\":\"0 0 24 24\",\"render\":\"24x24\"},{\"cls\":\"td-file-ico\",\"vb\":\"0 0 24 24\",\"render\":\"24x24\"}]"
+
+=== 5. AI 消息文件卡 ===
+"{\"card\":{\"box\":\"281x56\",\"radius\":\"8px\",\"bg\":\"rgb(247, 247, 247)\",\"gap\":\"12px\"},\"bodyDisplay\":\"flex\",\"bodyDir\":\"column\",\"parts\":{\".td-file-ico\":{\"box\":\"24x24\",\"left\":12,\"top\":16,\"color\":\"rgb(107, 107, 107)\",\"bg\":\"rgba(0, 0, 0, 0)\",\"fs\":\"14px\",\"fw\":\"400\"},\".td-file-sep\":{\"box\":\"1x24\",\"left\":48,\"top\":16,\"color\":\"rgb(10, 10, 11)\",\"bg\":\"rgb(201, 201, 201)\",\"fs\":\"14px\",\"fw\":\"400\"},\".td-file-tx\":{\"box\":\"206x22\",\"left\":61,\"top\":9,\"color\":\"rgb(31, 31, 31)\",\"bg\":\"rgba(0, 0, 0, 0)\",\"fs\":\"14px\",\"fw\":\"500\"},\".td-file-size\":{\"box\":\"206x16\",\"left\":61,\"top\":31,\"color\":\"rgb(134, 134, 134)\",\"bg\":\"rgba(0, 0, 0, 0)\",\"fs\":\"12px\",\"fw\":\"400\"}}}"
+
+=== 2. .td-desc 配图 ===
+"{\"exists\":true,\"src\":\"data:image/svg+xml;base64,PHN2ZyB4bWxucz\",\"natural\":\"1240x620\",\"box\":\"580x290\",\"radius\":\"8px\",\"imgBottomInBody\":326,\"bodyCollapsedH\":374,\"maxH\":\"374px\",\"fullyVisibleInCollapsed\":true}"
+
+=== 4. 对话框三个弹层的交互 ===
+--- 4a. 点「添加」 ---
+"{\"hidden\":false,\"box\":\"180x92\",\"radius\":\"8px\",\"items\":2,\"seps\":1,\"labels\":[\"添加本地文件\",\"知识库\"],\"aria\":\"true\",\"gapAboveBtn\":-4}"
+--- 4b. 点菜单项 → 只关闭 ---
+"{\"hiddenAfterItemClick\":true,\"textareaUntouched\":true,\"aria\":\"false\"}"
+--- 4c. 点「技能」 → 面板 ---
+"{\"hidden\":false,\"box\":\"438x320\",\"radius\":\"12px\",\"rows\":6,\"groups\":1,\"tags\":[\"预置\",\"预置\",\"预置\",\"自有\",\"自有\"],\"goalActive\":true,\"goalPurple\":\"rgb(119, 102, 253)\",\"buttons\":2,\"withinComposer\":true,\"aria\":\"true\"}"
+--- 4d. 点技能行 → 只关闭 ---
+"{\"hiddenAfterRowClick\":true}"
+--- 4e. 大模型下拉 ---
+✗ Evaluation error: TypeError: Failed to execute 'getComputedStyle' on 'Window': parameter 1 is not of type 'Element'.
+    at <anonymous>:1:150
+    at <anonymous>:1:420
+✗ Evaluation error: TypeError: Failed to execute 'getComputedStyle' on 'Window': parameter 1 is not of type 'Element'.
+    at <anonymous>:1:135
+    at <anonymous>:1:350
+--- 4f. 选中第 2 项 → 文案回写 + 关闭 ---
+✗ Evaluation error: TypeError: Cannot read properties of null (reading 'textContent')
+    at <anonymous>:1:178
+    at <anonymous>:1:455
+--- 4g. 外部点击关闭 ---
+"{\"hiddenAfterOutsideClick\":true,\"popFlag\":false}"
+--- 4h. Esc 关弹层且不跳转 ---
+"{\"url\":\"task-detail.html\",\"hiddenAfterEsc\":true,\"popFlag\":false}"
+
+=== 1. 标题栏拖动互换两栏 ===
+before: "{\"gx\":148,\"gy\":72,\"leftL\":8,\"rightL\":952,\"cls\":\"td-root\"}"
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    import sys,json;d=json.loads(sys.stdin.read());print(d['gx'],d['gy'])
+                                                         ~^^^^^^
+TypeError: string indices must be integers, not 'str'
+"{\"duringDragCls\":\"td-root\"}"
+"{\"rootCls\":\"td-root\",\"flexDir\":\"row\",\"leftL\":8,\"rightL\":952,\"swapped_rightIsLeft\":false}"
+--- 1b. 再拖回（此时 .td-bar 已在右侧，向左拖 → 复原） ---
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    import sys,json;d=json.loads(sys.stdin.read());print(d['gx'],d['gy'])
+                                                         ~^^^^^^
+TypeError: string indices must be integers, not 'str'
+"{\"rootCls\":\"td-root\",\"leftL\":8,\"rightL\":952,\"restored\":true}"
+
+--- 1c. 交换后拖动条方向取反（向右拖 → 右栏变宽） ---
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    import sys,json;d=json.loads(sys.stdin.read());print(d['gx'],d['gy'])
+                                                         ~^^^^^^
+TypeError: string indices must be integers, not 'str'
+"{\"gx\":948,\"gy\":470,\"rightWBefore\":480}"
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    import sys,json;d=json.loads(sys.stdin.read());print(d['gx'],d['gy'])
+                                                         ~^^^^^^
+TypeError: string indices must be integers, not 'str'
+"{\"rightWAfter\":480}"
+
+=== 回归：换页 / 语法 / 组件合规 ===
+"{\"kanbanOk\":true}"
+OK  block#5  3738 chars
+ALL_OK
+DONE

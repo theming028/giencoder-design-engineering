@@ -12,3 +12,6 @@ package-lock.json
 
 # Temporary
 *.pyc
+
+# Local preview server runtime log
+mg-work/serve.log
