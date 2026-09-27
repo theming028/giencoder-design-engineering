@@ -195,7 +195,32 @@
         "              上传文件",
         "            </button>",
         "            <div class=\"kb-crt-uptip\">支持最多上传5个文件，单个文件不超过10MB</div>",
-        "            <ul class=\"kb-crt-uplist\" hidden></ul>",
+        "            <ul class=\"kb-crt-uplist\">",
+        "            <li class=\"giencoder-upload-list-item kb-crt-upitem\">",
+        "              <span class=\"kb-crt-upfile\"><svg viewBox=\"0 0 18 18\" width=\"18\" height=\"18\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M10.2 2.2H5.4a1.6 1.6 0 0 0-1.6 1.6v10.4a1.6 1.6 0 0 0 1.6 1.6h7.2a1.6 1.6 0 0 0 1.6-1.6V6.4z\"/><path d=\"M10.2 2.2v4.2h4.2\"/><path d=\"M6.9 10.6h4.2M6.9 13.2h2.6\"/></svg></span>",
+        "              <span class=\"kb-crt-upinfo\">",
+        "                <span class=\"kb-crt-upname\">业务方原始需求文档</span>",
+        "                <span class=\"kb-crt-upprog\" role=\"progressbar\" aria-valuenow=\"66\" aria-valuemin=\"0\" aria-valuemax=\"100\"><i style=\"width:53%\"></i></span>",
+        "              </span>",
+        "              <button class=\"kb-crt-uprm\" type=\"button\" aria-label=\"移除\"><svg viewBox=\"0 0 14 14\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.3\" stroke-linecap=\"round\"><path d=\"M3.2 3.2l7.6 7.6M10.8 3.2l-7.6 7.6\"/></svg></button>",
+        "            </li>",
+        "            <li class=\"giencoder-upload-list-item kb-crt-upitem\">",
+        "              <span class=\"kb-crt-upfile\"><svg viewBox=\"0 0 18 18\" width=\"18\" height=\"18\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M10.2 2.2H5.4a1.6 1.6 0 0 0-1.6 1.6v10.4a1.6 1.6 0 0 0 1.6 1.6h7.2a1.6 1.6 0 0 0 1.6-1.6V6.4z\"/><path d=\"M10.2 2.2v4.2h4.2\"/><path d=\"M6.9 10.6h4.2M6.9 13.2h2.6\"/></svg></span>",
+        "              <span class=\"kb-crt-upinfo\">",
+        "                <span class=\"kb-crt-upname\">结构化的 PRD 产品需求文档</span>",
+        "                <span class=\"kb-crt-upmeta\">DOCX<span class=\"kb-crt-updot\"></span>256KB</span>",
+        "              </span>",
+        "              <button class=\"kb-crt-uprm\" type=\"button\" aria-label=\"移除\"><svg viewBox=\"0 0 14 14\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.3\" stroke-linecap=\"round\"><path d=\"M3.2 3.2l7.6 7.6M10.8 3.2l-7.6 7.6\"/></svg></button>",
+        "            </li>",
+        "            <li class=\"giencoder-upload-list-item kb-crt-upitem\">",
+        "              <span class=\"kb-crt-upfile\"><svg viewBox=\"0 0 18 18\" width=\"18\" height=\"18\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M10.2 2.2H5.4a1.6 1.6 0 0 0-1.6 1.6v10.4a1.6 1.6 0 0 0 1.6 1.6h7.2a1.6 1.6 0 0 0 1.6-1.6V6.4z\"/><path d=\"M10.2 2.2v4.2h4.2\"/><path d=\"M6.9 10.6h4.2M6.9 13.2h2.6\"/></svg></span>",
+        "              <span class=\"kb-crt-upinfo\">",
+        "                <span class=\"kb-crt-upname\">结构化的 PRD 产品需求文档</span>",
+        "                <span class=\"kb-crt-upmeta\">DOCX<span class=\"kb-crt-updot\"></span>256KB</span>",
+        "              </span>",
+        "              <button class=\"kb-crt-uprm\" type=\"button\" aria-label=\"移除\"><svg viewBox=\"0 0 14 14\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.3\" stroke-linecap=\"round\"><path d=\"M3.2 3.2l7.6 7.6M10.8 3.2l-7.6 7.6\"/></svg></button>",
+        "            </li>",
+        "            </ul>",
         "          </div>",
         "        </div>",
         "      </div>",
@@ -222,13 +247,13 @@
         "      <button class=\"giencoder-btn giencoder-btn-primary giencoder-btn-size-default kb-crt-btn\" type=\"button\" data-crt-submit=\"1\">创建任务</button>",
         "    </div>",
         "    <div class=\"kb-crt-msgs\" hidden>",
-        "      <div class=\"giencoder-message kb-crt-msg\" data-component=\"message\" data-variant=\"error\" data-state=\"default\" role=\"alert\" data-err=\"type\" hidden>",
-        "        <span class=\"kb-crt-msg-ico\"><svg viewBox=\"0 0 16 16\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\"><circle cx=\"8\" cy=\"8\" r=\"6.5\"/><path d=\"M5.6 5.6l4.8 4.8M10.4 5.6l-4.8 4.8\"/></svg></span>",
-        "        <span class=\"kb-crt-msg-tx\">「任务类型」不能为空</span>",
+        "      <div class=\"giencoder-message\" data-component=\"message\" data-variant=\"error\" data-state=\"default\" role=\"status\" data-err=\"type\" hidden>",
+        "        <span class=\"giencoder-message-icon\"><svg viewBox=\"0 0 16 16\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\"><circle cx=\"8\" cy=\"8\" r=\"6.5\"/><path d=\"M5.6 5.6l4.8 4.8M10.4 5.6l-4.8 4.8\"/></svg></span>",
+        "        <span class=\"giencoder-message-content\">「任务类型」不能为空</span>",
         "      </div>",
-        "      <div class=\"giencoder-message kb-crt-msg\" data-component=\"message\" data-variant=\"error\" data-state=\"default\" role=\"alert\" data-err=\"title\" hidden>",
-        "        <span class=\"kb-crt-msg-ico\"><svg viewBox=\"0 0 16 16\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\"><circle cx=\"8\" cy=\"8\" r=\"6.5\"/><path d=\"M5.6 5.6l4.8 4.8M10.4 5.6l-4.8 4.8\"/></svg></span>",
-        "        <span class=\"kb-crt-msg-tx\">「任务标题」不能为空</span>",
+        "      <div class=\"giencoder-message\" data-component=\"message\" data-variant=\"error\" data-state=\"default\" role=\"status\" data-err=\"title\" hidden>",
+        "        <span class=\"giencoder-message-icon\"><svg viewBox=\"0 0 16 16\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\"><circle cx=\"8\" cy=\"8\" r=\"6.5\"/><path d=\"M5.6 5.6l4.8 4.8M10.4 5.6l-4.8 4.8\"/></svg></span>",
+        "        <span class=\"giencoder-message-content\">「任务标题」不能为空</span>",
         "      </div>",
         "    </div>",
         "  </div>",
@@ -647,7 +672,42 @@
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && !modal.hidden) close();
     });
-    /* 上传：按钮唤起文件选择，选中后列出文件名 */
+    /* 附件项：选中后先「上传中」（进度条），1.2s 后转「已上传」（格式 · 大小）
+       结构对齐设计稿 1343:18391 */
+    var UP_FILE_SVG = '<svg viewBox="0 0 18 18" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10.2 2.2H5.4a1.6 1.6 0 0 0-1.6 1.6v10.4a1.6 1.6 0 0 0 1.6 1.6h7.2a1.6 1.6 0 0 0 1.6-1.6V6.4z"/><path d="M10.2 2.2v4.2h4.2"/><path d="M6.9 10.6h4.2M6.9 13.2h2.6"/></svg>';
+    var UP_RM_SVG = '<svg viewBox="0 0 14 14" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M3.2 3.2l7.6 7.6M10.8 3.2l-7.6 7.6"/></svg>';
+    function upFmtSize(b) {
+      if (b >= 1048576) return (b / 1048576).toFixed(1) + 'MB';
+      if (b >= 1024) return Math.round(b / 1024) + 'KB';
+      return b + 'B';
+    }
+    function makeUpItem(file) {
+      var li = document.createElement('li');
+      li.className = 'giencoder-upload-list-item kb-crt-upitem';
+      li.innerHTML =
+        '<span class="kb-crt-upfile">' + UP_FILE_SVG + '</span>' +
+        '<span class="kb-crt-upinfo">' +
+          '<span class="kb-crt-upname"></span>' +
+          '<span class="kb-crt-upprog" role="progressbar" aria-valuemin="0" aria-valuemax="100"><i style="width:0%"></i></span>' +
+        '</span>' +
+        '<button class="kb-crt-uprm" type="button" aria-label="移除">' + UP_RM_SVG + '</button>';
+      li.querySelector('.kb-crt-upname').textContent = file.name;
+      var fill = li.querySelector('.kb-crt-upprog i');
+      if (fill) requestAnimationFrame(function () { fill.style.width = '100%'; });
+      setTimeout(function () {
+        var info = li.querySelector('.kb-crt-upinfo');
+        if (!info) return;
+        var ext = (file.name.indexOf('.') > -1 ? file.name.split('.').pop() : '').toUpperCase();
+        info.innerHTML =
+          '<span class="kb-crt-upname"></span>' +
+          '<span class="kb-crt-upmeta"><span class="kb-crt-upmeta-ext"></span>' +
+          '<span class="kb-crt-updot"></span><span class="kb-crt-upmeta-size"></span></span>';
+        info.querySelector('.kb-crt-upname').textContent = file.name;
+        info.querySelector('.kb-crt-upmeta-ext').textContent = ext;
+        info.querySelector('.kb-crt-upmeta-size').textContent = upFmtSize(file.size);
+      }, 1200);
+      return li;
+    }
     var upBtn = modal.querySelector('.kb-crt-upbtn');
     var fileInput = modal.querySelector('.kb-crt-file');
     if (upBtn && fileInput) {
@@ -655,22 +715,8 @@
       fileInput.addEventListener('change', function () {
         if (!list) return;
         var fs = fileInput.files || [];
-        for (var i = 0; i < fs.length; i++) {
-          var li = document.createElement('li');
-          li.className = 'giencoder-upload-list-item kb-crt-upitem';
-          var nm = document.createElement('span');
-          nm.className = 'kb-crt-upname';
-          nm.textContent = fs[i].name;
-          li.appendChild(nm);
-          var rm = document.createElement('button');
-          rm.type = 'button';
-          rm.className = 'kb-crt-uprm';
-          rm.setAttribute('aria-label', '移除');
-          rm.innerHTML = '<svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"><path d="M3 3l6 6M9 3l-6 6"/></svg>';
-          li.appendChild(rm);
-          list.appendChild(li);
-        }
-        list.hidden = !fs.length;
+        for (var i = 0; i < fs.length; i++) list.appendChild(makeUpItem(fs[i]));
+        list.hidden = !list.children.length;
       });
       if (list) {
         list.addEventListener('click', function (e) {
