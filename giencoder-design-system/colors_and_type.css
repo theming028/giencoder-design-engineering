@@ -254,6 +254,24 @@
   --shadow3-left: -8px 0 20px rgba(0, 0, 0, 0.1);
   --shadow3-right: 8px 0 20px rgba(0, 0, 0, 0.1);
 
+  /* ---- 字符头像底色（成员浮窗 Design 1345:18366 DevMode 直出）----
+     按成员序号取模分配给 --avatar-bg-1..7，前景统一 --color-white。
+     设计稿 2x 实测（各头像圆内饱和度最高色）：邵禹铭/秦怡/韩佳毅/顾帆/姜嘉怡/朱甜/齐瑞辰。 */
+  --avatar-bg-1: #E57470;
+  --avatar-bg-2: #E88B4D;
+  --avatar-bg-3: #DCAB35;
+  --avatar-bg-4: #A2C143;
+  --avatar-bg-5: #67B85D;
+  --avatar-bg-6: #47C2C4;
+  --avatar-bg-7: #4C93D4;
+
+  /* ---- 细滚动条（overlay 风格：仅在溢出时出现）----
+     设计稿成员浮窗实测：滑块 6px 宽 / 圆头，色 rgba(0,0,0,.16)（叠白底 = #D6D6D6）。 */
+  --scrollbar-size: 6px;
+  --scrollbar-thumb-bg: rgba(0, 0, 0, 0.16);
+  --scrollbar-thumb-bg-hover: rgba(0, 0, 0, 0.28);
+  /* ==== 头像 / 滚动条 token 段结束（构建期抽取锚点，勿删）==== */
+
   /* ---- 间距 ---- */
   --spacing-1: 2px;
   --spacing-2: 4px;

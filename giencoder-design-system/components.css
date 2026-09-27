@@ -573,8 +573,30 @@ td.giencoder-table-operation .giencoder-btn-size-mini { padding: 0 4px; }
 
 
 /* === List 列表 === */
+.giencoder-list { font-size: var(--font-size-body-3); color: var(--color-text-1); }
+.giencoder-list-header { padding: 0 0 var(--spacing-4); color: var(--color-text-2); }
+.giencoder-list-item {
+  display: flex; align-items: center; gap: var(--spacing-4);
+  box-sizing: border-box; min-height: 40px; padding: 0 12px;
+  border-radius: var(--border-radius-large);
+}
+/* 行间距 2px：与 .giencoder-select-option（margin-bottom 2px）/ .giencoder-menu-item 同约定 */
+.giencoder-list-item + .giencoder-list-item { margin-top: 2px; }
+/* 尺寸（契约 sizes：small≈32 / default≈40 / large≈48） */
+.giencoder-list-item[data-size="small"] { min-height: 32px; }
+.giencoder-list-item[data-size="large"] { min-height: 48px; }
+/* hoverable（契约 variants.hoverable）：悬停行背景高亮为 --color-fill-1，0.2s 过渡 */
+.giencoder-list-item-hoverable {
+  cursor: pointer;
+  transition: background-color var(--transition-duration-2) var(--transition-timing-function-standard);
+}
+.giencoder-list-item-hoverable:hover { background: var(--color-fill-1); }
+.giencoder-list-item-meta { display: flex; align-items: center; gap: var(--spacing-4); flex: 1 1 auto; min-width: 0; }
+.giencoder-list-item-title { color: var(--color-text-1); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.giencoder-list-item-description { color: var(--color-text-3); }
 .giencoder-list-item-action { display: flex; gap: var(--spacing-4); flex-shrink: 0; }
 .giencoder-list-item-action .giencoder-btn { font-size: var(--font-size-body-3); }
+.giencoder-list-footer { padding: var(--spacing-4) 0 0; }
 
 
 /* === Badge 徽标 === */
@@ -601,6 +623,19 @@ td.giencoder-table-operation .giencoder-btn-size-mini { padding: 0 4px; }
 .giencoder-avatar { display: inline-flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; }
 .giencoder-avatar-group .giencoder-avatar { border: 2px solid var(--color-bg-1); margin-left: -8px; }
 .giencoder-avatar-group .giencoder-avatar:first-child { margin-left: 0; }
+/* 形状（契约 variants：圆形 / 方形。DS 本体不带形状，由这两个修饰类给出） */
+.giencoder-avatar-circle { border-radius: var(--border-radius-circle); }
+.giencoder-avatar-square { border-radius: var(--border-radius-medium); }
+/* 字符头像（契约 variants：文字头像）。
+   底色由 --avatar-bg 承载（默认 --color-fill-2），前景 --avatar-color（默认 --color-text-1）；
+   字号由 --avatar-font-size 承载并随尺寸缩放 —— 契约 behaviorNotes：单字 ≈ 尺寸 × 0.42，
+   20px → 11px，与契约「small(24px) 容量不足、保持单字 11px」同档。 */
+.giencoder-avatar-text {
+  background: var(--avatar-bg, var(--color-fill-2));
+  color: var(--avatar-color, var(--color-text-1));
+  font-size: var(--avatar-font-size, 11px);
+  line-height: 1; font-weight: 400; user-select: none;
+}
 
 
 /* === Breadcrumb 面包屑 === */
@@ -744,3 +779,36 @@ td.giencoder-table-operation .giencoder-btn-size-mini { padding: 0 4px; }
   position: absolute; bottom: var(--spacing-5); left: var(--spacing-5);
   display: flex; gap: var(--spacing-3);
 }
+
+
+/* === Popover 气泡卡片（契约 components/popover.json）===
+   静态结构样式。弹层的**定位与开合动效**在 gienx-templates/ui-controls.css
+   （与 Select / DatePicker / Image 同一处理方式：动效不进本文件）。
+   来源：preview/component-popover.html 的页面级演示样式，收敛为组件样式。
+   ⚠️ 类名以契约 anatomy 为准：
+     触发器 span.giencoder-popover-reference ／ 气泡 div.giencoder-popover（渲染到 popupContainer）
+     -title / -content / -arrow；-footer 为契约未逐一枚举的内部子部件（与 Modal/Drawer 同形）。
+   -footer 采用 Modal/Drawer 底部操作区的既定形态：上发丝线 + 12px 16px 内距。 */
+.giencoder-popover-reference { display: inline-flex; position: relative; }
+.giencoder-popover-title { padding: 10px 16px 0; font-size: var(--font-size-body-3); font-weight: 600; color: var(--color-text-1); }
+.giencoder-popover-content { padding: 8px 16px 12px; font-size: var(--font-size-body-3); color: var(--color-text-2); line-height: 1.6; }
+.giencoder-popover-footer {
+  display: flex; justify-content: flex-end; gap: var(--spacing-4);
+  padding: 12px 16px; border-top: 1px solid var(--color-border-1);
+}
+.giencoder-popover-arrow {
+  position: absolute; top: -5px; left: 50%; transform: translateX(-50%) rotate(45deg);
+  width: 8px; height: 8px; background: var(--color-bg-popup);
+  border-left: 1px solid var(--color-border-2); border-top: 1px solid var(--color-border-2);
+}
+
+
+/* === 细滚动条（overlay 风格：给需要滚动条的容器加 .giencoder-scroll-thin）===
+   6px 宽 / 圆头滑块 / 轨道透明，仅在溢出时出现。
+   设计稿成员浮窗 1345:18366 实测：滑块 6×128 @(310,118)，色 #D6D6D6 = rgba(0,0,0,.16) 叠白底。 */
+.giencoder-scroll-thin { scrollbar-width: thin; scrollbar-color: var(--scrollbar-thumb-bg) transparent; }
+.giencoder-scroll-thin::-webkit-scrollbar { width: var(--scrollbar-size); height: var(--scrollbar-size); }
+.giencoder-scroll-thin::-webkit-scrollbar-track { background: transparent; }
+.giencoder-scroll-thin::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb-bg); border-radius: var(--scrollbar-size); }
+.giencoder-scroll-thin::-webkit-scrollbar-thumb:hover { background: var(--scrollbar-thumb-bg-hover); }
+.giencoder-scroll-thin::-webkit-scrollbar-corner { background: transparent; }

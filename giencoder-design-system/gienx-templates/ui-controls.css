@@ -106,3 +106,27 @@
 .giencoder-image-preview-img.is-closing {
   animation: giencoder-image-out var(--transition-duration-2) var(--transition-timing-function-standard) both;
 }
+
+/* ---- Popover 弹层：定位 + 开合动效（.giencoder-popup-open）----
+   契约 anatomy 的 popup = div.giencoder-popover（渲染到 popupContainer，默认 body）；
+   静态结构见 components.css，开合动效按约定收敛到本文件。
+   参数与 Select 弹层完全一致（淡入 .2s / 收起 .15s + translateY(4px) + scale(.96)，origin top center）。 */
+.giencoder-popover {
+  position: absolute; z-index: var(--z-index-popup);
+  box-sizing: border-box; min-width: 240px;
+  background: var(--color-bg-popup); border: 1px solid var(--color-border-2);
+  border-radius: var(--border-radius-large); box-shadow: var(--shadow2-down);
+  opacity: 0;
+  visibility: hidden;
+  translate: 0 4px;
+  scale: 0.96;
+  transform-origin: top center;
+  transition: opacity .15s cubic-bezier(0.34, 0.69, 0.1, 1), translate .15s cubic-bezier(0.34, 0.69, 0.1, 1), scale .15s cubic-bezier(0.34, 0.69, 0.1, 1), visibility 0s .15s;
+}
+.giencoder-popover.giencoder-popup-open {
+  opacity: 1;
+  visibility: visible;
+  translate: 0 0;
+  scale: 1;
+  transition: opacity .2s cubic-bezier(0.34, 0.69, 0.1, 1), translate .2s var(--transition-timing-function-spring), scale .2s var(--transition-timing-function-spring), visibility 0s;
+}

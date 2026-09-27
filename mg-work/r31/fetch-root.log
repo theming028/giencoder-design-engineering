@@ -1,0 +1,22 @@
+FAIL txt attempt 1: ❌ 获取失败: timeout
+FAIL txt attempt 2: ❌ 获取失败: timeout
+FAIL txt attempt 3: ❌ 获取失败: timeout
+FAIL txt attempt 4: ❌ 获取失败: timeout
+FAIL txt attempt 5: ❌ 获取失败: timeout
+FAIL txt attempt 6: ❌ 获取失败: timeout
+FAIL txt attempt 7: ❌ 获取失败: timeout
+SAVED mg-work/r31/design/root.txt len=20262 (attempt 8)
+FAIL img attempt 1: ✅ 成功获取并保存预览图（成功 0/1 张）
+- 保存规则: screenshots://{documentId}/{rootId}/{nodeName}_{nodeId}.{ext}
+- [958:18486] 保存失败: 无法解析所属根节点: timeout
+- 用途: 原生客户端可读取上述 Server 文件路径，Web 使用资源 URL。组件页面提交后的确认式 QA 必须使用 review
+FAIL img attempt 2: ❌ 获取失败: timeout
+FAIL img attempt 3: ❌ 获取失败: timeout
+FAIL img attempt 4: ✅ 成功获取并保存预览图（成功 0/1 张）
+- 保存规则: screenshots://{documentId}/{rootId}/{nodeName}_{nodeId}.{ext}
+- [958:18486] 保存失败: 无法解析所属根节点: timeout
+- 用途: 原生客户端可读取上述 Server 文件路径，Web 使用资源 URL。组件页面提交后的确认式 QA 必须使用 review
+FAIL img attempt 5: ❌ 获取失败: timeout
+FAIL img attempt 6: ✅ 成功获取并保存预览图（成功 1/1 张）
+- 保存规则: screenshots://{documentId}/{rootId}/{nodeName}_{nodeId}.{ext}
+- [958:18486] C:\Users\Administrator\.mgmcp\resources\screenshots\193158744355579\958-18486\详情页-6_958-18486

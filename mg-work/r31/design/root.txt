@@ -1,0 +1,466 @@
+✅ 成功获取节点代码
+- 节点: 详情页 - 6 (958:18486)
+- 根节点: 958:18486
+- 父容器方向: row
+- Server 资源上下文: 17 个临时 Artifact。
+- 后续动作: 当前仅做“读取/同步上下文”，等待用户明确说明修改内容。
+- 充满语义提示(parentDirection=row): 宽度充满=主轴充满(优先 flex-1)；高度充满=交叉轴充满(优先 self-stretch)。
+
+代码内容：
+
+<div
+  data-node-id="958:18486"
+  data-name="详情页 - 6"
+  style="width: 1440px; height: 900px; background: #E5EDF5; overflow: hidden; position: relative">
+  <div
+    data-node-id="958:18488"
+    data-name="矩形 203"
+    style="position: absolute; left: 8px; top: 48px; z-index: 0">
+    <img src="./asset/icons/svg_24e97116.svg" style="color: #FFFFFF" />
+  </div>
+  <div
+    data-node-id="958:18489"
+    data-name="组 9370"
+    style="width: 1408px; height: 24px; position: absolute; left: 16px; top: 12px; z-index: 1">
+    <div
+      data-node-id="958:18490"
+      data-name="组 9368"
+      style="width: 128px; height: 24px; position: absolute; left: 0px; top: 0px; z-index: 0">
+      <ui-component
+        data-node-id="958:18491"
+        data-name="🚥 Window Controls"
+        style="width: 52px; height: 12px"
+        name="🚥 Window Controls"
+        props="{}"></ui-component>
+      <div
+        data-node-id="958:18492"
+        data-name="icon-wrapper"
+        style="width: 24px; height: 24px; display: flex; justify-content: center; align-items: center; flex-direction: column; padding: 5px; border-radius: 4px; position: absolute; left: 72px; top: 0px; z-index: 1; overflow: hidden">
+        <img
+          src="./asset/icons/svg_50fec157.svg"
+          data-node-id="958:18493"
+          data-name="下载"
+          style="width: 14px; height: 14px; color: #6B6B6B" />
+      </div>
+      <ui-component
+        data-node-id="958:18497"
+        data-name="icon-wrapper"
+        style="width: 24px; height: 24px; display: flex; justify-content: center; align-items: center; flex-direction: column"
+        name="icon-wrapper"
+        props='{"尺寸":"14"}'></ui-component>
+    </div>
+    <div
+      data-node-id="958:18498"
+      data-name="组 9369"
+      style="width: 56px; height: 24px; position: absolute; left: 1352px; top: 0px; z-index: 1">
+      <div
+        data-node-id="958:18499"
+        data-name="icon-wrapper"
+        style="width: 24px; height: 24px; display: flex; justify-content: center; align-items: center; flex-direction: column; padding: 5px; border-radius: 4px; position: absolute; left: 0px; top: 0px; z-index: 0; overflow: hidden">
+        <img
+          src="./asset/icons/svg_ab0c90ae.svg"
+          data-node-id="958:18500"
+          data-name="容器"
+          style="width: 14px; height: 14px; color: #6B6B6B" />
+      </div>
+      <div
+        data-node-id="958:18502"
+        data-name="icon-wrapper"
+        style="width: 24px; height: 24px; display: flex; justify-content: center; align-items: center; flex-direction: column; padding: 5px; border-radius: 4px; position: absolute; left: 32px; top: 0px; z-index: 1; overflow: hidden">
+        <img
+          src="./asset/icons/svg_dc643203.svg"
+          data-node-id="958:18503"
+          data-name="下载"
+          style="width: 14px; height: 14px; color: #6B6B6B" />
+      </div>
+    </div>
+  </div>
+  <div
+    data-node-id="958:18507"
+    data-name="矩形 204"
+    style="position: absolute; left: 8px; top: 48px; z-index: 2">
+    <img src="./asset/icons/svg_4d638533.svg" style="color: #FFFFFF" />
+  </div>
+  <div
+    data-node-id="958:18517"
+    data-name="组 10285"
+    style="width: 48px; height: 844px; position: absolute; left: 1384px; top: 48px; z-index: 3">
+    <div
+      data-node-id="958:18518"
+      data-name="矩形 249"
+      style="position: absolute; left: 0px; top: 0px; z-index: 0">
+      <img src="./asset/icons/svg_40fc28c6.svg" style="color: #FFFFFF" />
+    </div>
+    <span
+      data-node-id="958:18519"
+      data-name="展 开 AI 会 话"
+      style="color: #57626D; font-size: 14px; font-family: MiSans; text-align: center; font-weight: 500; line-height: 18px; position: absolute; left: 17px; top: 377px; z-index: 1">
+      展
+      <br />
+      开
+      <br />
+      AI
+      <br />
+      会
+      <br />
+      话
+    </span>
+  </div>
+  <div
+    data-node-id="958:18751"
+    data-name="路径"
+    style="position: absolute; left: 95.63%; right: 3.96%; top: calc(100% - 900px + 465px); z-index: 4">
+    <img src="./asset/icons/svg_8116a10d.svg" style="color: #9FA6AD" />
+  </div>
+  <div
+    data-node-id="958:18760"
+    data-name="Button"
+    style="width: 70px; height: 28px; display: flex; justify-content: center; align-items: center; gap: 4px; padding-top: 4px; padding-bottom: 4px; padding-right: 12px; padding-left: 12px; background: #FFFFFF; border-style: solid; border-color: #E5E5E5; border-width: 1px; border-radius: 6px; position: absolute; left: 798px; top: 58px; z-index: 5; overflow: hidden">
+    <img
+      src="./asset/icons/svg_b143ae18.svg"
+      data-node-id="958:18761"
+      data-name="容器"
+      style="width: 14px; height: 14px; color: #1F1F1F" />
+    <span
+      data-node-id="958:18764"
+      data-name="转派"
+      style="color: #1F1F1F; font-size: 14px; font-family: MiSans; line-height: 20px">
+      转派
+    </span>
+  </div>
+  <div
+    data-node-id="958:19027"
+    data-name="组 10321"
+    style="width: 320px; height: 256px; position: absolute; left: 438px; top: 92px; z-index: 6">
+    <div
+      data-node-id="958:19031"
+      data-name="矩形 222"
+      style="position: absolute; left: 0px; top: 0px; z-index: 0">
+      <img src="./asset/icons/svg_700ee15f.svg" />
+    </div>
+    <div
+      data-node-id="958:19029"
+      data-name="组 10280"
+      style="width: 288px; height: 32px; position: absolute; left: 16px; top: 70px; z-index: 1">
+      <div
+        data-node-id="958:19030"
+        data-name="矩形 480"
+        style="position: absolute; left: 0px; top: 0px; z-index: 0">
+        <img src="./asset/icons/svg_7906d0a2.svg" />
+      </div>
+      <ui-component
+        data-node-id="958:19057"
+        data-name="text/text"
+        style="width: 56px; height: 22px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+        name="text/text"
+        props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+        text='{"中电金信":"搜索成员"}'></ui-component>
+      <ui-component
+        data-node-id="958:19151"
+        data-name="icon-wrapper"
+        style="width: 14px; height: 14px; display: flex; justify-content: center; align-items: center; flex-direction: column"
+        name="icon-wrapper"
+        props='{"尺寸":"14"}'></ui-component>
+    </div>
+    <div
+      data-node-id="958:19028"
+      data-name="组 10316"
+      style="width: 228px; height: 42px; position: absolute; left: 16px; top: 16px; z-index: 2">
+      <ui-component
+        data-node-id="958:19047"
+        data-name="text/text"
+        style="width: 98px; height: 22px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+        name="text/text"
+        props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+        text='{"中电金信":"将任务转派给："}'></ui-component>
+      <ui-component
+        data-node-id="958:19052"
+        data-name="text/text"
+        style="width: 228px; height: 16px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+        name="text/text"
+        props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+        text='{"中电金信":"转派仅变更任务负责人，不改变任务状态。"}'></ui-component>
+    </div>
+    <ui-component
+      data-node-id="958:19062"
+      data-name="text/text"
+      style="width: 140px; height: 22px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+      name="text/text"
+      props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+      text='{"中电金信":"还没有添加的组织成员"}'></ui-component>
+  </div>
+  <div
+    data-node-id="1345:18366"
+    data-name="容器 147"
+    style="width: 320px; height: 480px; position: absolute; left: 798px; top: 92px; z-index: 7">
+    <div
+      data-node-id="958:19046"
+      data-name="矩形 222"
+      style="position: absolute; left: 0px; top: 0px; z-index: 0">
+      <img src="./asset/icons/svg_9bdea537.svg" />
+    </div>
+    <div
+      data-node-id="958:19044"
+      data-name="组 10280"
+      style="width: 288px; height: 32px; position: absolute; left: 16px; top: 70px; z-index: 1">
+      <div
+        data-node-id="958:19045"
+        data-name="矩形 480"
+        style="position: absolute; left: 0px; top: 0px; z-index: 0">
+        <img src="./asset/icons/svg_93b5e173.svg" />
+      </div>
+      <ui-component
+        data-node-id="958:19112"
+        data-name="text/text"
+        style="width: 56px; height: 22px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+        name="text/text"
+        props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+        text='{"中电金信":"搜索成员"}'></ui-component>
+      <ui-component
+        data-node-id="958:19153"
+        data-name="icon-wrapper"
+        style="width: 14px; height: 14px; display: flex; justify-content: center; align-items: center; flex-direction: column"
+        name="icon-wrapper"
+        props='{"尺寸":"14"}'></ui-component>
+    </div>
+    <div
+      data-node-id="958:19043"
+      data-name="矩形 480"
+      style="width: 6px; height: 128px; background: rgba(0,0,0,0.16); border-radius: 6px; position: absolute; left: 310px; top: 118px; z-index: 2"></div>
+    <div
+      data-node-id="1345:18362"
+      data-name="容器 143"
+      style="width: 288px; height: 202px; position: absolute; left: 16px; top: 152px; z-index: 3">
+      <div
+        data-node-id="958:19036"
+        data-name="矩形 487"
+        style="position: absolute; left: 0px; top: 0px; z-index: 0">
+        <img src="./asset/icons/svg_c86a7f1b.svg" style="color: #FFFFFF" />
+      </div>
+      <ui-component
+        data-node-id="958:19127"
+        data-name="Avatar"
+        style="width: 20px; height: 20px; display: flex; justify-content: center; align-items: center; flex-direction: column"
+        name="Avatar"
+        props='{"形状":"圆形","类型":"字符","尺寸":"迷你","交互":"无"}'
+        text='{"铭":"怡"}'></ui-component>
+      <ui-component
+        data-node-id="958:19092"
+        data-name="text/text"
+        style="width: 112px; height: 22px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+        name="text/text"
+        props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+        text='{"中电金信":"秦怡 (P0098603)"}'></ui-component>
+      <div
+        data-node-id="958:19037"
+        data-name="矩形 488"
+        style="position: absolute; left: 0px; top: 34px; z-index: 3">
+        <img src="./asset/icons/svg_c86a7f1b.svg" style="color: #FFFFFF" />
+      </div>
+      <ui-component
+        data-node-id="958:19132"
+        data-name="Avatar"
+        style="width: 20px; height: 20px; display: flex; justify-content: center; align-items: center; flex-direction: column"
+        name="Avatar"
+        props='{"形状":"圆形","类型":"字符","尺寸":"迷你","交互":"无"}'
+        text='{"铭":"毅"}'></ui-component>
+      <ui-component
+        data-node-id="958:19087"
+        data-name="text/text"
+        style="width: 126px; height: 22px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+        name="text/text"
+        props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+        text='{"中电金信":"韩佳毅 (P0098604)"}'></ui-component>
+      <div
+        data-node-id="958:19034"
+        data-name="矩形 489"
+        style="position: absolute; left: 0px; top: 68px; z-index: 6">
+        <img src="./asset/icons/svg_0888dc0a.svg" style="color: #F7F7F7" />
+      </div>
+      <ui-component
+        data-node-id="958:19117"
+        data-name="Avatar"
+        style="width: 20px; height: 20px; display: flex; justify-content: center; align-items: center; flex-direction: column"
+        name="Avatar"
+        props='{"形状":"圆形","类型":"字符","尺寸":"迷你","交互":"无"}'
+        text='{"铭":"帆"}'></ui-component>
+      <ui-component
+        data-node-id="958:19082"
+        data-name="text/text"
+        style="width: 112px; height: 22px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+        name="text/text"
+        props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+        text='{"中电金信":"顾帆 (P0098605)"}'></ui-component>
+      <div
+        data-node-id="958:19035"
+        data-name="矩形 490"
+        style="position: absolute; left: 0px; top: 102px; z-index: 9">
+        <img src="./asset/icons/svg_c86a7f1b.svg" style="color: #FFFFFF" />
+      </div>
+      <ui-component
+        data-node-id="958:19122"
+        data-name="Avatar"
+        style="width: 20px; height: 20px; display: flex; justify-content: center; align-items: center; flex-direction: column"
+        name="Avatar"
+        props='{"形状":"圆形","类型":"字符","尺寸":"迷你","交互":"无"}'
+        text='{"铭":"怡"}'></ui-component>
+      <ui-component
+        data-node-id="958:19077"
+        data-name="text/text"
+        style="width: 126px; height: 22px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+        name="text/text"
+        props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+        text='{"中电金信":"姜嘉怡 (P0098606)"}'></ui-component>
+      <div
+        data-node-id="958:19039"
+        data-name="矩形 491"
+        style="position: absolute; left: 0px; top: 136px; z-index: 12">
+        <img src="./asset/icons/svg_c86a7f1b.svg" style="color: #FFFFFF" />
+      </div>
+      <ui-component
+        data-node-id="958:19137"
+        data-name="Avatar"
+        style="width: 20px; height: 20px; display: flex; justify-content: center; align-items: center; flex-direction: column"
+        name="Avatar"
+        props='{"形状":"圆形","类型":"字符","尺寸":"迷你","交互":"无"}'
+        text='{"铭":"甜"}'></ui-component>
+      <ui-component
+        data-node-id="958:19067"
+        data-name="text/text"
+        style="width: 111px; height: 22px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+        name="text/text"
+        props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+        text='{"中电金信":"朱甜 (P0098607)"}'></ui-component>
+      <div
+        data-node-id="958:19038"
+        data-name="矩形 492"
+        style="position: absolute; left: 0px; top: 170px; z-index: 15">
+        <img src="./asset/icons/svg_c86a7f1b.svg" style="color: #FFFFFF" />
+      </div>
+      <ui-component
+        data-node-id="958:19142"
+        data-name="Avatar"
+        style="width: 20px; height: 20px; display: flex; justify-content: center; align-items: center; flex-direction: column"
+        name="Avatar"
+        props='{"形状":"圆形","类型":"字符","尺寸":"迷你","交互":"无"}'
+        text='{"铭":"辰"}'></ui-component>
+      <ui-component
+        data-node-id="958:19072"
+        data-name="text/text"
+        style="width: 126px; height: 22px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+        name="text/text"
+        props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+        text='{"中电金信":"齐瑞辰 (P0098608)"}'></ui-component>
+    </div>
+    <div
+      data-node-id="1345:18364"
+      data-name="容器 145"
+      style="width: 228px; height: 42px; position: absolute; left: 16px; top: 16px; z-index: 4">
+      <ui-component
+        data-node-id="958:19107"
+        data-name="text/text"
+        style="width: 98px; height: 22px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+        name="text/text"
+        props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+        text='{"中电金信":"将任务转派给："}'></ui-component>
+      <ui-component
+        data-node-id="958:19102"
+        data-name="text/text"
+        style="width: 228px; height: 16px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+        name="text/text"
+        props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+        text='{"中电金信":"转派仅变更任务负责人，不改变任务状态。"}'></ui-component>
+    </div>
+    <div
+      data-node-id="1345:18363"
+      data-name="容器 144"
+      style="width: 288px; height: 32px; position: absolute; left: 16px; top: 118px; z-index: 5">
+      <div
+        data-node-id="958:19041"
+        data-name="矩形 486"
+        style="position: absolute; left: 0px; top: 0px; z-index: 0">
+        <img src="./asset/icons/svg_9c8646d1.svg" />
+      </div>
+      <ui-component
+        data-node-id="958:19147"
+        data-name="Avatar"
+        style="width: 20px; height: 20px; display: flex; justify-content: center; align-items: center; flex-direction: column"
+        name="Avatar"
+        props='{"形状":"圆形","类型":"字符","尺寸":"迷你","交互":"无"}'
+        text='{"铭":"铭"}'></ui-component>
+      <ui-component
+        data-node-id="958:19097"
+        data-name="text/text"
+        style="width: 125px; height: 22px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+        name="text/text"
+        props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+        text='{"中电金信":"邵禹铭 (P0098602)"}'></ui-component>
+      <ui-component
+        data-node-id="958:19152"
+        data-name="icon-wrapper"
+        style="width: 14px; height: 14px; display: flex; justify-content: center; align-items: center; flex-direction: column"
+        name="icon-wrapper"
+        props='{"尺寸":"14"}'></ui-component>
+    </div>
+    <div
+      data-node-id="1345:18365"
+      data-name="容器 146"
+      style="width: 288px; height: 48px; position: absolute; left: 16px; top: 416px; z-index: 6">
+      <div
+        data-node-id="958:19242"
+        data-name="直线 51"
+        style="width: 288px; height: 0px; border-style: solid; border-color: #F2F2F2; border-top-width: 0px; border-bottom-width: 1px; border-right-width: 0px; border-left-width: 0px; position: absolute; left: 0px; top: 0px; z-index: 0"></div>
+      <ui-component
+        data-node-id="958:19243"
+        data-name="Button"
+        style="width: 288px; height: 32px; display: flex; justify-content: center; align-items: center; gap: 4px"
+        name="Button"
+        props='{"类型":"主要按钮","种类":"标准","形状":"长方形","尺寸":"中","状态":"默认"}'
+        text='{"保存":"确定转派"}'></ui-component>
+    </div>
+  </div>
+  <ui-component
+    data-node-id="958:19331"
+    data-name="Message"
+    style="width: 214px; height: 48px; display: flex; justify-content: flex-start; align-items: center; gap: 8px"
+    name="Message"
+    props='{"类型":"成功"}'
+    text='{"这是一条成功的信息":"任务已转派给「邵禹铭」"}'></ui-component>
+  <div
+    data-node-id="966:18527"
+    data-name="radio-button-group"
+    style="width: 242px; height: 32px; display: flex; justify-content: flex-start; align-items: center; padding: 2px; background: #DAE3ED; border-radius: 32px; position: absolute; left: calc(100% - 1440px + 599px); top: 8px; z-index: 9">
+    <div
+      data-node-id="966:18535"
+      data-name="components/radio-button"
+      style="width: 118px; display: flex; flex: none; justify-content: center; align-items: center; gap: 4px; padding-top: 2px; padding-bottom: 2px; padding-right: 12px; padding-left: 12px; border-radius: 26px; overflow: hidden">
+      <img
+        src="./asset/icons/svg_a60ad365.svg"
+        data-node-id="966:18536"
+        data-name="容器"
+        style="width: 14px; height: 14px; color: #1F1F1F" />
+      <span
+        data-node-id="966:18538"
+        data-name="基础"
+        style="color: #1F1F1F; font-size: 14px; font-family: MiSans; font-weight: 500; line-height: 22px">
+        基础
+      </span>
+    </div>
+    <div
+      data-node-id="966:18528"
+      data-name="components/radio-button"
+      style="height: 28px; display: flex; justify-content: center; align-items: center; gap: 4px; padding-top: 3px; padding-bottom: 3px; padding-right: 16px; padding-left: 16px; background: #FFFFFF; border-radius: 26px; overflow: hidden">
+      <img
+        src="./asset/icons/svg_c47b649c.svg"
+        data-node-id="966:18533"
+        data-name="容器"
+        style="width: 14px; height: 14px; color: #1F1F1F" />
+      <span
+        data-node-id="966:18529"
+        data-name="研发工作台"
+        style="color: #1F1F1F; font-size: 14px; font-family: MiSans; font-weight: 500; line-height: 22px">
+        研发工作台
+      </span>
+    </div>
+  </div>
+</div>

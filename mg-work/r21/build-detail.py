@@ -71,12 +71,22 @@ CSS = r"""<style>
         --td-ico-md: #167AB8;
         --td-ico-md-fold: #4196D6;
         --td-ico-skill: #7766FD;               /* 技能面板 Goal 行（base.html 实测 fill #7766FD） */
-        /* 小卡（附件）圆角：设计稿圆角剖面实测 r≈6（dy=0.5 内缩 3.5 / dy=2.5 内缩 1.0），
-           DS 圆角档位只有 0/2/4/8/12/50%，6 不在其中 → 适配层变量。 */
+        /* 设计稿 6px 圆角档（附件小卡 / 转派浮窗全体系）：
+           设计稿圆角剖面实测 r≈6（dy=0.5 内缩 3.5 / dy=2.5 内缩 1.0）；
+           第 31 轮转派浮窗用「覆盖率 0.5 亚像素交点法」复测，搜索框 5.69 / 选中行 5.66 /
+           按钮 5.69 / 面板 ≈5.5~6 → 全体系同为 6。DS 圆角档位只有 0/2/4/8/12/50%，
+           6 不在其中 → 适配层变量。 */
         --td-radius-card: 6px;
         /* ★ 第 29 轮第 2 项：AI 对话框全屏后「内容区」最大宽度。860 不是新数值 ——
            pages/base.html 的基础工作台 composer 内容宽就是 860px（见其 r12 注释），此处沿用同一读数。 */
         --td-fs-content: 860px;
+        /* ★ 第 31 轮：转派浮窗选中行着色（设计稿 1345:18366 逐像素实测，DevMode 直出，
+           与 pages/*.html 既有 --td-* 非 token 色处理约定一致）。 */
+        --td-dp-on-bg: #ECF2FF;      /* 选中行底（实测） */
+        --td-dp-on-line: #D3E2FF;    /* 选中行描边（实测） */
+        /* ★ 以下 token 由构建期从 giencoder-design-system/colors_and_type.css 抽取，
+             请勿在此手改 —— 改 token 请改 DS 源文件后重跑本脚本。 */
+__DS_PICKER_TOKENS__
       }
       /* 注入口：撑满 main 的确定高度（main 为 844 高）
          ⚠️ 这里必须 overflow:visible —— 两栏的白卡片是「贴边」的（左栏左缘 = main 左缘 = x8，
@@ -615,6 +625,89 @@ CSS = r"""<style>
       body:has(.td-wrap) [role="tablist"] [data-tab="dev"] { color: var(--color-text-1) !important; }
 
       /* ------------------------------------------------------------------
+         ★ 第 31 轮：顶栏「转派」成员浮窗（设计稿节点 1345:18366，320×480）
+         组件一律用 DS 契约组装，不自造同义结构：
+           浮层   div.giencoder-popover（popover.json anatomy，按契约渲染到 popupContainer=body）
+           触发器 span.giencoder-popover-reference
+           搜索   .giencoder-input-wrapper + -input-prefix + -input
+           成员行 .giencoder-list-item[data-size=small] + -item-hoverable + -item-meta
+                  + -item-title + -item-action
+           头像   .giencoder-avatar + -circle + -text（底色走 --avatar-bg-N token）
+           底栏   .giencoder-popover-footer + .giencoder-btn-primary
+           滚动条 .giencoder-scroll-thin
+         本段只写「视图适配层」：设计稿实测尺寸/间距/字色，以及 DS List 未定义的
+         「选中行」着色 —— 用 role=option + aria-selected 表达，不新增类名。
+         ★ 面板有 1px 边框（契约 .giencoder-popover 的 border: 1px solid --color-border-2）
+           → 下面所有内距 = 设计稿真值 **− 1px**：
+             标题 16→15 · 内容 16→15 · 底栏 16→15 · 搜索框内距 11→10
+           （曾漏算这 1px，导致浮窗内所有元素整体右/下偏 1px；判据 x17≠16）
+         ★ 实测真值（2x 图原点 PNG(60,44)、scale=2，逐像素反解）：
+           面板 320×480 · **r6** · 边框 #E5E5E5 · 投影左/右峰值 alpha15、下 24、上 6
+             → 与 --shadow2-down（0 4px 10px rgba(0,0,0,.1)）逐点吻合（也是契约声明的 token）
+           圆角：面板 / 搜索框 / 行 / 按钮 **一律 6px**（覆盖率 0.5 亚像素法：5.5~5.7）
+             → 用本页既有的 --td-radius-card（6px 档），DS 默认的 8/4 在此被适配层覆盖
+           标题 14px/lh22 · 字重 400（笔画密度 46.8/39.1 ≈ 行名 44.5/38.7，不是 600）
+           副标题 12px/lh16 · 距标题 4 · 色 --color-text-3
+           搜索框 288×32 @(16,70) · 图标 14 色 #6B6B6B · 占位文字 14px 起 x53
+           列表 x16 y118 高 297（7 行 × 32 + 6 × 2 间距 = 236 → 余 61 空白，溢出才出滚动条）
+           行 32 高 / 内距 8 / 头像 20（字形 11px 白字）/ 名字 14px text-1 + 工号 text-3
+           选中行 底 #ECF2FF + 描边 #D3E2FF + 尾部 14px 对勾（primary-6）
+           hover 行 底 #F7F7F7(=--color-fill-1) · 分隔线 #F2F2F2(=--color-border-1) @y415
+           按钮 288×32 @y432（14px）· 面板底部留白 16
+         设计稿未定义的两处，自行取 DS 既有约定（已记录）：
+           · 浮窗与按钮的 4px 间距 → 沿用 DS 弹层 calc(100% + 4px) 约定；
+           · 水平对齐 → 左对齐触发按钮（越界时钳到视口内 8px）。 */
+      .td-dp.giencoder-popover { width: 320px; border-radius: var(--td-radius-card); }
+      /* 15 = 设计稿 16 − 面板 1px 边框；标题首行文字盒正好落在面板内 (16,16)，与设计稿「容器 145」同位 */
+      .td-dp .giencoder-popover-title { padding: 15px 15px 0; font-size: 14px; line-height: 22px; font-weight: 400; }
+      .td-dp-t2 { margin-top: 4px; font-size: 12px; line-height: 16px; font-weight: 400; color: var(--color-text-3); }
+      .td-dp .giencoder-popover-content { padding: 12px 15px 0; }
+      /* 内距 10 + 面板边框 1 = 11 → 图标盒起面板内 x27（ink x28）；图标右间距 11 → 文字盒起 x52（ink x53） */
+      .td-dp .giencoder-input-wrapper { width: 100%; padding: 0 12px 0 10px; border-radius: var(--td-radius-card); }
+      .td-dp .giencoder-input-prefix { margin-right: 11px; color: var(--td-ico-gray); }
+      .td-dp .giencoder-input { font-size: 14px; }
+      .td-dp .giencoder-input::placeholder { color: var(--color-text-3); }
+      /* 列表定高：flex 列 + 行 flex:none，保证行恒为 32 高（不被压缩），溢出才滚 */
+      .td-dp .giencoder-list { display: flex; flex-direction: column; margin-top: 16px; height: 297px; overflow-y: auto; }
+      .td-dp .td-dp-item { flex: none; padding: 0 8px; border-radius: var(--td-radius-card); }
+      .td-dp .td-dp-item[hidden] { display: none; }   /* .giencoder-list-item 是 flex，需压掉 hidden 的默认 display:none 失效 */
+      .td-dp .giencoder-list-item[aria-selected="true"] {
+        background: var(--td-dp-on-bg);
+        /* 1px 描边用 inset ring 表达：不占布局、不产生 1px 位移，且跟随行圆角 */
+        box-shadow: inset 0 0 0 1px var(--td-dp-on-line);
+      }
+      .td-dp .giencoder-list-item[aria-selected="true"]:hover { background: var(--td-dp-on-bg); }
+      .td-dp-av { width: 20px; height: 20px; --avatar-color: var(--color-white); }
+      .td-dp-name { font-size: 14px; line-height: 22px; }
+      .td-dp-id { color: var(--color-text-3); }
+      /* 对勾是 .giencoder-list-item-action（display:flex）的 flex item —— 按 CSS Display 规定，
+         inline-flex 会被 **块化** 成 flex（实测 computed = flex），故这里直接写 flex，两者等价 */
+      .td-dp-check { display: none; align-items: center; color: var(--color-primary-6); }
+      .td-dp .giencoder-list-item[aria-selected="true"] .td-dp-check { display: flex; }
+      .td-dp-none { margin: auto; }
+      .td-dp-none[hidden] { display: none; }
+      .td-dp-none .giencoder-empty-description { margin-top: 0; font-size: 12px; color: var(--color-text-3); }
+      /* 下内距 15（不是 16）：设计稿「按钮底 y464 距面板底 480 = 16」由 15px 内距 + 面板自身 1px 下边框构成，
+         写 16 会让面板长到 481（多算一次边框），实测过 320×481 → 320×480 */
+      .td-dp .giencoder-popover-footer { padding: 16px 15px 15px; }
+      /* 底栏按钮：DS 尺寸档 size-default(32) + width:100%（288 = 320 − 2 边框 − 2×15） */
+      .td-dp .td-dp-ok { width: 100%; font-size: 14px; border-radius: var(--td-radius-card); }
+      /* 转派结果提示：DS Message 组件（第 19 轮全局约定：凡消息提示一律用它） */
+      .td-dp-msg { position: fixed; top: 64px; left: 50%; transform: translateX(-50%); z-index: 1100; }
+      .td-dp-msg[hidden] { display: none; }
+      .td-dp-msg .giencoder-message-icon { display: inline-flex; color: var(--color-success-6); }
+
+      /* ------------------------------------------------------------------
+         ★ 第 31 轮：转派浮窗用到的 DS 组件样式（构建期从 DS 源文件实时抽取）
+         不要在这里手写这些组件的样式 —— 改样式请改 DS 源文件：
+           · 静态结构（Popover / List / Avatar 形状与字符头像 / 细滚动条）
+             giencoder-design-system/components.css
+           · 弹层定位 + 开合动效（.giencoder-popup-open）
+             giencoder-design-system/gienx-templates/ui-controls.css
+         ------------------------------------------------------------------ */
+      __DS_PICKER_CSS__
+
+      /* ------------------------------------------------------------------
          ★ DS Image 组件样式占位符（第 30 轮第 1 项）
          构建期由本脚本末尾的 CSS.replace 用 DS 源文件实时抽取结果替换。
          不要在这里手写 Image 样式 —— 改样式请改 DS 源文件：
@@ -799,7 +892,7 @@ HTML = """<div class="td-root" role="region" aria-label="任务详情">
       <span class="td-bar-title">任务详情</span>
       <div class="td-bar-actions">
         <button class="giencoder-btn giencoder-btn-primary giencoder-btn-size-small td-btn" type="button">开始任务</button>
-        <button class="giencoder-btn giencoder-btn-secondary giencoder-btn-size-small td-btn" type="button">转派</button>
+        <span class="giencoder-popover-reference"><button class="giencoder-btn giencoder-btn-secondary giencoder-btn-size-small td-btn" type="button" data-td-dispatch aria-haspopup="dialog" aria-expanded="false">转派</button></span>
         <button class="giencoder-btn giencoder-btn-secondary giencoder-btn-size-small td-btn" type="button">协作</button>
         <button class="giencoder-btn giencoder-btn-secondary giencoder-btn-size-small td-btn" type="button">编辑</button>
         <button class="giencoder-btn giencoder-btn-secondary giencoder-btn-size-small giencoder-btn-icon td-iconbtn" type="button" aria-label="更多操作">
@@ -1588,6 +1681,192 @@ __LINES__
     document.addEventListener('td:close-image-preview', close);
   }
 
+  /* ---------- 顶栏「转派」→ 成员浮窗（★ 第 31 轮，设计稿节点 1345:18366） ----------
+     完全按 DS 契约组装，不自造同义结构：
+       div.giencoder-popover（契约 popover.json 的 popup；按契约渲染到 popupContainer=body）
+         ├ div.giencoder-popover-title     标题 + 副标题
+         ├ div.giencoder-popover-content
+         │   ├ div.giencoder-input-wrapper > span.giencoder-input-prefix + input.giencoder-input
+         │   └ div.giencoder-list.giencoder-scroll-thin > div.giencoder-list-item（role=option）
+         └ div.giencoder-popover-footer > button.giencoder-btn-primary
+     显隐唯一开关 = DS 弹层的 .giencoder-popup-open（ui-controls.css），与 Select 弹层同参数。
+     关闭途径：再点触发按钮 / 点浮窗外 / Esc（页尾 Esc 链派发 td:close-dispatch，
+     优先级排在图片预览之后、对话框弹层之前）。
+     渲染到 body 而不是 .td-bar 内：① 契约默认 popupContainer=body；② 顶栏本身是
+     「按住拖动互换两栏」的把手，浮窗落在顶栏内会被拖拽判定命中。
+     设计稿实测的尺寸/间距见 CSS 段注释；两处设计稿未定义处取 DS 既有约定（4px 间距 + 左对齐）。 */
+  var DISPATCH_MEMBERS = [
+    { name: '邵禹铭', sid: 'P0098602', ch: '铭' },
+    { name: '秦怡',   sid: 'P0098603', ch: '怡' },
+    { name: '韩佳毅', sid: 'P0098604', ch: '毅' },
+    { name: '顾帆',   sid: 'P0098605', ch: '帆' },
+    { name: '姜嘉怡', sid: 'P0098606', ch: '怡' },
+    { name: '朱甜',   sid: 'P0098607', ch: '甜' },
+    { name: '齐瑞辰', sid: 'P0098608', ch: '辰' }
+  ];
+  var DP_CHECK_SVG = '<svg viewBox="0 0 14 14" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.6 7.5l3 3L11.4 4.2"/></svg>';
+  var DP_SEARCH_SVG = '<svg viewBox="0 0 14 14" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><circle cx="6.1" cy="6.1" r="4.35"/><path d="M9.3 9.3l3.1 3.1"/></svg>';
+  var DP_MSG_SVG = '<svg viewBox="0 0 14 14" width="14" height="14" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="6.2" fill="currentColor"/><path d="M4.3 7.2l1.9 1.9 3.5-3.7" stroke="var(--color-white)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+  function bindDispatchPicker() {
+    var btn = document.querySelector('[data-td-dispatch]');
+    if (!btn || btn.hasAttribute('data-td-dp-bound')) return;
+    btn.setAttribute('data-td-dp-bound', '1');
+
+    var pop = null, listEl = null, inputEl = null, noneEl = null, okEl = null;
+    var items = [], cur = 0;
+
+    function build() {
+      if (pop) return pop;
+      pop = document.createElement('div');
+      pop.className = 'giencoder-popover td-dp';
+      pop.setAttribute('role', 'dialog');
+      pop.setAttribute('aria-label', '选择转派人员');
+      pop.setAttribute('tabindex', '-1');   /* 打开时焦点落在浮层本身：Esc 可关且不会给搜索框套上 focus 环 */
+      pop.innerHTML =
+        '<div class="giencoder-popover-title">将任务转派给：' +
+          '<div class="td-dp-t2">转派仅变更任务负责人，不改变任务状态。</div>' +
+        '</div>' +
+        '<div class="giencoder-popover-content">' +
+          '<div class="giencoder-input-wrapper" data-size="medium">' +
+            '<span class="giencoder-input-prefix">' + DP_SEARCH_SVG + '</span>' +
+            '<input class="giencoder-input" type="text" placeholder="搜索成员" aria-label="搜索成员" autocomplete="off">' +
+          '</div>' +
+          '<div class="giencoder-list giencoder-scroll-thin" role="listbox" aria-label="成员列表">' +
+            DISPATCH_MEMBERS.map(function (m, i) {
+              return '<div class="giencoder-list-item giencoder-list-item-hoverable td-dp-item" role="option"' +
+                     ' data-size="small" data-td-idx="' + i + '"' +
+                     ' aria-selected="' + (i === cur ? 'true' : 'false') + '"' +
+                     ' style="--avatar-bg: var(--avatar-bg-' + ((i % 7) + 1) + ')">' +
+                     '<span class="giencoder-avatar giencoder-avatar-circle giencoder-avatar-text td-dp-av" aria-hidden="true">' + m.ch + '</span>' +
+                     '<span class="giencoder-list-item-meta"><span class="giencoder-list-item-title td-dp-name">' + m.name +
+                       '<span class="td-dp-id"> (' + m.sid + ')</span></span></span>' +
+                     '<span class="giencoder-list-item-action"><span class="td-dp-check" aria-hidden="true">' + DP_CHECK_SVG + '</span></span>' +
+                     '</div>';
+            }).join('') +
+            '<div class="giencoder-empty td-dp-none" hidden><div class="giencoder-empty-description">未找到匹配成员</div></div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="giencoder-popover-footer">' +
+          '<button class="giencoder-btn giencoder-btn-primary giencoder-btn-size-default td-dp-ok" type="button">确定转派</button>' +
+        '</div>';
+      /* ★ 挂载前先写内联坐标：绝对定位元素若 left/top 还是 auto，会先按「静态位置」落在文档末尾，
+         把文档撑高 → 出现页面竖向滚动条 → 顶栏右对齐按钮整体左移一个滚动条宽度（实测 10px），
+         于是 place() 读到的按钮 x 比最终值小 10px。预置 0/0 后挂载，布局不抖，place() 才拿到真值。 */
+      pop.style.left = '0px';
+      pop.style.top = '0px';
+      document.body.appendChild(pop);
+
+      listEl = pop.querySelector('.giencoder-list');
+      inputEl = pop.querySelector('.giencoder-input');
+      noneEl = pop.querySelector('.td-dp-none');
+      okEl = pop.querySelector('.td-dp-ok');
+      items = Array.prototype.slice.call(pop.querySelectorAll('[data-td-idx]'));
+
+      listEl.addEventListener('click', function (e) {
+        var it = e.target.closest('[data-td-idx]');
+        if (it) select(+it.getAttribute('data-td-idx'));
+      });
+      inputEl.addEventListener('input', filter);
+      /* 焦点在搜索框里时 Esc 不该被页尾「INPUT 直接 return」吞掉 → 浮层内自行处理 */
+      pop.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') { e.stopPropagation(); close(); }
+      });
+      okEl.addEventListener('click', confirm);
+      return pop;
+    }
+
+    function place() {
+      var r = btn.getBoundingClientRect();
+      var left = Math.min(r.left, window.innerWidth - pop.offsetWidth - 8);
+      pop.style.left = Math.round(Math.max(8, left) + window.scrollX) + 'px';
+      pop.style.top = Math.round(r.bottom + 4 + window.scrollY) + 'px';
+      pop.style.right = 'auto';
+      pop.style.bottom = 'auto';
+    }
+
+    function select(i) {
+      cur = i;
+      items.forEach(function (it, k) { it.setAttribute('aria-selected', k === i ? 'true' : 'false'); });
+    }
+
+    function filter() {
+      var q = inputEl.value.trim().toLowerCase();
+      var shown = 0;
+      items.forEach(function (it, i) {
+        var m = DISPATCH_MEMBERS[i];
+        var hit = !q || (m.name + m.sid).toLowerCase().indexOf(q) >= 0;
+        it.hidden = !hit;
+        if (hit) shown++;
+      });
+      noneEl.hidden = shown > 0;
+    }
+
+    function flag(on) { document.documentElement.toggleAttribute('data-td-dp-open', on); }
+
+    function open() {
+      build();
+      place();
+      if (pop.classList.contains('giencoder-popup-open')) return;
+      pop.classList.add('giencoder-popup-open');
+      btn.setAttribute('aria-expanded', 'true');
+      flag(true);
+      pop.focus();
+    }
+
+    function close() {
+      if (!pop || !pop.classList.contains('giencoder-popup-open')) return;
+      pop.classList.remove('giencoder-popup-open');
+      btn.setAttribute('aria-expanded', 'false');
+      flag(false);
+    }
+
+    /* 转派结果：写回 aside「执行人」+ 一条 DS Message 提示 */
+    function toast(text) {
+      var box = document.querySelector('.td-dp-msg');
+      if (!box) {
+        box = document.createElement('div');
+        box.className = 'td-dp-msg';
+        box.innerHTML = '<div class="giencoder-message" role="status">' +
+          '<span class="giencoder-message-icon" aria-hidden="true">' + DP_MSG_SVG + '</span>' +
+          '<span class="giencoder-message-content"></span></div>';
+        box.hidden = true;
+        document.body.appendChild(box);
+      }
+      box.querySelector('.giencoder-message-content').textContent = text;
+      box.hidden = false;
+      clearTimeout(box._t);
+      box._t = setTimeout(function () { box.hidden = true; }, 2400);
+    }
+
+    function confirm() {
+      var m = DISPATCH_MEMBERS[cur];
+      close();
+      var rows = document.querySelectorAll('.td-attr-row');
+      for (var i = 0; i < rows.length; i++) {
+        var k = rows[i].querySelector('.td-attr-k');
+        if (!k || k.textContent.indexOf('执行人') < 0) continue;
+        var v = rows[i].querySelector('.td-attr-v');
+        if (v) v.textContent = m.name;
+        break;
+      }
+      toast('已转派给 ' + m.name);
+    }
+
+    btn.addEventListener('click', function () {
+      if (pop && pop.classList.contains('giencoder-popup-open')) close(); else open();
+    });
+    document.addEventListener('pointerdown', function (e) {
+      if (!pop || !pop.classList.contains('giencoder-popup-open')) return;
+      if (pop.contains(e.target) || btn.contains(e.target)) return;
+      close();
+    });
+    window.addEventListener('resize', function () {
+      if (pop && pop.classList.contains('giencoder-popup-open')) place();
+    });
+    document.addEventListener('td:close-dispatch', close);
+  }
+
   function inject() {
     var main = document.querySelector('main');
     if (!main || main.querySelector('.td-root')) return false;
@@ -1597,6 +1876,7 @@ __LINES__
     main.appendChild(wrap);
     bindDetail(wrap);
     bindDescImagePreview(wrap);
+    bindDispatchPicker();
     return true;
   }
   /* 注意：两个动作都要执行，不能短路（页签在 React 挂载后才出现，可能晚于注入）。
@@ -1642,6 +1922,12 @@ TAIL = """<script>
           document.dispatchEvent(new CustomEvent('td:close-image-preview'));
           return;
         }
+        /* ★ 第 31 轮：转派成员浮窗次优先（不是模态，但浮在顶栏之上，Esc 应先收它）。
+           浮窗侧监听自定义事件 td:close-dispatch（见 bindDispatchPicker）。 */
+        if (document.documentElement.hasAttribute('data-td-dp-open')) {
+          document.dispatchEvent(new CustomEvent('td:close-dispatch'));
+          return;
+        }
         /* ★ 第 28 轮第 4 项：对话框弹层打开时，Esc 先关弹层而不是跳回看板。
            弹层侧监听自定义事件 td:close-popovers（见 bindDetail 里的对话框绑定）。 */
         if (document.documentElement.hasAttribute('data-td-pop-open')) {
@@ -1682,10 +1968,48 @@ def ds_slice(path, marker):
     return txt[i:].rstrip()
 
 
+def ds_seg(path, start, end):
+    """抽取 (start, end) 之间的片段（不含 end），用于取文件中间的段落"""
+    txt = io.open(path, encoding="utf-8").read()
+    i = txt.find(start)
+    assert i > 0, "DS 里找不到起点 %r：%s" % (start, path)
+    j = txt.find(end, i + len(start))
+    assert j > 0, "DS 里找不到终点 %r：%s" % (end, path)
+    return txt[i:j].rstrip()
+
+
+_DS = lambda *p: os.path.join(DS_DIR, *p)
+
+# ---- ★ 第 31 轮：转派浮窗用到的 token（从 DS colors_and_type.css 抽取，避免页面副本漂移）----
+_ds_picker_tokens = ds_seg(_DS("colors_and_type.css"),
+                           "  /* ---- 字符头像底色",
+                           "  /* ==== 头像 / 滚动条 token 段结束（构建期抽取锚点，勿删）==== */")
+DS_PICKER_TOKENS = "\n".join("        " + ln.strip() if ln.strip() else ""
+                            for ln in _ds_picker_tokens.split("\n"))
+CSS = CSS.replace("__DS_PICKER_TOKENS__", DS_PICKER_TOKENS)
+assert "__DS_PICKER_TOKENS__" not in CSS, "转派浮窗 token 占位符未替换"
+
+# ---- ★ 第 31 轮：转派浮窗用到的组件样式（Popover 静态结构 + List + Avatar + 细滚动条 + 弹层定位动效）----
+_ds_picker = "\n\n".join([
+    ds_seg(_DS("components.css"), "/* === Avatar 头像 === */", "/* === Breadcrumb 面包屑 === */"),
+    ds_seg(_DS("components.css"), "/* === List 列表 === */", "/* === Badge 徽标 === */"),
+    ds_slice(_DS("components.css"), "/* === Popover 气泡卡片"),
+    ds_slice(_DS("gienx-templates", "ui-controls.css"), "/* ---- Popover 弹层"),
+])
+DS_PICKER_CSS = (
+    "      /* ⚠️ 以下组件样式由 build-detail.py 在构建期从 DS 源文件抽取，请勿在此手改：\n"
+    "         静态结构 ← giencoder-design-system/components.css\n"
+    "         弹层定位/开合动效 ← giencoder-design-system/gienx-templates/ui-controls.css */\n"
+    + "".join(("      " + ln + "\n") if ln.strip() else "\n" for ln in _ds_picker.split("\n"))
+)
+CSS = CSS.replace("__DS_PICKER_CSS__", DS_PICKER_CSS)
+assert "__DS_PICKER_CSS__" not in CSS, "转派浮窗样式占位符未替换"
+
 _ds_img = (
-    ds_slice(os.path.join(DS_DIR, "components.css"), "/* === Image 图片")
+    ds_seg(os.path.join(DS_DIR, "components.css"), "/* === Image 图片", "/* === Popover 气泡卡片")
     + "\n\n"
-    + ds_slice(os.path.join(DS_DIR, "gienx-templates", "ui-controls.css"), "/* ---- Image 预览层")
+    + ds_seg(os.path.join(DS_DIR, "gienx-templates", "ui-controls.css"),
+             "/* ---- Image 预览层", "/* ---- Popover 弹层")
 )
 DS_IMAGE_CSS = (
     "      /* ⚠️ 以下 Image 组件样式由 build-detail.py 在构建期从 DS 源文件抽取，请勿在此手改：\n"

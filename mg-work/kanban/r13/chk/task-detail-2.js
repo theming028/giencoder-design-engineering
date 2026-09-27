@@ -10,7 +10,7 @@
         "      <span class=\"td-bar-title\">任务详情</span>",
         "      <div class=\"td-bar-actions\">",
         "        <button class=\"giencoder-btn giencoder-btn-primary giencoder-btn-size-small td-btn\" type=\"button\">开始任务</button>",
-        "        <button class=\"giencoder-btn giencoder-btn-secondary giencoder-btn-size-small td-btn\" type=\"button\">转派</button>",
+        "        <span class=\"giencoder-popover-reference\"><button class=\"giencoder-btn giencoder-btn-secondary giencoder-btn-size-small td-btn\" type=\"button\" data-td-dispatch aria-haspopup=\"dialog\" aria-expanded=\"false\">转派</button></span>",
         "        <button class=\"giencoder-btn giencoder-btn-secondary giencoder-btn-size-small td-btn\" type=\"button\">协作</button>",
         "        <button class=\"giencoder-btn giencoder-btn-secondary giencoder-btn-size-small td-btn\" type=\"button\">编辑</button>",
         "        <button class=\"giencoder-btn giencoder-btn-secondary giencoder-btn-size-small giencoder-btn-icon td-iconbtn\" type=\"button\" aria-label=\"更多操作\">",
@@ -759,6 +759,192 @@
     document.addEventListener('td:close-image-preview', close);
   }
 
+  /* ---------- 顶栏「转派」→ 成员浮窗（★ 第 31 轮，设计稿节点 1345:18366） ----------
+     完全按 DS 契约组装，不自造同义结构：
+       div.giencoder-popover（契约 popover.json 的 popup；按契约渲染到 popupContainer=body）
+         ├ div.giencoder-popover-title     标题 + 副标题
+         ├ div.giencoder-popover-content
+         │   ├ div.giencoder-input-wrapper > span.giencoder-input-prefix + input.giencoder-input
+         │   └ div.giencoder-list.giencoder-scroll-thin > div.giencoder-list-item（role=option）
+         └ div.giencoder-popover-footer > button.giencoder-btn-primary
+     显隐唯一开关 = DS 弹层的 .giencoder-popup-open（ui-controls.css），与 Select 弹层同参数。
+     关闭途径：再点触发按钮 / 点浮窗外 / Esc（页尾 Esc 链派发 td:close-dispatch，
+     优先级排在图片预览之后、对话框弹层之前）。
+     渲染到 body 而不是 .td-bar 内：① 契约默认 popupContainer=body；② 顶栏本身是
+     「按住拖动互换两栏」的把手，浮窗落在顶栏内会被拖拽判定命中。
+     设计稿实测的尺寸/间距见 CSS 段注释；两处设计稿未定义处取 DS 既有约定（4px 间距 + 左对齐）。 */
+  var DISPATCH_MEMBERS = [
+    { name: '邵禹铭', sid: 'P0098602', ch: '铭' },
+    { name: '秦怡',   sid: 'P0098603', ch: '怡' },
+    { name: '韩佳毅', sid: 'P0098604', ch: '毅' },
+    { name: '顾帆',   sid: 'P0098605', ch: '帆' },
+    { name: '姜嘉怡', sid: 'P0098606', ch: '怡' },
+    { name: '朱甜',   sid: 'P0098607', ch: '甜' },
+    { name: '齐瑞辰', sid: 'P0098608', ch: '辰' }
+  ];
+  var DP_CHECK_SVG = '<svg viewBox="0 0 14 14" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.6 7.5l3 3L11.4 4.2"/></svg>';
+  var DP_SEARCH_SVG = '<svg viewBox="0 0 14 14" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><circle cx="6.1" cy="6.1" r="4.35"/><path d="M9.3 9.3l3.1 3.1"/></svg>';
+  var DP_MSG_SVG = '<svg viewBox="0 0 14 14" width="14" height="14" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="6.2" fill="currentColor"/><path d="M4.3 7.2l1.9 1.9 3.5-3.7" stroke="var(--color-white)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+  function bindDispatchPicker() {
+    var btn = document.querySelector('[data-td-dispatch]');
+    if (!btn || btn.hasAttribute('data-td-dp-bound')) return;
+    btn.setAttribute('data-td-dp-bound', '1');
+
+    var pop = null, listEl = null, inputEl = null, noneEl = null, okEl = null;
+    var items = [], cur = 0;
+
+    function build() {
+      if (pop) return pop;
+      pop = document.createElement('div');
+      pop.className = 'giencoder-popover td-dp';
+      pop.setAttribute('role', 'dialog');
+      pop.setAttribute('aria-label', '选择转派人员');
+      pop.setAttribute('tabindex', '-1');   /* 打开时焦点落在浮层本身：Esc 可关且不会给搜索框套上 focus 环 */
+      pop.innerHTML =
+        '<div class="giencoder-popover-title">将任务转派给：' +
+          '<div class="td-dp-t2">转派仅变更任务负责人，不改变任务状态。</div>' +
+        '</div>' +
+        '<div class="giencoder-popover-content">' +
+          '<div class="giencoder-input-wrapper" data-size="medium">' +
+            '<span class="giencoder-input-prefix">' + DP_SEARCH_SVG + '</span>' +
+            '<input class="giencoder-input" type="text" placeholder="搜索成员" aria-label="搜索成员" autocomplete="off">' +
+          '</div>' +
+          '<div class="giencoder-list giencoder-scroll-thin" role="listbox" aria-label="成员列表">' +
+            DISPATCH_MEMBERS.map(function (m, i) {
+              return '<div class="giencoder-list-item giencoder-list-item-hoverable td-dp-item" role="option"' +
+                     ' data-size="small" data-td-idx="' + i + '"' +
+                     ' aria-selected="' + (i === cur ? 'true' : 'false') + '"' +
+                     ' style="--avatar-bg: var(--avatar-bg-' + ((i % 7) + 1) + ')">' +
+                     '<span class="giencoder-avatar giencoder-avatar-circle giencoder-avatar-text td-dp-av" aria-hidden="true">' + m.ch + '</span>' +
+                     '<span class="giencoder-list-item-meta"><span class="giencoder-list-item-title td-dp-name">' + m.name +
+                       '<span class="td-dp-id"> (' + m.sid + ')</span></span></span>' +
+                     '<span class="giencoder-list-item-action"><span class="td-dp-check" aria-hidden="true">' + DP_CHECK_SVG + '</span></span>' +
+                     '</div>';
+            }).join('') +
+            '<div class="giencoder-empty td-dp-none" hidden><div class="giencoder-empty-description">未找到匹配成员</div></div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="giencoder-popover-footer">' +
+          '<button class="giencoder-btn giencoder-btn-primary giencoder-btn-size-default td-dp-ok" type="button">确定转派</button>' +
+        '</div>';
+      /* ★ 挂载前先写内联坐标：绝对定位元素若 left/top 还是 auto，会先按「静态位置」落在文档末尾，
+         把文档撑高 → 出现页面竖向滚动条 → 顶栏右对齐按钮整体左移一个滚动条宽度（实测 10px），
+         于是 place() 读到的按钮 x 比最终值小 10px。预置 0/0 后挂载，布局不抖，place() 才拿到真值。 */
+      pop.style.left = '0px';
+      pop.style.top = '0px';
+      document.body.appendChild(pop);
+
+      listEl = pop.querySelector('.giencoder-list');
+      inputEl = pop.querySelector('.giencoder-input');
+      noneEl = pop.querySelector('.td-dp-none');
+      okEl = pop.querySelector('.td-dp-ok');
+      items = Array.prototype.slice.call(pop.querySelectorAll('[data-td-idx]'));
+
+      listEl.addEventListener('click', function (e) {
+        var it = e.target.closest('[data-td-idx]');
+        if (it) select(+it.getAttribute('data-td-idx'));
+      });
+      inputEl.addEventListener('input', filter);
+      /* 焦点在搜索框里时 Esc 不该被页尾「INPUT 直接 return」吞掉 → 浮层内自行处理 */
+      pop.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') { e.stopPropagation(); close(); }
+      });
+      okEl.addEventListener('click', confirm);
+      return pop;
+    }
+
+    function place() {
+      var r = btn.getBoundingClientRect();
+      var left = Math.min(r.left, window.innerWidth - pop.offsetWidth - 8);
+      pop.style.left = Math.round(Math.max(8, left) + window.scrollX) + 'px';
+      pop.style.top = Math.round(r.bottom + 4 + window.scrollY) + 'px';
+      pop.style.right = 'auto';
+      pop.style.bottom = 'auto';
+    }
+
+    function select(i) {
+      cur = i;
+      items.forEach(function (it, k) { it.setAttribute('aria-selected', k === i ? 'true' : 'false'); });
+    }
+
+    function filter() {
+      var q = inputEl.value.trim().toLowerCase();
+      var shown = 0;
+      items.forEach(function (it, i) {
+        var m = DISPATCH_MEMBERS[i];
+        var hit = !q || (m.name + m.sid).toLowerCase().indexOf(q) >= 0;
+        it.hidden = !hit;
+        if (hit) shown++;
+      });
+      noneEl.hidden = shown > 0;
+    }
+
+    function flag(on) { document.documentElement.toggleAttribute('data-td-dp-open', on); }
+
+    function open() {
+      build();
+      place();
+      if (pop.classList.contains('giencoder-popup-open')) return;
+      pop.classList.add('giencoder-popup-open');
+      btn.setAttribute('aria-expanded', 'true');
+      flag(true);
+      pop.focus();
+    }
+
+    function close() {
+      if (!pop || !pop.classList.contains('giencoder-popup-open')) return;
+      pop.classList.remove('giencoder-popup-open');
+      btn.setAttribute('aria-expanded', 'false');
+      flag(false);
+    }
+
+    /* 转派结果：写回 aside「执行人」+ 一条 DS Message 提示 */
+    function toast(text) {
+      var box = document.querySelector('.td-dp-msg');
+      if (!box) {
+        box = document.createElement('div');
+        box.className = 'td-dp-msg';
+        box.innerHTML = '<div class="giencoder-message" role="status">' +
+          '<span class="giencoder-message-icon" aria-hidden="true">' + DP_MSG_SVG + '</span>' +
+          '<span class="giencoder-message-content"></span></div>';
+        box.hidden = true;
+        document.body.appendChild(box);
+      }
+      box.querySelector('.giencoder-message-content').textContent = text;
+      box.hidden = false;
+      clearTimeout(box._t);
+      box._t = setTimeout(function () { box.hidden = true; }, 2400);
+    }
+
+    function confirm() {
+      var m = DISPATCH_MEMBERS[cur];
+      close();
+      var rows = document.querySelectorAll('.td-attr-row');
+      for (var i = 0; i < rows.length; i++) {
+        var k = rows[i].querySelector('.td-attr-k');
+        if (!k || k.textContent.indexOf('执行人') < 0) continue;
+        var v = rows[i].querySelector('.td-attr-v');
+        if (v) v.textContent = m.name;
+        break;
+      }
+      toast('已转派给 ' + m.name);
+    }
+
+    btn.addEventListener('click', function () {
+      if (pop && pop.classList.contains('giencoder-popup-open')) close(); else open();
+    });
+    document.addEventListener('pointerdown', function (e) {
+      if (!pop || !pop.classList.contains('giencoder-popup-open')) return;
+      if (pop.contains(e.target) || btn.contains(e.target)) return;
+      close();
+    });
+    window.addEventListener('resize', function () {
+      if (pop && pop.classList.contains('giencoder-popup-open')) place();
+    });
+    document.addEventListener('td:close-dispatch', close);
+  }
+
   function inject() {
     var main = document.querySelector('main');
     if (!main || main.querySelector('.td-root')) return false;
@@ -768,6 +954,7 @@
     main.appendChild(wrap);
     bindDetail(wrap);
     bindDescImagePreview(wrap);
+    bindDispatchPicker();
     return true;
   }
   /* 注意：两个动作都要执行，不能短路（页签在 React 挂载后才出现，可能晚于注入）。

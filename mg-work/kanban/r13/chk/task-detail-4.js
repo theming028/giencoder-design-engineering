@@ -10,6 +10,12 @@
           document.dispatchEvent(new CustomEvent('td:close-image-preview'));
           return;
         }
+        /* ★ 第 31 轮：转派成员浮窗次优先（不是模态，但浮在顶栏之上，Esc 应先收它）。
+           浮窗侧监听自定义事件 td:close-dispatch（见 bindDispatchPicker）。 */
+        if (document.documentElement.hasAttribute('data-td-dp-open')) {
+          document.dispatchEvent(new CustomEvent('td:close-dispatch'));
+          return;
+        }
         /* ★ 第 28 轮第 4 项：对话框弹层打开时，Esc 先关弹层而不是跳回看板。
            弹层侧监听自定义事件 td:close-popovers（见 bindDetail 里的对话框绑定）。 */
         if (document.documentElement.hasAttribute('data-td-pop-open')) {
