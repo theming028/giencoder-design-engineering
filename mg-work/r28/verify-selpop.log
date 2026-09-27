@@ -1,0 +1,15 @@
+=== S1. 大模型下拉：关闭态 ===
+"{\"cls\":\"giencoder-select-popup\",\"vis\":\"hidden\",\"op\":\"0\"}"
+=== S2. 点击展开 ===
+"{\"cls\":\"giencoder-select-popup giencoder-popup-open\",\"open\":true,\"vis\":\"visible\",\"op\":\"1\",\"tr\":\"0px\",\"pop\":[1179,675,1379,823],\"hitInPopup\":true,\"hitCls\":\"giencoder-select-option giencoder-select\"}"
+=== S3. 选中第 2 项 → 文案回写 + 收起 ===
+"{\"text\":\"GLM-5.2-公司共用\",\"open\":false,\"vis\":\"hidden\",\"op\":\"0\",\"aria\":\"false\",\"popFlag\":false}"
+=== S4. 点禁用项 → 不选中、保持展开 ===
+"{\"text\":\"GLM-5.2-公司共用\",\"open\":true}"
+=== S5. 点外部 → 关闭 ===
+"{\"open\":false,\"vis\":\"hidden\",\"popFlag\":false}"
+=== S6. Esc → 关闭弹层且不跳转看板 ===
+"{\"open\":false,\"url\":\"task-detail.html\",\"popFlag\":false}"
+=== S7. 标准模式下拉（第 1 个 select）===
+"{\"open\":true,\"vis\":\"visible\",\"op\":\"1\",\"pop\":[0,0,0,0]}"
+DONE

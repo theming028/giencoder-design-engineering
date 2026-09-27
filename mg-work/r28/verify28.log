@@ -28,17 +28,11 @@
 "{\"hidden\":false,\"box\":\"438x320\",\"radius\":\"12px\",\"rows\":6,\"groups\":1,\"tags\":[\"预置\",\"预置\",\"预置\",\"自有\",\"自有\"],\"goalActive\":true,\"goalPurple\":\"rgb(119, 102, 253)\",\"buttons\":2,\"withinComposer\":true,\"aria\":\"true\"}"
 --- 4d. 点技能行 → 只关闭 ---
 "{\"hiddenAfterRowClick\":true}"
---- 4e. 大模型下拉 ---
-✗ Evaluation error: TypeError: Failed to execute 'getComputedStyle' on 'Window': parameter 1 is not of type 'Element'.
-    at <anonymous>:1:150
-    at <anonymous>:1:420
-✗ Evaluation error: TypeError: Failed to execute 'getComputedStyle' on 'Window': parameter 1 is not of type 'Element'.
-    at <anonymous>:1:135
-    at <anonymous>:1:350
+--- 4e. 大模型下拉（DS 契约：开合唯一开关 = .giencoder-popup-open）---
+"{\"openBefore\":false,\"visBefore\":\"hidden\",\"options\":4,\"disabled\":1,\"text\":\"DeepSeek-V4-Pro\"}"
+"{\"open\":true,\"vis\":\"visible\",\"opacity\":\"1\",\"rect\":[1179,675,1379,823],\"inViewport\":true,\"hitInPopup\":true,\"aria\":\"true\",\"popFlag\":true}"
 --- 4f. 选中第 2 项 → 文案回写 + 关闭 ---
-✗ Evaluation error: TypeError: Cannot read properties of null (reading 'textContent')
-    at <anonymous>:1:178
-    at <anonymous>:1:455
+"{\"textAfter\":\"GLM-5.2-公司共用\",\"selected\":[\"GLM-5.2-公司共用\"],\"open\":false,\"vis\":\"hidden\",\"popFlag\":false}"
 --- 4g. 外部点击关闭 ---
 "{\"hiddenAfterOutsideClick\":true,\"popFlag\":false}"
 --- 4h. Esc 关弹层且不跳转 ---
@@ -46,34 +40,14 @@
 
 === 1. 标题栏拖动互换两栏 ===
 before: "{\"gx\":148,\"gy\":72,\"leftL\":8,\"rightL\":952,\"cls\":\"td-root\"}"
-Traceback (most recent call last):
-  File "<string>", line 1, in <module>
-    import sys,json;d=json.loads(sys.stdin.read());print(d['gx'],d['gy'])
-                                                         ~^^^^^^
-TypeError: string indices must be integers, not 'str'
-"{\"duringDragCls\":\"td-root\"}"
-"{\"rootCls\":\"td-root\",\"flexDir\":\"row\",\"leftL\":8,\"rightL\":952,\"swapped_rightIsLeft\":false}"
+"{\"duringDragCls\":\"td-root is-xdrag is-xarmed\"}"
+"{\"rootCls\":\"td-root is-swapped\",\"flexDir\":\"row-reverse\",\"leftL\":496,\"rightL\":8,\"swapped_rightIsLeft\":true}"
 --- 1b. 再拖回（此时 .td-bar 已在右侧，向左拖 → 复原） ---
-Traceback (most recent call last):
-  File "<string>", line 1, in <module>
-    import sys,json;d=json.loads(sys.stdin.read());print(d['gx'],d['gy'])
-                                                         ~^^^^^^
-TypeError: string indices must be integers, not 'str'
 "{\"rootCls\":\"td-root\",\"leftL\":8,\"rightL\":952,\"restored\":true}"
 
 --- 1c. 交换后拖动条方向取反（向右拖 → 右栏变宽） ---
-Traceback (most recent call last):
-  File "<string>", line 1, in <module>
-    import sys,json;d=json.loads(sys.stdin.read());print(d['gx'],d['gy'])
-                                                         ~^^^^^^
-TypeError: string indices must be integers, not 'str'
-"{\"gx\":948,\"gy\":470,\"rightWBefore\":480}"
-Traceback (most recent call last):
-  File "<string>", line 1, in <module>
-    import sys,json;d=json.loads(sys.stdin.read());print(d['gx'],d['gy'])
-                                                         ~^^^^^^
-TypeError: string indices must be integers, not 'str'
-"{\"rightWAfter\":480}"
+"{\"gx\":492,\"gy\":470,\"rightWBefore\":480}"
+"{\"rightWAfter\":524}"
 
 === 回归：换页 / 语法 / 组件合规 ===
 "{\"kanbanOk\":true}"

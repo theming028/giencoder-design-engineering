@@ -161,7 +161,7 @@
         "                    <div class=\"giencoder-select-selection\" style=\"gap: 4px;\"><span class=\"giencoder-select-view-text\">标准模式</span></div>",
         "                    <span class=\"giencoder-select-suffix\"><svg viewBox=\"0 0 12 12\" width=\"12\" height=\"12\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\"><path d=\"M2.6 4.6L6 8l3.4-3.4\"/></svg></span>",
         "                  </div>",
-        "                  <div class=\"giencoder-select-popup\" style=\"display: none;\">",
+        "                  <div class=\"giencoder-select-popup\">",
         "                    <ul class=\"giencoder-select-option-list\" role=\"listbox\">",
         "                      <li class=\"giencoder-select-option giencoder-select-option-selected\" role=\"option\" aria-selected=\"true\">标准模式</li>",
         "                      <li class=\"giencoder-select-option\" role=\"option\" aria-selected=\"false\">专家模式</li>",
@@ -175,7 +175,7 @@
         "                    <div class=\"giencoder-select-selection\" style=\"gap: 2px;\"><span class=\"giencoder-select-view-text\">DeepSeek-V4-Pro</span></div>",
         "                    <span class=\"giencoder-select-suffix\"><svg viewBox=\"0 0 12 12\" width=\"12\" height=\"12\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\"><path d=\"M2.6 4.6L6 8l3.4-3.4\"/></svg></span>",
         "                  </div>",
-        "                  <div class=\"giencoder-select-popup\" style=\"display: none;\">",
+        "                  <div class=\"giencoder-select-popup\">",
         "                    <ul class=\"giencoder-select-option-list\" role=\"listbox\" aria-label=\"大模型选择\">",
         "                      <li class=\"giencoder-select-option giencoder-select-option-selected\" role=\"option\" aria-selected=\"true\">DeepSeek-V4-Pro</li>",
         "                      <li class=\"giencoder-select-option\" role=\"option\" aria-selected=\"false\">GLM-5.2-公司共用</li>",
@@ -298,7 +298,9 @@
     function popFlag() { document.documentElement.toggleAttribute('data-td-pop-open', !!(opAdd || opSkill || opSel)); }
     function closeAdd() { if (!opAdd) return; opAdd.pop.hidden = true; opAdd.btn.setAttribute('aria-expanded', 'false'); opAdd = null; popFlag(); }
     function closeSkill() { if (!opSkill) return; opSkill.pop.hidden = true; opSkill.btn.setAttribute('aria-expanded', 'false'); opSkill = null; popFlag(); }
-    function closeSel() { if (!opSel) return; opSel.pop.style.display = 'none'; opSel.view.setAttribute('aria-expanded', 'false'); opSel = null; popFlag(); }
+    /* ⚠️ DS Select 弹层的开合唯一开关是 `.giencoder-popup-open`（ui-controls.css），
+       不要用内联 display（display:block 但 opacity:0/visibility:hidden ⇒ 看不见）。 */
+    function closeSel() { if (!opSel) return; opSel.pop.classList.remove('giencoder-popup-open'); opSel.view.setAttribute('aria-expanded', 'false'); opSel = null; popFlag(); }
     function closePops() { closeAdd(); closeSkill(); closeSel(); }
 
     var addBtn = wrap.querySelector('[data-td-add-btn]');
@@ -344,7 +346,7 @@
         closeAdd(); closeSkill();
         if (opSel && opSel.pop === pop) { closeSel(); return; }
         closeSel();
-        pop.style.display = 'block';
+        pop.classList.add('giencoder-popup-open');
         view.setAttribute('aria-expanded', 'true');
         opSel = { view: view, pop: pop }; popFlag();
       });

@@ -67,15 +67,20 @@ $AB click ".td-skill-row" >/dev/null 2>&1
 sleep 0.3
 $AB eval "JSON.stringify((function(){return {hiddenAfterRowClick:document.querySelector('[data-td-skill-pop]').hidden};})())"
 
-echo "--- 4e. 大模型下拉 ---"
-$AB eval "JSON.stringify((function(){var sels=document.querySelectorAll('.td-composer .giencoder-select');var m=sels[sels.length-1];return {popupDisplayBefore:getComputedStyle(m.querySelector('.giencoder-select-popup')).display,options:m.querySelectorAll('.giencoder-select-option').length,disabled:m.querySelectorAll('.giencoder-select-option-disabled').length,text:m.querySelector('.giencoder-select-view-text').textContent};})())"
-$AB eval "(function(){var s=document.querySelectorAll('.td-composer .giencoder-select');s[s.length-1].querySelector('.giencoder-select-view').click();})()" >/dev/null 2>&1
-sleep 0.4
-$AB eval "JSON.stringify((function(){var s=document.querySelectorAll('.td-composer .giencoder-select');var m=s[s.length-1];return {popupDisplay:getComputedStyle(m.querySelector('.giencoder-select-popup')).display,aria:m.querySelector('.giencoder-select-view').getAttribute('aria-expanded'),popFlag:document.documentElement.hasAttribute('data-td-pop-open')};})())"
+echo "--- 4e. 大模型下拉（DS 契约：开合唯一开关 = .giencoder-popup-open）---"
+# ⚠️ 第 28 轮踩坑修正：DS 的 gienx-templates/ui-controls.css 给 .giencoder-select-popup 设了
+#    opacity:0 / visibility:hidden，加 .giencoder-popup-open 才可见。
+#    所以断言必须看 class + visibility + opacity，**不能只看 display**（display 恒为 block）。
+#    另：技能面板自身也带 .giencoder-select 类，须按「内部含 .giencoder-select-view-text」过滤。
+M="[].slice.call(document.querySelectorAll('.td-composer .giencoder-select')).filter(function(e){return e.querySelector('.giencoder-select-view-text');})"
+$AB eval "JSON.stringify((function(){var s=$M;var m=s[s.length-1];var p=m.querySelector('.giencoder-select-popup');return {openBefore:p.classList.contains('giencoder-popup-open'),visBefore:getComputedStyle(p).visibility,options:m.querySelectorAll('.giencoder-select-option').length,disabled:m.querySelectorAll('.giencoder-select-option-disabled').length,text:m.querySelector('.giencoder-select-view-text').textContent};})())"
+$AB eval "(function(){var s=$M;s[s.length-1].querySelector('.giencoder-select-view').click();})()" >/dev/null 2>&1
+sleep 0.5
+$AB eval "JSON.stringify((function(){var s=$M;var m=s[s.length-1];var p=m.querySelector('.giencoder-select-popup');var cs=getComputedStyle(p);var b=p.getBoundingClientRect();var h=document.elementFromPoint(Math.round(b.left+b.width/2),Math.round(b.top+14));return {open:p.classList.contains('giencoder-popup-open'),vis:cs.visibility,opacity:cs.opacity,rect:[Math.round(b.left),Math.round(b.top),Math.round(b.right),Math.round(b.bottom)],inViewport:b.bottom<=innerHeight,hitInPopup:!!(h&&h.closest&&h.closest('.giencoder-select-popup')),aria:m.querySelector('.giencoder-select-view').getAttribute('aria-expanded'),popFlag:document.documentElement.hasAttribute('data-td-pop-open')};})())"
 echo "--- 4f. 选中第 2 项 → 文案回写 + 关闭 ---"
-$AB eval "(function(){var s=document.querySelectorAll('.td-composer .giencoder-select');var m=s[s.length-1];m.querySelectorAll('.giencoder-select-option')[1].click();})()" >/dev/null 2>&1
-sleep 0.3
-$AB eval "JSON.stringify((function(){var s=document.querySelectorAll('.td-composer .giencoder-select');var m=s[s.length-1];return {textAfter:m.querySelector('.giencoder-select-view-text').textContent,selected:[].map.call(m.querySelectorAll('.giencoder-select-option-selected'),function(o){return o.textContent;}),popupDisplay:getComputedStyle(m.querySelector('.giencoder-select-popup')).display,popFlag:document.documentElement.hasAttribute('data-td-pop-open')};})())"
+$AB eval "(function(){var s=$M;s[s.length-1].querySelectorAll('.giencoder-select-option')[1].click();})()" >/dev/null 2>&1
+sleep 0.4
+$AB eval "JSON.stringify((function(){var s=$M;var m=s[s.length-1];var p=m.querySelector('.giencoder-select-popup');return {textAfter:m.querySelector('.giencoder-select-view-text').textContent,selected:[].map.call(m.querySelectorAll('.giencoder-select-option-selected'),function(o){return o.textContent;}),open:p.classList.contains('giencoder-popup-open'),vis:getComputedStyle(p).visibility,popFlag:document.documentElement.hasAttribute('data-td-pop-open')};})())"
 
 echo "--- 4g. 外部点击关闭 ---"
 $AB click "[data-td-skill-btn]" >/dev/null 2>&1
@@ -95,7 +100,7 @@ echo ""
 echo "=== 1. 标题栏拖动互换两栏 ==="
 INFO=$($AB eval "JSON.stringify((function(){var b=document.querySelector('.td-bar').getBoundingClientRect();var L=document.querySelector('.td-left').getBoundingClientRect();var R=document.querySelector('.td-right').getBoundingClientRect();return {gx:Math.round(b.left+140),gy:Math.round(b.top+24),leftL:Math.round(L.left),rightL:Math.round(R.left),cls:document.querySelector('.td-root').className};})())" 2>&1 | tail -1)
 echo "before: $INFO"
-XY=$(echo "$INFO" | $PY -c "import sys,json;d=json.loads(sys.stdin.read());print(d['gx'],d['gy'])")
+XY=$(echo "$INFO" | $PY -c "import sys,json;d=json.loads(sys.stdin.read());d=json.loads(d) if isinstance(d,str) else d;print(d['gx'],d['gy'])")
 X=$(echo $XY | cut -d' ' -f1); Y=$(echo $XY | cut -d' ' -f2)
 $AB mouse move "$X" "$Y" >/dev/null 2>&1
 $AB mouse down >/dev/null 2>&1
@@ -109,7 +114,7 @@ $AB screenshot "mg-work/r28/verify-swapped.png" >/dev/null 2>&1
 
 echo "--- 1b. 再拖回（此时 .td-bar 已在右侧，向左拖 → 复原） ---"
 INFO2=$($AB eval "JSON.stringify((function(){var b=document.querySelector('.td-bar').getBoundingClientRect();return {gx:Math.round(b.left+140),gy:Math.round(b.top+24)};})())" 2>&1 | tail -1)
-XY2=$(echo "$INFO2" | $PY -c "import sys,json;d=json.loads(sys.stdin.read());print(d['gx'],d['gy'])")
+XY2=$(echo "$INFO2" | $PY -c "import sys,json;d=json.loads(sys.stdin.read());d=json.loads(d) if isinstance(d,str) else d;print(d['gx'],d['gy'])")
 X2=$(echo $XY2 | cut -d' ' -f1); Y2=$(echo $XY2 | cut -d' ' -f2)
 $AB mouse move "$X2" "$Y2" >/dev/null 2>&1
 $AB mouse down >/dev/null 2>&1
@@ -121,14 +126,14 @@ $AB eval "JSON.stringify((function(){var L=document.querySelector('.td-left').ge
 echo ""
 echo "--- 1c. 交换后拖动条方向取反（向右拖 → 右栏变宽） ---"
 INFO3=$($AB eval "JSON.stringify((function(){var b=document.querySelector('.td-bar').getBoundingClientRect();return {gx:Math.round(b.left+140),gy:Math.round(b.top+24)};})())" 2>&1 | tail -1)
-XY3=$(echo "$INFO3" | $PY -c "import sys,json;d=json.loads(sys.stdin.read());print(d['gx'],d['gy'])")
+XY3=$(echo "$INFO3" | $PY -c "import sys,json;d=json.loads(sys.stdin.read());d=json.loads(d) if isinstance(d,str) else d;print(d['gx'],d['gy'])")
 X3=$(echo $XY3 | cut -d' ' -f1); Y3=$(echo $XY3 | cut -d' ' -f2)
 $AB mouse move "$X3" "$Y3" >/dev/null 2>&1; $AB mouse down >/dev/null 2>&1
 for dx in 15 35 55 75 95 120 140; do $AB mouse move "$((X3+dx))" "$Y3" >/dev/null 2>&1; done
 $AB mouse up >/dev/null 2>&1; sleep 0.4
 $AB eval "JSON.stringify((function(){var b=document.querySelector('[data-td-gutter]').getBoundingClientRect();var R=document.querySelector('.td-right').getBoundingClientRect();return {gx:Math.round(b.left+b.width/2),gy:Math.round(b.top+b.height/2),rightWBefore:Math.round(R.width)};})())"
 GB=$($AB eval "JSON.stringify((function(){var b=document.querySelector('[data-td-gutter]').getBoundingClientRect();return {gx:Math.round(b.left+b.width/2),gy:Math.round(b.top+b.height/2)};})())" 2>&1 | tail -1)
-GXY=$(echo "$GB" | $PY -c "import sys,json;d=json.loads(sys.stdin.read());print(d['gx'],d['gy'])")
+GXY=$(echo "$GB" | $PY -c "import sys,json;d=json.loads(sys.stdin.read());d=json.loads(d) if isinstance(d,str) else d;print(d['gx'],d['gy'])")
 GX=$(echo $GXY | cut -d' ' -f1); GY=$(echo $GXY | cut -d' ' -f2)
 $AB mouse move "$GX" "$GY" >/dev/null 2>&1; $AB mouse down >/dev/null 2>&1
 for dx in 10 20 30 40; do $AB mouse move "$((GX+dx))" "$GY" >/dev/null 2>&1; done

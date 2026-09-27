@@ -471,13 +471,21 @@ CSS = r"""<style>
       }
       .td-skill-x:hover { color: var(--color-text-1); }
       .td-skill-x svg { display: block; width: 100%; height: 100%; }
-      /* 大模型 / 标准模式下拉：DS Select 契约结构 + 开合动效 */
+      /* 大模型 / 标准模式下拉：完全沿用 DS 契约的开合机制
+         —— gienx-templates/ui-controls.css 里 `.giencoder-select-popup` 默认 opacity:0 / visibility:hidden /
+            translate:0 4px / scale:.96，加 `.giencoder-popup-open` 后 spring 过渡到展开态。
+         ⚠️ 第 28 轮踩坑：最初用内联 `style.display = 'block' | 'none'` 代替该类 —— display 确实是 block，
+           但 **opacity 仍为 0、visibility 仍为 hidden，页面上完全看不到**（getBoundingClientRect 却完全正常，
+           极易误判为"已实现"）。必须用 `.giencoder-popup-open`。
+         这里只补两处方向适配（选择器限定在组件类上，不改组件本体）： */
       .td-composer .giencoder-select-popup {
-        animation: td-pop-in 160ms var(--transition-timing-function-standard, cubic-bezier(0.4, 0, 0.2, 1)) both;
-      }
-      @keyframes td-pop-in { from { opacity: 0; translate: 0 4px; } to { opacity: 1; translate: 0 0; } }
-      @media (prefers-reduced-motion: reduce) {
-        .td-composer .giencoder-select-popup { animation: none; }
+        /* ① DS 默认向下展开（top: calc(100% + 4px)），但本页 AI 对话框固定在右栏底部，
+              实测弹层 rect bottom 1005 > 视口 900 → 只剩 37px 可见、4 个选项有 3 个点不到。
+              选择器锚点在底部 ⇒ 翻转为向上展开，与「添加菜单」(.td-add-pop) 朝向一致。 */
+        top: auto;
+        bottom: calc(100% + 4px);
+        /* ② 缩放原点随之从顶边翻到底边 */
+        transform-origin: bottom center;
       }
       /* -------------------- AI 会话全屏 / 取消全屏（第 26 轮第 5 项） --------------------
          点右栏右上角「全屏」→ 整个 AI 对话框向左扩展到最大化：左栏（含信息列）与拖动条让位隐藏，
@@ -879,7 +887,7 @@ HTML = """<div class="td-root" role="region" aria-label="任务详情">
                     <div class="giencoder-select-selection" style="gap: 4px;"><span class="giencoder-select-view-text">标准模式</span></div>
                     <span class="giencoder-select-suffix"><svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M2.6 4.6L6 8l3.4-3.4"/></svg></span>
                   </div>
-                  <div class="giencoder-select-popup" style="display: none;">
+                  <div class="giencoder-select-popup">
                     <ul class="giencoder-select-option-list" role="listbox">
                       <li class="giencoder-select-option giencoder-select-option-selected" role="option" aria-selected="true">标准模式</li>
                       <li class="giencoder-select-option" role="option" aria-selected="false">专家模式</li>
@@ -893,7 +901,7 @@ HTML = """<div class="td-root" role="region" aria-label="任务详情">
                     <div class="giencoder-select-selection" style="gap: 2px;"><span class="giencoder-select-view-text">DeepSeek-V4-Pro</span></div>
                     <span class="giencoder-select-suffix"><svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M2.6 4.6L6 8l3.4-3.4"/></svg></span>
                   </div>
-                  <div class="giencoder-select-popup" style="display: none;">
+                  <div class="giencoder-select-popup">
                     <ul class="giencoder-select-option-list" role="listbox" aria-label="大模型选择">
                       <li class="giencoder-select-option giencoder-select-option-selected" role="option" aria-selected="true">DeepSeek-V4-Pro</li>
                       <li class="giencoder-select-option" role="option" aria-selected="false">GLM-5.2-公司共用</li>
@@ -1056,7 +1064,9 @@ __LINES__
     function popFlag() { document.documentElement.toggleAttribute('data-td-pop-open', !!(opAdd || opSkill || opSel)); }
     function closeAdd() { if (!opAdd) return; opAdd.pop.hidden = true; opAdd.btn.setAttribute('aria-expanded', 'false'); opAdd = null; popFlag(); }
     function closeSkill() { if (!opSkill) return; opSkill.pop.hidden = true; opSkill.btn.setAttribute('aria-expanded', 'false'); opSkill = null; popFlag(); }
-    function closeSel() { if (!opSel) return; opSel.pop.style.display = 'none'; opSel.view.setAttribute('aria-expanded', 'false'); opSel = null; popFlag(); }
+    /* ⚠️ DS Select 弹层的开合唯一开关是 `.giencoder-popup-open`（ui-controls.css），
+       不要用内联 display（display:block 但 opacity:0/visibility:hidden ⇒ 看不见）。 */
+    function closeSel() { if (!opSel) return; opSel.pop.classList.remove('giencoder-popup-open'); opSel.view.setAttribute('aria-expanded', 'false'); opSel = null; popFlag(); }
     function closePops() { closeAdd(); closeSkill(); closeSel(); }
 
     var addBtn = wrap.querySelector('[data-td-add-btn]');
@@ -1102,7 +1112,7 @@ __LINES__
         closeAdd(); closeSkill();
         if (opSel && opSel.pop === pop) { closeSel(); return; }
         closeSel();
-        pop.style.display = 'block';
+        pop.classList.add('giencoder-popup-open');
         view.setAttribute('aria-expanded', 'true');
         opSel = { view: view, pop: pop }; popFlag();
       });
