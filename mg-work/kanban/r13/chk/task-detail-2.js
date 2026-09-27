@@ -574,6 +574,53 @@
     var LEFT_MIN = 480;    /* 左栏保底（★ 第32轮第4项：320 → 480，与 CSS --td-left-min 同值） */
     var dragging = false, curW = DEFAULT_W;
 
+    /* ==================== 分栏布局记忆（★ 第 35 轮第 1 项） ====================
+       用户在这页上对布局做过三种「选择」，都发生在同两条拖动热区上，刷新后必须保持：
+         · 拖标题栏 → 左右两栏互换（.is-swapped）
+         · 拖拖动条 → 右栏宽度（--td-right-w）
+         · 宽度拖到 100px 以下 → 自动折叠（.is-collapsed）
+       键名带版本号：将来若结构变化（比如又加了第三栏），直接换版本号即可安全作废旧数据。
+       ⚠️ 只在「操作结束」时写（endDrag / 换位判定 / 折叠展开），**不能在 pointermove 里写** ——
+          一次拖动几十上百个 pointermove，写 localStorage 是同步 IO，会把拖拽拖卡。 */
+    var LAYOUT_KEY = 'giencoder:td-cols:v1';
+    function loadLayout() {
+      try { return JSON.parse(localStorage.getItem(LAYOUT_KEY) || 'null') || {}; }
+      catch (err) { return {}; }              /* 数据被改坏 / 隐私模式 → 当作没有记忆 */
+    }
+    function saveLayout(patch) {
+      var d = loadLayout();
+      for (var k in patch) { if (Object.prototype.hasOwnProperty.call(patch, k)) d[k] = patch[k]; }
+      try { localStorage.setItem(LAYOUT_KEY, JSON.stringify(d)); } catch (err) {}
+    }
+    function clearLayout() { try { localStorage.removeItem(LAYOUT_KEY); } catch (err) {} }
+    /* 把「当前布局」整体落盘（状态直接从 DOM/变量读，避免各处漏传参数） */
+    function persistLayout() {
+      if (layoutRestoring) return;   /* 恢复过程中不写，否则「钳位后的值」会覆盖掉原始记忆 */
+      saveLayout({
+        swapped: root.classList.contains('is-swapped'),
+        collapsed: root.classList.contains('is-collapsed'),
+        rightW: Math.round(curW)
+      });
+    }
+    var layoutRestoring = false;
+    /* 恢复上一次的布局。必须放在 maxRightW() 之后（要用容器实测宽做钳位），
+       且钳位不可省：换台显示器 / 改窗宽后，上次记住的栏宽可能已经放不下。 */
+    function restoreLayout() {
+      var d = loadLayout();
+      if (!d || (!d.swapped && !d.collapsed && typeof d.rightW !== 'number')) return;
+      layoutRestoring = true;
+      try {
+        if (d.swapped) root.classList.add('is-swapped');
+        if (d.collapsed) { collapse(); return; }
+        if (typeof d.rightW === 'number' && d.rightW > 0) {
+          var m = maxRightW();
+          if (m > 0) expand(Math.max(MIN_W, Math.min(d.rightW, m)));
+        }
+      } finally {
+        layoutRestoring = false;
+      }
+    }
+
     /* 右栏可达到的最大宽度 = 根容器宽 − 拖动条宽 − 左栏保底。
        ★ 第 32 轮修正：原先漏算拖动条 8px，导致钳位后左栏实际只剩 LEFT_MIN−8，
          触发 CSS min-width 兜底 → 两栏总宽超容器（溢出）。 */
@@ -600,10 +647,12 @@
     function collapse() {
       root.classList.add('is-collapsed');
       setWidth(COLLAPSED_W);
+      persistLayout();
     }
     function expand(w) {
       root.classList.remove('is-collapsed');
       setWidth(w || DEFAULT_W);
+      persistLayout();
     }
     /* 拖动分栏 */
     gutter.addEventListener('pointerdown', function (e) {
@@ -635,6 +684,7 @@
       gutter.classList.remove('is-dragging');
       if (curW < MIN_W) collapse();          /* 过窄 -> 自动折叠 */
       else root.classList.remove('is-collapsed');
+      persistLayout();                       /* ★ 拖动结束才落盘（pointermove 里不写） */
     }
     gutter.addEventListener('pointerup', endDrag);
     gutter.addEventListener('pointercancel', endDrag);
@@ -658,6 +708,38 @@
       e.preventDefault();
       expand(DEFAULT_W);
     });
+    /* ★ 第 35 轮第 1 项：双击拖动条 = 清除布局记忆、回到出厂布局。
+       没有这个出口，被记住的「互换 + 窄栏」会一路带到下次打开，用户会觉得「页面坏了」。 */
+    gutter.addEventListener('dblclick', function (e) {
+      e.preventDefault();
+      root.classList.remove('is-swapped');
+      expand(DEFAULT_W);       /* 视觉先回到默认（内部会写一次记忆） */
+      clearLayout();           /* 再把记忆清掉，下次打开就是全新默认态 */
+    });
+    if (gutter) gutter.setAttribute('title', '拖动调整栏宽 · 双击恢复默认布局');
+
+    /* ★ 第 35 轮第 1 项补充：运行中改变视口（拖窗 / 切分辨率 / DevTools 换设备）时的重新钳位。
+       restoreLayout() 只在打开时钳位一次；窗口变窄后「记忆里的宽栏」照样会放不下 →
+       实测（1440 → 1100）右栏仍是 644px，两栏 480+8+644=1132 超出容器 1084，右栏溢出。
+       ★ 钳位值**不落盘**：localStorage 里始终保持用户真正选过的那个宽度，
+         窗口变回去时还能原样复原 —— 所以 want 取自 loadLayout()，而不是 curW。 */
+    function clampNow() {
+      if (layoutRestoring || root.classList.contains('is-collapsed')) return;
+      var d = loadLayout();
+      var want = (typeof d.rightW === 'number') ? d.rightW : curW;
+      var m = Math.max(MIN_W, maxRightW());
+      var next = Math.max(MIN_W, Math.min(want, m));
+      if (Math.abs(next - curW) > 0.5) setWidth(next);
+    }
+    var clampRaf = 0;
+    window.addEventListener('resize', function () {
+      if (clampRaf) cancelAnimationFrame(clampRaf);
+      clampRaf = requestAnimationFrame(function () { clampRaf = 0; clampNow(); });
+    });
+
+    /* 恢复上一次的布局选择（放在所有绑定之后、首次绘制之前） */
+    if (root.getBoundingClientRect().width > 0) restoreLayout();
+    else requestAnimationFrame(restoreLayout);
 
     /* ---------- 按住标题栏左右拖动互换两栏位置 ----------
        ★ 第 28 轮第 1 项建立；★ 第 30 轮第 2 项重写（原实现「瞬间切类 + 260ms 透明度闪一下」太生硬）。
@@ -790,6 +872,7 @@
           var fL = left.getBoundingClientRect(), fR = right.getBoundingClientRect();
           var fG = gutter.getBoundingClientRect();
           root.classList.toggle('is-swapped');
+          persistLayout();        /* ★ 第 35 轮第 1 项：互换结果写入记忆，刷新后保持 */
           var lL = left.getBoundingClientRect(), lR = right.getBoundingClientRect();
           var lG = gutter.getBoundingClientRect();
           var dxL = Math.round(fL.left - lL.left);

@@ -318,6 +318,9 @@ JS_TMPL = """<script id="av-chat-js">
   /* ==================== 触发器注入（内容标题行，全页唯一） ==================== */
   var ICON = '@@ICON@@' + '通过对话完善数字分身';
   function injectTrigger() {
+    /* ★ 第 35 轮第 2 项：主内容还原后，触发器已直接写在主内容模板里
+       （mg-work/r35/build-avatar-main.py 的 AV_MAIN 段），此处只要确认它已在页面上即可。 */
+    if (document.querySelector('[data-av-chat-toggle]')) return true;
     var row = document.querySelector('div.flex.items-start.justify-between');
     if (!row) return false;
     if (row.querySelector('[data-av-chat-toggle]')) return true;
