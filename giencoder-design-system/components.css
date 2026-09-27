@@ -685,3 +685,62 @@ td.giencoder-table-operation .giencoder-btn-size-mini { padding: 0 4px; }
 
 /* === Tooltip 文字气泡 === */
 .giencoder-tooltip-popup { box-shadow: var(--shadow1-down); }
+
+
+/* === Image 图片（契约 components/image.json）===
+   静态结构样式。预览层的**全屏定位与开合动效**在 gienx-templates/ui-controls.css
+   （与 Select/DatePicker 弹层同一处理方式：动效不进本文件）。
+   来源：preview/component-image.html 的页面级演示样式，去掉 demo 尺寸后收敛为组件样式。
+   ⚠️ 类名以契约 anatomy 为准：
+     容器 div.giencoder-image / 图片 img.giencoder-image-img
+     悬停预览提示遮罩 div.giencoder-image-mask   ← 参考实现里曾叫 -hover-mask，已按契约改名
+     大图预览层 div.giencoder-image-preview（全屏定位与动效见 ui-controls.css）
+     -mask-wrapper / -caption / -error* / -preview-* 为契约未逐一枚举的内部子部件。 */
+.giencoder-image { display: inline-block; position: relative; }
+.giencoder-image-mask-wrapper { position: relative; overflow: hidden; border-radius: var(--border-radius-large); }
+.giencoder-image-img { display: block; width: 100%; height: auto; }
+.giencoder-image-placeholder {
+  display: flex; align-items: center; justify-content: center;
+  font-size: var(--font-size-body-2); color: var(--color-white);
+}
+.giencoder-image-mask {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  gap: var(--spacing-2); background: var(--color-mask-bg); color: var(--color-white);
+  font-size: var(--font-size-body-3); line-height: 20px;
+  opacity: 0; transition: opacity var(--transition-duration-2) var(--transition-timing-function-standard);
+}
+.giencoder-image-mask-wrapper:hover .giencoder-image-mask,
+.giencoder-image-mask-wrapper:focus-visible .giencoder-image-mask { opacity: 1; }
+.giencoder-image-mask svg { flex: none; line-height: 0; }
+.giencoder-image-caption {
+  margin-top: var(--spacing-4); font-size: var(--font-size-body-1);
+  color: var(--color-text-3); text-align: center;
+}
+.giencoder-image-error .giencoder-image-mask-wrapper {
+  display: flex; align-items: center; justify-content: center; background: var(--color-fill-2);
+}
+.giencoder-image-error-state {
+  display: flex; flex-direction: column; align-items: center;
+  gap: var(--spacing-3); color: var(--color-text-4);
+}
+.giencoder-image-error-text { font-size: var(--font-size-body-2); }
+/* 预览层内部结构（.giencoder-image-preview 本体 = 全屏遮罩，见 ui-controls.css） */
+.giencoder-image-preview-mask {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+}
+.giencoder-image-preview-img {
+  display: block; max-width: 100%; max-height: 100%;
+  border-radius: var(--border-radius-large);
+}
+.giencoder-image-preview-btn {
+  width: 28px; height: 28px; border: none; border-radius: var(--border-radius-small);
+  background: rgba(255, 255, 255, 0.2); color: var(--color-white);
+  display: flex; align-items: center; justify-content: center; cursor: pointer;
+  transition: background var(--transition-duration-2) var(--transition-timing-function-standard);
+}
+.giencoder-image-preview-btn:hover { background: rgba(255, 255, 255, 0.35); }
+.giencoder-image-preview-close { position: absolute; top: var(--spacing-5); right: var(--spacing-5); }
+.giencoder-image-preview-zoom {
+  position: absolute; bottom: var(--spacing-5); left: var(--spacing-5);
+  display: flex; gap: var(--spacing-3);
+}

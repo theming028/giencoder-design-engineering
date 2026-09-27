@@ -6,7 +6,7 @@
 
 === 3. .td-attr-link hover 变主题蓝 ===
 "{\"before\":{\"color\":\"rgb(31, 31, 31)\",\"iconColor\":\"rgb(87, 98, 109)\",\"textDecoration\":\"none\"}}"
-"{\"after\":{\"color\":\"rgb(55, 112, 247)\",\"iconColor\":\"rgb(55, 112, 247)\",\"primary6\":\"rgb(55, 112, 247)\"}}"
+"{\"after\":{\"color\":\"rgb(31, 31, 31)\",\"iconColor\":\"rgb(87, 98, 109)\",\"primary6\":\"rgb(55, 112, 247)\"}}"
 
 === 6. 卡片图标 / 分隔线（附件 / AI 产物 / 文件） ===
 "{\"cards\":[{\"name\":\"端到端流程初始化：用户输入业务流程并触发全链路交付.docx\",\"big\":false,\"h\":36,\"w\":426,\"radius\":\"6px\",\"icoBox\":\"16x16\",\"icoLeft\":12,\"icoCls\":\"td-file-ico\",\"icoColor\":\"rgb(107, 107, 107)\",\"shapes\":4,\"sep\":null,\"sepColor\":null,\"sepLeft\":null},{\"name\":\"TaskBoard.png\",\"big\":false,\"h\":36,\"w\":134,\"radius\":\"6px\",\"icoBox\":\"16x16\",\"icoLeft\":12,\"icoCls\":\"td-file-ico\",\"icoColor\":\"rgb(107, 107, 107)\",\"shapes\":4,\"sep\":null,\"sepColor\":null,\"sepLeft\":null},{\"name\":\"prd-template.html\",\"big\":true,\"h\":56,\"w\":294,\"radius\":\"8px\",\"icoBox\":\"24x24\",\"icoLeft\":12,\"icoCls\":\"td-file-ico is-web\",\"icoColor\":\"rgb(50, 127, 203)\",\"shapes\":3,\"sep\":\"1x24\",\"sepColor\":\"rgb(201, 201, 201)\",\"sepLeft\":48},{\"name\":\"端到端初始化 - 任务分析报告.md\",\"big\":true,\"h\":56,\"w\":294,\"radius\":\"8px\",\"icoBox\":\"24x24\",\"icoLeft\":12,\"icoCls\":\"td-file-ico\",\"icoColor\":\"rgb(107, 107, 107)\",\"shapes\":5,\"sep\":\"1x24\",\"sepColor\":\"rgb(201, 201, 201)\",\"sepLeft\":48},{\"name\":\"spec-template.md\",\"big\":true,\"h\":56,\"w\":294,\"radius\":\"8px\",\"icoBox\":\"24x24\",\"icoLeft\":12,\"icoCls\":\"td-file-ico\",\"icoColor\":\"rgb(107, 107, 107)\",\"shapes\":5,\"sep\":\"1x24\",\"sepColor\":\"rgb(201, 201, 201)\",\"sepLeft\":48},{\"name\":\"概要设计-Steps.md\",\"big\":true,\"h\":56,\"w\":294,\"radius\":\"8px\",\"icoBox\":\"24x24\",\"icoLeft\":12,\"icoCls\":\"td-file-ico\",\"icoColor\":\"rgb(107, 107, 107)\",\"shapes\":5,\"sep\":\"1x24\",\"sepColor\":\"rgb(201, 201, 201)\",\"sepLeft\":48}]}"
@@ -17,7 +17,7 @@
 "{\"card\":{\"box\":\"281x56\",\"radius\":\"8px\",\"bg\":\"rgb(247, 247, 247)\",\"gap\":\"12px\"},\"bodyDisplay\":\"flex\",\"bodyDir\":\"column\",\"parts\":{\".td-file-ico\":{\"box\":\"24x24\",\"left\":12,\"top\":16,\"color\":\"rgb(107, 107, 107)\",\"bg\":\"rgba(0, 0, 0, 0)\",\"fs\":\"14px\",\"fw\":\"400\"},\".td-file-sep\":{\"box\":\"1x24\",\"left\":48,\"top\":16,\"color\":\"rgb(10, 10, 11)\",\"bg\":\"rgb(201, 201, 201)\",\"fs\":\"14px\",\"fw\":\"400\"},\".td-file-tx\":{\"box\":\"206x22\",\"left\":61,\"top\":9,\"color\":\"rgb(31, 31, 31)\",\"bg\":\"rgba(0, 0, 0, 0)\",\"fs\":\"14px\",\"fw\":\"500\"},\".td-file-size\":{\"box\":\"206x16\",\"left\":61,\"top\":31,\"color\":\"rgb(134, 134, 134)\",\"bg\":\"rgba(0, 0, 0, 0)\",\"fs\":\"12px\",\"fw\":\"400\"}}}"
 
 === 2. .td-desc 配图 ===
-"{\"exists\":true,\"src\":\"data:image/svg+xml;base64,PHN2ZyB4bWxucz\",\"natural\":\"1240x620\",\"box\":\"580x290\",\"radius\":\"8px\",\"imgBottomInBody\":326,\"bodyCollapsedH\":374,\"maxH\":\"374px\",\"fullyVisibleInCollapsed\":true}"
+"{\"exists\":true,\"src\":\"data:image/svg+xml;base64,PHN2ZyB4bWxucz\",\"natural\":\"1240x620\",\"box\":\"580x290\",\"radius\":\"0px\",\"imgBottomInBody\":326,\"bodyCollapsedH\":374,\"maxH\":\"374px\",\"fullyVisibleInCollapsed\":true}"
 
 === 4. 对话框三个弹层的交互 ===
 --- 4a. 点「添加」 ---

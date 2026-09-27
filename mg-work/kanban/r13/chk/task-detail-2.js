@@ -33,7 +33,12 @@
         "        <div class=\"td-desc\">",
         "          <div class=\"td-desc-body\" id=\"td-desc-body\" data-td-desc=\"1\">",
         "            <p>第一步：梳理端到端交付链路</p>",
-        "            <img src=\"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjQwIDYyMCIgd2lkdGg9IjEyNDAiIGhlaWdodD0iNjIwIiByb2xlPSJpbWciIGFyaWEtbGFiZWw9Iuerr+WIsOerr+S6pOS7mOmTvui3ryA4IOS4qumYtuauteekuuaEj+WbviI+CjxkZWZzPjxtYXJrZXIgaWQ9ImFoIiB2aWV3Qm94PSIwIDAgMTAgMTAiIHJlZlg9IjkiIHJlZlk9IjUiIG1hcmtlcldpZHRoPSI2IiBtYXJrZXJIZWlnaHQ9IjYiIG9yaWVudD0iYXV0by1zdGFydC1yZXZlcnNlIj48cGF0aCBkPSJNMCAwIEwxMCA1IEwwIDEwIHoiIGZpbGw9IiNBOUE5QTkiLz48L21hcmtlcj48L2RlZnM+CjxyZWN0IHdpZHRoPSIxMjQwIiBoZWlnaHQ9IjYyMCIgcng9IjE2IiBmaWxsPSIjRjdGN0Y3Ii8+CjxwYXRoIGQ9Ik0xMDcwIDI0MCBWMzEwIEgxNzAgVjM4MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjRENEQ0RDIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgbWFya2VyLWVuZD0idXJsKCNhaCkiLz4KPHBhdGggZD0iTTI5OCAxOTAgSDM0MiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjRENEQ0RDIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgbWFya2VyLWVuZD0idXJsKCNhaCkiLz4KPHBhdGggZD0iTTU5OCAxOTAgSDY0MiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjRENEQ0RDIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgbWFya2VyLWVuZD0idXJsKCNhaCkiLz4KPHBhdGggZD0iTTg5OCAxOTAgSDk0MiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjRENEQ0RDIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgbWFya2VyLWVuZD0idXJsKCNhaCkiLz4KPHBhdGggZD0iTTI5OCA0MzAgSDM0MiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjRENEQ0RDIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgbWFya2VyLWVuZD0idXJsKCNhaCkiLz4KPHBhdGggZD0iTTU5OCA0MzAgSDY0MiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjRENEQ0RDIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgbWFya2VyLWVuZD0idXJsKCNhaCkiLz4KPHBhdGggZD0iTTg5OCA0MzAgSDk0MiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjRENEQ0RDIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgbWFya2VyLWVuZD0idXJsKCNhaCkiLz4KPHJlY3QgeD0iNTAiIHk9IjE0MCIgd2lkdGg9IjI0MCIgaGVpZ2h0PSIxMDAiIHJ4PSIxMiIgZmlsbD0iI0ZGRkZGRiIgc3Ryb2tlPSIjRTVFNUU1Ii8+CjxjaXJjbGUgY3g9IjgwIiBjeT0iMTc0IiByPSIxMyIgZmlsbD0iI0U4RjBGRSIvPgo8dGV4dCB4PSI4MCIgeT0iMTc4IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iUGluZ0ZhbmcgU0MsIE1pY3Jvc29mdCBZYUhlaSwgSGVsdmV0aWNhLCBBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMyIgZm9udC13ZWlnaHQ9IjYwMCIgZmlsbD0iIzM3NzBGNyI+MTwvdGV4dD4KPHRleHQgeD0iMTA0IiB5PSIxNzkiIGZvbnQtZmFtaWx5PSJQaW5nRmFuZyBTQywgTWljcm9zb2Z0IFlhSGVpLCBIZWx2ZXRpY2EsIEFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE1IiBmb250LXdlaWdodD0iNTAwIiBmaWxsPSIjMUYxRjFGIj7pnIDmsYLmvoTmuIU8L3RleHQ+Cjx0ZXh0IHg9IjgwIiB5PSIyMTQiIGZvbnQtZmFtaWx5PSJQaW5nRmFuZyBTQywgTWljcm9zb2Z0IFlhSGVpLCBIZWx2ZXRpY2EsIEFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjEyIiBmaWxsPSIjODY4Njg2Ij7mmI7noa7ovpPlhaXjgIHovpPlh7rkuI7otKPku7vkuro8L3RleHQ+CjxyZWN0IHg9IjM1MCIgeT0iMTQwIiB3aWR0aD0iMjQwIiBoZWlnaHQ9IjEwMCIgcng9IjEyIiBmaWxsPSIjRkZGRkZGIiBzdHJva2U9IiNFNUU1RTUiLz4KPGNpcmNsZSBjeD0iMzgwIiBjeT0iMTc0IiByPSIxMyIgZmlsbD0iI0U4RjBGRSIvPgo8dGV4dCB4PSIzODAiIHk9IjE3OCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IlBpbmdGYW5nIFNDLCBNaWNyb3NvZnQgWWFIZWksIEhlbHZldGljYSwgQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTMiIGZvbnQtd2VpZ2h0PSI2MDAiIGZpbGw9IiMzNzcwRjciPjI8L3RleHQ+Cjx0ZXh0IHg9IjQwNCIgeT0iMTc5IiBmb250LWZhbWlseT0iUGluZ0ZhbmcgU0MsIE1pY3Jvc29mdCBZYUhlaSwgSGVsdmV0aWNhLCBBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNSIgZm9udC13ZWlnaHQ9IjUwMCIgZmlsbD0iIzFGMUYxRiI+5pa55qGI6K6+6K6hPC90ZXh0Pgo8dGV4dCB4PSIzODAiIHk9IjIxNCIgZm9udC1mYW1pbHk9IlBpbmdGYW5nIFNDLCBNaWNyb3NvZnQgWWFIZWksIEhlbHZldGljYSwgQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTIiIGZpbGw9IiM4Njg2ODYiPuamguimgeiuvuiuoeS4juaOpeWPo+WumuS5iTwvdGV4dD4KPHJlY3QgeD0iNjUwIiB5PSIxNDAiIHdpZHRoPSIyNDAiIGhlaWdodD0iMTAwIiByeD0iMTIiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZT0iI0U1RTVFNSIvPgo8Y2lyY2xlIGN4PSI2ODAiIGN5PSIxNzQiIHI9IjEzIiBmaWxsPSIjRThGMEZFIi8+Cjx0ZXh0IHg9IjY4MCIgeT0iMTc4IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iUGluZ0ZhbmcgU0MsIE1pY3Jvc29mdCBZYUhlaSwgSGVsdmV0aWNhLCBBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMyIgZm9udC13ZWlnaHQ9IjYwMCIgZmlsbD0iIzM3NzBGNyI+MzwvdGV4dD4KPHRleHQgeD0iNzA0IiB5PSIxNzkiIGZvbnQtZmFtaWx5PSJQaW5nRmFuZyBTQywgTWljcm9zb2Z0IFlhSGVpLCBIZWx2ZXRpY2EsIEFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE1IiBmb250LXdlaWdodD0iNTAwIiBmaWxsPSIjMUYxRjFGIj7ku7vliqHmi4bliIY8L3RleHQ+Cjx0ZXh0IHg9IjY4MCIgeT0iMjE0IiBmb250LWZhbWlseT0iUGluZ0ZhbmcgU0MsIE1pY3Jvc29mdCBZYUhlaSwgSGVsdmV0aWNhLCBBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMiIgZmlsbD0iIzg2ODY4NiI+5ouG5Yiw5Y+v54us56uL5Lqk5LuY55qE57KS5bqmPC90ZXh0Pgo8cmVjdCB4PSI5NTAiIHk9IjE0MCIgd2lkdGg9IjI0MCIgaGVpZ2h0PSIxMDAiIHJ4PSIxMiIgZmlsbD0iI0ZGRkZGRiIgc3Ryb2tlPSIjRTVFNUU1Ii8+CjxjaXJjbGUgY3g9Ijk4MCIgY3k9IjE3NCIgcj0iMTMiIGZpbGw9IiNFOEYwRkUiLz4KPHRleHQgeD0iOTgwIiB5PSIxNzgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJQaW5nRmFuZyBTQywgTWljcm9zb2Z0IFlhSGVpLCBIZWx2ZXRpY2EsIEFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjEzIiBmb250LXdlaWdodD0iNjAwIiBmaWxsPSIjMzc3MEY3Ij40PC90ZXh0Pgo8dGV4dCB4PSIxMDA0IiB5PSIxNzkiIGZvbnQtZmFtaWx5PSJQaW5nRmFuZyBTQywgTWljcm9zb2Z0IFlhSGVpLCBIZWx2ZXRpY2EsIEFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE1IiBmb250LXdlaWdodD0iNTAwIiBmaWxsPSIjMUYxRjFGIj7lvIDlj5Hlrp7njrA8L3RleHQ+Cjx0ZXh0IHg9Ijk4MCIgeT0iMjE0IiBmb250LWZhbWlseT0iUGluZ0ZhbmcgU0MsIE1pY3Jvc29mdCBZYUhlaSwgSGVsdmV0aWNhLCBBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMiIgZmlsbD0iIzg2ODY4NiI+57yW56CB5LiO5Y2V5YWD5rWL6K+VPC90ZXh0Pgo8cmVjdCB4PSI1MCIgeT0iMzgwIiB3aWR0aD0iMjQwIiBoZWlnaHQ9IjEwMCIgcng9IjEyIiBmaWxsPSIjRkZGRkZGIiBzdHJva2U9IiNFNUU1RTUiLz4KPGNpcmNsZSBjeD0iODAiIGN5PSI0MTQiIHI9IjEzIiBmaWxsPSIjRThGMEZFIi8+Cjx0ZXh0IHg9IjgwIiB5PSI0MTgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJQaW5nRmFuZyBTQywgTWljcm9zb2Z0IFlhSGVpLCBIZWx2ZXRpY2EsIEFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjEzIiBmb250LXdlaWdodD0iNjAwIiBmaWxsPSIjMzc3MEY3Ij41PC90ZXh0Pgo8dGV4dCB4PSIxMDQiIHk9IjQxOSIgZm9udC1mYW1pbHk9IlBpbmdGYW5nIFNDLCBNaWNyb3NvZnQgWWFIZWksIEhlbHZldGljYSwgQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTUiIGZvbnQtd2VpZ2h0PSI1MDAiIGZpbGw9IiMxRjFGMUYiPuiHqua1i+mqjOivgTwvdGV4dD4KPHRleHQgeD0iODAiIHk9IjQ1NCIgZm9udC1mYW1pbHk9IlBpbmdGYW5nIFNDLCBNaWNyb3NvZnQgWWFIZWksIEhlbHZldGljYSwgQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTIiIGZpbGw9IiM4Njg2ODYiPueUqOS+i+mAmui/h+eOh+S4jue8uumZt+aUtuaVmzwvdGV4dD4KPHJlY3QgeD0iMzUwIiB5PSIzODAiIHdpZHRoPSIyNDAiIGhlaWdodD0iMTAwIiByeD0iMTIiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZT0iI0U1RTVFNSIvPgo8Y2lyY2xlIGN4PSIzODAiIGN5PSI0MTQiIHI9IjEzIiBmaWxsPSIjRThGMEZFIi8+Cjx0ZXh0IHg9IjM4MCIgeT0iNDE4IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iUGluZ0ZhbmcgU0MsIE1pY3Jvc29mdCBZYUhlaSwgSGVsdmV0aWNhLCBBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMyIgZm9udC13ZWlnaHQ9IjYwMCIgZmlsbD0iIzM3NzBGNyI+NjwvdGV4dD4KPHRleHQgeD0iNDA0IiB5PSI0MTkiIGZvbnQtZmFtaWx5PSJQaW5nRmFuZyBTQywgTWljcm9zb2Z0IFlhSGVpLCBIZWx2ZXRpY2EsIEFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE1IiBmb250LXdlaWdodD0iNTAwIiBmaWxsPSIjMUYxRjFGIj7ogZTosIPpqozmlLY8L3RleHQ+Cjx0ZXh0IHg9IjM4MCIgeT0iNDU0IiBmb250LWZhbWlseT0iUGluZ0ZhbmcgU0MsIE1pY3Jvc29mdCBZYUhlaSwgSGVsdmV0aWNhLCBBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMiIgZmlsbD0iIzg2ODY4NiI+6Leo57O757uf6IGU6LCD5LiO6aqM5pS256Gu6K6kPC90ZXh0Pgo8cmVjdCB4PSI2NTAiIHk9IjM4MCIgd2lkdGg9IjI0MCIgaGVpZ2h0PSIxMDAiIHJ4PSIxMiIgZmlsbD0iI0ZGRkZGRiIgc3Ryb2tlPSIjRTVFNUU1Ii8+CjxjaXJjbGUgY3g9IjY4MCIgY3k9IjQxNCIgcj0iMTMiIGZpbGw9IiNFOEYwRkUiLz4KPHRleHQgeD0iNjgwIiB5PSI0MTgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJQaW5nRmFuZyBTQywgTWljcm9zb2Z0IFlhSGVpLCBIZWx2ZXRpY2EsIEFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjEzIiBmb250LXdlaWdodD0iNjAwIiBmaWxsPSIjMzc3MEY3Ij43PC90ZXh0Pgo8dGV4dCB4PSI3MDQiIHk9IjQxOSIgZm9udC1mYW1pbHk9IlBpbmdGYW5nIFNDLCBNaWNyb3NvZnQgWWFIZWksIEhlbHZldGljYSwgQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTUiIGZvbnQtd2VpZ2h0PSI1MDAiIGZpbGw9IiMxRjFGMUYiPueBsOW6puWPkeW4gzwvdGV4dD4KPHRleHQgeD0iNjgwIiB5PSI0NTQiIGZvbnQtZmFtaWx5PSJQaW5nRmFuZyBTQywgTWljcm9zb2Z0IFlhSGVpLCBIZWx2ZXRpY2EsIEFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjEyIiBmaWxsPSIjODY4Njg2Ij7liIbmibnmlL7ph4/lubbop4Llr5/moLjlv4PmjIfmoIc8L3RleHQ+CjxyZWN0IHg9Ijk1MCIgeT0iMzgwIiB3aWR0aD0iMjQwIiBoZWlnaHQ9IjEwMCIgcng9IjEyIiBmaWxsPSIjRkZGRkZGIiBzdHJva2U9IiNFNUU1RTUiLz4KPGNpcmNsZSBjeD0iOTgwIiBjeT0iNDE0IiByPSIxMyIgZmlsbD0iI0U4RjBGRSIvPgo8dGV4dCB4PSI5ODAiIHk9IjQxOCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IlBpbmdGYW5nIFNDLCBNaWNyb3NvZnQgWWFIZWksIEhlbHZldGljYSwgQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTMiIGZvbnQtd2VpZ2h0PSI2MDAiIGZpbGw9IiMzNzcwRjciPjg8L3RleHQ+Cjx0ZXh0IHg9IjEwMDQiIHk9IjQxOSIgZm9udC1mYW1pbHk9IlBpbmdGYW5nIFNDLCBNaWNyb3NvZnQgWWFIZWksIEhlbHZldGljYSwgQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTUiIGZvbnQtd2VpZ2h0PSI1MDAiIGZpbGw9IiMxRjFGMUYiPuS6pOS7mOW9kuahozwvdGV4dD4KPHRleHQgeD0iOTgwIiB5PSI0NTQiIGZvbnQtZmFtaWx5PSJQaW5nRmFuZyBTQywgTWljcm9zb2Z0IFlhSGVpLCBIZWx2ZXRpY2EsIEFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjEyIiBmaWxsPSIjODY4Njg2Ij7kuqTku5jniannmbvorrDkuI7niYjmnKznlZnlrZg8L3RleHQ+Cjwvc3ZnPg==\" width=\"1240\" height=\"620\" alt=\"端到端交付链路示意图：需求澄清、方案设计、任务拆分、开发实现、自测验证、联调验收、灰度发布、交付归档 共 8 个阶段\" data-td-desc-img=\"1\">",
+        "            <div class=\"giencoder-image\" data-td-desc-img=\"1\">",
+        "              <div class=\"giencoder-image-mask-wrapper\" role=\"button\" tabindex=\"0\" aria-label=\"预览大图：端到端交付链路示意图\">",
+        "                <img class=\"giencoder-image-img\" src=\"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjQwIDYyMCIgd2lkdGg9IjEyNDAiIGhlaWdodD0iNjIwIiByb2xlPSJpbWciIGFyaWEtbGFiZWw9Iuerr+WIsOerr+S6pOS7mOmTvui3ryA4IOS4qumYtuauteekuuaEj+WbviI+CjxkZWZzPjxtYXJrZXIgaWQ9ImFoIiB2aWV3Qm94PSIwIDAgMTAgMTAiIHJlZlg9IjkiIHJlZlk9IjUiIG1hcmtlcldpZHRoPSI2IiBtYXJrZXJIZWlnaHQ9IjYiIG9yaWVudD0iYXV0by1zdGFydC1yZXZlcnNlIj48cGF0aCBkPSJNMCAwIEwxMCA1IEwwIDEwIHoiIGZpbGw9IiNBOUE5QTkiLz48L21hcmtlcj48L2RlZnM+CjxyZWN0IHdpZHRoPSIxMjQwIiBoZWlnaHQ9IjYyMCIgcng9IjE2IiBmaWxsPSIjRjdGN0Y3Ii8+CjxwYXRoIGQ9Ik0xMDcwIDI0MCBWMzEwIEgxNzAgVjM4MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjRENEQ0RDIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgbWFya2VyLWVuZD0idXJsKCNhaCkiLz4KPHBhdGggZD0iTTI5OCAxOTAgSDM0MiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjRENEQ0RDIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgbWFya2VyLWVuZD0idXJsKCNhaCkiLz4KPHBhdGggZD0iTTU5OCAxOTAgSDY0MiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjRENEQ0RDIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgbWFya2VyLWVuZD0idXJsKCNhaCkiLz4KPHBhdGggZD0iTTg5OCAxOTAgSDk0MiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjRENEQ0RDIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgbWFya2VyLWVuZD0idXJsKCNhaCkiLz4KPHBhdGggZD0iTTI5OCA0MzAgSDM0MiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjRENEQ0RDIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgbWFya2VyLWVuZD0idXJsKCNhaCkiLz4KPHBhdGggZD0iTTU5OCA0MzAgSDY0MiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjRENEQ0RDIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgbWFya2VyLWVuZD0idXJsKCNhaCkiLz4KPHBhdGggZD0iTTg5OCA0MzAgSDk0MiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjRENEQ0RDIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgbWFya2VyLWVuZD0idXJsKCNhaCkiLz4KPHJlY3QgeD0iNTAiIHk9IjE0MCIgd2lkdGg9IjI0MCIgaGVpZ2h0PSIxMDAiIHJ4PSIxMiIgZmlsbD0iI0ZGRkZGRiIgc3Ryb2tlPSIjRTVFNUU1Ii8+CjxjaXJjbGUgY3g9IjgwIiBjeT0iMTc0IiByPSIxMyIgZmlsbD0iI0U4RjBGRSIvPgo8dGV4dCB4PSI4MCIgeT0iMTc4IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iUGluZ0ZhbmcgU0MsIE1pY3Jvc29mdCBZYUhlaSwgSGVsdmV0aWNhLCBBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMyIgZm9udC13ZWlnaHQ9IjYwMCIgZmlsbD0iIzM3NzBGNyI+MTwvdGV4dD4KPHRleHQgeD0iMTA0IiB5PSIxNzkiIGZvbnQtZmFtaWx5PSJQaW5nRmFuZyBTQywgTWljcm9zb2Z0IFlhSGVpLCBIZWx2ZXRpY2EsIEFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE1IiBmb250LXdlaWdodD0iNTAwIiBmaWxsPSIjMUYxRjFGIj7pnIDmsYLmvoTmuIU8L3RleHQ+Cjx0ZXh0IHg9IjgwIiB5PSIyMTQiIGZvbnQtZmFtaWx5PSJQaW5nRmFuZyBTQywgTWljcm9zb2Z0IFlhSGVpLCBIZWx2ZXRpY2EsIEFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjEyIiBmaWxsPSIjODY4Njg2Ij7mmI7noa7ovpPlhaXjgIHovpPlh7rkuI7otKPku7vkuro8L3RleHQ+CjxyZWN0IHg9IjM1MCIgeT0iMTQwIiB3aWR0aD0iMjQwIiBoZWlnaHQ9IjEwMCIgcng9IjEyIiBmaWxsPSIjRkZGRkZGIiBzdHJva2U9IiNFNUU1RTUiLz4KPGNpcmNsZSBjeD0iMzgwIiBjeT0iMTc0IiByPSIxMyIgZmlsbD0iI0U4RjBGRSIvPgo8dGV4dCB4PSIzODAiIHk9IjE3OCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IlBpbmdGYW5nIFNDLCBNaWNyb3NvZnQgWWFIZWksIEhlbHZldGljYSwgQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTMiIGZvbnQtd2VpZ2h0PSI2MDAiIGZpbGw9IiMzNzcwRjciPjI8L3RleHQ+Cjx0ZXh0IHg9IjQwNCIgeT0iMTc5IiBmb250LWZhbWlseT0iUGluZ0ZhbmcgU0MsIE1pY3Jvc29mdCBZYUhlaSwgSGVsdmV0aWNhLCBBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNSIgZm9udC13ZWlnaHQ9IjUwMCIgZmlsbD0iIzFGMUYxRiI+5pa55qGI6K6+6K6hPC90ZXh0Pgo8dGV4dCB4PSIzODAiIHk9IjIxNCIgZm9udC1mYW1pbHk9IlBpbmdGYW5nIFNDLCBNaWNyb3NvZnQgWWFIZWksIEhlbHZldGljYSwgQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTIiIGZpbGw9IiM4Njg2ODYiPuamguimgeiuvuiuoeS4juaOpeWPo+WumuS5iTwvdGV4dD4KPHJlY3QgeD0iNjUwIiB5PSIxNDAiIHdpZHRoPSIyNDAiIGhlaWdodD0iMTAwIiByeD0iMTIiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZT0iI0U1RTVFNSIvPgo8Y2lyY2xlIGN4PSI2ODAiIGN5PSIxNzQiIHI9IjEzIiBmaWxsPSIjRThGMEZFIi8+Cjx0ZXh0IHg9IjY4MCIgeT0iMTc4IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iUGluZ0ZhbmcgU0MsIE1pY3Jvc29mdCBZYUhlaSwgSGVsdmV0aWNhLCBBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMyIgZm9udC13ZWlnaHQ9IjYwMCIgZmlsbD0iIzM3NzBGNyI+MzwvdGV4dD4KPHRleHQgeD0iNzA0IiB5PSIxNzkiIGZvbnQtZmFtaWx5PSJQaW5nRmFuZyBTQywgTWljcm9zb2Z0IFlhSGVpLCBIZWx2ZXRpY2EsIEFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE1IiBmb250LXdlaWdodD0iNTAwIiBmaWxsPSIjMUYxRjFGIj7ku7vliqHmi4bliIY8L3RleHQ+Cjx0ZXh0IHg9IjY4MCIgeT0iMjE0IiBmb250LWZhbWlseT0iUGluZ0ZhbmcgU0MsIE1pY3Jvc29mdCBZYUhlaSwgSGVsdmV0aWNhLCBBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMiIgZmlsbD0iIzg2ODY4NiI+5ouG5Yiw5Y+v54us56uL5Lqk5LuY55qE57KS5bqmPC90ZXh0Pgo8cmVjdCB4PSI5NTAiIHk9IjE0MCIgd2lkdGg9IjI0MCIgaGVpZ2h0PSIxMDAiIHJ4PSIxMiIgZmlsbD0iI0ZGRkZGRiIgc3Ryb2tlPSIjRTVFNUU1Ii8+CjxjaXJjbGUgY3g9Ijk4MCIgY3k9IjE3NCIgcj0iMTMiIGZpbGw9IiNFOEYwRkUiLz4KPHRleHQgeD0iOTgwIiB5PSIxNzgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJQaW5nRmFuZyBTQywgTWljcm9zb2Z0IFlhSGVpLCBIZWx2ZXRpY2EsIEFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjEzIiBmb250LXdlaWdodD0iNjAwIiBmaWxsPSIjMzc3MEY3Ij40PC90ZXh0Pgo8dGV4dCB4PSIxMDA0IiB5PSIxNzkiIGZvbnQtZmFtaWx5PSJQaW5nRmFuZyBTQywgTWljcm9zb2Z0IFlhSGVpLCBIZWx2ZXRpY2EsIEFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE1IiBmb250LXdlaWdodD0iNTAwIiBmaWxsPSIjMUYxRjFGIj7lvIDlj5Hlrp7njrA8L3RleHQ+Cjx0ZXh0IHg9Ijk4MCIgeT0iMjE0IiBmb250LWZhbWlseT0iUGluZ0ZhbmcgU0MsIE1pY3Jvc29mdCBZYUhlaSwgSGVsdmV0aWNhLCBBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMiIgZmlsbD0iIzg2ODY4NiI+57yW56CB5LiO5Y2V5YWD5rWL6K+VPC90ZXh0Pgo8cmVjdCB4PSI1MCIgeT0iMzgwIiB3aWR0aD0iMjQwIiBoZWlnaHQ9IjEwMCIgcng9IjEyIiBmaWxsPSIjRkZGRkZGIiBzdHJva2U9IiNFNUU1RTUiLz4KPGNpcmNsZSBjeD0iODAiIGN5PSI0MTQiIHI9IjEzIiBmaWxsPSIjRThGMEZFIi8+Cjx0ZXh0IHg9IjgwIiB5PSI0MTgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJQaW5nRmFuZyBTQywgTWljcm9zb2Z0IFlhSGVpLCBIZWx2ZXRpY2EsIEFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjEzIiBmb250LXdlaWdodD0iNjAwIiBmaWxsPSIjMzc3MEY3Ij41PC90ZXh0Pgo8dGV4dCB4PSIxMDQiIHk9IjQxOSIgZm9udC1mYW1pbHk9IlBpbmdGYW5nIFNDLCBNaWNyb3NvZnQgWWFIZWksIEhlbHZldGljYSwgQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTUiIGZvbnQtd2VpZ2h0PSI1MDAiIGZpbGw9IiMxRjFGMUYiPuiHqua1i+mqjOivgTwvdGV4dD4KPHRleHQgeD0iODAiIHk9IjQ1NCIgZm9udC1mYW1pbHk9IlBpbmdGYW5nIFNDLCBNaWNyb3NvZnQgWWFIZWksIEhlbHZldGljYSwgQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTIiIGZpbGw9IiM4Njg2ODYiPueUqOS+i+mAmui/h+eOh+S4jue8uumZt+aUtuaVmzwvdGV4dD4KPHJlY3QgeD0iMzUwIiB5PSIzODAiIHdpZHRoPSIyNDAiIGhlaWdodD0iMTAwIiByeD0iMTIiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZT0iI0U1RTVFNSIvPgo8Y2lyY2xlIGN4PSIzODAiIGN5PSI0MTQiIHI9IjEzIiBmaWxsPSIjRThGMEZFIi8+Cjx0ZXh0IHg9IjM4MCIgeT0iNDE4IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iUGluZ0ZhbmcgU0MsIE1pY3Jvc29mdCBZYUhlaSwgSGVsdmV0aWNhLCBBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMyIgZm9udC13ZWlnaHQ9IjYwMCIgZmlsbD0iIzM3NzBGNyI+NjwvdGV4dD4KPHRleHQgeD0iNDA0IiB5PSI0MTkiIGZvbnQtZmFtaWx5PSJQaW5nRmFuZyBTQywgTWljcm9zb2Z0IFlhSGVpLCBIZWx2ZXRpY2EsIEFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE1IiBmb250LXdlaWdodD0iNTAwIiBmaWxsPSIjMUYxRjFGIj7ogZTosIPpqozmlLY8L3RleHQ+Cjx0ZXh0IHg9IjM4MCIgeT0iNDU0IiBmb250LWZhbWlseT0iUGluZ0ZhbmcgU0MsIE1pY3Jvc29mdCBZYUhlaSwgSGVsdmV0aWNhLCBBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMiIgZmlsbD0iIzg2ODY4NiI+6Leo57O757uf6IGU6LCD5LiO6aqM5pS256Gu6K6kPC90ZXh0Pgo8cmVjdCB4PSI2NTAiIHk9IjM4MCIgd2lkdGg9IjI0MCIgaGVpZ2h0PSIxMDAiIHJ4PSIxMiIgZmlsbD0iI0ZGRkZGRiIgc3Ryb2tlPSIjRTVFNUU1Ii8+CjxjaXJjbGUgY3g9IjY4MCIgY3k9IjQxNCIgcj0iMTMiIGZpbGw9IiNFOEYwRkUiLz4KPHRleHQgeD0iNjgwIiB5PSI0MTgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJQaW5nRmFuZyBTQywgTWljcm9zb2Z0IFlhSGVpLCBIZWx2ZXRpY2EsIEFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjEzIiBmb250LXdlaWdodD0iNjAwIiBmaWxsPSIjMzc3MEY3Ij43PC90ZXh0Pgo8dGV4dCB4PSI3MDQiIHk9IjQxOSIgZm9udC1mYW1pbHk9IlBpbmdGYW5nIFNDLCBNaWNyb3NvZnQgWWFIZWksIEhlbHZldGljYSwgQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTUiIGZvbnQtd2VpZ2h0PSI1MDAiIGZpbGw9IiMxRjFGMUYiPueBsOW6puWPkeW4gzwvdGV4dD4KPHRleHQgeD0iNjgwIiB5PSI0NTQiIGZvbnQtZmFtaWx5PSJQaW5nRmFuZyBTQywgTWljcm9zb2Z0IFlhSGVpLCBIZWx2ZXRpY2EsIEFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjEyIiBmaWxsPSIjODY4Njg2Ij7liIbmibnmlL7ph4/lubbop4Llr5/moLjlv4PmjIfmoIc8L3RleHQ+CjxyZWN0IHg9Ijk1MCIgeT0iMzgwIiB3aWR0aD0iMjQwIiBoZWlnaHQ9IjEwMCIgcng9IjEyIiBmaWxsPSIjRkZGRkZGIiBzdHJva2U9IiNFNUU1RTUiLz4KPGNpcmNsZSBjeD0iOTgwIiBjeT0iNDE0IiByPSIxMyIgZmlsbD0iI0U4RjBGRSIvPgo8dGV4dCB4PSI5ODAiIHk9IjQxOCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IlBpbmdGYW5nIFNDLCBNaWNyb3NvZnQgWWFIZWksIEhlbHZldGljYSwgQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTMiIGZvbnQtd2VpZ2h0PSI2MDAiIGZpbGw9IiMzNzcwRjciPjg8L3RleHQ+Cjx0ZXh0IHg9IjEwMDQiIHk9IjQxOSIgZm9udC1mYW1pbHk9IlBpbmdGYW5nIFNDLCBNaWNyb3NvZnQgWWFIZWksIEhlbHZldGljYSwgQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTUiIGZvbnQtd2VpZ2h0PSI1MDAiIGZpbGw9IiMxRjFGMUYiPuS6pOS7mOW9kuahozwvdGV4dD4KPHRleHQgeD0iOTgwIiB5PSI0NTQiIGZvbnQtZmFtaWx5PSJQaW5nRmFuZyBTQywgTWljcm9zb2Z0IFlhSGVpLCBIZWx2ZXRpY2EsIEFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjEyIiBmaWxsPSIjODY4Njg2Ij7kuqTku5jniannmbvorrDkuI7niYjmnKznlZnlrZg8L3RleHQ+Cjwvc3ZnPg==\" width=\"1240\" height=\"620\" alt=\"端到端交付链路示意图：需求澄清、方案设计、任务拆分、开发实现、自测验证、联调验收、灰度发布、交付归档 共 8 个阶段\">",
+        "                <div class=\"giencoder-image-mask\" aria-hidden=\"true\"><svg viewBox=\"0 0 24 24\" width=\"16\" height=\"16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z\"/><circle cx=\"12\" cy=\"12\" r=\"3\"/></svg><span>预览</span></div>",
+        "              </div>",
+        "            </div>",
         "            <p>从业务方原始需求进入系统开始，到最终交付物归档为止，完整链路包含需求澄清、方案设计、任务拆分、开发实现、自测验证、联调验收、灰度发布与交付归档共 8 个阶段。每个阶段都需要明确输入、输出、责任人与准入准出条件，避免出现“任务已发起但无人认领”或“交付物缺失但流程已关闭”的情况。</p>",
         "            <p>第二步：定义状态流转规则（启动整个流程）</p>",
         "            <p>状态标识采用“交通灯”模式，方便直观管理：</p>",
@@ -470,51 +475,142 @@
       expand(DEFAULT_W);
     });
 
-    /* ---------- 按住标题栏左右拖动互换两栏位置（★ 第 28 轮第 1 项） ----------
-       判定规则：
-         · pointerdown 必须落在 .td-bar / .td-right-bar 上，且**不在按钮/链接/输入控件**上
+    /* ---------- 按住标题栏左右拖动互换两栏位置 ----------
+       ★ 第 28 轮第 1 项建立；★ 第 30 轮第 2 项重写（原实现「瞬间切类 + 260ms 透明度闪一下」太生硬）。
+
+       保留的判定规则：
+         · pointerdown 必须落在 .td-bar / .td-right-bar 上，且不在按钮/链接/输入控件上
            （否则会和顶栏那些按钮的点击抢事件）；
          · 位移 < 6px 视为点击（不进入拖动态、不 preventDefault、不影响原有点击）；
-         · 位移在「指向另一栏」的方向上 ≥ SWAP_T px 才真正互换 —— 方向在 pointerdown 时按两栏
-           实测中心算出，所以交换后再拖同一个标题栏会自动反向（不会出现「单向死锁」）。
-       互换本身只切 .is-swapped（CSS row-reverse），DOM 顺序不动。 */
-    var SWAP_T = 80;
+         · 方向在 pointerdown 时按两栏实测中心算出 ⇒ 换位后再拖同一个标题栏会自动反向，
+           不会出现「单向死锁」；
+         · 静止态仍只切 .is-swapped（CSS row-reverse），DOM 顺序不动。
+
+       第 30 轮的五个手感优化：
+         ① 跟手位移（橡皮筋，不是硬限幅）：|dx| ≤ cap(两栏中心距 ×14%，实测约 100px) 时 1:1 跟手；
+            超出后每多拖 1px 只走 RB=0.18px → 大拖不会「顶住不动」，但越拖越沉；
+            另一栏反向 12% 微移「让位」→ 拖起来立刻有物理反馈，两栏又不会在途中就交叉重叠；
+         ② FLIP 滑动：松手判定换位时，先记 first rect → 切类 → 记 last rect →
+            用 Web Animations 从 translateX(dx) 滑回 0，两栏真的横着挪过去（不是瞬移）；
+            飞行期被拖的那一栏加 is-fly-left/right → z=3 + 加深投影（「拎起来」）；
+         ③ 回弹：未达阈值时把跟手位移用同一条曲线弹回 0，而不是瞬间归位；
+         ④ 甩动判定：|v| ≥ 0.6 px/ms 且方向正确 ⇒ 即使位移不够也换位（短促快拖也能换）。
+       曲线统一 cubic-bezier(0.22, 1, 0.36, 1)：起步快、收尾稳、**无过冲**（不会越界出容器）。
+       prefers-reduced-motion 下跳过所有位移动画，只切类。 */
+    var SWAP_T = 72;              /* 距离阈值 px（原 80：略微降低，配合甩动判定更好触发） */
+    var SWAP_FLICK = 0.6;         /* 甩动速度阈值 px/ms */
+    var SWAP_DUR = 400;           /* FLIP 滑动时长 ms */
+    var RB = 0.18;                /* 橡皮筋系数：超出限幅后每多拖 1px 只走 0.18px */
+    var SWAP_EASE = 'cubic-bezier(0.22, 1, 0.36, 1)';
+    var reduceMotion = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
     var xdrag = null;
+
+    /* 把元素从 from px 位移滑回 0，结束即清掉内联 transform（回到自然布局位） */
+    function slideBack(el, from, dur) {
+      if (!el) return;
+      if (reduceMotion || !from) { el.style.transform = ''; return; }
+      var anim = el.animate(
+        [{ transform: 'translate3d(' + from + 'px,0,0)' },
+         { transform: 'translate3d(' + Math.round(from * 0.55) + 'px,0,0)', offset: 0.45 },
+         { transform: 'translate3d(0,0,0)' }],
+        { duration: dur, easing: SWAP_EASE, fill: 'both' });
+      anim.onfinish = function () {
+        el.style.transform = '';
+        if (anim.cancel) anim.cancel();
+      };
+    }
+
     function bindSwapBar(bar, panel) {
       if (!bar) return;
+      var other = (panel === left) ? right : left;
+
       bar.addEventListener('pointerdown', function (e) {
         if (e.button !== 0) return;
         if (e.target.closest('button, a, input, textarea, select, [role="combobox"]')) return;
         if (root.classList.contains('is-fullscreen') || root.classList.contains('is-collapsed')) return;
-        var other = (panel === left) ? right : left;
         var a = panel.getBoundingClientRect(), b = other.getBoundingClientRect();
+        var gap = Math.abs((b.left + b.width / 2) - (a.left + a.width / 2));
         xdrag = {
-          x0: e.clientX, dx: 0, moved: false,
+          bar: bar, panel: panel, other: other,
+          x0: e.clientX, dx: 0, applied: 0, v: 0, moved: false, tPrev: e.timeStamp,
+          cap: Math.max(24, Math.round(gap * 0.14)),   /* 跟手限幅：一次性算好，避免 pointermove 里反复取 rect */
           dir: (b.left + b.width / 2) >= (a.left + a.width / 2) ? 1 : -1
         };
         if (bar.setPointerCapture) { try { bar.setPointerCapture(e.pointerId); } catch (err) {} }
       });
+
       bar.addEventListener('pointermove', function (e) {
-        if (!xdrag) return;
-        xdrag.dx = e.clientX - xdrag.x0;
-        if (!xdrag.moved) {
-          if (Math.abs(xdrag.dx) < 6) return;
-          xdrag.moved = true;
+        var d = xdrag;
+        if (!d || d.bar !== bar) return;
+        var dt = Math.max(1, e.timeStamp - d.tPrev);
+        var next = e.clientX - d.x0;
+        d.v = (next - d.dx) / dt;        /* 瞬时速度 px/ms */
+        d.tPrev = e.timeStamp;
+        d.dx = next;
+        if (!d.moved) {
+          if (Math.abs(d.dx) < 6) return;
+          d.moved = true;
           root.classList.add('is-xdrag');
+          d.panel.classList.add('is-xdrag-panel');
+          d.other.classList.add('is-xdrag-peer');
         }
-        root.classList.toggle('is-xarmed', xdrag.dx * xdrag.dir >= SWAP_T);
+        root.classList.toggle('is-xarmed', (d.dx * d.dir >= SWAP_T) || (d.v * d.dir >= SWAP_FLICK));
+        if (!reduceMotion) {
+          /* ③ 橡皮筋阻尼（不是硬限幅）：|dx| ≤ cap 时 1:1 跟手；
+             超出后按 RB 系数继续走（cap + 超出量*0.18）→ 大拖也不会「顶住不动」，
+             但越拖越沉，视觉上明确「这里拖不过去」。*/
+          var abs = Math.abs(d.dx);
+          var raw = abs <= d.cap ? abs : d.cap + (abs - d.cap) * RB;
+          var applied = (d.dx < 0 ? -1 : 1) * Math.round(raw);
+          var k = Math.min(1, Math.abs(applied) / d.cap);   /* 0~1：越接近目标位置，主动栏越「浮起来」 */
+          d.applied = applied;
+          d.panel.style.transform = 'translate3d(' + applied + 'px,0,0) scale(' + (1 + 0.006 * k).toFixed(4) + ')';
+          d.other.style.transform = 'translate3d(' + Math.round(applied * -0.12) + 'px,0,0)';
+        }
         e.preventDefault();
       });
+
       function endSwap() {
-        if (!xdrag) return;
         var d = xdrag;
+        if (!d || d.bar !== bar) return;
         xdrag = null;
-        root.classList.remove('is-xdrag', 'is-xarmed');
+        d.panel.classList.remove('is-xdrag-panel');
+        d.other.classList.remove('is-xdrag-peer');
+        root.classList.remove('is-xarmed', 'is-xdrag');
         if (!d.moved) return;
-        if (d.dx * d.dir >= SWAP_T) {
+
+        var pass = (d.dx * d.dir >= SWAP_T) || (d.v * d.dir >= SWAP_FLICK);
+        if (pass) {
+          /* ② FLIP：先清掉跟手位移 → 记 first → 切类 → 记 last → 从差值滑入 */
+          d.panel.style.transform = '';
+          d.other.style.transform = '';
+          var fL = left.getBoundingClientRect(), fR = right.getBoundingClientRect();
+          var fG = gutter.getBoundingClientRect();
           root.classList.toggle('is-swapped');
-          root.classList.add('is-swap-anim');
-          setTimeout(function () { root.classList.remove('is-swap-anim'); }, 320);
+          var lL = left.getBoundingClientRect(), lR = right.getBoundingClientRect();
+          var lG = gutter.getBoundingClientRect();
+          var dxL = Math.round(fL.left - lL.left);
+          var dxR = Math.round(fR.left - lR.left);
+          var dxG = Math.round(fG.left - lG.left);
+          if (!reduceMotion && (dxL || dxR)) {
+            /* 飞行期把**被拎起的那一栏**抬到上层并加深投影：两栏重叠时读起来像
+               「把卡片拎起来挪过去」，而不是两张不透明卡片硬生生对穿。
+               （is-fly-left / is-fly-right 由 d.panel 决定，谁被拖谁在上层。） */
+            root.classList.add('is-swap-fly', d.panel === left ? 'is-fly-left' : 'is-fly-right');
+            if (dxL) left.style.transform = 'translate3d(' + dxL + 'px,0,0)';
+            if (dxR) right.style.transform = 'translate3d(' + dxR + 'px,0,0)';
+            if (dxG) gutter.style.transform = 'translate3d(' + dxG + 'px,0,0)';
+            slideBack(left, dxL, SWAP_DUR);
+            slideBack(right, dxR, SWAP_DUR);
+            slideBack(gutter, dxG, SWAP_DUR);
+            setTimeout(function () {
+              root.classList.remove('is-swap-fly', 'is-fly-left', 'is-fly-right');
+            }, SWAP_DUR + 40);
+          }
+        } else {
+          /* ③ 回弹 */
+          slideBack(d.panel, d.applied, 260);
+          slideBack(d.other, Math.round(d.applied * -0.12), 260);
         }
       }
       bar.addEventListener('pointerup', endSwap);
@@ -554,6 +650,115 @@
     return true;
   }
 
+  /* ---------- 描述区配图的蒙层预览（★ 第 30 轮第 1 项） ----------
+     完全按 DS Image 契约（components/image.json）实现，不自造同义结构：
+       · 缩略图 = div.giencoder-image > div.giencoder-image-mask-wrapper > img.giencoder-image-img
+         + div.giencoder-image-mask（悬停提示「预览」）；
+       · 点缩略图 → 动态创建 div.giencoder-image-preview（契约 anatomy 的「预览层」= 全屏遮罩，
+         内含 -preview-mask / -preview-img / -preview-close / -preview-zoom），挂在 <body> 上
+         ——与 preview/component-image.html 参考实现同一套类名，只是把 demo 的 pv-* 换成契约 is-* 状态类；
+       · 关闭方式：右上关闭按钮 / 点遮罩空白处 / Esc；
+       · 动效：遮罩淡入 0.3s + 大图 scale(.95→1)（spring）；关闭 0.2s —— 与参考实现同参数。
+     Esc 优先级约定（页尾 TAIL）：图片预览 > 对话框弹层 > 退出全屏 > 返回看板；
+       打开时给 <html> 打 data-td-img-preview，页尾先判它再派发 td:close-image-preview。 */
+  function bindDescImagePreview(wrap) {
+    var thumb = wrap.querySelector('.td-desc .giencoder-image-mask-wrapper');
+    if (!thumb) return;
+    var thumbImg = thumb.querySelector('img.giencoder-image-img');
+    if (!thumbImg) return;
+
+    var overlay = null, scale = 1, closing = false;
+
+    function build() {
+      if (overlay) return overlay;
+      overlay = document.createElement('div');
+      overlay.className = 'giencoder-image-preview';
+      overlay.setAttribute('role', 'dialog');
+      overlay.setAttribute('aria-modal', 'true');
+      overlay.setAttribute('aria-label', '图片预览');
+      overlay.innerHTML =
+        '<div class="giencoder-image-preview-mask">' +
+          '<button type="button" class="giencoder-image-preview-btn giencoder-image-preview-close" aria-label="关闭预览">' +
+            '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"/></svg>' +
+          '</button>' +
+          '<img class="giencoder-image-preview-img" alt="">' +
+          '<div class="giencoder-image-preview-zoom">' +
+            '<button type="button" class="giencoder-image-preview-btn" aria-label="缩小" data-td-zoom="out">' +
+              '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14"/></svg>' +
+            '</button>' +
+            '<button type="button" class="giencoder-image-preview-btn" aria-label="放大" data-td-zoom="in">' +
+              '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>' +
+            '</button>' +
+          '</div>' +
+        '</div>';
+      document.body.appendChild(overlay);
+
+      overlay.querySelector('.giencoder-image-preview-close').addEventListener('click', close);
+      /* 点遮罩空白处关闭（mask 铺满全屏，target 落在遮罩/mask 上即视为点背景） */
+      overlay.addEventListener('click', function (e) {
+        var isBg = (e.target === overlay) ||
+                   (e.target.classList && e.target.classList.contains('giencoder-image-preview-mask'));
+        if (isBg) close();
+      });
+      Array.prototype.forEach.call(overlay.querySelectorAll('[data-td-zoom]'), function (btn) {
+        btn.addEventListener('click', function () {
+          var im = overlay.querySelector('.giencoder-image-preview-img');
+          scale = btn.getAttribute('data-td-zoom') === 'in'
+            ? Math.min(3, +(scale * 1.25).toFixed(2))
+            : Math.max(0.5, +(scale * 0.8).toFixed(2));
+          im.style.transform = 'scale(' + scale + ')';
+          im.style.setProperty('--giencoder-image-scale', scale);
+        });
+      });
+      return overlay;
+    }
+
+    function flag(on) { document.documentElement.toggleAttribute('data-td-img-preview', on); }
+
+    function close() {
+      if (!overlay || closing || overlay.style.display === 'none') return;
+      closing = true;
+      var im = overlay.querySelector('.giencoder-image-preview-img');
+      im.style.setProperty('--giencoder-image-scale', scale);
+      im.classList.remove('is-opening');
+      im.classList.add('is-closing');
+      overlay.classList.add('is-closing');
+      overlay.classList.remove('is-open');
+      flag(false);
+      setTimeout(function () {
+        overlay.style.display = 'none';
+        overlay.classList.remove('is-open', 'is-closing');
+        im.classList.remove('is-opening', 'is-closing');
+        closing = false;
+      }, 240);
+    }
+
+    function open() {
+      build();
+      if (closing || overlay.style.display === 'flex') return;
+      var im = overlay.querySelector('.giencoder-image-preview-img');
+      im.setAttribute('src', thumbImg.getAttribute('src'));
+      im.setAttribute('alt', thumbImg.getAttribute('alt') || '');
+      scale = 1;
+      im.style.transform = '';
+      im.style.setProperty('--giencoder-image-scale', 1);
+      overlay.classList.remove('is-closing');
+      overlay.style.display = 'flex';
+      void overlay.offsetHeight;             /* 强制回流，让遮罩淡入过渡生效 */
+      overlay.classList.add('is-open');
+      im.classList.add('is-opening');
+      flag(true);
+      setTimeout(function () { im.classList.remove('is-opening'); }, 340);
+    }
+
+    thumb.addEventListener('click', open);
+    thumb.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
+    });
+    /* 页尾 Esc 链通过自定义事件通知关闭（与 td:close-popovers 同一约定） */
+    document.addEventListener('td:close-image-preview', close);
+  }
+
   function inject() {
     var main = document.querySelector('main');
     if (!main || main.querySelector('.td-root')) return false;
@@ -562,6 +767,7 @@
     wrap.innerHTML = KB_HTML;
     main.appendChild(wrap);
     bindDetail(wrap);
+    bindDescImagePreview(wrap);
     return true;
   }
   /* 注意：两个动作都要执行，不能短路（页签在 React 挂载后才出现，可能晚于注入）。

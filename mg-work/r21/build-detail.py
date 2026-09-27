@@ -9,6 +9,7 @@
 import base64
 import io
 import json
+import os
 import sys
 
 SRC = "pages/kanban.html"
@@ -135,11 +136,14 @@ CSS = r"""<style>
          尺寸取值依据：描述区可用宽 856（左栏 936 - 左右 padding 40×2）。
          折叠态限高 374，图放在第 1 段之后（该段仅 1 行 24px + 12 间距 = 36），
          所以图高必须 < 338 才能「折叠态也完整可见」→ 取 max-width 620 + 素材 2:1 → 高 310，末端 346 < 374 ✓。
-         （不写死 height/width，只约束 max-width，窄窗口下 width:100% 自适应。） */
-      .td-desc img {
-        display: block; width: 100%; max-width: 620px; height: auto;
-        margin: 2px 0 16px; border-radius: var(--border-radius-large);
-      }
+         （不写死 height/width，只约束 max-width，窄窗口下 width:100% 自适应。）
+         ★ 第 30 轮第 1 项：配图改用 DS Image 契约（components/image.json）——
+           div.giencoder-image > div.giencoder-image-mask-wrapper > img.giencoder-image-img
+           + div.giencoder-image-mask（悬停出现「预览」提示），点击打开 .giencoder-image-preview 遮罩。
+           组件样式由本脚本在构建期从 giencoder-design-system 两个文件抽取注入（见 CSS 块末尾占位符）；
+           这里**只写视图适配层的尺寸**（作用在组件类上，不改组件本体）。 */
+      .td-desc .giencoder-image { display: block; margin: 2px 0 16px; }
+      .td-desc .giencoder-image-mask-wrapper { width: 100%; max-width: 620px; cursor: zoom-in; }
       /* 描述区列表（第 24 轮第 3 项）：设计稿每行前面是一个小圆点。
          全站 `ol,ul,menu{list-style:none}` 把默认圆点清掉了 → 用 ::before 还原。
          设计稿实测：圆点直径 3.5~4px、圆心正对正文行中心、圆点左缘距内容左缘 7px、
@@ -226,11 +230,13 @@ CSS = r"""<style>
          线色取 --td-line(#F2F2F2)，与底部 .td-side-foot 上方的分隔线同色；
          .td-side 是 flex column + gap 24，所以线上下各留 24px（padding-top 24 补下半）。 */
       .td-side-dyn { border-top: 1px solid var(--td-line); padding-top: 24px; }
-      /* 信息列正文（第 25 轮第 2 项）：字号统一 14px（--font-size-body-3）。
-         ⚠️ 唯一例外：`.td-tl-time`（任务动态里的时间）保持原 12px，不改。 */
+      /* 信息列正文（第 25 轮第 2 项：14px → ★ 第 30 轮第 3 项：统一 13px = --font-size-body-2）。
+         第 30 轮：任务属性、任务动态（含时间）以及底部「创建者/创建时间/最后更新」三组
+         内容文字**全部** 13px；唯一不动的是两组小节标题 `.td-side h2`（14px）与
+         优先级 `.giencoder-tag`（12px，tag 契约 sizes.small，第 28 轮第 7 项已按你的要求回归契约）。 */
       .td-attr { margin: 0; display: flex; flex-direction: column; gap: 14px; }
       /* 第 26 轮第 3 项：label 与值之间的间距 8 → 16px */
-      .td-attr-row { display: flex; align-items: center; gap: 16px; font-size: var(--font-size-body-3); line-height: 20px; }
+      .td-attr-row { display: flex; align-items: center; gap: 16px; font-size: var(--font-size-body-2); line-height: 20px; }
       .td-attr-k { flex: none; color: var(--td-meta); }
       .td-attr-v { color: var(--td-strong); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
       .td-attr-link { display: inline-flex; align-items: center; gap: 4px; color: var(--td-strong); text-decoration: none; min-width: 0; }
@@ -297,11 +303,11 @@ CSS = r"""<style>
         border-radius: 50%; background: rgb(var(--gray-4)); box-sizing: border-box;
         border: 1px solid var(--color-bg-1);
       }
-      .td-tl-line1 { display: flex; gap: 8px; font-size: var(--font-size-body-3); line-height: 20px; }
+      .td-tl-line1 { display: flex; gap: 8px; font-size: var(--font-size-body-2); line-height: 20px; }
       .td-tl-who { color: var(--td-strong); flex: none; }
       .td-tl-what { color: var(--color-text-2); }
-      /* ⚠️ 第 25 轮第 2 项例外：任务动态的「时间」字号保持 12px，不随信息列统一到 14px */
-      .td-tl-time { display: block; margin-top: 2px; font-size: var(--font-size-body-1); line-height: 20px; color: var(--td-meta); }
+      /* ★ 第 30 轮第 3 项：任务动态的「时间」也并入 13px（第 25 轮曾声明它保持 12px，本轮按「全部 13px」取消该例外） */
+      .td-tl-time { display: block; margin-top: 2px; font-size: var(--font-size-body-2); line-height: 20px; color: var(--td-meta); }
       /* -------------------- 拖动条 -------------------- */
       .td-gutter {
         flex: none; width: var(--td-gap); position: relative; cursor: col-resize;
@@ -531,26 +537,58 @@ CSS = r"""<style>
       @media (prefers-reduced-motion: reduce) {
         .td-gutter, .td-gutter-bar { transition: none; }
       }
-      /* ------------- 按住标题栏左右拖动互换两栏位置（★ 第 28 轮第 1 项） -------------
-         实现只切一个类：.td-root.is-swapped{flex-direction:row-reverse} 把 .td-root 的主轴顺序反转，
-         DOM 顺序不变 ⇒ 页面里所有「按 DOM 查找」的 JS（全屏/折叠/拖动条/描述折叠）全部不受影响。
+      /* ------------- 按住标题栏左右拖动互换两栏位置 -------------
+         （★ 第 28 轮第 1 项建立；★ 第 30 轮第 2 项大幅优化手感）
+         静止态只切一个类：.td-root.is-swapped{flex-direction:row-reverse} 反转主轴顺序，DOM 顺序不变
+         ⇒ 页面里所有「按 DOM 查找」的 JS（全屏/折叠/拖动条/描述折叠）全部不受影响。
          .td-side 的 border-left 正好仍落在 .td-main 与 .td-side 之间 → 无需翻转分隔线。
-         与既有交互互斥：全屏态 .td-left/.td-gutter 已 display:none（标题栏不可见）；
-         折叠态 .td-right-inner 已 display:none（右栏只剩 48px 竖条）→ 两者都没有标题栏可拖。 */
+         与既有交互互斥：全屏态 .td-left/.td-gutter 已 display:none；折叠态 .td-right-inner 已 display:none。
+
+         ★ 第 30 轮的观感优化（原实现 = 瞬间切类 + 260ms 透明度闪一下 → 生硬）：
+           · 跟手：拖动中主动栏按指针位移 —— **橡皮筋**而非硬限幅：|dx| ≤ cap(两栏中心距 14%)
+             时 1:1 跟手；超出后每多拖 1px 只走 0.18px（`RB`），越拖越沉但不「顶住不动」；
+             另一栏反向微移 12% 「让位」，让两栏立刻有物理联动感；
+           · 真实滑动：交换用 FLIP（先记 rect → 切类 → 再记 rect → 从 translateX(dx) 滑回 0），
+             两栏真的横move过去；飞行期把**被拖的那一栏**抬到 z=3 并加深投影（is-fly-left/right），
+             读起来像「把卡片拎起来挪过去」，而不是两张不透明卡片硬生生对穿；
+           · 回弹：未达阈值时把跟手位移用同一条曲线弹回 0，不再瞬间归位；
+           · 甩动：|v| ≥ 0.6 px/ms 且方向正确时，位移不足 72px 也换位（短促快拖可换）；
+           · 统一曲线 cubic-bezier(0.22,1,0.36,1)（ease-out-quint：起步快、收尾稳，无过冲不越界）；
+           · prefers-reduced-motion 下跳过全部位移动画，只切类。 */
       .td-root.is-swapped { flex-direction: row-reverse; }
-      .td-bar, .td-right-bar { cursor: grab; }
+      .td-bar, .td-right-bar { cursor: grab; touch-action: none; }
       .td-bar .giencoder-btn, .td-right-bar .giencoder-btn { cursor: pointer; }
       .td-root.is-xdrag, .td-root.is-xdrag * { user-select: none; }
       .td-root.is-xdrag .td-bar, .td-root.is-xdrag .td-right-bar { cursor: grabbing; }
-      /* 位移越过阈值 → 描出「即将互换的两栏」（outline 会跟随各自 border-radius） */
+      /* 跟手/回弹期间的位移过渡由 JS 用 Web Animations 驱动；这里只给「提示态」加过渡。
+         （will-change 只在交互期开，长期挂着会白白提升图层） */
+      .td-left, .td-right {
+        outline: 2px solid transparent; outline-offset: -2px;
+        transition: outline-color 140ms var(--transition-timing-function-standard),
+                    box-shadow 180ms var(--transition-timing-function-standard);
+      }
+      .td-root.is-xdrag .td-left, .td-root.is-xdrag .td-right,
+      .td-root.is-swap-fly .td-left, .td-root.is-swap-fly .td-right { will-change: transform; }
       .td-root.is-xdrag.is-xarmed .td-left,
-      .td-root.is-xdrag.is-xarmed .td-right { outline: 2px solid var(--color-primary-6); outline-offset: -2px; }
-      /* 交换瞬间做一次 260ms 淡入，避免两栏「瞬移」 */
-      .td-root.is-swap-anim .td-left,
-      .td-root.is-swap-anim .td-right { animation: td-swap-in 260ms var(--transition-timing-function-standard, cubic-bezier(0.4, 0, 0.2, 1)) both; }
-      @keyframes td-swap-in { from { opacity: 0.35; } to { opacity: 1; } }
+      .td-root.is-xdrag.is-xarmed .td-right { outline-color: var(--color-primary-6); }
+      /* 主动栏轻微的「拎起来」：加深投影（复用既有面板投影变量，不新增色值） */
+      .td-root.is-xdrag .td-left.is-xdrag-panel,
+      .td-root.is-xdrag .td-right.is-xdrag-panel { box-shadow: var(--td-panel-shadow), 0 8px 24px rgba(0, 0, 0, 0.10); }
+      /* 让位栏：轻微降透明，暗示它正在被替换 */
+      .td-root.is-xdrag .td-left.is-xdrag-peer,
+      .td-root.is-xdrag .td-right.is-xdrag-peer { opacity: 0.88; }
+      /* FLIP 飞行期：两栏都进独立层叠上下文，**被拖的那一栏**抬到 z=3 并加深投影，
+         避免两栏重叠时看着像穿模（is-fly-left / is-fly-right 由 JS 按 d.panel 打） */
+      .td-root.is-swap-fly .td-left,
+      .td-root.is-swap-fly .td-right { position: relative; z-index: 1; }
+      .td-root.is-swap-fly.is-fly-left .td-left,
+      .td-root.is-swap-fly.is-fly-right .td-right {
+        z-index: 3; box-shadow: var(--td-panel-shadow), 0 10px 28px rgba(0, 0, 0, 0.12);
+      }
       @media (prefers-reduced-motion: reduce) {
-        .td-root.is-swap-anim .td-left, .td-root.is-swap-anim .td-right { animation: none; }
+        .td-left, .td-right { transition: none; }
+        .td-root.is-xdrag .td-left.is-xdrag-panel,
+        .td-root.is-xdrag .td-right.is-xdrag-panel { box-shadow: var(--td-panel-shadow); }
       }
       /* -------------------- 归属研发工作台：外壳切到「研发工作台」态 -------------------- */
       /* 详情页是研发工作台的下一级页面。React 外壳按「文件名 → 路由」映射判定页签
@@ -575,6 +613,15 @@ CSS = r"""<style>
       body:has(.td-wrap) [role="tablist"] > span[aria-hidden] { left: 62px !important; width: 124px !important; }
       body:has(.td-wrap) [role="tablist"] [data-tab="base"] { color: inherit !important; }
       body:has(.td-wrap) [role="tablist"] [data-tab="dev"] { color: var(--color-text-1) !important; }
+
+      /* ------------------------------------------------------------------
+         ★ DS Image 组件样式占位符（第 30 轮第 1 项）
+         构建期由本脚本末尾的 CSS.replace 用 DS 源文件实时抽取结果替换。
+         不要在这里手写 Image 样式 —— 改样式请改 DS 源文件：
+           · 静态结构   giencoder-design-system/components.css
+           · 全屏遮罩 + 开合动效   giencoder-design-system/gienx-templates/ui-controls.css
+         ------------------------------------------------------------------ */
+      __DS_IMAGE_CSS__
     </style>"""
 
 # ============================== HTML ==============================
@@ -775,7 +822,12 @@ HTML = """<div class="td-root" role="region" aria-label="任务详情">
         <div class="td-desc">
           <div class="td-desc-body" id="td-desc-body" data-td-desc="1">
             <p>第一步：梳理端到端交付链路</p>
-            <img src="__DESCIMG__" width="1240" height="620" alt="端到端交付链路示意图：需求澄清、方案设计、任务拆分、开发实现、自测验证、联调验收、灰度发布、交付归档 共 8 个阶段" data-td-desc-img="1">
+            <div class="giencoder-image" data-td-desc-img="1">
+              <div class="giencoder-image-mask-wrapper" role="button" tabindex="0" aria-label="预览大图：端到端交付链路示意图">
+                <img class="giencoder-image-img" src="__DESCIMG__" width="1240" height="620" alt="端到端交付链路示意图：需求澄清、方案设计、任务拆分、开发实现、自测验证、联调验收、灰度发布、交付归档 共 8 个阶段">
+                <div class="giencoder-image-mask" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg><span>预览</span></div>
+              </div>
+            </div>
             <p>从业务方原始需求进入系统开始，到最终交付物归档为止，完整链路包含需求澄清、方案设计、任务拆分、开发实现、自测验证、联调验收、灰度发布与交付归档共 8 个阶段。每个阶段都需要明确输入、输出、责任人与准入准出条件，避免出现“任务已发起但无人认领”或“交付物缺失但流程已关闭”的情况。</p>
             <p>第二步：定义状态流转规则（启动整个流程）</p>
             <p>状态标识采用“交通灯”模式，方便直观管理：</p>
@@ -1252,51 +1304,142 @@ __LINES__
       expand(DEFAULT_W);
     });
 
-    /* ---------- 按住标题栏左右拖动互换两栏位置（★ 第 28 轮第 1 项） ----------
-       判定规则：
-         · pointerdown 必须落在 .td-bar / .td-right-bar 上，且**不在按钮/链接/输入控件**上
+    /* ---------- 按住标题栏左右拖动互换两栏位置 ----------
+       ★ 第 28 轮第 1 项建立；★ 第 30 轮第 2 项重写（原实现「瞬间切类 + 260ms 透明度闪一下」太生硬）。
+
+       保留的判定规则：
+         · pointerdown 必须落在 .td-bar / .td-right-bar 上，且不在按钮/链接/输入控件上
            （否则会和顶栏那些按钮的点击抢事件）；
          · 位移 < 6px 视为点击（不进入拖动态、不 preventDefault、不影响原有点击）；
-         · 位移在「指向另一栏」的方向上 ≥ SWAP_T px 才真正互换 —— 方向在 pointerdown 时按两栏
-           实测中心算出，所以交换后再拖同一个标题栏会自动反向（不会出现「单向死锁」）。
-       互换本身只切 .is-swapped（CSS row-reverse），DOM 顺序不动。 */
-    var SWAP_T = 80;
+         · 方向在 pointerdown 时按两栏实测中心算出 ⇒ 换位后再拖同一个标题栏会自动反向，
+           不会出现「单向死锁」；
+         · 静止态仍只切 .is-swapped（CSS row-reverse），DOM 顺序不动。
+
+       第 30 轮的五个手感优化：
+         ① 跟手位移（橡皮筋，不是硬限幅）：|dx| ≤ cap(两栏中心距 ×14%，实测约 100px) 时 1:1 跟手；
+            超出后每多拖 1px 只走 RB=0.18px → 大拖不会「顶住不动」，但越拖越沉；
+            另一栏反向 12% 微移「让位」→ 拖起来立刻有物理反馈，两栏又不会在途中就交叉重叠；
+         ② FLIP 滑动：松手判定换位时，先记 first rect → 切类 → 记 last rect →
+            用 Web Animations 从 translateX(dx) 滑回 0，两栏真的横着挪过去（不是瞬移）；
+            飞行期被拖的那一栏加 is-fly-left/right → z=3 + 加深投影（「拎起来」）；
+         ③ 回弹：未达阈值时把跟手位移用同一条曲线弹回 0，而不是瞬间归位；
+         ④ 甩动判定：|v| ≥ 0.6 px/ms 且方向正确 ⇒ 即使位移不够也换位（短促快拖也能换）。
+       曲线统一 cubic-bezier(0.22, 1, 0.36, 1)：起步快、收尾稳、**无过冲**（不会越界出容器）。
+       prefers-reduced-motion 下跳过所有位移动画，只切类。 */
+    var SWAP_T = 72;              /* 距离阈值 px（原 80：略微降低，配合甩动判定更好触发） */
+    var SWAP_FLICK = 0.6;         /* 甩动速度阈值 px/ms */
+    var SWAP_DUR = 400;           /* FLIP 滑动时长 ms */
+    var RB = 0.18;                /* 橡皮筋系数：超出限幅后每多拖 1px 只走 0.18px */
+    var SWAP_EASE = 'cubic-bezier(0.22, 1, 0.36, 1)';
+    var reduceMotion = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
     var xdrag = null;
+
+    /* 把元素从 from px 位移滑回 0，结束即清掉内联 transform（回到自然布局位） */
+    function slideBack(el, from, dur) {
+      if (!el) return;
+      if (reduceMotion || !from) { el.style.transform = ''; return; }
+      var anim = el.animate(
+        [{ transform: 'translate3d(' + from + 'px,0,0)' },
+         { transform: 'translate3d(' + Math.round(from * 0.55) + 'px,0,0)', offset: 0.45 },
+         { transform: 'translate3d(0,0,0)' }],
+        { duration: dur, easing: SWAP_EASE, fill: 'both' });
+      anim.onfinish = function () {
+        el.style.transform = '';
+        if (anim.cancel) anim.cancel();
+      };
+    }
+
     function bindSwapBar(bar, panel) {
       if (!bar) return;
+      var other = (panel === left) ? right : left;
+
       bar.addEventListener('pointerdown', function (e) {
         if (e.button !== 0) return;
         if (e.target.closest('button, a, input, textarea, select, [role="combobox"]')) return;
         if (root.classList.contains('is-fullscreen') || root.classList.contains('is-collapsed')) return;
-        var other = (panel === left) ? right : left;
         var a = panel.getBoundingClientRect(), b = other.getBoundingClientRect();
+        var gap = Math.abs((b.left + b.width / 2) - (a.left + a.width / 2));
         xdrag = {
-          x0: e.clientX, dx: 0, moved: false,
+          bar: bar, panel: panel, other: other,
+          x0: e.clientX, dx: 0, applied: 0, v: 0, moved: false, tPrev: e.timeStamp,
+          cap: Math.max(24, Math.round(gap * 0.14)),   /* 跟手限幅：一次性算好，避免 pointermove 里反复取 rect */
           dir: (b.left + b.width / 2) >= (a.left + a.width / 2) ? 1 : -1
         };
         if (bar.setPointerCapture) { try { bar.setPointerCapture(e.pointerId); } catch (err) {} }
       });
+
       bar.addEventListener('pointermove', function (e) {
-        if (!xdrag) return;
-        xdrag.dx = e.clientX - xdrag.x0;
-        if (!xdrag.moved) {
-          if (Math.abs(xdrag.dx) < 6) return;
-          xdrag.moved = true;
+        var d = xdrag;
+        if (!d || d.bar !== bar) return;
+        var dt = Math.max(1, e.timeStamp - d.tPrev);
+        var next = e.clientX - d.x0;
+        d.v = (next - d.dx) / dt;        /* 瞬时速度 px/ms */
+        d.tPrev = e.timeStamp;
+        d.dx = next;
+        if (!d.moved) {
+          if (Math.abs(d.dx) < 6) return;
+          d.moved = true;
           root.classList.add('is-xdrag');
+          d.panel.classList.add('is-xdrag-panel');
+          d.other.classList.add('is-xdrag-peer');
         }
-        root.classList.toggle('is-xarmed', xdrag.dx * xdrag.dir >= SWAP_T);
+        root.classList.toggle('is-xarmed', (d.dx * d.dir >= SWAP_T) || (d.v * d.dir >= SWAP_FLICK));
+        if (!reduceMotion) {
+          /* ③ 橡皮筋阻尼（不是硬限幅）：|dx| ≤ cap 时 1:1 跟手；
+             超出后按 RB 系数继续走（cap + 超出量*0.18）→ 大拖也不会「顶住不动」，
+             但越拖越沉，视觉上明确「这里拖不过去」。*/
+          var abs = Math.abs(d.dx);
+          var raw = abs <= d.cap ? abs : d.cap + (abs - d.cap) * RB;
+          var applied = (d.dx < 0 ? -1 : 1) * Math.round(raw);
+          var k = Math.min(1, Math.abs(applied) / d.cap);   /* 0~1：越接近目标位置，主动栏越「浮起来」 */
+          d.applied = applied;
+          d.panel.style.transform = 'translate3d(' + applied + 'px,0,0) scale(' + (1 + 0.006 * k).toFixed(4) + ')';
+          d.other.style.transform = 'translate3d(' + Math.round(applied * -0.12) + 'px,0,0)';
+        }
         e.preventDefault();
       });
+
       function endSwap() {
-        if (!xdrag) return;
         var d = xdrag;
+        if (!d || d.bar !== bar) return;
         xdrag = null;
-        root.classList.remove('is-xdrag', 'is-xarmed');
+        d.panel.classList.remove('is-xdrag-panel');
+        d.other.classList.remove('is-xdrag-peer');
+        root.classList.remove('is-xarmed', 'is-xdrag');
         if (!d.moved) return;
-        if (d.dx * d.dir >= SWAP_T) {
+
+        var pass = (d.dx * d.dir >= SWAP_T) || (d.v * d.dir >= SWAP_FLICK);
+        if (pass) {
+          /* ② FLIP：先清掉跟手位移 → 记 first → 切类 → 记 last → 从差值滑入 */
+          d.panel.style.transform = '';
+          d.other.style.transform = '';
+          var fL = left.getBoundingClientRect(), fR = right.getBoundingClientRect();
+          var fG = gutter.getBoundingClientRect();
           root.classList.toggle('is-swapped');
-          root.classList.add('is-swap-anim');
-          setTimeout(function () { root.classList.remove('is-swap-anim'); }, 320);
+          var lL = left.getBoundingClientRect(), lR = right.getBoundingClientRect();
+          var lG = gutter.getBoundingClientRect();
+          var dxL = Math.round(fL.left - lL.left);
+          var dxR = Math.round(fR.left - lR.left);
+          var dxG = Math.round(fG.left - lG.left);
+          if (!reduceMotion && (dxL || dxR)) {
+            /* 飞行期把**被拎起的那一栏**抬到上层并加深投影：两栏重叠时读起来像
+               「把卡片拎起来挪过去」，而不是两张不透明卡片硬生生对穿。
+               （is-fly-left / is-fly-right 由 d.panel 决定，谁被拖谁在上层。） */
+            root.classList.add('is-swap-fly', d.panel === left ? 'is-fly-left' : 'is-fly-right');
+            if (dxL) left.style.transform = 'translate3d(' + dxL + 'px,0,0)';
+            if (dxR) right.style.transform = 'translate3d(' + dxR + 'px,0,0)';
+            if (dxG) gutter.style.transform = 'translate3d(' + dxG + 'px,0,0)';
+            slideBack(left, dxL, SWAP_DUR);
+            slideBack(right, dxR, SWAP_DUR);
+            slideBack(gutter, dxG, SWAP_DUR);
+            setTimeout(function () {
+              root.classList.remove('is-swap-fly', 'is-fly-left', 'is-fly-right');
+            }, SWAP_DUR + 40);
+          }
+        } else {
+          /* ③ 回弹 */
+          slideBack(d.panel, d.applied, 260);
+          slideBack(d.other, Math.round(d.applied * -0.12), 260);
         }
       }
       bar.addEventListener('pointerup', endSwap);
@@ -1336,6 +1479,115 @@ __LINES__
     return true;
   }
 
+  /* ---------- 描述区配图的蒙层预览（★ 第 30 轮第 1 项） ----------
+     完全按 DS Image 契约（components/image.json）实现，不自造同义结构：
+       · 缩略图 = div.giencoder-image > div.giencoder-image-mask-wrapper > img.giencoder-image-img
+         + div.giencoder-image-mask（悬停提示「预览」）；
+       · 点缩略图 → 动态创建 div.giencoder-image-preview（契约 anatomy 的「预览层」= 全屏遮罩，
+         内含 -preview-mask / -preview-img / -preview-close / -preview-zoom），挂在 <body> 上
+         ——与 preview/component-image.html 参考实现同一套类名，只是把 demo 的 pv-* 换成契约 is-* 状态类；
+       · 关闭方式：右上关闭按钮 / 点遮罩空白处 / Esc；
+       · 动效：遮罩淡入 0.3s + 大图 scale(.95→1)（spring）；关闭 0.2s —— 与参考实现同参数。
+     Esc 优先级约定（页尾 TAIL）：图片预览 > 对话框弹层 > 退出全屏 > 返回看板；
+       打开时给 <html> 打 data-td-img-preview，页尾先判它再派发 td:close-image-preview。 */
+  function bindDescImagePreview(wrap) {
+    var thumb = wrap.querySelector('.td-desc .giencoder-image-mask-wrapper');
+    if (!thumb) return;
+    var thumbImg = thumb.querySelector('img.giencoder-image-img');
+    if (!thumbImg) return;
+
+    var overlay = null, scale = 1, closing = false;
+
+    function build() {
+      if (overlay) return overlay;
+      overlay = document.createElement('div');
+      overlay.className = 'giencoder-image-preview';
+      overlay.setAttribute('role', 'dialog');
+      overlay.setAttribute('aria-modal', 'true');
+      overlay.setAttribute('aria-label', '图片预览');
+      overlay.innerHTML =
+        '<div class="giencoder-image-preview-mask">' +
+          '<button type="button" class="giencoder-image-preview-btn giencoder-image-preview-close" aria-label="关闭预览">' +
+            '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"/></svg>' +
+          '</button>' +
+          '<img class="giencoder-image-preview-img" alt="">' +
+          '<div class="giencoder-image-preview-zoom">' +
+            '<button type="button" class="giencoder-image-preview-btn" aria-label="缩小" data-td-zoom="out">' +
+              '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14"/></svg>' +
+            '</button>' +
+            '<button type="button" class="giencoder-image-preview-btn" aria-label="放大" data-td-zoom="in">' +
+              '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>' +
+            '</button>' +
+          '</div>' +
+        '</div>';
+      document.body.appendChild(overlay);
+
+      overlay.querySelector('.giencoder-image-preview-close').addEventListener('click', close);
+      /* 点遮罩空白处关闭（mask 铺满全屏，target 落在遮罩/mask 上即视为点背景） */
+      overlay.addEventListener('click', function (e) {
+        var isBg = (e.target === overlay) ||
+                   (e.target.classList && e.target.classList.contains('giencoder-image-preview-mask'));
+        if (isBg) close();
+      });
+      Array.prototype.forEach.call(overlay.querySelectorAll('[data-td-zoom]'), function (btn) {
+        btn.addEventListener('click', function () {
+          var im = overlay.querySelector('.giencoder-image-preview-img');
+          scale = btn.getAttribute('data-td-zoom') === 'in'
+            ? Math.min(3, +(scale * 1.25).toFixed(2))
+            : Math.max(0.5, +(scale * 0.8).toFixed(2));
+          im.style.transform = 'scale(' + scale + ')';
+          im.style.setProperty('--giencoder-image-scale', scale);
+        });
+      });
+      return overlay;
+    }
+
+    function flag(on) { document.documentElement.toggleAttribute('data-td-img-preview', on); }
+
+    function close() {
+      if (!overlay || closing || overlay.style.display === 'none') return;
+      closing = true;
+      var im = overlay.querySelector('.giencoder-image-preview-img');
+      im.style.setProperty('--giencoder-image-scale', scale);
+      im.classList.remove('is-opening');
+      im.classList.add('is-closing');
+      overlay.classList.add('is-closing');
+      overlay.classList.remove('is-open');
+      flag(false);
+      setTimeout(function () {
+        overlay.style.display = 'none';
+        overlay.classList.remove('is-open', 'is-closing');
+        im.classList.remove('is-opening', 'is-closing');
+        closing = false;
+      }, 240);
+    }
+
+    function open() {
+      build();
+      if (closing || overlay.style.display === 'flex') return;
+      var im = overlay.querySelector('.giencoder-image-preview-img');
+      im.setAttribute('src', thumbImg.getAttribute('src'));
+      im.setAttribute('alt', thumbImg.getAttribute('alt') || '');
+      scale = 1;
+      im.style.transform = '';
+      im.style.setProperty('--giencoder-image-scale', 1);
+      overlay.classList.remove('is-closing');
+      overlay.style.display = 'flex';
+      void overlay.offsetHeight;             /* 强制回流，让遮罩淡入过渡生效 */
+      overlay.classList.add('is-open');
+      im.classList.add('is-opening');
+      flag(true);
+      setTimeout(function () { im.classList.remove('is-opening'); }, 340);
+    }
+
+    thumb.addEventListener('click', open);
+    thumb.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
+    });
+    /* 页尾 Esc 链通过自定义事件通知关闭（与 td:close-popovers 同一约定） */
+    document.addEventListener('td:close-image-preview', close);
+  }
+
   function inject() {
     var main = document.querySelector('main');
     if (!main || main.querySelector('.td-root')) return false;
@@ -1344,6 +1596,7 @@ __LINES__
     wrap.innerHTML = KB_HTML;
     main.appendChild(wrap);
     bindDetail(wrap);
+    bindDescImagePreview(wrap);
     return true;
   }
   /* 注意：两个动作都要执行，不能短路（页签在 React 挂载后才出现，可能晚于注入）。
@@ -1383,6 +1636,12 @@ TAIL = """<script>
         if (ev.key !== 'Escape') return;
         var tag = (ev.target && ev.target.tagName) || '';
         if (tag === 'TEXTAREA' || tag === 'INPUT') return;
+        /* ★ 第 30 轮第 1 项：图片蒙层预览优先级最高 —— 打开时 Esc 只关预览，不继续往下走。
+           预览侧监听自定义事件 td:close-image-preview（见 bindDescImagePreview）。 */
+        if (document.documentElement.hasAttribute('data-td-img-preview')) {
+          document.dispatchEvent(new CustomEvent('td:close-image-preview'));
+          return;
+        }
         /* ★ 第 28 轮第 4 项：对话框弹层打开时，Esc 先关弹层而不是跳回看板。
            弹层侧监听自定义事件 td:close-popovers（见 bindDetail 里的对话框绑定）。 */
         if (document.documentElement.hasAttribute('data-td-pop-open')) {
@@ -1407,6 +1666,35 @@ TAIL = """<script>
   </body>
 </html>
 """
+
+# ---- ★ 第 30 轮第 1 项：Image 组件样式在**构建期**从 DS 源文件抽取后内联（避免页面副本与 DS 漂移）
+# 静态结构 ← giencoder-design-system/components.css（「/* === Image 图片」段起至文件末）
+# 全屏定位 + 开合动效 ← giencoder-design-system/gienx-templates/ui-controls.css（「/* ---- Image 预览层」段起）
+# 注：本仓页面一直是「DS 文件为源 + 页面内联副本」的模式（:root token、Select 弹层同理），
+#     这里改成构建期读源文件，源文件一改、重跑本脚本即同步。
+DS_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "giencoder-design-system")
+
+
+def ds_slice(path, marker):
+    txt = io.open(path, encoding="utf-8").read()
+    i = txt.find(marker)
+    assert i > 0, "DS 里找不到锚点 %r：%s" % (marker, path)
+    return txt[i:].rstrip()
+
+
+_ds_img = (
+    ds_slice(os.path.join(DS_DIR, "components.css"), "/* === Image 图片")
+    + "\n\n"
+    + ds_slice(os.path.join(DS_DIR, "gienx-templates", "ui-controls.css"), "/* ---- Image 预览层")
+)
+DS_IMAGE_CSS = (
+    "      /* ⚠️ 以下 Image 组件样式由 build-detail.py 在构建期从 DS 源文件抽取，请勿在此手改：\n"
+    "         静态结构 ← giencoder-design-system/components.css\n"
+    "         全屏定位/开合动效 ← giencoder-design-system/gienx-templates/ui-controls.css */\n"
+    + "".join(("      " + ln + "\n") if ln.strip() else "\n" for ln in _ds_img.split("\n"))
+)
+CSS = CSS.replace("__DS_IMAGE_CSS__", DS_IMAGE_CSS)
+assert "__DS_IMAGE_CSS__" not in CSS, "Image 样式占位符未替换"
 
 out = head + mid + CSS + "\n" + JS + "\n" + TAIL
 io.open(DST, "w", encoding="utf-8", newline="").write(out)

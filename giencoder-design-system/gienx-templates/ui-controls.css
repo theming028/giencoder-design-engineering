@@ -79,3 +79,30 @@
   opacity: 1; visibility: visible;
   transform: scale(1) translateY(0);
 }
+
+/* ---- Image 预览层：全屏遮罩定位 + 开合动效（.giencoder-image-preview）----
+   契约 anatomy 的「预览层 = div.giencoder-image-preview」。静态结构见 components.css，
+   动效按约定不进 components.css；与 Select 弹层一样收敛到本文件。
+   参考实现：preview/component-image.html（.giencoder-image-preview-overlay + pv-* 类，
+   此处统一改成契约类名 + is-* 状态类）。 */
+.giencoder-image-preview {
+  position: fixed; inset: 0; z-index: 1000;
+  display: none; align-items: center; justify-content: center;
+  background: var(--color-mask-bg);
+  opacity: 0;
+  transition: opacity var(--transition-duration-3) var(--transition-timing-function-standard);
+}
+.giencoder-image-preview.is-open { opacity: 1; }
+.giencoder-image-preview.is-closing { transition-duration: var(--transition-duration-2); }
+/* 大图按视口自适应（四周各留 80px：让右上关闭、左下缩放在图外仍可点） */
+.giencoder-image-preview .giencoder-image-preview-img {
+  max-width: calc(100vw - 160px); max-height: calc(100vh - 160px);
+}
+@keyframes giencoder-image-in { from { transform: scale(0.95); } to { transform: scale(var(--giencoder-image-scale, 1)); } }
+@keyframes giencoder-image-out { from { transform: scale(var(--giencoder-image-scale, 1)); } to { transform: scale(0.95); } }
+.giencoder-image-preview-img.is-opening {
+  animation: giencoder-image-in var(--transition-duration-3) var(--transition-timing-function-spring) both;
+}
+.giencoder-image-preview-img.is-closing {
+  animation: giencoder-image-out var(--transition-duration-2) var(--transition-timing-function-standard) both;
+}

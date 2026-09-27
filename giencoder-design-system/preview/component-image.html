@@ -11,8 +11,8 @@
     .giencoder-image { display: inline-block; }
     .giencoder-image-mask-wrapper { position: relative; overflow: hidden; border-radius: var(--border-radius-large); }
     .giencoder-image-placeholder { display: flex; align-items: center; justify-content: center; font-size: var(--font-size-body-2); color: var(--color-white); }
-    .giencoder-image-hover-mask { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: var(--spacing-2); background: var(--color-mask-bg); color: var(--color-white); font-size: var(--font-size-body-3); opacity: 0; transition: opacity var(--transition-duration-2); }
-    .giencoder-image-mask-wrapper:hover .giencoder-image-hover-mask { opacity: 1; }
+    .giencoder-image-mask { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: var(--spacing-2); background: var(--color-mask-bg); color: var(--color-white); font-size: var(--font-size-body-3); opacity: 0; transition: opacity var(--transition-duration-2); }
+    .giencoder-image-mask-wrapper:hover .giencoder-image-mask { opacity: 1; }
     .giencoder-image-caption { margin-top: var(--spacing-4); font-size: var(--font-size-body-1); color: var(--color-text-3); text-align: center; }
     .giencoder-image-error .giencoder-image-mask-wrapper { display: flex; align-items: center; justify-content: center; background: var(--color-fill-2); }
     .giencoder-image-error-state { display: flex; flex-direction: column; align-items: center; gap: var(--spacing-3); color: var(--color-text-4); }
@@ -60,7 +60,7 @@
       <div class="giencoder-image" data-component="image" data-variant="default" data-state="default">
         <div class="giencoder-image-mask-wrapper">
           <div class="giencoder-image-placeholder" style="width:300px; height:180px; background:linear-gradient(135deg, var(--color-primary-1), var(--color-primary-6));">产品主视觉</div>
-          <div class="giencoder-image-hover-mask">
+          <div class="giencoder-image-mask">
             <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>
             预览
           </div>
