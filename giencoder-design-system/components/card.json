@@ -45,7 +45,7 @@
     {
       "name": "default",
       "description": "常规展示态",
-      "visual": "背景 --color-bg-2，边框 --color-border-2"
+      "visual": "背景 --color-bg-2，边框 --color-border-2；头部底色 --color-fill-1（与卡体区分层级）"
     },
     {
       "name": "hover",
@@ -124,7 +124,8 @@
     "--shadow1-down",
     "--shadow2-down",
     "--color-text-1",
-    "--color-text-2"
+    "--color-text-2",
+    "--color-fill-1"
   ],
   "assetsConsumed": [],
   "propsIndex": {

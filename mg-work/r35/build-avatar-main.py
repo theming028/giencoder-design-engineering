@@ -31,7 +31,8 @@ ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)
 DEST = os.path.join(ROOT, "pages", "avatar.html")
 START = "<!-- AV-MAIN"
 END = "<!-- /AV-MAIN -->"
-VERSION = "v2 —— 数字分身主内容还原（设计稿 1345:18487，内容宽 860px；文案/字号/配色按截图逐项校正）"
+VERSION = ("v3 —— 数字分身主内容还原（设计稿 1345:18487，内容宽 860px；"
+           "第 36 轮：卡体原生滚动条取代假 thumb / 卡圆角 8 + 边框深一级 / 正文色收敛）")
 
 # ══════════════════════════ 内容（逐字取自设计稿截图） ══════════════════════════
 CONTENT = {
@@ -44,14 +45,14 @@ CONTENT = {
     "trigger": "通过对话完善数字分身",
 
     "cardA": {
-        "title": "我的人格", "link": "编辑 SOUL.md", "thumb": 180,
+        "title": "我的人格", "link": "编辑 SOUL.md",
         "para": "我作为助手的核心行事准则：以务实交付取代空话，保持独立思考与立场，凡事先自行推演、"
                 "带着方案而非问题沟通，以克制的向外行动和果断的内在学习建立可信度，并始终珍视用户"
                 "托付的隐私与信任；在边界上严守隐私、不擅作主张、不提交半成品、不捏造信息，"
                 "准确优先于自信；气质上追求做一个有主见、有温度的协作者，该简洁时简洁，该深入时深入。",
     },
     "cardB": {
-        "title": "我的画像", "link": "编辑 USER.md", "thumb": 72,
+        "title": "我的画像", "link": "编辑 USER.md",
         "groups": [
             {"title": "基本信息", "lines": [
                 "姓名：邵先生",
@@ -66,7 +67,7 @@ CONTENT = {
         ],
     },
     "cardC": {
-        "title": "工作风格", "link": "编辑 BEHAVIOR.md", "thumb": 180,
+        "title": "工作风格", "link": "编辑 BEHAVIOR.md",
         "items": [
             ("先理解再行动", "复杂任务先梳理全貌，避免方向错误返工。"),
             ("说明推理过程", "重要决策时展示你的思路，让我能判断逻辑是否正确。"),
@@ -75,7 +76,7 @@ CONTENT = {
         ],
     },
     "cardD": {
-        "title": "工作流程", "link": "打开所在文件夹", "thumb": 100,
+        "title": "工作流程", "link": "打开所在文件夹",
         "items": [
             ("编码任务执行协议", "8 步主流程 + Harness 强制 5 步检查"),
             ("OADA 自我进化循环", "Observe→Analyze→Decide→Act，含快记/完整两种日志格式"),
@@ -154,8 +155,7 @@ def card(key):
         '            <span class="giencoder-card-header-extra">%s</span>\n'
         '          </div>\n'
         '          <div class="giencoder-card-body">%s</div>\n'
-        '          <span class="av-card-thumb" style="height:%dpx" aria-hidden="true"></span>\n'
-        '        </section>' % (esc(c["title"]), link(c["link"]), body, c["thumb"])
+        '        </section>' % (esc(c["title"]), link(c["link"]), body)
     )
 
 
@@ -264,6 +264,9 @@ CSS_TMPL = """<style id="av-main-css">
 
     width: 100%; max-width: 860px; margin: 0 auto; box-sizing: border-box;
     display: flex; flex-direction: column;
+    /* ★ 第 36 轮第 5 项：AI 侧栏拉伸后 main 会变窄，头部动作区需要按 **容器宽** 自适应
+       （不能用 @media —— main 宽度由侧栏决定，与视口宽无关）。 */
+    container-type: inline-size;
   }
 
   /* ---------- 头部（容器 34：800×110） ---------- */
@@ -298,34 +301,59 @@ CSS_TMPL = """<style id="av-main-css">
      顺序是「编辑」在前、「通过对话完善数字分身」在后（与设计稿截图一致）。
      DS 的 .giencoder-btn-secondary 底色是 --color-bg-5 且文字是 text-1，故在适配层收敛成设计稿值。 */
   .av-main-head-actions { position: absolute; top: 0; right: 0; display: flex; align-items: center; gap: 8px; }
+  /* ★ 第 36 轮第 6 项：按钮文字一律用正文色（--color-text-1）。
+     DS `.giencoder-btn-secondary` 本身就是 `color: var(--color-text-1)`（全局组件规范），
+     此前适配层把它改成了 `--av-ink-2`(#6B6B6B) —— 属于**适配层破坏了组件规范**，这里只保留底色收敛。 */
   .av-main-head-actions .giencoder-btn-secondary {
-    background: var(--color-bg-1); color: var(--av-ink-2); box-shadow: none;
+    background: var(--color-bg-1); box-shadow: none;
   }
   .av-main-head-actions .giencoder-btn-secondary:hover { background: var(--color-fill-1); }
+  /* ★ 第 36 轮第 5 项：容器窄于 560 时，绝对定位的动作区会压到姓名行上
+     → 改为独占一行换行排布。阈值 = 姓名行实宽(≈252) + 动作区实宽(280) 再留 ~30 余量。
+     ⚠️ 必须写在本节之后，否则被上面的 `position:absolute` 覆盖。 */
+  @container (max-width: 560px) {
+    .av-main-head { flex-wrap: wrap; }
+    .av-main-head-actions { position: static; width: 100%; }
+  }
 
   /* ---------- 页分隔线（直线 53：y130） ---------- */
   .av-main-rule { height: 1px; background: var(--color-border-1); margin: 20px 0 19px; }
 
   /* ---------- 卡片网格（4 张，设计 392×292 → 2×422） ---------- */
   .av-main-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
-  .av-card { position: relative; min-height: 292px; border-color: var(--color-border-1); }
+  /* ★ 第 36 轮第 3 项：圆角 8（--border-radius-large，设计稿实测）、边框深一级（border-1 → border-2）。
+     ★ 第 36 轮第 1 项：固定高 292，卡体 = 滚动容器 ——
+       设计稿右侧那条 6px 圆头灰条（原 `.av-card-thumb`）就是**卡体自身的滚动条**，
+       不是装饰：卡内文本在卡底被裁断（设计稿 card A 文本 7 行止于 y718，卡体到 y889）。
+       故删掉绝对定位的假 thumb，改用原生 `overflow-y:auto` —— 默认不显示，
+       内容溢出时才出现（宽度收窄时必然出现）。 */
+  .av-card {
+    position: relative; height: 292px; box-sizing: border-box;
+    display: flex; flex-direction: column; overflow: hidden;
+    border-color: var(--color-border-2); border-radius: var(--border-radius-large);
+  }
+  /* 卡头浅灰底色属于 Card 组件本体（第 36 轮第 2 项已在 DS + 页面内联 components.css 收敛），
+     此处只保留本页的卡头内距（设计 36 高 = 6 + 24 + 6 + 1px 分隔线）。 */
   .av-card .giencoder-card-header {
-    padding: 6px 20px; background: var(--color-fill-1); border-bottom-color: var(--color-border-1);
-    border-radius: var(--border-radius-medium) var(--border-radius-medium) 0 0;
+    flex: none; padding: 6px 20px; border-bottom-color: var(--color-border-1);
   }
   .av-card .giencoder-card-header-title {
     font-size: var(--font-size-body-3); line-height: 24px; font-weight: 500; color: var(--av-ink);
   }
   .av-card .giencoder-card-header-extra { align-items: center; }
   /* ⚠️ 卡体下内边距 14 = 设计值 16 − 2：DS .giencoder-card 自带 1px 上下边框共 2px，
-     而设计稿的卡边框画在背景图里、不占布局 → 不减这 2px 卡片就是 294 而非 292，
-     连带把网格、底部三行卡、页脚整体下推（整页 1202 vs 1200）。 */
-  .av-card .giencoder-card-body { padding: 19px 20px 14px; background: var(--color-bg-1); }
-  /* 卡内滚动指示条（矩形 219：6×N / rgba(0,0,0,.16) / radius 6 / x382） */
-  .av-card-thumb {
-    position: absolute; right: 4px; top: 40px; width: 6px;
-    border-radius: var(--border-radius-circle); background: rgba(0, 0, 0, 0.16);
+     而设计稿的卡边框画在背景图里、不占布局 → 不减这 2px 卡片就是 294 而非 292。 */
+  .av-card .giencoder-card-body {
+    flex: 1 1 auto; min-height: 0; padding: 19px 20px 14px; background: var(--color-bg-1);
+    overflow-y: auto; overflow-x: hidden;
   }
+  /* 卡内滚动条（设计稿 矩形 219：6px 宽 / rgba(0,0,0,.16) / radius 6） */
+  .av-card .giencoder-card-body::-webkit-scrollbar { width: 6px; }
+  .av-card .giencoder-card-body::-webkit-scrollbar-track { background: transparent; }
+  .av-card .giencoder-card-body::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.16); border-radius: var(--border-radius-circle);
+  }
+  .av-card .giencoder-card-body::-webkit-scrollbar-thumb:hover { background: rgba(0, 0, 0, 0.28); }
 
   /* ---------- 卡内小结构 ---------- */
   .av-list { display: flex; flex-direction: column; gap: 12px; }
@@ -341,16 +369,17 @@ CSS_TMPL = """<style id="av-main-css">
     content: ""; flex-shrink: 0; width: 4px; height: 4px; margin-top: 8px;
     border-radius: var(--border-radius-circle); background: var(--color-text-4);
   }
+  /* ★ 第 36 轮第 7 项：段落用正文色（--color-text-1）。原为 --av-ink-2(#6B6B6B)。 */
   .av-para {
-    margin: 0; display: -webkit-box; -webkit-line-clamp: 7; -webkit-box-orient: vertical;
-    overflow: hidden; font-size: var(--font-size-body-3); line-height: 22px; color: var(--av-ink-2);
+    margin: 0; font-size: var(--font-size-body-3); line-height: 22px; color: var(--color-text-1);
   }
 
   /* ---------- 底部三行卡（容器 48/50/52：800×118） ---------- */
   .av-main-rows { display: flex; flex-direction: column; gap: 16px; margin-top: 16px; }
   .av-row {
     position: relative; height: 118px; box-sizing: border-box; padding: 16px 20px;
-    border-color: var(--color-border-1); background: var(--color-bg-1);
+    border-color: var(--color-border-2); border-radius: var(--border-radius-large);
+    background: var(--color-bg-1);
   }
   .av-row-head { display: flex; align-items: flex-start; gap: 16px; }
   .av-row-info { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
@@ -362,14 +391,18 @@ CSS_TMPL = """<style id="av-main-css">
   .av-row-actions { margin-left: auto; display: inline-flex; align-items: center; gap: 12px; flex-shrink: 0; }
   .av-link-sep { width: 1px; height: 12px; background: var(--color-text-4); }
 
-  /* ---------- 文字链接（DS Link 契约约定 root 为 <a>、无类名，视觉由适配层承载） ---------- */
+  /* ---------- 文字链接（DS Link 契约约定 root 为 <a>、无类名，视觉由适配层承载） ----------
+     ★ 第 36 轮第 4 项：数字分身页内**所有链接** hover / focus-visible 一律转主题蓝
+       （--color-primary-6 = #3770F7）。卡头「编辑 SOUL.md ›」、行卡「查看 ›」「管理知识库」
+       「打开所在文件夹」全部走这条；箭头是 currentColor，会同步变色。 */
   .av-link {
     display: inline-flex; align-items: center; gap: 2px; padding: 0; border: none; background: none;
     cursor: pointer; font-family: inherit; font-size: var(--font-size-body-1); line-height: 16px;
     color: var(--av-ink-2); border-radius: var(--border-radius-medium);
     transition: color var(--transition-duration-2) var(--transition-timing-function-standard);
   }
-  .av-link:hover { color: var(--color-primary-6); }
+  .av-link:hover, .av-link:focus-visible { color: var(--color-primary-6); }
+  .av-link:focus-visible { outline: none; }
   .av-link-arrow { width: 12px; height: 12px; flex-shrink: 0; }
   .av-row .av-link { font-size: var(--font-size-body-3); line-height: 24px; }
   .av-row .av-link-arrow { width: 14px; height: 14px; }

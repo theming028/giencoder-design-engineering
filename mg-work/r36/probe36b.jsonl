@@ -1,0 +1,13 @@
+{"step": "avlink5", "data": {"t": "管理知识库", "c": "rgb(55, 112, 247)", "hover": true}}
+{"step": "avlink6", "data": {"t": "打开所在文件夹", "c": "rgb(55, 112, 247)", "hover": true}}
+{"step": "avlink7", "data": {"t": "打开所在文件夹", "c": "rgb(55, 112, 247)", "hover": true}}
+{"step": "chatmeta0", "data": {"t": "思考过程", "c": "rgb(55, 112, 247)", "hover": true}}
+{"step": "chatmeta1", "data": {"t": "任务完成，耗时 28m12s", "c": "rgb(55, 112, 247)", "hover": true}}
+{"step": "fileHover", "data": {"__parse_error__": "Expecting value: line 1 column 1 (char 0)", "raw": "✗ Evaluation error: SyntaxError: Invalid or unexpected token"}}
+{"step": "chatfileHover", "data": {"t": "端到端初始化 - 任务分析报告.md12", "c": "rgb(10, 10, 11)", "hover": true}}
+{"step": "fileTx", "data": {"__parse_error__": "Expecting value: line 1 column 1 (char 0)", "raw": "✗ Evaluation error: SyntaxError: Invalid or unexpected token"}}
+{"step": "narrow", "data": {"mainW": 256, "avW": 196, "actions": [293, -265, 196, 32], "info": [293, -461, 196, 176], "actionsPosition": "static", "overlap": false, "cardsScroll": [true, true, true, true], "cardW": 90}}
+{"step": "dragMin", "data": {"mainW": 796, "drawerW": 360, "varW": "360px"}}
+{"step": "dragMax", "data": {"mainW": 204, "drawerW": 952, "varW": "952px", "overflow": false}}
+{"step": "fullscreen", "data": {"isFs": true, "drawer": [268, 48, 1164, 844], "mainDisplay": "none", "gutterDisplay": "none"}}
+{"step": "afterEsc", "data": {"open": false, "visibility": "hidden", "width": "0px", "gutterDisplay": "none", "main": 1164}}

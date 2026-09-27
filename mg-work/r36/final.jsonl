@@ -1,0 +1,4 @@
+{"step": "default", "data": {"cardRadius": "8px", "cardBorder": "rgb(229, 229, 229)", "headerBg": "rgb(247, 247, 247)", "rowRadius": "8px", "rowBorder": "rgb(229, 229, 229)", "para": "rgb(31, 31, 31)", "btnColors": ["rgb(31, 31, 31)", "rgb(31, 31, 31)"], "thumbsLeft": 0, "bodyOverflow": "auto", "drawerParent": "flex min-h-0 flex-1 pb-2 pl-3 pr-2", "drawerVis": "hidden", "mainW": 1164}}
+{"step": "open", "data": {"sibling": true, "order": ["ASIDE", "MAIN", "DIV", "ASIDE"], "mainW": 676, "drawerW": 480, "gutterW": 8, "gapMainToGutter": 0, "gapGutterToDrawer": 0, "masks": 0}}
+{"step": "widen", "data": {"mainW": 480, "drawerW": 676, "varW": "676px", "toolbarOverflow": 0, "headStatic": "static"}}
+{"step": "narrow", "data": {"mainW": 676, "drawerW": 480, "varW": "480px", "toolbarOverflow": 0, "textareaW": 414}}

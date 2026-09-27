@@ -1,0 +1,35 @@
+feat(r36): 数字分身页 7 项调整 + Card 卡头浅灰底色下沉组件层
+
+- 1 卡体真滚动条：删除绝对定位的假 thumb `.av-card-thumb`（设计稿那条 6px 圆头灰条
+  本来就是卡体自身的滚动条）。卡改固定高 292 + `display:flex`，卡体
+  `flex:1;min-height:0;overflow-y:auto` + 6px 原生滚动条（thumb rgba(0,0,0,.16) r6）。
+  **默认不显示，内容溢出才出现**：1440 下不溢出即无条；打开 AI 侧栏挤窄 main 后四张卡全出条。
+- 2 `.giencoder-card-header` 浅灰底色**下沉到组件层**（设计稿实测 #F7F7F7 = --color-fill-1）：
+  `components.css` 加 background，`.giencoder-card` 补 `overflow:hidden`（否则浅灰从圆角外溢出）；
+  页面内联的是**压缩版** DS CSS，9 个页面 + DS 源 + `components/card.json`(tokensConsumed/states)
+  同步（`mg-work/r36/apply36.py`，逐字替换 + 幂等自检）。
+- 3 `.av-card` 圆角 4→8（--border-radius-large）、边框 --color-border-1→--color-border-2；
+  `.av-row` 同步（设计稿两者圆角实测相等 ≈6，DS 无 6 档，取 8）。
+- 4/6/7 文字色收敛：`.av-para`、头部「编辑」「通过对话完善数字分身」→ --color-text-1
+  （DS `.giencoder-btn-secondary` 本就是正文色，是适配层写歪了）；
+  所有链接 hover/focus-visible → --color-primary-6（含侧栏 `a.td-file` 标题）。
+- 5 AI 对话栏由「覆盖式抽屉」改为 **`<main>` 的同级侧栏**：脚本把 `#av-chat-drawer` 插进外壳
+  flex 行 `div:has(> main)`、紧跟 main 之后，中间插 `.av-chat-gutter`（8px = 间隔本身，
+  col-resize 可拖、双击复位）；遮罩层删除；main 由 flex:1 真正让位（1164→676）；
+  全屏 = flex 吃满整行 + `body:has()` 隐藏 main。1440 下可拉伸范围 480~676。
+
+踩坑（已写入 memory/MEMORY.md）：
+- 拖动上限必须扣掉**外壳左导航栏 256px**（直接用 hostRow.clientWidth → 上限偏大、
+  main 被压到 204）；改为「行 clientWidth − padding − 其它 flex 子项」。
+- `MIN_W=480` 由输入区工具栏自然宽 380 + composer 左右 40 决定（420 时仍差 8px）。
+- main 宽度由侧栏决定 ⇒ 头部动作区只能用 `@container`（`.av-main{container-type:inline-size}`）
+  自适应，`@media` 无效；断点 = 姓名行 252 + 动作区 280 + 余量 = 560。
+  ⚠️ `@container` 规则必须写在被覆盖规则**之后**，否则被 `position:absolute` 盖掉。
+
+- 同步更新 README.md：页面清单 6 → 9（补 kanban / req-kanban / task-detail）、
+  刷新 avatar 说明、新增「交付约定（组件复用与视图适配层）」与「工作方式（生成脚本 → 自检 → 实测）」两节、
+  目录结构与版本信息对齐现状。
+
+验证：`mg-work/r36/final36.sh`（1440×900 实测：卡 r8/#E5E5E5、卡头 #F7F7F7、正文 #1F1F1F、
+drawer 与 main 同父、gutter 8、mask 0、拉宽 676/min 480 时工具栏 overflow 0）；
+`check-syntax.py` ALL_OK、`check-classes.py` ALL_OK。

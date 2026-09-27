@@ -31,7 +31,8 @@ SRC = os.path.join(ROOT, "pages", "task-detail.html")     # 模块权威源
 DEST = os.path.join(ROOT, "pages", "avatar.html")          # 目标页
 START = "<!-- AV-CHAT-DRAWER"
 END = "<!-- /AV-CHAT-DRAWER -->"
-VERSION = "v1 —— 复用详情页右栏 AI 对话栏（第 34 轮第 2 项）"
+VERSION = ("v2 —— 复用详情页右栏 AI 对话栏；第 36 轮第 5 项：由覆盖式抽屉改为 "
+           "main 的同级侧栏（间隔 8px、可左右拉伸）")
 
 # 组成 AI 对话栏所需的类名前缀（含只在全屏态 / 文件卡里用到的几条）
 PREFIXES = (
@@ -179,8 +180,7 @@ CSS_TMPL = """<style id="av-chat-css">
     --td-ico-skill: #7766FD;
     /* 视图适配层几何 */
     --av-chat-w: var(--td-right-w);
-    --av-chat-top: var(--td-bar);   /* 外壳顶栏 48px，抽屉自其下开始 */
-    --av-chat-gap: 8px;             /* 外壳对内容区的 8px gutter（main 的 padding 实测 0 8 8 12） */
+    --av-chat-gap: 8px;             /* 与 <main> 之间的间隔（.av-chat-gutter 的宽度） */
     --av-chat-ease: var(--transition-timing-function-standard);
   }
 
@@ -188,48 +188,55 @@ CSS_TMPL = """<style id="av-chat-css">
 @@CSS@@
 
   /* ============================ 视图适配层 av- ============================ */
-  /* (1) 由「右栏固定列」改为「贴右侧的抽屉」。
-         ★ 盒子刻意对齐外壳 gutter（右 8 / 下 8 / 上 48），于是抽屉的盒子与
-           pages/task-detail.html 里 `.td-right` 的盒子**完全相同**（实测同为 480×844 @ x952）。
-           连带好处：模块内部所有元素坐标与详情页逐像素相等 —— 技能面板同为 438×320@973,391、
-           添加上下文菜单同为 180×92@985,731，无需任何二次校正。 */
+  /* (1) ★ 第 36 轮第 5 项：由「覆盖在页面上的抽屉」改为「与 <main> 平级的侧栏」。
+         · 挂载：脚本把本节点移进外壳的 flex 行 `div:has(> main)`，紧跟在 <main> 之后；
+         · 宽度：行内 flex 分配 —— main 是外壳自带的 `flex:1`，本节点 `flex:none` + 宽度变量，
+           打开时 main 被真正挤窄（不再遮住内容）；
+         · 间隔 8px：由 `.av-chat-gutter`（同行的拉伸把手）承担，它就是 main 与侧栏之间的间隙；
+         · 关闭：宽度 0 + 不占位（`display:none` 的把手），完全不影响排版。 */
   .av-chat-drawer {
-    position: fixed; top: var(--av-chat-top); right: var(--av-chat-gap); bottom: var(--av-chat-gap);
-    width: var(--av-chat-w); height: auto; z-index: 70;
-    border-radius: 8px;
-    box-shadow: -12px 0 32px rgba(15, 23, 42, 0.10);
-    transform: translateX(calc(100% + var(--av-chat-gap)));
-    transition: transform 260ms var(--av-chat-ease);
+    flex: none; width: 0; margin: 0; align-self: stretch;
+    height: auto; min-height: 0; z-index: 1;
+    overflow: hidden; opacity: 0; visibility: hidden;
+    transition: width 240ms var(--av-chat-ease), opacity 180ms var(--av-chat-ease),
+                visibility 0s linear 240ms;
   }
-  html[data-av-chat-open] .av-chat-drawer { transform: translateX(0); }
-  /* 全屏：横向铺满外壳内容区（左右各留 8px gutter），沿用模块里
-         .av-chat-drawer.is-fullscreen 的「内容 860px 居中」规则 */
-  .av-chat-drawer.is-fullscreen {
-    left: var(--av-chat-gap); right: var(--av-chat-gap); width: auto;
+  /* 关闭态宽度动画期间内部保持设计宽，避免内容被横向压扁 */
+  .av-chat-drawer > .td-right-inner { width: var(--av-chat-w); }
+  .av-chat-drawer.is-xdrag { transition: none; }
+  html[data-av-chat-open] .av-chat-drawer {
+    width: var(--av-chat-w); opacity: 1; visibility: visible;
+    transition: width 240ms var(--av-chat-ease), opacity 180ms var(--av-chat-ease), visibility 0s;
   }
 
-  /* (2) 遮罩：点击关闭；全屏态让位（不把整页压暗） */
-  .av-chat-mask {
-    position: fixed; left: 0; right: 0; top: var(--av-chat-top); bottom: 0; z-index: 65;
-    background: rgba(29, 33, 41, 0.16);
-    opacity: 0; pointer-events: none;
-    transition: opacity 260ms var(--av-chat-ease);
+  /* (2) 拉伸把手 = main 与侧栏之间的 8px 间隔本身（热区外扩，视觉仍是 8px 间隙） */
+  .av-chat-gutter {
+    flex: none; width: var(--av-chat-gap); align-self: stretch;
+    position: relative; cursor: col-resize; touch-action: none;
   }
-  html[data-av-chat-open] .av-chat-mask { opacity: 1; pointer-events: auto; }
-  html:has(.av-chat-drawer.is-fullscreen) .av-chat-mask { opacity: 0; pointer-events: none; }
+  html:not([data-av-chat-open]) .av-chat-gutter { display: none; }
+  .av-chat-gutter::before {
+    content: ""; position: absolute; left: 50%; top: 0; bottom: 0; width: 4px;
+    transform: translateX(-50%); border-radius: 2px; background: transparent;
+    transition: background-color 140ms var(--av-chat-ease);
+  }
+  .av-chat-gutter:hover::before, .av-chat-gutter.is-dragging::before { background: var(--color-fill-3); }
 
-  /* (3) 触发器落点：内容标题行（实测全页唯一）—— 改成左对齐 + 首子项吃掉剩余空间，
-         使「通过对话完善数字分身」与「新建分身」并排贴右，且不移动 React 的既有节点。 */
-  div.flex.items-start.justify-between { justify-content: flex-start; gap: 8px; }
-  div.flex.items-start.justify-between > *:first-child { margin-right: auto; }
+  /* (3) 全屏：侧栏吃满整行（main 让位），沿用模块里「内容 860px 居中」的规则 */
+  .av-chat-drawer.is-fullscreen { flex: 1 1 auto; width: auto; }
+  .av-chat-drawer.is-fullscreen > .td-right-inner { width: auto; }
+  body:has(.av-chat-drawer.is-fullscreen) div:has(> main) > main { display: none; }
+  body:has(.av-chat-drawer.is-fullscreen) .av-chat-gutter { display: none; }
 
-  /* (4) 关闭态不参与命中测试（抽屉已平移出屏，遮罩仅剩过渡） */
-  html:not([data-av-chat-open]) .av-chat-drawer,
-  html:not([data-av-chat-open]) .av-chat-mask { pointer-events: none; }
+  /* (4) 关闭态不参与命中测试 */
+  html:not([data-av-chat-open]) .av-chat-drawer { pointer-events: none; }
+
+  /* (5) ★ 第 36 轮第 4 项：侧栏里的链接同样 hover 转主题蓝（文件卡 `a.td-file` 的标题） */
+  .av-chat-drawer .td-file:hover .td-file-tx,
+  .av-chat-drawer .td-file:focus-visible .td-file-tx { color: var(--color-primary-6); }
 </style>"""
 
 HTML_TMPL = """<!-- ===== AV-CHAT-DRAWER @@VER@@ ===== -->
-  <div class="av-chat-mask" data-av-chat-mask="1" aria-hidden="true"></div>
   <aside class="td-right av-chat-drawer" id="av-chat-drawer" aria-label="AI 会话" aria-hidden="true">
 @@INNER@@
   </aside>"""
@@ -239,8 +246,7 @@ JS_TMPL = """<script id="av-chat-js">
   var drawer = document.getElementById('av-chat-drawer');
   if (!drawer) return;
   var root = document.documentElement;
-  var mask = document.querySelector('[data-av-chat-mask]');
-  var wrap = drawer;            /* 模块本体用 wrap 作用域，这里指向抽屉 */
+  var wrap = drawer;            /* 模块本体用 wrap 作用域，这里指向侧栏 */
 
   /* ==================================================================
      模块本体：对话框三个弹层（add / skill / select）
@@ -251,12 +257,12 @@ JS_TMPL = """<script id="av-chat-js">
      ================================================================== */
 @@JS@@
 
-  /* ==================== 抽屉开合 ====================
+  /* ==================== 开合（★ 第 36 轮第 5 项：侧栏，不是抽屉） ====================
      ⚠️ 属性必须分成两个，不能共用一个（第 34 轮踩坑）：
-       · `html[data-av-chat-open]`  = 抽屉的**开合状态**，写在 <html> 上，供 CSS 驱动动画；
+       · `html[data-av-chat-open]`  = **开合状态**，写在 <html> 上，供 CSS 驱动宽度动画；
        · `[data-av-chat-toggle]`    = **触发器**标记，只写在按钮上。
      若两者共用一个属性名，`e.target.closest('[data-av-chat-open]')` 会顺着祖先链
-     命中 <html> 本身 —— 于是「抽屉打开时，抽屉内任何一次点击都会把它关掉」
+     命中 <html> 本身 —— 于是「侧栏打开时，栏内任何一次点击都会把它关掉」
      实测栈：closeChat ← toggleChat ← 点击「技能」按钮。 */
   function isOpen() { return root.hasAttribute('data-av-chat-open'); }
   function syncTriggers() {
@@ -264,6 +270,8 @@ JS_TMPL = """<script id="av-chat-js">
       b.setAttribute('aria-expanded', isOpen() ? 'true' : 'false');
     });
   }
+  /* 关闭后焦点会随 visibility:hidden 落到 body，交还触发器更符合键盘习惯 */
+  var lastTrigger = null;
   function openChat() {
     root.setAttribute('data-av-chat-open', '');
     drawer.setAttribute('aria-hidden', 'false');
@@ -274,6 +282,7 @@ JS_TMPL = """<script id="av-chat-js">
     root.removeAttribute('data-av-chat-open');
     drawer.setAttribute('aria-hidden', 'true');
     syncTriggers();
+    if (lastTrigger && lastTrigger.isConnected) lastTrigger.focus();
   }
   function toggleChat() { isOpen() ? closeChat() : openChat(); }
 
@@ -282,9 +291,115 @@ JS_TMPL = """<script id="av-chat-js">
     var t = e.target && e.target.closest && e.target.closest('[data-av-chat-toggle]');
     if (!t) return;
     e.preventDefault();
+    lastTrigger = t;
     toggleChat();
   }, true);
-  if (mask) mask.addEventListener('click', closeChat);
+
+  /* ==================== 挂载：成为 <main> 的同级侧栏 ====================
+     外壳的 flex 行 = `div:has(> main)`（`flex min-h-0 flex-1 pb-2 pl-3 pr-2`，内含左导航 + main）。
+     React 不认识本节点，故每次 DOM 变化都检查一次：一旦被协调移除就重新插回。
+     插入顺序：… <main> → [gutter 8px] → <aside>。 */
+  var GAP = 8;                        /* 与 --av-chat-gap 同值 */
+  /* MIN_W=480：侧栏可用宽 = MIN_W − 40（.td-composer 左右 20），必须 ≥ 输入区工具栏自然宽 380，
+     否则工具栏溢出（实测 420 → 差 8px；360 → 差 68px）。
+     MAIN_MIN=480：main 低于此宽后卡片只剩 ~90px，不可用。（1440 下范围 = 480 ~ 676） */
+  var DEFAULT_W = 480, MIN_W = 480, MAIN_MIN = 480;
+  var hostRow = null, hostMain = null, gutter = null;
+
+  function place() {
+    if (hostRow && hostRow.isConnected && drawer.parentElement === hostRow
+        && gutter && gutter.nextElementSibling === drawer) return true;
+    hostRow = document.querySelector('div:has(> main)');
+    if (!hostRow) return false;
+    hostMain = hostRow.querySelector(':scope > main') || hostRow.querySelector('main');
+    if (!hostMain) return false;
+    if (!gutter) {
+      gutter = document.createElement('div');
+      gutter.className = 'av-chat-gutter';
+      gutter.setAttribute('data-av-chat-gutter', '1');
+      gutter.setAttribute('role', 'separator');
+      gutter.setAttribute('aria-orientation', 'vertical');
+      gutter.setAttribute('aria-label', '调整 AI 对话栏宽度');
+      bindGutter();
+    }
+    hostRow.insertBefore(gutter, hostMain.nextSibling);
+    hostRow.insertBefore(drawer, gutter.nextSibling);
+    clampNow();
+    return true;
+  }
+
+  /* ==================== 宽度拉伸（只改侧栏宽度，main 由 flex:1 自动让位） ==================== */
+  /* ⚠️ 可用宽 ≠ 行宽：同一行里还有外壳自带的**左导航栏**（本次实测 256px）。
+     用 hostRow.clientWidth 会把它算进来 → 上限偏大 256px、main 被压到 204。
+     故必须扣掉「除 main / gutter / 本侧栏之外」的其它 flex 子项。 */
+  function availW() {
+    if (!hostRow) return 0;
+    var cs = getComputedStyle(hostRow);
+    var w = hostRow.clientWidth - parseFloat(cs.paddingLeft || 0) - parseFloat(cs.paddingRight || 0);
+    Array.prototype.forEach.call(hostRow.children, function (c) {
+      if (c === hostMain || c === gutter || c === drawer) return;
+      w -= c.getBoundingClientRect().width;
+    });
+    return w;
+  }
+  function curW() {
+    var v = parseFloat(getComputedStyle(root).getPropertyValue('--av-chat-w'));
+    return isNaN(v) ? DEFAULT_W : v;
+  }
+  /* 上限 = 可用宽 − 间隔 − main 最小宽；下限 MIN_W。宽度不够时下限优先。 */
+  function clampW(w) {
+    var max = Math.max(MIN_W, availW() - GAP - MAIN_MIN);
+    return Math.max(MIN_W, Math.min(Math.round(w), max));
+  }
+  function setW(w) { root.style.setProperty('--av-chat-w', clampW(w) + 'px'); }
+  /* 视口变化后重新钳位（沿用详情页第 35 轮第 1 项的做法：运行中改视口必须重夹） */
+  var raf = 0;
+  function clampNow() {
+    var w = curW();
+    var c = clampW(w);
+    if (c !== w) root.style.setProperty('--av-chat-w', c + 'px');
+  }
+  window.addEventListener('resize', function () {
+    if (raf) return;
+    raf = requestAnimationFrame(function () { raf = 0; clampNow(); });
+  });
+
+  function bindGutter() {
+    gutter.addEventListener('pointerdown', function (e) {
+      if (e.button !== 0) return;
+      e.preventDefault();
+      var startX = e.clientX;
+      var startW = Math.round(drawer.getBoundingClientRect().width) || DEFAULT_W;
+      gutter.classList.add('is-dragging');
+      drawer.classList.add('is-xdrag');
+      document.body.style.cursor = 'col-resize';
+      document.body.style.userSelect = 'none';
+      function onMove(ev) { setW(startW - (ev.clientX - startX)); }
+      function onUp() {
+        window.removeEventListener('pointermove', onMove, true);
+        window.removeEventListener('pointerup', onUp, true);
+        window.removeEventListener('pointercancel', onUp, true);
+        gutter.classList.remove('is-dragging');
+        drawer.classList.remove('is-xdrag');
+        document.body.style.cursor = '';
+        document.body.style.userSelect = '';
+      }
+      window.addEventListener('pointermove', onMove, true);
+      window.addEventListener('pointerup', onUp, true);
+      window.addEventListener('pointercancel', onUp, true);
+    });
+    /* 双击 = 复位默认宽 */
+    gutter.addEventListener('dblclick', function () { setW(DEFAULT_W); });
+  }
+
+  if (!place()) {
+    /* React 首帧可能晚于本脚本 */
+    var mo0 = new MutationObserver(function () { if (place()) mo0.disconnect(); });
+    mo0.observe(document.body, { childList: true, subtree: true });
+  }
+  /* 常驻观察：React 若把节点移除/移动，立刻插回（place() 命中即早退，开销可忽略） */
+  var moKeep = new MutationObserver(function () { place(); });
+  moKeep.observe(document.body, { childList: true, subtree: true });
 
   /* ==================== 全屏（复用模块顶栏的全屏按钮） ==================== */
   var fsBtn = drawer.querySelector('[data-td-fullscreen]');
