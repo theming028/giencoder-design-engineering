@@ -18,7 +18,8 @@ import sys
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 DS = os.path.join(ROOT, "giencoder-design-system")
 
-PAGES = sys.argv[1:] or [os.path.join(ROOT, "pages", "task-detail.html")]
+PAGES = sys.argv[1:] or [os.path.join(ROOT, "pages", p)
+                        for p in ("task-detail.html", "avatar.html")]
 
 CLASS_RE = re.compile(r'class=\\?"([^"\\]+)\\?"')
 GNC_RE = re.compile(r"\bgiencoder-[A-Za-z0-9_-]+")

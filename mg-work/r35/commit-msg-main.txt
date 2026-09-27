@@ -1,0 +1,29 @@
+feat(avatar): 数字分身主内容按设计稿还原（第35轮第2项）
+
+对照设计稿节点 1345:18487 还原 pages/avatar.html 的主内容，内容宽按用户要求取 860px。
+
+做法（与第 34 轮同一路子：在产物上打补丁、幂等、可升级）
+- React 层：bundle 里 function Dt(){...} 的渲染体由「花括号配平」在构建期定位后，
+  换成 <div class="av-main"> 空壳。React 对该 div 无子节点声明，故之后注入的
+  innerHTML 不会被 React 协调覆盖。
+- 内容层：完整还原标记放在 <template id="av-main-tpl">（惰性、不渲染），由 av-main-js
+  在 React 挂载后填进 .av-main（data-av-main-ready 幂等标记 + MutationObserver 兜底首帧时序）。
+- 样式层：av-* 为视图适配层，一律作用在 DS 契约类（.giencoder-card / -card-header /
+  -card-header-title / -card-header-extra / -card-body / -avatar / -tag / -btn）之上，
+  不改组件本体；颜色/圆角/字号全部走 token，两处非 token 色（#6B6B6B / #A9A9A9）
+  收敛为 --av-ink-2 / --av-ink-4 局部变量。
+
+实测（agent-browser，视口 1440x900）
+- 几何逐项 = 设计稿：整页 1200 / 头部 110 / 页分隔线 y130 / 卡片网格 y150 高 600
+  （四卡 422x292，列距 16 行距 16，两行分别 y150 与 y458）/ 底部三行卡 y766、y900、y1034
+  各 118 高 / 页脚 y1184 高 16 宽 240。
+- 内容宽 860px 生效；1920 宽视口下仍为 860（max-width）；头部动作区右贴齐内容右边界，
+  头像 104x104，文案区左边界 = 头像右边 + gap 20。
+- 抽屉联动：头部触发器可唤起右侧对话栏，与详情页右栏同盒 [952,48,480,844]，Esc 可关闭。
+
+验收
+- check35-main：56/56 ALL_OK（静态 20 组 + 实测 18 组 + 幂等复跑 1 组）
+- 回归：check30 22 / check31 135 / check32 53 / check32b 97 / check33 119 / check34 75 /
+  check35 41 = 542 项 ALL_OK
+- check-classes：task-detail 与 avatar 两页虚构类名差集 NONE
+- check-syntax：两页 ALL_OK

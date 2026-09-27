@@ -1,0 +1,17 @@
+feat(task-detail): 布局记忆 —— 左右栏互换 / 栏宽 / 折叠记住用户选择（第35轮第1项）
+
+- 新增 localStorage 布局记忆（键 giencoder:td-cols:v1，带版本号便于作废）
+  存 {swapped, collapsed, rightW}；只在「操作结束」落盘（endDrag / 换位判定 /
+  collapse / expand），pointermove 里绝不写（同步 IO 会拖卡拖动）。
+- 恢复时用 maxRightW() 钳位（换显示器 / 改窗宽后旧值可能放不下），
+  layoutRestoring 标志防止恢复过程回写覆盖原始记忆。
+- 新增运行期 resize 重新钳位：实测 1440→1100 时右栏 644 会溢出容器 1084
+  （480+8+644=1132），现钳到 596 且**不落盘** → 视口变回 1440 后 644 原样复原。
+- 双击拖动条 = 清除记忆 + 回默认布局（否则被记住的「互换 + 窄栏」会一路带到
+  下次打开，用户会以为页面坏了）；拖动条补 title 提示。
+- 实测（agent-browser 1440×900）：互换 reload 保持 x8/496；栏宽 644 reload 保持；
+  窄视口钳 596 且记忆仍 644；双击后回 480 且 store=null 并持久。
+- mg-work/r34/build-avatar.py：injectTrigger 改为先认页面上已存在的
+  [data-av-chat-toggle]（为第 35 轮第 2 项主内容还原做前置）。
+- 断言器 mg-work/r35/check35.py 41/41 ALL_OK；回归 check30/31/32/32b/33/34 +
+  check-classes 全绿（合计 542 项 ALL_OK）；check-syntax ALL_OK。

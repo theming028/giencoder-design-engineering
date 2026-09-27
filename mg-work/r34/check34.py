@@ -134,11 +134,15 @@ chk("1p", "注入段无残留骨架占位符 __XXX__（注释中的历史说明�
     not re.findall(r"__[A-Z][A-Z_]*__", _no_cmt),
     str(re.findall(r"__[A-Z][A-Z_]*__", _no_cmt)[:5]))
 
-# 原页面内容未被破坏
-chk("1q", "原内容容器 `.mx-auto … max-w-3xl … gap-5` 保留（第 1 项尚未动它）",
-    "mx-auto flex w-full max-w-3xl flex-col gap-5" in AV)
-chk("1r", "原「新建分身」主按钮与 3 张卡片的文案保留",
-    "新建分身" in AV and "AI Coding 产品 UI/UX 设计师分身" in AV and "自动化观察员" in AV)
+# 原页面内容：第 35 轮第 2 项已按设计稿 1345:18487 还原主内容，
+# 旧的「数字分身列表」容器与文案被**有意**替换（原断言 1q/1r 的语义随之更新）。
+chk("1q", "主内容已还原：bundle 的 Dt() 渲染体换成 .av-main 空壳（旧 max-w-3xl 容器已不在）",
+    "mx-auto flex w-full max-w-3xl flex-col gap-5" not in AV
+    and 'className:`av-main`,id:`av-main`' in AV)
+chk("1r", "旧列表文案已移除，第 35 轮第 2 项注入段 AV-MAIN 成对存在",
+    "新建分身" not in re.sub(r"/\*.*?\*/", "", AV, flags=re.S)
+    and "自动化观察员" not in AV
+    and AV.count("<!-- AV-MAIN") == 1 and AV.count("<!-- /AV-MAIN -->") == 1)
 chk("1s", "外壳 SHELL-TABS-FIX 段未被破坏", "<!-- /SHELL-TABS-FIX -->" in AV)
 
 # 契约类名自检：注入段用到的 giencoder-* 必须都在 DS components.css 里

@@ -1,0 +1,681 @@
+✅ 成功获取节点代码
+- 节点: 容器 53 (1345:18487)
+- 根节点: 263:06824
+- 父容器方向: row
+- Server 资源上下文: 8 个临时 Artifact。
+- 后续动作: 当前仅做“读取/同步上下文”，等待用户明确说明修改内容。
+- 充满语义提示(parentDirection=row): 宽度充满=主轴充满(优先 flex-1)；高度充满=交叉轴充满(优先 self-stretch)。
+
+代码内容：
+
+<div
+  data-node-id="1345:18487"
+  data-name="容器 53"
+  style="width: 800px; height: 1200px; position: relative">
+  <div
+    data-node-id="1345:18437"
+    data-name="容器 34"
+    style="width: 800px; height: 110px; position: absolute; left: 0px; top: 0px; z-index: 0">
+    <div
+      data-node-id="1345:18431"
+      data-name="容器 32"
+      style="width: 128px; height: 28px; position: absolute; left: 124px; top: 0px; z-index: 0">
+      <ui-component
+        data-node-id="263:08185"
+        data-name="text/title"
+        style="width: 40px; height: 28px; display: flex; justify-content: flex-start; align-items: flex-end; gap: 8px"
+        name="text/title"
+        props="{}"></ui-component>
+      <div
+        data-node-id="263:06913"
+        data-name="组 9934"
+        style="width: 80px; height: 24px; position: absolute; left: 48px; top: 2px; z-index: 1">
+        <img
+          data-node-id="263:06914"
+          data-name="矩形 382"
+          style="border-radius: 24px; position: absolute; left: 0px; top: 0px; z-index: 0; width: 80px; height: 24px; object-fit: cover"
+          src="./asset/images/矩形-382-263-06914.png"
+          title="矩形 382" />
+        <div
+          data-node-id="263:06915"
+          data-name="text/title"
+          style="width: 80px; height: 24px; display: flex; justify-content: center; align-items: center; gap: 4px; padding-top: 4px; padding-bottom: 4px; padding-right: 8px; padding-left: 8px; border-radius: 24px; position: absolute; left: 0px; top: 0px; z-index: 1; overflow: hidden">
+          <img
+            src="./asset/icons/svg_eb5d9446.svg"
+            data-node-id="321:04663"
+            data-name="容器"
+            style="width: 12px; height: 12px; color: #FFFFFF" />
+          <span
+            data-node-id="263:06921"
+            data-name="数字分身"
+            style="color: #FFFFFF; font-size: 12px; font-family: MiSans; font-weight: 500; line-height: 16px">
+            数字分身
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      data-node-id="1345:18433"
+      data-name="容器 33"
+      style="width: 104px; height: 104px; position: absolute; left: 0px; top: 0px; z-index: 1">
+      <div
+        data-node-id="263:06901"
+        data-name="矩形 379"
+        style="position: absolute; left: 0px; top: 0px; z-index: 0">
+        <img src="./asset/icons/svg_ac8d2469.svg" />
+      </div>
+      <div
+        data-node-id="263:06911"
+        data-name="矩形 459"
+        style="width: 88px; height: 88px; background: #F7F7F7; border-radius: 4px; position: absolute; left: 8px; top: 8px; z-index: 1"></div>
+      <span
+        data-node-id="263:06904"
+        data-name="🎃"
+        style="color: #3D3D3D; font-size: 40px; font-family: MiSans; line-height: 53px; position: absolute; left: 27px; top: 25px; z-index: 2">
+        🎃
+      </span>
+    </div>
+    <div
+      data-node-id="1345:18424"
+      data-name="容器 30"
+      style="width: 676px; height: 74px; position: absolute; left: 124px; top: 36px; z-index: 2">
+      <ui-component
+        data-node-id="263:07624"
+        data-name="text/text"
+        style="width: 156px; height: 22px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+        name="text/text"
+        props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+        text='{"中电金信":"创建于 2026年06月25日"}'></ui-component>
+      <ui-component
+        data-node-id="263:07618"
+        data-name="text/text"
+        style="width: 676px; height: 44px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+        name="text/text"
+        props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+        text='{"中电金信":"学习我的聊天风格、知识库和人格画像，以结果导向、事实至上的心智模型自主执行任务，能像我一样思考、沟通和决策，同时保持人格一致性和战略对齐。"}'></ui-component>
+    </div>
+    <div
+      data-node-id="1345:18429"
+      data-name="容器 31"
+      style="width: 260px; height: 32px; position: absolute; left: 540px; top: 0px; z-index: 3">
+      <ui-component
+        data-node-id="263:08077"
+        data-name="Link"
+        style="width: 182px; height: 32px; display: flex; justify-content: flex-start; align-items: center; gap: 4px"
+        name="Link"
+        props='{"类型":"默认","状态":"默认"}'
+        text='{"文字链接":"通过对话完善数字分身"}'></ui-component>
+      <ui-component
+        data-node-id="263:12193"
+        data-name="Link"
+        style="width: 70px; height: 32px; display: flex; justify-content: flex-start; align-items: center; gap: 4px"
+        name="Link"
+        props='{"类型":"默认","状态":"默认"}'
+        text='{"文字链接":"编辑"}'></ui-component>
+    </div>
+  </div>
+  <div
+    data-node-id="1345:18463"
+    data-name="容器 41"
+    style="width: 392px; height: 292px; position: absolute; left: 0px; top: 458px; z-index: 1">
+    <div
+      data-node-id="263:06898"
+      data-name="矩形 389"
+      style="position: absolute; left: 0px; top: 0px; z-index: 0">
+      <img src="./asset/icons/svg_67d69e2c.svg" />
+    </div>
+    <ui-component
+      data-node-id="263:08176"
+      data-name="text/title"
+      style="width: 56px; height: 24px; display: flex; justify-content: flex-start; align-items: flex-end; gap: 8px"
+      name="text/title"
+      props="{}"></ui-component>
+    <div
+      data-node-id="263:06882"
+      data-name="Link"
+      style="width: 123px; height: 24px; display: flex; justify-content: flex-start; align-items: center; gap: 2px; border-radius: 4px; position: absolute; left: 249px; top: 6px; z-index: 2; overflow: hidden">
+      <span data-node-id="263:06883" data-name="编辑 behavior.md">
+        <span
+          style="color: #6B6B6B; font-size: 12px; font-family: MiSans; line-height: 16px">
+          编辑
+        </span>
+        <span
+          style="color: #6B6B6B; font-size: 12px; font-family: MiSans; line-height: 16px">
+          behavior
+        </span>
+      </span>
+      <ui-icon
+        data-node-id="263:08062"
+        data-name="direction/right"
+        style="width: 12px; height: 12px; color: #6B6B6B"
+        name="direction/right" />
+    </div>
+    <div
+      data-node-id="263:06892"
+      data-name="矩形 391"
+      style="position: absolute; left: 0px; top: 36px; z-index: 3">
+      <img src="./asset/icons/svg_97565135.svg" />
+    </div>
+    <div
+      data-node-id="263:06895"
+      data-name="矩形 219"
+      style="width: 6px; height: 180px; background: rgba(0,0,0,0.16); border-radius: 6px; position: absolute; left: 382px; top: 40px; z-index: 4"></div>
+    <div
+      data-node-id="1345:18459"
+      data-name="容器 37"
+      style="width: 228px; height: 44px; position: absolute; left: 20px; top: 56px; z-index: 5">
+      <ui-component
+        data-node-id="263:07594"
+        data-name="text/text"
+        style="width: 84px; height: 22px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+        name="text/text"
+        props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+        text='{"中电金信":"先理解再行动"}'></ui-component>
+      <ui-component
+        data-node-id="263:07600"
+        data-name="text/text"
+        style="width: 228px; height: 20px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+        name="text/text"
+        props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+        text='{"中电金信":"复杂任务先梳理全貌，避免方向错误返工。"}'></ui-component>
+    </div>
+    <div
+      data-node-id="1345:18460"
+      data-name="容器 38"
+      style="width: 288px; height: 44px; position: absolute; left: 20px; top: 112px; z-index: 6">
+      <ui-component
+        data-node-id="263:07588"
+        data-name="text/text"
+        style="width: 84px; height: 22px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+        name="text/text"
+        props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+        text='{"中电金信":"说明推理过程"}'></ui-component>
+      <ui-component
+        data-node-id="263:07582"
+        data-name="text/text"
+        style="width: 288px; height: 20px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+        name="text/text"
+        props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+        text='{"中电金信":"重要决策时展示你的思路，让我能判断逻辑是否正确。"}'></ui-component>
+    </div>
+    <div
+      data-node-id="1345:18461"
+      data-name="容器 39"
+      style="width: 336px; height: 44px; position: absolute; left: 20px; top: 168px; z-index: 7">
+      <ui-component
+        data-node-id="263:07612"
+        data-name="text/text"
+        style="width: 56px; height: 22px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+        name="text/text"
+        props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+        text='{"中电金信":"权衡利弊"}'></ui-component>
+      <ui-component
+        data-node-id="263:07606"
+        data-name="text/text"
+        style="width: 336px; height: 20px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+        name="text/text"
+        props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+        text='{"中电金信":"有多种方案时列出各自优劣，给出你的倾向但让我做最终决定。"}'></ui-component>
+    </div>
+    <div
+      data-node-id="1345:18462"
+      data-name="容器 40"
+      style="width: 288px; height: 44px; position: absolute; left: 20px; top: 224px; z-index: 8">
+      <ui-component
+        data-node-id="263:07576"
+        data-name="text/text"
+        style="width: 56px; height: 22px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+        name="text/text"
+        props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+        text='{"中电金信":"指出风险"}'></ui-component>
+      <ui-component
+        data-node-id="263:07570"
+        data-name="text/text"
+        style="width: 288px; height: 20px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+        name="text/text"
+        props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+        text='{"中电金信":"看到潜在问题或边界情况时主动提醒，即使我没有问。"}'></ui-component>
+    </div>
+  </div>
+  <div
+    data-node-id="1345:18445"
+    data-name="容器 35"
+    style="width: 392px; height: 292px; position: absolute; left: 0px; top: 150px; z-index: 2">
+    <div
+      data-node-id="263:06874"
+      data-name="矩形 388"
+      style="position: absolute; left: 0px; top: 0px; z-index: 0">
+      <img src="./asset/icons/svg_0aa7e545.svg" />
+    </div>
+    <div
+      data-node-id="263:06880"
+      data-name="矩形 390"
+      style="position: absolute; left: 0px; top: 36px; z-index: 1">
+      <img src="./asset/icons/svg_97565135.svg" />
+    </div>
+    <ui-component
+      data-node-id="263:08167"
+      data-name="text/title"
+      style="width: 56px; height: 24px; display: flex; justify-content: flex-start; align-items: flex-end; gap: 8px"
+      name="text/title"
+      props="{}"></ui-component>
+    <div
+      data-node-id="263:06875"
+      data-name="Link"
+      style="width: 95px; height: 24px; display: flex; justify-content: flex-start; align-items: center; gap: 2px; border-radius: 4px; position: absolute; left: 277px; top: 6px; z-index: 3; overflow: hidden">
+      <span
+        data-node-id="263:06876"
+        data-name="编辑 SOUL.md"
+        style="color: #6B6B6B; font-size: 12px; font-family: MiSans; line-height: 16px">
+        编辑 SOUL.md
+      </span>
+      <ui-icon
+        data-node-id="263:08061"
+        data-name="direction/right"
+        style="width: 12px; height: 12px; color: #6B6B6B"
+        name="direction/right" />
+    </div>
+    <ui-component
+      data-node-id="263:07564"
+      data-name="text/text"
+      style="width: 352px; height: 154px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+      name="text/text"
+      props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+      text='{"中电金信":"我作为助手的核心行事准则：以务实交付取代空话，保持独立思考与立场，凡事先自行推演、带着方案而非问题沟通，以克制的向外行动和果断的内在学习建立可信度，并始终珍视用户托付的隐私与信任；在边界上严守隐私、不擅作主张、不提交半成品、不捏造信息，准确优先于自信；气质上追求做一个有主见、有温度的协作者，该简洁时简洁，该深入时深入，复..."}'></ui-component>
+  </div>
+  <div
+    data-node-id="1345:18446"
+    data-name="容器 36"
+    style="width: 392px; height: 292px; position: absolute; left: 408px; top: 150px; z-index: 3">
+    <div
+      data-node-id="263:06846"
+      data-name="矩形 388"
+      style="position: absolute; left: 0px; top: 0px; z-index: 0">
+      <img src="./asset/icons/svg_0aa7e545.svg" />
+    </div>
+    <div
+      data-node-id="263:06845"
+      data-name="矩形 390"
+      style="position: absolute; left: 0px; top: 36px; z-index: 1">
+      <img src="./asset/icons/svg_97565135.svg" />
+    </div>
+    <div
+      data-node-id="263:06847"
+      data-name="组 9978"
+      style="width: 225px; height: 84px; position: absolute; left: 20px; top: 56px; z-index: 2">
+      <ui-component
+        data-node-id="263:07552"
+        data-name="text/text"
+        style="width: 56px; height: 22px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+        name="text/text"
+        props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+        text='{"中电金信":"基本信息"}'></ui-component>
+      <ui-component
+        data-node-id="263:07558"
+        data-name="text/text"
+        style="width: 225px; height: 60px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+        name="text/text"
+        props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+        text='{"中电金信":"󰀠姓名：邵先生\n󰀠机构：中电金信研究院\n󰀠角色：覆盖产品/设计/文档/办公自动化"}'></ui-component>
+    </div>
+    <div
+      data-node-id="263:06844"
+      data-name="组 9979"
+      style="width: 277px; height: 124px; position: absolute; left: 20px; top: 152px; z-index: 3">
+      <ui-component
+        data-node-id="263:07540"
+        data-name="text/text"
+        style="width: 56px; height: 22px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+        name="text/text"
+        props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+        text='{"中电金信":"沟通偏好"}'></ui-component>
+      <ui-component
+        data-node-id="263:07546"
+        data-name="text/text"
+        style="width: 277px; height: 100px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+        name="text/text"
+        props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+        text='{"中电金信":"󰀠中文沟通\n󰀠文风简洁犀利幽默（Luke Wen/听风的蚕风格）\n󰀠结构化、直接\n󰀠一次问一个问题，选择题优先（提供2-3个选项）\n󰀠及时确认：每个关键理解都要确认"}'></ui-component>
+    </div>
+    <div
+      data-node-id="263:06843"
+      data-name="矩形 219"
+      style="width: 6px; height: 72px; background: rgba(0,0,0,0.16); border-radius: 6px; position: absolute; left: 382px; top: 40px; z-index: 4"></div>
+    <ui-component
+      data-node-id="263:08104"
+      data-name="text/title"
+      style="width: 56px; height: 24px; display: flex; justify-content: flex-start; align-items: flex-end; gap: 8px"
+      name="text/title"
+      props="{}"></ui-component>
+    <div
+      data-node-id="263:06848"
+      data-name="Link"
+      style="width: 94px; height: 24px; display: flex; justify-content: flex-start; align-items: center; gap: 2px; border-radius: 4px; position: absolute; left: 278px; top: 6px; z-index: 6; overflow: hidden">
+      <span
+        data-node-id="263:06849"
+        data-name="编辑 USER.md"
+        style="color: #6B6B6B; font-size: 12px; font-family: MiSans; line-height: 16px">
+        编辑 USER.md
+      </span>
+      <ui-icon
+        data-node-id="263:08058"
+        data-name="direction/right"
+        style="width: 12px; height: 12px; color: #6B6B6B"
+        name="direction/right" />
+    </div>
+  </div>
+  <div
+    data-node-id="1345:18468"
+    data-name="容器 46"
+    style="width: 392px; height: 292px; position: absolute; left: 408px; top: 458px; z-index: 4">
+    <div
+      data-node-id="263:06829"
+      data-name="矩形 389"
+      style="position: absolute; left: 0px; top: 0px; z-index: 0">
+      <img src="./asset/icons/svg_0aa7e545.svg" />
+    </div>
+    <div
+      data-node-id="263:06840"
+      data-name="矩形 391"
+      style="position: absolute; left: 0px; top: 36px; z-index: 1">
+      <img src="./asset/icons/svg_97565135.svg" />
+    </div>
+    <div
+      data-node-id="263:06841"
+      data-name="矩形 219"
+      style="width: 6px; height: 100px; background: rgba(0,0,0,0.16); border-radius: 6px; position: absolute; left: 382px; top: 40px; z-index: 2"></div>
+    <div
+      data-node-id="1345:18467"
+      data-name="容器 45"
+      style="width: 201px; height: 44px; position: absolute; left: 20px; top: 56px; z-index: 3">
+      <ui-component
+        data-node-id="263:07498"
+        data-name="text/text"
+        style="width: 112px; height: 22px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+        name="text/text"
+        props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+        text='{"中电金信":"编码任务执行协议"}'></ui-component>
+      <ui-component
+        data-node-id="263:07492"
+        data-name="text/text"
+        style="width: 201px; height: 20px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+        name="text/text"
+        props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+        text='{"中电金信":"8 步主流程 + Harness 强制 5 步检查"}'></ui-component>
+    </div>
+    <div
+      data-node-id="1345:18466"
+      data-name="容器 44"
+      style="width: 332px; height: 44px; position: absolute; left: 20px; top: 112px; z-index: 4">
+      <ui-component
+        data-node-id="263:07534"
+        data-name="text/text"
+        style="width: 131px; height: 22px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+        name="text/text"
+        props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+        text='{"中电金信":"OADA 自我进化循环"}'></ui-component>
+      <ui-component
+        data-node-id="263:07528"
+        data-name="text/text"
+        style="width: 332px; height: 20px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+        name="text/text"
+        props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+        text='{"中电金信":"Observe→Analyze→Decide→Act，含快记/完整两种日志格式"}'></ui-component>
+    </div>
+    <div
+      data-node-id="1345:18465"
+      data-name="容器 43"
+      style="width: 268px; height: 44px; position: absolute; left: 20px; top: 168px; z-index: 5">
+      <ui-component
+        data-node-id="263:07510"
+        data-name="text/text"
+        style="width: 173px; height: 22px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+        name="text/text"
+        props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+        text='{"中电金信":"OpenSpec 主动触发工作流"}'></ui-component>
+      <ui-component
+        data-node-id="263:07504"
+        data-name="text/text"
+        style="width: 268px; height: 20px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+        name="text/text"
+        props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+        text='{"中电金信":"4 步 + PRD 逐章节确认 + 技能链 + 输出路径规范"}'></ui-component>
+    </div>
+    <div
+      data-node-id="1345:18464"
+      data-name="容器 42"
+      style="width: 268px; height: 44px; position: absolute; left: 20px; top: 224px; z-index: 6">
+      <ui-component
+        data-node-id="263:07516"
+        data-name="text/text"
+        style="width: 112px; height: 22px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+        name="text/text"
+        props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+        text='{"中电金信":"产品设计工作流程"}'></ui-component>
+      <ui-component
+        data-node-id="263:07522"
+        data-name="text/text"
+        style="width: 268px; height: 20px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column"
+        name="text/text"
+        props='{"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}'
+        text='{"中电金信":"4 步 + PRD 逐章节确认 + 技能链 + 输出路径规范"}'></ui-component>
+    </div>
+    <ui-component
+      data-node-id="263:08095"
+      data-name="text/title"
+      style="width: 56px; height: 24px; display: flex; justify-content: flex-start; align-items: flex-end; gap: 8px"
+      name="text/title"
+      props="{}"></ui-component>
+    <div
+      data-node-id="263:06830"
+      data-name="Link"
+      style="width: 98px; height: 24px; display: flex; justify-content: flex-start; align-items: center; gap: 2px; border-radius: 4px; position: absolute; left: 274px; top: 6px; z-index: 8; overflow: hidden">
+      <span
+        data-node-id="263:06831"
+        data-name="打开所在文件夹"
+        style="color: #6B6B6B; font-size: 12px; font-family: MiSans; line-height: 16px">
+        打开所在文件夹
+      </span>
+      <ui-icon
+        data-node-id="263:08057"
+        data-name="direction/right"
+        style="width: 12px; height: 12px; color: #6B6B6B"
+        name="direction/right" />
+    </div>
+  </div>
+  <div
+    data-node-id="1345:18473"
+    data-name="容器 48"
+    style="width: 800px; height: 118px; position: absolute; left: 0px; top: 766px; z-index: 5">
+    <div
+      data-node-id="263:06865"
+      data-name="矩形 388"
+      style="position: absolute; left: 0px; top: 0px; z-index: 0">
+      <img src="./asset/icons/svg_f6423a5f.svg" />
+    </div>
+    <div
+      data-node-id="1345:18472"
+      data-name="容器 47"
+      style="width: 433px; height: 42px; position: absolute; left: 20px; top: 16px; z-index: 1">
+      <ui-component
+        data-node-id="263:08140"
+        data-name="text/title"
+        style="width: 56px; height: 24px; display: flex; justify-content: flex-start; align-items: flex-end; gap: 8px"
+        name="text/title"
+        props="{}"></ui-component>
+      <ui-component
+        data-node-id="263:08149"
+        data-name="text/title"
+        style="width: 433px; height: 16px; display: flex; justify-content: flex-start; align-items: flex-end; gap: 8px"
+        name="text/title"
+        props="{}"></ui-component>
+    </div>
+    <ui-component
+      data-node-id="263:08158"
+      data-name="text/title"
+      style="width: 326px; height: 16px; display: flex; justify-content: flex-start; align-items: flex-end; gap: 8px"
+      name="text/title"
+      props="{}"></ui-component>
+    <div
+      data-node-id="263:06866"
+      data-name="直线 52"
+      style="width: 128px; height: 0px; border-style: solid; border-color: #E5E5E5; border-top-width: 0px; border-bottom-width: 1px; border-right-width: 0px; border-left-width: 0px; position: absolute; left: 20px; top: 70px; z-index: 3"></div>
+    <div
+      data-node-id="263:06868"
+      data-name="Link"
+      style="width: 44px; height: 24px; display: flex; justify-content: flex-start; align-items: center; gap: 2px; border-radius: 4px; position: absolute; left: 736px; top: 16px; z-index: 4; overflow: hidden">
+      <span
+        data-node-id="263:06869"
+        data-name="查看"
+        style="color: #6B6B6B; font-size: 14px; font-family: MiSans; line-height: 19px">
+        查看
+      </span>
+      <ui-icon
+        data-node-id="263:08060"
+        data-name="direction/right"
+        style="width: 14px; height: 14px; color: #868686"
+        name="direction/right" />
+    </div>
+  </div>
+  <div
+    data-node-id="1345:18483"
+    data-name="容器 52"
+    style="width: 800px; height: 118px; position: absolute; left: 0px; top: 1034px; z-index: 6">
+    <div
+      data-node-id="263:06863"
+      data-name="矩形 388"
+      style="position: absolute; left: 0px; top: 0px; z-index: 0">
+      <img src="./asset/icons/svg_f6423a5f.svg" />
+    </div>
+    <div
+      data-node-id="1345:18482"
+      data-name="容器 51"
+      style="width: 228px; height: 42px; position: absolute; left: 20px; top: 16px; z-index: 1">
+      <ui-component
+        data-node-id="263:08122"
+        data-name="text/title"
+        style="width: 56px; height: 24px; display: flex; justify-content: flex-start; align-items: flex-end; gap: 8px"
+        name="text/title"
+        props="{}"></ui-component>
+      <ui-component
+        data-node-id="263:08131"
+        data-name="text/title"
+        style="width: 228px; height: 16px; display: flex; justify-content: flex-start; align-items: flex-end; gap: 8px"
+        name="text/title"
+        props="{}"></ui-component>
+    </div>
+    <ui-component
+      data-node-id="263:08113"
+      data-name="text/title"
+      style="width: 165px; height: 16px; display: flex; justify-content: flex-start; align-items: flex-end; gap: 8px"
+      name="text/title"
+      props="{}"></ui-component>
+    <div
+      data-node-id="263:06856"
+      data-name="直线 52"
+      style="width: 128px; height: 0px; border-style: solid; border-color: #E5E5E5; border-top-width: 0px; border-bottom-width: 1px; border-right-width: 0px; border-left-width: 0px; position: absolute; left: 20px; top: 70px; z-index: 3"></div>
+    <div
+      data-node-id="263:06857"
+      data-name="Link"
+      style="width: 114px; height: 24px; display: flex; justify-content: flex-start; align-items: center; gap: 2px; border-radius: 4px; position: absolute; left: 666px; top: 16px; z-index: 4; overflow: hidden">
+      <span
+        data-node-id="263:06858"
+        data-name="打开所在文件夹"
+        style="color: #6B6B6B; font-size: 14px; font-family: MiSans; line-height: 19px">
+        打开所在文件夹
+      </span>
+      <ui-icon
+        data-node-id="263:08059"
+        data-name="direction/right"
+        style="width: 14px; height: 14px; color: #868686"
+        name="direction/right" />
+    </div>
+  </div>
+  <div
+    data-node-id="263:07323"
+    data-name="直线 53"
+    style="width: 800px; height: 0px; border-style: solid; border-color: #F2F2F2; border-top-width: 0px; border-bottom-width: 1px; border-right-width: 0px; border-left-width: 0px; position: absolute; left: 0px; top: 130px; z-index: 7"></div>
+  <div
+    data-node-id="1345:18478"
+    data-name="容器 50"
+    style="width: 800px; height: 118px; position: absolute; left: 0px; top: 900px; z-index: 8">
+    <div
+      data-node-id="273:06207"
+      data-name="矩形 388"
+      style="position: absolute; left: 0px; top: 0px; z-index: 0">
+      <img src="./asset/icons/svg_f6423a5f.svg" />
+    </div>
+    <div
+      data-node-id="1345:18477"
+      data-name="容器 49"
+      style="width: 400px; height: 42px; position: absolute; left: 20px; top: 16px; z-index: 1">
+      <ui-component
+        data-node-id="273:06209"
+        data-name="text/title"
+        style="width: 42px; height: 24px; display: flex; justify-content: flex-start; align-items: flex-end; gap: 8px"
+        name="text/title"
+        props="{}"></ui-component>
+      <ui-component
+        data-node-id="273:06217"
+        data-name="text/title"
+        style="width: 400px; height: 16px; display: flex; justify-content: flex-start; align-items: flex-end; gap: 8px"
+        name="text/title"
+        props="{}"></ui-component>
+    </div>
+    <ui-component
+      data-node-id="273:06225"
+      data-name="text/title"
+      style="width: 226px; height: 16px; display: flex; justify-content: flex-start; align-items: flex-end; gap: 8px"
+      name="text/title"
+      props="{}"></ui-component>
+    <div
+      data-node-id="273:06233"
+      data-name="直线 52"
+      style="width: 128px; height: 0px; border-style: solid; border-color: #E5E5E5; border-top-width: 0px; border-bottom-width: 1px; border-right-width: 0px; border-left-width: 0px; position: absolute; left: 20px; top: 70px; z-index: 3"></div>
+    <div
+      data-node-id="273:06373"
+      data-name="组 10034"
+      style="width: 208px; height: 24px; position: absolute; left: 572px; top: 16px; z-index: 4">
+      <div
+        data-node-id="273:06234"
+        data-name="Link"
+        style="width: 114px; height: 24px; display: flex; justify-content: flex-start; align-items: center; gap: 2px; border-radius: 4px; position: absolute; left: 94px; top: 0px; z-index: 0; overflow: hidden">
+        <span
+          data-node-id="273:06235"
+          data-name="打开所在文件夹"
+          style="color: #6B6B6B; font-size: 14px; font-family: MiSans; line-height: 19px">
+          打开所在文件夹
+        </span>
+        <ui-icon
+          data-node-id="273:06239"
+          data-name="direction/right"
+          style="width: 14px; height: 14px; color: #868686"
+          name="direction/right" />
+      </div>
+      <div
+        data-node-id="273:06339"
+        data-name="Link"
+        style="width: 70px; height: 24px; display: flex; justify-content: flex-start; align-items: center; gap: 2px; border-radius: 4px; position: absolute; left: 0px; top: 0px; z-index: 1; overflow: hidden">
+        <span
+          data-node-id="273:06340"
+          data-name="管理知识库"
+          style="color: #6B6B6B; font-size: 14px; font-family: MiSans; line-height: 19px">
+          管理知识库
+        </span>
+      </div>
+      <div
+        data-node-id="273:06372"
+        data-name="直线 54"
+        style="position: absolute; left: 82px; top: 5px; z-index: 2">
+        <img src="./asset/icons/svg_b1d7f2ab.svg" style="color: #C9C9C9" />
+      </div>
+    </div>
+  </div>
+  <ui-component
+    data-node-id="273:06375"
+    data-name="divider"
+    style="width: 240px; height: 16px; display: flex; justify-content: center; align-items: center; gap: 16px"
+    name="divider"
+    props='{"类型":"水平","虚线":"false","文本":"true","⬑对齐":"居中"}'
+    text='{"中电金信":"© 数字分身"}'></ui-component>
+</div>
