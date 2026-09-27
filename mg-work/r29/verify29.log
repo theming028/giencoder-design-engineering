@@ -1,0 +1,33 @@
+==================================================
+第 1 项：看板「执行」按钮 → 任务详情页
+==================================================
+--- 1a. 修前状态与按钮存在性 ---
+"{\"execCount\":5,\"assignCount\":5,\"execTag\":\"BUTTON\",\"execText\":\"执行\",\"visBeforeHover\":\"hidden\",\"opBeforeHover\":\"0\",\"cursor\":\"pointer\"}"
+--- 1b. hover 卡片 → 执行按钮显形，取中心点 ---
+"{\"gx\":660,\"gy\":386,\"vis\":\"hidden\",\"op\":\"0\",\"box\":\"62x32\"}"
+click 执行 at 660,386
+--- 1c. 点「执行」 → 应跳到 task-detail.html ---
+✗ Evaluation error: SyntaxError: Unexpected token ';'
+--- 1d. 回归：点卡片空白处仍进详情页 ---
+"{\"url\":\"task-detail.html\"}"
+--- 1e. 回归：点「转派」按钮 → 不应跳转 ---
+assign rect: "{\"gx\":311,\"gy\":406,\"box\":\"62x32\"}"
+"{\"url\":\"kanban.html\"}"
+
+==================================================
+第 2 项：详情页全屏后内容区 860px 居中
+==================================================
+--- 2a. 全屏前（基线不应被改） ---
+"{\"fullscreen\":false,\"rightW\":480,\"chatAlign\":\"normal\",\"inner\":{\"l\":972,\"r\":1412,\"w\":440,\"c\":1192},\"composer\":{\"l\":972,\"r\":1412,\"w\":440,\"c\":1192},\"innerVsRightCenter\":0,\"composerVsRightCenter\":0,\"innerEqComposer\":true}"
+--- 2b. 点全屏 → 内容区 860 居中 ---
+"{\"fullscreen\":true,\"rightW\":1424,\"chatAlign\":\"center\",\"inner\":{\"l\":290,\"r\":1150,\"w\":860,\"c\":720},\"composer\":{\"l\":290,\"r\":1150,\"w\":860,\"c\":720},\"innerVsRightCenter\":0,\"composerVsRightCenter\":0,\"innerEqComposer\":true}"
+--- 2c. 1920 视口下仍 860 居中 ---
+"{\"fullscreen\":true,\"rightW\":1904,\"chatAlign\":\"center\",\"inner\":{\"l\":530,\"r\":1390,\"w\":860,\"c\":960},\"composer\":{\"l\":530,\"r\":1390,\"w\":860,\"c\":960},\"innerVsRightCenter\":0,\"composerVsRightCenter\":0,\"innerEqComposer\":true}"
+--- 2d. 退出全屏 → 恢复 ---
+"{\"fullscreen\":false,\"rightW\":480,\"chatAlign\":\"normal\",\"inner\":{\"l\":1452,\"r\":1892,\"w\":440,\"c\":1672},\"composer\":{\"l\":1452,\"r\":1892,\"w\":440,\"c\":1672},\"innerVsRightCenter\":0,\"composerVsRightCenter\":0,\"innerEqComposer\":true}"
+--- 2e. 全屏下消息列内容宽度 / 用户气泡对齐（应贴 860 列右缘） ---
+"{\"innerW\":860,\"innerL\":290,\"innerR\":1150,\"userW\":192,\"userRightGap\":0,\"aiW\":860}"
+--- 2f. 回归：Esc 先退出全屏（不退详情页） ---
+"{\"url\":\"task-detail.html\",\"fullscreen\":false,\"rightW\":480}"
+"{\"url\":\"kanban.html\"}"
+DONE

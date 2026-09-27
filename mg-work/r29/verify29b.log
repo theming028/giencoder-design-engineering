@@ -1,0 +1,10 @@
+--- 1c-1. hover 前：按钮存在但不可见 ---
+"{\"tag\":\"BUTTON\",\"text\":\"执行\",\"vis\":\"hidden\",\"op\":\"0\",\"box\":\"62x32\",\"gx\":660,\"gy\":386}"
+target point: 660,386
+--- 1c-2. 真实鼠标移动到该点 → 卡片 hover，按钮应显形 ---
+"{\"vis\":\"visible\",\"op\":\"1\",\"cardHover\":true,\"hitIsExec\":true,\"hitTag\":\"BUTTON\"}"
+--- 1c-3. 点下 → 应跳 task-detail.html ---
+"{\"url\":\"task-detail.html\",\"isDetail\":true,\"hasFullscreenBtn\":true}"
+--- 1c-4. 从详情页返回看板（链接互通性） ---
+"{\"url\":\"kanban.html\",\"execCount\":5}"
+DONE

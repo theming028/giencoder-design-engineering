@@ -73,6 +73,9 @@ CSS = r"""<style>
         /* 小卡（附件）圆角：设计稿圆角剖面实测 r≈6（dy=0.5 内缩 3.5 / dy=2.5 内缩 1.0），
            DS 圆角档位只有 0/2/4/8/12/50%，6 不在其中 → 适配层变量。 */
         --td-radius-card: 6px;
+        /* ★ 第 29 轮第 2 项：AI 对话框全屏后「内容区」最大宽度。860 不是新数值 ——
+           pages/base.html 的基础工作台 composer 内容宽就是 860px（见其 r12 注释），此处沿用同一读数。 */
+        --td-fs-content: 860px;
       }
       /* 注入口：撑满 main 的确定高度（main 为 844 高）
          ⚠️ 这里必须 overflow:visible —— 两栏的白卡片是「贴边」的（左栏左缘 = main 左缘 = x8，
@@ -337,7 +340,10 @@ CSS = r"""<style>
       .td-right-acts { display: flex; align-items: center; gap: 8px; flex: none; }
       /* 适配层：DS Button(secondary + size-mini + icon) → 设计稿 24×24 / 无边 / radius 4 */
       .td-round-btn { box-sizing: border-box; width: 32px; padding: 0; border-color: transparent; line-height: 0; }
-      .td-chat { flex: 1; min-height: 0; overflow: auto; padding: 16px 20px 8px; display: flex; flex-direction: column; gap: 16px; }
+      .td-chat { flex: 1; min-height: 0; overflow: auto; padding: 16px 20px 8px; display: flex; flex-direction: column; }
+      /* ★ 第 29 轮第 2 项：消息列独立成一个内层列 —— 全屏时只收窄它，.td-chat 保持满宽，
+         这样滚动条仍贴面板边缘（不跟着 860 一起缩进去）。 */
+      .td-chat-inner { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
       .td-msg-user {
         align-self: flex-end; max-width: 100%; box-sizing: border-box;
         padding: 8px 12px; border-radius: var(--border-radius-large);
@@ -495,6 +501,16 @@ CSS = r"""<style>
       .td-root.is-fullscreen .td-left,
       .td-root.is-fullscreen .td-gutter { display: none; }
       .td-root.is-fullscreen .td-right { flex: 1 1 auto; width: auto; }
+      /* ★ 第 29 轮第 2 项：全屏后内容区（消息列 + 输入区）最大宽度 860px 并水平居中。
+         · 消息列：.td-chat 靠 align-items:center 把内层 860 列居中；
+         · 输入区：.td-composer 自身收成 860，左右留 auto（保留原有上下 8/20 边距）。
+         两者同宽同中心 ⇒ 输入框与消息列左右边缘严格对齐。 */
+      .td-root.is-fullscreen .td-chat { align-items: center; }
+      .td-root.is-fullscreen .td-chat-inner { width: 100%; max-width: var(--td-fs-content); }
+      .td-root.is-fullscreen .td-composer {
+        width: 100%; max-width: var(--td-fs-content);
+        margin-left: auto; margin-right: auto;
+      }
       .td-ico-min { display: none; }
       .td-root.is-fullscreen .td-ico-max { display: none; }
       .td-root.is-fullscreen .td-ico-min { display: block; }
@@ -846,21 +862,23 @@ HTML = """<div class="td-root" role="region" aria-label="任务详情">
         </div>
       </header>
       <div class="td-chat">
-        <div class="td-msg-user">请帮我先分析一下这个任务</div>
-        <div class="td-msg-ai">
-          <div class="td-ai-head">
-            <span class="td-ai-avatar"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2.2l1.8 4 4 1.8-4 1.8L8 13.8l-1.8-4-4-1.8 4-1.8z"/></svg></span>
-            <span class="td-ai-name">艾迪</span>
+        <div class="td-chat-inner">
+          <div class="td-msg-user">请帮我先分析一下这个任务</div>
+          <div class="td-msg-ai">
+            <div class="td-ai-head">
+              <span class="td-ai-avatar"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2.2l1.8 4 4 1.8-4 1.8L8 13.8l-1.8-4-4-1.8 4-1.8z"/></svg></span>
+              <span class="td-ai-name">艾迪</span>
+            </div>
+            <div class="td-ai-meta">
+              <a href="#">__LINKICO__思考过程</a>
+              <span class="td-sep"></span>
+              <a href="#">任务完成，耗时 28m12s</a>
+            </div>
+            <p>好的，收到您的需求。这是一个典型的“从需求到交付”的端到端流程初始化场景。我将为您设计一个完整的交付状态跟踪表，并定义启动整个流程所需的初始状态和关键节点。</p>
+            <p>我先把几个核心不确定性列出来，请你选择倾向，不确定的地方我会标注我的判断。</p>
+            <div class="td-ai-file"><span class="td-file-ico">__FILEICO__</span><span class="td-file-sep" aria-hidden="true"></span><span class="td-file-body"><span class="td-file-tx">端到端初始化 - 任务分析报告.md</span><span class="td-file-size">128KB</span></span></div>
+            <div class="td-ai-foot"><span class="td-ai-foot-item"><span class="td-ai-foot-ico">__DONEICO__</span><span>输出完成</span></span><span class="td-sep"></span><span class="td-ai-foot-item"><span class="td-ai-foot-ico">__GAUGEICO__</span><span>Token 速率：256/s</span></span></div>
           </div>
-          <div class="td-ai-meta">
-            <a href="#">__LINKICO__思考过程</a>
-            <span class="td-sep"></span>
-            <a href="#">任务完成，耗时 28m12s</a>
-          </div>
-          <p>好的，收到您的需求。这是一个典型的“从需求到交付”的端到端流程初始化场景。我将为您设计一个完整的交付状态跟踪表，并定义启动整个流程所需的初始状态和关键节点。</p>
-          <p>我先把几个核心不确定性列出来，请你选择倾向，不确定的地方我会标注我的判断。</p>
-          <div class="td-ai-file"><span class="td-file-ico">__FILEICO__</span><span class="td-file-sep" aria-hidden="true"></span><span class="td-file-body"><span class="td-file-tx">端到端初始化 - 任务分析报告.md</span><span class="td-file-size">128KB</span></span></div>
-          <div class="td-ai-foot"><span class="td-ai-foot-item"><span class="td-ai-foot-ico">__DONEICO__</span><span>输出完成</span></span><span class="td-sep"></span><span class="td-ai-foot-item"><span class="td-ai-foot-ico">__GAUGEICO__</span><span>Token 速率：256/s</span></span></div>
         </div>
       </div>
         <!-- 复用基础工作台的对话框模块（pages/base.html，结构与类名一致） -->

@@ -7,6 +7,14 @@
           if (g) location.href = g;
         }
       });
+      /* r29-exec-goto：点「执行」按钮 → 进入任务详情页。
+         与「点卡片进详情页」同目标；卡内其它按钮（如「转派」）仍不跳转。 */
+      document.addEventListener('click', function (ev) {
+        var ex = ev.target.closest && ev.target.closest('.kb-btn-exec');
+        if (!ex) return;
+        ev.preventDefault();
+        location.href = 'task-detail.html';
+      });
       /* 任务卡片：进入任务详情页（转派/执行等卡内按钮不触发跳转） */
       document.addEventListener('click', function (ev) {
         var card = ev.target.closest && ev.target.closest('.kb-card');
