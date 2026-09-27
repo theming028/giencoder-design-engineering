@@ -1,0 +1,4 @@
+✅ 成功获取并保存预览图（成功 1/1 张）
+- 保存规则: screenshots://{documentId}/{rootId}/{nodeName}_{nodeId}.{ext}
+- [622:13950] C:\Users\Administrator\.mgmcp\resources\screenshots\193158744355579\622-13950\详情页-1_622-13950.png，约 421.6 KB
+- 用途: 原生客户端可读取上述 Server 文件路径，Web 使用资源 URL。组件页面提交后的确认式 QA 必须使用 review_generated_page 临时返回图片，不得调用本工具落盘代替。只有用户已明确要求修改时，才可继续调用 agent_update_node / agent_replace_node / agent_sync_design。

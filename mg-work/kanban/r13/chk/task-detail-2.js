@@ -72,12 +72,12 @@
         "        </section>",
         "      </div>",
         "      <aside class=\"td-side\" aria-label=\"任务属性与动态\">",
-        "        <section>",
+        "        <section class=\"td-side-attr\">",
         "          <h2>任务属性</h2>",
         "          <div class=\"td-attr\">",
         "            <div class=\"td-attr-row\"><span class=\"td-attr-k\">状态</span><span class=\"td-attr-v\"><span class=\"giencoder-badge giencoder-badge-status\"><span class=\"giencoder-badge-status-dot giencoder-badge-status-processing\"></span><span class=\"giencoder-badge-status-text\">进行中</span></span></span></div>",
         "            <div class=\"td-attr-row\"><span class=\"td-attr-k\">执行人</span><span class=\"td-attr-v\">邵禹铭</span></div>",
-        "            <div class=\"td-attr-row\"><span class=\"td-attr-k\">优先级</span><span class=\"td-attr-v\">高优先级</span></div>",
+        "            <div class=\"td-attr-row\"><span class=\"td-attr-k\">优先级</span><span class=\"td-attr-v\"><span class=\"giencoder-tag giencoder-tag-danger td-tag-prio\"><span class=\"giencoder-tag-content\">高优先级</span></span></span></div>",
         "            <div class=\"td-attr-row\"><span class=\"td-attr-k\">项目</span><span class=\"td-attr-v\">演练指挥系统</span></div>",
         "            <div class=\"td-attr-row\"><span class=\"td-attr-k\">来源需求</span><span class=\"td-attr-v\"><a class=\"td-attr-link\" href=\"#\">GienX端到端初始化…<svg viewBox=\"0 0 16 16\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M6.4 9.6a2.6 2.6 0 0 0 3.7 0l2-2a2.6 2.6 0 0 0-3.7-3.7l-1 1\"/><path d=\"M9.6 6.4a2.6 2.6 0 0 0-3.7 0l-2 2a2.6 2.6 0 0 0 3.7 3.7l1-1\"/></svg></a></span></div>",
         "            <div class=\"td-attr-row\"><span class=\"td-attr-k\">实际开始</span><span class=\"td-attr-v\">2026/08/01 10:12</span></div>",
@@ -214,8 +214,8 @@
     if (!gutter || !right) return;
 
     var DEFAULT_W = 480;   /* 右栏默认宽（设计稿实测） */
-    var MIN_W = 320;       /* 拖到此值以下，松手即自动折叠 */
-    var COLLAPSED_W = 48;  /* 折叠条宽（设计稿实测） */
+    var MIN_W = 100;       /* 拖到此值以下即自动折叠（第24轮：原 320） */
+    var COLLAPSED_W = 48;  /* 折叠条宽（设计稿实测 1343:18532 = 48×844） */
     var LEFT_MIN = 320;    /* 左栏保底 */
     var dragging = false, curW = DEFAULT_W;
 
@@ -248,7 +248,16 @@
       var maxW = box.width - LEFT_MIN;
       if (w > maxW) w = maxW;
       if (w < 0) w = 0;
-      setWidth(Math.round(w));
+      /* 第 24 轮第 4 项：拖到 100px 以下立刻折叠成窄条（实时反馈）；
+         继续向左拖回 100px 以上则恢复跟随鼠标。松手时以 curW 判定最终状态。 */
+      if (w < MIN_W) {
+        curW = w;                                  /* 记录真实拖拽宽度，便于反向恢复 */
+        root.classList.add('is-collapsed');
+        setWidth(COLLAPSED_W);
+      } else {
+        root.classList.remove('is-collapsed');
+        setWidth(Math.round(w));
+      }
     });
     function endDrag() {
       if (!dragging) return;
