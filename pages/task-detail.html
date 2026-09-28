@@ -309,8 +309,27 @@ header div:has(> div.relative > button[aria-label="切换侧边栏"]) { display:
         display: flex; align-items: center; gap: 8px; padding: 0 20px;
         background: var(--color-bg-1); border-bottom: 1px solid var(--td-hairline);
       }
-      /* 顶栏标题：16px / 中粗 500（设计稿 text/text 64×24 = 4 字 × 16px） */
-      .td-bar-title { font-size: 16px; font-weight: 500; line-height: 24px; color: var(--td-strong); white-space: nowrap; }
+      /* 顶栏标题：16px / 中粗 500（设计稿 text/text 64×24 = 4 字 × 16px）
+         ★ 第 37 轮：改为两层叠格 —— 「任务详情」↔「任务标题」随左栏正文纵向滚动交叉淡入。
+         两层用 grid 叠在同一格（不是 position:absolute，避免脱离文档流影响 .td-bar 的
+         baseline / 高度），容器 flex:1 吃满剩余宽度，长标题走 ellipsis 截断；
+         完整文案挂原生 title。 */
+      .td-bar-title {
+        flex: 1 1 auto; min-width: 0;
+        display: grid; grid-template-columns: minmax(0, 1fr); align-items: center;
+        font-size: 16px; font-weight: 500; line-height: 24px; color: var(--td-strong);
+      }
+      .td-bar-title > span {
+        grid-area: 1 / 1; min-width: 0;
+        overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+        transition: opacity .2s cubic-bezier(.4, 0, .2, 1);
+      }
+      .td-bar-title .td-bar-title-b { opacity: 0; }
+      .td-bar-title.is-scrolled .td-bar-title-a { opacity: 0; }
+      .td-bar-title.is-scrolled .td-bar-title-b { opacity: 1; }
+      @media (prefers-reduced-motion: reduce) {
+        .td-bar-title > span { transition: none; }
+      }
       .td-bar-actions { margin-left: auto; display: flex; align-items: center; gap: 8px; }
       /* 右侧尾部：…「更多」│ [上一个任务][下一个任务]
          （设计稿：直线 48 @left 380 · 容器 71 @left 392，两钮 28×28 间距 4） */
@@ -1502,7 +1521,10 @@ header div:has(> div.relative > button[aria-label="切换侧边栏"]) { display:
         "      <button class=\"giencoder-btn giencoder-btn-secondary giencoder-btn-size-small giencoder-btn-icon td-iconbtn td-back\" type=\"button\" aria-label=\"返回任务看板\" data-td-back=\"1\">",
         "        <svg viewBox=\"0 0 16 16\" width=\"16\" height=\"16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M9.8 3.4L5.2 8l4.6 4.6\"/></svg>",
         "      </button>",
-        "      <span class=\"td-bar-title\">任务详情</span>",
+        "      <span class=\"td-bar-title\" data-td-bar-title=\"1\">",
+        "        <span class=\"td-bar-title-a\">任务详情</span>",
+        "        <span class=\"td-bar-title-b\" aria-hidden=\"true\"></span>",
+        "      </span>",
         "      <div class=\"td-bar-actions\">",
         "        <button class=\"giencoder-btn giencoder-btn-primary giencoder-btn-size-small td-btn\" type=\"button\">开始任务</button>",
         "        <span class=\"giencoder-popover-reference\"><button class=\"giencoder-btn giencoder-btn-secondary giencoder-btn-size-small td-btn\" type=\"button\" data-td-dispatch aria-haspopup=\"dialog\" aria-expanded=\"false\">转派</button></span>",
@@ -2399,6 +2421,41 @@ header div:has(> div.relative > button[aria-label="切换侧边栏"]) { display:
     }
     bindSwapBar(wrap.querySelector('.td-bar'), left);
     bindSwapBar(wrap.querySelector('.td-right-bar'), right);
+
+    /* ---------- 顶栏标题随左栏正文滚动切换（★ 第 37 轮） ----------
+       左栏正文（.td-main，实测 1440×900 下 972 > 796，是左栏唯一纵向滚动容器）一旦
+       滚动超过 8px，「任务详情」交叉淡入为任务标题（取 .td-title 全文）；滚回顶部淡回。
+       · 阈值 8px：避开展开/折叠正文时的 1~2px 抖动；
+       · 只切 .is-scrolled 类，过渡全交给 CSS（.2s standard），不做 display 硬切换；
+       · 滚动回调走 rAF 合帧，passive 监听，不阻塞滚动；
+       · 标题右栏互换（.is-swapped 走 CSS row-reverse）不改 DOM 顺序 ⇒ 监听依旧成立。 */
+    (function bindScrollTitle() {
+      var box = wrap.querySelector('[data-td-bar-title]');
+      var main = wrap.querySelector('.td-main');
+      var src = wrap.querySelector('.td-title');
+      if (!box || !main || !src) return;
+      var a = box.querySelector('.td-bar-title-a');
+      var b = box.querySelector('.td-bar-title-b');
+      if (!a || !b) return;
+      var text = (src.textContent || '').replace(/\s+/g, ' ').trim();
+      if (!text) return;
+      b.textContent = text;
+      b.setAttribute('title', text);
+      var THRESHOLD = 8, on = false, raf = 0;
+      function sync() {
+        var next = main.scrollTop > THRESHOLD;
+        if (next === on) return;
+        on = next;
+        box.classList.toggle('is-scrolled', on);
+        a.setAttribute('aria-hidden', on ? 'true' : 'false');
+        b.setAttribute('aria-hidden', on ? 'false' : 'true');
+      }
+      main.addEventListener('scroll', function () {
+        if (raf) return;
+        raf = requestAnimationFrame(function () { raf = 0; sync(); });
+      }, { passive: true });
+      sync();
+    })();
   }
 
   /* 外壳页签：本页归属研发工作台。React 外壳按「文件名 → 路由」判页签
