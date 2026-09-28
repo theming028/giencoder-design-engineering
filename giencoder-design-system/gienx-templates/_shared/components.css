@@ -369,7 +369,12 @@
 
 
 /* === Modal / Drawer === */
-.giencoder-modal-mask, .giencoder-drawer-mask { background: var(--color-mask-bg); }
+.giencoder-modal-mask, .giencoder-drawer-mask {
+  /* 全局统一的蒙层材质：罩色 --color-mask-bg + 高斯模糊 blur(10px)（与 .td-coop 同口径） */
+  background: var(--color-mask-bg);
+  -webkit-backdrop-filter: blur(10px) saturate(100%);
+  backdrop-filter: blur(10px) saturate(100%);
+}
 /* Modal 容器：浮层大面板圆角 12px（高于面板类 8px 一级），overflow 裁剪子元素背景 */
 .giencoder-modal { border-radius: 12px; overflow: hidden; }
 .giencoder-modal-header, .giencoder-drawer-header { display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; border-bottom: 1px solid var(--color-border-1); }

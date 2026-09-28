@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>r65 · 「执行中」卡片状态动效方案对比</title>
+<style>
+  /* ── 源启设计系统 token（取自 pages/kanban.html 运行时真值，颜色一律走变量，不写死 hex） ── */
+  :root {
+    --color-text-1: #1F1F1F;
+    --color-text-2: #4E4E4E;
+    --color-text-3: #868686;
+    --color-fill-1: #F7F7F7;
+    --color-fill-2: #F2F2F2;
+    --color-border-1: #F2F2F2;
+    --color-border-2: #E5E5E5;
+    --color-bg-2: #fff;
+    --color-primary-1: #F5F8FF;
+    --color-primary-2: #DAE4FE;
+    --color-primary-3: #B4C9FC;
+    --color-primary-4: #8EAEFA;
+    --color-primary-5: #6692F9;
+    --color-primary-6: #3770F7;
+    --color-primary-7: #346AE9;
+    --color-primary-8: #2E5ECE;
+    --color-primary-9: #2851B4;
+    --color-primary-10: #22469A;
+    --font-family: "Mona Sans VF", "PingFang SC", "Hiragino Sans GB", system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 40px 48px 72px; background: var(--color-fill-1);
+    font-family: var(--font-family); color: var(--color-text-1);
+  }
+  h1 { margin: 0 0 8px; font-size: 24px; font-weight: 600; letter-spacing: .2px; }
+  .lead { margin: 0 0 6px; font-size: 14px; line-height: 22px; color: var(--color-text-2); max-width: 1080px; }
+  .lead.dim { color: var(--color-text-3); margin-bottom: 32px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); gap: 28px; }
+
+  .cell { background: var(--color-bg-2); border: 1px solid var(--color-border-2); border-radius: 16px; padding: 20px 20px 24px; }
+  .cell-head { display: flex; align-items: baseline; gap: 8px; margin-bottom: 4px; }
+  .badge {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    min-width: 22px; height: 20px; padding: 0 6px; border-radius: 6px;
+    background: var(--color-primary-1); color: var(--color-primary-6);
+    font-size: 12px; font-weight: 600;
+  }
+  .badge.now { background: var(--color-fill-2); color: var(--color-text-3); }
+  .cell-head h2 { margin: 0; font-size: 15px; font-weight: 600; }
+  .cell-note { margin: 0 0 14px; font-size: 13px; line-height: 20px; color: var(--color-text-3); }
+  .cell-note b { color: var(--color-text-2); font-weight: 500; }
+
+  /* ── 模拟看板卡片（318×? · padding 12 · radius 8 · 1px 描边） ── */
+  .kb-card {
+    width: 318px; padding: 12px; border-radius: 8px; background: var(--color-bg-2);
+    box-shadow: inset 0 0 0 1px var(--color-border-2);
+  }
+  .kb-card-title { margin: 0; font-size: 14px; line-height: 22px; font-weight: 500; color: var(--color-text-1); }
+  .kb-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .kb-tag {
+    font-size: 12px; line-height: 20px; padding: 0 8px; border-radius: 4px;
+    background: var(--color-fill-2); color: var(--color-text-2);
+  }
+  .kb-tag.run { background: var(--color-primary-1); color: var(--color-primary-6); font-weight: 500; }
+  .kb-foot { display: flex; align-items: center; gap: 8px; margin-top: 12px; font-size: 12px; color: var(--color-text-3); }
+  .kb-foot .sp { margin-left: auto; }
+  .kb-bar { height: 1px; background: var(--color-border-1); margin: 12px 0 0; }
+
+  /* ═══ 0 · 现状：标题文字渐变扫光 ═══ */
+  @keyframes v-shimmer { from { background-position: 100% center, 100% center; } to { background-position: 0% center, 0% center; } }
+  .v0 .kb-card-title {
+    --sp: 22px; width: fit-content;
+    background-image:
+      linear-gradient(90deg, #0000 calc(50% - var(--sp)), var(--color-primary-6), #0000 calc(50% + var(--sp))),
+      linear-gradient(var(--color-text-1), var(--color-text-1));
+    background-size: 250% 100%, auto; background-repeat: no-repeat;
+    background-clip: text; -webkit-background-clip: text;
+    color: transparent; -webkit-text-fill-color: transparent;
+    animation: v-shimmer 2s linear infinite;
+  }
+
+  /* ═══ A · 卡片描边流光（标题静止） ═══ */
+  @property --beam-a { syntax: '<angle>'; initial-value: 0deg; inherits: false; }
+  @keyframes v-beam { to { --beam-a: 360deg; } }
+  .vA .kb-card { position: relative; }
+  .vA .kb-card::after {
+    content: ''; position: absolute; inset: 0; border-radius: inherit; padding: 1px;
+    background: conic-gradient(from var(--beam-a),
+      #0000 0deg 244deg,
+      color-mix(in srgb, var(--color-primary-6) 26%, #0000) 292deg,
+      var(--color-primary-3) 326deg,
+      var(--color-primary-5) 350deg,
+      var(--color-primary-7) 356deg,
+      #0000 360deg);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor; mask-composite: exclude;
+    filter: drop-shadow(0 0 5px color-mix(in srgb, var(--color-primary-6) 52%, #0000));
+    animation: v-beam 2.4s linear infinite; pointer-events: none;
+  }
+
+  /* ═══ B · 底部不确定进度条（标题静止） ═══ */
+  /* 注意：不能用「窄元素 + translateX(-100%→250%)」——那样约 1/3 周期光带整个在卡外，
+     实机看着像闪烁。改成「超宽元素 + 中心光带 + 窄幅平移」：光带任何时刻都与卡相交。 */
+  @keyframes v-bar { from { transform: translateX(-16.7%); } to { transform: translateX(16.7%); } }
+  .vB .kb-card { position: relative; overflow: hidden; }
+  .vB .kb-card::after {
+    content: ''; position: absolute; left: -100%; bottom: 0; width: 300%; height: 3px;
+    background: linear-gradient(90deg,
+      #0000 0 36%,
+      var(--color-primary-3) 43%,
+      var(--color-primary-5) 47%,
+      var(--color-primary-6) 50%,
+      var(--color-primary-5) 53%,
+      var(--color-primary-3) 57%,
+      #0000 64% 100%);
+    animation: v-bar 1.5s cubic-bezier(.45,.05,.55,.95) infinite alternate;
+    pointer-events: none;
+  }
+
+  /* ═══ C · 逐字波浪（打字节奏） ═══ */
+  @keyframes v-wave { 0%, 62%, 100% { color: var(--color-text-1); transform: translateY(0); } 26% { color: var(--color-primary-6); transform: translateY(-2px); } }
+  .vC .kb-card-title span { display: inline-block; animation: v-wave 1.7s ease-in-out infinite; animation-delay: calc(var(--i) * 65ms); }
+
+  /* ═══ D · 打字机逐字显现 + 光标 ═══ */
+  @keyframes v-type { 0%, 12% { opacity: .16; } 34%, 100% { opacity: 1; } }
+  @keyframes v-caret { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
+  .vD .kb-card-title span { display: inline-block; opacity: .16; animation: v-type 2.6s ease-out infinite; animation-delay: calc(var(--i) * 105ms); }
+  .vD .kb-card-title::after {
+    content: ''; display: inline-block; width: 1.5px; height: 14px; margin-left: 2px;
+    vertical-align: -2px; background: var(--color-primary-6); animation: v-caret 1s step-end infinite;
+  }
+
+  /* ═══ E · 整条标题色温呼吸（带柔光） ═══ */
+  @keyframes v-breathe {
+    0%, 100% { color: var(--color-text-1); text-shadow: none; }
+    50% { color: var(--color-primary-6); text-shadow: 0 0 12px color-mix(in srgb, var(--color-primary-6) 34%, #0000); }
+  }
+  .vE .kb-card-title { animation: v-breathe 2.8s ease-in-out infinite; }
+
+  /* ═══ F · 卡片外发光呼吸（标题静止） ═══ */
+  @keyframes v-glow {
+    0%, 100% { box-shadow: inset 0 0 0 1px var(--color-border-2), 0 0 0 0 color-mix(in srgb, var(--color-primary-6) 0%, #0000); }
+    50% { box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-primary-6) 42%, var(--color-border-2)), 0 0 0 3px color-mix(in srgb, var(--color-primary-6) 12%, #0000); }
+  }
+  .vF .kb-card { animation: v-glow 2.6s ease-in-out infinite; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .v0 .kb-card-title, .vA .kb-card::after, .vB .kb-card::after,
+    .vC .kb-card-title span, .vD .kb-card-title span, .vE .kb-card-title, .vF .kb-card {
+      animation: none !important;
+      background-image: none; -webkit-background-clip: border-box; background-clip: border-box;
+      color: var(--color-text-1); -webkit-text-fill-color: currentColor;
+      text-shadow: none;
+    }
+  }
+</style>
+</head>
+<body>
+  <h1>「执行中」卡片状态动效 · 方案对比</h1>
+  <p class="lead">同一个卡片、同一句标题，只换“正在进行”的表达方式。颜色全部取源启设计系统 token（品牌蓝 <code>--color-primary-6</code> = 当前看板运行时真值 rgb(55,112,247)）。</p>
+  <p class="lead dim">判断标准建议：① 标题静置时是否与其它卡一样清晰可读（正文色 <code>--color-text-1</code>）；② 一眼能不能看出“这张卡在跑”；③ 连续看 30 秒会不会烦。</p>
+
+  <div class="grid" id="grid"></div>
+
+<script>
+  var TITLE = '读取业务方原始需求文档';
+  function card(inner) {
+    return '<div class="kb-card">' +
+      '<p class="kb-card-title">' + inner + '</p>' +
+      '<div class="kb-tags"><span class="kb-tag run">执行中</span><span class="kb-tag">TASK-002</span><span class="kb-tag">拆分需求条目</span></div>' +
+      '<div class="kb-foot"><span>计划完成：2026/08/31</span><span class="sp">执行</span></div>' +
+      '<div class="kb-bar"></div>' +
+    '</div>';
+  }
+  function split(t) {
+    return t.split('').map(function (ch, i) {
+      return '<span style="--i:' + i + '">' + ch + '</span>';
+    }).join('');
+  }
+  var ITEMS = [
+    { k: 'now', cls: 'v0', name: '现状：标题文字渐变扫光', note: '静置 <b>text-1 深色</b>，一道品牌蓝光带 2s 扫过。字形本体不移动。' },
+    { k: 'A', cls: 'vA', name: 'A · 卡片描边流光', note: '<b>标题完全静止</b>（与其它卡同色），光只走卡片 1px 描边一圈，2.4s。' },
+    { k: 'B', cls: 'vB', name: 'B · 底部不确定进度条', note: '<b>标题完全静止</b>。卡片底边一道 3px 光带左右往返（1.5s），最直白的“在跑”。' },
+    { k: 'C', cls: 'vC', name: 'C · 逐字波浪', note: '每个字依次上浮 2px 并转品牌蓝，间隔 65ms —— 像逐字被打出来。' },
+    { k: 'D', cls: 'vD', name: 'D · 打字机逐字显现 + 光标', note: '逐字由淡到实（105ms/字），末尾光标闪烁。最像“AI 正在写”。' },
+    { k: 'E', cls: 'vE', name: 'E · 整条标题色温呼吸', note: '整句在 text-1 ↔ 品牌蓝之间 2.8s 呼吸，带柔光晕。无方向感、更平静。' },
+    { k: 'F', cls: 'vF', name: 'F · 卡片外发光呼吸', note: '<b>标题完全静止</b>。整张卡片的描边与外发光随品牌蓝缓慢呼吸。' }
+  ];
+  var html = '';
+  ITEMS.forEach(function (it) {
+    var inner = (it.cls === 'vC' || it.cls === 'vD') ? split(TITLE) : TITLE;
+    html += '<div class="cell ' + it.cls + '">' +
+      '<div class="cell-head"><span class="badge' + (it.k === 'now' ? ' now' : '') + '">' + it.k + '</span><h2>' + it.name + '</h2></div>' +
+      '<p class="cell-note">' + it.note + '</p>' +
+      card(inner) +
+    '</div>';
+  });
+  document.getElementById('grid').innerHTML = html;
+</script>
+</body>
+</html>

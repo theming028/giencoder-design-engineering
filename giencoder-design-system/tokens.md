@@ -95,7 +95,7 @@
 | `--color-menu-dark-bg` | #232324 | 暗色菜单背景 |
 | `--color-menu-light-bg` | #FFFFFF | 亮色菜单背景 |
 | `--color-menu-dark-hover` | rgba(255,255,255,0.04) | 暗色菜单 hover |
-| `--color-mask-bg` | rgba(31,31,31,0.6) | Modal/Drawer 遮罩（亮色） |
+| `--color-mask-bg` | rgba(0,0,0,0.4) | Modal/Drawer 遮罩（亮色）；统一配 `backdrop-filter: blur(10px)` 高斯模糊 |
 | `--color-data-1..20` | 多色板引用 | 图表/数据可视化配色序列（giencoderblue-5, red-5, orange-5, green-5, cyan-6, …） |
 
 ---

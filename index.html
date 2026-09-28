@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GienCoder 设计工程 · 页面导航</title>
+<style>
+  :root{
+    --c-primary:#0064FA;
+    --c-text-1:#1A1D24;
+    --c-text-2:#4A505B;
+    --c-text-3:#8A9099;
+    --c-border:#E4E6EA;
+    --c-border-2:#F0F2F5;
+    --c-bg:#F6F7F9;
+    --c-surface:#FFFFFF;
+    --c-hover:#F5F9FF;
+    --c-chip-bg:#F0F2F5;
+    --r-sm:6px; --r-md:10px; --r-lg:14px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--c-bg);
+    color:var(--c-text-1);
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue","Microsoft YaHei",sans-serif;
+    font-size:14px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1100px;margin:0 auto;padding:48px 32px 80px;}
+  header{margin-bottom:36px;}
+  h1{font-size:26px;font-weight:600;letter-spacing:-.2px;margin:0 0 10px;}
+  .sub{color:var(--c-text-2);font-size:14px;margin:0;}
+  .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;}
+  .chip{
+    display:inline-flex;align-items:center;gap:6px;
+    background:var(--c-chip-bg);color:var(--c-text-2);
+    border-radius:999px;padding:4px 12px;font-size:12px;
+  }
+  .chip b{color:var(--c-primary);font-weight:600;}
+  section{margin-top:34px;}
+  h2{
+    font-size:13px;font-weight:600;color:var(--c-text-3);
+    text-transform:uppercase;letter-spacing:.8px;
+    margin:0 0 14px;display:flex;align-items:center;gap:10px;
+  }
+  h2::after{content:"";flex:1;height:1px;background:var(--c-border-2);}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:12px;}
+  a.card{
+    display:block;text-decoration:none;color:inherit;
+    background:var(--c-surface);border:1px solid var(--c-border);
+    border-radius:var(--r-md);padding:14px 16px;
+    transition:border-color .15s,background .15s,transform .15s,box-shadow .15s;
+  }
+  a.card:hover{
+    border-color:#B9D2FB;background:var(--c-hover);
+    transform:translateY(-1px);box-shadow:0 4px 14px rgba(0,100,250,.08);
+  }
+  a.card .t{font-weight:600;font-size:14px;margin-bottom:3px;display:flex;align-items:center;gap:6px;}
+  a.card .t::before{content:"";width:6px;height:6px;border-radius:2px;background:var(--c-primary);opacity:.85;flex:none;}
+  a.card .f{font-size:12px;color:var(--c-text-3);font-family:ui-monospace,SFMono-Regular,Menlo,monospace;}
+  a.card .d{font-size:12.5px;color:var(--c-text-2);margin-top:6px;}
+  footer{
+    margin-top:48px;padding-top:20px;border-top:1px solid var(--c-border);
+    font-size:12.5px;color:var(--c-text-3);
+  }
+  footer code{background:var(--c-chip-bg);border-radius:4px;padding:1px 5px;font-size:12px;}
+  footer ul{margin:8px 0 0;padding-left:18px;}
+  footer li{margin:3px 0;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <h1>GienCoder 设计工程 · 页面导航</h1>
+    <p class="sub">全部页面为单文件静态产物，可直接双击打开，无需本地服务。</p>
+    <div class="meta">
+      <span class="chip">仓库根 <b>/Users/shaoyuming/Documents/GienCoderDesignEngineering</b></span>
+      <span class="chip">页面数 <b>10</b></span>
+      <span class="chip">组件预览 <b>71</b></span>
+    </div>
+  </header>
+
+  <section>
+    <h2>研发工作台 · pages/</h2>
+    <div class="grid">
+      <a class="card" href="pages/dev.html">
+        <div class="t">首次进入 · 选择工作目录</div>
+        <div class="f">pages/dev.html</div>
+        <div class="d">空态 + 「选择文件夹」「进入研发工作台」</div>
+      </a>
+      <a class="card" href="pages/kanban.html">
+        <div class="t">任务看板</div>
+        <div class="f">pages/kanban.html</div>
+        <div class="d">待开始 / 进行中 / 已终止 / 已完成 四列</div>
+      </a>
+      <a class="card" href="pages/req-kanban.html">
+        <div class="t">需求看板</div>
+        <div class="f">pages/req-kanban.html</div>
+        <div class="d">需求态看板视图</div>
+      </a>
+      <a class="card" href="pages/task-detail.html">
+        <div class="t">任务详情</div>
+        <div class="f">pages/task-detail.html</div>
+        <div class="d">正文 + 属性 + 动态 + 艾迪会话</div>
+      </a>
+    </div>
+  </section>
+
+  <section>
+    <h2>基础工作台 · pages/</h2>
+    <div class="grid">
+      <a class="card" href="pages/base.html">
+        <div class="t">基础工作台首页</div>
+        <div class="f">pages/base.html</div>
+        <div class="d">左栏工作空间 + 会话区</div>
+      </a>
+      <a class="card" href="pages/avatar.html">
+        <div class="t">数字分身</div>
+        <div class="f">pages/avatar.html</div>
+        <div class="d">分身配置与记忆</div>
+      </a>
+      <a class="card" href="pages/automation.html">
+        <div class="t">自动化</div>
+        <div class="f">pages/automation.html</div>
+        <div class="d">流程编排</div>
+      </a>
+      <a class="card" href="pages/skills.html">
+        <div class="t">技能 Skills</div>
+        <div class="f">pages/skills.html</div>
+        <div class="d">技能库与启用状态</div>
+      </a>
+      <a class="card" href="pages/settings.html">
+        <div class="t">设置</div>
+        <div class="f">pages/settings.html</div>
+        <div class="d">通用 / 外观 / 账户 / 通知 / 关于</div>
+      </a>
+    </div>
+  </section>
+
+  <section>
+    <h2>设计系统 · giencoder-design-system/</h2>
+    <div class="grid">
+      <a class="card" href="giencoder-design-system/index.html">
+        <div class="t">设计系统总览</div>
+        <div class="f">giencoder-design-system/index.html</div>
+        <div class="d">规范与组件入口</div>
+      </a>
+      <a class="card" href="giencoder-design-system/home.html">
+        <div class="t">设计系统首页</div>
+        <div class="f">giencoder-design-system/home.html</div>
+      </a>
+      <a class="card" href="giencoder-design-system/tokens-visual.html">
+        <div class="t">Token 可视化</div>
+        <div class="f">giencoder-design-system/tokens-visual.html</div>
+        <div class="d">颜色 / 字体 / 间距变量</div>
+      </a>
+      <a class="card" href="giencoder-design-system/preview/component-button.html">
+        <div class="t">组件预览（71 个）</div>
+        <div class="f">giencoder-design-system/preview/*.html</div>
+        <div class="d">button / table / tabs / card / modal / tree …</div>
+      </a>
+    </div>
+  </section>
+
+  <section>
+    <h2>文档 · docs/</h2>
+    <div class="grid">
+      <a class="card" href="docs/GETTING-STARTED.html">
+        <div class="t">快速开始</div>
+        <div class="f">docs/GETTING-STARTED.html</div>
+      </a>
+      <a class="card" href="docs/GienCoder-DESIGN.html">
+        <div class="t">GienCoder 设计说明</div>
+        <div class="f">docs/GienCoder-DESIGN.html</div>
+      </a>
+      <a class="card" href="docs/VIBE-DESIGN-PLAYBOOK-PPT.html">
+        <div class="t">Vibe Designing Playbook</div>
+        <div class="f">docs/VIBE-DESIGN-PLAYBOOK-PPT.html</div>
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <div>约定（改动前请遵守）：</div>
+    <ul>
+      <li>页面全自包含：CSS / JS 内联，图标为内联 SVG，无 CDN、无外部资源。</li>
+      <li>文件协议与 http 预览双通道均需可用；顶栏页签靠 <code>#SHELL-TABS-FIX</code> 兼容块跳转。</li>
+      <li>样式走 Token 变量，禁止硬编码 hex；改完跑 <code>python3 verify-design.py ./pages</code>（会重写 <code>pages/gaps.log</code>，跑完需还原）。</li>
+      <li>禁止自动推送 GitHub —— 推送由邵先生统一发起。</li>
+    </ul>
+  </footer>
+
+</div>
+</body>
+</html>

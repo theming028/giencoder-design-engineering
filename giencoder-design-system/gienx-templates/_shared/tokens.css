@@ -511,7 +511,7 @@ body { font-family: var(--font-family); font-size: var(--font-size-body-3); colo
 @media (pointer: fine) {
   * {
     scrollbar-width: thin;
-    scrollbar-color: rgba(var(--gray-10), 0.08) transparent;
+    scrollbar-color: rgba(var(--gray-10), 0.16) transparent;
   }
   ::-webkit-scrollbar {
     width: 10px;
@@ -522,7 +522,7 @@ body { font-family: var(--font-family); font-size: var(--font-size-body-3); colo
     background: transparent;
   }
   ::-webkit-scrollbar-thumb {
-    background-color: rgba(var(--gray-10), 0.08);
+    background-color: rgba(var(--gray-10), 0.16);
     border: 3px solid transparent;
     background-clip: content-box;
     border-radius: 9999px;
@@ -536,10 +536,10 @@ body { font-family: var(--font-family); font-size: var(--font-size-body-3); colo
     border-bottom-width: 5px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background-color: rgba(var(--gray-10), 0.12);
+    background-color: rgba(var(--gray-10), 0.24);
   }
   ::-webkit-scrollbar-thumb:active {
-    background-color: rgba(var(--gray-10), 0.16);
+    background-color: rgba(var(--gray-10), 0.32);
   }
 }
 

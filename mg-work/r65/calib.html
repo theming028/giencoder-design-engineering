@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><style>
+  body { margin:0; background:#fff; font-family: sans-serif; }
+  .row { display:flex; gap:24px; padding:24px; }
+  .box { width:120px; height:60px; background:#F7F7F7; border:1px solid #E5E5E5; }
+  .red { width:120px; height:32px; background:#F53F3F; }
+  .panel { width:120px; height:60px; background:#fff; box-shadow:0 8px 20px rgba(0,0,0,.1); }
+</style></head><body>
+<div class="row" id="r1"></div>
+<div class="row" id="r2"></div>
+<div class="row" id="r3"></div>
+<script>
+  var R = [2,4,5,6,7,8,10,12,14,16];
+  var r1 = document.getElementById('r1'), r2 = document.getElementById('r2'), r3 = document.getElementById('r3');
+  R.forEach(function (v) {
+    var b = document.createElement('div'); b.className='box'; b.style.borderRadius = v+'px';
+    b.setAttribute('data-r', v); r1.appendChild(b);
+    var c = document.createElement('div'); c.className='red'; c.style.borderRadius = v+'px';
+    c.setAttribute('data-r', v); r2.appendChild(c);
+    var d = document.createElement('div'); d.className='panel'; d.style.borderRadius = v+'px';
+    d.setAttribute('data-r', v); r3.appendChild(d);
+  });
+  window.__cells = function () {
+    var out = [];
+    Array.prototype.forEach.call(document.querySelectorAll('[data-r]'), function (e, i) {
+      var q = e.getBoundingClientRect();
+      out.push({ i: i, kind: e.className, r: +e.getAttribute('data-r'),
+                 x: Math.round(q.left), y: Math.round(q.top) });
+    });
+    return JSON.stringify(out);
+  };
+</script>
+</body></html>
