@@ -1,25 +1,29 @@
 # HANDOFF · 下一轮接手卡
 
 > **每轮覆盖重写。新会话开局先读这一页，再按需 grep `PLAYBOOK.md` / `PAGES.md`。**
-> 最后更新：2026-09-29 22:5x（r85 已落地并验收）
-> **未 commit / 未 push**
+> 最后更新：2026-09-29 23:05（r85 已落地并验收；**r80–r85 已 commit + push**）
+> **已推送至 `origin/main` @ `1ecc7ee`；工作区干净**
 
 ---
 
 ## 一、当前工作区状态
 
-```
- M .workbuddy/memory/{2026-09-29,HANDOFF,MEMORY,PLAYBOOK}.md
- M pages/settings.html    （r85；设置页导航 + 「系统设置」内容）
- M pages/avatar.html      （r83 + r84；「会话历史」二级视图）
- M pages/dev.html         （r82）
- M pages/kanban.html      （r82）
- M pages/req-kanban.html  （r82）
- M pages/task-detail.html （r82）
-?? mg-work/r80/ … r81/ r82/ r83/ r84/ r85/   （取证，未提交）
-?? mg-work/check-syntax.py                   （常驻工具，未提交）
-?? mg-work/mgfetch.py                        （设计取数工具，未提交）
-```
+**干净**（`git status --short` 无输出）。r80–r85 全部入库并推送：
+
+| 提交 | 内容 |
+|---|---|
+| `acb9070` | feat(r80-r82) 研发工作台四页「切换工艺流程空间」浮窗落地并两轮修订 |
+| `c1fe24c` | feat(r83-r84) 头像菜单「会话历史」二级视图 + 点击删除确认态 |
+| `ef67659` | feat(r85) 「设置」页 —— 左侧导航菜单 + 首个菜单「系统设置」内容 |
+| `8dcb422` | chore(tools) 入库 check-syntax.py / mgfetch.py + `.gitignore` 两条排除 |
+| `1ecc7ee` | chore(memory) 记忆同步至 r85 |
+
+⚠ **`.gitignore` 本轮新增两条排除**（无复用价值；**文件仍在本地，不是丢失**）：
+- `mg-work/r80/raw/sel_*.json` —— MasterGo「选中节点」原始响应 dump，**285 个 / 21M**（该轮实质产物仅 14 个 / 81K）
+- `mg-work/*/gate/*/pages/` —— 门禁跑分用的页面临时副本；按既有惯例只留 `gate/*.txt` 报告
+
+⚠ **推送凭据（本机原本完全没有）**：`~/.gitconfig` 的 `credential.helper=` 为空、`~/.ssh` 只有 known_hosts、Windows 凭据管理器无 github 条目。
+本轮把 PAT 写入 `~/.git-credentials`（权限 600）后，用 **`-c credential.helper=store`** 推送 —— **不设全局 helper、不把凭据写进仓库**。
 
 `.workbuddy/memory/` 两份：**仓库内 `E:/GienCoder/giencoder-design-engineering/.workbuddy/memory/`（权威，随 git 走）**
 与工作区 `E:/GienCoder/.workbuddy/memory/`（速记）。改记忆**以仓库内为准**。
@@ -161,7 +165,21 @@ cp mg-work/r80/before/dev.html      pages/dev.html       # r80 回滚
   （同一行里串太多 `&&` 时更容易触发）⇒ 拆成单条命令重发即可。
 - 禁整文件 Read `pages/*.html`（单行压缩 bundle 340–820 KB）→ 用 Python 只打印目标片段。
 - ⚠ 本机 `grep` 查中文一律返回空 → 中文用 Python 读。
-- **推 GitHub**：env 的 `https_proxy=127.0.0.1:53395` 对 `github.com:443` 稳定 502；
-  可用出口 `http://127.0.0.1:7890`：
-  `git -c http.proxy=http://127.0.0.1:7890 -c https.proxy=http://127.0.0.1:7890 -c http.version=HTTP/1.1 push origin main`。
+- **推 GitHub**（r85 已补齐认证，三步）：
+  ① `env | grep -i proxy` **现查** —— 环境注入的代理**端口每轮会变**（实测走过 53395 / 62399），
+     它对 `github.com:443` 稳定 502 ⇒ **先清掉** `env -u https_proxy -u HTTPS_PROXY -u http_proxy -u HTTP_PROXY`；
+  ② 出口用 `http://127.0.0.1:7890`（`curl -sI -x http://127.0.0.1:7890 --max-time 10 https://github.com` 回 `200 OK` 即通）；
+  ③ **认证**：本机原本**没有**可用凭据 —— `~/.gitconfig` 里 `credential.helper=` 为空、`~/.ssh` 只有 known_hosts、
+     Windows 凭据管理器无 github 条目。PAT 已写入 `~/.git-credentials`（权限 600），推送时带 **`-c credential.helper=store`**：
+
+  ```bash
+  env -u https_proxy -u HTTPS_PROXY -u http_proxy -u HTTP_PROXY \
+    git -c credential.helper=store \
+        -c http.proxy=http://127.0.0.1:7890 -c https.proxy=http://127.0.0.1:7890 \
+        -c http.version=HTTP/1.1 push origin main
+  ```
+
+  判据：出现 `main -> main`；再用 `ls-remote origin main` 与 `git rev-parse HEAD` 比对复核。
+  ⚠ 认证缺失时报的是 `fatal: could not read Username for 'https://github.com': terminal prompts disabled`
+  （非交互环境不弹窗）—— **别误判成网络问题**。⚠ 不要设全局 helper、不要把凭据写进仓库。
 - MasterGo：MCP 在 **20678**；**截图 HTTP 接口在 30678**（见第三节 ①）。

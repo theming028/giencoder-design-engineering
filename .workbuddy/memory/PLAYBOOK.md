@@ -1201,7 +1201,29 @@ r84 把 `open_view.js` 放在 `r83/ev/`，`cat mg-work/r84/ev/open_view.js` 报�
 - ⚠️ **本地可能积压很多轮未提交**（r66 时 HEAD 停在 r37，r38~r66 共 29 轮未提交）。
   用户说"全量推送" = 连 `mg-work/` 证据图 + 根 `index.html` 一起 `git add -A`；
   提交前先扫一遍敏感串（`ghp_` / `github_pat_` / `AKIA` / `PRIVATE KEY`）。仓库已跟踪 `mg-work`，属既有惯例。
-- ⚠️ `git remote -v` 的 origin URL **内嵌 GitHub PAT（明文）** —— 汇报时不要打印完整 URL。
+- ⚠️ macOS 旧环境的 `git remote -v` origin URL **内嵌 GitHub PAT（明文）**（凭据就在 URL 里，所以那次不必配 helper）；
+  本机（Windows）的 URL 是**干净的**，认证需另配（见下条）⇒ 无论哪种环境，汇报时都不要打印完整 URL。
+- ★ **Windows 环境（本机仓库 `E:/GienCoder/giencoder-design-engineering`）推送三步**（r85 打通）：
+  ① **注入代理的端口每轮会变**（实测走过 `53395` / `62399`），旧记录把端口写死是隐患 ⇒ 先 `env | grep -i proxy` **现查**，
+     再 `env -u https_proxy -u HTTPS_PROXY -u http_proxy -u HTTP_PROXY` **清掉**（env 的代理对 `github.com:443` 稳定 502）；
+  ② 出口用 `http://127.0.0.1:7890`（`curl -sI -x http://127.0.0.1:7890 --max-time 10 https://github.com` 回 `200 OK` 即通）；
+  ③ **认证**：本机原本**没有**可用凭据 —— `~/.gitconfig` 里 `credential.helper=` 为空、`~/.ssh` 只有 known_hosts、
+     Windows 凭据管理器与 `~/.netrc` 均无 github 条目 ⇒ PAT 写入 `~/.git-credentials`（权限 600），推送时带 **`-c credential.helper=store`**
+
+  ```bash
+  env -u https_proxy -u HTTPS_PROXY -u http_proxy -u HTTP_PROXY \
+    git -c credential.helper=store \
+        -c http.proxy=http://127.0.0.1:7890 -c https.proxy=http://127.0.0.1:7890 \
+        -c http.version=HTTP/1.1 push origin main
+  ```
+
+  ⚠ 缺认证时**报的是** `fatal: could not read Username for 'https://github.com': terminal prompts disabled`
+  （非交互环境**不会弹窗**）—— **别误判成网络问题**。⚠️ 不要设全局 helper、不要把凭据写进仓库。
+- ⚠️ **要排除某类产物前，先查既有入库惯例**（r85 两例，别凭直觉）：
+  `before/` 基线**是**入库惯例（r74 9 个 / r76 9 个 / r77 11 个）；而 `mg-work/*/gate*` 入库的 **8 个全是 txt 报告**（页面副本不入库）。
+  r85 据此排除 `mg-work/r85/gate/*/pages/` 与 `mg-work/r80/raw/sel_*.json`（**285 个 / 21M** 的「选中节点」原始 dump，
+  而该轮 raw 的实质产物仅 **14 个 / 81K**）—— 查法：`find <dir> -type f -printf '%s %p\n' | sort -rn | head` +
+  `find <dir> -type f | sed 's/.*\.//' | sort | uniq -c | sort -rn`。
 
 ---
 
