@@ -5,13 +5,13 @@
 > 分工：历史详情 → `YYYY-MM-DD.md`；稳定工作法 → `PLAYBOOK.md`；页面事实 → `PAGES.md`；
 > 每次都必知 → `MEMORY.md`。**本文件不占注入预算**（只在需要时 grep/Read）。
 
-- **最后更新**：2026-09-29（**r72–r78 已全量入库并推送成功**；本轮只动 `pages/base.html` 一页）
-- **HEAD**：`fde6473` = `origin/main`（`feat(r72-r78): 全量入库 …`）——
+- **最后更新**：2026-09-29（**r72–r78 入库 + 目录清理均已推送成功**；工作区干净、已与远程同步）
+- **HEAD**：`042e669` = `origin/main`（`chore(cleanup): 删除早期轮次临时截图 …`）——
   平时本卡**不存 hash**（易变），此处因"入库刚发生、下一轮开工前要知道已同步"而记一次。
-- **工作区**：**干净**（`git status` 0 项）。上一批全部入库：
-  `pages` 9 页 + `giencoder-design-system` 2 + `.workbuddy/memory` 3 + `mg-work/r72~r78` 433 文件
-  （447 files / 91413 insertions，约 45MB）
-- **本卡数据源**：`mg-work/r78/acceptance.md`（逐项结论 + 全部实测数字）
+- **工作区**：**干净**（`git status` 0 项）。已入库三批：
+  ① `fde6473` r72~r78 全量（447 files / 91413 ins，约 45MB）
+  ② `27f342c` 补记入库结果 ③ `042e669` 目录清理（64 files：62 删除 + 审计报告 + 日志）
+- **本卡数据源**：`mg-work/r78/acceptance.md`（r78 逐项结论）+ `mg-work/cleanup-audit-2026-09-29.md`（清理审计）
 
 ---
 
@@ -67,6 +67,11 @@
 4. **r74 遗留**：摇晃 / X 自转收到 300ms 仍挂着（craft 硬上限）；涟漪半径 cap 480px。
 5. **历史遗留（r72 起）**：全屏 + 浏览态时 `Esc#1` 一次关两层；avatar 双开 + 视口 ≤1100 时 main 被压到 ~0。
 6. **可选**：把 r75 的「DS 原生过渡配方」推广到 task-detail 的 `.giencoder-select-popup`（一直是硬跳）。
+7. **目录清理的追加档位（已出报告，等拍板）**：见 `mg-work/cleanup-audit-2026-09-29.md`。
+   已执行档 = 66 个早期裁剪图/垃圾（1.80 MB，已进废纸篓，`/usr/bin/trash` 可"放回原处"）。
+   待选：① **`git gc`**（唯一真能省磁盘的一步，`.git` 72MB loose → 回收 30–40 MB，零风险不删文件）；
+   ② 加删 r01–r68 整页截图 61.94 MB；③ 全部零引用截图 87.52 MB；④ ③+`before/` 基线 ≈108 MB（丢回滚能力）。
+   ⚠️ ②③④ **不释放磁盘**（blob 仍在 `.git`），要真释放只有重写历史 + `force push`（SOUL 红线，不建议）。
 
 ---
 
