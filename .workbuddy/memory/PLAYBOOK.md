@@ -211,6 +211,12 @@ DS 组件的 CSS 是**每页内联一份、内容逐字节相同**的编译产�
   （改前基线同样跳 ⇒ 既有行为，非本轮引入）。
   ⇒ **凡是要验证"按键会不会触发导航/全局快捷键"的结论，一律用 `press <Key>`，不要用合成事件**；
   合成事件只适合验证"元素自己的 keydown 监听"。
+- ⚠️★ **本机 `grep` 查中文一律返回空**（r71 一轮内复现 3 次）：`grep -n "push"` 能匹配 ASCII，
+  但 `grep "第 71 轮"` / `grep "未推"` / `grep "中文"` **全部返回空、不报错、只在中文上失效**。
+  症状极具迷惑性：会误判成「文件里没有这条」而绕远路（r71 查日志轮次、查 HANDOFF 的 push 表述都中招）。
+  ⇒ **查含中文的内容一律用 `python3 -c "for i,l in enumerate(open(f,encoding='utf-8').read().split(chr(10)),1): …"` 读**；
+  `grep` 只用于纯 ASCII（类名、hash、标签名、token 名）。这与 P1 的「按需 grep 记忆文件」并不矛盾 ——
+  **grep 定位 ASCII 锚点，中文内容用 python 读**。
 
 ### P3.2 伪类态 / 拖动 → 见 skill `css-pseudo-state-evidence`
 - 伪类态**没有 DOM 属性可改**，唯一可靠链路：`rect` 拿视口坐标（列表/树里要筛 `width>0` 的**可见**元素，
