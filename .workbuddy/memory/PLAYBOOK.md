@@ -1208,7 +1208,8 @@ r84 把 `open_view.js` 放在 `r83/ev/`，`cat mg-work/r84/ev/open_view.js` 报�
      再 `env -u https_proxy -u HTTPS_PROXY -u http_proxy -u HTTP_PROXY` **清掉**（env 的代理对 `github.com:443` 稳定 502）；
   ② 出口用 `http://127.0.0.1:7890`（`curl -sI -x http://127.0.0.1:7890 --max-time 10 https://github.com` 回 `200 OK` 即通）；
   ③ **认证**：本机原本**没有**可用凭据 —— `~/.gitconfig` 里 `credential.helper=` 为空、`~/.ssh` 只有 known_hosts、
-     Windows 凭据管理器与 `~/.netrc` 均无 github 条目 ⇒ PAT 写入 `~/.git-credentials`（权限 600），推送时带 **`-c credential.helper=store`**
+     Windows 凭据管理器与 `~/.netrc` 均无 github 条目 ⇒ PAT 写入 `~/.git-credentials`，推送时带 **`-c credential.helper=store`**
+     （⚠ Windows 下 `chmod 600` **不生效**，实测仍是 `-rw-r--r--` ⇒ 用 `icacls "<path>" /inheritance:r /grant:r "<user>:(R)"` 收紧）
 
   ```bash
   env -u https_proxy -u HTTPS_PROXY -u http_proxy -u HTTP_PROXY \

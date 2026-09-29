@@ -23,7 +23,9 @@
 - `mg-work/*/gate/*/pages/` —— 门禁跑分用的页面临时副本；按既有惯例只留 `gate/*.txt` 报告
 
 ⚠ **推送凭据（本机原本完全没有）**：`~/.gitconfig` 的 `credential.helper=` 为空、`~/.ssh` 只有 known_hosts、Windows 凭据管理器无 github 条目。
-本轮把 PAT 写入 `~/.git-credentials`（权限 600）后，用 **`-c credential.helper=store`** 推送 —— **不设全局 helper、不把凭据写进仓库**。
+本轮把 PAT 写入 `~/.git-credentials` 后，用 **`-c credential.helper=store`** 推送 —— **不设全局 helper、不把凭据写进仓库**。
+  ⚠ Windows 下 `chmod 600` **不生效**（实测仍是 `-rw-r--r--`）⇒ 改用
+  `icacls "<path>" /inheritance:r /grant:r "<user>:(R)"` 收紧为「仅本用户可读」（已验证只剩一条 ACE）。
 
 `.workbuddy/memory/` 两份：**仓库内 `E:/GienCoder/giencoder-design-engineering/.workbuddy/memory/`（权威，随 git 走）**
 与工作区 `E:/GienCoder/.workbuddy/memory/`（速记）。改记忆**以仓库内为准**。
