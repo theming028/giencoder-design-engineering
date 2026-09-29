@@ -15,3 +15,9 @@ package-lock.json
 
 # Local preview server runtime log
 mg-work/serve.log
+
+# MasterGo「选中节点」原始响应 dump（探索期临时产物，285 个 / 21M，无复用价值）
+mg-work/r80/raw/sel_*.json
+
+# 门禁临时工作副本（页面可从 pages/ 或 git 复原；只保留 gate/*.txt 报告）
+mg-work/*/gate/*/pages/
