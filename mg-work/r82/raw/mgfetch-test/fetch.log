@@ -1,0 +1,6 @@
+==== mgfetch 2026-09-29 21:05:21 ====
+── https://mastergo.com/goto/WsG5bwJn?page_id=836:21408&layer_id=1389:18525&file=193158744355579  (node 1389:18525)
+   HTTP 45.0s → TimeoutError（继续走 asset 兜底）
+    ↳ asset mg-work/r82/raw/mgfetch-test\asset_1389-18525.svg (4255 bytes) ← blob 870346513e98
+   ✓ 通过 asset 兜底拿到 1 件素材
+结果：1/1 拿到

@@ -1,0 +1,330 @@
+╔══════════════════════════════════════════════════════════
+║ GienCoder Design Engineering — 质量验证报告
+║ 扫描 9 个 HTML 文件
+╚══════════════════════════════════════════════════════════
+
+┌─ automation.html (1 issues)
+│ 🔵 [CRAFT-SLOP] automation.html
+  问题: 检测到 47 处渐变，可能过度装饰（craft.md: 品牌色一屏不超过 3 处重点使用）
+  修复: 检查渐变是否必要，克制使用
+└─
+
+┌─ avatar.html (3 issues)
+│ 🟡 [TOKEN-GAP] avatar.html:578
+  问题: 硬编码字号 11px，应使用 var(--font-size-*)
+  代码: font-size: 11px; line-height: 18px; color: var(--color-text-3);
+  修复: 查 giencoder-design-system/tokens.md 找对应 font-size token
+│ 🟡 [TOKEN-GAP] avatar.html:630
+  问题: 硬编码字号 14px，应使用 var(--font-size-*)
+  代码: font-size: 14px; font-weight: 500; line-height: 18px; color: var(--td-ink-2);
+  修复: 查 giencoder-design-system/tokens.md 找对应 font-size token
+│ 🔵 [CRAFT-SLOP] avatar.html
+  问题: 检测到 48 处渐变，可能过度装饰（craft.md: 品牌色一屏不超过 3 处重点使用）
+  修复: 检查渐变是否必要，克制使用
+└─
+
+┌─ base.html (1 issues)
+│ 🔵 [CRAFT-SLOP] base.html
+  问题: 检测到 62 处渐变，可能过度装饰（craft.md: 品牌色一屏不超过 3 处重点使用）
+  修复: 检查渐变是否必要，克制使用
+└─
+
+┌─ dev.html (4 issues)
+│ 🟡 [TOKEN-GAP] dev.html:220
+  问题: 硬编码字号 14px，应使用 var(--font-size-*)
+  代码: .awd-link-text{color:var(--color-text-1);font-size:14px;line-height:22px;white-space:nowrap;}
+  修复: 查 giencoder-design-system/tokens.md 找对应 font-size token
+│ 🟡 [TOKEN-GAP] dev.html:226
+  问题: 硬编码字号 14px，应使用 var(--font-size-*)
+  代码: .awd-divider-text span{color:var(--color-text-1);font-size:14px;line-height:22px;white-space:nowrap;}
+  修复: 查 giencoder-design-system/tokens.md 找对应 font-size token
+│ 🟡 [TOKEN-GAP] dev.html:230
+  问题: 硬编码字号 14px，应使用 var(--font-size-*)
+  代码: .awd-button-text{color:var(--color-white);font-size:14px;font-weight:500;line-height:22px;white-space:nowrap;}
+  修复: 查 giencoder-design-system/tokens.md 找对应 font-size token
+│ 🔵 [CRAFT-SLOP] dev.html
+  问题: 检测到 48 处渐变，可能过度装饰（craft.md: 品牌色一屏不超过 3 处重点使用）
+  修复: 检查渐变是否必要，克制使用
+└─
+
+┌─ kanban.html (19 issues)
+│ 🟡 [TOKEN-GAP] kanban.html:291
+  问题: 硬编码字号 14px，应使用 var(--font-size-*)
+  代码: margin-left: 8px; font-size: 14px; font-weight: 500; line-height: 22px;
+  修复: 查 giencoder-design-system/tokens.md 找对应 font-size token
+│ 🟡 [TOKEN-GAP] kanban.html:306
+  问题: 硬编码字号 14px，应使用 var(--font-size-*)
+  代码: color: var(--color-text-1); font-size: 14px; font-weight: 500; line-height: 22px;
+  修复: 查 giencoder-design-system/tokens.md 找对应 font-size token
+│ 🟡 [TOKEN-GAP] kanban.html:316
+  问题: 硬编码字号 12px，应使用 var(--font-size-*)
+  代码: font-size: 12px; line-height: 16px; white-space: nowrap; overflow: hidden;
+  修复: 查 giencoder-design-system/tokens.md 找对应 font-size token
+│ 🟡 [TOKEN-GAP] kanban.html:345
+  问题: 硬编码字号 14px，应使用 var(--font-size-*)
+  代码: .kb-create span { font-size: 14px; font-weight: 500; line-height: 22px; white-space: nowrap; }
+  修复: 查 giencoder-design-system/tokens.md 找对应 font-size token
+│ 🟡 [TOKEN-GAP] kanban.html:367
+  问题: 硬编码字号 14px，应使用 var(--font-size-*)
+  代码: font-size: 14px; font-weight: 500; line-height: 20px; white-space: nowrap;
+  修复: 查 giencoder-design-system/tokens.md 找对应 font-size token
+│ 🟡 [TOKEN-GAP] kanban.html:373
+  问题: 硬编码字号 24px，应使用 var(--font-size-*)
+  代码: .kb-stat-num b { color: var(--color-text-1); font-size: 24px; font-weight: 500; line-height: 32px; }
+  修复: 查 giencoder-design-system/tokens.md 找对应 font-size token
+│ 🟡 [TOKEN-GAP] kanban.html:392
+  问题: 硬编码字号 16px，应使用 var(--font-size-*)
+  代码: .kb-bh-title { position: absolute; left: 0; top: 2px; color: var(--color-text-1); font-size: 16px; font-weight: 500; lin
+  修复: 查 giencoder-design-system/tokens.md 找对应 font-size token
+│ 🟡 [TOKEN-GAP] kanban.html:405
+  问题: 硬编码字号 14px，应使用 var(--font-size-*)
+  代码: .kb-col-name { color: var(--color-text-1); font-size: 14px; font-weight: 500; line-height: 22px; }
+  修复: 查 giencoder-design-system/tokens.md 找对应 font-size token
+│ 🟡 [TOKEN-GAP] kanban.html:407
+  问题: 硬编码字号 10px，应使用 var(--font-size-*)
+  代码: .kb-col-cnt::before { content: '•'; font-size: 10px; margin-right: 6px; vertical-align: 1px; }
+  修复: 查 giencoder-design-system/tokens.md 找对应 font-size token
+│ 🟡 [TOKEN-GAP] kanban.html:436
+  问题: 硬编码字号 14px，应使用 var(--font-size-*)
+  代码: .kb-card-title { color: var(--color-text-1); font-size: 14px; font-weight: 400; line-height: 22px; }
+  修复: 查 giencoder-design-system/tokens.md 找对应 font-size token
+│ 🟡 [TOKEN-GAP] kanban.html:446
+  问题: 硬编码字号 12px，应使用 var(--font-size-*)
+  代码: .kb-tag { font-size: 12px; line-height: 18px; padding: 1px 6px; border-radius: 4px; white-space: nowrap; }
+  修复: 查 giencoder-design-system/tokens.md 找对应 font-size token
+│ 🟡 [TOKEN-GAP] kanban.html:455
+  问题: 硬编码字号 12px，应使用 var(--font-size-*)
+  代码: .kb-card-foot .kb-lbl { color: var(--color-text-3); font-size: 12px; line-height: 18px; white-space: nowrap; }
+  修复: 查 giencoder-design-system/tokens.md 找对应 font-size token
+│ 🟡 [TOKEN-GAP] kanban.html:456
+  问题: 硬编码字号 12px，应使用 var(--font-size-*)
+  代码: .kb-card-foot .kb-val { color: var(--color-text-2); font-size: 12px; line-height: 18px; white-space: nowrap; }
+  修复: 查 giencoder-design-system/tokens.md 找对应 font-size token
+│ 🟡 [TOKEN-GAP] kanban.html:457
+  问题: 硬编码字号 12px，应使用 var(--font-size-*)
+  代码: .kb-card-foot .kb-sp { margin-left: auto; display: flex; align-items: center; gap: 4px; color: var(--color-text-3); font
+  修复: 查 giencoder-design-system/tokens.md 找对应 font-size token
+│ 🟡 [TOKEN-GAP] kanban.html:461
+  问题: 硬编码字号 12px，应使用 var(--font-size-*)
+  代码: background: var(--kb-confirm); border-radius: 6px; color: #fff; font-size: 12px; font-weight: 500; line-height: 18px;
+  修复: 查 giencoder-design-system/tokens.md 找对应 font-size token
+│ 🟡 [TOKEN-GAP] kanban.html:495
+  问题: 硬编码字号 12px，应使用 var(--font-size-*)
+  代码: .kb-running { margin-left: auto; display: flex; align-items: center; gap: 4px; color: var(--color-primary-6); font-size:
+  修复: 查 giencoder-design-system/tokens.md 找对应 font-size token
+│ 🟡 [TOKEN-GAP] kanban.html:500
+  问题: 硬编码字号 12px，应使用 var(--font-size-*)
+  代码: padding: 16px 0 20px; color: var(--color-text-3); font-size: 12px; line-height: 18px;
+  修复: 查 giencoder-design-system/tokens.md 找对应 font-size token
+│ 🟡 [TOKEN-GAP] kanban.html:883
+  问题: 硬编码字号 15px，应使用 var(--font-size-*)
+  代码: .kb-crt-glyph { font-family: Georgia, 'Times New Roman', serif; font-size: 15px; line-height: 1; }
+  修复: 查 giencoder-design-system/tokens.md 找对应 font-size token
+│ 🔵 [CRAFT-SLOP] kanban.html
+  问题: 检测到 58 处渐变，可能过度装饰（craft.md: 品牌色一屏不超过 3 处重点使用）
+  修复: 检查渐变是否必要，克制使用
+└─
+
+┌─ req-kanban.html (24 issues)
+│ 🟡 [TOKEN-GAP] req-kanban.html:605
+  问题: CSS 硬编码色值 #E0F5F2，应使用设计系统变量 var(--color-*)
+  代码: .rq-type--sub { background: #E0F5F2; color: #0FA79A; }
+  修复: 查 giencoder-design-system/tokens.md 找对应 token，记入 gaps.log
+│ 🟡 [TOKEN-GAP] req-kanban.html:605
+  问题: CSS 硬编码色值 #0FA79A，应使用设计系统变量 var(--color-*)
+  代码: .rq-type--sub { background: #E0F5F2; color: #0FA79A; }
+  修复: 查 giencoder-design-system/tokens.md 找对应 token，记入 gaps.log
+│ 🟡 [TOKEN-GAP] req-kanban.html:279
+  问题: 硬编码字号 14px，应使用 var(--font-size-*)
+  代码: margin-left: 8px; font-size: 14px; font-weight: 500; line-height: 22px;
+  修复: 查 giencoder-design-system/tokens.md 找对应 font-size token
+│ 🟡 [TOKEN-GAP] req-kanban.html:294
+  问题: 硬编码字号 14px，应使用 var(--font-size-*)
+  代码: color: var(--color-text-1); font-size: 14px; font-weight: 500; line-height: 22px;
+  修复: 查 giencoder-design-system/tokens.md 找对应 font-size token
+│ 🟡 [TOKEN-GAP] req-kanban.html:304
+  问题: 硬编码字号 12px，应使用 var(--font-size-*)
+  代码: font-size: 12px; line-height: 16px; white-space: nowrap; overflow: hidden;
+  修复: 查 giencoder-design-system/tokens.md 找对应 font-size token
+│ 🟡 [TOKEN-GAP] req-kanban.html:325
+  问题: 硬编码字号 14px，应使用 var(--font-size-*)
+  代码: .kb-create span { font-size: 14px; font-weight: 500; line-height: 22px; white-space: nowrap; }
+  修复: 查 giencoder-design-system/tokens.md 找对应 font-size token
+│ 🟡 [TOKEN-GAP] req-kanban.html:343
+  问题: 硬编码字号 14px，应使用 var(--font-size-*)
+  代码: font-size: 14px; font-weight: 500; line-height: 20px; white-space: nowrap;
+  修复: 查 giencoder-design-system/tokens.md 找对应 font-size token
+│ 🟡 [TOKEN-GAP] req-kanban.html:349
+  问题: 硬编码字号 24px，应使用 var(--font-size-*)
+  代码: .kb-stat-num b { color: var(--color-text-1); font-size: 24px; font-weight: 500; line-height: 32px; }
+  修复: 查 giencoder-design-system/tokens.md 找对应 font-size token
+│ 🟡 [TOKEN-GAP] req-kanban.html:357
+  问题: 硬编码字号 16px，应使用 var(--font-size-*)
+  代码: .kb-bh-title { position: absolute; left: 0; top: 2px; color: var(--color-text-1); font-size: 16px; font-weight: 500; lin
+  修复: 查 giencoder-design-system/tokens.md 找对应 font-size token
+│ 🟡 [TOKEN-GAP] req-kanban.html:367
+  问题: 硬编码字号 14px，应使用 var(--font-size-*)
+  代码: .kb-col-name { color: var(--color-text-1); font-size: 14px; font-weight: 500; line-height: 22px; }
+  修复: 查 giencoder-design-system/tokens.md 找对应 font-size token
+│ 🟡 [TOKEN-GAP] req-kanban.html:368
+  问题: 硬编码字号 13px，应使用 var(--font-size-*)
+  代码: .kb-col-cnt { color: var(--color-text-3); font-size: 13px; line-height: 20px; }
+  修复: 查 giencoder-design-system/tokens.md 找对应 font-size token
+│ 🟡 [TOKEN-GAP] req-kanban.html:369
+  问题: 硬编码字号 10px，应使用 var(--font-size-*)
+  代码: .kb-col-cnt::before { content: '•'; font-size: 10px; margin-right: 6px; vertical-align: 1px; }
+  修复: 查 giencoder-design-system/tokens.md 找对应 font-size token
+│ 🟡 [TOKEN-GAP] req-kanban.html:377
+  问题: 硬编码字号 14px，应使用 var(--font-size-*)
+  代码: .kb-card-title { color: var(--color-text-1); font-size: 14px; font-weight: 400; line-height: 22px; }
+  修复: 查 giencoder-design-system/tokens.md 找对应 font-size token
+│ 🟡 [TOKEN-GAP] req-kanban.html:379
+  问题: 硬编码字号 12px，应使用 var(--font-size-*)
+  代码: .kb-tag { font-size: 12px; line-height: 18px; padding: 1px 6px; border-radius: 4px; white-space: nowrap; }
+  修复: 查 giencoder-design-system/tokens.md 找对应 font-size token
+│ 🟡 [TOKEN-GAP] req-kanban.html:388
+  问题: 硬编码字号 12px，应使用 var(--font-size-*)
+  代码: .kb-card-foot .kb-lbl { color: var(--color-text-3); font-size: 12px; line-height: 18px; white-space: nowrap; }
+  修复: 查 giencoder-design-system/tokens.md 找对应 font-size token
+│ 🟡 [TOKEN-GAP] req-kanban.html:389
+  问题: 硬编码字号 12px，应使用 var(--font-size-*)
+  代码: .kb-card-foot .kb-val { color: var(--color-text-2); font-size: 12px; line-height: 18px; white-space: nowrap; }
+  修复: 查 giencoder-design-system/tokens.md 找对应 font-size token
+│ 🟡 [TOKEN-GAP] req-kanban.html:390
+  问题: 硬编码字号 12px，应使用 var(--font-size-*)
+  代码: .kb-card-foot .kb-sp { margin-left: auto; display: flex; align-items: center; gap: 4px; color: var(--color-text-3); font
+  修复: 查 giencoder-design-system/tokens.md 找对应 font-size token
+│ 🟡 [TOKEN-GAP] req-kanban.html:394
+  问题: 硬编码字号 12px，应使用 var(--font-size-*)
+  代码: background: var(--kb-confirm); border-radius: 6px; color: #fff; font-size: 12px; font-weight: 500; line-height: 18px;
+  修复: 查 giencoder-design-system/tokens.md 找对应 font-size token
+│ 🟡 [TOKEN-GAP] req-kanban.html:399
+  问题: 硬编码字号 12px，应使用 var(--font-size-*)
+  代码: color: var(--kb-exec-tx); font-size: 12px; font-weight: 500; line-height: 18px;
+  修复: 查 giencoder-design-system/tokens.md 找对应 font-size token
+│ 🟡 [TOKEN-GAP] req-kanban.html:401
+  问题: 硬编码字号 12px，应使用 var(--font-size-*)
+  代码: .kb-running { margin-left: auto; display: flex; align-items: center; gap: 4px; color: var(--color-primary-6); font-size:
+  修复: 查 giencoder-design-system/tokens.md 找对应 font-size token
+│ 🟡 [TOKEN-GAP] req-kanban.html:406
+  问题: 硬编码字号 12px，应使用 var(--font-size-*)
+  代码: padding: 16px 0 20px; color: var(--color-text-3); font-size: 12px; line-height: 18px;
+  修复: 查 giencoder-design-system/tokens.md 找对应 font-size token
+│ 🟡 [TOKEN-GAP] req-kanban.html:547
+  问题: 硬编码字号 24px，应使用 var(--font-size-*)
+  代码: .rq-stat-num b { color: var(--color-text-1); font-size: 24px; font-weight: 500; line-height: 32px; }
+  修复: 查 giencoder-design-system/tokens.md 找对应 font-size token
+│ 🟡 [TOKEN-GAP] req-kanban.html:553
+  问题: 硬编码字号 16px，应使用 var(--font-size-*)
+  代码: .rq-bh-title { flex: none; color: var(--color-text-1); font-size: 16px; font-weight: 500; line-height: 24px; white-space
+  修复: 查 giencoder-design-system/tokens.md 找对应 font-size token
+│ 🔵 [CRAFT-SLOP] req-kanban.html
+  问题: 检测到 54 处渐变，可能过度装饰（craft.md: 品牌色一屏不超过 3 处重点使用）
+  修复: 检查渐变是否必要，克制使用
+└─
+
+┌─ settings.html (1 issues)
+│ 🔵 [CRAFT-SLOP] settings.html
+  问题: 检测到 48 处渐变，可能过度装饰（craft.md: 品牌色一屏不超过 3 处重点使用）
+  修复: 检查渐变是否必要，克制使用
+└─
+
+┌─ skills.html (1 issues)
+│ 🔵 [CRAFT-SLOP] skills.html
+  问题: 检测到 47 处渐变，可能过度装饰（craft.md: 品牌色一屏不超过 3 处重点使用）
+  修复: 检查渐变是否必要，克制使用
+└─
+
+┌─ task-detail.html (21 issues)
+│ 🟡 [TOKEN-GAP] task-detail.html:333
+  问题: 硬编码字号 16px，应使用 var(--font-size-*)
+  代码: font-size: 16px; font-weight: 500; line-height: 24px; color: var(--td-strong);
+  修复: 查 giencoder-design-system/tokens.md 找对应 font-size token
+│ 🟡 [TOKEN-GAP] task-detail.html:369
+  问题: 硬编码字号 18px，应使用 var(--font-size-*)
+  代码: font-size: 18px; font-weight: 600; line-height: 28px; color: var(--td-strong);
+  修复: 查 giencoder-design-system/tokens.md 找对应 font-size token
+│ 🟡 [TOKEN-GAP] task-detail.html:1227
+  问题: 硬编码字号 11px，应使用 var(--font-size-*)
+  代码: font-size: 11px; line-height: 18px; color: var(--color-text-3);
+  修复: 查 giencoder-design-system/tokens.md 找对应 font-size token
+│ 🟡 [TOKEN-GAP] task-detail.html:1286
+  问题: 硬编码字号 14px，应使用 var(--font-size-*)
+  代码: font-size: 14px; font-weight: 500; line-height: 18px; color: var(--td-ink-2);
+  修复: 查 giencoder-design-system/tokens.md 找对应 font-size token
+│ 🟡 [TOKEN-GAP] task-detail.html:1409
+  问题: 硬编码字号 14px，应使用 var(--font-size-*)
+  代码: .td-dp .giencoder-popover-title { padding: 15px 15px 0; font-size: 14px; line-height: 22px; font-weight: 500; }
+  修复: 查 giencoder-design-system/tokens.md 找对应 font-size token
+│ 🟡 [TOKEN-GAP] task-detail.html:1410
+  问题: 硬编码字号 12px，应使用 var(--font-size-*)
+  代码: .td-dp-t2 { margin-top: 4px; font-size: 12px; line-height: 16px; font-weight: 400; color: var(--color-text-3); }
+  修复: 查 giencoder-design-system/tokens.md 找对应 font-size token
+│ 🟡 [TOKEN-GAP] task-detail.html:1415
+  问题: 硬编码字号 14px，应使用 var(--font-size-*)
+  代码: .td-dp .giencoder-input { font-size: 14px; }
+  修复: 查 giencoder-design-system/tokens.md 找对应 font-size token
+│ 🟡 [TOKEN-GAP] task-detail.html:1428
+  问题: 硬编码字号 14px，应使用 var(--font-size-*)
+  代码: .td-dp-name { font-size: 14px; line-height: 22px; }
+  修复: 查 giencoder-design-system/tokens.md 找对应 font-size token
+│ 🟡 [TOKEN-GAP] task-detail.html:1436
+  问题: 硬编码字号 12px，应使用 var(--font-size-*)
+  代码: .td-dp-none .giencoder-empty-description { margin-top: 0; font-size: 12px; color: var(--color-text-3); }
+  修复: 查 giencoder-design-system/tokens.md 找对应 font-size token
+│ 🟡 [TOKEN-GAP] task-detail.html:1441
+  问题: 硬编码字号 14px，应使用 var(--font-size-*)
+  代码: .td-dp .td-dp-ok { width: 100%; font-size: 14px; border-radius: var(--td-radius-card); }
+  修复: 查 giencoder-design-system/tokens.md 找对应 font-size token
+│ 🟡 [TOKEN-GAP] task-detail.html:1529
+  问题: 硬编码字号 16px，应使用 var(--font-size-*)
+  代码: .td-coop .giencoder-modal-title { font-size: 16px; line-height: 28px; font-weight: 600; }
+  修复: 查 giencoder-design-system/tokens.md 找对应 font-size token
+│ 🟡 [TOKEN-GAP] task-detail.html:1541
+  问题: 硬编码字号 14px，应使用 var(--font-size-*)
+  代码: font-size: 14px; line-height: 22px; color: var(--color-text-2); cursor: pointer;
+  修复: 查 giencoder-design-system/tokens.md 找对应 font-size token
+│ 🟡 [TOKEN-GAP] task-detail.html:1568
+  问题: 硬编码字号 14px，应使用 var(--font-size-*)
+  代码: .td-coop .giencoder-steps-title { font-size: 14px; font-weight: 400; color: inherit; }
+  修复: 查 giencoder-design-system/tokens.md 找对应 font-size token
+│ 🟡 [TOKEN-GAP] task-detail.html:1597
+  问题: 硬编码字号 14px，应使用 var(--font-size-*)
+  代码: font-size: 14px; color: var(--color-text-1);
+  修复: 查 giencoder-design-system/tokens.md 找对应 font-size token
+│ 🟡 [TOKEN-GAP] task-detail.html:1601
+  问题: 硬编码字号 14px，应使用 var(--font-size-*)
+  代码: .td-coop .td-coop-tx { font-size: 14px; line-height: 22px; }
+  修复: 查 giencoder-design-system/tokens.md 找对应 font-size token
+│ 🟡 [TOKEN-GAP] task-detail.html:1603
+  问题: 硬编码字号 14px，应使用 var(--font-size-*)
+  代码: .td-coop .td-coop-mname { font-size: 14px; line-height: 22px; }
+  修复: 查 giencoder-design-system/tokens.md 找对应 font-size token
+│ 🟡 [TOKEN-GAP] task-detail.html:1609
+  问题: 硬编码字号 14px，应使用 var(--font-size-*)
+  代码: .td-coop .giencoder-input { font-size: 14px; }
+  修复: 查 giencoder-design-system/tokens.md 找对应 font-size token
+│ 🟡 [TOKEN-GAP] task-detail.html:1619
+  问题: 硬编码字号 14px，应使用 var(--font-size-*)
+  代码: .td-coop-count { font-size: 14px; line-height: 22px; color: var(--color-text-3); }
+  修复: 查 giencoder-design-system/tokens.md 找对应 font-size token
+│ 🟡 [TOKEN-GAP] task-detail.html:1952
+  问题: 硬编码字号 15px，应使用 var(--font-size-*)
+  代码: .kb-crt-glyph { font-family: Georgia, 'Times New Roman', serif; font-size: 15px; line-height: 1; }
+  修复: 查 giencoder-design-system/tokens.md 找对应 font-size token
+│ 🟡 [CRAFT-ANIM] task-detail.html:409
+  问题: 动画时长 320ms 超过 300ms 上限（craft.md: UI 动画不超过 300ms）
+  代码: transition: max-height 320ms var(--transition-timing-function-standard, cubic-bezier(0.4, 0, 0.2, 1)),
+  修复: 缩短到 300ms 以内，或说明为什么需要更长（如骨架屏过渡）
+│ 🔵 [CRAFT-SLOP] task-detail.html
+  问题: 检测到 50 处渐变，可能过度装饰（craft.md: 品牌色一屏不超过 3 处重点使用）
+  修复: 检查渐变是否必要，克制使用
+└─
+
+══════════════════════════════════════════════════════════
+汇总: 75 个问题
+  🟡 warning:  66 — 需修复
+  🔵 info:     9 — 建议检查
+  🔴 critical: 0 — 必须修复
+
+📄 Token 缺口记录: ./pages\gaps.log

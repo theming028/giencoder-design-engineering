@@ -1,0 +1,30 @@
+{
+ "code": "<div\n  data-node-id=\"1381:20099\"\n  data-name=\"容器 71\"\n  style=\"width: 251px; height: 26px; display: flex; justify-content: flex-start; align-items: center; gap: 8px; padding-top: 2px; padding-bottom: 2px; padding-right: 8px; padding-left: 4px; border-radius: 6px\">\n  <div\n    data-node-id=\"1381:20100\"\n    data-name=\"组 9438\"\n    style=\"width: 20px; height: 20px; flex: none; position: relative\">\n    <div\n      data-node-id=\"1381:20101\"\n      data-name=\"矩形 243\"\n      style=\"width: 20px; height: 20px; background: #3491FA; border-radius: 4px; position: absolute; left: 0px; top: 0px; z-index: 0\"></div>\n    <ui-component\n      data-node-id=\"1381:20111\"\n      data-name=\"text/text\"\n      style=\"width: 8px; height: 16px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column\"\n      name=\"text/text\"\n      props='{\"层级\":\"主要\",\"标记\":\"False\",\"块引用\":\"False\",\"复制\":\"false\",\"编辑\":\"false\"}'\n      text='{\"中电金信\":\"P\"}'></ui-component>\n  </div>\n  <div\n    data-node-id=\"1381:20102\"\n    data-name=\"Link\"\n    style=\"display: flex; justify-content: flex-start; align-items: center; gap: 4px; border-radius: 4px; overflow: hidden\">\n    <span\n      data-node-id=\"1381:20103\"\n      data-name=\"PAA团队工作空间\"\n      style=\"color: #1F1F1F; font-size: 14px; font-family: MiSans; font-weight: 500; line-height: 22px\">\n      PAA团队工作空间\n    </span>\n    <div\n      data-node-id=\"1381:20109\"\n      data-name=\"容器 23\"\n      style=\"display: flex; justify-content: flex-start; align-items: center; gap: 4px; padding-right: 6px; padding-left: 6px; background: #96ABC2; border-radius: 4px\">\n      <ui-component\n        data-node-id=\"1381:20117\"\n        data-name=\"text/text\"\n        style=\"display: flex; justify-content: center; align-items: flex-start; flex-direction: column\"\n        name=\"text/text\"\n        props='{\"层级\":\"主要\",\"标记\":\"False\",\"块引用\":\"False\",\"复制\":\"false\",\"编辑\":\"false\"}'\n        text='{\"中电金信\":\"工艺流程空间\"}'></ui-component>\n    </div>\n    <img\n      src=\"./asset/icons/svg_55f7cbed.svg\"\n      data-node-id=\"1381:20107\"\n      data-name=\"容器\"\n      style=\"width: 12px; height: 12px; color: #6B6B6B\" />\n  </div>\n</div>\n",
+ "data": null,
+ "framework": "html",
+ "svg": {
+  "svg_55f7cbed.svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" fill=\"none\" version=\"1.1\" width=\"12\" height=\"12\" viewBox=\"0 0 12 12\"><defs><clipPath id=\"master_svg0_1381_20107\"><rect x=\"0\" y=\"0\" width=\"12\" height=\"12\" rx=\"0\"/></clipPath></defs><g clip-path=\"url(#master_svg0_1381_20107)\"><path d=\"M3.89175254,4.9819846000000005L3,4.0902326L6.0902324,1L6.9819846000000005,1.89175296L6.981709,1.89202845L9.1820469,4.0923662L8.2902932,4.9841180000000005L6.0899563,2.7837810999999997L3.89175254,4.9819846000000005ZM3.92955351,6.9386725L3.037800699,7.8304243L5.2382145,10.030838L5.2380145,10.0310383L6.1297677,10.9227915L9.2199998,7.8325586L8.328247099999999,6.9408059L6.129967199999999,9.1390858L3.92955351,6.9386725Z\" fill-rule=\"evenodd\" fill=\"#6B6B6B\" fill-opacity=\"1\"/></g></svg>"
+ },
+ "image": {},
+ "shape": {},
+ "resourcePath": {
+  "css": "",
+  "image": "./asset/images/",
+  "svg": "./asset/icons/",
+  "shape": "./asset/shapes/"
+ },
+ "nodeInfo": {
+  "documentId": 193158744355579,
+  "documentName": "GienX Desktop",
+  "documentPageId": "pu489:07981",
+  "documentPageName": "研发工作台/任务看板/任务看板",
+  "nodeId": "1381:20099",
+  "nodeName": "容器 71",
+  "nodeType": "horizontal",
+  "parentDirection": "row",
+  "parentId": "1381:20098",
+  "rootId": "553:06620",
+  "isInstanceChild": false,
+  "targetNodeId": "1381:20099"
+ }
+}

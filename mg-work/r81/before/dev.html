@@ -692,42 +692,31 @@ svg.animate-spin{width:14px!important;height:14px!important}
     order: 3;
   }
 </style>
-<style id="r81-ws-css">
+<style id="r80-ws-css">
 
-/* ★ 第 81 轮：研发工作台「切换工艺流程空间」—— 修订版（第 80 轮的迭代，勿与 r80 块共存）。 */
-/* 位置：顶栏**左簇**红绿灯之后，净距 20px（左簇本身是 flex gap-16px，故补 margin-left 4px）。 */
-/* 覆盖范围：研发工作台全部页面 dev / kanban / req-kanban / task-detail（依据 SHELL-TABS-FIX v4 的 DEV_PAGES）。 */
+/* ★ 第 80 轮：研发工作台右上角「切换工艺流程空间」。 */
 /* 几何逐项取自设计稿 layer 1381:20099（触发器 251x26）与 1389:18323（浮窗 388 宽）。 */
 /* 触发器：padding 2/8/2/4、radius 6、gap 8；logo 20x20 radius 4；名称 lh22；胶囊 radius 4 padding 0/6；箭头 12x12。 */
 /* 浮窗：面板 radius 8、1px 描边、投影 0 8 20；分隔行 lh22、线 1px；搜索框 356x32 radius 8； */
 /* 条目 356x56 radius 8 gap 4、选中态换底色 + 描边、logo 32x32 radius 6、图标 18x18 居中； */
 /* 标题列 left60 top8、字 14/500 lh20；副标题 12/400 lh18；角色胶囊 48x20 右上角 radius 3。 */
-/* 定位：浮窗左缘对齐触发器左缘、上缘 = 触发器底 + 4，与基础工作台源码 Tn() 逐字一致。 */
 /* ⚠ 面板 padding 用 15px 而不是 16px：设计稿里 16px 是「从面板外缘算起」的净距， */
 /*   1px 描边已经占掉 1px，故 border-box 下本体留 15px，内宽才等于设计稿的 356（388-2-30）。 */
-/* ⚠ 触发器不再复用 .ws-trigger-hover：那条规则给的是基础工作台底色（#F4F5F6）上的 #E4E6EA； */
-/*   研发工作台顶栏底色是 #E5EDF5，悬停色由设计侧给定为 #DAE3ED，须另立规则。 */
-/* ⚠ 条目本体不描边：设计稿把底/描边画在「另一个背景层」上，条目容器本身无边框， */
-/*   故内部绝对定位元素（logo/标题列/角色胶囊）的 12/60/8 才是净距； */
-/*   若给条目本体加 1px 边框（border-box 会把绝对定位的包含块缩 1px）会让它们整体偏 1px。 */
-/*   选中态改用 inset 环表达同一根 1px 描边，零布局代价、也不产生选中前后的 1px 抖动。 */
+/* 悬停反馈沿用本页既有悬停类，不再自造同色规则。 */
+/* 定位：浮窗右缘对齐触发器右缘（触发器在右上角，沿用左对齐会右溢出视口）。 */
 
 :root {
-  --r81-logo-bg: #3491FA;
-  --r81-logo-fg: #FFFFFF;
-  --r81-pill-bg: #96ABC2;
-  --r81-pill-fg: #FFFFFF;
-  --r81-chip-bg: #F7F7F7;
-  --r81-desc-fg: #5E5E5E;
-  --r81-hover-bg: #DAE3ED;
+  --r80-logo-bg: #3491FA;
+  --r80-pill-bg: #96ABC2;
+  --r80-chip-bg: #F7F7F7;
+  --r80-desc-fg: #5E5E5E;
 }
-.r81-ws-trigger {
+.r80-ws-trigger {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 8px;
   flex: none;
-  margin-left: 4px;
   height: 26px;
   padding: 2px 8px 2px 4px;
   border: none;
@@ -736,10 +725,7 @@ svg.animate-spin{width:14px!important;height:14px!important}
   cursor: pointer;
   font-family: inherit;
 }
-.r81-ws-trigger:hover {
-  background-color: var(--r81-hover-bg);
-}
-.r81-ws-logo {
+.r80-ws-logo {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -747,13 +733,13 @@ svg.animate-spin{width:14px!important;height:14px!important}
   width: 20px;
   height: 20px;
   border-radius: 4px;
-  background: var(--r81-logo-bg);
-  color: var(--r81-logo-fg);
+  background: var(--r80-logo-bg);
+  color: #FFFFFF;
   font-size: var(--font-size-body-1);
   font-weight: 500;
   line-height: 16px;
 }
-.r81-ws-link {
+.r80-ws-link {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -761,7 +747,7 @@ svg.animate-spin{width:14px!important;height:14px!important}
   border-radius: 4px;
   overflow: hidden;
 }
-.r81-ws-name {
+.r80-ws-name {
   max-width: 240px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -772,20 +758,20 @@ svg.animate-spin{width:14px!important;height:14px!important}
   line-height: 22px;
   text-align: left;
 }
-.r81-ws-pill {
+.r80-ws-pill {
   display: flex;
   align-items: center;
   flex: none;
   height: 20px;
   padding: 0 6px;
   border-radius: 4px;
-  background: var(--r81-pill-bg);
-  color: var(--r81-pill-fg);
+  background: var(--r80-pill-bg);
+  color: #1F1F1F;
   font-size: var(--font-size-body-1);
   line-height: 20px;
   white-space: nowrap;
 }
-.r81-ws-chev {
+.r80-ws-chev {
   display: flex;
   align-items: center;
   flex: none;
@@ -793,19 +779,19 @@ svg.animate-spin{width:14px!important;height:14px!important}
   height: 12px;
   color: #6B6B6B;
 }
-.r81-ws-chev svg {
+.r80-ws-chev svg {
   display: block;
 }
-.r81-ws-pop {
+.r80-ws-pop {
   position: fixed;
   z-index: 1000;
   width: 388px;
   max-height: calc(100vh - 48px);
 }
-.r81-ws-pop[hidden] {
+.r80-ws-pop[hidden] {
   display: none;
 }
-.r81-ws-panel {
+.r80-ws-panel {
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -819,7 +805,7 @@ svg.animate-spin{width:14px!important;height:14px!important}
   box-shadow: 0 8px 20px rgba(0, 0, 0, .1);
   font-family: inherit;
 }
-.r81-ws-divider {
+.r80-ws-divider {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -828,13 +814,13 @@ svg.animate-spin{width:14px!important;height:14px!important}
   flex: none;
   height: 22px;
 }
-.r81-ws-divider i {
+.r80-ws-divider i {
   flex: 1 1 0;
   min-width: 0;
   height: 1px;
   background: #F2F2F2;
 }
-.r81-ws-divider span {
+.r80-ws-divider span {
   flex: 0 0 auto;
   color: #8E8E8E;
   font-size: var(--font-size-body-1);
@@ -843,7 +829,7 @@ svg.animate-spin{width:14px!important;height:14px!important}
   text-align: center;
   white-space: nowrap;
 }
-.r81-ws-search {
+.r80-ws-search {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -858,11 +844,11 @@ svg.animate-spin{width:14px!important;height:14px!important}
   overflow: hidden;
   cursor: text;
 }
-.r81-ws-search svg {
+.r80-ws-search svg {
   display: block;
   flex: none;
 }
-.r81-ws-input {
+.r80-ws-input {
   flex: 1 1 auto;
   min-width: 0;
   height: 22px;
@@ -877,7 +863,7 @@ svg.animate-spin{width:14px!important;height:14px!important}
   font-weight: 400;
   line-height: 22px;
 }
-.r81-ws-list {
+.r80-ws-list {
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -885,7 +871,11 @@ svg.animate-spin{width:14px!important;height:14px!important}
   min-height: 0;
   overflow-y: auto;
 }
-.r81-ws-item {
+/* ⚠ 条目本体不描边：设计稿把底/描边画在「另一个背景层」上，条目容器本身无边框， */
+/*   故内部绝对定位元素（logo/标题列/角色胶囊）的 12/60/8 才是净距； */
+/*   若给条目本体加 1px 边框（border-box 会把绝对定位的包含块缩 1px）会让它们整体偏 1px。 */
+/*   选中态改用 inset 环表达同一根 1px 描边，零布局代价、也不产生选中前后的 1px 抖动。 */
+.r80-ws-item {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -902,11 +892,11 @@ svg.animate-spin{width:14px!important;height:14px!important}
   font-family: inherit;
   text-align: left;
 }
-.r81-ws-item[aria-selected="true"] {
+.r80-ws-item[aria-selected="true"] {
   background: #ECF2FF;
   box-shadow: inset 0 0 0 1px #D3E2FF;
 }
-.r81-ws-ibadge {
+.r80-ws-ibadge {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -917,7 +907,7 @@ svg.animate-spin{width:14px!important;height:14px!important}
   height: 32px;
   border-radius: 6px;
 }
-.r81-ws-itext {
+.r80-ws-itext {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -926,7 +916,7 @@ svg.animate-spin{width:14px!important;height:14px!important}
   top: 8px;
   gap: 2px;
 }
-.r81-ws-iname {
+.r80-ws-iname {
   color: #1E1E1E;
   font-size: var(--font-size-body-3);
   font-weight: 500;
@@ -934,15 +924,15 @@ svg.animate-spin{width:14px!important;height:14px!important}
   text-align: left;
   white-space: nowrap;
 }
-.r81-ws-idesc {
-  color: var(--r81-desc-fg);
+.r80-ws-idesc {
+  color: var(--r80-desc-fg);
   font-size: var(--font-size-body-1);
   font-weight: 400;
   line-height: 18px;
   text-align: left;
   white-space: nowrap;
 }
-.r81-ws-ipill {
+.r80-ws-ipill {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -954,7 +944,7 @@ svg.animate-spin{width:14px!important;height:14px!important}
   height: 20px;
   border: 1px solid #E5E5E5;
   border-radius: 3px;
-  background: var(--r81-chip-bg);
+  background: var(--r80-chip-bg);
   color: #6B6B6B;
   font-size: var(--font-size-body-1);
   font-weight: 400;
@@ -962,25 +952,17 @@ svg.animate-spin{width:14px!important;height:14px!important}
   white-space: nowrap;
 }
 
-/* ── r82 追加（邵先生 2026-09-29 第 1 条）──────────────────────────────
-   触发器「激活态」（浮窗已展开）的背景色与 hover 一致。
-   aria-expanded 由本块的 JS 在 show()/hide() 里同步，无额外状态类。 */
-.r81-ws-trigger[aria-expanded="true"] {
-  background-color: var(--r81-hover-bg);
-}
+</style><script id="r80-ws-js">
 
-</style><script id="r81-ws-js">
-
-/* SHELL-PROCESS-SWITCH v2 —— 研发工作台顶栏「切换工艺流程空间」（勿手改此块） */
-/* 落地脚本：mg-work/r81/apply81.py（第 80 轮的修订）。设计稿 layer 1381:20099 / 1389:18323。 */
-/* 位置：顶栏左簇红绿灯之后（与基础工作台的「切换工作空间」同位），非顶栏右侧。 */
-/* 做法：外壳的 React 工作空间组件不可从外部挂载，故新建「触发器 + 浮窗」两件， */
-/*       浮窗 portal 到 body，与外壳既有浮窗同为 body 直接子级。 */
+/* SHELL-PROCESS-SWITCH v1 —— 研发工作台右上角「切换工艺流程空间」（勿手改此块） */
+/* 落地脚本：mg-work/r80/apply80.py。设计稿 layer 1381:20099 / 1389:18323。 */
+/* 做法：顶栏右簇是空壳，没有可复用的 React 挂载点；故新建「触发器 + 浮窗」两件， */
+/*       浮窗 portal 到 body（与外壳既有浮窗同为 body 直接子级、同样 z-index 层级）。 */
 /* 交互对齐基础工作台的「切换工作空间」：点开 → 搜索过滤 → 点条目选中并关闭 → */
-/*       控件外指针按下关闭 → Escape 关闭；列表项悬停复用本页既有的 .ws-item-hover。 */
+/*       控件外指针按下关闭 → Escape 关闭；悬停反馈复用本页既有的悬停类。 */
 (function () {
-  if (window.__r81ws) return;
-  window.__r81ws = 1;
+  if (window.__r80ws) return;
+  window.__r80ws = 1;
 
   var SPACES = [
     { n: 'PAA团队工作空间',    d: '团队',   r: '管理员', c: '#699650' },
@@ -1004,39 +986,39 @@ svg.animate-spin{width:14px!important;height:14px!important}
     return e;
   }
 
-  // —— 触发器（顶栏左簇，红绿灯之后）——
-  var trig = mk('button', 'r81-ws-trigger');
+  // —— 触发器（右上角）——
+  var trig = mk('button', 'r80-ws-trigger ws-trigger-hover');
   trig.type = 'button';
   trig.setAttribute('aria-label', '切换工艺流程空间');
   trig.setAttribute('aria-haspopup', 'listbox');
   trig.setAttribute('aria-expanded', 'false');
-  trig.setAttribute('data-r81-ws', 'trigger');
+  trig.setAttribute('data-r80-ws', 'trigger');
   trig.innerHTML =
-    '<span class="r81-ws-logo">P</span>' +
-    '<span class="r81-ws-link">' +
-      '<span class="r81-ws-name"></span>' +
-      '<span class="r81-ws-pill">工艺流程空间</span>' +
-      '<span class="r81-ws-chev">' + CHEV + '</span>' +
+    '<span class="r80-ws-logo">P</span>' +
+    '<span class="r80-ws-link">' +
+      '<span class="r80-ws-name"></span>' +
+      '<span class="r80-ws-pill">工艺流程空间</span>' +
+      '<span class="r80-ws-chev">' + CHEV + '</span>' +
     '</span>';
-  var nameEl = trig.querySelector('.r81-ws-name');
+  var nameEl = trig.querySelector('.r80-ws-name');
   nameEl.textContent = SPACES[sel].n;
 
   // —— 浮窗（portal 到 body）——
-  var pop = mk('div', 'r81-ws-pop');
+  var pop = mk('div', 'r80-ws-pop');
   pop.hidden = true;
-  pop.setAttribute('data-r81-ws', 'pop');
-  var panel = mk('div', 'r81-ws-panel');
+  pop.setAttribute('data-r80-ws', 'pop');
+  var panel = mk('div', 'r80-ws-panel');
   panel.setAttribute('role', 'dialog');
   panel.setAttribute('aria-label', '切换工艺流程空间');
-  var divider = mk('div', 'r81-ws-divider');
+  var divider = mk('div', 'r80-ws-divider');
   divider.innerHTML = '<i></i><span>切换工艺流程空间</span><i></i>';
-  var search = mk('label', 'r81-ws-search');
+  var search = mk('label', 'r80-ws-search');
   search.innerHTML =
     LENS +
-    '<input type="text" class="r81-ws-input ws-search-input" placeholder="搜索空间"' +
+    '<input type="text" class="r80-ws-input ws-search-input" placeholder="搜索空间"' +
     ' autocomplete="off" aria-label="搜索空间">';
   var inputEl = search.querySelector('input');
-  var list = mk('div', 'r81-ws-list');
+  var list = mk('div', 'r80-ws-list');
   list.setAttribute('role', 'listbox');
   list.setAttribute('aria-label', '工艺流程空间列表');
   panel.appendChild(divider);
@@ -1052,31 +1034,29 @@ svg.animate-spin{width:14px!important;height:14px!important}
       var sp = SPACES[i];
       if (q && (sp.n + sp.d).toLowerCase().indexOf(q) < 0) continue;
       // 选中项不挂悬停类（与基础工作台一致：选中态无 hover 反馈）
-      var b = mk('button', 'r81-ws-item' + (i === sel ? '' : ' ws-item-hover'));
+      var b = mk('button', 'r80-ws-item' + (i === sel ? '' : ' ws-item-hover'));
       b.type = 'button';
       b.setAttribute('role', 'option');
       b.setAttribute('data-i', String(i));
       b.setAttribute('aria-selected', i === sel ? 'true' : 'false');
       b.innerHTML =
-        '<span class="r81-ws-ibadge" style="background:' + sp.c + '">' + ICON + '</span>' +
-        '<span class="r81-ws-itext">' +
-          '<span class="r81-ws-iname"></span>' +
-          '<span class="r81-ws-idesc"></span>' +
+        '<span class="r80-ws-ibadge" style="background:' + sp.c + '">' + ICON + '</span>' +
+        '<span class="r80-ws-itext">' +
+          '<span class="r80-ws-iname"></span>' +
+          '<span class="r80-ws-idesc"></span>' +
         '</span>' +
-        (sp.r ? '<span class="r81-ws-ipill"></span>' : '');
-      b.querySelector('.r81-ws-iname').textContent = sp.n;
-      b.querySelector('.r81-ws-idesc').textContent = sp.d;
-      if (sp.r) b.querySelector('.r81-ws-ipill').textContent = sp.r;
+        (sp.r ? '<span class="r80-ws-ipill"></span>' : '');
+      b.querySelector('.r80-ws-iname').textContent = sp.n;
+      b.querySelector('.r80-ws-idesc').textContent = sp.d;
+      if (sp.r) b.querySelector('.r80-ws-ipill').textContent = sp.r;
       list.appendChild(b);
     }
   }
 
-  // 定位与基础工作台 Tn() 逐字一致：top = 锚点底 + 4、left = 锚点左；越界时兜底夹回视口。
   function place() {
     var r = trig.getBoundingClientRect();
     var w = pop.offsetWidth || 388;
-    var left = r.left;
-    if (left + w > window.innerWidth - 8) left = window.innerWidth - w - 8;
+    var left = Math.min(r.right - w, window.innerWidth - w - 8);
     if (left < 8) left = 8;
     var top = r.bottom + 4;
     var h = panel.offsetHeight || 526;
@@ -1109,7 +1089,7 @@ svg.animate-spin{width:14px!important;height:14px!important}
   });
   inputEl.addEventListener('input', render);
   list.addEventListener('click', function (e) {
-    var b = e.target && e.target.closest ? e.target.closest('.r81-ws-item') : null;
+    var b = e.target && e.target.closest ? e.target.closest('.r80-ws-item') : null;
     if (!b) return;
     sel = parseInt(b.getAttribute('data-i'), 10) || 0;
     nameEl.textContent = SPACES[sel].n;
@@ -1129,19 +1109,12 @@ svg.animate-spin{width:14px!important;height:14px!important}
     if (open) place();
   });
 
-  // —— 挂到顶栏左簇、红绿灯之后（外壳渲染晚于本脚本，用 MutationObserver 等）——
+  // —— 挂到顶栏右簇（外壳渲染晚于本脚本，用 MutationObserver 等）——
   function mount() {
-    var hdr = document.querySelector('header');
-    if (!hdr) return false;
-    var left = hdr.children[0];
-    if (!left || left.tagName !== 'DIV') return false;
-    // 锚点校验：左簇第一个子元素必须是红绿灯（三颗圆点中第一个 aria-label=关闭）
-    var lights = left.children[0];
-    if (!lights || !lights.querySelector('button[aria-label="关闭"]')) return false;
-    if (left.querySelector('.r81-ws-trigger')) return true;
-    var nxt = left.children[1];
-    if (nxt) left.insertBefore(trig, nxt);
-    else left.appendChild(trig);
+    var host = document.querySelector('header > div[class~="justify-end"]');
+    if (!host) return false;
+    if (host.querySelector('.r80-ws-trigger')) return true;
+    host.appendChild(trig);
     return true;
   }
   if (!mount()) {

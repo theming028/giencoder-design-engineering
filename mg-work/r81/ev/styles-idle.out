@@ -1,0 +1,930 @@
+--accent: 240 9.09% 95.69%
+--accent-foreground: 240 4.55% 8.63%
+--avatar-gradient-brand: radial-gradient(circle at 28% 24%, hsl(240 100% 98.43%) 0%, transparent 46%), radial-gradient(circle at 72% 76%, hsl(235.65 84.93% 71.37% / .72) 0%, transparent 44%), linear-gradient(145deg, hsl(236.25 94.12% 93.33%) 0%, hsl(234.88 93.18% 82.75%) 58%, hsl(236.82 73.33% 64.71%) 100%)
+--avatar-gradient-cyan: radial-gradient(circle at 26% 22%, #e0fafa 0%, transparent 48%), radial-gradient(circle at 72% 76%, #22d3eeb8 0%, transparent 44%), linear-gradient(145deg, #edfafa 0%, #a5e7ee 58%, #67cbd8 100%)
+--avatar-gradient-mint: radial-gradient(circle at 26% 22%, #edfdf7 0%, transparent 48%), radial-gradient(circle at 72% 76%, #2dbe92b3 0%, transparent 44%), linear-gradient(145deg, #edfcf6 0%, #a9e8d1 58%, #55c7a2 100%)
+--avatar-gradient-violet: radial-gradient(circle at 28% 22%, #f4f0ff 0%, transparent 48%), radial-gradient(circle at 72% 76%, #7c5cf6bd 0%, transparent 44%), linear-gradient(145deg, #f4f0ff 0%, #c8b9fb 58%, #8067ea 100%)
+--avatar-gradient-warm: radial-gradient(circle at 28% 22%, #fff8eb 0%, transparent 48%), radial-gradient(circle at 72% 76%, #f5944fb3 0%, transparent 44%), linear-gradient(145deg, #fff7eb 0%, #f7d4ad 58%, #eaa06b 100%)
+--background: 0 0% 98.82%
+--blue-1: 232, 247, 255
+--blue-10: 0, 26, 77
+--blue-2: 195, 231, 254
+--blue-3: 159, 212, 253
+--blue-4: 123, 192, 252
+--blue-5: 87, 169, 251
+--blue-6: 52, 145, 250
+--blue-7: 32, 108, 207
+--blue-8: 17, 75, 163
+--blue-9: 6, 48, 120
+--border: 220 5.66% 89.61%
+--border-beam-angle: 0deg
+--border-radius-circle: 50%
+--border-radius-large: 8px
+--border-radius-medium: 4px
+--border-radius-none: 0
+--border-radius-small: 2px
+--border-radius-xl: 12px
+--brand: 235.65 84.93% 71.37%
+--brand-1: 240 100% 98.43%
+--brand-10: 236.5 52.82% 38.24%
+--brand-11: 236.57 48.61% 28.24%
+--brand-12: 237.45 47.47% 19.41%
+--brand-2: 236.25 94.12% 93.33%
+--brand-3: 235.79 93.44% 88.04%
+--brand-4: 234.88 93.18% 82.75%
+--brand-5: 234.95 93.04% 77.45%
+--brand-6: 235.65 84.93% 71.37%
+--brand-7: 236.82 73.33% 64.71%
+--brand-8: 237.22 70.89% 58.24%
+--brand-9: 237.78 53.78% 49.22%
+--brand-accent-background: 236.25 94.12% 93.33%
+--brand-accent-foreground: 235.65 84.93% 71.37%
+--brand-background: 240 100% 98.43%
+--brand-foreground: 236.82 73.33% 64.71%
+--brand-gradient: linear-gradient(90deg, #416ef5, #707cff)
+--card: 0 0% 100%
+--card-foreground: 240 4.76% 4.12%
+--chart-1: 235.12 93.48% 81.96%
+--chart-10: 46.15 11.11% 45.88%
+--chart-11: 305.71 34.43% 88.04%
+--chart-12: 301.11 30.68% 34.51%
+--chart-2: 234.86 22.58% 30.39%
+--chart-3: 260.57 92.11% 85.1%
+--chart-4: 177.76 48.86% 42.94%
+--chart-5: 195.19 68.7% 77.45%
+--chart-6: 210 10.81% 56.47%
+--chart-7: 81.6 65.79% 85.1%
+--chart-8: 203.11 60% 44.12%
+--chart-9: 209.3 81.13% 79.22%
+--code-family: Consolas, Menlo
+--color-bg-1: #fff
+--color-bg-2: #fff
+--color-bg-3: #fff
+--color-bg-4: #fff
+--color-bg-5: #fff
+--color-bg-popup: #fff
+--color-bg-white: #fff
+--color-black: #000
+--color-border: rgb(229, 229, 229)
+--color-border-1: rgb(242, 242, 242)
+--color-border-2: rgb(229, 229, 229)
+--color-border-3: rgb(201, 201, 201)
+--color-border-4: rgb(134, 134, 134)
+--color-danger: rgb(245, 63, 63)
+--color-danger-5: rgb(247, 101, 96)
+--color-danger-6: rgb(245, 63, 63)
+--color-danger-light-1: rgb(255, 236, 232)
+--color-danger-light-2: rgb(253, 197, 197)
+--color-data-1: rgb(102, 146, 249)
+--color-data-2: rgb(247, 101, 96)
+--color-data-3: rgb(255, 154, 46)
+--color-data-4: rgb(90, 194, 98)
+--color-data-5: rgb(20, 201, 201)
+--color-fill-1: rgb(247, 247, 247)
+--color-fill-2: rgb(242, 242, 242)
+--color-fill-3: rgb(229, 229, 229)
+--color-fill-4: rgb(201, 201, 201)
+--color-link: rgb(55, 112, 247)
+--color-link-6: rgb(55, 112, 247)
+--color-link-hover: rgb(102, 146, 249)
+--color-link-light-1: rgb(245, 248, 255)
+--color-link-light-2: rgb(218, 228, 254)
+--color-mask-bg: #0006
+--color-menu-dark-bg: #232324
+--color-menu-dark-hover: #ffffff0a
+--color-menu-light-bg: #fff
+--color-neutral-1: rgb(247, 247, 247)
+--color-neutral-10: rgb(31, 31, 31)
+--color-neutral-2: rgb(242, 242, 242)
+--color-neutral-3: rgb(229, 229, 229)
+--color-neutral-4: rgb(201, 201, 201)
+--color-neutral-5: rgb(169, 169, 169)
+--color-neutral-6: rgb(134, 134, 134)
+--color-neutral-7: rgb(107, 107, 107)
+--color-neutral-8: rgb(78, 78, 78)
+--color-neutral-9: rgb(43, 43, 43)
+--color-primary-1: rgb(245, 248, 255)
+--color-primary-10: rgb(34, 70, 154)
+--color-primary-2: rgb(218, 228, 254)
+--color-primary-3: rgb(180, 201, 252)
+--color-primary-4: rgb(142, 174, 250)
+--color-primary-5: rgb(102, 146, 249)
+--color-primary-6: rgb(55, 112, 247)
+--color-primary-7: rgb(52, 106, 233)
+--color-primary-8: rgb(46, 94, 206)
+--color-primary-9: rgb(40, 81, 180)
+--color-primary-light-1: rgb(245, 248, 255)
+--color-primary-light-2: rgb(218, 228, 254)
+--color-primary-light-3: rgb(180, 201, 252)
+--color-primary-light-4: rgb(142, 174, 250)
+--color-purple-6: rgb(114, 46, 209)
+--color-secondary: rgb(242, 242, 242)
+--color-secondary-active: rgb(201, 201, 201)
+--color-secondary-disabled: rgb(247, 247, 247)
+--color-secondary-hover: rgb(229, 229, 229)
+--color-spin-layer-bg: #fff9
+--color-success: rgb(59, 179, 70)
+--color-success-5: rgb(90, 194, 98)
+--color-success-6: rgb(59, 179, 70)
+--color-success-light-1: rgb(236, 247, 236)
+--color-success-light-2: rgb(208, 240, 209)
+--color-text-1: rgb(31, 31, 31)
+--color-text-2: rgb(78, 78, 78)
+--color-text-3: rgb(134, 134, 134)
+--color-text-4: rgb(201, 201, 201)
+--color-tooltip-bg: rgb(31, 31, 31)
+--color-warning: rgb(255, 125, 0)
+--color-warning-1: rgb(255, 247, 232)
+--color-warning-10: rgb(77, 27, 0)
+--color-warning-2: rgb(255, 228, 186)
+--color-warning-3: rgb(255, 207, 139)
+--color-warning-4: rgb(255, 182, 93)
+--color-warning-5: rgb(255, 154, 46)
+--color-warning-6: rgb(255, 125, 0)
+--color-warning-7: rgb(210, 95, 0)
+--color-warning-8: rgb(166, 69, 0)
+--color-warning-9: rgb(121, 46, 0)
+--color-warning-light-1: rgb(255, 247, 232)
+--color-warning-light-2: rgb(255, 228, 186)
+--color-white: #fff
+--cyan-1: 232, 255, 251
+--cyan-10: 0, 66, 77
+--cyan-2: 183, 244, 236
+--cyan-3: 137, 233, 224
+--cyan-4: 94, 223, 214
+--cyan-5: 55, 212, 207
+--cyan-6: 20, 201, 201
+--cyan-7: 13, 165, 170
+--cyan-8: 7, 130, 139
+--cyan-9: 3, 97, 108
+--destructive: 356.73 90.18% 43.92%
+--destructive-foreground: 3.16 100% 96.27%
+--font-family: "Mona Sans VF", -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans Backtick Fix", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji"
+--font-size-body: 14px
+--font-size-body-1: 12px
+--font-size-body-2: 13px
+--font-size-body-3: 14px
+--font-size-caption: 12px
+--font-size-display-1: 36px
+--font-size-display-2: 48px
+--font-size-display-3: 56px
+--font-size-title-1: 16px
+--font-size-title-2: 20px
+--font-size-title-3: 24px
+--foreground: 240 4.76% 4.12%
+--giencoderblue-1: 245, 248, 255
+--giencoderblue-10: 34, 70, 154
+--giencoderblue-2: 218, 228, 254
+--giencoderblue-3: 180, 201, 252
+--giencoderblue-4: 142, 174, 250
+--giencoderblue-5: 102, 146, 249
+--giencoderblue-6: 55, 112, 247
+--giencoderblue-7: 52, 106, 233
+--giencoderblue-8: 46, 94, 206
+--giencoderblue-9: 40, 81, 180
+--gold-1: 255, 252, 232
+--gold-10: 77, 45, 0
+--gold-2: 253, 244, 191
+--gold-3: 252, 233, 150
+--gold-4: 250, 220, 109
+--gold-5: 249, 204, 69
+--gold-6: 247, 186, 30
+--gold-7: 204, 146, 19
+--gold-8: 162, 109, 10
+--gold-9: 119, 75, 4
+--gray-1: 247, 247, 247
+--gray-10: 31, 31, 31
+--gray-2: 242, 242, 242
+--gray-3: 229, 229, 229
+--gray-4: 201, 201, 201
+--gray-5: 169, 169, 169
+--gray-6: 134, 134, 134
+--gray-7: 107, 107, 107
+--gray-8: 78, 78, 78
+--gray-9: 43, 43, 43
+--green-1: 236, 247, 236
+--green-10: 17, 60, 24
+--green-2: 208, 240, 209
+--green-3: 164, 224, 167
+--green-4: 125, 209, 130
+--green-5: 90, 194, 98
+--green-6: 59, 179, 70
+--green-7: 48, 149, 59
+--green-8: 37, 119, 47
+--green-9: 27, 89, 36
+--input: 220 5.66% 89.61%
+--lime-1: 252, 255, 232
+--lime-10: 42, 77, 0
+--lime-2: 237, 248, 187
+--lime-3: 220, 241, 144
+--lime-4: 201, 233, 104
+--lime-5: 181, 226, 65
+--lime-6: 159, 219, 29
+--lime-7: 126, 183, 18
+--lime-8: 95, 148, 10
+--lime-9: 67, 112, 4
+--line-height-base: 1.5715
+--magenta-1: 255, 232, 241
+--magenta-10: 77, 0, 52
+--magenta-2: 253, 194, 219
+--magenta-3: 251, 157, 199
+--magenta-4: 249, 121, 183
+--magenta-5: 247, 84, 168
+--magenta-6: 245, 49, 157
+--magenta-7: 203, 30, 131
+--magenta-8: 161, 16, 105
+--magenta-9: 119, 6, 79
+--muted: 240 9.09% 95.69%
+--muted-foreground: 240 1.1% 64.31%
+--normal: 222.09 73.63% 82.16%
+--normal-background: 213.75 100% 96.86%
+--normal-foreground: 224.44 64.29% 32.94%
+--orange-1: 255, 247, 232
+--orange-10: 77, 27, 0
+--orange-2: 255, 228, 186
+--orange-3: 255, 207, 139
+--orange-4: 255, 182, 93
+--orange-5: 255, 154, 46
+--orange-6: 255, 125, 0
+--orange-7: 210, 95, 0
+--orange-8: 166, 69, 0
+--orange-9: 121, 46, 0
+--pinkpurple-1: 255, 232, 251
+--pinkpurple-10: 66, 0, 77
+--pinkpurple-2: 247, 186, 239
+--pinkpurple-3: 240, 142, 230
+--pinkpurple-4: 232, 101, 223
+--pinkpurple-5: 225, 62, 219
+--pinkpurple-6: 217, 26, 217
+--pinkpurple-7: 176, 16, 182
+--pinkpurple-8: 138, 9, 147
+--pinkpurple-9: 101, 3, 112
+--popover: 0 0% 100%
+--popover-foreground: 240 4.76% 4.12%
+--primary: 0 0% 9.02%
+--primary-foreground: 0 0% 98.04%
+--purple-1: 245, 232, 255
+--purple-10: 22, 0, 77
+--purple-2: 221, 190, 246
+--purple-3: 195, 150, 237
+--purple-4: 168, 113, 227
+--purple-5: 141, 78, 218
+--purple-6: 114, 46, 209
+--purple-7: 85, 29, 176
+--purple-8: 60, 16, 143
+--purple-9: 39, 6, 110
+--r81-chip-bg: #F7F7F7
+--r81-desc-fg: #5E5E5E
+--r81-hover-bg: #DAE3ED
+--r81-logo-bg: #3491FA
+--r81-logo-fg: #FFFFFF
+--r81-pill-bg: #96ABC2
+--r81-pill-fg: #FFFFFF
+--radius: .625rem
+--radius-md: 8px
+--radius-sm: 4px
+--red-1: 255, 236, 232
+--red-10: 77, 0, 10
+--red-2: 253, 197, 197
+--red-3: 251, 172, 163
+--red-4: 249, 137, 129
+--red-5: 247, 101, 96
+--red-6: 245, 63, 63
+--red-7: 203, 39, 45
+--red-8: 161, 21, 30
+--red-9: 119, 8, 19
+--ring: 240 1.1% 64.31%
+--secondary: 240 9.09% 95.69%
+--secondary-foreground: 240 4.76% 4.12%
+--sf-end: 1
+--sf-start: 1
+--shadow-none: none
+--shadow-special: 0 0 1px #0000004d
+--shadow1-center: 0 0 5px #0000001a
+--shadow1-down: 0 2px 5px #0000001a
+--shadow1-left: -2px 0 5px #0000001a
+--shadow1-right: 2px 0 5px #0000001a
+--shadow1-up: 0 -2px 5px #0000001a
+--shadow2-center: 0 0 10px #0000001a
+--shadow2-down: 0 4px 10px #0000001a
+--shadow2-left: -4px 0 10px #0000001a
+--shadow2-right: 4px 0 10px #0000001a
+--shadow2-up: 0 -4px 10px #0000001a
+--shadow3-center: 0 0 20px #0000001a
+--shadow3-down: 0 8px 20px #0000001a
+--shadow3-left: -8px 0 20px #0000001a
+--shadow3-right: 8px 0 20px #0000001a
+--shadow3-up: 0 -8px 20px #0000001a
+--sidebar: 240 100% 99.02%
+--sidebar-accent: 240 18.18% 95.69%
+--sidebar-accent-foreground: 240 13.95% 16.86%
+--sidebar-border: 240 20.75% 89.61%
+--sidebar-foreground: 240 13.95% 16.86%
+--sidebar-primary: 240 13.95% 16.86%
+--sidebar-primary-foreground: 240 100% 99.02%
+--sidebar-ring: 240 19.78% 64.31%
+--space-1: 4px
+--space-10: 40px
+--space-12: 48px
+--space-16: 64px
+--space-2: 8px
+--space-3: 12px
+--space-4: 16px
+--space-5: 20px
+--space-6: 24px
+--space-8: 32px
+--spacing-1: 2px
+--spacing-10: 32px
+--spacing-11: 36px
+--spacing-12: 40px
+--spacing-13: 48px
+--spacing-14: 56px
+--spacing-15: 60px
+--spacing-16: 64px
+--spacing-17: 72px
+--spacing-18: 80px
+--spacing-19: 84px
+--spacing-2: 4px
+--spacing-20: 96px
+--spacing-21: 100px
+--spacing-22: 120px
+--spacing-3: 6px
+--spacing-4: 8px
+--spacing-5: 10px
+--spacing-6: 12px
+--spacing-7: 16px
+--spacing-8: 20px
+--spacing-9: 24px
+--success: 95.38 32.77% 76.67%
+--success-background: 138.46 76.47% 96.67%
+--success-foreground: 143.81 61.17% 20.2%
+--transition-duration-1: .1s
+--transition-duration-2: .2s
+--transition-duration-3: .3s
+--transition-duration-4: .4s
+--transition-duration-5: .5s
+--transition-timing-function-accelerate: cubic-bezier(.26, 0, .6, .2)
+--transition-timing-function-decelerate: cubic-bezier(.4, .8, .74, 1)
+--transition-timing-function-linear: cubic-bezier(0, 0, 1, 1)
+--transition-timing-function-overshoot: cubic-bezier(.3, 1.3, .3, 1)
+--transition-timing-function-spring: cubic-bezier(.34, 1.56, .64, 1)
+--transition-timing-function-standard: cubic-bezier(.34, .69, .1, 1)
+--tw-backdrop-blur: 
+--tw-backdrop-brightness: 
+--tw-backdrop-contrast: 
+--tw-backdrop-grayscale: 
+--tw-backdrop-hue-rotate: 
+--tw-backdrop-invert: 
+--tw-backdrop-opacity: 
+--tw-backdrop-saturate: 
+--tw-backdrop-sepia: 
+--tw-bg-opacity: 1
+--tw-blur: 
+--tw-border-spacing-x: 0
+--tw-border-spacing-y: 0
+--tw-brightness: 
+--tw-contain-layout: 
+--tw-contain-paint: 
+--tw-contain-size: 
+--tw-contain-style: 
+--tw-contrast: 
+--tw-drop-shadow: 
+--tw-gradient-from-position: 
+--tw-gradient-to-position: 
+--tw-gradient-via-position: 
+--tw-grayscale: 
+--tw-hue-rotate: 
+--tw-invert: 
+--tw-numeric-figure: 
+--tw-numeric-fraction: 
+--tw-numeric-spacing: 
+--tw-ordinal: 
+--tw-pan-x: 
+--tw-pan-y: 
+--tw-pinch-zoom: 
+--tw-ring-color: #3b82f680
+--tw-ring-inset: 
+--tw-ring-offset-color: #fff
+--tw-ring-offset-shadow: 0 0 #0000
+--tw-ring-offset-width: 0px
+--tw-ring-shadow: 0 0 #0000
+--tw-rotate: 0
+--tw-saturate: 
+--tw-scale-x: 1
+--tw-scale-y: 1
+--tw-scroll-snap-strictness: proximity
+--tw-sepia: 
+--tw-shadow: 0 0 #0000
+--tw-shadow-colored: 0 0 #0000
+--tw-skew-x: 0
+--tw-skew-y: 0
+--tw-slashed-zero: 
+--tw-translate-x: 0
+--tw-translate-y: 0
+--unknown: 240 4.88% 83.92%
+--unknown-background: 0 0% 98.04%
+--unknown-foreground: 240 3.83% 46.08%
+--warning-high: 0 55.56% 80.59%
+--warning-high-background: 0 85.71% 97.25%
+--warning-high-foreground: 0 62.82% 30.59%
+--warning-low: 48.75 52.46% 76.08%
+--warning-low-background: 49.57 92% 95.1%
+--warning-low-foreground: 28.42 72.52% 25.69%
+--warning-medium: 21.37 66.97% 78.63%
+--warning-medium-background: 34.62 100% 94.9%
+--warning-medium-foreground: 15.28 74.65% 27.84%
+--yellow-1: 254, 255, 232
+--yellow-10: 77, 56, 0
+--yellow-2: 254, 254, 190
+--yellow-3: 253, 250, 148
+--yellow-4: 252, 242, 107
+--yellow-5: 251, 232, 66
+--yellow-6: 250, 220, 25
+--yellow-7: 207, 175, 15
+--yellow-8: 163, 132, 8
+--yellow-9: 120, 93, 3
+--z-index-affix: 999
+--z-index-drawer: 1001
+--z-index-image-preview: 1001
+--z-index-message: 1003
+--z-index-modal: 1001
+--z-index-notification: 1003
+--z-index-popup: 1000
+-webkit-border-horizontal-spacing: 0px
+-webkit-border-image: none
+-webkit-border-vertical-spacing: 0px
+-webkit-box-align: stretch
+-webkit-box-decoration-break: slice
+-webkit-box-direction: normal
+-webkit-box-flex: 0
+-webkit-box-ordinal-group: 1
+-webkit-box-orient: horizontal
+-webkit-box-pack: start
+-webkit-box-reflect: none
+-webkit-font-smoothing: antialiased
+-webkit-line-break: auto
+-webkit-line-clamp: none
+-webkit-locale: "zh-CN"
+-webkit-mask-box-image: none
+-webkit-mask-box-image-outset: 0
+-webkit-mask-box-image-repeat: stretch
+-webkit-mask-box-image-slice: 0 fill
+-webkit-mask-box-image-source: none
+-webkit-mask-box-image-width: auto
+-webkit-mask-position-x: 0%
+-webkit-mask-position-y: 0%
+-webkit-rtl-ordering: logical
+-webkit-ruby-position: before
+-webkit-tap-highlight-color: rgba(0, 0, 0, 0)
+-webkit-text-combine: none
+-webkit-text-decorations-in-effect: none
+-webkit-text-fill-color: rgb(10, 10, 11)
+-webkit-text-orientation: vertical-right
+-webkit-text-security: none
+-webkit-text-stroke-color: rgb(10, 10, 11)
+-webkit-text-stroke-width: 0px
+-webkit-user-drag: auto
+-webkit-user-modify: read-only
+-webkit-writing-mode: horizontal-tb
+accent-color: auto
+align-content: normal
+align-items: center
+align-self: auto
+alignment-baseline: auto
+anchor-name: none
+anchor-scope: none
+animation-composition: replace
+animation-delay: 0s
+animation-direction: normal
+animation-duration: 0s
+animation-fill-mode: none
+animation-iteration-count: 1
+animation-name: none
+animation-play-state: running
+animation-range-end: normal
+animation-range-start: normal
+animation-timeline: auto
+animation-timing-function: ease
+animation-trigger: none
+app-region: none
+appearance: button
+aspect-ratio: auto
+backdrop-filter: none
+backface-visibility: visible
+background-attachment: scroll
+background-blend-mode: normal
+background-clip: border-box
+background-color: rgba(0, 0, 0, 0)
+background-image: none
+background-origin: padding-box
+background-position: 0% 0%
+background-repeat: repeat
+background-size: auto
+baseline-shift: 0px
+baseline-source: auto
+block-size: 26px
+border-block-end-color: rgb(10, 10, 11)
+border-block-end-style: none
+border-block-end-width: 0px
+border-block-start-color: rgb(10, 10, 11)
+border-block-start-style: none
+border-block-start-width: 0px
+border-bottom-color: rgb(10, 10, 11)
+border-bottom-left-radius: 6px
+border-bottom-right-radius: 6px
+border-bottom-style: none
+border-bottom-width: 0px
+border-collapse: separate
+border-end-end-radius: 6px
+border-end-start-radius: 6px
+border-image-outset: 0
+border-image-repeat: stretch
+border-image-slice: 100%
+border-image-source: none
+border-image-width: 1
+border-inline-end-color: rgb(10, 10, 11)
+border-inline-end-style: none
+border-inline-end-width: 0px
+border-inline-start-color: rgb(10, 10, 11)
+border-inline-start-style: none
+border-inline-start-width: 0px
+border-left-color: rgb(10, 10, 11)
+border-left-style: none
+border-left-width: 0px
+border-right-color: rgb(10, 10, 11)
+border-right-style: none
+border-right-width: 0px
+border-shape: none
+border-start-end-radius: 6px
+border-start-start-radius: 6px
+border-top-color: rgb(10, 10, 11)
+border-top-left-radius: 6px
+border-top-right-radius: 6px
+border-top-style: none
+border-top-width: 0px
+bottom: auto
+box-decoration-break: slice
+box-shadow: none
+box-sizing: border-box
+break-after: auto
+break-before: auto
+break-inside: auto
+buffered-rendering: auto
+caption-side: top
+caret-animation: auto
+caret-color: rgb(10, 10, 11)
+caret-shape: auto
+clear: none
+clip: auto
+clip-path: none
+clip-rule: nonzero
+color: rgb(10, 10, 11)
+color-interpolation: srgb
+color-interpolation-filters: linearrgb
+color-rendering: auto
+color-scheme: normal
+column-count: auto
+column-fill: balance
+column-gap: 8px
+column-height: auto
+column-rule-break: normal
+column-rule-color: rgb(10, 10, 11)
+column-rule-inset-cap-end: 0px
+column-rule-inset-cap-start: 0px
+column-rule-inset-junction-end: 0px
+column-rule-inset-junction-start: 0px
+column-rule-style: none
+column-rule-visibility-items: normal
+column-rule-width: 3px
+column-span: none
+column-width: auto
+column-wrap: auto
+contain: none
+contain-intrinsic-block-size: none
+contain-intrinsic-height: none
+contain-intrinsic-inline-size: none
+contain-intrinsic-size: none
+contain-intrinsic-width: none
+container-name: none
+container-type: normal
+content: normal
+content-visibility: visible
+corner-bottom-left-shape: superellipse(1)
+corner-bottom-right-shape: superellipse(1)
+corner-end-end-shape: superellipse(1)
+corner-end-start-shape: superellipse(1)
+corner-start-end-shape: superellipse(1)
+corner-start-start-shape: superellipse(1)
+corner-top-left-shape: superellipse(1)
+corner-top-right-shape: superellipse(1)
+counter-increment: none
+counter-reset: none
+counter-set: none
+cursor: pointer
+cx: 0px
+cy: 0px
+d: none
+direction: ltr
+display: flex
+dominant-baseline: auto
+dynamic-range-limit: no-limit
+empty-cells: show
+field-sizing: fixed
+fill: rgb(0, 0, 0)
+fill-opacity: 1
+fill-rule: nonzero
+filter: none
+flex-basis: auto
+flex-direction: row
+flex-grow: 0
+flex-line-count: 1
+flex-shrink: 0
+flex-wrap: nowrap
+float: none
+flood-color: rgb(0, 0, 0)
+flood-opacity: 1
+font-family: "Mona Sans VF", -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans Backtick Fix", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji"
+font-feature-settings: normal
+font-kerning: auto
+font-language-override: normal
+font-optical-sizing: auto
+font-palette: normal
+font-size: 14px
+font-size-adjust: none
+font-stretch: 100%
+font-style: normal
+font-synthesis-small-caps: auto
+font-synthesis-style: auto
+font-synthesis-weight: auto
+font-variant: normal
+font-variant-alternates: normal
+font-variant-caps: normal
+font-variant-east-asian: normal
+font-variant-emoji: normal
+font-variant-ligatures: normal
+font-variant-numeric: normal
+font-variant-position: normal
+font-variation-settings: normal
+font-weight: 400
+forced-color-adjust: auto
+frame-sizing: auto
+grid-auto-columns: auto
+grid-auto-flow: row
+grid-auto-rows: auto
+grid-column-end: auto
+grid-column-start: auto
+grid-row-end: auto
+grid-row-start: auto
+grid-template-areas: none
+grid-template-columns: none
+grid-template-rows: none
+height: 26px
+hyphenate-character: auto
+hyphenate-limit-chars: auto
+hyphens: manual
+image-orientation: from-image
+image-rendering: auto
+initial-letter: normal
+inline-size: 254.031px
+inset-block-end: auto
+inset-block-start: auto
+inset-inline-end: auto
+inset-inline-start: auto
+interactivity: auto
+interest-delay-end: normal
+interest-delay-start: normal
+interpolate-size: numeric-only
+isolation: auto
+justify-content: normal
+justify-items: normal
+justify-self: auto
+left: auto
+letter-spacing: normal
+lighting-color: rgb(255, 255, 255)
+line-break: auto
+line-height: 21px
+list-style-image: none
+list-style-position: outside
+list-style-type: disc
+margin-block-end: 0px
+margin-block-start: 0px
+margin-bottom: 0px
+margin-inline-end: 0px
+margin-inline-start: 4px
+margin-left: 4px
+margin-right: 0px
+margin-top: 0px
+marker-end: none
+marker-mid: none
+marker-start: none
+mask-clip: border-box
+mask-composite: add
+mask-image: none
+mask-mode: match-source
+mask-origin: border-box
+mask-position: 0% 0%
+mask-repeat: repeat
+mask-size: auto
+mask-type: luminance
+math-depth: 0
+math-shift: normal
+math-style: normal
+max-block-size: none
+max-height: none
+max-inline-size: none
+max-width: none
+min-block-size: auto
+min-height: auto
+min-inline-size: auto
+min-width: auto
+mix-blend-mode: normal
+object-fit: fill
+object-position: 50% 50%
+object-view-box: none
+offset-anchor: auto
+offset-distance: 0px
+offset-path: none
+offset-position: normal
+offset-rotate: auto 0deg
+opacity: 1
+order: 0
+orphans: 2
+outline-color: rgb(10, 10, 11)
+outline-offset: 0px
+outline-style: none
+outline-width: 3px
+overflow-anchor: auto
+overflow-block: visible
+overflow-clip-margin: 0px
+overflow-inline: visible
+overflow-wrap: normal
+overflow-x: visible
+overflow-y: visible
+overlay: none
+overscroll-behavior-block: auto
+overscroll-behavior-inline: auto
+overscroll-behavior-x: auto
+overscroll-behavior-y: auto
+padding-block-end: 2px
+padding-block-start: 2px
+padding-bottom: 2px
+padding-inline-end: 8px
+padding-inline-start: 4px
+padding-left: 4px
+padding-right: 8px
+padding-top: 2px
+paint-order: normal
+perspective: none
+perspective-origin: 127.016px 13px
+pointer-events: auto
+position: static
+position-anchor: normal
+position-area: none
+position-try-fallbacks: none
+position-try-order: normal
+position-visibility: anchors-visible
+print-color-adjust: economy
+quotes: auto
+r: 0px
+reading-flow: normal
+reading-order: 0
+resize: none
+right: auto
+rotate: none
+row-gap: 8px
+row-rule-break: normal
+row-rule-color: rgb(10, 10, 11)
+row-rule-inset-cap-end: 0px
+row-rule-inset-cap-start: 0px
+row-rule-inset-junction-end: 0px
+row-rule-inset-junction-start: 0px
+row-rule-style: none
+row-rule-visibility-items: normal
+row-rule-width: 3px
+ruby-align: space-around
+ruby-overhang: auto
+ruby-position: over
+rule-overlap: row-over-column
+rx: auto
+ry: auto
+scale: none
+scroll-axis-lock: auto
+scroll-behavior: auto
+scroll-initial-target: none
+scroll-margin-block-end: 0px
+scroll-margin-block-start: 0px
+scroll-margin-bottom: 0px
+scroll-margin-inline-end: 0px
+scroll-margin-inline-start: 0px
+scroll-margin-left: 0px
+scroll-margin-right: 0px
+scroll-margin-top: 0px
+scroll-marker-group: none
+scroll-padding-block-end: auto
+scroll-padding-block-start: auto
+scroll-padding-bottom: auto
+scroll-padding-inline-end: auto
+scroll-padding-inline-start: auto
+scroll-padding-left: auto
+scroll-padding-right: auto
+scroll-padding-top: auto
+scroll-snap-align: none
+scroll-snap-stop: normal
+scroll-snap-type: none
+scroll-target-group: none
+scroll-timeline-axis: block
+scroll-timeline-name: none
+scrollbar-color: rgba(31, 31, 31, 0.16) rgba(0, 0, 0, 0)
+scrollbar-gutter: auto
+scrollbar-width: thin
+shape-image-threshold: 0
+shape-margin: 0px
+shape-outside: none
+shape-rendering: auto
+speak: normal
+stop-color: rgb(0, 0, 0)
+stop-opacity: 1
+stroke: none
+stroke-dasharray: none
+stroke-dashoffset: 0px
+stroke-linecap: butt
+stroke-linejoin: miter
+stroke-miterlimit: 4
+stroke-opacity: 1
+stroke-width: 1px
+tab-size: 4
+table-layout: auto
+text-align: center
+text-align-last: auto
+text-anchor: start
+text-autospace: no-autospace
+text-box-edge: auto
+text-box-trim: none
+text-combine-upright: none
+text-decoration: none
+text-decoration-color: rgb(10, 10, 11)
+text-decoration-line: none
+text-decoration-skip-ink: auto
+text-decoration-style: solid
+text-decoration-thickness: auto
+text-emphasis-color: rgb(10, 10, 11)
+text-emphasis-position: over
+text-emphasis-style: none
+text-fit: none
+text-indent: 0px
+text-justify: auto
+text-orientation: mixed
+text-overflow: clip
+text-rendering: auto
+text-shadow: none
+text-size-adjust: 100%
+text-spacing-trim: normal
+text-transform: none
+text-underline-offset: auto
+text-underline-position: auto
+text-wrap-mode: wrap
+text-wrap-style: auto
+timeline-scope: none
+timeline-trigger-activation-range-end: normal
+timeline-trigger-activation-range-start: normal
+timeline-trigger-active-range-end: auto
+timeline-trigger-active-range-start: auto
+timeline-trigger-name: none
+timeline-trigger-source: auto
+top: auto
+touch-action: auto
+transform: none
+transform-box: view-box
+transform-origin: 127.016px 13px
+transform-style: flat
+transition-behavior: normal
+transition-delay: 0s
+transition-duration: 0s
+transition-property: all
+transition-timing-function: ease
+translate: none
+trigger-scope: none
+unicode-bidi: normal
+user-select: auto
+vector-effect: none
+vertical-align: baseline
+view-timeline-axis: block
+view-timeline-inset: auto
+view-timeline-name: none
+view-transition-class: none
+view-transition-group: normal
+view-transition-name: none
+view-transition-scope: none
+visibility: visible
+white-space-collapse: collapse
+widows: 2
+width: 254.031px
+will-change: auto
+window-drag: none
+word-break: normal
+word-spacing: 0px
+writing-mode: horizontal-tb
+x: 0px
+y: 0px
+z-index: auto
+zoom: 1
