@@ -727,7 +727,449 @@ handler 绑在 `document` 上，但**第一道闸**是 `t.closest('main.dot-bg')
 
 ---
 
-## P4 外壳路由与页面导航
+## P3.12 r80 定稿：Windows 环境下的 agent-browser 四坑 + 「外壳空壳挂载」与两个 1px 坑
+
+### ① ★★ **本会话环境已从 macOS 换成 Windows** —— 旧笔记里的路径与命令顺序都要改
+
+| 项 | macOS（旧笔记） | **Windows（实测）** |
+|---|---|---|
+| python | `/Users/shaoyuming/.workbuddy/binaries/python/envs/default/bin/python` | `python`（`~/.workbuddy/binaries/python/versions/3.13.12/python`，已在 PATH） |
+| Pillow / numpy | managed venv 里都有 | **Pillow 有、numpy 没有** → 用前先 `python -m pip install numpy` |
+| agent-browser | `.../node/workspace/node_modules/.bin/agent-browser` | 同一个相对路径，但 `$HOME` = `C:\Users\Administrator` |
+
+### ② ★★ **`set viewport` 会把握手页面重置成 `about:blank` —— 必须先 `set viewport` 再 `open`**
+
+r80 实测：`set viewport 1440 900` 之后 `/E:/…/dev.html` 变成 `url:"blank"`、`document.body.children.length === 0`。
+按旧笔记的顺序（`open` → `set viewport`）会读到「空白页」，极易误判成「注入的脚本没跑」。
+⇒ **顺序：`set viewport` → `open` → `eval`/`click`/`screenshot`**，而且**整条链要在同一次工具调用里**：
+不同 bash 调用之间视口仿真会丢（第二次 `eval` 读到 `1264×569` 的物理窗口尺寸而不是仿真的 1440×900）。
+
+### ③ ★★ **不要给 agent-browser 的输出接管道** —— 会 `SIGPIPE`
+
+`"$AB" open <url> 2>&1 | tail -3` ⇒ 命令返回 **空输出 + `SIGTERM`/exit 1**（`tail` 提前关掉读取端）。
+`screenshot` 同理。⇒ **裸跑，输出需要过滤就重定向到文件再读**。
+
+### ④ 验收一条链的口径
+
+```
+"$AB" set viewport 1440 900
+"$AB" open "file:///E:/…/pages/dev.html"
+"$AB" click '<sel>'
+{ echo ""; cat probe.js; } | "$AB" eval --stdin      # ← 单次 eval 内 await 闭环（P3.7）
+"$AB" screenshot out.png
+```
+`eval` 里**不要**写 `wait`（P3.1：会丢状态）；要等一帧就写 `async` IIFE + `await new Promise(r=>setTimeout(r,30))`。
+
+### ⑤ ~~本仓「顶栏右簇是空壳」—— 新增顶栏部件的标准挂载点~~（⚠️ **已被 r81 推翻，见 P3.13**）
+
+> **r81 更正**：右簇确实是空壳，但设计意图**不是**把新件放那儿 —— 顶栏部件应放**左簇、红绿灯之后**。
+> 下面这段只在「要往顶栏**右侧**塞东西」时作参考（长高机制、别改簇宽、MutationObserver 那几条仍有效）。
+
+`header > div.flex.w-60.items-center.justify-end.gap-1` 在 **base 与 dev 两页都是 `children:[]`**
+（实测 `[1184,24,240,0]`，高度 0）。要往顶栏右上角加东西就挂这里：
+- 空壳长高后自动与左簇同高（`items-center`）→ 实测 `[1184,24,240,0] → [1184,11,240,26]`，**页签位置零漂移**；
+- 两簇都是 `w-60`(=240px) 撑着 `justify-between` 的居中 ⇒ **别改簇宽**（改了页签会偏）；
+- 设计稿部件宽 **251 > 240** ⇒ `justify-end` 下向左溢出 11~14px，**可接受**（右缘仍钉在 `1440-16`）。
+- **外壳渲染晚于页尾脚本** ⇒ 先试挂、失败再 `MutationObserver`（`childList+subtree`），命中即 `disconnect()`。
+
+### ⑥ ★★ 用「绝对定位」复刻设计稿时的两个 1px 坑（r80 实测）
+
+1. **容器带 `border` + `box-sizing:border-box` ⇒ 内部 `position:absolute` 子元素整体偏 1px**：
+   绝对定位的包含块是**父元素的 padding box**，而 padding box 被 border 吃掉了 1px。
+   实测：条目加 `1px solid transparent` 后，本应 `12/60/8`（left/left/right 净距）的三个子元素变成 `13/61/7`。
+   ⇒ 设计稿若把描边画在**另一个背景层**（常见），就**不要**给容器本体加边框；
+   选中态用 `box-shadow: inset 0 0 0 1px <c>`（零布局、且选中前后不会抖 1px）。
+2. **设计稿标注的 padding 可能是「从外缘算起」的净距**：
+   面板 `padding:16px` + `border:1px` + `border-box` ⇒ 内宽 `388-2-32=354`、
+   面板高 `528`（设计稿是 **356 / 526**）。正解是本体写 **15px**（`388-2-30=356`）。
+   **判据：把「内宽 = 设计稿条目宽」当约束去解 padding**，别照抄标注值。
+   （同族坑：`max-height: calc(100vh - 48px)` 让面板在矮视口自动夹取 + 列表 `overflow-y:auto`，
+   实测 560 高 → 面板 512、列表可滚，7 条节点都在。）
+
+### ⑦ **`agent-browser screenshot` 截元素**（★ r83 修正：位置参数可用）
+
+- ❌ `--selector "#x"` 这种**选项写法不认**（r81 实测）：传了**不报错**，而是在 cwd 里
+  **创建一个名叫 `--selector` 的文件**，同时那张图根本没生成。
+- ✅ **位置参数可用**（r83 实测）：`screenshot "#sel" "out.png"` → 拿到**元素截图**
+  （`screenshot "#av-chat-drawer"` 出 480×944，正是元素尺寸）。先 `screenshot --help` 看用法。
+- 兜底法（仍然有效）：`screenshot out.png` 截全屏 + Pillow `crop()` 裁
+  （`screenshot` 出来是 **1×** 图，裁剪坐标直接用 CSS 像素）；坐标先用 `get box <sel>` 拿。
+
+### ⑧ **`mg-work/kanban/r13/chk/*.js` 是仓库里**被跟踪**的文件**（r81 踩到）
+
+跑 `check-syntax.py` 会改写它们、并新增 `*-N.js`。**别** `rm -f chk/dev-*.js` —— 那是删仓库文件
+（`git status` 出 ` D`）。正确清理：
+
+```bash
+git checkout -- mg-work/kanban/r13/chk/ && git clean -f mg-work/kanban/r13/chk/
+```
+
+---
+
+## P3.13 r81 定稿：顶栏部件的正确落点 + 「一个脚本管多页」范式
+
+### ① ★★ 顶栏新增部件的落点 = **左簇、红绿灯之后**（不是右簇）
+
+```js
+function mount() {
+  var hdr = document.querySelector('header');
+  if (!hdr) return false;
+  var left = hdr.children[0];                       // 左簇：div.flex.w-60.items-center.gap-4
+  if (!left || left.tagName !== 'DIV') return false;
+  var lights = left.children[0];                    // 第一个子元素 = 红绿灯
+  if (!lights || !lights.querySelector('button[aria-label="关闭"]')) return false;   // 锚点校验
+  if (left.querySelector('.r81-ws-trigger')) return true;                            // 幂等
+  var nxt = left.children[1];
+  if (nxt) left.insertBefore(trig, nxt); else left.appendChild(trig);
+  return true;
+}
+```
+
+- 左簇是 Tailwind `gap-4`（**16px**）⇒ 要做「红绿灯 → 触发器 **20px**」就加 `margin-left: 4px`。
+- 左簇 `w-60`(240px) 定宽但内容会溢出（无 `overflow:hidden`）⇒ 部件宽 254 时右溢出到页签左侧空白区
+  （页签从 626px 起），**不遮挡任何交互元素、不产生横向滚动条**。给部件 `flex: none` 防被压缩。
+- **验证口径**：`红绿灯.getBoundingClientRect().right` 与 `trig.getBoundingClientRect().left` 之差。
+
+### ② ★★ 「某页属哪个工作台」有**权威名单**，别凭页面名推断
+
+每页 bundle 内的 `SHELL-TABS-FIX v4` 都带同一份表：
+
+```js
+var DEV_PAGES = { 'dev.html': 1, 'kanban.html': 1, 'req-kanban.html': 1, 'task-detail.html': 1 };
+```
+
+⇒ **研发工作台 = dev / kanban / req-kanban / task-detail**；其余（base/automation/avatar/settings/skills）
+属基础工作台组。问范围先 grep `DEV_PAGES`。
+
+### ③ ⚠️ 往顶栏左簇塞 `button` 前，先确认 `:has()` order 规则会不会命中
+
+`kanban` / `req-kanban` 的注入 CSS 里有：
+
+```css
+header div:has(> button[aria-label="切换侧边栏"]) > button:not([aria-label="切换侧边栏"]) { order: 3; }
+```
+
+若该 `:has()` 成立，新 button 会被**重排到最末**（位置全错）。r81 实测这几页左簇**没有**
+「切换侧边栏」按钮 ⇒ 不触发（触发器 `order: 0`）。
+**排查手段**：`getComputedStyle(trig).order` + `left.children` 顺序。
+
+### ④ 「与基础工作台完全一致」= 直接抄它的 React 源码，别自己发明
+
+定位、开合、选中态这些，base.html 里都能 grep 到原文。r81 实抄：
+
+```js
+// base.html 内 Tn()：{position:'fixed', top: e.bottom+4, left: e.left, width:388, maxHeight:480, zIndex:1000}
+var left = r.left;          // ← 左缘对齐锚点左缘（不是右缘）
+var top  = r.bottom + 4;
+```
+
+**同一功能的 hover 色不要跨工作台复用**：`.ws-trigger-hover:hover` 是基础工作台顶栏（`#F4F5F6`）配的
+`#E4E6EA`；研发工作台顶栏 `#E5EDF5`，值不同（`#DAE3ED`）。同特异性靠 `!important` 打架不划算 ⇒
+另立自己的 `:hover` 规则。**但浮窗内**（背景同为白色）的 `.ws-item-hover` / `.ws-search-input::placeholder`
+**照旧复用**。
+
+### ⑤ ★ **「一个脚本管多页」范式**（r81 起）
+
+多个页面共用同一个件时，写一个 `applyNN.py` 遍历名单，**块内容逐字节相同**：
+
+```python
+DEV_PAGES = ['dev.html', 'kanban.html', 'req-kanban.html', 'task-detail.html']
+for fname in DEV_PAGES:
+    ... # 幂等判 id → （可选）正则摘除旧版块 → replace('</body>', BLOCK + '</body>', 1) → 自检
+```
+
+要点：
+- **块 id 随轮次升级**（`r80-ws-*` → `r81-ws-*`），类名前缀同步 ⇒ 幂等判定只需 `id="r81-ws-css" in s`。
+- 旧版块用**正则摘除**：`re.subn(r'<style id="r80-ws-css">.*?</style>', '', s, count=1, flags=re.S)`
+  —— 能这么写的前提是注入块内**不含** `</style>` / `</script>` 字面量（元守卫保证）。
+- **摘净的硬证据 = 长度回到改前**：dev.html 摘后 427 519，与 r80 改前**逐字符相同**。
+- **自检三件套（每页都要跑）**：标签级精确增减 + `BLOCK` 后紧跟 `</body>`（证它是最后一块）
+  + 未触及锚点计数不变（`justify-end gap-1` / `maxHeight:480` / `bg-[#FF5F57]`）。
+- 4 页净增必须**完全相同**（r81 = `+16 943`）—— 不等说明某页基线被污染。
+
+### ⑥ Pillow 拼「对照证据图」的提速套路
+
+`hover <sel>` → `get styles <sel>` 读伪类后的 computed 值（`:hover` 跨调用会丢，见 P3.6）；
+截图取全屏再裁。拼图脚本放 `mg-work/rNN/ev/compose.py`：
+中文字体 `C:/Windows/Fonts/msyhbd.ttc`（粗）/ `msyh.ttc`，
+画布高度按公式算完**回读 `Image.open(out).size` 校验**（别信心算）。
+⚠️ `compose.py` 若放在 `ev/` 里，`HERE = dirname(__file__)` **就是 ev 目录**，
+再 `join(HERE, 'ev')` 会拼出 `ev/ev/`。
+
+---
+
+## P3.14 r82 定稿：装饰性元素的反解 / 落位 / 开合重排（五坑）
+
+### ① 反解「装饰性元素」：先看**结构化节点树**，别急着看导出 SVG
+
+设计稿里凡**不属于**「遮罩 / 面板本体 / 标题 / 关闭 / 内容」五类、位置又横跨面板边缘的节点，
+就是装饰件。r82 的判据链（可复用）：
+
+1. 从结构化导出（`framework=json` 的 `data` 树）拿**根的直接子级**，看 `bound`：
+   哪一层的 `x/width` **超出了面板本体**（r82：面板 `120,48,1200,804`，而某组是 `81,48,1278,39.1`
+   → 左右各多出 39）就锁定它。
+2. 该节点的 `text` 字段就是它的 SVG 全文（`<svg width=… height=… viewBox=…>`）。
+3. ⚠ **`width/height` 与 `viewBox` 不等比时，别按 viewBox 算实尺寸** ——
+   MasterGo 导出的 svg 标签尺寸才是渲染尺寸（r82：viewBox 高 87.096 → 实高 39.096，
+   纵向压缩 ×0.4479，形状实高 = 24 × 0.4479 ≈ 10.75）。
+4. **必须用设计稿 PNG 逐像素反推交叉验证**：按行扫「面板最左/最右白像素」，
+   把落点与算得的弧线逐点比（r82 得到 y=50/53/56 → x=107/112/120，与弧线差 2~3px = 95% 白 + 投影的抗锯齿）。
+
+### ② 绝对定位子元素的落位：用「rect 相减再减 border」
+
+要给某个现成容器**外侧**贴一个绝对定位子元素时：
+
+```js
+var cr = host.getBoundingClientRect(), dr = dlg.getBoundingClientRect();
+var L = dr.left - (cr.left + host.clientLeft);   // ← clientLeft/clientTop 是 border 宽
+var T = dr.top  - (cr.top  + host.clientTop);
+child.style.left = Math.round(L - W) + 'px';     // 相对 host 的 padding box
+```
+
+- 直接用 `dlg.offsetLeft` 在有 `transform` 时是**布局值、不是视觉值**（r82：dialog 有
+  `translateX(-50%)`，`offsetLeft=711` 而视觉左缘对应 142）——别用。
+- 用 rect 相减（视觉真值）再减掉 host 的 border，得到的偏移正好等于绝对定位子元素的包含块原点。
+- ⚠ 被贴的容器若 `overflow:hidden`（r82 的 `.kb-coop-dialog`），子元素必须挂到**外层**（`.kb-coop`）。
+
+### ③ 程序化 `.click()` **不发 `pointerdown`**
+
+任何「靠 `pointerdown` 重排/纠位」的逻辑，在 `eval` 里用 `el.click()` 或交互探针里都不会被触发
+（r82 的翼因此停在未定位状态，表现为跑到容器左上角 9,49）。
+⇒ 触发源要**双挂 `click` + `pointerdown` + `keydown`**，并且优先依赖 **`MutationObserver` 监听
+开合标记本身**（`attributeFilter:['hidden','class']`），而不是依赖用户事件。
+
+### ④ 新 UI「未就位前先 `opacity:0`」
+
+收起态量不出 rect（宽 0）时不要落位。给新元素默认 `opacity:0`，**成功落位后打一个 `data-placed` 属性**
+再由 CSS 放出来 —— 否则会在容器左上角闪一下。
+
+### ⑤ 跨页「续动效」范式（r82 看板 tab）
+
+两个 tab 各占一页时，让动效看起来是连续的：
+
+1. 点击时 `sessionStorage.setItem(KEY, <目标页>)`，把指示器滑到目标位后延时再跳转；
+2. 新页加载时 `getItem + removeItem`，把指示器**无动画**落到「来源 tab」的位置，
+   再 `requestAnimationFrame` ×2 后滑到「当前 tab」。
+
+⇒ 视觉上是一段连续滑动。配套坑：切换时**图标只在激活态按钮上**（`.kb-radio-ico` 是被搬来搬去的），
+搬动顺序必须是「先搬图标 → 再量 rect」，否则量到的宽度是错的。
+
+---
+
+## P3.15 r82 收尾：`mg-work/check-syntax.py`（语法自检工具）与**它自己的假警报**
+
+**工具**：`python mg-work/check-syntax.py pages/a.html pages/b.html ...`（只读，不改文件）
+抽取每页内联 `<script>`（跳过外链）交 `node --check`，同时校验每块 `<style>` 的
+`{}` 配平与注释配平。输出 `ALL_OK <file> script=N style=M` 或 `FAIL` + 问题清单，退出码 0/1。
+**每轮改完页面必须跑**——`verify-design.py` 只查设计规范（hex/字号/动效时长/渐变密度），**完全查不出 JS 语法错**。
+
+**⚠️ 假警报（本轮踩到，差点误报成产品 bug）**：
+`task-detail.html` 的主 `<style>`（style#2）里有一句注释原文含 **`pages/*.html`** ——
+这个 `/*` 会让**朴素的 `count('/*') vs count('*/')` 判据**报「注释不配对 220 vs 219 / 注释内嵌套」。
+
+- **CSS 注释不嵌套**：注释里的 `/*` 只是普通文本，浏览器照常解析 ⇒ **多一个 `/*` 是无害的**。
+- **真正会坏的是「多余的 `*/`」**：它提前闭合注释，把后面的规则吐出来当 CSS 解析。
+- 所以判据必须是**顺序扫描 + 栈**：`/*` 入栈、`*/` 出栈；**出现「找不到配对 `/*` 的 `*/`」才 FAIL**。
+  工具已按此修正（`orphan */` 才算错）。
+- 该 `pages/*.html` 注释在 **HEAD 就存在**，逐条 diff 过：非本轮引入、渲染正常 ⇒ **不动它**。
+
+**教训（写进工作法）**：**自检脚本自己也会有假警报。** 报错时先做两件事再定性：
+① 同样的检查在 **HEAD 基线**上跑一遍（同口径）——基线也报 = 非本轮引入；
+② 想清楚「这条规则**为什么不成立会坏**」——说不出坏在哪，就说明判据太严，改判据不改产物。
+本项目旧规则「CSS 注释禁嵌 `/* */`」的**真实理由**是：它会让**朴素的计数器/正则提取器**失准
+（如 `<!-- X -->…<!-- /X -->` 块提取），而不是会让浏览器出错。
+
+---
+
+## P3.16 r83 定稿：**过渡态读数**、**事件委托范围**、**幂等自证口径**、**取数通道方向相反**
+
+### ① ★★ 读 `transition` 属性前必须先掐掉过渡，否则读到的是动画**起点**
+
+r83 实测：`.av-hs-item` 有 `transition: background-color 120ms`，
+`el.classList.add('is-confirm')` 之后**紧接着** `getComputedStyle(el).backgroundColor`
+读回的是 **`rgba(0,0,0,0)`**（过渡第一帧），而终值应为 `rgb(242,242,242)`。
+我一度以为「CSS 规则没生效」，去枚举 `document.styleSheets` 里所有 `matches()` 的规则才发现规则**明明命中了**。
+
+```js
+it.style.transition = 'none';      // ★ 量测前掐掉
+it.classList.add('is-confirm');
+var bg = getComputedStyle(it).backgroundColor;   // rgb(242,242,242) ✔
+// …量完记得还原
+it.style.transition = '';
+```
+
+**同族坑**：`el.style.display` 之类的**瞬时**属性不受影响，但凡是「有 transition 的渲染属性」
+（`background-color` / `opacity` / `transform` / `width` …）都会被读到过渡起点。
+⇒ **探针里一切"改状态后立刻读渲染值"的地方，先掐过渡再读。**
+
+**定位心得**：读数与预期不符时，别急着改代码 —— 先**枚举命中的规则**（遍历 `document.styleSheets`，
+对目标元素逐条 `matches(r.selectorText)`，筛出含目标属性的规则），一次就能分清
+「规则没命中」vs「命中了但被过渡/优先级盖掉」。
+
+### ② ★★ 事件委托必须挂在**按钮真实所在的最近公共祖先**上
+
+r83 写视图切换时自己发现：`.av-hs-back` 在 `.av-hs-bar` 里，而 `.av-hs-list` 只包住列表 ⇒
+委托若挂在 `list` 上，**点返回毫无反应**（症状极像"JS 没加载"）。
+⇒ 定稿铁律：**视图块的点击委托一律挂整个视图根（`view`）**，不挂某个子容器；
+`.av-hs-item` 之类的行级判断在委托里再 `closest()` 收窄。
+
+### ③ ★★ 幂等自证的**口径**：「摘回后 = 本轮基线」，不是「= 改前文件」
+
+- 幂等正则**必须把注入时写的尾随换行一起吃掉**（`r'<style id="...">.*?</style>\n'`）。
+  注入写的是 `块 + '\n'` 接下一件；正则不带 `\n` ⇒ **每块残留 1 个 `\n`**，复跑字符数就漂
+  （r83 首跑：摘回 541 279 ≠ 基线 541 277，正好差 2 个块 = 2 字符）。
+- 自证写法要**先算基线再比**（第一次跑时"改前文件"已经是改过的了）：
+
+```python
+def strip_all(s):                       # 摘掉本轮全部块 + 视图块
+    n = 0
+    for pat, want in PRIOR:
+        s, k = re.subn(pat, '', s, count=want); n += k
+    return s, n
+
+s0, _ = open(page, encoding='utf-8').read()…   # 读改前
+base_txt, _ = strip_all(s0)                    # ★ 本轮基线 = 改前再摘一次
+... 注入 ...
+t, dropped = strip_all(now)
+assert dropped == 3
+assert t == base_txt, '幂等自证失败：%d ≠ 基线 %d' % (len(t), len(base_txt))
+```
+
+### ④ ★★ 视图切换**不要依赖原始块的位置**（`:nth-child` / 结构改动敏感）
+
+r83 的二级页切换只用一个属性开关，一行都不动对话视图的结构：
+
+```css
+.av-hs { display: none; }
+#av-chat-drawer[data-av-hs] > .td-right-inner > .av-hs { display: flex; flex-direction: column; flex: 1; min-height: 0; }
+#av-chat-drawer[data-av-hs] > .td-right-inner > :not(.av-hs) { display: none; }
+```
+
+关栏（`html[data-av-chat-open]` 被移除）时用 `MutationObserver` 复位属性 ⇒ 下次开栏回到对话视图。
+
+### ⑤ ★★ 同节点多素材落盘**必须各用 `logicalPath` 的 basename**
+
+`mgfetch.py` 原写法 `asset_<nid>.<ext>` 对同一节点的 5 件素材**同名后写覆盖**（实测 5 件只剩 1 件）。
+改为 `'%s__%s' % (nid.replace(':', '-'), os.path.basename(logicalPath))` + 按 `sha256` 的 `seen` 集合去重。
+
+---
+
+## P3.17 r84 定稿：设计稿里的「图标」可能是未展开的 DS 组件 + 一组 UI 实测坑
+
+### ① ★★★ 设计稿结构树里的 `ui-component` = **未展开的 DS 组件实例 ⇒ 没有导出 asset**
+
+r84 要修「删除会话」图标，才发现设计稿 `1389:18518` 每张卡片右侧是**两种不同性质的节点**：
+
+| 位置 | 节点 | 有 asset？ |
+|---|---|---|
+| 左（导出） | `div.icon-wrapper` → `img src=./asset/icons/svg_5f4f2e22.svg` | ✅ 已导出 |
+| 右（删除） | `ui-component name="icon-wrapper" props='{"尺寸":"14"}'`（**无子节点**） | ❌ **没有** |
+
+所以 `mgfetch.py` 只捞到 2 个图标 asset，第 3 个压根不存在。
+⇒ **r83 那枚删除图标是我「照 PNG 灰度矩阵手搓」的，形状不对，r84 返工。**
+
+**正确姿势（两步）**：
+
+1. **先去仓内 DS 图标库找**：`assets/icons/*.svg`（本轮 `delete.svg` 就是它，
+   12 单位 viewBox 按 14px 渲染 ×1.1667，盖/桶身/双肋/桶底四处坐标逐像素全中）。
+2. 找不到再**渲染候选矢量与设计稿并排比**（做法见 `mg-work/r83/ev/mkcmp.py`：
+   用 `agent-browser` 打开一个只有 `<img src=data:image/png;base64,…>`（设计稿裁剪）
+   + 若干内联候选 SVG 的临时 HTML，截一张图，一眼定真身）。
+
+⚠️ 教训：**别照 PNG 手搓图标** —— 小尺寸下 AA 会骗人，返工成本远高于去找真矢量。
+⚠️ 同理，`text/text`、`Button` 这些 `ui-component` 也**不展开**（只给 `props` + `text`），
+   所以文案要从 `text='{"中电金信":"…"}'` 里取，**从 DOM 里找不到。**
+
+### ② ★★ 结构树（`get_selection_node`）比像素更好读，但**两个都要**
+
+结构树给的是真实 DOM + inline style ⇒ 一眼看清设计意图，像素用来复核。
+本轮两个关键结论都来自结构树，再用像素确认：
+
+- 滚动条 `矩形 219` = `width:6px;height:320px;background:rgba(0,0,0,.16);border-radius:6px;left:472;top:52`
+  ⇒ **设计师手画的假滚动条**（overlay、不占布局、内容其实没溢出）⇒ 别为它造自定义滚动条元素。
+- 确认态按钮组 `组 10075` = `position:absolute; left:306; top:14; 128×28`
+  ⇒ 像素复核 = 取消 48 + 间距 8 + 确定删除 72，右缘距行右缘 **8**（图标组却是 10）。
+  **设计稿内部这两处本身差 2px** ⇒ 要么用 `margin-right:-2px` 对齐，要么接受 2px 并在验收里写明。
+
+### ③ ★★ `screenshot "#sel" out.png`（元素截图）会**裁到元素边界**
+
+r84 要截 tooltip，而 tooltip 在抽屉（被截元素）之外 ⇒ **截图里 tooltip 被切掉一半**。
+⇒ 要截"元素之外的浮层"：① 把视口放大到目标不再触边，`screenshot out.png` 截全页 → Pillow 裁；
+② 先 `screenshot --help` 看有没有 `--full` 之类。
+（元素截图本身很好用：`screenshot "#av-chat-drawer"` 出 480×944，正是元素尺寸。）
+
+### ④ ★ **`:hover` 能跨独立 agent-browser 调用存活**（★ 更正 P3.6 坑 1）
+
+r84 实测：`agent-browser hover "<sel>"` 之后，**下一次独立调用**里
+`getComputedStyle(el).backgroundColor` = `rgb(242,242,242)`（= hover 态），`el.matches(':hover')` = true。
+⇒ P3.6「`:hover` 在多次独立调用之间会丢失」**在本机（Windows / 当前版本）不成立**，可以「hover → 读 → 截图」分步做。
+但 **P3.16①（读渲染值前先掐 `transition`）依然成立**，别混。
+
+### ⑤ ★★ 程序化 `.focus()` 会触发 `focusin` ⇒ tooltip **凭空弹出**
+
+r84 给图标按钮加 tooltip 时顺手绑了 `focusin`，而 `openView()` 里会给返回按钮 `.focus()`
+⇒ **每次打开视图都立刻弹出一个「返回」tooltip**（实测 `tipExistsIdle:true, tipHiddenIdle:false`）。
+⇒ 定稿：**tooltip 只走 hover**（需求本来就是"hover 时显示"），键盘用户的名称交给 `aria-label`。
+若确实要键盘也能看，用「上一次输入是键盘」的开关门控（`keydown` 置真 / `mousedown` 置假），别裸绑 `focusin`。
+
+### ⑥ ★ 硬编码 `font-size` 会被门禁抓到
+
+`.av-tip { font-size: 12px }` ⇒ `verify-design.py` 立刻多一条 `[TOKEN-GAP] avatar.html:2959`。
+改成 `var(--font-size-body-1)`（同为 12px）后回到零新增。
+⇒ **写新 CSS 时字号一律先查 token**（`--font-size-body-1` = 12、`--font-size-title-1` = 16 …）。
+
+### ⑦ ★★ 多代块并存规则：`PRIOR` 要摘**历代**标记
+
+r84 新建了独立块 id（`r84-hs-*`），如果 `PRIOR` 只摘自己这代，
+那么**复跑 r83 会再插一份 r83 块** ⇒ 视图 id 重复、两代样式打架。
+⇒ 定稿：**`PRIOR` 同时摘 `r83-*` 与 `r84-*`**（含视图注释标记），
+这样两个脚本谁复跑都是「先摘后插」，行为等价于"切到该版本"，永不并存。
+
+### ⑧ ★ 上一轮**尚未提交**时，返工**就地修订原补丁**，不另起代数
+
+本节 ⑦ 说「改这个视图一律新建下一代补丁」—— 那是对**已提交/已验收交付**的版本说的。
+r84 落地约半小时后邵先生改了 ③ 的口径，此时 `pages/avatar.html` 在 `git status` 里仍是 ` M`（未 commit）：
+⇒ **就地改 `apply84.py` 重跑**，而不是新建 `r85/apply85.py`。
+理由：另起一代会在仓库里留下一份**被废弃机制的历史**（读者要跨两代才拼得出最终态），
+而且 r84 自己的 acceptance / 截图 / 探针会全部变成描述旧交互的"错文档"。
+判据很简单：**`git status` 里 `pages/<page>` 是不是 ` M` 而非已 commit**。
+
+### ⑨ ★★ `PRIOR` 白捡的好处：改完脚本**直接重跑即自愈**
+
+`apply_page()` 的正确体位是「先 `strip_all(当前页)` → 拿净底 → 再注入」，
+所以**不需要先 `cp` 回滚基线**：页里现在是上一版块，重跑一样能得到正确结果（r84 本轮实测）。
+⇒ 改补丁的正确流程：**改脚本 → 直接跑 → 复跑验幂等**；`cp before.html` 只在真回滚时才用。
+
+### ⑩ ★★ 交互从 `hover` 触发改成 `click` 触发时，必须补全"状态机分支"
+
+hover 触发有个隐性优点：**状态不会停留**（鼠标移开就复位）。
+一旦改成 click 触发，确认态就成了**持久状态**，于是多出一堆必须显式定义的分支（r84 实测全补）：
+
+| 情形 | 必须定义的行为 |
+|---|---|
+| 点 A 行 → 再点 B 行 | A 行自动复位（**一次只允许一行**处于确认态） |
+| 确认态下点该行其他位置 | 只放弃、**不要**顺手执行原点击行为（否则会"想取消却跳走"） |
+| 关闭视图（返回 / Esc / 关外层） | 复位所有确认态 |
+| 键盘触发进确认态 | 原触发按钮被 `display:none` ⇒ 焦点丢回 body，**下一个 Tab 从页面开头重来** ⇒ 把焦点交给「取消」 |
+
+最后一条注意**只对键盘做**：用 `ev.detail === 0` 判键盘（见 ⑪），鼠标触发别抢焦点（否则飘出一圈光圈）。
+另：`focus()` 那一步要小心 ⑤ —— 别为了它去绑 `focusin` 弹 tooltip。
+
+### ⑪ ★★ 程序化 `el.click()` 的 `detail === 0`，会被当作**键盘触发**
+
+凡是按 `ev.detail` 分流焦点/样式的逻辑，用 `eval "...click()"` 测出来的都是**键盘分支**。
+r84 症状：确认态截图里「取消」多出一圈焦点光圈，与真鼠标点击的样子不符。
+⇒ **取证截图一律用 `agent-browser click <sel>`（真鼠标、`detail=1`）**；
+程序化点击只用来跑逻辑链（`is-confirm`/`display` 这类状态断言不受影响）。
+
+### ⑫ ⚠ `eval "$(cat probe.js)"` 前先确认文件真的在 —— 写错路径会**静默返回 `null`**
+
+r84 把 `open_view.js` 放在 `r83/ev/`，`cat mg-work/r84/ev/open_view.js` 报错、`eval` 收到空串 →
+整条链路照跑（`click`/`screenshot` 都不报错），但**抽屉根本没打开**，于是所有几何量出来都是 `0`
+（`drawerRect` 宽度 0、`nameW` 0、`cancelRect [0,0,0,0]`）—— 白跑一轮。
+⇒ 判据：**探针返回 `null` 或几何出现 `0/0` 就先查脚本文件在不在**，别急着怀疑 CSS。
+
+---
 
 - 路由变量（每页 bundle 内各一份，压缩成 `xt`/`St`/`Tt`）：`xt` route→文件名、`St` 文件名→route、`Tt()` 当前 route。
   → file:// 下按**文件名**解析（`St[filename]`），http 下按 **hash** 解析。`task-detail` **不在** `xt` 里，
@@ -771,3 +1213,283 @@ handler 绑在 `document` 上，但**第一道闸**是 `t.closest('main.dot-bg')
 - ✅ 验证优先用 `agent-browser eval` 读 DOM 断言；**截图只在需要看视觉时用**（截图比 eval 慢一个量级）。
 - ✅ 同一结论不二次复现；已知的环境事实（如 file:// 已验证通过）不重复测，只测本轮新增假设。
 - ✅ 改大文件一律走 `mg-work/rNN/applyNN.py`（正则定位 + 幂等 + 结构计数自检），一次性跑通。
+
+### P6.1 r82 追加（用户第二次反馈"响应慢"后）
+
+1. **先并行、再动手**：设计取数（MCP）挂后台跑的同时，前端侧的改动照常开工，**不要串行等取数**。
+   r82 的 1/3/5 条就是在等设计稿的同时做完的。
+2. **取数一律走 `mg-work/mgfetch.py`**（见 P7 ⑦⑧）：它把「HTTP 超时后去 asset/blob 兜底」自动化了，
+   45s 超时也能秒级拿回素材，不再出现「白等 2 分钟 + 重试 2 分钟」。
+3. **少开浏览器、多算像素**：几何校准（尺寸 / 弧线 / 色带）优先用
+   **设计稿 PNG 逐像素扫描 + 结构化节点 JSON**；浏览器只做最后一轮的「改前/改后各一次」取证。
+4. **设计数据的"结构性证据"要一次收齐**：根的直接子级 `bound` 表、目标节点的 `text`(SVG 全文)、
+   `nodeInfo.documentPageId/Pagename` —— 这三样一次拿全，能省掉后面反复往返。
+
+### P6.2 ⚠ 本项目最真实的耗时大头是「反复确认设计意图」
+
+r82 的复盘：真正写补丁与验证只占小头，大头花在「那个装饰件到底是什么形状/多大」上。
+⇒ 下次遇到「这是高保真设计稿，请精确还原」：
+**先把「结构性证据」列成一张表（节点 id / 类型 / bound / 尺寸 / 填充 / 投影）再动手**，
+表里对不上的地方一次性向用户确认，别用「猜一轮 → 改一轮 → 再猜」的循环。
+
+---
+
+## P7 MasterGo 取数通道（r80 定稿）
+
+> 前提：**本机跑着 MasterGo 桌面端的 local-ai-canvas**。即使宿主没把 MasterGo 的 MCP 工具挂进本会话
+> （`tools/list` 搜不到 `/mastergo/`），**服务本身也在跑，直接按 MCP 协议打本地 HTTP 端点即可**。
+
+### ① 先拿端口（每次会话都可能变）
+
+```bash
+cat "$APPDATA/master-desktop/local-ai-canvas/mastergo-mcp/runtime.json"      # → endpoint http://127.0.0.1:20678/mcp
+cat "$APPDATA/master-desktop/local-ai-canvas/state/runtime.json"             # 后端 pid/端口
+cat "$APPDATA/master-desktop/local-ai-canvas/runtime-components/process-state.json"  # 各组件 pid + base_url
+```
+端口实测 09-29 = **20678**（`/health` 秒回 `{"ok":true,"name":"MasterGo-Vibe-MCP"}`）。
+另一路 `mgmcp.exe` 占 **30678** —— ⚠ **旧记「它的 HTTP 全是 400，别去打」已作废（r85 更正）**：
+那只试过 GET 根路径。**`/api/getScreenshot` 是活的，且是目前拿设计稿 PNG 最稳的一条路**（见 ⑩）。
+
+### ② 调用（封装见 `mg-work/r80/mcp-call.py`）
+
+```bash
+python mg-work/r80/mcp-call.py get_selection_node '{"projectDir":"E:\\GienCoder\\giencoder-design-engineering","targetNodeIds":["1381:20099"]}' out.json
+```
+裸 curl 写法：`POST http://127.0.0.1:20678/mcp`，头 `Accept: application/json, text/event-stream`，
+体 `{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"<tool>","arguments":{…}}}`；
+响应是 SSE（`event: message` + `data: {…}`），**取 `data: ` 后面第一行**。
+
+### ③ ★ 有效边界（r80 实测，别浪费 2 分钟一轮）
+
+| 调用 | 结果 |
+|---|---|
+| `get_version` | **秒回** |
+| `get_selection_node`（**只喂用户链接里点名的 layer**） | **约 2 分钟后成功**，多个节点会合并成一次 `selections[]` 推回 |
+| `get_screenshot`（任何 scale / 单点双点） | ❌ 一律 timeout |
+| `get_frontend_code`（json / html） | ❌ timeout |
+| `get_selection_node`（**喂父级 / 框架 / 未点名的节点**） | ❌ 一律 timeout |
+
+⇒ **只有"用户链接里点名的那些 layer"能被服务**；要拿上下文（父框架位置等）**没门**，改从别的证据推。
+
+### ④ ★★ timeout ≠ 没数据：先翻 `~/.mgmcp/mgmcp.log`
+
+画布每次应答都会在 `mgmcp.log` 里留一行 `recv ws msg … "cmd":"canvasOp" … "type":"sendSelectionCode"`。
+**注意：一次批量请求的多个节点是塞在同一行的 `selections[]` 数组里**（按 `nodeInfo` 只看第一个会漏掉后面的）。
+r80 就是用这招捞回了两个目标图层（**而且行时间戳是"今天"**——即那次"超时"的调用其实已经拿到数据了）。
+
+```python
+# 骨架：逐行 json.loads 外层 msg → 再 json.loads(外层['data']) → 遍历 selections[]
+for line in open(LOG, encoding='utf-8', errors='replace'):
+    if 'sendSelectionCode' not in line: continue
+    outer = json.loads(re.search(r'msg:(\{.*\})', line).group(1))
+    d = json.loads(outer['data'])
+    for s in d.get('selections') or []: ...   # s['nodeInfo'] / s['code'] / s['svg'](文件名→svg 文本)
+```
+> 日志会滚（r80 时 53 MB / 12194 行，覆盖 09-24~09-29），**捞到就落盘**，
+> 落盘脚本产物：`mg-work/r80/raw/sel_<nodeid>_<ts>.json`（285 条历史回包全量）。
+
+### ⑤ 直连 REST 是**死路**（除非有 `mg_…` token）
+
+`https://mastergo.com/mcp/dsl?fileId=<fileId>&layerId=<layerId>` + 头 `X-MG-UserAccessToken: <MG_MCP_TOKEN>`
+（见仓内 `.agents/skills/master-go-to-code/`，token 从项目根往上找 `.env` 的 `MASTERGO_TOKEN`）。
+**本机没有这个 `.env`**；拿 mgmcp 的会话 token（ws URL 里的 `Authorization=42585456789846`）去试 → **401 / `code:10002`**。
+网络本身通（直连 200，不用代理）。⇒ **别在 REST 上花时间**。
+
+### ⑥ ⚠️ 反解设计稿时的两个已知盲区
+
+1. **`ui-component name="text/title"` 的实例导不出文字**（`props="{}"`、无 `text=`）——
+   而 `text/text` 类型的实例**是**带 `text='{"中电金信":"…"}'` 的。
+   ⇒ 嵌套实例不展开，**组件里的文案拿不到，只能向设计者要**。
+2. **拿不到绝对坐标**：节点的 `code` 只给自身及子级的相对样式；父级 timeout 就拿不到 `left/top`。
+   ⇒ 落位只能靠 **DOM 实测 + 设计稿里的逻辑关系** 反推（r80 即靠"外壳右簇是空壳"定案右上角）。
+
+### ⑦ ★★ r82 修正：**跨页取数**是可行的，但必须用「完整 goto 链接」
+
+这条推翻了 r80 的一部分结论，务必记住：
+
+| 传参形态 | 画布停在别的页时 |
+|---|---|
+| **裸图层 ID**（`"1389:18518"`） | ❌ 0.1s 立刻返回 `TargetNodePageMismatch: expected=<画布当前页>, actual=<目标页>` |
+| **完整 goto 链接**（`https://mastergo.com/goto/…?page_id=…&layer_id=…&file=…`） | ✅ 服务端会去取，跨页可用；但常 90~120s 才回，**甚至 HTTP 读超时** |
+
+⇒ 取数**一律传完整链接**。另外：`get_screenshot` 无论传什么都会 timeout（r82 复验）。
+**⚠️ 这两条被 r83 部分推翻 —— 见下 ⑨。**
+
+**「该设计稿解析失败」是页级问题**：`page 263:05935` 从 2026-09-27 起取任何节点都 timeout
+（日志原文 `获取设计稿数据超时，通常是此设计稿解析失败`）。
+⇒ 若某页连续两次超时，**停**，直接告诉用户「请在 MasterGo 把画布切到该页并选中目标图层」，
+一次调用即可拿到；不要在超时上反复重试。
+
+### ⑧ ★★★ 超时自愈：`artifacts/sessions` + `artifacts/blobs`
+
+**HTTP 读超时 ≠ 没数据。** 每次 `get_selection_node` 都会先落一个 Asset Session：
+
+```
+~/.mgmcp/artifacts/sessions/as_<hash>.json
+   { documentPageId, targetNodeIds:[…], createdAt, expiresAt,
+     assets:[{ logicalPath:"./asset/icons/svg_xxxx.svg", mimeType, sha256, size }] }
+```
+
+素材本体在内容寻址库：
+
+```
+~/.mgmcp/artifacts/blobs/sha256/<sha 前 2 位>/<完整 sha>
+```
+
+⚠⚠ **坑：文件名是「完整 sha」，不是去掉前 2 位的部分**。r82 就是按 `<sha[2:]>` 拼路径导致兜底全捕空。
+
+```python
+bp = os.path.join(BLOBS, sha[:2], sha)      # ✔ 正确
+```
+
+已封装为 **`mg-work/mgfetch.py`**：
+
+```bash
+python mg-work/mgfetch.py "<完整 goto 链接>" [更多链接…] \
+    --out mg-work/rNN/raw --timeout 300 --since 900
+# 退出码 0 = 全拿到；2 = 有节点没拿到（会打印「当前画布在哪一页」与处置建议）
+```
+
+### ⑨ ★★★ r83 定稿：`get_selection_node` 与 `get_screenshot` 的「裸 ID vs 完整链接」**方向正好相反**
+
+前提：**用户在 MasterGo 客户端里选中了目标对象**（邵先生会主动告知「我已经选中了」）。
+
+| 工具 | 传**裸图层 ID**（`"1389:18518"`） | 传**完整 goto 链接** |
+|---|---|---|
+| `get_selection_node` | ❌ `TargetNodePageMismatch`（画布不在该页就被挡） | ✅ 跨页可用，但常 90~120s / HTTP 读超时 |
+| `get_screenshot` | ✅★★ **18.4s 直接拿到 PNG** | ❌ **200s 超时**（`timeout 200` 被 SIGTERM） |
+
+⇒ **要设计稿 PNG，就在客户端选中对象后给 `get_screenshot` 传裸 ID**——这是目前最快的单通道。
+`get_screenshot` 落盘：`screenshots://{documentId}/{rootId}/{nodeName}_{nodeId}.png`。
+
+**⚠️ PNG 带 3~4px 外边距**：r83 的 `1389:18518` 实测 PNG 488×990，节点原点落在 PNG **(3,2)**、
+内容 482×984（右侧 0.5px 描边在 PNG x484，**x485 那列是投影**，不是内容）。
+⇒ **一切像素量测先加 `DX,DY` 偏移**，扫描范围也要按内容区收（否则 `IndexError: image index out of range`）。
+
+**素材（SVG）落盘规则见 P3.16 ⑤**：同节点多件必须各用 `logicalPath` 的 basename。
+
+**设计稿里画的滚动条是 overlay（不占布局）**：`1389:18518` 的 thumb 实测 6px 宽、`#D6D6D6`
+（= `rgba(0,0,0,.16)` 叠白）、右内缩 4px、高 320（内容其实没溢出 ⇒ **是设计师画的示意**）。
+Windows Chrome 的 `::-webkit-scrollbar` 是 classic（占 6px 布局、贴右、无溢出不渲染）⇒
+**别为它造自定义滚动条元素**，按仓内既有约定写 `::-webkit-scrollbar` 即可，偏差写进 acceptance。
+
+
+实测：45s HTTP 超时 → asset 兜底秒级拿回 4255 B SVG，退出码 0。
+⚠ Asset Session 的 `expiresAt` 约 30 分钟，**捞到就另存**（历史上有 blob 被回收的情况）。
+
+---
+
+### ⑩ ★★★ r85 定稿：**30678 的 `GET /api/getScreenshot` 是拿设计稿 PNG 最快最稳的一条路**
+
+**推翻 ① 的「30678 的 HTTP 全是 400」**——那只是试了 GET 根路径。
+
+```
+GET http://127.0.0.1:30678/api/getScreenshot
+      ?documentId=193158744355579&documentPageId=ip148:02203&targetNodeId=<节点>&scale=2
+```
+→ `{"type":"sendScreenshot","success":true,"images":[{"nodeId":…,"success":true,"base64":"iVBORw0…"}]}`
+
+| 事实 | 值 |
+|---|---|
+| 方法 | **必须 GET + query 参数**。POST 一律 400；参数放 body 也 400 |
+| 耗时 | 首次 **21.7s**，二次 **0.38s**（有缓存） |
+| 落盘 | `base64` 直接解出 PNG；**尺寸 = 节点逻辑尺寸 × scale（本机 1 逻辑 px = 2.011 device px）** |
+| ⚠ 致命限制 | **只返回「当前画布选中图层」**：传 `targetNodeId=1389:18609`（导航）仍然回内容页 ⇒ **非选中节点拿不到图** |
+| 与 MCP `get_screenshot` 的关系 | MCP 那条路（带 `projectDir`/`scale`）r85 连试两次 **一律 120s timeout**；r83 用裸 ID 却在 18.4s 成功 ⇒ **取决于客户端当时选中了什么**。**要图先走这条 HTTP，不行再回 P7⑨** |
+
+**为什么这条很重要**：`get_selection_node` 的结构树里，**未展开的 DS 实例没有文案**
+（`1389:18725` 42 个 `ui-component` 只有 7 个带 `text=`）⇒ **文案只能从 PNG 读**（见 P7 ⑥①、P3.18②）。
+
+```python
+import urllib.request, json, base64, io
+url = ('http://127.0.0.1:30678/api/getScreenshot?documentId=%s&documentPageId=%s'
+       '&targetNodeId=%s&scale=2') % (DOC, PAGE, NODE.replace(':', '%3A'))
+d = json.loads(urllib.request.urlopen(url, timeout=190).read())
+io.open(out, 'wb').write(base64.b64decode(d['images'][0]['base64']))
+```
+
+补充事实：`20678` 是 MCP 端点（`/api/*` **不在这**，打过去 404）；`mgmcp.exe` 里能 grep 到 `/api/` 路由与
+`getScreenshotHandler` 字样 —— 这招（对二进制 `strings` 找路由）以后遇到「不知道接口在哪」可以复用。
+
+---
+
+## P3.18 r85 定稿：「设置」页（导航 + 系统设置内容）——实心四坑
+
+### ① ★★★ 设计稿的「内描边」必须用 `outline + outline-offset:-1px`，不能写 `border`
+
+判据（两条独立证据，都要看）：
+- **结构树**：卡片 840 宽、内部行宽 **800 = 840 − 2×20** ⇒ 描边**不占内容盒**。
+- **像素**：卡片左缘 `x=0–0.5` 是 `#EEEEEE`、`x=1.0` 起是 `#F8F9FA`（右缘同理，描边落在最后 1 逻辑 px）。
+
+写 `border: 1px` 的后果（本轮实测）：
+| 症状 | 量化 |
+|---|---|
+| 行宽 | 800 → **798**（右对齐控件整体左移 1–2px） |
+| 卡片高 | 230 → **232**（每张 +2） |
+| 整列 y | 卡片2/3 及其全部行、控件 **被推低 2–3px**（级联） |
+
+**速判**：MasterGo 的「内描边」= 描边画在框内、内容盒不变；CSS 里 `outline-offset:-1px` 是最省事的等价写法
+（`outline` 不吃布局、跟随 `border-radius`）。**别用 `border` + `box-sizing:border-box` 硬凑**。
+副作用：`getComputedStyle(el).borderTopWidth` 变 `0px`，写探针时别拿它断言描边存在（改看 `outline*`）。
+
+### ② ★★★ 导出的设计稿 PNG 是 **RGBA**，未绘制处 `alpha=0` ⇒ `convert('RGB')` 会变**纯黑**
+
+本轮把这个坑踩实了：把顶部 0–52 逻辑 px 的黑色**误判成「MasterGo 的节点名标签条盖住了标题」**，
+还差点写进 PLAYBOOK。真相是**标题节点无填充 ⇒ 该区透明**（卡片间隙黑、也是同理）。
+
+**规则**：取色/扫描前一律
+```python
+im = Image.open(p)                                    # 保留 RGBA
+im = Image.alpha_composite(Image.new('RGBA', im.size, (255,255,255,255)), im).convert('RGB')
+```
+**速判是不是透明**：`im.mode == 'RGBA' and im.getchannel('A').getextrema()[0] == 0`。
+另外「黑带」的位置若**正好等于布局空隙**，几乎一定就是透明，不是覆盖层。
+
+### ③ ★★ 滑块/刻度这类「细碎几何」要按**列聚合扫描**，不要读 ASCII 图目测
+
+`.r85-sl-*` 的四处错位（拇指 +14px、已选线 y−6、刻度 y+3、label 溢出）全是靠这段拿出来的：
+
+```python
+# 在 y 带内逐列统计「暗像素数」，得到垂直标记段；再对每段求 y 范围 ⇒ 位置 + 尺寸一起出来
+cols = [(x, sum(1 for y in range(Y0,Y1) if lum(x,y) < THR)) for x in range(X0,X1)]
+runs = [段];  # 每段再 ys=[...] ⇒ (x起, x止, y起, y止)
+```
+**先按色值分类**（背景/轨道灰/近黑 三档阈值）再打成字符图，比直接目测阈值图可靠得多；
+但**最终落数一定要程序化输出**（ASCII 图只用来"看懂结构"）。
+
+本轮的实测值（可直接复用给同类控件）：
+| 项 | 值 |
+|---|---|
+| 轨道 | rel x6 长 240（`track` 左缘 = 容器 x6） |
+| 刻度 | **6 格** rel 6/54/102/150/198/246（每 48 一格；**第 2 格被拇指盖住 ⇒ 图上只见 5 条**） |
+| 已选段 | rel x6 宽 48（= 当前档 x − 首档 x） |
+| 拇指 | 4×12 rel x52（= 档位中心 54 − 半宽 2），**不是**「三档 14/68/252」 |
+| 刻度字形 | 1×8 @rel y2（比轨道顶 6px 高 4px）；首刻度是 `is-on` 深色 |
+| 标签「小/默认/大」 | 中心 rel **6 / 54 / 246**（= 首档 / 第 2 档 / 末档，**不是**三等分） |
+
+⚠ **刻度别挂 `track` 上**：`track` 是 `position:absolute; top:6px`，子元素再写 `top:2` 会**叠加成 y=8**。
+刻度、已选线、拇指全部挂 `.r85-slider` 本身（`top` 才是容器坐标）。
+
+### ④ ★★ 自动对照脚本的「期望值」要用**相对量**，否则会把 ±1px 的系统误差报成缺陷
+
+本轮第一版对照报了 19 项偏差，其中 **18 项是脚本自己写错**：
+- 把「卡片3 整体 −1px」（可接受）传导成「卡内行 y 期望 783 实测 782」⇒ 应比 **卡内相对 y**。
+- 图标期望写成绝对 `[20, exp_y+1, …]`，实测 `[20, y+1, …]` ⇒ 应比 **行内相对 `[0,1,40,40]`**。
+- 一行里把「开/关两种期望」塞进一个字符串（永远不等）⇒ **一项一个期望**。
+- 导航图标期望写成「相对导航盒」，实测是「相对导航宿主」⇒ 写探针时**基准元素要统一**。
+
+**口径**：探针基准 = 与设计稿同原点的那个元素（本轮 = `.r85-page`，不是带 padding 的 `.r85-page-host`）；
+对照时**绝对量只比到「父容器」层，卡内/行内一律比相对量**，容差 ±1px。
+这样终版 **67 项 / 0 偏差** 才是可信的。
+
+### ⑤ ★ 外壳自带的「点阵底纹」不是 bug，别顺手删
+
+`<main class="min-w-0 flex-1 h-full overflow-hidden rounded-lg border bg-white">` 自带
+`background-image: radial-gradient(circle, rgba(107,107,107,.1) 1.5px, rgba(0,0,0,0) 1.5px)`（20px 网点）。
+卡片不透明 ⇒ 只在卡片间隙透出（逐行 diff 里表现为「实机多出 84 个非白像素」，形态 = **每 20px 一条 2px 竖线**）。
+**这是既有外壳观感，保留**。查法：
+```js
+var n=document.querySelector('.r85-page'), out=[];
+while(n && n!==document.documentElement){var s=getComputedStyle(n);
+  out.push([n.tagName,n.className,s.backgroundColor,s.backgroundImage.slice(0,110)]); n=n.parentElement;}
+```

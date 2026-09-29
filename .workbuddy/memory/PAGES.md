@@ -279,6 +279,33 @@ if (t.closest('div[class*="pb-6"][class*="text-center"]')) return;              
 
 ---
 
+### P3.11 settings（设置页）r85 新增：导航 + 「系统设置」内容（节点 1389:18609 / 1389:18725）
+
+> 块：`<style id="r85-set-css">` + `<script id="r85-set-js">`（`SHELL-R85-SET v1`），落地脚本 `mg-work/r85/apply85.py`。
+> 宿主：`aside > div[class*="overflow-y-auto"]` 插导航、`main > div` 插内容；原 React 节点 `data-set-hidden` 隐藏。
+
+**坐标系（写探针必看）**：`.r85-page-host { width:860px; margin:12px auto 0; padding:0 10px }`，
+**内容盒左缘 = host + 10**；与设计稿同原点的元素是 **`.r85-page`（840 宽）**，探针基准用它，别用 host。
+
+| 项 | 值 |
+|---|---|
+| 导航 | `.r85-nav-host` 232×268；`.r85-navi` 232×36 r8，图标 16×16 @(12,10)；常显底 `--color-fill-1`，选中底 `#ECEEF2` + 图标 `--color-primary-6`；分组标题 `.r85-gt` y=52 / 208 |
+| 内容 | `.r85-title` 28 高（`--font-size-title-2` 20px / 500）；卡片 margin-top 16（首张 24），`padding:20px` r8 |
+| **卡片描边** | ★ **必须 `outline:1px solid var(--color-border-1); outline-offset:-1px`**（设计稿内描边，不吃内容盒）。写 `border` ⇒ 行宽 798、卡片高 +2、整列推低 2–3px |
+| 卡片高 | 首 230 / 中 **448**（`is-mid`：底内距 16 而非 20）/ 末 156；页高 918（设计 919） |
+| 行 | `.r85-row` 800×42 @x20；`.r85-ic` 40×40 r8 底 `--color-fill-2`；`.r85-tx` margin-left 12（**末张卡片 `is-tail` = 16**）；行距 32；分割线 `::before` `top:-16` 用 `--color-fill-2` |
+| 文本 | `.r85-t` 14px/22 `--color-text-1`；`.r85-d` 12px/16 `--color-text-3` |
+| `.r85-ctl` | `gap:8px`；**`.r85-cb` 额外 `margin-right:4px`**（设计稿复选框→按钮间距 12）；右对齐 |
+| `.r85-btn` | `min-width:104px; height:32px; padding:0 12px; border:1px solid --color-border-1; background --color-white`；`.is-danger` = `--color-danger` |
+| `.r85-seg` | `gap:8px`，按钮 128×40 r8，选中 `border:2px dashed --color-border-3` |
+| `.r85-sw` | 覆盖 DS switch：40×24 r12，开 `--color-success` / 关 `#6B6B6B`，手柄 20×20（开 left18 / 关 left2） |
+| **`.r85-slider`** | 252×36。轨道 `.r85-sl-track` rel(6,6) 240×1；已选 `.r85-sl-done` rel(6,6) 宽 48；**6 档 `stops=[6,54,102,150,198,246]`**（当前 idx=1）；刻度 `.r85-sl-tick` 1×8 @rel y2 **挂 `.r85-slider`（不是 track）**，`is-on` 深色；拇指 4×12 @rel y0 `margin-left:-2px`；标签「小/默认/大」锚档 0/1/5（中心 rel 6/54/246） |
+
+**禁区**：① 别把刻度挂 `track` 上（`top` 会叠加 track 的 6px）；② 内容盒宽靠 `padding:0 10px` 得来（host 860 → 内容 840）；
+③ 其余菜单（模型/连接器/已归档任务）无设计稿 ⇒ `.r85-empty` 空态占位。
+
+---
+
 ## P4 标准配方（r66 / r67 定稿）
 
 ### P4.1 蒙层（Modal / Drawer mask）—— 全站唯一口径

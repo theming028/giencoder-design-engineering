@@ -1,148 +1,167 @@
-# HANDOFF · 会话交接卡
+# HANDOFF · 下一轮接手卡
 
-> **滚动更新**：每轮收尾时**覆盖重写**（不是 append）。
-> **用途**：新会话开局只读这一个文件，就能对齐「现在在哪、下一步做什么」。
-> 分工：历史详情 → `YYYY-MM-DD.md`；稳定工作法 → `PLAYBOOK.md`；页面事实 → `PAGES.md`；
-> 每次都必知 → `MEMORY.md`。**本文件不占注入预算**（只在需要时 grep/Read）。
-
-- **最后更新**：2026-09-29（**r79 + 目录清理第二轮均已入库并推送**；工作区干净）
-- **HEAD**：`0a88f82` = `origin/main`（`feat(r79): 波点涟漪触发范围再排除「版权带」…`）。
-- **工作区**：干净（`git status` 0 项）。本轮两批入库：
-  - `7c1c808` chore(cleanup) 第二轮 9 files（−14542）—— gc + `.DS_Store` + 8 个 r78 零信息项基线 + 审计第六章
-  - `0a88f82` feat(r79) 14 files（+1988）—— `pages/base.html`（+6 行）+ `mg-work/r79/` + 记忆四件
-- **已入库历史**：`fde6473`（r72~r78 全量 447 files / 91413 ins）· `27f342c`（补记）· `042e669`（清理第一轮 62 删除）
-- **本卡数据源**：`mg-work/r79/acceptance.md`（r79）+ `mg-work/cleanup-audit-2026-09-29.md`（清理审计）
+> **每轮覆盖重写。新会话开局先读这一页，再按需 grep `PLAYBOOK.md` / `PAGES.md`。**
+> 最后更新：2026-09-29 22:5x（r85 已落地并验收）
+> **未 commit / 未 push**
 
 ---
 
-## 一、r79 做了什么（涟漪触发范围 · 定案「欢迎态完全不触发」）
+## 一、当前工作区状态
 
-| # | 指令 | 修法要点 | 关键实测 |
-|---|---|---|---|
-| ① | **连版权带也排除** | 在 r74 页尾脚本排除链**再加一道闸**：`if (t.closest('div[class*="pb-6"][class*="text-center"]')) return;`（选择器与脚本 ① 段抓版权容器的**同一个**；源码命中 1、运行时命中 1） | 9 点 A/B：BEFORE 版权带 3 点 `ripple=1` → AFTER **全 0**；**96 点全视口网格 `fired=0`**、最大涟漪数 0 |
-| ② | **涟漪点阵加密到 16px** | **无需改动** —— 实测 `.r74-ripple` `background-size` 已是 **`16px 16px`**，与 `.dot-bg` **同值** | 涟漪点 `rgba(43,43,43,.14)` / `1.7px`；cap `480px` / `300ms` / `z-index 0` 全未动 |
-
-**补丁（1 个，幂等：连跑 3 次 = 1 / 0 / 0）**：`mg-work/r79/apply79.py`
-
-### ★★ 范围后果（接手必看，已与邵先生确认）
-
-**真实血缘**（r79 实测）：
 ```
-MAIN.dot-bg                                                   [268,48,1164,844]
-  └ DIV.relative flex h-full min-w-0 flex-col overflow-hidden [269,49,1162,842]  ← children 只有这 1 个
-      ├ 内容块  DIV.flex flex-1 … px-6                        [269,49,1162,759]
-      └ 版权带  DIV.pb-6 text-center text-xs leading-relaxed  [269,808,1162,82]
+ M .workbuddy/memory/{2026-09-29,HANDOFF,MEMORY,PLAYBOOK}.md
+ M pages/settings.html    （r85；设置页导航 + 「系统设置」内容）
+ M pages/avatar.html      （r83 + r84；「会话历史」二级视图）
+ M pages/dev.html         （r82）
+ M pages/kanban.html      （r82）
+ M pages/req-kanban.html  （r82）
+ M pages/task-detail.html （r82）
+?? mg-work/r80/ … r81/ r82/ r83/ r84/ r85/   （取证，未提交）
+?? mg-work/check-syntax.py                   （常驻工具，未提交）
+?? mg-work/mgfetch.py                        （设计取数工具，未提交）
 ```
-**闸 3（内容块）+ 闸 4（版权带）把 main 内两块全覆盖 ⇒ 本页不再有任何区域能起涟漪，
-波点涟漪特效在 base.html 实际已停用。脚本与样式保留不删，便于随时回退。**
-⇒ **"要不要顺手删掉这套死代码"是新挂出来的待办**（见第四节）。
+
+`.workbuddy/memory/` 两份：**仓库内 `E:/GienCoder/giencoder-design-engineering/.workbuddy/memory/`（权威，随 git 走）**
+与工作区 `E:/GienCoder/.workbuddy/memory/`（速记）。改记忆**以仓库内为准**。
 
 ---
 
-## 二、★ r79 新踩的坑（已进 PLAYBOOK **P3.11**）
+## 二、r85 做了什么（设置页：导航 + 「系统设置」）
 
-1. **`main.dot-bg.children.length === 1`** —— 唯一子元素是个 flex 外壳，内容块与版权带是**它的**子元素。
-   r78 笔记写"main 只有 2 块"，指的是**外壳的子元素**。若按 `host.children` / `matches()` 去匹配版权带
-   会**全 false**，从而误判成"选择器写错"。**正解：逐层 dump `getBoundingClientRect` 核血缘 +
-   对候选选择器数命中个数（`querySelectorAll(...).length` 必须 = 1）**。
-2. **`agent-browser eval` 没有 `--pre`** —— `eval "$(cat probe.js)" --pre "…"` 直接报
-   `SyntaxError: Unexpected identifier 'pre'`。**正解：`{ echo "window.__MODE='x'; window.__PTS=[…];"; cat probe.js; } | $AB eval --stdin`**。
-3. （沿用 r78 P3.10）**测「点这儿该不该触发」必须 `document.elementFromPoint` 复刻真实 target**；
-   改 `<script>` 正文时标签级断言口径 = **计数不变**。
+| 需求（邵先生原文） | 落地 |
+|---|---|
+| ①「设置」页面的**导航菜单**（设计稿 `1389:18609`，232×268） | 返回 / 分组「通用」〔系统设置★选中 / 模型 / 连接器〕/「已归档」〔已归档任务〕 |
+| ② 第一个菜单**「系统设置」的页面内容**（设计稿 `1389:18725`，840×919；内容区宽 860） | 标题 + **3 卡片 11 行**，含 select / switch / 6 档滑块 / 3 按钮段控 / 复选框 / danger 按钮 |
 
----
+产物 `pages/settings.html`　**354210 → 420820 字符（+66610）**，脚本 `mg-work/r85/apply85.py`（幂等）。
 
-## 三、验收结论摘要（全部实机取证）
+**验收（四查全绿，详见 `mg-work/r85/acceptance.md`）**
+- **67 项几何/样式逐项比对 = 0 偏差**（±1px）→ `ev/cmp_r85.txt` / 对照图 `ev/cmp_r85.png`
+- 幂等 ✓（`sha256 7a4aa0d3…`）／语法 ✓ `ALL_OK settings.html script=6 style=7`
+- 门禁 ✓ 通过；**HEAD 基线逐条 diff 无差异 = 零新增问题**，`gaps.log` 无 settings.html 条目
+- 视觉：`ev/shot_page.png`(840×918) `shot_nav.png`(232×268) `shot_full.png`(1600×1100)
 
-- **门禁逐条零差异**：`./pages` **75（66🟡 / 9🔵 / 0🔴）**；与 r78 `gate-after.txt` 剥前缀+行号后
-  **新增 0 条 / 消失 0 条**（集合 102 = 102）。base 的 `CRAFT-SLOP` 渐变 **62 = 62**（未新增渐变）。
-- **标签级计数不变**：`<script` 8→8 · `</script>` 7→7 · `<style` 11→11 · `</style>` 11→11。
-- **视觉量化**：版权带裁区（`260,780`–`1440,900`）总绝对差 **83 769**（均 0.2212/像素）；
-  **差分包围盒 `(191,11,748,111)`（裁区内）= 绝对 x `451..1008`、y `791..891`**，以点击点 x=715 为中心、
-  落在版权带内 ⇒ **差异是涟漪环带，不是页面噪声**（噪声带在 aside `x236–249`，裁区从 x=260 起已避开）。
-- `apply79.py` 幂等 ✓；基线 md5 `6f509d2d…` → `c4cb03c4…`；`pages/gaps.log` 已 `git checkout --` 还原。
-- 明细见 `mg-work/r79/acceptance.md`。
+**轮内两次返工（都是**先测出来再改**，值得照抄）**
+1. 卡片原本写 `border: 1px` → 行宽 798（设计 800）、卡片高 +2、整列 y 推低 2–3px。
+   ⇒ 改 `outline: 1px + outline-offset:-1px`（设计稿是**内描边**，不吃内容盒）。
+2. 滑块只有 3 档且 `pos=[14,68,252]`（末档还越界）；已选线 `top:0`、刻度挂在 `track` 上（叠加 track 的 `top:6`）
+   ⇒ 整条刻度下移 6px、拇指偏 14px。逐像素重测后改为 **6 档 stops=[6,54,102,150,198,246]**、
+   刻度挂 `.r85-slider`、`is-on` 首刻度、拇指 rel 52。
 
 ---
 
-## 四、待用户拍板 / 遗留
+## 三、★★ r85 新打通的设计稿取数链路（**推翻了 HANDOFF 旧记录，见 P7**）
 
-1. **★ 新挂出：`r74-ripple` 死代码是否清理** —— 涟漪已无任何触发路径（第 1 节范围后果）。
-   可删的是：`<style>` 里 `.r74-ripple` 相关规则 + `@property --r74-rip-r` + `@keyframes r74/r76-ripple-out`
-   + `<script id="r74-base-js">` 里的 ② 段。**删了能去掉约 4 KB 与一处 `@property`，但失去"一键恢复特效"的能力。**
-   处理纪律（P3.11 ③）：本卡与 `PAGES.md P3.10` 已记净效果，**默认不删**，等拍板。
-2. **已定案（不用再问）**：
-   - ~~涟漪触发范围~~ → **欢迎态完全不触发**（r79 落地）
-   - ~~涟漪点阵 16px~~ → **16px 是有意的**，保持
-   - ~~目录清理档 2/3/4/5~~ → **停在这里，都不做**（`git gc` 已无空间可压）
-3. **r77 待确认**：滚动条 hover 与默认档同值（**悬停无视觉反馈**）。
-   > 旁证：`av-{default,hover,off}-crop` 三张图**像素完全相同** ⇒ 现状确实"静止"。要反馈就得给 hover 一个值。
-4. **r77 遗留**：`.td-browse` 未跟随 `#DAE3ED`（只浏览态相接才可见）。
-5. **r74 遗留**：摇晃 / X 自转收到 300ms 仍挂着（craft 硬上限，不能再加长）；涟漪半径 cap 480px。
-6. **r72 遗留**：全屏 + 浏览态时 `Esc#1` 一次关两层；avatar 双开 + 视口 ≤1100 时 main 被压到 ~0。
-7. **可选增强**：把 r75 的「DS 原生过渡配方」推广到 task-detail 的 `.giencoder-select-popup`（一直硬跳）。
-8. **目录清理已执行两轮、已停**：第一轮 66 个（1.80 MB）；第二轮 `git gc` `.git` **111→97 MB** +
-   9 个 `.DS_Store` + 空目录 + 8 个 `r78/before/*.html` ⇒ **总计 257M → 240M**。
-   第二轮 T1（同轮同内容截图 4.16 MB）**逐组复核后驳回 0 个可删** —— 「内容相同」本身常常就是结论。
-   ⚠️ **`git gc` 收益必须实测**：预估 30–40 MB、实际 **14 MB**（PNG 已压缩，打包收益≈0）。
+### ① `GET http://127.0.0.1:30678/api/getScreenshot` 能直接拿节点 PNG
 
----
+```
+GET /api/getScreenshot?documentId=193158744355579&documentPageId=ip148:02203&targetNodeId=<节点>&scale=2
+```
+返回 `{success:true, images:[{base64:"iVBORw0…"}]}`。首次 21.7s、二次 0.38s（有缓存）。
+- **必须 GET + query 参数**（POST 一律 400，参数放 body 也 400）。
+- 端口：`20678` = MCP（JSON-RPC）；**`30678` = mgmcp 的 HTTP server（`/api/*` 在这）**。
+  ⚠ 旧记录「30678 的 HTTP 全是 400，别去打」= **只试过 GET 根路径**得出的片面结论 → **已作废**。
+- ⚠ 该接口**只返回当前画布选中图层**：传 `targetNodeId=1389:18609`（导航）仍然回内容页 ⇒ 导航节点拿不到独立截图。
+- MCP 工具 `get_screenshot`（带 `projectDir`/`scale`）实测**必 120s timeout** ⇒ 别用。
 
-## 五、下一轮接手清单
+### ② 设计稿里的文案可能**完全不在结构树里**
 
-- **范围先核实**：同名同构模块（顶栏 / 浮窗 / 下拉 / 滚动条 / 技能浮窗 / **aside 会话项** / **main 的内容块**）
-  在多页各有一份，先 `getBoundingClientRect()` + `getComputedStyle()` 核实现状，**不读 `element.style.*`**（P3.5）。
-  ⚠️ 实例：涟漪只在 `base.html`（其余 8 页 `r74-ripple` 计数 = 0）。
-- ★ **碰"命中判定 / 排除链"前先 dump 真实血缘**，别按"块数"推断层级（**P3.11 ①**）。
-- **改页面一律走 `mg-work/rNN/applyNN*.py`** 幂等脚本：先判 NEW/稳定标记 → 再判 `count(OLD)` 精确 → 复跑确认 `应用: 0`。
-- **新注入块纪律**：① 注入到 **`</body>` 前**；② 字号/颜色全走 token；③ 动画与 `animation-delay` 都 ≤300ms；
-  ④ 新增注释里不得出现被断言的 token / 标签名。
-- ★ **动到某个元素前，先 grep 它的文本/标记有没有被页尾脚本 `querySelector` / `closest` 抓过**（P3.9 坑 2）。
-- ★ **验证「点 X 不触发 / 触发」类需求，一律用 `elementFromPoint` 复刻真实 target**（P3.10 坑 1）。
-- 收尾三件套：`verify-design.py ./pages` **逐条 diff**（剥目录前缀 + 行号）+ `git checkout -- pages/gaps.log`
-  + 覆盖更新本文件 + 追加当日 `YYYY-MM-DD.md` + 新坑进 `PLAYBOOK.md`。
-- ⚠️ **跨轮复跑整链的已知现象**：旧轮脚本的锚点若已被后续轮次覆盖（如 r76 滚动条 `.24→.20` 被 r77 的
-  `.20→.16` 吃掉），旧脚本会**硬退出**（`!! 锚点缺失`）—— **预期行为，不是回归**。
-  验证"整链幂等"的正确做法：**比较复跑前后的页面 md5**。要重放历史轮次，必须**从该轮基线按序跑**。
-- ⚠️ **仓库卫生待办（已挂 7 轮）**：`pages/gaps.log` 在 HEAD 就与页面**不同步** → 建议**重提同步版**或**加 `.gitignore`**，
-  否则每轮收尾都要重建基线绕坑。（每轮只做 `git checkout -- pages/gaps.log` 还原，**刻意没动它**。）
-- **默认不自动 commit / push**（2026-09-28 起），需邵先生明确要求。
+`1389:18725` 有 42 个 `ui-component`，**只有 7 个带 `text=`**（其余 `text/title` 是 `props="{}"` 未展开的 DS 实例）。
+喂单个 `text/title` 节点给 `get_selection_node` → **120s timeout**。
+⇒ **文案唯一来源 = 上面那条截图**（本轮 11 行文案全是读图得到的）。
+
+### ③ ⚠ 导出 PNG 是 RGBA，未绘制处 `alpha=0` → `convert('RGB')` 变纯黑
+
+本轮一开始把顶部 0–52 逻辑 px 的黑色误判成「MasterGo 的节点名标签条盖住了标题」，
+其实那只是**标题节点无填充 ⇒ 该区透明**（同理会误判卡片间隙）。
+**正确做法：`Image.alpha_composite(白底, im)` 之后再扫描/取色。**
+
+### ④ 结构树能直接给出「内描边 / 外描边」
+
+节点 B 的行宽 800 = 840 − 2×20 ⇒ **描边不占内容盒**；像素复核：卡片左缘 x=0–0.5 为 `#EEEEEE`、x=1.0 起为 `#F8F9FA`。
+CSS 对应写法：`outline: 1px solid <色>; outline-offset: -1px;`（写 `border` 就错 2px，且会级联推低整列）。
 
 ---
 
-## 六、回滚与取证材料
+## 四、待拍板 / 待确认（邵先生）
 
-- **r79 改前基线**：`mg-work/r79/before/base.html` → `cp mg-work/r79/before/base.html pages/base.html`
-  （⚠️ 文件名**必须与原页面同名**，否则 file:// 下外壳按名字查路由表会落回 base 壳）
-- **r79 补丁 / 探针 / 证据**：`apply79.py`；`ev/rip79.js`（`struct` / `enum` / `grid` / `size` 四模式）；
-  `ev/cmp.png`（三栏 = BEFORE / AFTER / 差分×14）· `before-click-160.png` · `after-click-160.png` ·
-  `base-full-1440x900.png` · `gate-after.txt`
-- **r78**：`mg-work/r78/acceptance.md` + `apply78.py` + `before/*.html` 9 页 + `ev/`
-  （⚠️ 其中 8 个 `before/*.html` 已在清理第二轮删掉——它们与当前页逐字节相同；**只剩 `before/base.html`**，
-  即 r78 唯一真基线）
-- **r77**：`apply77{,b}.py` + `before/*.html`；**r76**：`apply76{,b,c,d,e,f}.py` + `ev/`、`ev2/`；
-  **r75**：`apply75.py`；**r74**：`apply74{,b,c}.py`
-- **清理审计**：`mg-work/cleanup-audit-2026-09-29.md`（体积构成 / 分级档位 / 截图引用判据 / 两轮执行记录）
-- ⚠️ `/tmp/rNN-*` 与 `/tmp/cleanup-backup-*` 是**临时目录，重启即丢** —— 长期回滚请用 `mg-work/` 内材料
+1. ★ **非选中导航项常显 `#F5F6F7` 底**：设计稿画法如此，现按设计稿落地；要「只有选中才有底」删 1 条 CSS 即可。
+2. **不绘制窗口 chrome**：设计稿那层深色顶部区实为**透明**（非标签条），本实现沿用既有外壳。
+3. **字号滑块 6 档**：刻度按设计稿 6 格落地（当前值 = 第 2 档）；若产品只有「小/默认/大」三档，改 `stops` 数组即可。
+4. **r84 遗留提问仍未答**：`avatar.html` 会话历史确认态下「按钮组压在图标位、连点两下会直接删除」是否再挪 8px。
+5. **r83 三条已知偏差**（`mg-work/r83/acceptance.md` 2.4）：① 滚动条 overlay；② 行宽 438 vs 442；③ 面板高随视口。
+6. **r83 的 `ROWS` / r81 的 `SPACES` / r85 的 `DATA_JS` 都是占位文案** → 真名给出后改对应脚本的数组。
+7. **r81 遗留三条**：① 触发器 logo `#3491FA` + 白「P」；② 浮窗 7 条配色；③ 浮窗右缘对齐触发器右缘。
+8. **既有遗留**：r79 `r74-ripple` 死代码；r77 滚动条 hover 无反馈 + `.td-browse` 未跟随 `#DAE3ED`；
+   r74 摇晃 / X 自转 300ms 上限；r72 全屏 + 浏览态 `Esc#1` 关两层；`pages/gaps.log` 与页面不同步。
 
 ---
 
-## 七、环境速记（新会话最容易踩）
+## 五、下一轮接手清单（按顺序）
 
-- 预览**一律 `file://` 直开**，别用内置预览面板（URL 不带 hash → 渲染出错误的壳）
-  ⚠️ **改完页面要带 cache-buster**：`file://.../pages/base.html?v=<ts>`，否则可能读到旧内容
-- `verify-design.py` 必须传目录：`python verify-design.py ./pages`；用
-  `/Users/shaoyuming/.workbuddy/binaries/python/envs/default/bin/python`
-  （系统 python3 无 PIL；managed venv 里 **numpy 已装**）
-- ⚠️ **`gaps.log` 的"改前基线"绝不能取仓库版** → 用 `before/` 重建基线目录再 diff
-- ⚠️ **`:hover` 在多次独立 agent-browser 调用之间会丢失**（P3.6）
-- ⚠️ **CSS transition 无法 `pause()` + `currentTime=` seek**（CSSAnimation 可以）→ 过程帧用「时长放大 20×」慢放法
-- ✅ **`agent-browser eval` 支持 `await Promise`**：探针写 `async` IIFE，一次调用内闭环
-- ⚠️ **`agent-browser eval` 没有 `--pre`** → 传变量用 `--stdin` 前置拼接（**P3.11 ②**）；也支持 `-b/--base64`
-- ⚠️ **`set viewport` 必须排在 `open` 之后**；每次改视口前重新 `open`（上一档残留会污染读数）
-- ⚠️ **`$AB open` 之后立刻 `screenshot` 可能拍到上一张页面** → 先 `eval location.pathname` 回读
-- ⚠️ **`screenshot` 出来的是 1× 图**（1440×900）—— 裁图坐标直接用 **CSS 像素**，别再 ×2
-- ⚠️ **本机 `grep` 查中文一律返回空** → 中文内容用 python 读，`grep` 只用于纯 ASCII 锚点
-- ⚠️ **DS 的 CSS 是多行格式**，页面是压缩单行 → 同一处改动的锚点串**在两边不一样**
-- CSS 动画时长被 `CRAFT-ANIM` 卡 **≤300ms**（`animation-delay` 也算）；
-  `CRAFT-SLOP` 的「N 处渐变」是**纯正则、不区分用途**（`mask-image` 也算）
+1. 读本卡 → `git status` → 复跑补丁确认幂等：
+   `python mg-work/r85/apply85.py`（settings.html，摘 2 件）→
+   `python mg-work/r84/apply84.py`（avatar.html，摘 3 件）→ `python mg-work/r82/apply82.py`（4 页）。
+2. 改页面**一律新建 `mg-work/rNN/applyNN.py`**，`PRIOR` 里把**历代**块标记都加上。
+   **例外**：上一轮**尚未提交**时，若只是对它的即时返工 ⇒ **就地修订原补丁、不另起代数**（r84 / r85 都是先例）。
+   判据：`git status` 里该页仍是 ` M`。
+3. 收尾四件套：`python mg-work/check-syntax.py pages/<改过的页>.html` →
+   `python verify-design.py ./pages`（**必须传目录**；跑完 `git checkout -- pages/gaps.log` 与
+   `git checkout -- mg-work/kanban/r13/chk/ && git clean -f mg-work/kanban/r13/chk/`）→
+   门禁**逐条 diff**（本轮口径：把 HEAD 版与当前版各放一个临时 `pages/` 跑一遍再 `diff`，比整目录 archive 更省）→
+   覆盖更新本卡。
+4. 🚫 **默认不 commit / 不 push**（2026-09-28 起）：干完只汇报改动清单。
+
+---
+
+## 六、回滚与取证
+
+```bash
+cp mg-work/r85/settings.before.html pages/settings.html  # r85 回滚
+cp mg-work/r84/avatar.before.html   pages/avatar.html    # r84 回滚（回到 r83 状态）
+cp mg-work/r83/avatar.before.html   pages/avatar.html    # r83 回滚（回到无二级页状态）
+cp mg-work/r82/before/<page>.html   pages/<page>.html    # r82 回滚（4 页）
+cp mg-work/r81/before/<page>.html   pages/<page>.html    # r81 回滚
+cp mg-work/r80/before/dev.html      pages/dev.html       # r80 回滚
+```
+
+| 目录 | 内容 |
+|---|---|
+| `mg-work/r85/apply85.py` | ★ 本轮补丁（幂等；`PRIOR` 摘 2 件 + `NEW_TOKENS` 校验 + `</body>` 计数=1） |
+| `mg-work/r85/acceptance.md` | ★ 验收报告（四查 + 67 项对照 + 已知偏差 + 待拍板） |
+| `mg-work/r85/spec.md` | 设计稿规格表（导航 7 行 / 内容 3 卡 11 行 / 与旧实现差异） |
+| `mg-work/r85/raw/design_1389-18725.png` | ★ 权威视觉参考（**2x**，1680×1838，**RGBA**） |
+| `mg-work/r85/raw/node_*.json` / `outline_*.txt` / `design_*.html` / 25×`svg` | 结构树 / 大纲 / 设计 DOM / 素材 |
+| `mg-work/r85/ev/{p85a,p85b}.js` | 几何探针（**p85b 以 `.r85-page` 为原点**，与设计稿同坐标系） |
+| `mg-work/r85/ev/cmp85.py` + `cmp_r85.txt` | ★ 67 项自动对照脚本 + 报告（`python mg-work/r85/ev/cmp85.py`） |
+| `mg-work/r85/ev/mkcmp85.py` + `cmp_r85.png` | 对照图生成 / 成品（整页 1:1 + 2 处细节 ×2） |
+| `mg-work/r83/raw/design_1389-18518.png` / `node_*.json` | 「会话历史」设计稿位图 / 结构树 |
+| `mg-work/{check-syntax.py, mgfetch.py}` | ★ 常驻语法工具 / 设计取数工具 |
+
+⚠ `mg-work/r80/raw/` 里的设计素材（`sel_*.json` 285 条历史回包、`svg/`）**别删**，是取不到数时的唯一退路。
+⚠ `assets/icons/*.svg` 是仓内 DS 图标库，**先来这里找再手搓**。
+
+---
+
+## 七、环境速记（Windows，逐条都是踩过的）
+
+- 预览一律 **`file://` 直开**；改完带 `?v=<ts>` 防缓存。
+- ⚠ `file://` 下「改前基线」**文件名必须与原页面同名**（否则外壳按名查路由表落回 base 壳）。
+- ⚠ **同一时刻只能有一个 agent-browser 链路**（共用标签页，并发必串味：症状「元素不存在 / url=blank / probe 缺失」）。
+  整条链路（`set viewport` → `open` → `wait` → `eval/screenshot`）**要在一次 bash 调用里跑完**。
+- ✅ `screenshot <选择器> <路径>` = 元素截图（**位置参数**，`--selector` 选项写法不认）；
+  **会裁到元素边界** ⇒ 浮层（tooltip / 菜单挂在 body 上）够不到，要截全页再 Pillow 裁。
+- ⚠ **程序化 `el.click()` 的 `detail === 0`，会被当作键盘触发**（凡按 `ev.detail` 分流焦点/样式的逻辑）
+  ⇒ **取证截图一律用 `agent-browser click <sel>`（真鼠标、`detail=1`）**，程序化点击只测逻辑链。
+- ✅ **`:hover` 能跨独立 agent-browser 调用存活**（r84 实测）。
+- ⚠ `eval "$(cat probe.js)"` 前**确认文件真的存在**：路径写错时 `cat` 报错、`eval` 收到空串 →
+  **静默返回 `null`**（r84 踩到，白跑一轮）。
+- ⚠ `agent-browser eval` 的返回是**双层 JSON 字符串**（`json.loads` 两次才拿到对象）。
+- ⚠ **`Bash` 工具偶发 `Error: sandbox-center cmd decisionRecord missing actual resource subject`**
+  （同一行里串太多 `&&` 时更容易触发）⇒ 拆成单条命令重发即可。
+- 禁整文件 Read `pages/*.html`（单行压缩 bundle 340–820 KB）→ 用 Python 只打印目标片段。
+- ⚠ 本机 `grep` 查中文一律返回空 → 中文用 Python 读。
+- **推 GitHub**：env 的 `https_proxy=127.0.0.1:53395` 对 `github.com:443` 稳定 502；
+  可用出口 `http://127.0.0.1:7890`：
+  `git -c http.proxy=http://127.0.0.1:7890 -c https.proxy=http://127.0.0.1:7890 -c http.version=HTTP/1.1 push origin main`。
+- MasterGo：MCP 在 **20678**；**截图 HTTP 接口在 30678**（见第三节 ①）。
