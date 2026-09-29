@@ -536,7 +536,7 @@ body { font-family: var(--font-family); font-size: var(--font-size-body-3); colo
     border-bottom-width: 5px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background-color: rgba(var(--gray-10), 0.24);
+    background-color: rgba(var(--gray-10), 0.16);
   }
   ::-webkit-scrollbar-thumb:active {
     background-color: rgba(var(--gray-10), 0.32);

@@ -1,0 +1,1 @@
+"== 默认档（::-webkit-scrollbar-thumb）文档顺序命中 ==\n  #19  rgba(var(--gray-10), .16)  → 白底合成 ?\n== hover 档命中（越靠后越胜） ==\n  #22 [media (pointer: fine)]\n      ::-webkit-scrollbar-thumb:hover\n      rgba(var(--gray-10), .20)  → 白底合成 ?  α=0.2\n== 胜出者（文档顺序最后一条） ==\n  ::-webkit-scrollbar-thumb:hover  rgba(var(--gray-10), .20)  → null"

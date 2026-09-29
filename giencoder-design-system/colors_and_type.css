@@ -279,7 +279,7 @@
      设计稿成员浮窗实测：滑块 6px 宽 / 圆头，色 rgba(0,0,0,.16)（叠白底 = #D6D6D6）。 */
   --scrollbar-size: 6px;
   --scrollbar-thumb-bg: rgba(0, 0, 0, 0.16);
-  --scrollbar-thumb-bg-hover: rgba(0, 0, 0, 0.28);
+  --scrollbar-thumb-bg-hover: rgba(0, 0, 0, 0.16);
   /* ==== 头像 / 滚动条 token 段结束（构建期抽取锚点，勿删）==== */
 
   /* ---- 间距 ---- */
@@ -575,7 +575,7 @@ body { font-family: var(--font-family); font-size: var(--font-size-body-3); colo
     border-bottom-width: 5px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background-color: rgba(var(--gray-10), 0.24);
+    background-color: rgba(var(--gray-10), 0.16);
   }
   ::-webkit-scrollbar-thumb:active {
     background-color: rgba(var(--gray-10), 0.32);

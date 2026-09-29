@@ -1,0 +1,1 @@
+"初始 ghost 数 = 0（应 0）\n初始 [data-r74-ghost] * 命中元素数 = 0（应 0）\n顶栏按钮数=2 选中=(无标签)\nOPEN 门户=none animName=-\nNO_GHOST"
