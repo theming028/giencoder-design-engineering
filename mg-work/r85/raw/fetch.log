@@ -1,0 +1,32 @@
+==== mgfetch 2026-09-29 22:17:43 ====
+── https://mastergo.com/goto/WsOc6lJP?page_id=ip148:02203&layer_id=1389:18609&file=193158744355579  (node 1389:18609)
+   ✓ 0.9s → mg-work/r85/raw\node_1389-18609.json (7802 bytes)
+    ↳ asset mg-work/r85/raw\1389-18609__svg_09f8c670.svg (1091 bytes) ← blob 6105927572d4
+    ↳ asset mg-work/r85/raw\1389-18609__svg_0bbb2850.svg (2956 bytes) ← blob 0e8c84380b8c
+    ↳ asset mg-work/r85/raw\1389-18609__svg_cda158bf.svg (1347 bytes) ← blob 94bc5476292c
+    ↳ asset mg-work/r85/raw\1389-18609__svg_d29f72b1.svg (3720 bytes) ← blob 3d42385896c7
+    ↳ asset mg-work/r85/raw\1389-18609__svg_d583d797.svg (2003 bytes) ← blob eb3fd386eda6
+   ✓ 通过 asset 兜底拿到 5 件素材
+── https://mastergo.com/goto/WsOh8JiV?page_id=ip148:02203&layer_id=1389:18725&file=193158744355579&  (node 1389:18725)
+   ✓ 112.9s → mg-work/r85/raw\node_1389-18725.json (41245 bytes)
+    ↳ asset mg-work/r85/raw\1389-18725__svg_008a380f.svg (919 bytes) ← blob fab2b0ab9b1d
+    ↳ asset mg-work/r85/raw\1389-18725__svg_35816aaf.svg (973 bytes) ← blob d203f3db5ef3
+    ↳ asset mg-work/r85/raw\1389-18725__svg_3c9956c8.svg (311 bytes) ← blob eabd2d9834fb
+    ↳ asset mg-work/r85/raw\1389-18725__svg_4072e68f.svg (2548 bytes) ← blob 22917f796923
+    ↳ asset mg-work/r85/raw\1389-18725__svg_46d0fb4e.svg (2875 bytes) ← blob 7b3dd550c3a2
+    ↳ asset mg-work/r85/raw\1389-18725__svg_55a12f17.svg (2176 bytes) ← blob 0e5506228fc9
+    ↳ asset mg-work/r85/raw\1389-18725__svg_6653ad12.svg (1662 bytes) ← blob c3843a1a1fad
+    ↳ asset mg-work/r85/raw\1389-18725__svg_6c581bda.svg (1919 bytes) ← blob b68cfcf0278b
+    ↳ asset mg-work/r85/raw\1389-18725__svg_6d318e41.svg (1911 bytes) ← blob 1b0b4007f2c5
+    ↳ asset mg-work/r85/raw\1389-18725__svg_6dd63533.svg (6070 bytes) ← blob 656c1a7c9809
+    ↳ asset mg-work/r85/raw\1389-18725__svg_7c4d76c6.svg (311 bytes) ← blob 831d5886f759
+    ↳ asset mg-work/r85/raw\1389-18725__svg_83807d93.svg (991 bytes) ← blob f654ebe3236e
+    ↳ asset mg-work/r85/raw\1389-18725__svg_8597c800.svg (2515 bytes) ← blob 5d52392aeaa7
+    ↳ asset mg-work/r85/raw\1389-18725__svg_a594e035.svg (2780 bytes) ← blob 1633ce1a66ba
+    ↳ asset mg-work/r85/raw\1389-18725__svg_c702432c.svg (2039 bytes) ← blob 7dc7ed62014c
+    ↳ asset mg-work/r85/raw\1389-18725__svg_e64d56dd.svg (2212 bytes) ← blob ca366eece992
+    ↳ asset mg-work/r85/raw\1389-18725__svg_e89f4c09.svg (1185 bytes) ← blob d85267bc7c1e
+    ↳ asset mg-work/r85/raw\1389-18725__svg_f2347273.svg (2857 bytes) ← blob 504e0fae2ac6
+    ↳ asset mg-work/r85/raw\1389-18725__svg_feb00c56.svg (2909 bytes) ← blob 5cf7c60b103d
+   ✓ 通过 asset 兜底拿到 19 件素材
+结果：2/2 拿到

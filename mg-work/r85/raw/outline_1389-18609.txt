@@ -1,0 +1,28 @@
+  <div 1389:18609 容器 7 | width: 232px; height: 268px; position: relative
+    <div 1389:18608 容器 6 | width: 232px; height: 60px; position: absolute; left: 0px; top: 208px; z-index: 0
+      <div 1389:18602 容器 1 | width: 232px; height: 36px; position: absolute; left: 0px; top: 24px; z-index: 0
+        <div ip148:03196 矩形 3 | width: 232px; height: 36px; background: #F5F6F7; border-radius: 8px; position: absolute; left: 0px; top: 0px; z-index: 0
+        <div 647:08912 容器 | position: absolute; left: 12px; top: 10px; z-index: 1
+          <img ?  src=svg_d583d797.svg | color: #1F1F1F
+        <ui-component ip148:03240 text/text | width: 70px; height: 22px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column || TEXT={"中电金信":"已归档任务"} || PROPS={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}
+      <ui-component ip148:03252 text/text | width: 36px; height: 16px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column || TEXT={"中电金信":"已归档"} || PROPS={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}
+    <div 1389:18607 容器 5 | width: 232px; height: 136px; position: absolute; left: 0px; top: 52px; z-index: 1
+      <div 1389:18604 容器 3 | width: 232px; height: 36px; position: absolute; left: 0px; top: 62px; z-index: 0
+        <div ip148:03184 矩形 3 | width: 232px; height: 36px; background: #F5F6F7; border-radius: 8px; position: absolute; left: 0px; top: 0px; z-index: 0
+        <div 647:08903 容器 | position: absolute; left: 12px; top: 10px; z-index: 1
+          <img ?  src=svg_0bbb2850.svg | color: #1F1F1F
+        <ui-component ip148:03216 text/text | width: 28px; height: 22px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column || TEXT={"中电金信":"模型"} || PROPS={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}
+      <div 1389:18603 容器 2 | width: 232px; height: 36px; position: absolute; left: 0px; top: 100px; z-index: 1
+        <div 647:13064 矩形 3 | width: 232px; height: 36px; background: #F5F6F7; border-radius: 8px; position: absolute; left: 0px; top: 0px; z-index: 0
+        <div 647:08907 容器 | position: absolute; left: 12px; top: 10px; z-index: 1
+          <img ?  src=svg_cda158bf.svg | color: #1F1F1F
+        <ui-component 647:13067 text/text | width: 42px; height: 22px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column || TEXT={"中电金信":"连接器"} || PROPS={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}
+      <div 1389:18605 容器 4 | width: 232px; height: 36px; position: absolute; left: 0px; top: 24px; z-index: 2
+        <div ip148:03190 矩形 3 | width: 232px; height: 36px; background: #ECEEF2; border-radius: 8px; position: absolute; left: 0px; top: 0px; z-index: 0
+        <div 647:08899 容器 | position: absolute; left: 12px; top: 10px; z-index: 1
+          <img ?  src=svg_d29f72b1.svg | color: #3770F7
+        <ui-component ip148:03228 text/text | width: 56px; height: 22px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column || TEXT={"中电金信":"系统设置"} || PROPS={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}
+      <ui-component ip148:03234 text/text | width: 24px; height: 16px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column || TEXT={"中电金信":"通用"} || PROPS={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"}
+    <div ip148:03356 Link | width: 232px; height: 32px; display: flex; justify-content: flex-start; align-items: center; gap: 6px; padding-top: 5px; padding-bottom: 5px; padding-right: 10px; padding-left: 10px; border-radius: 4px; position: absolute; left: 0px; top: 0px; z-index: 2; overflow: hidden
+      <img ip148:03364 direction/arrow-left src=svg_09f8c670.svg | width: 14px; height: 14px; color: #6B6B6B
+      <p ip148:03358 返回 | flex: 1; color: #6B6B6B; font-size: 14px; font-family: MiSans; line-height: 22px
