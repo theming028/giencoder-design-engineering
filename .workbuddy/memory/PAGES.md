@@ -243,6 +243,42 @@ DS `.giencoder-select-popup` 默认 `left: 0`（左缘对齐触发器）。当�
 
 ---
 
+### P3.10 base.html 波点涟漪（`.r74-ripple`）—— **r79 起已停用**（代码保留）
+
+> ⚠️ **现状（r79 定稿）：欢迎态任何位置都不触发涟漪。** 脚本与样式**仍在文件里不删**，便于回退。
+
+**真实 DOM 血缘（r79 实测，别按"块数"推断）**：
+```
+MAIN.dot-bg                                     [268,48,1164,844]
+  └ DIV.relative flex h-full min-w-0 flex-col overflow-hidden  [269,49,1162,842]   ← children 只有这 1 个
+      ├ DIV.flex flex-1 flex-col items-center justify-center px-6   [269,49,1162,759] ← 内容块
+      └ DIV.pb-6 text-center text-xs leading-relaxed                [269,808,1162,82] ← 版权带
+```
+⇒ `main.dot-bg.children.length === 1`；两块是**外壳的子元素**，不是 main 的直接子元素。
+
+**触发判定链（`<script id="r74-base-js">` 内 · 绑在 `document` 的 `pointerdown` 捕获段）**：
+```js
+if (!t.closest('main.dot-bg')) return;                        // 闸 1
+if (t.closest('button, a, input, textarea, select, label, …')) return;  // 闸 2 交互控件
+if (t.closest('.flex.flex-1.flex-col.items-center.justify-center.px-6')) return;  // 闸 3 (r78) 内容块
+if (t.closest('div[class*="pb-6"][class*="text-center"]')) return;                // 闸 4 (r79) 版权带
+```
+**闸 3 + 闸 4 = main 内两块全覆盖 ⇒ 全页 0 触发**（r79 实测 1440×900 网格 96 点 `fired=0`）。
+
+**关键实测值（r79 · 1440×900）**：
+| 项 | 值 |
+|---|---|
+| `.r74-ripple` 点阵 | `background-size: 16px 16px`（与 `.dot-bg` **同值**，逐点对齐） |
+| `.r74-ripple` 点色 | `rgba(43,43,43,0.14)` · 点径 `1.7px`（r78 由 0.28 减半而来） |
+| `.dot-bg` 底色点 | `rgba(107,107,107,0.1)` · 点径 `1.5px` · `16px 16px` |
+| `--r76-rip-cap` / 时长 / z-index | `480px` / `300ms` / `0` |
+
+**⚠️ 点阵密度与底色耦合**：涟漪层与 `.dot-bg` 必须同 `background-size` 才能逐点对齐，
+所以 r76 把底色从 20px 加密到 16px 时，涟漪点数一起 ×1.56 —— 削弱特效时若只降不透明度，
+点数变多会抵消掉一部分减弱。见 PLAYBOOK P3.9 ③。
+
+---
+
 ## P4 标准配方（r66 / r67 定稿）
 
 ### P4.1 蒙层（Modal / Drawer mask）—— 全站唯一口径

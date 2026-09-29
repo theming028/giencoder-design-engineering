@@ -692,6 +692,41 @@ if s2.count(OLD_GUARD) != 1:                    # 原判定仍在
 
 ---
 
+## P3.11 改「排除链 / 命中判定」前先核实真实 DOM 血缘（r79 三坑）
+
+### ① `main.dot-bg` 的 `children` 只有 **1** 个 —— 别按"块数"推断层级
+
+r78 笔记写"`main` 只有 2 块（点名容器 + 版权带）"，r79 实测 `host.children.length === 1`
+（唯一子元素是 `DIV.relative flex h-full min-w-0 flex-col overflow-hidden`，两块是**它的**子元素）。
+⇒ 若按 `host.children` / `matches()` 去匹配版权带，会**全 false**，从而得出"选择器写错了"的错误结论。
+
+**正解**：核实血缘用**逐层 dump**（`getBoundingClientRect` + 递归 children），并对候选选择器**数命中个数**：
+
+```js
+host.querySelectorAll('div[class*="pb-6"][class*="text-center"]').length === 1   // 才算锚点成立
+```
+
+### ② `agent-browser eval` **没有** `--pre` —— 传变量要用 `--stdin` + 前置拼接
+
+```
+$AB eval "$(cat probe.js)" --pre "__MODE='x'"      # ✗ SyntaxError: Unexpected identifier 'pre'
+{ echo "window.__MODE='x'; window.__PTS=[[715,120]];"; cat probe.js; } | $AB eval --stdin   # ✓
+```
+（`eval` 支持 `-b/--base64` 与 `--stdin`；**没有** `--pre`。）
+
+### ③ 「排除所有子块」等于**停用特效** —— 必须显式说出来
+
+handler 绑在 `document` 上，但**第一道闸**是 `t.closest('main.dot-bg')`。
+把 main 内两块都排除 ⇒ **全页无任何点可触发**（r79 实测 96 点网格 `fired=0`、最大涟漪数 0）。
+
+这类改动（"用户只说排除某一块，实际把功能清零"）的处理纪律：
+1. **实现前**把范围后果告诉用户，给"就这样 / 改绘制层级 / 连这块也排除"三选一；
+2. **代码注释**里写明净效果（"本页不再有任何区域能起涟漪，实际已停用"）；
+3. **不删死代码**，保留脚本与样式便于回退；
+4. **验收报告 + 交接卡**同步记这个后果，别只写"已排除 X"。
+
+---
+
 ## P4 外壳路由与页面导航
 
 - 路由变量（每页 bundle 内各一份，压缩成 `xt`/`St`/`Tt`）：`xt` route→文件名、`St` 文件名→route、`Tt()` 当前 route。

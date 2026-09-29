@@ -773,12 +773,6 @@ main [class~="w-[800px]"]{width:860px;}
         if (t.closest('button, a, input, textarea, select, label, [role="button"], [role="tab"], [contenteditable="true"]')) return;
         /* 第 78 轮 · 需求 1：欢迎态主内容块（LOGO + 问候语 + 输入卡 + 技能胶囊）整块不算「空白处」 */
         if (t.closest('.flex.flex-1.flex-col.items-center.justify-center.px-6')) return;
-        /* r79-cr-excl · 第 79 轮 · 需求 1：版权带也算「内容」，一并排除。
-           选择器与上方 ① 段抓的版权容器是同一个（main 里 class 含 pb-6 + text-center 的 div）。
-           ⚠️ 范围后果（已与邵先生确认）：main.dot-bg 只有「欢迎态内容容器 + 版权带」两块，
-              两块都排除 ⇒ 本页不再有任何区域能起涟漪，涟漪特效在 base.html 实际已停用。
-              脚本与样式**保留不删**（死代码清理另行拍板），便于随时回退。 */
-        if (t.closest('div[class*="pb-6"][class*="text-center"]')) return;
         var r = host.getBoundingClientRect();
         if (!r.width || !r.height) return;
         var x = (e.clientX - r.left) / r.width * 100;
