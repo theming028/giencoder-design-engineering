@@ -1,0 +1,25 @@
+==== mgfetch 2026-09-29 21:14:17 ====
+── https://mastergo.com/goto/WsG0DWDF?page_id=263:05935&layer_id=1389:18518&file=193158744355579  (node 1389:18518)
+   ✓ 5.1s → mg-work/r83/raw\node_1389-18518.json (19650 bytes)
+    ↳ asset mg-work/r83/raw\asset_1389-18518.svg (1174 bytes) ← blob b31e58a50d24
+    ↳ asset mg-work/r83/raw\asset_1389-18518.svg (1099 bytes) ← blob 24cb9707a27e
+    ↳ asset mg-work/r83/raw\asset_1389-18518.svg (314 bytes) ← blob 7590513c69d5
+    ↳ asset mg-work/r83/raw\asset_1389-18518.svg (2391 bytes) ← blob c64f6b469c69
+    ↳ asset mg-work/r83/raw\asset_1389-18518.svg (1437 bytes) ← blob 82def47ad6c8
+   ✓ 通过 asset 兜底拿到 5 件素材
+结果：1/1 拿到
+==== mgfetch 2026-09-29 21:15:29 ====
+── https://mastergo.com/goto/WsG0DWDF?page_id=263:05935&layer_id=1389:18518&file=193158744355579  (node 1389:18518)
+   ✓ 4.9s → mg-work/r83/raw\node_1389-18518.json (19650 bytes)
+    ↳ asset mg-work/r83/raw\1389-18518__svg_1c57976d.svg (1174 bytes) ← blob b31e58a50d24
+    ↳ asset mg-work/r83/raw\1389-18518__svg_2efd81f7.svg (1099 bytes) ← blob 24cb9707a27e
+    ↳ asset mg-work/r83/raw\1389-18518__svg_3e91d0eb.svg (314 bytes) ← blob 7590513c69d5
+    ↳ asset mg-work/r83/raw\1389-18518__svg_5f4f2e22.svg (2391 bytes) ← blob c64f6b469c69
+    ↳ asset mg-work/r83/raw\1389-18518__svg_7717be5a.svg (1437 bytes) ← blob 82def47ad6c8
+    ↳ asset mg-work/r83/raw\1389-18518__svg_1c57976d.svg (1174 bytes) ← blob b31e58a50d24
+    ↳ asset mg-work/r83/raw\1389-18518__svg_2efd81f7.svg (1099 bytes) ← blob 24cb9707a27e
+    ↳ asset mg-work/r83/raw\1389-18518__svg_3e91d0eb.svg (314 bytes) ← blob 7590513c69d5
+    ↳ asset mg-work/r83/raw\1389-18518__svg_5f4f2e22.svg (2391 bytes) ← blob c64f6b469c69
+    ↳ asset mg-work/r83/raw\1389-18518__svg_7717be5a.svg (1437 bytes) ← blob 82def47ad6c8
+   ✓ 通过 asset 兜底拿到 10 件素材
+结果：1/1 拿到

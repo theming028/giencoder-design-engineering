@@ -692,10 +692,10 @@ svg.animate-spin{width:14px!important;height:14px!important}
 </style>
 <!-- ===== AV-CHAT-DRAWER v2 —— 复用详情页右栏 AI 对话栏；第 36 轮第 5 项：由覆盖式抽屉改为 main 的同级侧栏（间隔 8px、可左右拉伸） ===== -->
   <aside class="td-right av-chat-drawer" id="av-chat-drawer" aria-label="AI 会话" aria-hidden="true">
-    <div class="td-right-inner"><!-- r84-hs-view -->
+    <div class="td-right-inner"><!-- r83-hs-view -->
       <div class="av-hs" id="av-hs">
         <header class="av-hs-bar">
-          <button class="av-hs-back" type="button" aria-label="返回" data-av-tip="返回" data-av-hs-back="1">
+          <button class="av-hs-back" type="button" aria-label="返回" data-av-hs-back="1">
             <svg viewBox="0 0 14 14" width="14" height="14" fill="none" aria-hidden="true"><path d="M3.8 6.72h9.2v1.56H3.8l3.4 3.62-1.03 1.1L1 7.5l5.17-5.5 1.03 1.1z" fill="currentColor"/></svg>
           </button>
           <span class="av-hs-rule" aria-hidden="true"></span>
@@ -703,7 +703,7 @@ svg.animate-spin{width:14px!important;height:14px!important}
         </header>
         <div class="av-hs-list" id="av-hs-list" role="list"></div>
       </div>
-      <!-- /r84-hs-view -->
+      <!-- /r83-hs-view -->
       <header class="td-right-bar">
         <div class="td-right-head">
           <div class="td-right-title">新会话</div>
@@ -2832,10 +2832,22 @@ function avBrowseOpen() { return !!document.querySelector('.av-browse-on'); }
     animation: r77-pop-in 160ms cubic-bezier(0.34, 0.69, 0.1, 1) both;
   }
 </style>
-<style id="r84-hs-css">
+<style id="r83-hs-css">
 
-/* ★ 第 84 轮 · 「会话历史」二级视图的四条修正（承 r83 的 1389:18518 设计稿）
-   r84 ① 名字常规字重 ② 删除/导出图标换真矢量 + tooltip ③ 点击删除图标 → 该行换成按钮组 ④ 首行白底 + 整卡热区 */
+/* ★ 第 83 轮 · 需求 4：AI 会话栏内的「会话历史」二级视图
+   设计稿 MasterGo 1389:18518（482 × 984）—— 数值全部来自设计稿 PNG 导出的逐像素实测
+   （PNG 488×990，节点原点落在 PNG (3,2)；下述 x/y 均为节点内坐标）：
+     · 表头 48 高，含 1px 底线（实测 rgb(231,235,241)）；
+       返回按钮 24×24 @(20,12)、图标 14×14；竖分隔线 1×16 @x52 = 20 + 24 + 8，色取灰阶 4（实测 #C9C9C9）；
+       标题「会话历史」起笔 x65（= 分隔线右缘 53 + 12），16px / 字重 600。
+     · 列表内边距 20；行 442 × 56（= 482 − 20 × 2）、圆角 4、行距 2、行内边距 0 10px；
+       标题行 14px / 行高 22，时间行 12px / 行高 16，两行间隔 3（文本块 41，行内垂直居中）；
+       右侧两枚图标按钮各 24 × 24（内边距 5 ⇒ 图标 14 × 14）、间距 8、图标色取 text-3（实测 #868686）；
+       末枚按钮右缘距行右缘 10（实测 452）。
+     · 行底：默认透出面板白；悬停、「当前会话」与「删除确认态」均为 fill-2（实测 242,242,242；
+       ⚠ 设计稿里第 1 行与正在确认的第 3 行同时是 242 ⇒ 确认态同样吃 fill-2）。
+     · 删除确认态：图标组换成 [取消][确定删除]，两者间距 8、整组同样右对齐（实测 取消 48 宽、
+       确定删除 72 宽、底 #F53F3F = 危险 6）。 */
 :root {
   --av-hs-line: #E7EBF1;               /* 表头底线，设计稿实测 rgb(231,235,241) */
   --av-hs-rule: rgb(var(--gray-4));    /* 表头竖分隔线，设计稿实测 #C9C9C9 = 灰阶 4 */
@@ -2891,38 +2903,28 @@ function avBrowseOpen() { return !!document.querySelector('.av-browse-on'); }
 
 /* ---------- 会话行 ---------- */
 .av-hs-item {
-  position: relative;                 /* ① 给整卡热区（::after）当定位基准 */
   flex: none; height: 56px; box-sizing: border-box;
   display: flex; align-items: center; gap: 8px;
   padding: 0 10px; border-radius: 4px; background: transparent;
-  cursor: pointer;
   transition: background-color 120ms linear;
 }
-/* r84 ④：默认白底 —— 去掉 `.is-on`（当前会话）的 fill-2，
-   ⚠ 设计稿第 1 行是 #F2F2F2，邵先生 2026-09-29 明确「默认不要浅灰底、白底即可」⇒ 以用户为准。 */
-.av-hs-item:hover { background: var(--color-fill-2); }
+.av-hs-item:hover, .av-hs-item.is-on, .av-hs-item.is-confirm { background: var(--color-fill-2); }
 
 .av-hs-txt { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
 .av-hs-name {
   display: block; width: 100%; margin: 0; padding: 0; border: 0; background: none;
   font-family: inherit; text-align: left; cursor: pointer;
-  /* r84 ①：字重常规（原 500） */
-  font-size: var(--font-size-body-3); font-weight: 400; line-height: 22px;
+  font-size: var(--font-size-body-3); font-weight: 500; line-height: 22px;
   color: var(--color-text-1);
   overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
-/* r84 ④：整行可点热区 —— 铺满本行的透明覆盖层，点击即落到名字按钮上（= pick） */
-.av-hs-name::after { content: ''; position: absolute; inset: 0; border-radius: 4px; }
 .av-hs-time {
   display: block; min-height: 16px;
   font-size: var(--font-size-body-1); line-height: 16px; color: var(--color-text-3);
   overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
 
-.av-hs-acts {
-  flex: none; display: flex; align-items: center; gap: 8px;
-  position: relative; z-index: 1;       /* r84 ④：压在整卡热区之上，图标仍可单独点 */
-}
+.av-hs-acts { flex: none; display: flex; align-items: center; gap: 8px; }
 .av-hs-ibtn {
   flex: none; width: 24px; height: 24px; box-sizing: border-box; padding: 5px;
   display: flex; align-items: center; justify-content: center;
@@ -2933,50 +2935,21 @@ function avBrowseOpen() { return !!document.querySelector('.av-browse-on'); }
 .av-hs-ibtn:hover { background: var(--color-fill-3); color: var(--color-text-1); }
 .av-hs-ibtn svg { width: 14px; height: 14px; }
 
-/* ---------- ③ 点击「删除会话」图标 → 该行进入确认态：图标组让位给 [取消][确定删除] ----------
-   ★ 2026-09-29 邵先生定稿的交互：**点击删除图标才替换**。
-     原本 r84 首版是「hover 整张卡片就替换」，但它与 ② 的图标 tooltip 落在同一个 hover 上互斥
-     （鼠标一进卡片图标就被 display:none，tooltip 永远显示不出来）；改成点击触发后两者各得其所。 */
-.av-hs-confirm {
-  flex: none; display: none; align-items: center; gap: 8px;
-  position: relative; z-index: 1;
-  /* 设计稿实测：按钮组右缘距行右缘 8（图标组是 10，设计稿这两处本身差 2） */
-  margin-right: -2px;
-}
+/* 删除确认态 */
+.av-hs-confirm { flex: none; display: none; align-items: center; gap: 8px; }
 .av-hs-item.is-confirm .av-hs-acts { display: none; }
 .av-hs-item.is-confirm .av-hs-confirm { display: flex; }
-/* 确认态自持底色（设计稿确认态那行实测也是 #F2F2F2）：鼠标移出行外也不掉 */
-.av-hs-item.is-confirm { background: var(--color-fill-2); }
-
-/* 适配层：DS Button(size-mini) 收敛到设计稿的 28 高 / 左右内边距 11
-   （实测 取消 48 宽、确定删除 72 宽 = 12px 字宽 + 11 × 2 内边距 + 2 × 1 描边） */
+/* 适配层：DS Button(size-mini) 收敛到设计稿的 28 高 / 左右内边距 12
+   （实测 取消 48 宽、确定删除 72 宽 = 12px 字宽 + 12 × 2 内边距 + 2 × 1 描边） */
 .giencoder-btn.giencoder-btn-size-mini.av-hs-btn {
-  height: 28px; padding: 0 11px; border-radius: 4px;
+  height: 28px; padding: 0 12px; border-radius: 4px;
 }
-
-/* ---------- 图标按钮 tooltip（照 DS `giencoder-tooltip-popup` 的观感，全部取 token） ---------- */
-.av-tip {
-  position: fixed; z-index: 9999; pointer-events: none; white-space: nowrap;
-  background: var(--color-tooltip-bg); color: var(--color-white);
-  font-size: var(--font-size-body-1); line-height: 16px; padding: 4px 8px;
-  border-radius: calc(var(--radius) - 2px); box-shadow: var(--shadow1-down);
-}
-.av-tip::after {
-  content: ''; position: absolute; left: 50%; transform: translateX(-50%);
-  width: 0; height: 0; border: 5px solid transparent;
-}
-.av-tip.is-top::after { top: 100%; border-bottom: 0; border-top-color: var(--color-tooltip-bg); }
-.av-tip.is-bottom::after { bottom: 100%; border-top: 0; border-bottom-color: var(--color-tooltip-bg); }
 
 </style>
-<script id="r84-hs-js">
+<script id="r83-hs-js">
 
-/* SHELL-AV-HS v3 —— AI 会话栏内的「会话历史」二级视图
-   ⚠ 勿手改此块；落地脚本 mg-work/r84/apply84.py；设计稿 MasterGo 1389:18518。
-   v2 = r84 四条：名字常规字重 / 图标真矢量 + tooltip / hover 整卡换成按钮组 / 首行白底 + 整卡热区
-   v3 = ★ 交互定稿（邵先生 2026-09-29）：确认态改由**点击「删除会话」图标**触发
-        （v2 的"hover 整卡替换"会吃掉图标的 hover ⇒ tooltip 显示不出来）；
-        v2 那套"悬停内退出确认态"的类与监听一并撤销，不需要了。 */
+/* SHELL-AV-HS v1 —— AI 会话栏内的「会话历史」二级视图
+   ⚠ 勿手改此块；落地脚本 mg-work/r83/apply83.py；设计稿 MasterGo 1389:18518。 */
 (function () {
   var drawer = document.getElementById('av-chat-drawer');
   var view = document.getElementById('av-hs');
@@ -2987,19 +2960,18 @@ function avBrowseOpen() { return !!document.querySelector('.av-browse-on'); }
 
   var ATTR = 'data-av-hs';
 
-  /* ---------- 图标：全部搬设计稿/DS 的真矢量，只把 fill 改成 currentColor ----------
-     · 导出 = raw/1389-18518__svg_5f4f2e22.svg（asset 原样；mastergo 导出时带
-       matrix(0,1,1,0,.2417,-.2417) 转置 ⇒ 转置后即「托盘 ⊓ + 下箭头」；
-       去掉原 clipPath（rect 0 0 14 14，路径本就在框内，留着反而产生重复 id）。
-     · 删除 = assets/icons/delete.svg（DS 组件；12 单位 viewBox 按 14px 渲染 = ×1.1667）。 */
+  /* 左：导出（= 设计稿 asset svg_5f4f2e22 的转置形态）；右：删除（按 PNG 重建） */
   var ICON_EXPORT = '<svg viewBox="0 0 14 14" width="14" height="14" fill="none" aria-hidden="true">' +
-    '<path d="M1.45849609375,1.2168426513671875C1.45849609375,1.2168426513671875,9.04182909375,1.2168426513671875,9.04182909375,1.2168426513671875C9.04182909375,1.2168426513671875,9.04182909375,2.3835092513671876,9.04182909375,2.3835092513671876C9.04182909375,2.3835092513671876,2.62516269375,2.3835092513671876,2.62516269375,2.3835092513671876C2.62516269375,2.3835092513671876,2.62516269375,11.133508651367187,2.62516269375,11.133508651367187C2.62516269375,11.133508651367187,9.04182909375,11.133508651367187,9.04182909375,11.133508651367187C9.04182909375,11.133508651367187,9.04182909375,12.300175651367187,9.04182909375,12.300175651367187C9.04182909375,12.300175651367187,1.45849609375,12.300175651367187,1.45849609375,12.300175651367187C1.45849609375,12.300175651367187,1.45849609375,1.2168426513671875,1.45849609375,1.2168426513671875C1.45849609375,1.2168426513671875,1.45849609375,1.2168426513671875,1.45849609375,1.2168426513671875ZM9.72511669375,3.7006118513671873C9.72511669375,3.7006118513671873,12.78332909375,6.7588300513671875,12.78332909375,6.7588300513671875C12.78332909375,6.7588300513671875,9.72511669375,9.817012751367187,9.72511669375,9.817012751367187C9.72511669375,9.817012751367187,8.90016649375,8.992063051367188,8.90016649375,8.992063051367188C8.90016649375,8.992063051367188,10.55038739375,7.3418426513671875,10.55038739375,7.3418426513671875C10.55038739375,7.3418426513671875,4.91690419375,7.3418426513671875,4.91690419375,7.3418426513671875C4.91690419375,7.3418426513671875,4.91690419375,6.175175651367187,4.91690419375,6.175175651367187C4.91690419375,6.175175651367187,10.54977509375,6.175175651367187,10.54977509375,6.175175651367187C10.54977509375,6.175175651367187,8.90016649375,4.525567551367187,8.90016649375,4.525567551367187C8.90016649375,4.525567551367187,9.72511669375,3.7006118513671873,9.72511669375,3.7006118513671873C9.72511669375,3.7006118513671873,9.72511669375,3.7006118513671873,9.72511669375,3.7006118513671873Z" fill-rule="evenodd" fill="currentColor" transform="matrix(0,1,1,0,0.2416534423828125,-0.2416534423828125)"/></svg>';
-  var ICON_TRASH = '<svg viewBox="0 0 12 12" width="14" height="14" fill="none" aria-hidden="true">' +
-    '<path fill-rule="evenodd" clip-rule="evenodd" d="M7.463 1.125c.269 0 .487.218.487.488V2.1h2.612c.11 0 .149.011.188.033.04.02.071.052.092.092.022.04.033.079.033.187v.35c0 .11-.011.149-.033.188a.221.221 0 01-.092.092c-.04.022-.079.033-.188.033H9.9v7.313c0 .269-.218.487-.488.487H2.587a.488.488 0 01-.487-.488V3.075h-.663c-.108 0-.148-.011-.187-.033a.221.221 0 01-.092-.092c-.022-.04-.033-.079-.033-.187v-.35c0-.11.011-.149.033-.188a.221.221 0 01.092-.092c.04-.022.079-.033.187-.033H4.05v-.488c0-.269.218-.487.487-.487h2.926zm1.462 1.95h-5.85V9.9h5.85V3.075zM5.269 4.537c.134 0 .244.11.244.244v3.413c0 .134-.11.243-.244.243H4.78a.244.244 0 01-.244-.243V4.78c0-.134.11-.244.244-.244h.488zm1.95 0c.134 0 .244.11.244.244v3.413c0 .134-.11.243-.244.243H6.73a.244.244 0 01-.244-.243V4.78c0-.134.11-.244.244-.244h.488z" fill="currentColor"/></svg>';
+    '<path d="M1.8 9.04V1.8h9.92v7.24" stroke="currentColor" stroke-width="1.2"/>' +
+    '<path d="M6.76 4.92v5.63" stroke="currentColor" stroke-width="1.2"/>' +
+    '<path d="M3.7 9.73h6.12L6.76 12.78z" fill="currentColor"/></svg>';
+  var ICON_TRASH = '<svg viewBox="0 0 14 14" width="14" height="14" fill="none" aria-hidden="true">' +
+    '<rect x="1" y="1.2" width="12" height="2.8" rx="1.4" fill="currentColor"/>' +
+    '<path d="M3 4v8h8V4" stroke="currentColor" stroke-width="2"/>' +
+    '<rect x="5.5" y="5.5" width="3" height="4" rx="0.8" stroke="currentColor" stroke-width="1"/></svg>';
 
-  /* 会话数据：[标题, 时间, 是否当前会话]。文案与排序照抄设计稿。
-     ⚠ 占位数据 —— 真实数据接入后只改这个数组。
-     ⚠ 第 3 位只用于 aria-current 语义，**不再着色**（r84 ④：首行默认白底）。 */
+  /* 会话数据：[标题, 时间, 是否当前会话]。文案与排序照抄设计稿（首行为当前会话、无时间）。
+     ⚠ 这三行是占位数据 —— 真实数据接入后只改这个数组即可。 */
   var ROWS = [
     ['银行金融科技IT开发服务AI智能体平台与IDE插件...', '', 1],
     ['SimplAI AI应用部署平台介绍', '半小时前', 0],
@@ -3011,15 +2983,14 @@ function avBrowseOpen() { return !!document.querySelector('.av-browse-on'); }
   ];
 
   function rowHTML(r) {
-    return '<div class="av-hs-item' + (r[2] ? ' is-on' : '') + '" role="listitem"' +
-        (r[2] ? ' aria-current="true"' : '') + '>' +
+    return '<div class="av-hs-item' + (r[2] ? ' is-on' : '') + '" role="listitem">' +
       '<span class="av-hs-txt">' +
         '<button class="av-hs-name" type="button" data-av-hs-pick="1">' + r[0] + '</button>' +
         '<span class="av-hs-time">' + r[1] + '</span>' +
       '</span>' +
       '<span class="av-hs-acts">' +
-        '<button class="av-hs-ibtn" type="button" aria-label="导出会话" data-av-tip="导出会话" data-av-hs-export="1">' + ICON_EXPORT + '</button>' +
-        '<button class="av-hs-ibtn" type="button" aria-label="删除会话" data-av-tip="删除会话" data-av-hs-del="1">' + ICON_TRASH + '</button>' +
+        '<button class="av-hs-ibtn" type="button" aria-label="导出会话" title="导出会话" data-av-hs-export="1">' + ICON_EXPORT + '</button>' +
+        '<button class="av-hs-ibtn" type="button" aria-label="删除会话" title="删除会话" data-av-hs-del="1">' + ICON_TRASH + '</button>' +
       '</span>' +
       '<span class="av-hs-confirm">' +
         '<button class="giencoder-btn giencoder-btn-secondary giencoder-btn-size-mini av-hs-btn" type="button" data-av-hs-cancel="1">取消</button>' +
@@ -3057,44 +3028,6 @@ function avBrowseOpen() { return !!document.querySelector('.av-browse-on'); }
     box._t = setTimeout(function () { box.hidden = true; }, 2400);
   }
 
-  /* ---------- r84 ② 图标按钮 tooltip（观感照 DS `giencoder-tooltip-popup`） ---------- */
-  var tip = null;
-  function ensureTip() {
-    if (tip) return tip;
-    tip = document.createElement('div');
-    tip.className = 'av-tip';
-    tip.setAttribute('role', 'tooltip');
-    tip.hidden = true;
-    document.body.appendChild(tip);
-    return tip;
-  }
-  function hideTip() { if (tip) tip.hidden = true; }
-  function showTip(btn) {
-    var text = btn.getAttribute('data-av-tip');
-    if (!text) return;
-    var t = ensureTip();
-    t.textContent = text;
-    t.hidden = false;
-    var r = btn.getBoundingClientRect(), tr = t.getBoundingClientRect();
-    var above = r.top - tr.height - 4;
-    var bottom = above >= 8;
-    t.classList.remove('is-top', 'is-bottom');
-    t.classList.add(bottom ? 'is-top' : 'is-bottom');
-    t.style.top = Math.round(bottom ? above : r.bottom + 4) + 'px';
-    var left = r.left + r.width / 2 - tr.width / 2;
-    var max = (window.innerWidth || 0) - tr.width - 8;
-    t.style.left = Math.round(Math.max(8, Math.min(left, max))) + 'px';
-  }
-  function tipTarget(ev) {
-    var t = ev.target;
-    return (t && t.closest) ? t.closest('[data-av-tip]') : null;
-  }
-  view.addEventListener('mouseover', function (ev) { var b = tipTarget(ev); if (b) showTip(b); });
-  view.addEventListener('mouseout', function (ev) { var b = tipTarget(ev); if (b) hideTip(); });
-  /* ⚠ 只走 hover：曾用 focusin 也弹一次，结果 openView() 里给返回按钮 `.focus()`
-     会在每次打开视图时凭空弹出一个「返回」tooltip（实测踩到）⇒ 键盘用户的名称由 aria-label 承载。 */
-  list.addEventListener('scroll', hideTip);
-
   /* ---------- 视图开合 ---------- */
   function isOpen() { return drawer.hasAttribute(ATTR); }
   function syncAria(open) { view.setAttribute('aria-hidden', open ? 'false' : 'true'); }
@@ -3108,10 +3041,8 @@ function avBrowseOpen() { return !!document.querySelector('.av-browse-on'); }
   }
   function closeView() {
     if (!isOpen()) return;
-    /* 关视图时复位确认态：下次进来不该还停在「确定删除」上 */
-    var cs = list.querySelectorAll('.av-hs-item.is-confirm');
-    for (var i = 0; i < cs.length; i++) cs[i].classList.remove('is-confirm');
-    hideTip();
+    var c = list.querySelector('.av-hs-item.is-confirm');
+    if (c) c.classList.remove('is-confirm');
     drawer.removeAttribute(ATTR);
     syncAria(false);
     var entry = chatEntry();
@@ -3129,18 +3060,27 @@ function avBrowseOpen() { return !!document.querySelector('.av-browse-on'); }
   view.addEventListener('click', function (ev) {
     var t = ev.target;
     if (!t || !t.closest) return;
-    hideTip();
 
     if (t.closest('[data-av-hs-back]')) { closeView(); return; }   /* 返回 → 回到对话视图 */
 
     var row = t.closest('.av-hs-item');
     if (!row) return;
 
-    if (t.closest('[data-av-hs-cancel]')) {                        /* 取消 → 退出确认态，图标组回来 */
-      row.classList.remove('is-confirm');
+    if (t.closest('[data-av-hs-del]')) {                           /* 删除 → 行内确认态 */
+      var other = list.querySelector('.av-hs-item.is-confirm');
+      if (other && other !== row) other.classList.remove('is-confirm');
+      row.classList.add('is-confirm');
+      var c = row.querySelector('[data-av-hs-cancel]');
+      if (c) c.focus();
       return;
     }
-    if (t.closest('[data-av-hs-ok]')) {                            /* 确定删除 → 真的移除该行 */
+    if (t.closest('[data-av-hs-cancel]')) {                        /* 取消 */
+      row.classList.remove('is-confirm');
+      var d = row.querySelector('[data-av-hs-del]');
+      if (d) d.focus();
+      return;
+    }
+    if (t.closest('[data-av-hs-ok]')) {                            /* 确定删除 */
       var nm = row.querySelector('.av-hs-name');
       var txt = nm ? brief(nm) : '';
       row.parentNode.removeChild(row);
@@ -3151,31 +3091,12 @@ function avBrowseOpen() { return !!document.querySelector('.av-browse-on'); }
       toast('已导出「' + brief(row.querySelector('.av-hs-name')) + '」');
       return;
     }
-    if (t.closest('[data-av-hs-del]')) {                           /* ★ 删除图标 → 该行进确认态（一次只允许一行） */
-      var cur = list.querySelector('.av-hs-item.is-confirm');
-      if (cur && cur !== row) cur.classList.remove('is-confirm');
-      row.classList.add('is-confirm');
-      /* 键盘触发（click.detail === 0）时把焦点交给「取消」：刚被 display:none 的删除按钮
-         会把焦点丢回 body，下一个 Tab 会从页面开头重来。鼠标触发则不动焦点，免得飘出光圈。 */
-      if (!ev.detail) {
-        var cb = row.querySelector('[data-av-hs-cancel]');
-        if (cb) cb.focus();
-      }
-      return;
+    if (t.closest('[data-av-hs-pick]')) {                          /* 点会话 → 选中并回到对话视图 */
+      var on = list.querySelector('.av-hs-item.is-on');
+      if (on && on !== row) on.classList.remove('is-on');
+      row.classList.add('is-on');
+      closeView();
     }
-    /* 确认态是个"子状态"：点行内其他位置一律视为放弃 ——
-       否则会直接跳去"打开该会话 + 关视图"，对用户太意外（旧的 hover 触发没这个问题，因为鼠标一移开就复位）。 */
-    if (row.classList.contains('is-confirm')) {
-      row.classList.remove('is-confirm');
-      return;
-    }
-    /* 其余：整张卡片任意位置 → 打开该会话（r84 ④ 整卡热区） */
-    var on = list.querySelector('.av-hs-item.is-on');
-    if (on && on !== row) on.classList.remove('is-on');
-    row.classList.add('is-on');
-    row.setAttribute('aria-current', 'true');
-    if (on && on !== row) on.removeAttribute('aria-current');
-    closeView();
   });
 
   /* Esc 返回上一层（优先级低于页面自己的弹层/全屏裁决：它们消费掉后不会走到这里） */
