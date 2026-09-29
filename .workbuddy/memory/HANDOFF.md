@@ -5,14 +5,12 @@
 > 分工：历史详情 → `YYYY-MM-DD.md`；稳定工作法 → `PLAYBOOK.md`；页面事实 → `PAGES.md`；
 > 每次都必知 → `MEMORY.md`。**本文件不占注入预算**（只在需要时 grep/Read）。
 
-- **最后更新**：2026-09-29（**r79 涟漪范围定案 + 目录清理第二轮**；两项**待一并入库**）
-- **HEAD**：`1673adf` = `origin/main`（`chore(cleanup): 交接卡同步 …`）—— 之后的工作**尚未提交**。
-- **工作区（待入库）**：
-  - `M pages/base.html` —— r79 唯一改动页（涟漪排除链加第 4 道闸）
-  - `D mg-work/r78/before/*.html` × 8 —— 清理第二轮 T2（与当前页逐字节相同）
-  - `?? mg-work/r79/`（apply79.py + before/ + ev/ + acceptance.md）
-  - `M mg-work/cleanup-audit-2026-09-29.md`（新增第六章）· `M .workbuddy/memory/{2026-09-29,HANDOFF,PLAYBOOK,PAGES}.md`
-- **已入库**：`fde6473`（r72~r78 全量 447 files / 91413 ins）· `27f342c`（补记）· `042e669`（清理第一轮 62 删除）
+- **最后更新**：2026-09-29（**r79 + 目录清理第二轮均已入库并推送**；工作区干净）
+- **HEAD**：`0a88f82` = `origin/main`（`feat(r79): 波点涟漪触发范围再排除「版权带」…`）。
+- **工作区**：干净（`git status` 0 项）。本轮两批入库：
+  - `7c1c808` chore(cleanup) 第二轮 9 files（−14542）—— gc + `.DS_Store` + 8 个 r78 零信息项基线 + 审计第六章
+  - `0a88f82` feat(r79) 14 files（+1988）—— `pages/base.html`（+6 行）+ `mg-work/r79/` + 记忆四件
+- **已入库历史**：`fde6473`（r72~r78 全量 447 files / 91413 ins）· `27f342c`（补记）· `042e669`（清理第一轮 62 删除）
 - **本卡数据源**：`mg-work/r79/acceptance.md`（r79）+ `mg-work/cleanup-audit-2026-09-29.md`（清理审计）
 
 ---
