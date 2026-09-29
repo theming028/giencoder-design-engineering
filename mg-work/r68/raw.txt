@@ -1,0 +1,57 @@
+#### AV DOM · meta 段 ####
+'<div class="td-ai-meta">\n              <a href="#"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M6.4 9.6a2.6 2.6 0 0 0 3.7 0l2-2a2.6 2.6 0 0 0-3.7-3.7l-1 1"/><path d="M9.6 6.4a2.6 2.6 0 0 0-3.7 0l-2 2a2.6 2.6 0 0 0 3.7 3.7l1-1"/></svg>思考过程</a>\n              <span class="td-sep"></span>\n              <a href="#">任务完成，耗时 28m12s</a>\n            </div>'
+
+#### AV DOM · 全屏按钮尾 → header 尾 ####
+'"M8 3v3a2 2 0 0 1-2 2H3"/><path d="M21 8h-3a2 2 0 0 1-2-2V3"/><path d="M3 16h3a2 2 0 0 1 2 2v3"/><path d="M16 21v-3a2 2 0 0 1 2-2h3"/></svg></button>\n        </div>\n      </header>'
+
+#### AV DOM · td-file-ico ####
+'<span class="td-file-ico"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 1.5H18.8A1.5 1.5 0 0 1 20.3 3V15.6L16.6 21H4.5A1.5 1.5 0 0 0 3 19.5V3A1.5 1.5 0 0 1 4.5 1.5Z"/><path d="M15 21v-5.25H20.3"/><path d="M7.5 7.2h7.5"/><path d="M7.5 11h7.5"/><path d="M7.5 14.7h3.5"/></svg></span>'
+
+#### AV CSS · 右栏相关规则原文 ####
+>>> .td-file-ico { @341845
+'.td-file-ico { width: 16px; height: 16px; flex: none; color: var(--td-ico-gray); line-height: 0; }'
+
+>>> .td-file-ico { @342470
+'.td-file-ico { width: 24px; height: 24px; }'
+
+>>> .td-file-ico svg @341944
+'.td-file-ico svg { display: block; width: 100%; height: 100%; }'
+
+>>> .td-ai-meta { @346024
+'.td-ai-meta { display: flex; align-items: center; gap: 8px; font-size: var(--font-size-body-3); color: var(--td-meta); }'
+
+>>> .td-ai-meta a { @346145
+'.td-ai-meta a { display: inline-flex; align-items: center; gap: 4px; color: var(--td-meta); text-decoration: none; }'
+
+>>> .td-ai-foot { @346960
+'.td-ai-foot { display: flex; align-items: center; gap: 8px; font-size: var(--font-size-body-3); color: var(--td-meta); }'
+
+>>> .td-round-btn { @344796
+'.td-round-btn { box-sizing: border-box; width: 32px; padding: 0; border-color: transparent; line-height: 0; }'
+
+>>> .td-right-bar { @344035
+'.td-right-bar {\n        height: 64px; flex: none; box-sizing: border-box;\n        display: flex; align-items: flex-start; gap: 8px; padding: 12px 20px 0;\n      }'
+
+
+#### TD CSS · 需移植的规则原文 ####
+>>> .td-ai-rule { @387629
+'.td-ai-rule { flex: none; height: 1px; background: var(--color-border-1); margin: 4px 0; }'
+
+>>> .td-ai-ctx { @387726
+'.td-ai-ctx {\n        display: inline-flex; align-items: center; gap: 4px; align-self: flex-start;\n        height: 22px; margin-bottom: 4px;\n        font-size: var(--font-size-body-3); line-height: 22px; color: var(--td-meta); text-decoration: none;\n      }'
+
+>>> .td-ai-ctx svg { @387989
+'.td-ai-ctx svg { width: 14px; height: 14px; flex: none; }'
+
+>>> .td-ai-ctx:hover @388053
+'.td-ai-ctx:hover, .td-ai-ctx:focus-visible { color: var(--color-primary-6); }'
+
+>>> .td-file--lg .td-file-ico svg @349019
+'.td-file--lg .td-file-ico svg { width: 24px; height: 24px; }'
+
+>>> .td-right-acts .td-round-btn svg @359383
+'.td-right-acts .td-round-btn svg { width: 14px; height: 14px; }'
+
+>>> .td-round-btn, @359054
+'.td-round-btn,\n      .td-round-btn:hover,\n      .td-round-btn:active {\n        box-sizing: border-box; width: 28px; height: 28px; padding: 0;\n        border-color: transparent; box-shadow: none; line-height: 0;\n      }'
+

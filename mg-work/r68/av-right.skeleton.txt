@@ -1,0 +1,253 @@
+<aside class=td-right av-chat-drawer aria-label=AI 会话 aria-hidden=true id=av-chat-drawer>
+  <div class=td-right-inner>
+    <header class=td-right-bar>
+      <div class=td-right-head>
+        <div class=td-right-title>
+          · 端到端流程初始化：用户输入业务流程并触发全链路交付
+        <div class=td-right-time>
+          · 2026/08/01 11:26
+      <div class=td-right-acts>
+        <button class=giencoder-btn giencoder-btn-secondary giencoder-btn-size-default giencoder-btn-icon td-round-btn type=button aria-label=新会话>
+          <svg class=lucide lucide-plus aria-hidden=true>
+            <path >
+            <path >
+        <button class=giencoder-btn giencoder-btn-secondary giencoder-btn-size-default giencoder-btn-icon td-round-btn type=button aria-label=会话历史>
+          <svg class=lucide lucide-history aria-hidden=true>
+            <path >
+            <path >
+            <path >
+        <button class=giencoder-btn giencoder-btn-secondary giencoder-btn-size-default giencoder-btn-icon td-round-btn type=button aria-label=全屏 title=全屏 data-td-fullscreen=1 aria-pressed=false>
+          <svg class=td-ico-max aria-hidden=true>
+            <path >
+            <path >
+            <path >
+            <path >
+          <svg class=td-ico-min aria-hidden=true>
+            <path >
+            <path >
+            <path >
+            <path >
+    <div class=td-chat>
+      <div class=td-chat-inner>
+        <div class=td-msg-user>
+          · 请帮我先分析一下这个任务
+        <div class=td-msg-ai>
+          <div class=td-ai-head>
+            <span class=td-ai-avatar>
+              <svg >
+                <path >
+            <span class=td-ai-name>
+              · 艾迪
+          <div class=td-ai-meta>
+            <a >
+              <svg >
+                <path >
+                <path >
+              · 思考过程
+            <span class=td-sep>
+            <a >
+              · 任务完成，耗时 28m12s
+          <p >
+            · 好的，收到您的需求。这是一个典型的“从需求到交付”的端到端流程初始化场景。我将为您设计一个完整的交付状态跟踪表，并定义启动整个流程所需的初始…
+          <p >
+            · 我先把几个核心不确定性列出来，请你选择倾向，不确定的地方我会标注我的判断。
+          <a class=td-file td-file--lg title=端到端初始化 - 任务分析报告.md>
+            <span class=td-file-ico>
+              <svg aria-hidden=true>
+                <path >
+                <path >
+                <path >
+                <path >
+                <path >
+            <span class=td-file-sep aria-hidden=true>
+            <span class=td-file-body>
+              <span class=td-file-tx>
+                · 端到端初始化 - 任务分析报告.md
+              <span class=td-file-size>
+                · 128KB
+          <div class=td-ai-foot>
+            <span class=td-ai-foot-item>
+              <span class=td-ai-foot-ico>
+                <svg aria-hidden=true>
+                  <circle >
+                  <path class=td-ico-check>
+              <span >
+                · 输出完成
+            <span class=td-sep>
+            <span class=td-ai-foot-item>
+              <span class=td-ai-foot-ico>
+                <svg aria-hidden=true>
+                  <circle >
+                  <path >
+                  <circle >
+                  <path >
+                  <path >
+                  <path >
+              <span >
+                · Token 速率：256/s
+    <div class=td-composer>
+      <div class=td-composer-field relative flex w-full flex-col rounded-[16px] border bg-white p-3 transition-colors>
+        <textarea class=min-w-0 resize-none bg-transparent text-sm leading-[22px] [color:var(--color-text-1)] outline-none placeholder:[color:var(--color-text-3)] min-h-[96px] aria-label=输入消息 placeholder=描述你的任务，/ 调用技能，@引用文件 rows=1>
+        <div class=mt-auto flex items-center justify-between>
+          <div class=flex items-center gap-[8px]>
+            <div class=giencoder-select>
+              <button class=flex size-8 items-center justify-center rounded-full border border-[var(--color-border-1)] text-[var(--color-text-2)] transition-colors hover:bg-[var(--color-fill-1)] hover:[color:var(--color-text-1)] type=button aria-label=添加>
+                <svg class=lucide lucide-plus size-[14px] aria-hidden=true>
+                  <path >
+                  <path >
+              <div class=td-add-pop aria-label=添加内容>
+                <div class=td-add-item>
+                  <svg aria-hidden=true>
+                    <path >
+                  <span >
+                    · 添加本地文件
+                <span class=td-add-sep aria-hidden=true>
+                <div class=td-add-item>
+                  <svg aria-hidden=true>
+                    <path >
+                  <span >
+                    · 知识库
+            <button class=flex size-8 items-center justify-center rounded-full border border-[var(--color-border-1)] text-[var(--color-text-2)] transition-colors hover:bg-[var(--color-fill-1)] hover:[color:var(--color-text-1)] type=button aria-label=技能>
+              <svg class=lucide lucide-wrench size-[14px] aria-hidden=true>
+                <path >
+            <div class=avatar-wrap relative flex items-center>
+              <button class=flex h-8 items-center gap-[2px] rounded-full px-3 py-[5px] text-[14px] leading-[19px] transition-colors type=button aria-label=数字分身 aria-pressed=true>
+                <svg class=size-[14px]>
+                  <path >
+                · 艾迪
+              <div class=avatar-tooltip>
+                · 停用数字分身
+            <div class=giencoder-select>
+              <div class=giencoder-select-view select-view-ghost>
+                <div class=giencoder-select-selection>
+                  <span class=giencoder-select-view-text>
+                    · 标准模式
+                <span class=giencoder-select-suffix>
+                  <svg >
+                    <path >
+              <div class=giencoder-select-popup>
+                <ul class=giencoder-select-option-list>
+                  <li class=giencoder-select-option giencoder-select-option-selected>
+                    · 标准模式
+                  <li class=giencoder-select-option>
+                    · 专家模式
+          <div class=flex items-center gap-2>
+            <div class=giencoder-select>
+              <div class=giencoder-select-view select-view-ghost>
+                <div class=giencoder-select-selection>
+                  <span class=giencoder-select-view-text>
+                    · DeepSeek-V4-Pro
+                <span class=giencoder-select-suffix>
+                  <svg >
+                    <path >
+              <div class=giencoder-select-popup>
+                <ul class=giencoder-select-option-list aria-label=大模型选择>
+                  <li class=giencoder-select-option giencoder-select-option-selected>
+                    · DeepSeek-V4-Pro
+                  <li class=giencoder-select-option>
+                    · GLM-5.2-公司共用
+                  <li class=giencoder-select-option giencoder-select-option-disabled>
+                    · Qwen 3.8-max
+                  <li class=giencoder-select-option>
+                    · Kimi-2.6
+            <button class=flex size-8 items-center justify-center rounded-full transition-colors hover:bg-[var(--color-fill-1)] type=button aria-label=优化提示词>
+              <svg >
+                <path >
+                <path >
+                <path >
+                <path >
+                <path >
+                <path >
+                <path >
+                <path >
+            <button class=flex shrink-0 !size-8 !rounded-full !p-0 items-center justify-center transition-colors type=button aria-label=发送 disabled=None>
+              <svg >
+                <path >
+        <div class=giencoder-select td-skill-pop aria-label=技能选择>
+          <div class=td-skill-list>
+            <div class=td-skill-row is-goal is-active>
+              <span class=td-skill-ico is-goal>
+                <svg aria-hidden=true>
+                  <path >
+              <span class=td-skill-txt>
+                <span class=td-skill-name>
+                  · Goal
+                <span class=td-skill-desc>
+                  · 构建一个以实现目标为结果的任务，持续运行直到全部完成。
+            <div class=td-skill-group>
+              · 技能 Skills
+            <div class=td-skill-row>
+              <span class=td-skill-ico>
+                <svg aria-hidden=true>
+                  <path >
+              <span class=td-skill-txt>
+                <span class=td-skill-name>
+                  · systematic-debugging
+                <span class=td-skill-desc>
+                  · 一个用于调试软件问题的结构化方法，强制要求在提出修复方案前进行根本原因分析。
+              <span class=td-skill-tag>
+                · 预置
+            <div class=td-skill-row>
+              <span class=td-skill-ico>
+                <svg aria-hidden=true>
+                  <path >
+              <span class=td-skill-txt>
+                <span class=td-skill-name>
+                  · writing-skills
+                <span class=td-skill-desc>
+                  · 将测试驱动开发方法应用于Claude技能文档创建。
+              <span class=td-skill-tag>
+                · 预置
+            <div class=td-skill-row>
+              <span class=td-skill-ico>
+                <svg aria-hidden=true>
+                  <path >
+              <span class=td-skill-txt>
+                <span class=td-skill-name>
+                  · create-ex
+                <span class=td-skill-desc>
+                  · Distill an ex-partner into an AI Skill. Import WeChat history, photos,…
+              <span class=td-skill-tag>
+                · 预置
+            <div class=td-skill-row>
+              <span class=td-skill-ico>
+                <svg aria-hidden=true>
+                  <path >
+              <span class=td-skill-txt>
+                <span class=td-skill-name>
+                  · nuwa-skill
+                <span class=td-skill-desc>
+                  · 女娲（Nuwa）：输入任何人的名字，自动调研 → 提取思维框架 → 生成可运行的视角技能。
+              <span class=td-skill-tag>
+                · 自有
+            <div class=td-skill-row>
+              <span class=td-skill-ico>
+                <svg aria-hidden=true>
+                  <path >
+              <span class=td-skill-txt>
+                <span class=td-skill-name>
+                  · subagent-driven-development
+                <span class=td-skill-desc>
+                  · 将实施计划分解为独立任务的工作流，每个任务由新的AI子代理处理，并经过规...
+              <span class=td-skill-tag>
+                · 自有
+          <button class=td-skill-x type=button aria-label=关闭技能面板>
+            <svg aria-hidden=true>
+              <path >
+          <div class=td-skill-foot>
+            <div >
+              <button class=giencoder-btn giencoder-btn-size-default giencoder-btn-secondary type=button>
+                · 安装技能
+              <button class=giencoder-btn giencoder-btn-size-default giencoder-btn-secondary type=button>
+                · 管理技能
+  <button class=td-collapsed type=button aria-label=展开 AI 会话>
+    <span >
+      · 展
+    <span >
+      · 开
+    <span >
+      · AI
+    <span >
+      · 会
+    <span >
+      · 话
