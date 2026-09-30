@@ -1,7 +1,7 @@
 # HANDOFF · 下一轮接手卡
 
 > **每轮覆盖重写。新会话开局先读这一页，再按需 grep `PLAYBOOK.md` / `PAGES.md`。**
-> 最后更新：2026-09-30 20:1x（**r86 ~ r100 已 commit + push：`6a4b0ea..d7e2151`（776 文件 / +156039 行）；r101 两批（十一条 + 七条）已落地并通过四查 + 双视口实测取证，🚫 未提交**）
+> 最后更新：2026-09-30 20:2x（**r101 两批（十一条 + 七条）已落地 → 四查 → 交付：已 commit + push `1d11fc9..9f252e5`（117 文件 / +10377 −123）；工作区干净**）
 > ⚠️ **最新一拍 = r101 第二批七条**（同一代**就地返工** `mg-work/r101/apply101.py`；r93 代已提交 ⇒ r101 仍是新一代）：
 > ② **`.r93-bar` 毛玻璃**（宿主 `position:relative` + 标题栏 `absolute/backdrop-filter` + 滚动口 `padding-top:44px`）·
 > ② 顶栏装饰图 `background-size: 70%`（新块 `r101-hdr-css`，落 **6 页**）· ③ 骨架屏去掉浅灰容器 · ④ 渐隐 40→56px ·
@@ -11,7 +11,7 @@
 >   ① **跨行块的剥离正则必须带 `re.S`** —— 漏了不会「摘不掉」，而是自检报「摘块后基线里仍残留标记」（极易误判成检测写错）；
 >   ② **`agent-browser click` 会被毛玻璃标题栏接住**（标题栏盖住滚动口最上 44px）⇒ 触点先 `scrollIntoView({block:'center'})`；
 >   ③ 上一代已提交时**别回改旧补丁** —— 新起一块同特异性、靠文档顺序取胜的块（`r101-hdr-css` 压 `r92-hdr-css` 就是这么干的）。
-> 工作区：**未提交**（6 页 ` M`：base / conversation / avatar / skills / automation / settings + `?? mg-work/r101/`）。`origin/main` 仍在 **`d7e2151`**。
+> 工作区：**干净（`git status --porcelain` = 0）**。`origin/main` 已到 **`9f252e5`** —— r101 单独一次提交推上去（117 文件 / +10377 −123）。
 > ⚠ **r89 / r90 / r91 / r92 对设置页的改动、r93 需求 1 对字号机制的改动，全都是 r88 的就地返工**（r88 未提交 ⇒ 按硬规则不另起代数，直接改 `mg-work/r88/apply88.py` 与 `apply88b-fontsize.py`）。
 > ⚠ **r94 ~ r100 全部是 r93 代就地返工**（落在 `mg-work/r93/apply93.py`）；**r101 起是新代**（`mg-work/r101/apply101.py`，承接 r93 代的产物）。
 > ⚠ **★ `pages/` 下每个页面都是「完全自包含」的独立 html**（顶栏 + aside + 外壳各一份，**没有共享布局、没有真实路由**）⇒ 新开一页 = **由源页净底重建（不复制）**；页面间跳转靠每页内嵌 `<!-- SHELL-NAV-FIX v5 -->` 的 `ROUTE` 表 + `hashchange`（见第十节）。
@@ -20,20 +20,21 @@
 
 ## 一、当前工作区状态
 
-**当前未提交 = 仅 r101**（会话详情页十一条微调）。r86 ~ r100 已于 18:2x 提交并推送（`6a4b0ea..d7e2151`，776 文件 / +156039 −532）。
+**工作区干净**。r86 ~ r100 于 18:2x 提交推送（`6a4b0ea..d7e2151`，776 文件 / +156039 −532）；**r101 于 20:2x 提交推送**（`1d11fc9..9f252e5`，117 文件 / +10377 −123）。
 
 | 改动 | 内容 |
 |---|---|
-| ` M pages/conversation.html` | **634719 → 671386 字符**（+36667；LF 文本 `sha 544ed8156a78`；`script=9 style=15`）；注入块 id 换代 `r93-conv-*` → **`r101-conv-css` / `r101-conv-js`**；r101 十一条见下 |
-| ` M pages/base.html` | **471444 → 471447 字符**（+3；LF 文本 `sha f35fd612df52`）＝只有当页 nav 脚本 id 由 `r93-nav-js` 换成 **`r101-nav-js`**（注释对同步换名），功能逐字不变 |
-| `?? mg-work/r101/` | `apply101.py`（含 `--revert` / `--dry`）/ `acceptance.md`（**七节**：十一条逐条实测 + 设计稿取数 + `GENS` 逐代摘除 + 四查 + 待拍板 + 本轮踩坑）/ `before/`（2 份 r101 前置基线：`conversation-r101.html` / `base-r101.html`）/ `ev/`（`p101*` 探针 + `p101fin.sh/.log` 终态取证 + `vd-r101a/b.txt` + `check_ow.py` / `sample_t12l.py`）/ `raw/`（骨架屏 / 右键菜单 / 渐隐带 / 投影剖面 / 设计稿对照裁片） |
-| `?? .workbuddy/memory/2026-09-30.md` | 当日原始日志（含 r92 / r93 / **r93 ④** / r94~**r101** 各段） |
+| `pages/conversation.html` | **634719 → 672845 字符**（+38126，r101 两批）；LF 文本 `sha 98140cc4bf8f`；`script=9 style=15`；注入块 id 换代 `r93-conv-*` → **`r101-conv-css` / `r101-conv-js`**；r101 十八条见下 |
+| `pages/base.html` | **471444 → 472150 字符**（+706）；LF 文本 `sha 2ffe5f16d5c8` ＝ nav 脚本 id 由 `r93-nav-js` 换成 **`r101-nav-js`**（注释对同步换名）+ **`r101-hdr-css`（顶栏图 70%）** |
+| `pages/{avatar,skills,automation,settings}.html` | 各 **+703**（567372 `559b9cbf3fa3` / 360869 `6a05419651c8` / 360982 `dfadc6d06e7b` / 458508 `652ac5235283`）＝ 只多一块 `r101-hdr-css` |
+| `mg-work/r101/` | `apply101.py`（含 `--revert` / `--dry`）/ `acceptance.md`（**十三节**：两批逐条实测 + 设计稿取数 + `GENS` 逐代摘除 + 四查 + 待拍板 + 本轮踩坑）/ `before/`（2 份 r101 前置基线：`conversation-r101.html` / `base-r101.html`）/ `ev/`（`p101*` 探针 + `p101fin2.sh/.log` 终态取证 + `vd-r101a/b/d/e.txt` + `check_ow.py` / `sample_t12l.py`）/ `raw/`（骨架屏 / 右键菜单 / 毛玻璃 A/B / 渐隐 A/B / 投影剖面 / 顶栏 A/B / 设计稿对照裁片 / 双视口终态） |
+| `.workbuddy/memory/2026-09-30.md` | 当日原始日志（含 r92 / r93 / **r93 ④** / r94~**r101** 各段） |
 
 > 历史（已提交的那批，仅供追溯）：`settings.html` 457805 字符（r88~r93①）；`{avatar,skills,automation}` = 566669 / 360166 / 360279；
 > `{dev,kanban,req-kanban,task-detail}` = 449491 / 567338 / 513077 / 766714；`assets/images/bg-img-1.png`（顶栏装饰）；`giencoder-design-system/components.css` + `.gienx-templates/_shared/components.css` + `components/select.json`（r87 select）。
 > `?? mg-work/r92/` · `?? mg-work/r93/`（`apply93.py` + `acceptance.md` 十三节 + `before/` 25 份 + `ev/` + `raw/`）—— **均已提交**。
 
-`origin/main` @ **`d7e2151`**（r86~r100 已推送；上一站 `1ecc7ee` = r80–r85）。**长期约定「默认不自动 commit / push」（2026-09-28 起）；邵先生显式说「commit and push」时才执行**。
+`origin/main` @ **`9f252e5`**（r101 已推送；上一站 `d7e2151` = r86~r100，再上一站 `1ecc7ee` = r80–r85）。**长期约定「默认不自动 commit / push」（2026-09-28 起）；邵先生显式说「commit and push」时才执行**。
 
 ⚠ `.gitignore`：`mg-work/r80/raw/sel_*.json`、`mg-work/*/gate/*/pages/`。`before/` 与 `raw/` **是**入库惯例。
 ⚠ **推送凭据**：PAT 已写入 `~/.git-credentials`，推送带 `-c credential.helper=store`（详见第九节）。
@@ -553,13 +554,15 @@ python mg-work/r93/apply93.py             # 需求 2 + ④（**必须最后跑**
 
 1. 读本卡 → `git status` → 复跑补丁确认幂等：
    `mg-work/r88/apply88.py` → `mg-work/r88/apply88b-fontsize.py` → `mg-work/r92/apply92.py` → `mg-work/r93/apply93.py`
+   → `mg-work/r101/apply101.py`
    → `mg-work/r87/apply87a-select.py` → `mg-work/r86/apply86.py`（**后两个被 r88 的 PRIOR 涵盖，重复跑也是 `+0`**）。
 2. 改页面**一律走 `mg-work/rNN/applyNN.py`**，体位 = 「先 `strip_all(当前页)` 取净底 → 再注入」⇒ **改完直接重跑即自愈**。
    **例外**：上一轮尚未提交时的即时返工 ⇒ **就地修订原补丁、不另起代数**（判据：`git status` 里仍是 ` M`）。
-   ★ 现状（2026-09-30 20:1x）：`r86 ~ r100` **已提交**（`d7e2151`）；**`r101` 是未提交的新一代**
-   （`mg-work/r101/apply101.py`，承接 r93 代的产物、覆盖 `pages/{base,conversation}.html` + 6 页顶栏图块）⇒
-   邵先生下一轮若仍针对**会话详情 / 新页 / 顶栏图 70%**，**就地改 `mg-work/r101/apply101.py`**（不另起代数）；
-   若针对**设置页 / 字号机制 / 其它页**，回到 `apply88.py` / `apply88b-fontsize.py` / 新起 `r102`。
+   ★ 现状（2026-09-30 20:2x）：`r86 ~ r100`（`d7e2151`）与 **`r101`（`9f252e5`）均已提交** ⇒ **工作区干净**
+   （`mg-work/r101/apply101.py` 承接 r93 代的产物、覆盖 `pages/{base,conversation}.html` + 6 页顶栏图块）⇒
+   **r101 已交付 ⇒ 下一轮再改会话详情 / 顶栏图要新建 `mg-work/r102/apply102.py`**
+   （照抄 r101 的 `GENS` 逐代摘除表，把 `r101` 列为「上一代」、`r102` 为当前代）；
+   若针对**设置页 / 字号机制 / 其它页**，回到 `apply88.py` / `apply88b-fontsize.py`。
 3. 收尾四件套：`check-syntax.py` → `verify-design.py ./pages`（**必须传目录**）→ 与上一轮读数**逐条 diff** → 清理 → 覆盖更新本卡 + `mg-work/rNN/acceptance.md`。
 4. 🚫 **默认不 commit / 不 push**：干完只汇报改动清单。
 
