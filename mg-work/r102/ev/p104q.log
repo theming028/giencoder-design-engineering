@@ -1,0 +1,4 @@
+===== 2560 F1 首帧（应 app=null / sk=true / box.op=0 / pe=none）=====
+"{\"app\":null,\"sk\":true,\"boxOp\":\"0\",\"boxPe\":\"none\",\"hostZ\":\"0\",\"heroZ\":\"1\"}"
+===== 2560 F2 就绪 =====
+"{\"app\":\"ready\",\"sk\":false,\"boxOp\":\"1\",\"boxPe\":\"auto\"}"

@@ -1,0 +1,15 @@
+-- 初始 --
+"{\"open\":\"1\",\"oh\":160,\"maxH\":\"161px\",\"op\":\"1\",\"isFree\":true,\"fhVis\":\"flex\",\"fcVis\":\"none\",\"rect\":[420,939,194]}"
+tag@初始 -> "r93-fh r93-bt|939"
+-- 第 1 次点击 --
+  tag -> "r93-fh r93-bt|939"
+"{\"open\":\"0\",\"oh\":0,\"maxH\":\"0px\",\"op\":\"0\",\"isFree\":false,\"fhVis\":\"none\",\"fcVis\":\"flex\",\"rect\":[420,340,22]}"
+-- 第 2 次点击 --
+  tag -> "r93-fc r93-bt|340"
+"{\"open\":\"0\",\"oh\":0,\"maxH\":\"0px\",\"op\":\"0\",\"isFree\":false,\"fhVis\":\"none\",\"fcVis\":\"flex\",\"rect\":[420,340,22]}"
+-- 第 3 次点击 --
+  tag -> "r93-fc r93-bt|340"
+"{\"open\":\"0\",\"oh\":0,\"maxH\":\"0px\",\"op\":\"0\",\"isFree\":false,\"fhVis\":\"none\",\"fcVis\":\"flex\",\"rect\":[420,340,22]}"
+-- 第 4 次点击 --
+  tag -> "r93-fc r93-bt|340"
+"{\"open\":\"0\",\"oh\":0,\"maxH\":\"0px\",\"op\":\"0\",\"isFree\":false,\"fhVis\":\"none\",\"fcVis\":\"flex\",\"rect\":[420,340,22]}"

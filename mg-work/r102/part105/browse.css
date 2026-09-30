@@ -1,0 +1,254 @@
+/* ================================================================================
+   ★ 第 69 轮：文件预览栏（.td-browse / .td-bf / .td-code / .td-split / .td-ctx）
+   来源 = 研发工作台 › 任务详情页（task-detail.html）同名模块，**逐条抽取 + 最小改造**：
+     · 状态前缀 `.td-root.is-browse` → `.av-browse-on`（挂在 shell 的 flex 行上，见 JS 段）；
+     · 丢弃详情页三栏布局专用规则（.td-left / .td-gutter 让位、is-keep-left、--td-browse-right-w
+       宽度接管、is-collapsed 复位）—— 数字分身没有这些对象；
+     · `.td-gutter` 的浏览态隐藏改指本页的 `.av-chat-gutter`；
+     · `.td-browse-slot` 由 flex:1 改为 `flex: 0 0 var(--av-browse-w, 641px)`（口径：预览栏保底 641）。
+   其余（配色 / 尺寸 / 圆角 / 动效 / 右键菜单）一字未改，token 全部沿用 var()。
+   ================================================================================ */
+:root { --td-panel-line: #ECEEF2; --td-hairline: var(--color-border-1); }
+/* ★ 第 70 轮第 3 项：面板外缘线改取 main 容器那一档色（外壳按路由给的常规档）。 */
+/* ★ 左导航让位（本轮口径）：预览栏展开时，shell 的左导航栏宽度平滑收拢到 0。
+   导航宽度是 React 内联 style ⇒ 必须 !important；元素自带 overflow:hidden，
+   收拢过程中内容被裁掉，无需额外处理；过渡沿用外壳自带的 200ms transition-all。
+   摘掉类名时内联宽度原样恢复，同样走 200ms 动画。 */
+.av-browse-on > aside:first-child {
+  width: 0 !important; min-width: 0 !important;
+  padding-left: 0 !important; padding-right: 0 !important;
+  opacity: 0; pointer-events: none;
+}
+/* ---- 轻提示（DS Message）：右键菜单结果回执（同详情页 .td-dp-msg 口径） ---- */
+.td-dp-msg { position: fixed; top: 64px; left: 50%; transform: translateX(-50%); z-index: 1100; }
+.td-dp-msg[hidden] { display: none; }
+.td-dp-msg .giencoder-message-icon { display: inline-flex; color: var(--color-success-6); }
+/* ★ 第 47 轮第 2 项：「打开侧栏」→ 在 AI 会话栏右侧展开文件预览栏（设计稿节点 1350:18310）。
+         展开时左栏（任务详情）让位隐藏，AI 会话栏随之向左移出 —— 与设计稿
+         「AI 会话 + 文件目录 + 代码预览」三栏同构。 */
+      .td-browse {
+        display: flex; flex: 1 1 auto; min-width: 0; box-sizing: border-box;
+        flex-direction: column; overflow: hidden;
+        background: var(--color-bg-1);
+        /* ★ 第 52 轮第 3 项：外缘 1px #DAE3ED；左边线与 AI 会话栏接缝另取档（第 50 轮第 4 项） */
+        border: 1px solid var(--td-panel-line);
+        border-left: 1px solid var(--color-border-2);
+        border-radius: 0 8px 8px 0;
+        /* ★ 第 51 轮第 4 项：去掉浮起投影（--td-panel-shadow）——
+           文件预览栏与 AI 会话栏是同一块面板的两栏，不应有层级感。 */
+        /* 代码语法配色：取设计稿实测值（VSCode Light 系），DS 暂无对应语义 token */
+        --td-code-key: #0451A5; --td-code-str: #A31515; --td-code-num: #098658;
+        /* ★ 第 49 轮：设计稿实测色（DS 无对应语义 token）——
+             激活行底 #ECF2FF / 激活行描边 #D3E2FF（节点 1350:18310 实测）、crumb 底线 #E7EBF1 */
+        --td-tree-active-bg: #ECF2FF; --td-tree-active-bd: #D3E2FF;
+        --td-crumb-line: #E7EBF1;
+        --td-tree-guide: var(--color-border-2);   /* 引导线：设计稿实测 #E5E5E5 = border-2 */
+      }/* 第 48 轮第 2 项：会话栏与文件预览栏连成一体 —— 接缝两侧直角，中间一条发丝线 */
+      .av-browse-on .td-right {
+        border-top-right-radius: 0; border-bottom-right-radius: 0;
+        /* ★ 第 52 轮第 3 项：右缘交给 .td-browse 的左边线，避免接缝变 2px */
+        border-right: 0;
+      }
+      .av-browse-on .td-browse { display: flex; }/* ★ 第 70 轮第 2 项：预览栏展开/收起动效改为「宽度舒展 / 收拢」——与左导航 aside 同款
+         （200ms + 同一条缓动曲线，纯宽度过渡，不做位移、不做 clip-path）。
+         做法：容器 .td-browse-slot 自己过渡 flex-basis（0 ↔ --av-browse-w），
+         面板以固定宽挂在里面、不参与收缩 ⇒ 被容器 overflow 裁切，形成从左往右「长出来」的观感。
+         ⚠️ min-width:0 必需：flex 项默认 min-width:auto 会被内容撑开，宽度过渡直接失效。
+         ⚠️ 拖动分栏条时必须关掉过渡，否则跟手会滞后。 */
+      .td-browse-slot {
+        --av-browse-ease: cubic-bezier(0.22, 1, 0.36, 1);   /* 与左导航 aside 展开曲线同值 */
+        display: none; flex: 0 0 0px; min-width: 0; overflow: hidden;
+      }
+      /* 未挂进 shell flex 行之前不渲染；挂好后由 JS 打上标记 */
+      .td-browse-slot.av-slot-placed { display: flex; transition: flex-basis 200ms var(--av-browse-ease); }
+      .av-browse-on > .td-browse-slot { flex-basis: var(--av-browse-w, 641px); }
+      .td-browse-slot > .td-browse { flex: none; width: var(--av-browse-w, 641px); }
+      .av-browse-on.is-col-dragging .td-browse-slot { transition: none; }/* ================= 第 54 轮第 4 项：文件右键菜单 =================
+         设计稿：主菜单 = 节点 1350:18294 里的 836:28993；「打开方式」二级菜单 = 836:28935。
+         结构一律按 DS Dropdown 契约组装（components/dropdown.json，trigger=contextMenu 变体）：
+           div.giencoder-dropdown-popup[role=menu]
+             ├ div.giencoder-dropdown-item[role=menuitem] > svg + span
+             ├ div.giencoder-dropdown-divider[role=separator]
+             └ div.giencoder-dropdown-item.giencoder-dropdown-submenu[aria-haspopup=menu]
+                 └ div.giencoder-dropdown-popup.giencoder-dropdown-submenu-popup[role=menu]
+         设计稿 2× 截图逐像素量测（主菜单 180×224 / 子菜单 180×214）：
+           面板   内距 6 / 项间距 2 / 圆角 8 / 描边 1px #E5E5E5 / 投影 0 8px 20px rgba(0,0,0,.12)
+           菜单项 内距 5px 8px / 图标-文字 8 / 圆角 4 / 14px-22px / 文字 #1F1F1F
+           图标   14px（单色 #1F1F1F）；「打开方式」右向箭头 14px #868686
+           分隔线 140×1 #E5E5E5，上下各留 4（实测：与内容盒左对齐，右侧留白 26）
+           hover  底色 #F7F7F7 = --color-fill-1（实测；DS 契约 dropdown.json 写的是
+                  --color-fill-2，与视觉稿差一档 —— 以视觉稿为准）
+         ⚠️ 本页产物里已有一条同名 .giencoder-dropdown-popup（外壳 React 组件样式：
+            transform-origin:top / min-width:168 / padding:6 / animation:giencoder-popup-in），
+            其 animation 播完 opacity 会回落到 0（菜单"闪一下就不见"）。
+            故这里用 .td-ctx 双类提高优先级并显式 animation:none，开合改走契约状态类
+            .giencoder-popup-open（与 Select / Popover 弹层同一套参数）。 */
+      .td-ctx.giencoder-dropdown-popup {
+        position: fixed; z-index: var(--z-index-popup);
+        box-sizing: border-box; min-width: 0; width: 182px; padding: 6px;
+        display: flex; flex-direction: column; gap: 2px;
+        background: var(--color-bg-popup);
+        border: 1px solid var(--color-border-2);
+        border-radius: 8px;
+        box-shadow: var(--shadow3-down);
+        transform-origin: top left;
+        animation: none;
+        opacity: 0; visibility: hidden; translate: 0 4px; scale: 0.96;
+        transition: opacity .15s cubic-bezier(0.34, 0.69, 0.1, 1),
+                    translate .15s cubic-bezier(0.34, 0.69, 0.1, 1),
+                    scale .15s cubic-bezier(0.34, 0.69, 0.1, 1),
+                    visibility 0s .15s;
+      }
+      .td-ctx.giencoder-dropdown-popup.giencoder-popup-open {
+        opacity: 1; visibility: visible; translate: 0 0; scale: 1;
+        transition: opacity .2s cubic-bezier(0.34, 0.69, 0.1, 1),
+                    translate .2s var(--transition-timing-function-spring, cubic-bezier(0.34, 0.69, 0.1, 1)),
+                    scale .2s var(--transition-timing-function-spring, cubic-bezier(0.34, 0.69, 0.1, 1)),
+                    visibility 0s;
+      }
+      .td-ctx .giencoder-dropdown-item {
+        display: flex; align-items: center; gap: 8px;
+        padding: 5px 8px; border-radius: 4px;
+        font-size: var(--font-size-body-3); line-height:calc(22px * var(--ui-fs-ratio)); color: var(--color-text-1);
+        white-space: nowrap; cursor: pointer; user-select: none; outline: none;
+        transition: background 120ms var(--transition-timing-function-standard, ease);
+      }/* ★ 第 57 轮：hover 底色由 fill-1 深一级到 fill-2（#F7F7F7 → #F2F2F2），
+         与页面内外壳 DS Dropdown 组件自身的 hover 档位一致。 */
+      .td-ctx .giencoder-dropdown-item:hover,
+      .td-ctx .giencoder-dropdown-item.is-hover { background: var(--color-fill-2); }
+      .td-ctx .giencoder-dropdown-item-disabled { color: var(--color-text-4); cursor: not-allowed; }
+      .td-ctx .giencoder-dropdown-item-disabled:hover { background: transparent; }
+      .td-ctx-ico {
+        flex: none; width: 14px; height: 14px; display: inline-flex;
+        align-items: center; justify-content: center; color: var(--color-text-1);
+      }
+      .td-ctx-ico svg { display: block; width: 14px; height: 14px; }
+      .td-ctx-label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+      .td-ctx .giencoder-dropdown-arrow {
+        flex: none; width: 14px; height: 14px; display: inline-flex;
+        align-items: center; justify-content: center; color: var(--color-text-3);
+      }
+      .td-ctx .giencoder-dropdown-arrow svg { display: block; width: 14px; height: 14px; }
+      .td-ctx .giencoder-dropdown-divider {
+        flex: none; width: 140px; height: 1px; margin: 4px 0; background: var(--color-border-2);
+      }/* ★ 第 50 轮第 2 项：浏览态（文件预览栏展示时）AI 对话框固定为「会话在左、预览在右」，
+         因此其标题栏不再承担「左右拖动互换两栏位置」的手势 —— 光标也不再是 grab。 */
+      .av-browse-on .td-right-bar { cursor: default; }/* ★ 第 49 轮第 1/2 项：两条可拖动的分栏分隔条。
+         宽 9px + margin-right:-9px ⇒ 净占位 0，绝不改变设计稿实测的两栏尺寸；
+         覆盖在右邻栏的左内距上（树容器 padding 20px、代码区 padding 16px），不遮内容。 */
+      .td-split {
+        display: none; flex: none; position: relative; z-index: 3;
+        width: 9px; margin-right: -9px; box-sizing: border-box;
+        cursor: col-resize; touch-action: none;
+      }
+      .av-browse-on .td-split { display: block; }
+      .av-browse-on.is-col-dragging, .av-browse-on.is-col-dragging * { cursor: col-resize; user-select: none; }
+      .td-split::after {
+        content: ''; position: absolute; top: 50%; left: -2px; width: 4px; height: 36px;
+        transform: translateY(-50%); border-radius: 2px; background: transparent;
+        transition: background 120ms var(--transition-timing-function-standard, ease);
+      }
+      .td-split:hover::after, .td-split.is-dragging::after { background: var(--color-primary-6); }
+      .td-split:focus-visible { outline: 2px solid var(--color-primary-6); outline-offset: -2px; }/* 第 49 轮第 4 项：文件目录显隐 */
+      .td-browse-body.is-no-tree .td-browse-tree,
+      .td-browse-body.is-no-tree .td-split[data-td-split="tree"] { display: none; }
+      .td-browse-bar {
+        height: 40px; flex: none; box-sizing: border-box;
+        display: flex; align-items: center; gap: 8px; padding: 4px 16px;
+        border-bottom: 1px solid var(--color-border-2);
+      }
+      .td-browse-tab {
+        display: inline-flex; align-items: center; gap: 5px; height:calc(32px * var(--ui-fs-ratio));min-height:calc(32px * var(--ui-fs-ratio)); padding: 0 8px;
+        border-radius: 4px; font-size: var(--font-size-body-3); color: var(--color-text-1);
+      }/* ★ 第 51 轮第 3 项：设计稿实测该图标墨迹核心 RGB(31,31,31) = --color-text-1，
+         比原 text-2(#4E4E4E) 深一档（同行「摘要」文字亦为 text-1）。 */
+      .td-browse-tab svg { color: var(--color-text-1); }
+      .td-browse-add, .td-browse-ico {
+        display: inline-flex; align-items: center; justify-content: center; flex: none;
+        width: 24px; height: 24px; padding: 0; border: 0; border-radius: 4px;
+        background: transparent; color: var(--color-text-2); cursor: pointer;
+      }/* ★ 第 51 轮第 5 项：顶栏「新建标签(+)」与「收起侧栏(X)」加大两号 —— 24 → 32，
+         恰等于 .td-browse-bar 的内容盒高（40 − 4×2）；图标同步 14 → 16
+         （设计稿实测加号/叉号墨迹 10.7 逻辑 px，对应 16 viewBox-盒）。
+         ⚠ 必须限定在 .td-browse-bar 内：.td-browse-ico 同时被 crumb 的两个按钮复用
+         （那里是 16px 图标 + 24px 盒），不能连带放大。 */
+      .td-browse-bar .td-browse-add,
+      .td-browse-bar .td-browse-ico { width: 28px; height: 28px; }
+      .td-browse-bar .td-browse-add svg,
+      .td-browse-bar .td-browse-ico svg { width: 16px; height: 16px; }
+      .td-browse-add:hover, .td-browse-ico:hover { background: var(--color-fill-1); color: var(--color-text-1); }
+      .td-browse-sep { width: 1px; height: 20px; flex: none; background: var(--color-border-2); }
+      .td-browse-acts { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+      .td-browse-body { flex: 1; min-height: 0; display: flex; }
+      .td-browse-tree {
+        flex: none; width: var(--td-browse-tree-w, 296px); box-sizing: border-box; padding: 20px;
+        display: flex; flex-direction: column; gap: 8px; overflow: auto;
+        border-right: 1px solid var(--color-border-2);
+      }
+      .td-browse-tree-title { padding: 0 8px; font-size: var(--font-size-body-1); font-weight: 500; line-height:calc(20px * var(--ui-fs-ratio)); color: var(--color-text-2); }/* ★ 第 50 轮第 7 项：搜索框改用 DS 标准 Input 组件（default 变体 + prefix 搜索图标）。
+         设计稿实测：白底 + 1px 浅边框 + 32px 高（= DS sizes.medium）、左侧放大镜 13px；
+         原先自绘的 fill-1 扁平盒子（无边/8px 内距）与设计稿不符，已删除，
+         这里只保留 flex: none，避免在树容器（flex column）里被拉伸或压缩。 */
+      .td-browse-search { flex: none; }/* ★ 第 49 轮第 6 项：.td-browse-files 按设计稿还原为 tree
+         ★ 第 50 轮第 3 项：行高改 28px（比设计稿 34px 更紧凑）、行内图标与字号统一 13px。
+         设计稿实测（节点 1350:18310）：行距 34px、缩进 20px/级、
+         目录 chevron 盒中心 = 内容左+14、文件夹图标盒 = 内容左+28、文件图标盒 = 内容左+8、
+         3 级竖向引导线（node x 34/54/74，第 4 级不再画）、
+         激活行 = 内容宽 × 32px 高（上下各留 1px）+ 1px 描边 + 4px 圆角。 */
+      .td-browse-files { display: flex; flex-direction: column; margin-top: 8px; }
+      .td-bf {
+        position: relative; display: flex; align-items: center; height:calc(28px * var(--ui-fs-ratio));min-height:calc(28px * var(--ui-fs-ratio)); box-sizing: border-box;
+        font-size: var(--font-size-body-2); color: var(--color-text-1);
+        white-space: nowrap; overflow: hidden; cursor: pointer;
+        /* ★ 第 53 轮第 8 项：行本体补 4px 圆角。
+           此前只有激活态的 ::before 带圆角，hover 底色是直角，两态不一致。 */
+        border-radius: 4px;
+      }/* 行内盒 13px（与设计稿实测一致）：chevron 中心仍须落在引导线 x=14 ⇒ 左内距 14−13/2=7.5 */
+      .td-bf.is-dir { padding-left: calc(7.5px + var(--d, 0) * 20px); }
+      .td-bf.is-file { padding-left: calc(8px + var(--d, 0) * 20px); }/* ★ 第 57 轮：hover 底色由 fill-1 深一级到 fill-2（#F7F7F7 → #F2F2F2）。 */
+      .td-bf:hover { background: var(--color-fill-2); }
+      .td-bf::before {
+        content: ''; position: absolute; inset: 1px 0; border-radius: 4px; pointer-events: none;
+        background: transparent; border: 1px solid transparent;
+      }
+      .td-bf.is-active::before { background: var(--td-tree-active-bg); border-color: var(--td-tree-active-bd); }
+      .td-bf-guide {
+        position: absolute; top: 0; bottom: 0; width: 1px; background: var(--td-tree-guide);
+        /* 设计稿实测：引导线穿过父级 chevron 中心 —— row 相对 14px + 20px × 级数 */
+        left: calc(14px + var(--g, 0) * 20px);
+      }
+      .td-bf-arrow {
+        flex: none; width: 13px; height: 13px; padding: 0; border: 0; background: transparent;
+        display: inline-flex; align-items: center; justify-content: center;
+        color: var(--color-text-2); cursor: pointer;
+      }
+      .td-bf-arrow svg { transition: transform 120ms var(--transition-timing-function-standard, ease); }
+      .td-bf.is-closed > .td-bf-arrow svg { transform: rotate(-90deg); }
+      .td-bf.is-dir > .td-bf-arrow { margin-right: 7.5px; }
+      .td-bf-ico { flex: none; width: 13px; height: 13px; color: var(--color-text-2); }
+      .td-bf.is-dir > .td-bf-ico { margin-right: 7.5px; }
+      .td-bf.is-file > .td-bf-ico { margin-right: 10px; }
+      .td-bf-name { overflow: hidden; text-overflow: ellipsis; }/* 激活高亮是绝对定位的 ::before —— 按绘制顺序会盖住同级的图标/文字，
+         必须把行内容提到正 z-index 层（实测：不提升则激活行只剩蓝底） */
+      .td-bf-arrow, .td-bf-ico, .td-bf-name { position: relative; z-index: 1; }
+      .td-bf.is-hidden { display: none; }
+      .td-browse-code { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+      .td-browse-crumb {
+        height:calc(36px * var(--ui-fs-ratio));min-height:calc(36px * var(--ui-fs-ratio)); flex: none; box-sizing: border-box; display: flex; align-items: center; gap: 8px;
+        padding: 0 16px; font-size: var(--font-size-body-1); color: var(--color-text-2);
+        /* ★ 第 49 轮第 3 项：补底部线条（设计稿实测 node y=74.7、色 #E7EBF1、贯通整个面板宽） */
+        border-bottom: 1px solid var(--td-crumb-line);
+      }
+      .td-browse-crumb-path { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+      .td-browse-crumb-acts { display: flex; align-items: center; gap: 4px; }
+      .td-browse-pre {
+        flex: 1; min-height: 0; overflow: auto; margin: 0; padding: 8px 0 16px;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: var(--font-size-body-1); line-height:calc(20px * var(--ui-fs-ratio));
+      }
+      .td-code { display: flex; gap: 12px; padding: 0 16px; }
+      .td-code-no { flex: none; width: 18px; text-align: right; color: var(--color-text-3); }
+      .td-code-tx { white-space: pre; color: var(--color-text-1); }
+      .td-code-k { color: var(--td-code-key); }
+      .td-code-s { color: var(--td-code-str); }
+      .td-code-n { color: var(--td-code-num); }

@@ -1,40 +1,69 @@
 # HANDOFF · 下一轮接手卡
 
 > **每轮覆盖重写。新会话开局先读这一页，再按需 grep `PLAYBOOK.md` / `PAGES.md`。**
-> 最后更新：2026-09-30 20:2x（**r101 两批（十一条 + 七条）已落地 → 四查 → 交付：已 commit + push `1d11fc9..9f252e5`（117 文件 / +10377 −123）；工作区干净**）
-> ⚠️ **最新一拍 = r101 第二批七条**（同一代**就地返工** `mg-work/r101/apply101.py`；r93 代已提交 ⇒ r101 仍是新一代）：
-> ② **`.r93-bar` 毛玻璃**（宿主 `position:relative` + 标题栏 `absolute/backdrop-filter` + 滚动口 `padding-top:44px`）·
-> ② 顶栏装饰图 `background-size: 70%`（新块 `r101-hdr-css`，落 **6 页**）· ③ 骨架屏去掉浅灰容器 · ④ 渐隐 40→56px ·
-> ⑤ 汇总卡菜单与产物卡**合一**（r99 ⑦ 那张 4 项菜单退役）· ⑥ 折叠头 hover 右箭头（间距 8px）· ⑦ 展开回弹动效。
-> 逐条实测见 `mg-work/r101/acceptance.md` 第八~十二节。
-> ★★ 本轮最要紧的三条经验（都已进 PLAYBOOK P3.32）：
->   ① **跨行块的剥离正则必须带 `re.S`** —— 漏了不会「摘不掉」，而是自检报「摘块后基线里仍残留标记」（极易误判成检测写错）；
->   ② **`agent-browser click` 会被毛玻璃标题栏接住**（标题栏盖住滚动口最上 44px）⇒ 触点先 `scrollIntoView({block:'center'})`；
->   ③ 上一代已提交时**别回改旧补丁** —— 新起一块同特异性、靠文档顺序取胜的块（`r101-hdr-css` 压 `r92-hdr-css` 就是这么干的）。
-> 工作区：**干净（`git status --porcelain` = 0）**。`origin/main` 已到 **`9f252e5`** —— r101 单独一次提交推上去（117 文件 / +10377 −123）。
+> 最后更新：2026-09-30 23:5x（**r102 十一条 + r103 六条 + r104 四条 + r105 三条已落地 → 四查全绿 + 1440/2560/暗色取证；🚫 未提交**）
+> ⚠️ **最新一拍 = r105 三条**（会话详情页 + 8 个独立页；**r102 / r103 / r104 均未提交 ⇒ 就地返工**，仍改
+> `mg-work/r102/apply102.py`、注入块 id 仍 `r102-conv-css` / `r102-conv-js` / `r102-nav-js`、**不另起代数**）：
+> ① **任何其他独立页面点会话任务 ⇒ 跳 `conversation.html` → 已做**：把 `base.html` 里**已有**的那块
+>   `r102-nav-js`（捕获阶段委托识别 `aside` 里会话项）**扩到其余 8 页**；走 `nav_patch → invert_if_absent`
+>   （内容一致就一字不动、**只保位置**）⇒ **8 页各 +714 字符**。负例（分组标题 / 「新会话」按钮）**必须放行**。
+>   ▲ `task-detail` 壳 `aside` 实为 **`display:none`**（rect `[0,0,0,0]`，可见左栏是 `.td-left` 任务面板）、
+>   `kanban`/`settings` 的 aside 是**筛选面板 / 设置导航**、`dev`/`req-kanban` **无 `<aside>`** ⇒ **5 页无对象，非缺陷**。
+> ② **对话⇄轨迹 `.r93-seg` 切换加滑动动效 → 已做**：改用 **DS 官方滑块** `.giencoder-radio-button-slider`
+>   （DS `components.css` **本来就带** `transition: transform .28s, width .28s`，且**已在页面内联**）。
+>   根因 = 当年页面把 `.giencoder-radio-button-checked` **自绘**成白底 + 描边 ⇒ **位移没有载体**、只能硬切。
+>   滑块接管白底/描边（`top/left:1px`、`height:26px`、`radius:5px`），`checked` 改 `background: transparent; border: 0`；
+>   `data-r93-seg-init='0'` **首帧禁过渡**（否则滑块从 **0 宽「长」出来**）；JS `r93SegMove()` 写行内几何，
+>   **四处重定位**（页签 click / `fonts.ready` / `resize` / **1200ms 兜底**），**两帧后**摘 `data-r93-seg-init`。
+>   ▸ 逐帧 `0 → 38.79(82ms) → 49.58(148) → 51.75(215) → 51.999(282) → 52(348ms 稳定)`，宽恒 52。
+> ③ **`r93-bar` 右侧按钮换成「全屏」+「打开侧栏」（= 数字分身 `td-right-acts`）→ 已做**，三层：
+>   ▸**按钮本体**逐字对齐 `.td-right-acts`（`giencoder-btn -secondary -size-default -icon` + 本页 `.r93-baract`），
+>   原单枚 `.r93-morebtn`（⋯，**本来无任何行为**）**整枚退役**（活规则 0 条，残留 3 处全在注释）。
+>   ⚠ `border-color: transparent` **必须写**（avatar 的 `.td-round-btn` 就是靠它去掉 DS 默认描边）；圆角**不覆盖**随 DS 8px；图标 14px。
+>   ▸**全屏** = `<html data-r93-full='1'>` ⇒ 左导航 `aside` 收拢 0、对话区吃满（做法与浏览态**完全同款**：
+>   `width/min-width/padding: 0 !important` + `opacity:0` + `pointer-events:none`；外壳宽度是 React **内联** style ⇒ 必须 `!important`）。
+>   两枚图标**共用一枚按钮**，靠 `html[data-r93-full='1'] .r93-baracts .r93-ico-max/-min` 切显隐。
+>   ▸**「打开侧栏」** = 把数字分身 **AV-BROWSE-SLOT v1** 三件套**整块移植**（新增 `part105/` 四件）⇒ 文件树 + 代码预览 + 拖分栏条。
+>   记忆 key 换 **`giencoder:r105-browse:v1`**（与数字分身**分开**）。
+>   ▲ **Esc 裁决链新增第 ③ 级**：右键菜单 → 预览栏 → 全屏，每级 `stopImmediatePropagation`。
+>   ▲ 第 ③ 级**不直接改 `<html data-r93-full>`**：状态由 r102 主脚本持有（它还要翻 `aria-*` 并派发 `resize`），
+>   控制器**更晚注册**、直接调函数会**反序** ⇒ 走自定义事件 **`r93:fullscreen`**。
+>   ▲ **③-d 补了暗色档**（`browse.css` 的 7 个字面 hex **全是自定义属性定义**；源页 avatar / task-detail **都没有**暗色分支，
+>   本模块**第一次落到有暗色分支的页面**）⇒ 不补的实测后果：外缘线成**亮框**、代码主色 `#0451A5` 对 `#17171a`
+>   对比度 ≈ **2.0**（远低于 4.5）、激活行成**整块白**。修法只覆盖那 7 个自定义属性、**不动几何**（源件逐字不动 ⇒ 同源校验仍成立）。
+> ★★ r104 那条仍要紧（PLAYBOOK **P3.36**）：**正 z-index 创建层叠上下文 ⇒ 其内部所有后代浮窗的 z-index 被封顶在那一层**
+>   （r103 ⑤ 给 hero 加 `z-index:1` 的代价）⇒ 修法是**把兄弟宿主整块降到 `z-index: 0`**，两条**成对**（实测详见 acceptance r104 段）。
+> 工作区：**10 页 ` M` + `?? mg-work/r102/`**（`conversation.html` **793028** / sha `e67474395502`；`base.html` **472150（+0）**；
+>   其余 **8 页各 +714**）。`origin/main` 停在 **`9f252e5`**（r101 已推送）。
 > ⚠ **r89 / r90 / r91 / r92 对设置页的改动、r93 需求 1 对字号机制的改动，全都是 r88 的就地返工**（r88 未提交 ⇒ 按硬规则不另起代数，直接改 `mg-work/r88/apply88.py` 与 `apply88b-fontsize.py`）。
-> ⚠ **r94 ~ r100 全部是 r93 代就地返工**（落在 `mg-work/r93/apply93.py`）；**r101 起是新代**（`mg-work/r101/apply101.py`，承接 r93 代的产物）。
+> ⚠ **r94 ~ r100 全部是 r93 代就地返工**（落在 `mg-work/r93/apply93.py`）；**r101 起是新代**（`mg-work/r101/apply101.py`，承接 r93 代的产物）；
+> **r102 又是新代**（`mg-work/r102/apply102.py`，承接 r101 代的产物 —— `GENS` 现在有 r93 / r101 / r102 三代）；
+> **r103 是 r102 的「未提交期就地返工」**（仍改 `apply102.py`，注入块 id 不变）；
+> **r104 / r105 同样是就地返工**（仍改 `apply102.py`）⇒
+> **r102 十一条 + r103 六条 + r104 四条 + r105 三条是同一次交付**（等邵先生发话 commit / push）。
 > ⚠ **★ `pages/` 下每个页面都是「完全自包含」的独立 html**（顶栏 + aside + 外壳各一份，**没有共享布局、没有真实路由**）⇒ 新开一页 = **由源页净底重建（不复制）**；页面间跳转靠每页内嵌 `<!-- SHELL-NAV-FIX v5 -->` 的 `ROUTE` 表 + `hashchange`（见第十节）。
 
 ---
 
 ## 一、当前工作区状态
 
-**工作区干净**。r86 ~ r100 于 18:2x 提交推送（`6a4b0ea..d7e2151`，776 文件 / +156039 −532）；**r101 于 20:2x 提交推送**（`1d11fc9..9f252e5`，117 文件 / +10377 −123）。
+**r102 ~ r105 尚未提交**（工作区 = **10 页 ` M`** + 4 份 `.workbuddy/memory/*.md` + `?? mg-work/r102/`）。
+r86 ~ r100 于 18:2x 提交推送（`6a4b0ea..d7e2151`，776 文件 / +156039 −532）；**r101 于 20:2x 提交推送**（`1d11fc9..9f252e5`，117 文件 / +10377 −123）。
 
 | 改动 | 内容 |
 |---|---|
-| `pages/conversation.html` | **634719 → 672845 字符**（+38126，r101 两批）；LF 文本 `sha 98140cc4bf8f`；`script=9 style=15`；注入块 id 换代 `r93-conv-*` → **`r101-conv-css` / `r101-conv-js`**；r101 十八条见下 |
-| `pages/base.html` | **471444 → 472150 字符**（+706）；LF 文本 `sha 2ffe5f16d5c8` ＝ nav 脚本 id 由 `r93-nav-js` 换成 **`r101-nav-js`**（注释对同步换名）+ **`r101-hdr-css`（顶栏图 70%）** |
-| `pages/{avatar,skills,automation,settings}.html` | 各 **+703**（567372 `559b9cbf3fa3` / 360869 `6a05419651c8` / 360982 `dfadc6d06e7b` / 458508 `652ac5235283`）＝ 只多一块 `r101-hdr-css` |
-| `mg-work/r101/` | `apply101.py`（含 `--revert` / `--dry`）/ `acceptance.md`（**十三节**：两批逐条实测 + 设计稿取数 + `GENS` 逐代摘除 + 四查 + 待拍板 + 本轮踩坑）/ `before/`（2 份 r101 前置基线：`conversation-r101.html` / `base-r101.html`）/ `ev/`（`p101*` 探针 + `p101fin2.sh/.log` 终态取证 + `vd-r101a/b/d/e.txt` + `check_ow.py` / `sample_t12l.py`）/ `raw/`（骨架屏 / 右键菜单 / 毛玻璃 A/B / 渐隐 A/B / 投影剖面 / 顶栏 A/B / 设计稿对照裁片 / 双视口终态） |
-| `.workbuddy/memory/2026-09-30.md` | 当日原始日志（含 r92 / r93 / **r93 ④** / r94~**r101** 各段） |
+| `pages/conversation.html` | **634719 → 793028 字符**（r101 两批 +38126 → r102 +10199 → r103 +2421 → r104 +6183 → **r105 ② +2173 → ③ +99207**）；LF 文本 `sha e67474395502`（r101 交付态 `98140cc4bf8f`、r102 态 `249fbc984716`、r103 态 `a340b6a9e89f`、r104 态 `05b899bd4366`）；`script=9 style=16`（**16 与 HEAD 一致，旧记录写 15 是笔误**）；注入块 id 经 `r93-conv-*` → `r101-conv-*` → **`r102-conv-css` / `r102-conv-js`**（历代残留 0）；r102 十一条 + r103 六条 + r104 四条 + r105 三条见 acceptance |
+| `pages/base.html` | **471444 → 472150 字符**（r101 +706，r102 ~ r105 **+0**）；LF 文本 `sha c406a60add16`（r101 态 `2ffe5f16d5c8`）＝ nav 脚本 id 由 `r101-nav-js` 换成 **`r102-nav-js`**（注释对同步换名，**长度相同**）+ **`r101-hdr-css`（顶栏图 70%）** |
+| `pages/{avatar,skills,automation,settings,dev,kanban,req-kanban,task-detail}.html` | **各 +714**（r105 ① 注入同一块 `r102-nav-js`；这 8 页在 r101 已各 +703）；终态 `568086 / 361583 / 361696 / 459222 / 450205 / 568052 / 513791 / 767428` |
+| `mg-work/r101/` | `apply101.py`（含 `--revert` / `--dry`）/ `acceptance.md`（**十三节**）/ `before/`（2 份前置基线）/ `ev/`（探针 + 终态取证 + `vd-r101*`）/ `raw/` —— **已提交**，仅供追溯 |
+| `mg-work/r102/` | `apply102.py`（**163605 字符 / 220815 字节**；`cp` 自 r101 后大改；**r103 六条 + r104 四条 + r105 三条也在里面**，含 `--revert` / `--dry`）/ `acceptance.md`（**六节 r102 + r103 段 + r104 段 + 新增 r105 段**，39524 字节）/ `before/`（`conversation-r102.html` 721864 / `base-r102.html` 490294）/ **`part105/`**（`browse.css` 15937 / `browse.html` 31688 / `browse.js` 47410 / `ctrl-conv.js` 15465，r105 ③ 三件套 + 控制器）/ `ev/`（`p102a~p102f` + `p103a~p103k` + `p104a~p104q` + **`p105a~p105j` + `p105e/f/g1.js` + `extract105.py` + `write_acc105.py` + `.log`** + `audit104.py/.log` + `vd-r102a/b.txt` / `vd-r103a.txt` / `vd-r104b/c.txt` / **`vd-r105a/b.txt`**）/ `raw/`（基线 / 改后 1440+2560 / 折叠 / hover / `g103-*` ~ `k103-*` / `z104-*` `a104-*`~`z2560-*` `c2560-*` / **`x105-*` `y105-*` `z2560-browse*` `z2560-dark-browse` `z1440-dark-105` r105 裁片**）—— **`??` 未提交** |
+| `.workbuddy/memory/2026-09-30.md` | 当日原始日志（含 r92 / r93 / **r93 ④** / r94~**r105** 各段） |
 
 > 历史（已提交的那批，仅供追溯）：`settings.html` 457805 字符（r88~r93①）；`{avatar,skills,automation}` = 566669 / 360166 / 360279；
 > `{dev,kanban,req-kanban,task-detail}` = 449491 / 567338 / 513077 / 766714；`assets/images/bg-img-1.png`（顶栏装饰）；`giencoder-design-system/components.css` + `.gienx-templates/_shared/components.css` + `components/select.json`（r87 select）。
 > `?? mg-work/r92/` · `?? mg-work/r93/`（`apply93.py` + `acceptance.md` 十三节 + `before/` 25 份 + `ev/` + `raw/`）—— **均已提交**。
 
-`origin/main` @ **`9f252e5`**（r101 已推送；上一站 `d7e2151` = r86~r100，再上一站 `1ecc7ee` = r80–r85）。**长期约定「默认不自动 commit / push」（2026-09-28 起）；邵先生显式说「commit and push」时才执行**。
+`origin/main` @ **`9f252e5`**（r101 已推送；**本地已领先一站 = r102 十一条 + r103 六条 + r104 四条 + r105 三条，工作区未提交**；上一站 `d7e2151` = r86~r100，再上一站 `1ecc7ee` = r80–r85）。**长期约定「默认不自动 commit / push」（2026-09-28 起）；邵先生显式说「commit and push」时才执行**。
 
 ⚠ `.gitignore`：`mg-work/r80/raw/sel_*.json`、`mg-work/*/gate/*/pages/`。`before/` 与 `raw/` **是**入库惯例。
 ⚠ **推送凭据**：PAT 已写入 `~/.git-credentials`，推送带 `-c credential.helper=store`（详见第九节）。
@@ -422,6 +451,119 @@ python mg-work/r93/apply93.py             # 需求 2 + ④（**必须最后跑**
 
 ---
 
+## 二·c ★ r102（最新一拍 · 会话详情页十一条 · 2026-09-30 20:4x）—— **🚫 未提交**
+
+> 完整版见 `mg-work/r102/acceptance.md`（六节）；脚本内新教训见 PLAYBOOK **P3.34**（五条）；本页固定事实见 PAGES **P3.11g ⑫**。
+
+**① 体位**：r101 **已提交**（`9f252e5`）⇒ 本代**新建** `mg-work/r102/apply102.py`，
+注入块 id 换代 `r101-conv-*` → **`r102-conv-css` / `r102-conv-js` / `r102-nav-js`**。
+`GENS` 逐代摘除表**扩到三代**（r93 / r101 / r102，三条剥离正则各摘三支、注入只用 r102）。
+★ `HDR_ID` **保持 `r101-hdr-css` 不换名**（顶栏图本轮无改动）；`RAWI_DIRS` **三级回落**；
+宿主 `r93-conv-host` / `data-r93-page` 跨代沿用 ⇒ 页面级 CSS 选择器**一字未改**。
+
+**② 十一条**（实测见 acceptance 第一节）：
+
+| # | 落地 | 关键实测 |
+|---|---|---|
+| ① | `.r93-t14` 15 → **13px**；数字滑入动效 `.r93-num`（CSS + JS） | 直方图 `{13px:58, 14px:6}`（卡内 6 处仍 14，被 `.r93-card.r93-card *` 钉住）；`num n=13`、`delay 1.5s`；真实时间轴两拍：骨架屏在时 `op=0/translateY(9.8px)` → +1.4s `op=1/none`；**包装 A/B `dx=dy=0`** |
+| ② | `.r93-fc .r93-fchev` 间距 8 → **4px** | 靠父级 `gap:4`；标题右缘→箭头左缘 = **4px** |
+| ③ | **折叠收起补动效**（`max-height` 精确高度过渡） | 收起曲线 `222→220→188→…→2→0`（0.32s 平滑）；展开反向同长；终态 `overflow:visible` / `.r93-fb.is-free` |
+| ④ | `.r93-t12.r93-nm` 12 → **13px** | 2 处全 13px |
+| ⑤ | `.r93-iblk.r93-cv > svg` 10 → **12px** | `slotW=14` / `svgW=12` / `n=14` |
+| ⑥ | 折叠头/展开头 hover 时 meta 也变正文色 | `hovFc=true` / `metaColor=rgb(31,31,31)`（原 `rgb(134,134,134)`） |
+| ⑦ | `.r93-asst` 底边线浅一级（**撤 r99 ⑬**） | `rgb(229,229,229)` → **`rgb(242,242,242)`** |
+| ⑧ | `.r93-drow` padding → **`0 16px`** | 文件名左缘相对卡 16、「⋯」右缘 16；`gap 17` / 行高 36 不变 |
+| ⑨ | `.r93-dhead` 左内距 12 → **16px** | `pad="6px 6px 5px 16px"`；图标槽相对 16 |
+| ⑩ | 「滚动到底部」药丸 → 毛玻璃（+ hover 档 `--r93-glass-h`） | `bg rgba(255,255,255,.72)` / `bf blur(12px)`（原 `rgb(255,255,255)` / `none`）；裁片见背后文字被洗淡 |
+| ⑪ | `.r93-seg` 总高 **28px** 且垂直居中 | 基线 **34px**（上 8 / 下 2）→ **28px**（上 8 / 下 8）；根因 = DS `min-height` 没被覆盖 |
+
+**③ 本代新沉淀（PLAYBOOK P3.34）**：`min-height` 比 `height` 更能顶住 · 同帧「写 CSS 变量 + 改属性」会被合并
+（必须**提前维护**，`void offsetHeight` 强制 flush 无效）· `max-height` 收起必须用**精确高度** ·
+断言 hover 要用**不被遮挡的**目标 · `.r93-num` 基线用 `vertical-align:bottom` + 同 `line-height`；
+动效基础延迟必须 ≥ 骨架屏完整生命周期（**1.42s ⇒ 取 1.5s**）。
+
+**④ 产物**：`conversation.html` 672845 → **683044**（+10199；LF `sha 249fbc984716`）；
+`base.html` 472150 → **472150**（+0，仅 nav id 换名；`sha c406a60add16`）；其余 4 页**未动**。
+回滚：`python mg-work/r102/apply102.py --revert` 或 `cp mg-work/r102/before/conversation-r102.html pages/conversation.html`。
+
+**⑤ 四查**：幂等 ✓（第二遍双「已是目标态」）｜`check-syntax` **10/10**｜`verify-design` 与 r101 终态
+`vd-r101e.txt` **逐字节相同**（21882 字节 / `diff_exit=0`，**零新增**）｜1440 + 2560 双视口实测一致 + 视觉裁片目视 ✓。
+**代数标记**：真·注入块 `r102-*` 各 1；**历代 id 残留 0**。
+
+**⑥ 待拍板 5 条**：`-m`/`-b` 变体仍 15px ｜数字动效覆盖「全部卡外数字串」（含正文数字）｜基础延迟 1.5s ｜
+`--r93-glass-h` 无设计稿依据 ｜`.r93-fb` 常驻 `overflow:hidden`（展开稳定后 `.is-free` 放行，新浮层会被裁 360ms）。
+
+---
+
+## 二·d ★ r103（最新一拍 · 会话详情页六条 · 2026-09-30 21:1x）—— **就地返工，与 r102 同批未提交**
+
+> 完整版见 `mg-work/r102/acceptance.md` 的 **r103 段**；机制级教训见 PLAYBOOK **P3.35**；本页固定事实见 PAGES **P3.11g ⑬**。
+
+**① 体位**：r102 **未提交** ⇒ **就地改 `mg-work/r102/apply102.py`**，注入块 id 不变（`r102-conv-*`）、**不另起代数**。
+产物 `conversation.html` 683044 → **685465**（+2421；LF `sha a340b6a9e89f`）；`base.html` **472150（+0）**。
+
+**② 六条**（实测见 acceptance r103 段第一节）：
+
+| # | 落地 | 关键实测 |
+|---|---|---|
+| ① | `.r93-t14` 13 → **15px**（**撤销 r102 ① 字号**；数字动效保留） | 直方图 `{13:58,14:6}` → **`{15:58,14:6}`**；`.r93-num` 仍 13 个 |
+| ② | `.r93-t14.r93-ell` / `.r93-c1` 也 15px | 35 处 + 2 处**全 15px**（两类本身不含 font-size ⇒ 随 ① 自动生效） |
+| ③ | 药丸毛玻璃**再透一档** | 新增 `--r93-glass-pill` **0.60** / `-h` 0.74（暗色同口径）；**标题栏仍 `--r93-glass` 0.72 不动**；A/B 像素均值 **235.5 < 236.2** |
+| ④ | **`.r93-agents` 整行退役**（连 `.r93-cp`） | 两元素均不存在；`.r93-bottom` `{y:593,h:112}` → **`{y:653,h:52}`**（子元素只剩 `.r93-sb`），底部整块**上移 60px**；CSS 一族**保留未删** |
+| ⑤ | 底部对话框激活态**外发光顶部截断 → 已修** | 5 组 A/B 定性：宿主 `overflow:visible` **无效** / 宿主 `position:static` **有效** / hero 提层 **有效** ⇒ 根因 = **绘制顺序**（宿主 `position:relative` 后按**树序**画在 hero 之后）；修法 hero 补 `position:relative; z-index:1`；中轴 y702-704：`255,255,255` → **`230,237,253`/`231,238,254`/`231,238,254`** |
+| ⑥ | 折叠开合**两态统一** + 修**闪动** | 撤掉 `@keyframes r93-fold-in` + 单向 animation ⇒ **14 块 `animationName!=='none'` 数 = 0**；统一四条 transition（`max-height`/`margin-top`/`opacity` 0.32s + `transform` 0.34s back-out）；`setFold` 改错帧翻属性。收起 `opacity` **逐帧连续** `1→0.993→0.737→…→0`（旧版一帧 `1→0`）；展开 `transform` 超调 `+0.779px` 后落定 0 ⇒ **镜像** |
+
+**③ 两条机制级教训（PLAYBOOK P3.35）**：
+* **给宿主加 `position: relative` 会连带改变绘制顺序** —— `order` 决定的次序在提升为 positioned descendant 后
+  **退回树序**，后 `appendChild` 的宿主反而压在 hero 之上（⑤ 的真凶）。凡是加 `position`/`z-index`/`transform`/`filter`
+  这类会新建包含块或层叠上下文的属性，都要重算「浮动层 vs 兄弟宿主」的次序。
+* **`animation` 被移除不会触发 transition**（CSS Transitions 例外：属性被运行中的动画影响时不启动过渡）
+  ⇒ 「展开用 keyframes、收起用 transition」的混合写法**必然有一向硬切**（⑥ 的真凶）。要么两态都 animation，
+  要么两态都 transition（本轮选后者，顺带把「单向」变成「镜像」）。
+* 附带：`--r93-fbh` 在**嵌套折叠**后会陈旧（实测 fold#10 `314px` vs 真实 170px）⇒ 每次开合都要**重新量**。
+
+**④ 四查**：幂等 ✓（第二遍双「已是目标态」）｜`check-syntax` **10/10**（conversation `script=9 style=16`，
+**16 与 HEAD 一致、旧记录写 15 是笔误**）｜`verify-design` 与 r101 终态 `vd-r101e.txt` **逐字节相同**
+（17148 字符 / md5 `84f552c5b5a6` / `diff_exit=0`，**零新增**）｜**2560 + 1440 暗色**双档复核一致 + 视觉裁片 ✓。
+
+**⑤ 待拍板 2 条（r103 新增）**：③ 透明度取 0.60（想更透可一行调 `--r93-glass-pill`；要让标题栏一起变只需改一行）；
+④ 摘行后状态条↔composer 之间为 **44px** 空档（= 12px 下内距 + 外壳 `div.mt-8` 的 32px），觉得松可再压。
+
+---
+
+## 二·e ★ r105（最新一拍 · 会话详情页 + 8 个独立页三条 · 2026-09-30 23:0x）—— **就地返工，与 r102/r103/r104 同批未提交**
+
+> 完整版见 `mg-work/r102/acceptance.md` 的 **r105 段**；机制级教训见 PLAYBOOK **P3.37**（四条）；本页固定事实见 PAGES **P3.11g ⑮**。
+> （r104 四条无独立章节，要点见本页头部 + acceptance r104 段 + PLAYBOOK P3.36。）
+
+**① 体位**：r102 / r103 / r104 **均未提交** ⇒ **就地改 `mg-work/r102/apply102.py`**，注入块 id 不变、**不另起代数**。
+新增静态片段目录 **`mg-work/r102/part105/`**（四件），在 `inject_tail` 里拼进**同一次**注入。
+产物 `conversation.html` 691648 → **793028**（② **+2173**、③ **+99207**）；`base.html` **472150（+0）**；
+其余 **8 页各 +714**（同一块 `r102-nav-js`）。
+
+**② 三条**：
+
+| # | 落地 | 关键实测 |
+|---|---|---|
+| ① | 把 `base.html` 已有那块 `r102-nav-js`（**捕获阶段委托**识别 aside 会话项）**扩到其余 8 页**；`nav_patch → invert_if_absent`（一致 ⇒ 一字不动、只保位置） | 真鼠标点击：`base`/`avatar`/`automation`/`skills` 均落 **`conversation.html`** ✓；**负例**：点分组标题 / 点「新会话」均**留在原页** ✓；`task-detail` 壳 aside **`display:none`**、`kanban`/`settings` aside 是筛选/设置导航、`dev`/`req-kanban` **无 aside** ⇒ **5 页无对象**；各页 nav 块**各 1**，conversation **0** |
+| ② | 改用 **DS 官方滑块** `.giencoder-radio-button-slider`（DS 自带 `transition: transform .28s, width .28s` 且**已内联**）；滑块接管白底/描边、`checked` 改 `transparent`、JS `r93SegMove()` 写行内几何 | **逐帧** `0 → 38.79(82ms) → 49.58(148) → 51.75(215) → 51.999(282) → 52(348ms 稳定)`，宽恒 **52**；反向点回「对话」**镜像回 0** ✓。根因 = 当年**自绘**取代了 DS 滑块 ⇒ **位移无载体**、只能硬切 |
+| ③ | `r93-bar` 右侧换成 **全屏 + 打开侧栏**（= 数字分身 `td-right-acts`）：按钮本体逐字对齐 + `<html data-r93-full='1'>` + **AV-BROWSE-SLOT v1 三件套整块移植** | **按钮** rect `[1359,57,64,28]`（28×28 + gap 8，右缘 1431 = bar 右缘 − 8）、`bd rgba(0,0,0,0)`、`br 8px`、hover `rgb(247,247,247)`、图标 **14px**；**全屏** 1440 `aside 256→0` / `main 1164→1420` / `aria-label` 翻转，2560 同构；**侧栏** `aside 0 / main 779 / split [791,48,9,844] / pane 641`、右键菜单 **12 项**、文件树 **28 行**（点目录 `is-closed` + 27 行 `is-hidden`）、拖分栏 **641→701** 落盘 `{"panelW":701}`、关闭**完全复原**；**Esc 三档**逐层（菜单 → 侧栏 → 全屏） |
+
+**③ r105 新增的第 ③-d「暗色档」**（源页没有，本模块**首次落到有暗色分支的页面**）：
+`browse.css` 7 个字面 hex **全是自定义属性定义** ⇒ 只覆盖这 7 个、**不动几何**（源件逐字不动、同源校验仍成立）。
+暗色实测 `panelBorder rgb(78,78,78)` / `codeKey rgb(86,156,214)` / `panelBg rgb(23,23,26)`，**浅色档逐字节不变**。
+
+**④ 四查**：幂等 ✓（第二遍双「已是目标态」）｜`check-syntax pages/*.html` **10/10 ALL_OK**（conversation `script=9 style=16`）｜
+`verify-design ./pages` 与 `vd-r101e.txt` **逐字节相同**（17148 字符 / md5 `84f552c5b5a6`）⇒ **零新增**｜
+**1440 + 2560 + 暗色**三档实测 + 裁片目视 ✓。死代码：`r93-morebtn` 全仓 **3 处全在注释**（活规则 0）。
+
+**⑤ 待拍板 3 条（r105 新增，均是「顺手替他做的判断」）**：
+1. **全屏 = 收拢左导航**（同数字分身全屏语义）—— 若想保留一条**可点回来的窄条**（0 → 12px 抓边），说一声即改。
+2. **预览栏默认宽 641**（沿用数字分身）—— 本页内容更宽，若想本页另给默认值（如 720）可单独调。
+3. **预览栏与「全屏」可同时开**（`x105-2-both.png`：aside 0 + 侧栏在右）—— 若想**互斥**，说一声即改。
+
+---
+
 ## 三、r88 ~ r92 做了什么（前情提要）
 
 | 轮 | 需求 | 落地要点 |
@@ -475,12 +617,20 @@ python mg-work/r93/apply93.py             # 需求 2 + ④（**必须最后跑**
 
 **★ r101 复查（同日第十一轮 · 最新）**：同上口径全绿 —— 幂等 ✓（第二遍 base + conversation 双「已是目标态」）｜`check-syntax` **10/10**｜`verify-design` **76 条**，与 `vd-r93c.txt` **逐行 diff 只剩 1 条**（conversation 渐变 `62 → 63` = ⑥ 的渐隐层，info 级页面统计）｜★ **新增决定性探针 `ev/p101hov.js`**（连查 `matches(':hover')`）⇒ 三个 hover 目标全部 `hov=true`｜**终态一次性取证 `ev/p101fin.sh` + `p101fin.log`**（骨架屏两拍 / 11 条静态读数 / 3 个 hover / dx=0 / 右键菜单）｜双视口 1440 + 2560｜像素：投影剖面 Σ\|Δ\|=3、渐隐带 `r101-fin-fadezoom.png`。
 
+**★ r102 ~ r105 复查（同日第十二~十五轮 · 均已落地未提交）**：同一口径全绿 ——
+幂等 ✓（第二遍双「已是目标态」，r105 后 `conversation.html` sha **不变**）｜`check-syntax pages/*.html` **10/10 ALL_OK**
+（conversation `script=9 style=16` —— **16 与 HEAD 一致，旧记录写 15 是笔误**）｜`verify-design ./pages` 与 **`vd-r101e.txt`
+逐字节相同**（**17148 字符** / md5 `84f552c5b5a6` / `diff_exit=0`）⇒ **零新增**｜
+代数标记：真·注入块 `r102-conv-css` / `r102-conv-js` 各 1（conversation）、`r102-nav-js` 1（base）+ 1×8（其余 8 页，**conversation 为 0**）；
+**历代 id 残留 0**（`r93-*` / `r101-*` 全清）｜
+r105 死代码：`r93-morebtn` 全仓 **3 处全在注释**（活规则 0 条）。逐条见 `mg-work/r102/acceptance.md` 的 r102 / r103 / r104 / **r105** 段。
+
 | 查 | 结果 |
 |---|---|
 | 幂等 | `apply88.py` `457805 → 457805 (+0)`（**且未摘掉 settings 的 ROUTE 条目**）；`apply88b` **10 页全「已是目标态」**（含新页 `conversation.html`）；`apply92.py` **应用 0 / 跳过 8**；`apply93.py` 第二遍起 **base + conversation 双「已是目标态（无改动）」**；**`apply101.py` 第二遍「已是目标态（无改动）」**；`base` / `conversation` 字节 sha 复跑前后一致 |
-| 语法/配平 | `check-syntax.py pages/*.html` → **10/10 ALL_OK**（base `script=9 style=14` / conversation `script=9 style=15`） |
+| 语法/配平 | `check-syntax.py pages/*.html` → **10/10 ALL_OK**（base `script=9 style=15` / **conversation `script=9 style=16`**） |
 | 零影响 | `verify-design.py ./pages` → **76 条**（66 warning / 10 info / 0 critical）；r101 与 `vd-r93c.txt` **逐行 diff 只剩 1 条**（渐变 62→63）；④ 前 9 页 = **75 条**（`vd-r93c-base.txt`）⇒ **唯一新增 = `conversation.html` 的 1 条 `CRAFT-SLOP`**（info 级页面级统计，非缺陷），**warning 66 / critical 0 不变**；base 原有 2 条 `TOKEN-GAP`（`#E2D3F9`/`#30953B`）随块搬到新页（同型同量、只换文件名） |
-| 代数标记 | r101 起必查残留：`conversation` 的 `r101-conv-css`/`r101-conv-js` 各 **1**、`base` 的 `r101-nav-js` **1**；**`r93-conv-*` / `r93-nav-js` 必须 0** |
+| 代数标记 | r102 起必查残留：`conversation` 的 `r102-conv-css`/`r102-conv-js` 各 **1**、`base` 的 `r102-nav-js` **1**、其余 8 页各 **1**；**`r93-conv-*` / `r101-conv-*` 必须 0** |
 | 路由 | 10 页 `ROUTE` 表各含 `'/conversation'` **恰好 1 次**（counted 断言） |
 | 视觉/像素 | 会话详情 `raw/v3-conv-top.png` `v3-conv-bottom.png`（+ `v3-base.png` 对照）；composer 复用 `raw/q-real-composer.png`(真组件 1114×214) vs `raw/q-design-composer.png` / `q-design-bottom.png`；下拉翻向取证 `raw/v3-perm-up.png`；r101 新增 `raw/r101-fin-*.png`（骨架屏 / 右键菜单 / 渐隐带 2× / 全页） |
 
@@ -548,6 +698,14 @@ python mg-work/r93/apply93.py             # 需求 2 + ④（**必须最后跑**
     没点按钮的 hover ⇒ 与 `.r93-ib:hover`（浅灰底、无边框）**仍不统一**。要统一说一声（一行）。
 23. 更早遗留：r86 三处 DS-vs-设计稿差异；r84 avatar 确认态按钮组是否再挪 8px；r83 三条；r81 三条；r79 `r74-ripple` 死代码；r77 滚动条 hover；r74 动效 300ms 上限；`pages/gaps.log` 与页面不同步。
 
+### r105 新增（3 条，均为「顺手替他做的判断」）
+
+41. ★ **r105 ③b —— 全屏 = 收拢左导航**（`aside → 0`、对话区吃满整行），与数字分身全屏「让 main 让位」**同语义**。
+    若要保留一条**可点回来的窄条**（如 `0 → 12px` 抓边），说一声即改（一处 CSS）。
+42. ★ **r105 ③c —— 预览栏默认宽 641**（沿用数字分身 `--av-browse-w`）。本页内容更宽 ⇒ 若想本页另给默认值（如 720）可单独调一行。
+43. ★ **r105 ③c —— 预览栏与「全屏」可同时开**（`x105-2-both.png`：aside 0 + 侧栏在右）。
+    若要**互斥**（开全屏自动收侧栏，或反），说一声即改。
+
 ---
 
 ## 七、下一轮接手清单（按顺序）
@@ -558,11 +716,14 @@ python mg-work/r93/apply93.py             # 需求 2 + ④（**必须最后跑**
    → `mg-work/r87/apply87a-select.py` → `mg-work/r86/apply86.py`（**后两个被 r88 的 PRIOR 涵盖，重复跑也是 `+0`**）。
 2. 改页面**一律走 `mg-work/rNN/applyNN.py`**，体位 = 「先 `strip_all(当前页)` 取净底 → 再注入」⇒ **改完直接重跑即自愈**。
    **例外**：上一轮尚未提交时的即时返工 ⇒ **就地修订原补丁、不另起代数**（判据：`git status` 里仍是 ` M`）。
-   ★ 现状（2026-09-30 20:2x）：`r86 ~ r100`（`d7e2151`）与 **`r101`（`9f252e5`）均已提交** ⇒ **工作区干净**
-   （`mg-work/r101/apply101.py` 承接 r93 代的产物、覆盖 `pages/{base,conversation}.html` + 6 页顶栏图块）⇒
-   **r101 已交付 ⇒ 下一轮再改会话详情 / 顶栏图要新建 `mg-work/r102/apply102.py`**
-   （照抄 r101 的 `GENS` 逐代摘除表，把 `r101` 列为「上一代」、`r102` 为当前代）；
+   ★ 现状（2026-09-30 23:5x）：`r86 ~ r100`（`d7e2151`）与 **`r101`（`9f252e5`）均已提交**；
+   **`r102` 十一条 + `r103` 六条 + `r104` 四条 + `r105` 三条已落地但未提交**（工作区 = **10 页 ` M`** + `?? mg-work/r102/`）⇒
+   **未提交期的返工一律就地改 `mg-work/r102/apply102.py`，不另起代数**
+   （判据：`git status` 里仍是 ` M`）；只有邵先生发话提交后才新建 `mg-work/r103/apply103.py`
+   （照抄 r102 的 `GENS` 逐代摘除表，把三代变四代、`r102` 列为「上一代」）；
    若针对**设置页 / 字号机制 / 其它页**，回到 `apply88.py` / `apply88b-fontsize.py`。
+   ⚠ **r105 ① 的产物落在 8 个「独立页」上**（各 +714）⇒ 复跑补丁时这 8 页会**同样被扫到**；改动只在 `nav_patch` 一处，
+   不要为它们单开补丁（`invert_if_absent` 保证第二遍一字不动、**只保位置**）。
 3. 收尾四件套：`check-syntax.py` → `verify-design.py ./pages`（**必须传目录**）→ 与上一轮读数**逐条 diff** → 清理 → 覆盖更新本卡 + `mg-work/rNN/acceptance.md`。
 4. 🚫 **默认不 commit / 不 push**：干完只汇报改动清单。
 
@@ -580,6 +741,9 @@ rm -f pages/conversation.html                                     # 摘掉 ④ �
 # 再回到 r93 需求 2 之前
 cp mg-work/r93/before/base-r93pre.html    pages/base.html        # base → r92/r93① 态（471920）
 cp mg-work/r93/before/base.html           pages/base.html        # base → r92 收尾态（含 r87-ui-css 块 r92 态）
+# ★ r102 ~ r105 回滚（本批 = r102 十一条 + r103 六条 + r104 四条 + r105 三条，🚫 未提交）
+python mg-work/r102/apply102.py --revert   # conversation → r101 交付态；8 页摘 nav 块；base 摘 nav id 换名（长度相同）
+cp mg-work/r102/before/conversation-r102.html pages/conversation.html   # conversation → r102 前（= r101 交付态 721864）
 # r92 回滚
 cp mg-work/r92/before/<page>.html pages/<page>.html        # base/settings/avatar/skills/automation
 # r88 系回滚（设置页 → r87 态）
@@ -596,6 +760,9 @@ cp mg-work/r82/before/<page>.html   pages/<page>.html
 
 | 目录 | 关键内容 |
 |---|---|
+| `mg-work/r102/apply102.py` | ★ **r102 十一条 + r103 六条 + r104 四条 + r105 三条**全量（`GENS` 三代逐代摘除：r93 / r101 / r102；`HDR_ID` 保持 `r101-hdr-css`；含 `--revert` / `--dry`）；r105 ③ 从 `part105/` 读四件、CSS 进 `r102-conv-css`、JS 进 `r102-conv-js`、HTML 作静态片段，**并守卫四件里不得出现 `<script`/`<style`** |
+| `mg-work/r102/part105/` | ★ r105 ③ 三件套 + 本页控制器：`browse.css`(15937) / `browse.html`(31688) / `browse.js`(47410，只用前半) / `ctrl-conv.js`(15465) |
+| `mg-work/r102/acceptance.md` | ★ 六节 r102 + r103 段 + r104 段 + **r105 段**（39524 字节） |
 | `mg-work/r93/apply93.py` | ★ 需求 2 + ④ 全量（25 块 + composer + 44 内联 SVG；**④**：独立页 `conversation.html` 由 base 净底重建 + 9 页 `ROUTE` 各 +1 + base 的 `r93-nav-js` + 下拉翻向 + `--revert`）；需求 1 在 `r88/apply88b-fontsize.py` |
 | `mg-work/r93/acceptance.md` | ★ r93 验收档案（需求 1 根因/修法/实测；需求 2 三点拍板/变体叠加/字号体系表/逐块几何核对/结构级修正/暗色；**⑥ r93 ④：侦察结论 / 落地方式 / 四查 / 回滚**；改动文件；遗留） |
 | `mg-work/r93/before/` | **r93 前置基线 10 页** + **9 个 `*-r93c.html`（④ 前快照）** + `base-r93pre.html` |

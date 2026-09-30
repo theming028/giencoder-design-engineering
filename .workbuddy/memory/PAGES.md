@@ -906,3 +906,189 @@ DS 的 `--shadow3-down` 是 `0 8px 20px 10%`，**不是**这一档。保留不�
 必须先**真点击一次**把某块折叠，`querySelector('.r93-fold[data-open="0"] > .r93-fc')` 首屏恒为 `null`。
 ⚠ **毛玻璃标题栏会接住点击**：滚动口最上 44px 的内容点不到 ⇒ 自动化取证用 `agent-browser click` 时要先
 `scrollIntoView({block:'center'})`（否则目标被滚进那一条带，点击落在标题栏上、`eval` 读不到菜单）。
+
+---
+
+#### P3.11g ⑫ r102 十一条（会话详情页 · 2026-09-30 20:4x）—— ★ **r101 代已提交 ⇒ 新建 `mg-work/r102/apply102.py`**
+
+> 完整版见 `mg-work/r102/acceptance.md`；脚本内 5 条新教训见 PLAYBOOK **P3.34**。
+
+**① 体位**：r101 代**已提交**（`9f252e5`）⇒ 本代**新建脚本**，注入块 id 换代
+`r102-conv-css` / `r102-conv-js` / `r102-nav-js`；`GENS` 逐代摘除表扩到**三代**（r93 / r101 / r102）。
+★ `HDR_ID` **保持 `r101-hdr-css` 不换名**（顶栏图 70% 本轮无改动）；`RAWI_DIRS` **三级回落**；
+宿主 `r93-conv-host` / `data-r93-page` 跨代沿用 ⇒ **页面级 CSS 选择器一字未改**。
+
+**② 十一条**（实测见 acceptance 第一节；此处只记「本页固定事实」）：
+
+| # | 落地 | 本页新固定事实 |
+|---|---|---|
+| ① | `.r93-t14` 字号 **15 → 13px** + 数字滑入动效（`.r93-num` odometer-lite） | 全页 `.r93-t14` 直方图 **`{13px:58, 14px:6}`** —— **卡内 6 处仍 14px**（被 `.r93-card.r93-card *` (0,2,0) 钉住，本规则 (0,1,0) 压不进去，**不是 bug**）；数字包出 **13 个 `.r93-num`**，`animation: r93-num-in .46s cubic-bezier(.22,1,.36,1) both`、`delay calc(1.5s + var(--r93-ni)*55ms)`（`--r93-ni` 按**每个 `.r93-t14` 内部**从 0 计） |
+| ② | `.r93-fc .r93-fchev` 间距 **8 → 4px** | 靠父级 `gap: 4px`（箭头自身 `margin-left: 0`）⇒ 标题右缘 → 箭头左缘 = **4px** |
+| ③ | **折叠收起补动效**（`max-height` 过渡） | `.r93-fb { margin-top:12px; max-height: var(--r93-fbh, 4000px); overflow:hidden; transition: max-height .32s cubic-bezier(.4,0,.2,1), margin-top 同曲线, opacity .26s ease }`；`.r93-fb.is-free { overflow: visible }`；`[data-open='0'] > .r93-fb { max-height:0; opacity:0; margin-top:0 }`。**删掉了原 `display:none` 分支** |
+| ④ | `.r93-t12.r93-nm` **12 → 13px** | 2 处（改动汇总表头） |
+| ⑤ | `.r93-iblk.r93-cv > svg` **10 → 12px** | 槽仍 `14×14`、`n=14`（覆盖 P3.11g ⑪ ④ 的 10px） |
+| ⑥ | 折叠头 / 展开头 **hover 时 meta 也变正文色** | `.r93-fh:hover .r93-fm, .r93-fc:hover .r93-fm, .r93-fh:hover .r93-t12l, .r93-fc:hover .r93-t12l { color: var(--color-text-1) }`（`text-3 rgb(134,134,134)` → `text-1 rgb(31,31,31)`） |
+| ⑦ | `.r93-asst` 底边线**浅一级** | `--color-border-2` → **`--color-border-1`**（`rgb(229,229,229)` → `rgb(242,242,242)`）⇒ **撤销 r99 ⑬** |
+| ⑧ | `.r93-drow` padding → **`0 16px`** | 原 `0 13px 0 11px`；文件名左缘相对卡 = 16、「⋯」右缘 13 → 16；`gap: 17px`、行高 36 不变 |
+| ⑨ | `.r93-dhead` 左内距 12 → **16px** | 原 `6 6 5 12` → **`6px 6px 5px 16px`**；图标槽相对 16；表头 40px 定高不变 |
+| ⑩ | 「滚动到底部」药丸 → **毛玻璃** | `.r93-tobottom { background: var(--r93-glass); -webkit-backdrop-filter/backdrop-filter: blur(12px); border:1px solid var(--color-border-2) }`；**新增 hover 档 `--r93-glass-h`**（浅 `rgba(255,255,255,0.86)` / 暗 `rgba(35,35,36,0.86)`，**自造、无设计稿依据**）—— 原 hover 底色 `--color-fill-1` 不透明，一 hover 毛玻璃就没了 |
+| ⑪ | `.r93-seg…radio-group-button` 总高 **28px** + 标题栏内**垂直居中** | `.r93-seg .giencoder-radio-button { height:26px; **min-height:26px**; padding:0 12px; border-radius:5px }` —— 1+26+1 = **28px**；`top:8px` 不动 = `(44−28)/2` ⇒ 基线「上 8 / 下 2」偏心一并修掉 |
+
+**③ 两条与既有记录冲突的更正**：
+* 本页 `.r93-seg` 的 **DS `min-height` 从未被覆盖**（一直顶 32px）⇒ 任何改本组件高度的需求，
+  必须 `height` + `min-height` **两条一起改**（见 PLAYBOOK P3.34①）。
+* P3.11h 里「**收起刻意不动画**」这条**已被 r102 ③ 推翻** —— 现在收起有动画了（靠精确 `--r93-fbh`）。
+
+**④ 未闭环（待邵先生拍板，见 acceptance 第五节）**：`-m` / `-b` 变体仍 15px；数字动效覆盖全部
+卡外数字串（含正文数字）；基础延迟 1.5s；`--r93-glass-h` 无设计稿依据；`.r93-fb` 常驻 `overflow:hidden`
+（展开稳定后靠 `.is-free` 放行，将来新增「需长期溢出」的浮层会被裁 360ms）。
+
+---
+
+#### P3.11g ⑬ r103 六条（会话详情页 · 2026-09-30 20:5x）—— **就地返工**（r102 未提交）
+
+> 完整版见 `mg-work/r102/acceptance.md` 的 **r103 段**；两条机制级教训见 PLAYBOOK **P3.35**。
+
+**① 体位**：r102 **未提交** ⇒ 仍改 `mg-work/r102/apply102.py`，注入块 id **不变**（`r102-conv-*`）。
+产物 `conversation.html` 683044 → **685465**（+2421）；`base.html` **472150（+0）**。
+
+**② 六条**（本页固定事实）：
+
+* ① **`.r93-t14` 回 15px**（**撤销 r102 ① 的字号部分**；数字动效 `.r93-num` 保留）。
+  实测直方图 `{13:58,14:6}` → **`{15:58,14:6}`**（卡外 58 全 15；卡内 6 仍 14，被 `.r93-card.r93-card *` 钉住）。
+* ② `.r93-t14.r93-ell`（35 处）与 `.r93-t14.r93-c1`（2 处）**全 15px** —— 这两个类**本身不含 font-size**
+  （`.r93-ell` 只管截断、`.r93-c1` 只管颜色）⇒ 随 ① 自动生效，**没有第二条规则**。
+* ③ 「滚动到底部」药丸**再透一档**：新增 `--r93-glass-pill`（浅 `rgba(255,255,255,0.60)` /
+  暗 `rgba(35,35,36,0.60)`）与 `--r93-glass-pill-h`（0.74）。**标题栏仍走 `--r93-glass`（0.72）不动**。
+  ⚠ 原来药丸与标题栏**共用** `--r93-glass` ⇒ 想单独调药丸必须新开变量。
+* ④ **`.r93-agents` 那一行（4 张 agent 卡）整行退役**，连 `.r93-cp` 容器一起从 `TPL_BOTTOM` 摘掉。
+  `.r93-bottom` `{y:593,h:112}` → **`{y:653,h:52}`**（子元素只剩 `.r93-sb`）；底部整块**上移 60px**。
+  ⚠ 相关 CSS（`.r93-agents` / `.r93-agent*` / `.r93-cp`）**保留未删**：删掉会让
+  `--r93-a1-bg…--r93-a4-bg` 变成「未使用的本地变量」、可能给门禁添新告警。要恢复只需把 TPL 那段贴回。
+* ⑤ **底部对话框激活态的外发光顶部被截断 —— 已修**。真凶**不是** `overflow`，是**绘制顺序**：
+  宿主 `.r93-conv-host` 在 r101 加了 `position: relative`（给毛玻璃标题栏当包含块）⇒
+  它由「in-flow flex item（按 order-modified 顺序绘制）」变成「positioned descendant（按**树序**绘制）」，
+  而它是 `appendChild` 追加的、排在 hero 之后 ⇒ **宿主画在 composer 之上**，盖掉那 3px 光。
+  修法 = hero 补 `position: relative !important; z-index: 1 !important`（见 PLAYBOOK P3.35①）。
+* ⑥ **折叠块开合两态统一 + 修闪动**：撤掉 `@keyframes r93-fold-in` 与 `[data-open='1'] > .r93-fb`
+  那条**单向 animation**，改由 `.r93-fb` 的**四条 transition** 承担
+  （`max-height` / `margin-top` / `opacity` 各 0.32s 标准曲线 + `transform` 0.34s back-out 回弹；
+  收起态补 `transform: translateY(-8px)` 做镜像）。`setFold` 改
+  「本帧 `refreshFbh` → `requestAnimationFrame` 里翻 `data-open`」。
+  实测：14 块 `animationName !== 'none'` 的**数量 = 0**；收起 `opacity` 逐帧连续 `1→0.993→0.737→…→0`；
+  展开 `transform` 末段超调 `+0.779px` 后落定 0 ⇒ **两态镜像**。
+
+**③ 与既有记录的冲突更正**：
+* P3.11g ⑫ 里「`.r93-t14` 13px」**已被 ① 撤销** —— 现在是 **15px**。
+* P3.11h 与 P3.11g ⑫ 里关于「折叠收起」的描述以 ⑥ 为准（现在是 transition，且**没有 keyframes**）。
+* `check-syntax` 的 `style=16` **不是回归**（HEAD 同口径也是 16）。
+
+**④ 未闭环（r103 新增 2 条）**：③ 透明度取 0.60（想更透可一行调）；④ 摘行后状态条↔composer
+之间为 44px 空档（= 12px 下内距 + 外壳 `div.mt-8` 的 32px），觉得松可再压。
+
+#### P3.11g ⑭ r104 四条（会话详情页 · 2026-09-30 22:0x）—— **就地返工**（r102 + r103 均未提交）
+
+> 完整版见 `mg-work/r102/acceptance.md` 的 **r104 段**；两条机制级教训见 PLAYBOOK **P3.36**。
+
+**① 体位**：仍改 `mg-work/r102/apply102.py`，注入块 id **不变**（`r102-conv-css` / `r102-conv-js` / `r102-nav-js`）。
+产物 `conversation.html` 685465 → **691648**（+6183；LF `sha 05b899bd4366`）；`base.html` **472150（+0）**。
+
+**② 本页新增的固定事实（四条）**：
+
+* ① **宿主 `.r93-conv-host` 现在是 `position: relative; z-index: 0`**（r104 新增 `z-index: 0`）。
+  ⚠ **它与 hero 的 `position:relative; z-index:1` 是「成对」的**：hero 那条是 r103 ⑤ 为修外发光加的；
+  宿主这条是 r104 ① 为把浮窗从 hero 的层叠上下文里「解放出来」加的。
+  **单独改任何一条都会让另一个问题复发** —— 动之前先读 PLAYBOOK **P3.36①**。
+  副作用（有意为之）：**宿主内元素不再能压到 hero / composer 之上**。
+* ② **底部对话框（外壳 React 渲染的 `div.mt-8` 一行）首帧是隐形的**：
+  `opacity: 0; pointer-events: none` 为默认，由 `<html data-r93-app="ready">` 放行。
+  放行由注入 JS 在 **1100ms**（与骨架屏退场同一拍）写入，**刻意独立于骨架屏节点是否存在**。
+  ⇒ 排查「对话框不出现」时，先查 `document.documentElement` 的 `data-r93-app`。
+* ③ **页签状态是三处属性协同**（`r93SetTab()` 是唯一入口，`host.__r93tabId` 是防连点真相源）：
+  `data-r93-app`（`null`→`ready`）× `data-r93-tab`（`chat` ⇄ `trace`）× 每个 pane 的 `data-r93-slide`
+  （`out-l` / `out-r` / `in-l` / `in-r`，凭空出现/消失由它承载）。
+  **只有 `ready + chat` 才显对话框**；轨迹页另把 hero 置 `display: none`（宿主 `flex:1 1 auto` 顺势长高）。
+  ⚠ **`.r93-pane` 在消息列 `TPL` 里也有一份** ⇒ 滑动规则的 CSS 选择器**必须带 `>`**
+  （`html[data-r93-page='conversation'] .r93-conv-host > .r93-pane`），否则会误伤消息列。
+* ④ **折叠块开合点击委托没有缺陷**（`host` 上的事件委托 → `setFold`）。
+  r104 全页 **14 块开合往返 `scrollHeight` 逐块比对 = 14/14 OK**（含嵌套块 #10 的实时重算）。
+  ⚠ 若探针报「点不动」，先怀疑**标签选择器命中多个元素**（见 PLAYBOOK P3.36④），不要先改代码。
+
+**③ 代码审查留下的痕迹（r104 ④）**：`audit104.py` 六组扫描 → **采纳 7 项**。
+其中与本页固定事实有关的：
+* `.r93-fold` 的开合属性现在是 **`data-r93-open`**（**不再是裸 `data-open`**，全页 23 处已命名空间化）——
+  **写新探针/新规则时用 `data-r93-open`**。
+* `:root` 里新增 `--r93-sh`（`0 4px 8px 0 rgba(0,0,0,0.08)`）与 `--r93-sbsh`（`0 2px 9px rgba(0,0,0,0.07)`）
+  两条阴影变量；`--r93-warn-ic` / `--r93-ok` / `--r93-ioc2` 三点改为 `rgb(var(--orange-7))` /
+  `rgb(var(--green-7))` / `rgb(var(--gray-7))`（**计算值不变**）。
+* **暗色档已补 3 条**：`--r93-ioc: rgb(var(--gray-10))`（原 `#333333` 压在 `#232324` = **隐形图标**）、
+  `--r93-dim: rgb(var(--gray-4))`、`--r93-tag-ic: rgb(var(--orange-6))`。
+* **已删除**：僵尸变量 `--r93-blue` / `--r93-sb` / `--r93-glass-h`；**agent 死代码一族**
+  （`.r93-agents` / `.r93-agent*` / `.r93-a*` 共 20 条规则 + 15 个变量，≈2.3 KB）。
+  ⇒ **`.r93-agents` 那一行的 CSS 已不存在**（r103 ④ 只摘了 DOM）；要恢复该行**必须连同这套 CSS 一起写回**。
+
+**④ 与既有记录的冲突更正**：P3.11g ⑬ 里「`.r93-agents` 相关 CSS **保留未删**」**已被 r104 ④ 推翻** —— 现在**整族已删**。
+
+**⑤ 未闭环**：r104 **无新增待拍板**。r103 遗留 2 条（③ 药丸透明度 0.60、④ 摘行后 44px 空档）仍有效。
+
+#### P3.11g ⑮ r105 三条（会话详情页 + 8 个独立页 · 2026-09-30 23:0x）—— **就地返工**（r102/r103/r104 均未提交）
+
+> 完整版见 `mg-work/r102/acceptance.md` 的 **r105 段**；四条机制级教训见 PLAYBOOK **P3.37**。
+
+**① 体位**：仍改 `mg-work/r102/apply102.py`，注入块 id **不变**（`r102-conv-css` / `r102-conv-js` / `r102-nav-js`）；
+新增静态片段目录 **`mg-work/r102/part105/`**（`browse.css` / `browse.html` / `browse.js` / `ctrl-conv.js`）。
+产物 `conversation.html` 691648 → **793028**（② +2173 → ③ +99207；LF `sha e67474395502`）；`base.html` **472150（+0）**；
+**其余 8 页各 +714**。
+
+**② 本页新增的固定事实（八条）**：
+
+* ① ★ **`aside` 里的会话项跳转脚本 `r102-nav-js` 现在铺满 9 页**（base + 8 个独立页），
+  `conversation.html` **不自带**（它自己就是目标）。
+  ⚠ 判据是**捕获阶段委托** `document.addEventListener('click', …, true)` 里的
+  `min-w-0 + flex-1`（会话项）⇒ `location.href = 'conversation.html'`；
+  **分组标题（`rounded-md py-0`）/「新会话」按钮必须放行**。
+  ⚠ 添加/修改这一块**只能改 `apply102.py` 的 `nav_patch` 一处**，别为单页另开补丁
+  （`invert_if_absent` 保证第二遍**一字不动、只保位置**，见 PLAYBOOK P3.37②）。
+  ⚠ **哪几页「有对象」是查出来的**：`task-detail` 的壳 `aside` 实为 **`display:none`**（可见左栏是 `.td-left` 任务面板，
+  无会话列表）；`kanban`（筛选面板）/ `settings`（设置导航）的 aside 无会话项；`dev` / `req-kanban` **无 `<aside>`**。
+* ② ★★ **`.r93-seg` 现在是「DS 官方滑块 + 自绘退位」**：
+  容器首子元素 = `<span class="giencoder-radio-button-slider" aria-hidden="true">`（**DS 官方结构**），
+  由它承担白底 + 描边（`top/left: 1px`、`height: 26px`、`border-radius: 5px`）；
+  `.giencoder-radio-button-checked` 改为 **`background: transparent; border: 0`**（只留文字色 / 字重）。
+  ⚠ 容器带 **`data-r93-seg-init="0"`** ⇒ 该态 `transition: none`（**首帧禁动画**，否则滑块从 0 宽「长」出来）；
+  JS **两帧后**摘掉该属性。
+  ⚠ 几何由 JS `r93SegMove()` 写**行内** `width` / `transform`，
+  **四处重定位**：页签 `click` / `document.fonts.ready` / `window.resize` / **`1200ms` 兜底**。
+  ⚠ 给这个容器**加子元素或改内距**前先读它的 `display/gap/padding` —— 滑块几何依赖 `offsetWidth` / `offsetLeft`，
+  任何内距变化都会被「四处重定位」如实体现在滑块上（这是「设计如此」，不是 bug）。
+* ③ ★ **`r93-bar` 右侧两枚按钮 = `.r93-baracts` > `.r93-baract`**（`.r93-morebtn` **已整枚退役**，CSS 活规则 0 条）。
+  类名**逐字对齐** avatar 的 `.td-right-acts`：`giencoder-btn giencoder-btn-secondary giencoder-btn-size-default giencoder-btn-icon`
+  + 本页前缀 `.r93-baract`。
+  ⚠ 适配层**必须写 `border-color: transparent`**（avatar 的 `.td-round-btn` 就是靠它去掉 DS 默认描边）；
+  ⚠ **圆角不覆盖**（随 DS 的 **8px**）；⚠ 图标 **14px**（`.r93-iblk.r93-i14`）。
+  实测 rect `[1359,57,64,28]`（两枚 28×28 + gap 8，右缘 1431 = bar 右缘 − 8）。
+* ④ ★ **全屏开关 = `<html data-r93-full="1">`**（**不是** class、不是 JS 闭包里的布尔）。
+  打开时左导航 `aside` 收拢到 0、对话区吃满整行，做法与浏览态**完全同款**：
+  `width / min-width / padding-*: 0 !important` + `opacity: 0` + `pointer-events: none`
+  （外壳给 aside 的宽度是 React **内联** style ⇒ 必须 `!important`；它自带 `overflow: hidden`）。
+  两枚图标**共用一枚按钮**，靠 `html[data-r93-full='1'] .r93-baracts .r93-ico-max / -min` 切显隐
+  （选择器**带前缀**是为胜过 `.r93-iblk { display: inline-flex }`）。
+  ⚠ **要程序化切全屏，请派发 `CustomEvent('r93:fullscreen', { detail: { on } })`，不要直接改 `<html>` 上的属性** ——
+  状态由 r102 主脚本持有（它还要翻 `aria-pressed` / `title` / `aria-label` 并派发 `resize`）。见 PLAYBOOK P3.37④。
+* ⑤ ★ **文件预览侧栏 = 数字分身「AV-BROWSE-SLOT v1」整块移植**，落点：
+  `hostRow.insertBefore(splitMain, hostMain.nextSibling)` + `insertBefore(slot, splitMain.nextSibling)`
+  （`hostRow` = `div:has(> main)`）。
+  ⚠ 宽度变量 `--av-browse-w`（**默认 641**、`MIN_PANEL 561`、`MAIN_MIN 380`）；
+  ⚠ **记忆 key = `giencoder:r105-browse:v1`**（与数字分身**分开**，别共用）；
+  ⚠ 打开态类名 `av-browse-on`；开关按钮 = `.r93-baract[data-r93-browse]`。
+* ⑥ ★ **暗色档已补（r105 ③-d）**：源页 avatar / task-detail **没有**本模块暗色分支，本页**必须有**（本页 r93 一族全量做了暗色）。
+  `browse.css` 的 **7 个字面 hex 全是自定义属性定义** ⇒ 只覆盖这 7 个、**不动几何**（源件逐字不动 ⇒ 同源校验仍成立）：
+  `--td-panel-line: rgb(var(--gray-3))`；`--td-code-key/str/num: #569CD6 / #CE9178 / #B5CEA8`；
+  激活行 `rgba(var(--blue-7), .20) / rgba(var(--blue-7), .38)`；`--td-crumb-line: var(--color-border-1)`。
+  ⚠ **要动这一块，先读 PLAYBOOK P3.37③**（不补的后果是不可读：代码主色对比度 ≈ 2.0、激活行整块白）。
+* ⑦ ★ **Esc 裁决链现在是三级**：右键菜单 → 预览栏 → **全屏**，每级 `stopImmediatePropagation`。
+  新加浮层若要参与 Esc，**插在链里的哪一级、以及是否拦下**都要显式决定（别默认「顺延」）。
+* ⑧ ⚠ **`.r93-bar` 右侧原先是单枚 `.r93-morebtn`（⋯）且无任何行为** —— 换成两枚真按钮后，
+  **`.r93-morebtn` 只可能出现在注释里**；写新 CSS 时别再去给它加规则。
+
+**③ 未闭环**：r105 **三条待拍板**（全屏是否留 12px 抓边窄条 / 预览栏默认宽是否本页另给 720 / 预览栏与全屏是否互斥），详见 HANDOFF 第六节 41~43。

@@ -1,0 +1,2 @@
+===== C1) 找 composer =====
+"{\n \"n\": 1,\n \"list\": [\n  {\n   \"t\": \"TEXTAREA\",\n   \"c\": \"min-w-0 resize-none bg-transparent text-sm leading-[22px] [color:var(--color-tex\",\n   \"ce\": null,\n   \"ph\": \"描述你的任务，/ 调用技能，@引用文件\",\n   \"r\": {\n    \"x\": 433,\n    \"y\": 718,\n    \"w\": 834,\n    \"h\": 96,\n    \"b\": 814\n   }\n  }\n ],\n \"ph\": []\n}"

@@ -2766,3 +2766,304 @@ r101 ⑦ 之后本页有**两张互不相干**的菜单（`.r93-drow` 的 4 项�
 `HANDOFF.md` 头部「最后更新」行 + 工作区状态行 + 第一节表格（把 ` M` / `??` 前缀换成已提交口径 + 终态字符数/sha）
 + 「下一轮接手清单」的现状行 + 当日日志的「状态」行与「交付」段。**注意别把历史叙述也改了**
 （如「r88 未提交 ⇒ 就地返工」是当时的实况，保留）。
+
+---
+
+### P3.34 r102 定稿（会话详情页十一条 · 2026-09-30 20:4x）—— ★ 五条新教训
+
+> 完整版见 `mg-work/r102/acceptance.md`；本页固定事实见 PAGES **P3.11g ⑫**。
+
+#### ① ★★ 改组件尺寸：`min-height` 比 `height` 更能顶住
+
+`.r93-seg`（`giencoder-radio-group-button`）页面里明明写着 `height: 24px`，实测却 **34px**。
+根因：DS 本体 `.giencoder-radio-button { height: calc(32px * ratio); **min-height: calc(32px * ratio)** }`
+—— `min-height` **从来没被页面覆盖过**，一直顶在 32px 上（+ padding 1+1 = 34）。
+⇒ 本代把 `height` 与 `min-height` **两条一起**改成 26px（1 + 26 + 1 = 28）；`top: 8px` 不动即
+`(44 − 28)/2 = 8` ⇒ 顺带把基线「上 8 / **下 2**」的偏心一起修掉（真居中）。
+**教训**：改这类 DS 组件的尺寸，先 `getComputedStyle` 把 **`height / minHeight / padding` 三项一起读**，
+别只按「页面写了多少」推算；也别只改 `height`（改完发现没变高，多半就是 `min-height` 在顶）。
+
+#### ② ★★ 同一帧里「写 CSS 变量 + 改属性」会被浏览器合并 ⇒ 变量必须**提前维护**
+
+r102 ③ 要补「折叠收起」动效（`max-height` 过渡）。第一版在**点击那一刻**才写
+`fb.style.setProperty('--r93-fbh', fb.scrollHeight)`，紧接着改 `data-open` ⇒
+实测 rAF 曲线 `222 222 222 … 194 120 66 30 8 0` —— **前 230ms 高度纹丝不动**（≈2/3 时长假死）。
+根因：两次 style 变更落在**同一帧**被合并，浏览器只比较「上一帧的计算值」（展开态 = 兜底 4000px）
+与「本帧的计算值」（0），过渡从 **4000px** 起步。
+⚠ **`void fb.offsetHeight` 强制 style flush 实测无效**（曲线一字不变，别再试这条）。
+**改对的做法**：变量在**展开态、字体就绪时提前维护好**（`wire()` 里写一次 + 1.8s 后再写一次），
+折叠时**不写变量**、直接改 `data-open` ⇒ 起点天然是真实值（222），曲线立刻全程平滑
+（`222→220→188→162→132→103→78→59→44→33→23→16→11→7→4→2→0`，0.32s）。
+
+#### ③ ★ `max-height` 收起动画必须用「**精确高度**」，不能用兜底大值
+
+承上：兜底值（4000px）不只是「不准」，是**会把过渡的前 2/3 变成真空**。
+配上 ② 的提前维护法即可；同时**展开落定 360ms 后要放行 `overflow`**（挂 `.is-free` = `overflow: visible`），
+否则常驻的 `overflow: hidden` 会**剪掉卡内向上翻的 popover**（`.r93-pop`）。
+⇒ 组合拳 = 「精确 `--r93-fbh` + 过渡期 `hidden` + 稳定后 `.is-free` 放行」，
+`setFold()` 里 `clearTimeout` 防抖、`open` 与 `close` 两向都要 `refreshFbh`。
+
+#### ④ ★ 断言 hover 要用「**不被遮挡的**」目标
+
+验「折叠头 hover 时 meta 变正文色」时，探针用 `elementFromPoint(折叠头中心点)` 拿到的
+**不是折叠头**，而是同页另一张**同文本的 codecard**（`r93-t12 r93-c1`）⇒ `hov=false` 误判。
+⇒ 套路：**先用 `elementFromPoint` 探一次**目标是否真被自己命中；命中不了就改用它的**子标题**
+（本例 `.r93-t14`）做 hover 目标 —— `:hover` 会**冒泡到祖先**，父级的 `:hover` 规则照样命中。
+（`.r93-fold[data-open="0"] > .r93-fc` 首屏恒 `null`，记得先真点击折叠一次，见 P3.33 ⑥。）
+
+#### ⑤ ★ `.r93-num` 数字包装的基线：`vertical-align: bottom` + 与外层同 `line-height`
+
+给文字里的数字套 `<span class="r93-num">`（`display:inline-block; overflow:hidden`）做滑入动效时，
+`overflow != visible` 的 inline-block 会触发**基线退化**（视觉上数字下沉/上浮）。
+解法 = `vertical-align: bottom` + 保证包装元素与外层**同 `line-height`**；
+并做 **A/B 自证**：把包装样式临时内联改回默认，读**同一元素**的 rect —— 实测 `dx=0, dy=0`
+（1440 与 2560 两档都零位移）⇒ 证明「没挤动排版」。
+⚠ 无头浏览器里**用 `animation.currentTime` 定格动画常常失败**（`getComputedStyle` 恒读到 `from` 态）
+⇒ 改用**真实时间轴两拍**（`open` 后立刻读一次 + `wait 1400` 后再读一次），拿「骨架屏在时 `op:0/translateY`」
+与「骨架屏已移除 `op:1/none`」两端做铁证。★ 动效基础延迟必须 ≥ 骨架屏完整生命周期
+（1.1s 淡出 + 320ms 移除 = **1.42s** ⇒ 取 **1.5s**），否则动效在骨架屏后面白播。
+
+#### 附 · 代数体位（承接 P3.32）
+
+r101 代**已提交** ⇒ r102 又是新代：`mg-work/r102/apply102.py`，注入块 id 换代
+`r102-conv-css` / `r102-conv-js` / `r102-nav-js`；`GENS` 逐代摘除表扩到**三代**（r93 / r101 / r102，
+三条剥离正则各摘三支、注入只用 r102）。★ `HDR_ID` **保持 `r101-hdr-css` 不换名**
+（顶栏图 70% 本轮无改动 ⇒ 继续「摘后重注」维护）。`RAWI_DIRS` 改**三级回落**
+（本代 → r101 → r93），宿主标记 `r93-conv-host` / `data-r93-page` 跨代沿用。
+
+---
+
+### P3.35 r103 定稿（会话详情页六条 · 2026-09-30 20:5x）—— ★ 两条新教训（都是「CSS 机制级」的）
+
+> r102 **尚未提交** ⇒ 本轮**就地返工**（仍改 `mg-work/r102/apply102.py`，注入块 id 不变、不另起代数）。
+> 完整版见 `mg-work/r102/acceptance.md` 的 **r103 段**；本页固定事实见 PAGES **P3.11g ⑬**。
+
+#### ① ★★ 给宿主加 `position: relative` 会**连带改变绘制顺序** ⇒ 「谁压谁」要重算
+
+**症状**：底部真实 composer（外壳 React 渲染）**点击激活态的外发光顶部被截断 3px**。
+**误判**：第一反应是 `overflow: hidden`（宿主 `.r93-conv-host` 确实有）。
+**定性配方（同页 5 组 A/B，只改一处变量各截一张，扫中轴 y=702..704 的非白像素）**：
+
+| 变量 | 中轴 y702/703/704 | 结论 |
+|---|---|---|
+| 基线 | 全 `255,255,255` | 光被盖住 |
+| 宿主 `overflow: visible` | 全 `255,255,255` | **与裁剪无关** |
+| 宿主 `display: none` | （布局已变） | — |
+| 宿主 `position: static` | `231,238,254` ×3 | **就是它** |
+| hero `position:relative + z-index:5` | `231,238,254` ×3 | **修法** |
+
+**根因**：`position: relative` 把宿主从「in-flow flex item（按 **order-modified** 顺序绘制）」
+提升为「**positioned descendant**」，而 positioned descendants 按 **树序**绘制
+（`order` 不参与！）—— 宿主是 `appendChild` 追加的、排在 hero **之后** ⇒ 反而画在 hero 之上，
+它那层 `background` 把 composer 外溢的 3px 光盖掉。
+**修法**：把 hero 提到正 z-index 层（flex item 的 `z-index` 即使 `position:static` 也生效；
+本工程连 `position: relative` 一起给，取其确定）：`position: relative !important; z-index: 1 !important`。
+**教训**：往宿主上加 `position` / `z-index` / `transform` / `filter` 这类会**新建包含块或层叠上下文**
+的属性时，必须重算「浮动层 vs 兄弟宿主」的次序，别只看「谁写在后面」。
+
+#### ② ★★ `animation` 被移除**不会**触发 transition ⇒ 「展开用动画、收起用过渡」必然有一向硬切
+
+**症状**：折叠块**收起时闪一下**（内容瞬间消失、空盒子再慢慢收）。
+**根因**：r101 第②批 ⑦ 的写法是「展开方向挂 `@keyframes` + `animation-fill-mode: both`」，
+收起方向靠 `.r93-fb` 上的 `opacity` transition。但 **CSS Transitions 明确规定：
+属性正被运行中的 animation 影响时不启动过渡**（`fill: both` ⇒ 永远「正在影响」）。
+⇒ 收起时 `data-open` 翻 0、动画选择器不再命中、动画被移除，`opacity` 从 1 **一帧硬切**到 0。
+**实测铁证**（rAF 逐帧）：旧版 `t=33 op=1` → `t=134 op=0`，而同一时刻 `max-height` 还停在 150px。
+**修法**：**两态都用 transition**、彻底不挂 animation（那份 8px 滑移改成
+`.r93-fb { transform: none }` / `[data-open='0'] > .r93-fb { transform: translateY(-8px) }`
++ `transition: transform 0.34s cubic-bezier(.34,1.56,.64,1)` —— 回弹曲线照旧，两个方向镜像）。
+**验收读数**：`[].filter(folds, f => getComputedStyle(fb).animationName !== 'none').length === 0`；
+rAF 曲线里 `opacity` 必须**逐帧连续**（不许出现 1 → 0 的相邻两帧）。
+
+#### ③ ★ 附带修掉的一处：`--r93-fbh` 在**嵌套折叠**后会变陈旧
+
+`refreshFbh` 原来只在 `wire()` 时 + 1.8s 后各写一次。**嵌套**折叠一收起，外层块的内容高度就变了，
+而外层的 `--r93-fbh` 还停旧值（实测 fold#10 = `314px`、真实只有 170px）
+⇒ `max-height` 从 314 收到 0 的前 46% 时长里元素高度**纹丝不动**、之后突然塌 —— 又是一种「闪」。
+**修法**：`setFold` 改成「**本帧** `refreshFbh` → `requestAnimationFrame` 里再翻 `data-open`」。
+一帧 ≈16ms 肉眼不可见，换来的是**过渡起点恒等于真实高度**；连点用 `cancelAnimationFrame` 防抖。
+⚠ 这条与 P3.34② 的结论**不冲突而是递进**：P3.34② 说「变量要提前维护」，本条说
+「**每次开合都要重新量**、且翻属性要错帧」—— 光靠提前维护挡不住后续的内容变化。
+
+#### ④ 顺带记：`<style` 字面量计数（`check-syntax.py` 的 `style=N`）
+
+会话详情页 `style=16` **不是回归** —— 对 HEAD（r101 交付态）跑同一脚本也是 16
+（外壳 bundle 里有一处 `<style rel="stylesheet" crossorigin>`）。旧记录里的「15」是笔误。
+**凡引用这个数字，先在 HEAD 上同口径复跑一遍再定性**（与 P3.15 的「自检脚本也会假警报」同源）。
+
+### P3.36 r104 定稿（会话详情页四条 · 2026-09-30 22:0x）—— ★ 两条新教训 + 一次「探针自伤」复盘
+
+> r102 + r103 **均未提交** ⇒ 本轮**就地返工**（仍改 `mg-work/r102/apply102.py`，注入块 id 不变、不另起代数）。
+> 完整版见 `mg-work/r102/acceptance.md` 的 **r104 段**；本页固定事实见 PAGES **P3.11g ⑭**。
+
+#### ① ★★ **正 `z-index` 会创建层叠上下文 ⇒ 它内部所有后代浮窗的 `z-index` 被整体封顶在那一层**
+
+**症状**：底部真实 composer 的所有弹出浮窗（技能列表 z9999、大模型下拉 z1000 …）**被遮挡**，
+明明数值比遮挡者大得多。
+
+**根因链**（这是本工程最容易反复踩的一类，务必记住）：
+1. r103 ⑤ 为修「激活态外发光顶部被截断」，给 hero（`main > div > div.flex-1.justify-center`）加了
+   **`position: relative; z-index: 1`** ⇒ hero 变成一个 **z-index = 1 的层叠上下文**。
+2. 而 composer 的所有浮窗**都是 hero 的定位后代** ⇒ 它们的 `z-index` **只在 hero 这个上下文里比较**，
+   对外**整体封顶在 hero 的 1**。
+3. 于是宿主 `.r93-conv-host` 内部那些**数值更小**的 `z-index`（`.r93-tbsticky` **3** / `.r93-sk` **9** / `.r93-bar` **10**）
+   反而**压住了**被封顶成 1 的浮窗 ⇒ 下拉第 2/3 项被 `.r93-tbsticky::after` 的**白渐隐带**洗掉。
+
+**★ 修法 = 把兄弟宿主整块降下去，而不是再去拔 hero**：`.r93-conv-host { position: relative; z-index: 0; }`。
+宿主成为 0 级上下文后，内部 3/9/10 再也**爬不出来**；hero 依然是 1，r103 ⑤ 的结论**完好保住**。
+两条**必须成对存在** —— 单独拿掉任一条，另一个问题立刻复发。
+
+**验收配方（像素 A/B，比读 `z-index` 数值可靠得多）**：
+点开模型下拉 → 截图 → 取下拉**第二项那一行**的 `box=(1070,634,1250,664)` → 统计**暗像素(<160) 数量**：
+改前 **122** / 改后 **383**（均值 249.7 → 240.7）。**行内文字被渐变洗掉 = 暗像素骤降**，一眼可判。
+⚠ 顺带记：**下拉里「禁用态」项本来就是灰字**（如「异常不能用的大模型」），它的暗像素天然为 0，**别误判成被遮**。
+
+**一般规则**：只要给某个容器加了**正 `z-index`**（或 `transform` / `filter` / `opacity<1` / `will-change` 等建栈属性），
+就要立刻自问：「**这容器里面的浮层，还要不要压到外面去？**」要，就必须把**外层兄弟**也降级/升级成同一协调方案。
+
+#### ② ★ `data-*` 状态开关优于「抢时序」：首帧守卫直接写进 CSS 默认值
+
+**症状**：刷新页面后，**骨架屏还没出来，底部对话框已经先闪一下**。
+**为什么不能靠 JS 抢跑**：外壳是 `<head>` 里的 `type="module"` 脚本（**延迟执行**），你注入的 JS 只会更晚。
+**修法（从根上消除那个窗口）**：既然外壳 module 脚本与注入的**样式表都在「首次绘制之前」解析完毕**，
+就把「不该出现」直接写成**默认值**：
+```css
+… > div.mt-8 { opacity: 0; pointer-events: none; transition: opacity .2s cubic-bezier(.4,0,.2,1); }
+html[data-r93-page='conversation'][data-r93-app='ready'][data-r93-tab='chat'] … > div.mt-8
+  { opacity: 1; pointer-events: auto; }
+```
+JS 只负责在**骨架屏退场那一拍（1100ms）**写 `<html data-r93-app="ready">` 放行即可。
+**三个要点**：
+* 用 `opacity` **不用 `display`** ⇒ 保占位、**零重排**；
+* `pointer-events: none` **必须有**，否则能点出「凭空出现的下拉」；
+* 放行那句 `setTimeout` **刻意独立于 `if (sk)`** ⇒ 骨架屏节点若缺失，对话框也不能被**永久锁死**。
+
+**推论（本工程通用）**：凡是「**首帧不该出现的东西**」，一律做成**CSS 默认隐藏 + 数据属性放行**，
+绝不写成「JS 在某个时刻把它藏起来」—— 后者的窗口宽度取决于网络/执行顺序，**不可证伪**。
+
+#### ③ ★ 两态开关用「正交两维」表达：`data-r93-app`（loading⇄ready）× `data-r93-tab`（chat⇄trace）
+
+轨迹页要**收起整块对话框**时，别在 JS 里到处 if：把状态拆成**两个独立维度**，CSS 只写「**同时满足才显**」。
+再配一条「高度突变发生在**新旧 pane 都不可见**的那一拍」的交接时序：
+```
+旧 pane 滑出（R93_SWAP = 220ms，与 CSS 的 0.2s 对齐）
+  → 改高度（hero display:none，宿主 flex:1 1 auto 顺势长高）
+  → requestAnimationFrame 里让新 pane 滑入
+```
+**为什么这样不跳**：改高度那一刻，新 pane 还停在 `data-r93-slide='in-*'` 的 `opacity: 0` ⇒ **画面里没有内容**，
+高度变化的视觉痕迹无处可看。反过来写就会看到「对话框在半透明状态下突然消失」。
+
+#### ④ ⚠ 探针自伤复盘：**「重打标签」时旧标签必须摘掉**
+
+`p104k/p104l` 曾报「折叠块**第 2 次点击（展开）无效**」，看着像产品 bug。
+**真因**：探针每轮把 `data-p104l` 打在「**当前可见的那个头**」上 —— 收起后可见头从 `.r93-fh` 变成 `.r93-fc`，
+但**旧标签仍留在 `.r93-fh` 上没摘** ⇒ 选择器 `[data-p104l="1"]` **命中两个元素**，
+agent-browser 取 DOM 靠前的那个（`.r93-fh`，已 `display:none`、rect 归零）⇒ 点在 (0,0)，什么也没发生。
+**两条经验**：
+* **每轮重打标签前先 `removeAttribute`**，或改用**唯一且稳定**的选择器（如 `.r93-fold:nth-of-type(n) > .r93-fc`）；
+* 判「产品 bug」之前，先用 **`eval` 直接派发 `.click()`** 分一刀：**能通 ⇒ 十有八九是探针/命中问题**。
+  （对照：本页 14 个折叠块开合往返 `scrollHeight` 逐块比对 **14/14 OK**，handler 本身无缺陷。）
+
+#### ⑤ 代码审查的可复用做法：**只读扫描器 + 六组检查 + 「同值替换」自证**
+
+`mg-work/r102/ev/audit104.py` 六组（A 硬编码色 / B `var()` 引用完整性 / C 命名一致性 /
+D 冗余 / E 命名规范与 DS 复用 / F 稳定性断言）。两条最有价值的经验：
+* **「字面 hex → DS 色阶」要先证明「逐字节同值」再改**（`#D25F00` ≡ `rgb(var(--orange-7))`、
+  `#30953B` ≡ `green-7`、`#6B6B6B` ≡ `gray-7`）⇒ 改完**计算值不变 = 零视觉风险**，审查结论才站得住。
+* **暗色档缺失要专门查一遍**：本次抓到 `--r93-ioc: #333333` 压在暗底 `#232324` 上 = **图标隐形**（P1）。
+  做法：把每个自定义变量在**浅暗两档**都 `getComputedStyle` 读一遍，逐条比对。
+* **删死代码要「变量与规则同进同出」**：上一轮不敢删 agent 一族（20 条规则 + 15 个变量），
+  理由是「删了会让 `--r93-a*-bg` 变**未使用变量**、可能触发门禁」—— 那就**连变量一起删**，理由即不成立。
+
+### P3.37 r105 定稿（会话详情页 + 8 个独立页三条 · 2026-09-30 23:0x）—— ★ 四条新教训
+
+> r102 / r103 / r104 **均未提交** ⇒ 本轮**就地返工**（仍改 `mg-work/r102/apply102.py`，注入块 id 不变、不另起代数）。
+> 完整版见 `mg-work/r102/acceptance.md` 的 **r105 段**；本页固定事实见 PAGES **P3.11g ⑮**。
+
+#### ① ★★ 「加动效」前先查**官方实现是否已经内联**：很可能只差一次「把自绘让位」
+
+**症状**：`.r93-seg`（`giencoder-radio-group giencoder-radio-group-button`）切换**只能硬切**，要加滑动动效。
+
+**根因**：DS `components.css` **本来就带**滑块 `.giencoder-radio-button-slider`
+（`transition: transform .28s, width .28s` + `z-index: 0` + `pointer-events: none`），
+**而且这份 CSS 早已内联进页面**。当年只把 `.giencoder-radio-button-checked` **自绘**成白底 + 描边
+⇒ 白底**长在选中项自己身上**、**没有独立的位移载体** ⇒ 无论怎么调过渡都没有东西在「滑」。
+
+**修法（让位 + 接管，两步）**：
+1. HTML 里按 **DS 官方结构**在容器首子元素加 `<span class="giencoder-radio-button-slider" aria-hidden="true"></span>`；
+2. CSS 让**滑块**承担白底 + 描边，让 `checked` **退出视觉**：`background: transparent; border: 0`（只留文字色/字重）；
+3. JS 写**行内几何**：`width = offsetWidth`、`translateX = offsetLeft − 1`。
+
+**四个必做细节**（缺一个就穿帮）：
+* **首帧不能播动画** —— 否则滑块会从 **0 宽「长」出来**。做法：容器带 `data-r93-seg-init="0"`，
+  该态下 `transition: none`；JS **两帧后**（`rAF` × 2）摘掉属性放开过渡。
+* **重定位要「四处」** —— 页签 `click` / `document.fonts.ready` / `window.resize` / **`1200ms` 兜底**
+  （字体晚到会改 `offsetWidth`，只挂 `click` 会在字体到位后**错位**）。
+* 位移量是 `offsetLeft − 1`（滑块 `left:1px`）—— **先读清容器 padding 再定**。
+* ▸ 验收用**逐帧**（`rAF` 采样）而不是「过渡结束后的终值」：
+  实测 `0 → 38.79(82ms) → 49.58(148) → 51.75(215) → 51.999(282) → 52(348ms 稳定)`。
+
+**一般规则**：要加「过渡/动画」先 grep DS 主源 + 内联副本 —— **DS 往往已经实现过一遍**，
+我们缺的通常不是新代码，而是**删掉当年那份自绘**。
+
+#### ② ★★ 把「已有一块脚本」扩到多页：**必须用 `invert_if_absent` 保位置**，否则每遍都报「改了」
+
+**症状**：r105 ① 要把 `base.html` 里已有的 `r102-nav-js` 扩到其余 8 页。首版用「先摘再插」⇒
+**两块都往 `</body>` 前追加** ⇒ 彼此的**相对顺序被顶来顶去**，**每跑一遍都报「有改动」**（幂等假失败）。
+
+**修法**：新增 helper `invert_if_absent(text, rx, blob)` —— **三态**：
+* 内容**一致** ⇒ **一字不动、只保位置**；
+* 内容**不同** ⇒ 原地替换；
+* **不存在** ⇒ 追加。
+`hdr_patch` / `nav_patch` 都改走它 ⇒ 幂等立刻恢复（第二遍双「已是目标态」）。
+
+**推论**：同一页会存在**多块「都往文件尾追加」的注入块**时，**「先摘再插」不是幂等操作**
+（摘掉 A 再把 A 追加回去，会把 B 挤到 A 前面；下一遍又把 B 摘掉追加……）⇒
+**「位置无关」的块必须靠「内容比对」而不是「先删后加」来收敛**。
+
+#### ③ ★★ 移植模块落到**有暗色分支**的页面 ⇒ 必须补暗色档（源页没有 ≠ 目标页不需要）
+
+`browse.css` 有 **7 个字面 hex**，全部是**自定义属性定义**（`:root { --td-panel-line: #ECEEF2 }` 等）。
+源页 avatar / task-detail **都没有**这个模块的暗色分支 —— 但会话详情页 r93 一族**全量做了暗色**
+⇒ 本模块**第一次落到有暗色分支的页面**，按 PLAYBOOK 规则 5 **必须补**。
+
+**不补的实测后果**（不是「难看一点」，是**不可读**）：
+* 面板外缘线 `#ECEEF2` 在暗底上成**亮框**；
+* 代码主色 `#0451A5` 对 `#17171a` 的对比度 ≈ **2.0**（远低于 4.5 的可读门槛）；
+* 激活行 `#ECF2FF` 成**整块白**。
+
+**修法（只覆盖自定义属性、绝不动几何）**：`--td-panel-line: rgb(var(--gray-3))`；
+`--td-code-key/str/num: #569CD6 / #CE9178 / #B5CEA8`（直接借 **VSCode Dark+** 同位置三色）；
+激活行 `rgba(var(--blue-7), .20) / rgba(var(--blue-7), .38)`；`--td-crumb-line: var(--color-border-1)`。
+★ **源件保持逐字不动** ⇒ 「与源页逐字节同源」的校验**仍然成立**。
+
+**推论**：移植前查一件常被忽略的事 —— **目标页有没有暗色分支**。
+有，就要把源件里所有**字面色**过一遍；把它们收进自定义属性是**成本最低**的补暗色姿势。
+
+#### ④ ★★ 更晚注册的脚本**别直接调更早脚本的函数** —— 走自定义事件
+
+**场景**：r105 ③ 的预览栏控制器要参与 **Esc 裁决链**（右键菜单 → 预览栏 → **全屏**）。
+全屏状态 `<html data-r93-full>` 由 **r102 主脚本**持有 —— 它还要顺带翻按钮的 `aria-pressed` / `title` / `aria-label`
+并派发 `resize`（响应式要重算）。
+
+**为什么不能直接调**：控制器**比主脚本更晚注册** ⇒ 若它直接调主脚本内部的 `r93SetFs()`，
+**事件处理顺序会反序**（更早注册的先跑），出现「控制器已判定要收全屏、主脚本却按旧状态重画」的错位。
+
+**修法**：控制器**只派发**自定义事件，主脚本**监听**它：
+```js
+// 控制器（更晚注册）
+document.dispatchEvent(new CustomEvent('r93:fullscreen', { detail: { on: false } }));
+// 主脚本（更早注册）
+document.addEventListener('r93:fullscreen', function (e) { r93SetFs(e.detail.on); });
+```
+**推论**：同一页有多个**互不知道注册顺序**的脚本时，**共享状态只能有一个所有者**，
+其余脚本一律「**发事件、不碰状态**」—— 这样谁先注册都不影响正确性。
+
+#### ⑤ ⚠ 补记：门禁脚本自己会污染工作区（r105 复跑再次踩到）
+
+`check-syntax.py` 写 `mg-work/kanban/r13/chk/*.js`、`verify-design.py` 写 `pages/gaps.log`
+（前者是**仓库里被跟踪的文件**、别 `rm -f`）。跑完**必须**：
+```bash
+git checkout -- pages/gaps.log
+git checkout -- mg-work/kanban/r13/chk/ && git clean -f mg-work/kanban/r13/chk/
+```

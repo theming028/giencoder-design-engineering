@@ -1,0 +1,103 @@
+==============================================================================
+r104 ④ 代码审查  |  conversation.html 691350 字符 | css 70071 | js 149738
+==============================================================================
+
+## A 硬编码颜色
+   字面颜色总数 = 58 种
+     #333335                    ×2   …EE2E2; --r93-a4-ic: #DC2626; } [giencoder-theme='dark'] { --r93-line: #333335; --r93-glass: rgb
+     rgb:rgba(0,0,0,0.08)       ×2   …px); border: 1px solid var(--color-border-2); box-shadow: 0 4px 8px 0 rgba(0,0,0,0.08); color: 
+     #ebebed                    ×1   … :root { --r93-line: #EBEBED; --r93-card: #F5F6F7
+     #f5f6f7                    ×1   … :root { --r93-line: #EBEBED; --r93-card: #F5F6F7; --r93-edge: #ECEEF2
+     #eceef2                    ×1   … :root { --r93-line: #EBEBED; --r93-card: #F5F6F7; --r93-edge: #ECEEF2; --r93-bubble: #E5ED
+     #e5edfe                    ×1   …: #EBEBED; --r93-card: #F5F6F7; --r93-edge: #ECEEF2; --r93-bubble: #E5EDFE; --r93-bubble-sh: #D
+     #d0d7ea                    ×1   …F6F7; --r93-edge: #ECEEF2; --r93-bubble: #E5EDFE; --r93-bubble-sh: #D0D7EA; --r93-tag-bg: #FFF3
+     #fff3e8                    ×1   …F2; --r93-bubble: #E5EDFE; --r93-bubble-sh: #D0D7EA; --r93-tag-bg: #FFF3E8; --r93-tag-bd: #FDDD
+     #fdddc3                    ×1   …FE; --r93-bubble-sh: #D0D7EA; --r93-tag-bg: #FFF3E8; --r93-tag-bd: #FDDDC3; --r93-tag-ic: #F772
+     #f77234                    ×1   …0D7EA; --r93-tag-bg: #FFF3E8; --r93-tag-bd: #FDDDC3; --r93-tag-ic: #F77234; --r93-warn-bg: #FFF
+     #fff7e8                    ×1   …F3E8; --r93-tag-bd: #FDDDC3; --r93-tag-ic: #F77234; --r93-warn-bg: #FFF7E8; --r93-warn-bd: #FFE
+     #ffe4ba                    ×1   …DC3; --r93-tag-ic: #F77234; --r93-warn-bg: #FFF7E8; --r93-warn-bd: #FFE4BA; --r93-warn-ic: #D25
+     #d25f00                    ×1   …34; --r93-warn-bg: #FFF7E8; --r93-warn-bd: #FFE4BA; --r93-warn-ic: #D25F00; --r93-ok: #30953B; 
+     #30953b                    ×1   …#FFF7E8; --r93-warn-bd: #FFE4BA; --r93-warn-ic: #D25F00; --r93-ok: #30953B; --r93-ioc: #333333;
+     #333333                    ×1   …rn-bd: #FFE4BA; --r93-warn-ic: #D25F00; --r93-ok: #30953B; --r93-ioc: #333333; --r93-ioc2: #6B6
+     #6b6b6b                    ×1   …-warn-ic: #D25F00; --r93-ok: #30953B; --r93-ioc: #333333; --r93-ioc2: #6B6B6B; --r93-meta: rgb(
+     #c4c7c9                    ×1   …3; --r93-ioc2: #6B6B6B; --r93-meta: rgb(var(--gray-5)); --r93-dim: #C4C7C9; --r93-blue: #327FCB
+     #327fcb                    ×1   …6B6B; --r93-meta: rgb(var(--gray-5)); --r93-dim: #C4C7C9; --r93-blue: #327FCB; --r93-pillc: #34
+     #3491fa                    ×1   …(--gray-5)); --r93-dim: #C4C7C9; --r93-blue: #327FCB; --r93-pillc: #3491FA; --r93-sb: rgba(0,0,
+     #ecf2ff                    ×1   …0.60); --r93-glass-pill-h: rgba(255,255,255,0.74); --r93-hov-bg: #ECF2FF; --r93-hov-bd: #D3E2FF
+     #d3e2ff                    ×1   …ll-h: rgba(255,255,255,0.74); --r93-hov-bg: #ECF2FF; --r93-hov-bd: #D3E2FF; --r93-a1-bg: #E6E1F
+     #e6e1fc                    ×1   ….74); --r93-hov-bg: #ECF2FF; --r93-hov-bd: #D3E2FF; --r93-a1-bg: #E6E1FC; --r93-a1-ic: #6E27D9;
+     #6e27d9                    ×1   …CF2FF; --r93-hov-bd: #D3E2FF; --r93-a1-bg: #E6E1FC; --r93-a1-ic: #6E27D9; --r93-a1-bd: #E2D3F9;
+     #e2d3f9                    ×1   … #D3E2FF; --r93-a1-bg: #E6E1FC; --r93-a1-ic: #6E27D9; --r93-a1-bd: #E2D3F9; --r93-a2-bg: #E0E7F
+     #e0e7ff                    ×1   …E6E1FC; --r93-a1-ic: #6E27D9; --r93-a1-bd: #E2D3F9; --r93-a2-bg: #E0E7FF; --r93-a2-ic: #4F46E5;
+     #4f46e5                    ×1   … #6E27D9; --r93-a1-bd: #E2D3F9; --r93-a2-bg: #E0E7FF; --r93-a2-ic: #4F46E5; --r93-a3-bg: #DBEAF
+     #dbeafe                    ×1   …E2D3F9; --r93-a2-bg: #E0E7FF; --r93-a2-ic: #4F46E5; --r93-a3-bg: #DBEAFE; --r93-a3-ic: #2563EB;
+     #2563eb                    ×1   … #E0E7FF; --r93-a2-ic: #4F46E5; --r93-a3-bg: #DBEAFE; --r93-a3-ic: #2563EB; --r93-a4-bg: #FEE2E
+     #fee2e2                    ×1   …4F46E5; --r93-a3-bg: #DBEAFE; --r93-a3-ic: #2563EB; --r93-a4-bg: #FEE2E2; --r93-a4-ic: #DC2626;
+     #dc2626                    ×1   …DBEAFE; --r93-a3-ic: #2563EB; --r93-a4-bg: #FEE2E2; --r93-a4-ic: #DC2626; } [giencoder-theme='d
+     #232324                    ×1   …,35,36,0.60); --r93-glass-pill-h: rgba(35,35,36,0.74); --r93-card: #232324; --r93-edge: #333335
+     #24314c                    ×1   …,36,0.74); --r93-card: #232324; --r93-edge: #333335; --r93-bubble: #24314C; --r93-bubble-sh: rg
+     #6ba6ff                    ×1   …(255,228,186,0.26); --r93-sb: rgba(255,255,255,0.18); --r93-pillc: #6BA6FF; --r93-hov-bg: rgba(
+     #c9c9c9                    ×1   …rgba(37,99,235,0.2); --r93-a4-bg: rgba(220,38,38,0.2); --r93-ioc2: #C9C9C9; } .r93-conv-host { 
+     rgb:rgb(var(--gray-5)      ×1   …-ok: #30953B; --r93-ioc: #333333; --r93-ioc2: #6B6B6B; --r93-meta: rgb(var(--gray-5)); --r93-di
+     rgb:rgba(0,0,0,0.16)       ×1   …93-dim: #C4C7C9; --r93-blue: #327FCB; --r93-pillc: #3491FA; --r93-sb: rgba(0,0,0,0.16); --r93-g
+     rgb:rgba(255,255,255,0.72) ×1   …27FCB; --r93-pillc: #3491FA; --r93-sb: rgba(0,0,0,0.16); --r93-glass: rgba(255,255,255,0.72); -
+     rgb:rgba(255,255,255,0.86) ×1   …rgba(0,0,0,0.16); --r93-glass: rgba(255,255,255,0.72); --r93-glass-h: rgba(255,255,255,0.86); -
+     rgb:rgba(255,255,255,0.60) ×1   …55,0.72); --r93-glass-h: rgba(255,255,255,0.86); --r93-glass-pill: rgba(255,255,255,0.60); --r9
+     rgb:rgba(255,255,255,0.74) ×1   …86); --r93-glass-pill: rgba(255,255,255,0.60); --r93-glass-pill-h: rgba(255,255,255,0.74); --r9
+     rgb:rgba(35,35,36,0.72)    ×1   …C2626; } [giencoder-theme='dark'] { --r93-line: #333335; --r93-glass: rgba(35,35,36,0.72); --r9
+     rgb:rgba(35,35,36,0.86)    ×1   …--r93-line: #333335; --r93-glass: rgba(35,35,36,0.72); --r93-glass-h: rgba(35,35,36,0.86); --r9
+     rgb:rgba(35,35,36,0.60)    ×1   …35,36,0.72); --r93-glass-h: rgba(35,35,36,0.86); --r93-glass-pill: rgba(35,35,36,0.60); --r93-g
+     rgb:rgba(35,35,36,0.74)    ×1   …,0.86); --r93-glass-pill: rgba(35,35,36,0.60); --r93-glass-pill-h: rgba(35,35,36,0.74); --r93-c
+     rgb:rgba(0,0,0,0.45)       ×1   …2324; --r93-edge: #333335; --r93-bubble: #24314C; --r93-bubble-sh: rgba(0,0,0,0.45); --r93-tag-
+     rgb:rgba(247,114,52,0.14)  ×1   …-bubble: #24314C; --r93-bubble-sh: rgba(0,0,0,0.45); --r93-tag-bg: rgba(247,114,52,0.14); --r93
+     rgb:rgba(247,114,52,0.4)   ×1   …ba(0,0,0,0.45); --r93-tag-bg: rgba(247,114,52,0.14); --r93-tag-bd: rgba(247,114,52,0.4); --r93-
+     rgb:rgba(255,190,110,0.1)  ×1   …7,114,52,0.14); --r93-tag-bd: rgba(247,114,52,0.4); --r93-warn-bg: rgba(255,190,110,0.1); --r93
+     rgb:rgba(255,228,186,0.26) ×1   …,114,52,0.4); --r93-warn-bg: rgba(255,190,110,0.1); --r93-warn-bd: rgba(255,228,186,0.26); --r9
+     rgb:rgba(255,255,255,0.18) ×1   …ba(255,190,110,0.1); --r93-warn-bd: rgba(255,228,186,0.26); --r93-sb: rgba(255,255,255,0.18); -
+     rgb:rgba(55,112,247,0.16)  ×1   …-sb: rgba(255,255,255,0.18); --r93-pillc: #6BA6FF; --r93-hov-bg: rgba(55,112,247,0.16); --r93-h
+     rgb:rgba(55,112,247,0.4)   ×1   …pillc: #6BA6FF; --r93-hov-bg: rgba(55,112,247,0.16); --r93-hov-bd: rgba(55,112,247,0.4); --r93-
+     rgb:rgba(110,39,217,0.2)   ×1   …,112,247,0.16); --r93-hov-bd: rgba(55,112,247,0.4); --r93-a1-bg: rgba(110,39,217,0.2); --r93-a1
+     rgb:rgba(110,39,217,0.5)   ×1   …a(55,112,247,0.4); --r93-a1-bg: rgba(110,39,217,0.2); --r93-a1-bd: rgba(110,39,217,0.5); --r93-
+     rgb:rgba(79,70,229,0.2)    ×1   …a(110,39,217,0.2); --r93-a1-bd: rgba(110,39,217,0.5); --r93-a2-bg: rgba(79,70,229,0.2); --r93-a
+     rgb:rgba(37,99,235,0.2)    ×1   …(110,39,217,0.5); --r93-a2-bg: rgba(79,70,229,0.2); --r93-a3-bg: rgba(37,99,235,0.2); --r93-a4-
+     rgb:rgba(220,38,38,0.2)    ×1   …: rgba(79,70,229,0.2); --r93-a3-bg: rgba(37,99,235,0.2); --r93-a4-bg: rgba(220,38,38,0.2); --r9
+     rgb:rgba(0, 0, 0, 0.07)    ×1   …-items: center; gap: 8px; padding: 0 16px; box-shadow: 0 2px 9px rgba(0, 0, 0, 0.07); } .r93-sb
+   :root 本地变量 34 个；暗色档 23 个；**暗色档缺 ['--r93-a1-ic', '--r93-a2-ic', '--r93-a3-ic', '--r93-a4-ic', '--r93-blue', '--r93-dim', '--r93-ioc', '--r93-meta', '--r93-ok', '--r93-tag-ic', '--r93-warn-ic']**
+
+## B var(--x) 引用完整性（注入块引用 → 全页是否定义）
+   引用 57 个不同自定义属性；定义 495 个
+   ✗ 未定义却被引用 ×3   --font-size-
+   ✗ 未定义却被引用 ×1   --r93-ni
+   ⚠ 定义了但注入块从不引用（可能僵尸）: ['--r93-blue', '--r93-glass-h', '--r93-sb']
+
+## C `--r93-*` 命名一致性
+   共 35 个。后缀分布（末段）:
+      {'bg': 7, 'ic': 6, 'bd': 4, 'h': 2, 'blue': 1, 'bubble': 1, 'sh': 1, 'card': 1, 'dim': 1, 'edge': 1, 'fbh': 1, 'glass': 1, 'pill': 1, 'ioc': 1, 'ioc2': 1, 'line': 1, 'meta': 1, 'ok': 1, 'pillc': 1, 'sb': 1}
+
+## D 冗余
+   规则块 286 条；**重复选择器 7 个**
+     ×2  html[data-r93-page='conversation'] main > div > div.flex-1.justify-center > div.mt-8
+     ×2  .r93-t14
+     ×2  .r93-seg .giencoder-radio-button
+     ×2  .r93-capname
+     ×2  .r93-pane
+     ×2  .r93-scroll
+     ×2  .r93-pre
+   `.r93-*` 类 162 个；**全页零引用（僵尸）0 个**:
+      无
+
+## E 命名规范 / DS 复用
+   类名前缀 top12: {'r93': 348, 'giencoder': 23, 'r74': 1}
+   规则里用到 `giencoder-*`（DS 组件类）23 处
+   `data-*` 属性: ['data-open', 'data-r93-app', 'data-r93-artname', 'data-r93-copied', 'data-r93-copy', 'data-r93-fctx', 'data-r93-file', 'data-r93-page', 'data-r93-pane', 'data-r93-slide', 'data-r93-tab']
+   `.giencoder-popup-open` 开关引用: 9
+   投影 token(`--shadow3-down`) 引用: 2 | 字面 box-shadow 处数: 7
+
+## F 稳定性断言
+   ✗ 注入 CSS 以幂等块包裹（<!-- r102-conv-css --> 与 END 成对）
+   ✗ 注入 JS 以幂等块包裹
+   ✗ END 标记在 </style> 之后、包住 <style>（r102-css）
+   ✗ 事件全部走委托（无 per-node 绑定泄漏）
+   ✓ React 重渲染补回（MutationObserver）
+   ✓ 无 `!important` 滥用（< 90 处）
+   addEventListener 处数 = 19 | !important = 21

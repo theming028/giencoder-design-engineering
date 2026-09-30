@@ -1,0 +1,28 @@
+=== 打开预览栏 ===
+"clicked"
+"{\"ctxBound\":\"1\",\"files\":28,\"active\":1,\"crumb\":\"gientech / second / third / index.html\",\"close\":true,\"treeTgl\":true,\"openBtn\":true}"
+
+=== 文件树：点一个目录（开合） ===
+"tagged 0"
+"{\"closed\":true,\"hidden\":27}"
+
+=== 文件树：点一个文件（选中） ===
+"none"
+"{\"activeName\":\"useSnakeGame...\",\"activeBefore\":\"rgba(0, 0, 0, 0)\"}"
+
+=== 右击文件（上下文菜单） ===
+"dispatched"
+"{\"exists\":true,\"open\":true,\"rect\":[1000,400,182,227],\"items\":12,\"ctxOpenAttr\":true}"
+  shot x105-4-ctx.png
+
+=== Esc 关菜单（预览栏应仍在） ===
+"{\"ctxOpen\":false,\"browseOn\":true}"
+
+=== 拖拽分栏条（宽 641 → 加大） ===
+"{\"w0\":\"641px\",\"w1\":\"641px\"}"
+"701px"
+"{\"panelW\":701}"
+
+=== 关闭按钮 ===
+"clicked"
+"{\"browseOn\":false,\"asideW\":256,\"mainW\":1164}"

@@ -1,0 +1,10 @@
+-- 初始 --
+"{\"open\":\"1\",\"oh\":160,\"maxH\":\"161px\",\"op\":\"1\",\"isFree\":true}"
+-- 收起：eval 直接派发 click 到 .r93-fh --
+"done"
+"{\"open\":\"0\",\"oh\":0,\"maxH\":\"0px\",\"op\":\"0\",\"isFree\":false}"
+-- 展开：eval 直接派发 click 到 .r93-fc --
+"done"
+"{\"open\":\"1\",\"oh\":160,\"maxH\":\"161px\",\"op\":\"1\",\"isFree\":true}"
+-- 再看：host 上是否只有一个 click 监听 / fold 委托是否还在 --
+"{\"fcRect\":[0,0,0,0],\"top3\":[\"HEADER.flex h-12 shrink-0 items-center justify-\",\"DIV.flex h-dvh flex-col overflow-hidden\",\"DIV.\"]}"

@@ -16,8 +16,11 @@ pages/
 ├── settings.html       ← 设置（外观 / 账户 / 通知 / 版本信息）
 ├── kanban.html         ← 任务看板 · 研发工作台（四泳道任务卡）
 ├── req-kanban.html     ← 需求看板 · 研发工作台（需求拆分任务卡）
-└── task-detail.html    ← 任务详情 · 研发工作台（左：描述/属性/动态，右：AI 会话）
+├── task-detail.html    ← 任务详情 · 研发工作台（左：描述/属性/动态，右：AI 会话）
+└── conversation.html   ← 会话详情（对话/轨迹双页签 + 工具调用树 + 全屏/文件预览侧栏）
 ```
+
+> 共 **10 个独立页面**。左栏「会话任务」在**任意页面**点击都会跳到 `conversation.html`（r105）。
 
 ## 页面说明
 
@@ -32,6 +35,7 @@ pages/
 | `kanban.html` | 任务看板 | 「待办 / 进行中 / 待确认 / 已完成」四泳道、卡片 hover 出现「执行 / 转派」、创建任务弹窗、看板协作弹窗、日期选择器 |
 | `req-kanban.html` | 需求看板 | 需求拆分任务卡（拆分需求项 / 条目 / 子条目三级标签）、与任务看板同一套卡片与弹窗 |
 | `task-detail.html` | 任务详情 | 左栏任务描述（可折叠）+ 任务属性 / 任务动态 / 创建者卡，右栏 AI 会话（含全屏、折叠、左右栏拖动互换、栏宽记忆），编辑任务弹窗复用看板创建弹窗 |
+| `conversation.html` | 会话详情 | 「对话 / 轨迹」双页签（切换带**滑块滑动动效**）、工具调用层级树（可逐级开合）、消息折叠、右键菜单（12 项）、标题栏右侧**全屏**与**文件预览侧栏**（文件树 + 代码预览 + 可拖分栏条）两枚按钮；顶栏毛玻璃、骨架屏、暗色全量适配 |
 
 ## 打开方式
 
@@ -58,6 +62,8 @@ python3 -m http.server 8080
 - **Header Tab**：基础工作台 ↔ 研发工作台（带 pill 滑动动效）
 - **左侧菜单**：数字分身 / 自动化 / 技能 Skills / 设置
 - **任务看板 / 需求看板 → 任务详情**：点卡片进入 `task-detail.html`；详情页左上角可返回看板
+- **左栏会话任务 → 会话详情**：在**任意页面**点击左栏的会话条目都会跳到 `conversation.html`
+  （分组标题与「新会话」按钮不参与跳转）
 - **设置页**：左上角"返回基础工作台"链接
 
 所有跳转在各 HTML 文件之间进行，无需服务器支持。
@@ -112,10 +118,10 @@ python mg-work/r30/check-classes.py    pages/<page>.html      # 类名 × 契约
 
 ```
 giencoder-design-engineering/
-├── pages/                          ← 交付页面（9 个独立 HTML）
+├── pages/                          ← 交付页面（10 个独立 HTML）
 │   ├── base.html / dev.html / avatar.html
 │   ├── automation.html / skills.html / settings.html
-│   └── kanban.html / req-kanban.html / task-detail.html
+│   └── kanban.html / req-kanban.html / task-detail.html / conversation.html
 ├── giencoder-design-system/       ← 设计系统规范
 │   ├── components/                 ← 组件 JSON 契约（anatomy 是唯一真值）
 │   ├── preview/                    ← 组件预览页
@@ -127,8 +133,9 @@ giencoder-design-engineering/
 ├── assets/                         ← 图标资源（icons/）
 ├── docs/                           ← 设计文档（GienCoder-DESIGN.md、Playbook 等）
 ├── mg-work/                        ← 分轮工作记录
-│   ├── r32 … r36/                  ← 每轮：生成脚本、实测脚本（verify*.sh）、截图、探针 JSONL
-│   ├── kanban/r13/check-syntax.py  ← 产物语法自检
+│   ├── r32 … r105/                 ← 每轮：生成/补丁脚本、实测脚本、截图、探针
+│   │   └── rNN/applyNN.py          ← 幂等注入补丁（改页面一律走这里，不手改产物）
+│   ├── kanban/r13/check-syntax.py  ← 产物语法自检（JS 语法 + CSS 配平）
 │   └── r30/check-classes.py        ← 组件类名合规自检
 ├── build.sh                        ← 构建脚本（需外部源工程）
 ├── verify-design.py                ← 构建后质量验证脚本
@@ -137,22 +144,31 @@ giencoder-design-engineering/
 
 ## 工作方式
 
-页面改动一律**改生成脚本 → 重跑脚本 → 跑自检 → 实测截图**，不手改产物：
+页面改动一律**改生成/补丁脚本 → 重跑脚本 → 跑自检 → 实测截图**，不手改产物：
 
-| 页面 | 生成脚本 |
+| 页面 | 生成 / 补丁脚本 |
 |------|----------|
 | `task-detail.html` | `mg-work/r21/build-detail.py` |
 | `kanban.html` / `req-kanban.html` | `mg-work/req-kanban/build-table.py` → `build-inject.py` |
 | `avatar.html` 主内容 | `mg-work/r35/build-avatar-main.py` |
 | `avatar.html` AI 对话栏 | `mg-work/r34/build-avatar.py` |
 | 外壳顶栏页签修复（全站） | `mg-work/r25/apply-shell-tabs.py` |
+| 全局字号机制 / 设置页 | `mg-work/r88/apply88.py` · `apply88b-fontsize.py` |
+| `conversation.html` 会话详情 + 全站会话跳转 | `mg-work/r102/apply102.py`（r93 起的会话详情改动都在此脚本内就地返工） |
 
-实测统一走 `agent-browser`（1440×900），脚本与落地截图都放 `mg-work/rNN/`。
+> **体位要点**：补丁是「先 `strip_all(当前页)` 取净底 → 再注入」⇒ **改完直接重跑即自愈**，
+> 不必先回滚；跑两遍 sha 不变即幂等。回滚用 `cp mg-work/rNN/before/<page>.html pages/<page>.html`。
+
+实测统一走 `agent-browser`（1440×900，另跑 2560 与暗色档），脚本与落地截图都放 `mg-work/rNN/`。
 
 ## 版本
 
 - **交付日期**：2026-09-24
-- **最近更新**：2026-09-27 —— 新增任务看板 / 需求看板 / 任务详情页；数字分身页主内容按设计稿还原；
-  Card 卡头浅灰底色下沉到组件层
+- **最近更新**：2026-09-30 ——
+  - 新增 **`conversation.html` 会话详情页**（对话/轨迹双页签 + 工具调用层级树 + 全屏 + 文件预览侧栏 + 暗色全量适配）
+  - **全站左栏会话任务**点击跳转 `conversation.html`
+  - 会话详情页「对话 ⇄ 轨迹」切换改为 **DS 官方滑块滑动动效**
+  - 标题栏右侧改为**「全屏」+「打开侧栏」**两枚真实按钮
+  - 此前各轮：全局字号机制、设置页重做、顶栏背景图、数字分身文件预览侧栏等
 - **构建工具**：Vite 8 + viteSingleFile
 - **设计稿**：MasterGo file=193158744355579

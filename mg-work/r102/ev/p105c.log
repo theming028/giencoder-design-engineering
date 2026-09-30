@@ -1,0 +1,11 @@
+########## settings.html
+  会话项个数 / 当前页: "{\"n\":0,\"page\":\"settings.html\"}"
+✗ Element not found. Verify the selector is correct and the element exists in the DOM.
+  点击后 → "settings.html"
+########## kanban.html
+  会话项个数 / 当前页: "{\"n\":0,\"page\":\"kanban.html\"}"
+✗ Element not found. Verify the selector is correct and the element exists in the DOM.
+  点击后 → "kanban.html"
+########## avatar.html
+  会话项个数 / 当前页: "{\"n\":13,\"page\":\"avatar.html\"}"
+  点击后 → "conversation.html"

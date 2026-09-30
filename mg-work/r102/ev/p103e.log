@@ -1,0 +1,21 @@
+===== E1) 聚焦 composer → 基线截图 =====
+  shot e1-base.png
+===== E1b) 宿主 overflow:visible =====
+  shot e1-ovf.png
+===== E1c) 宿主 display:none =====
+  shot e1-none.png
+===== E1d) 宿主 position:static =====
+  shot e1-pos.png
+===== E1e) hero 加 z-index:5 =====
+  shot e1-z5.png
+===== E2) 折叠逐帧（顶层 fold#0 / 嵌套 fold#11 / 大块 fold#10） =====
+"{\"folds\":14}"
+"started f0 open=1"
+"started f11 open=1"
+"started f10 open=1"
+✗ Evaluation error: TypeError: Cannot read properties of undefined (reading 'f0')
+    at <anonymous>:1:79
+    at Array.forEach (<anonymous>)
+    at <anonymous>:1:41
+    at <anonymous>:1:125
+null

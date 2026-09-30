@@ -1,0 +1,9 @@
+base          before=base.html?v=1790781713 → after=conversation.html
+task-detail   before=task-detail.html?v=1790781713 → after=task-detail.html?v=1790781713
+avatar        before=avatar.html?v=1790781713 → after=conversation.html
+automation    before=automation.html?v=1790781713 → after=conversation.html
+skills        before=skills.html?v=1790781713 → after=conversation.html
+
+=== 负例：点「分组标题」「新会话」不该跳 ===
+分组标题后: base.html?v=1790781746
+「新会话」后: base.html

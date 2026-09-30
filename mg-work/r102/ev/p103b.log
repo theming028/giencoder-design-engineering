@@ -1,0 +1,11 @@
+===== B1) composer 几何与祖先链（未聚焦） =====
+"{\n \"hostRect\": {\n  \"x\": 269,\n  \"y\": 49,\n  \"w\": 1162,\n  \"h\": 656,\n  \"b\": 705\n },\n \"bottomRect\": {\n  \"x\": 420,\n  \"y\": 593,\n  \"w\": 860,\n  \"h\": 112,\n  \"b\": 705\n },\n \"hero\": {\n  \"rect\": {\n   \"x\": 269,\n   \"y\": 705,\n   \"w\": 1162,\n   \"h\": 186,\n   \"b\": 891\n  },\n  \"display\": \"flex\",\n  \"flex\": \"0 0 auto\",\n  \"justify\": \"flex-end\",\n  \"align\": \"center\",\n  \"pad\": \"0px 0px 8px\",\n  \"ov\": \"visible\",\n  \"mt\": \"0px\",\n  \"mb\": \"0px\"\n },\n \"ce\": null\n}"
+
+===== B2) 聚焦后（.focus()） =====
+"no ce"
+"{\n \"hostRect\": {\n  \"x\": 269,\n  \"y\": 49,\n  \"w\": 1162,\n  \"h\": 656,\n  \"b\": 705\n },\n \"bottomRect\": {\n  \"x\": 420,\n  \"y\": 593,\n  \"w\": 860,\n  \"h\": 112,\n  \"b\": 705\n },\n \"hero\": {\n  \"rect\": {\n   \"x\": 269,\n   \"y\": 705,\n   \"w\": 1162,\n   \"h\": 186,\n   \"b\": 891\n  },\n  \"display\": \"flex\",\n  \"flex\": \"0 0 auto\",\n  \"justify\": \"flex-end\",\n  \"align\": \"center\",\n  \"pad\": \"0px 0px 8px\",\n  \"ov\": \"visible\",\n  \"mt\": \"0px\",\n  \"mb\": \"0px\"\n },\n \"ce\": null\n}"
+
+===== B3) 真鼠标点击 composer =====
+"no ce"
+
+  shot p103b-focus-1440.png

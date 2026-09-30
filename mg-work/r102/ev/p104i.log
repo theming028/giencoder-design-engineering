@@ -1,0 +1,9 @@
+===== I1) 浅色 chat =====
+"{\n \"theme\": null,\n \"--r93-ok\": \"rgb(48, 149, 59)\",\n \"--r93-ioc\": \"#333333\",\n \"--r93-ioc2\": \"rgb(107, 107, 107)\",\n \"--r93-warn-ic\": \"rgb(210, 95, 0)\",\n \"--r93-tag-ic\": \"#F77234\",\n \"--r93-dim\": \"#C4C7C9\",\n \"--r93-meta\": \"rgb(169, 169, 169)\",\n \"--r93-sh\": \"0 4px 8px 0 rgba(0,0,0,0.08)\",\n \"--r93-sbsh\": \"0 2px 9px rgba(0,0,0,0.07)\",\n \"--r93-glass\": \"rgba(255,255,255,0.72)\",\n \"--r93-glass-pill\": \"rgba(255,255,255,0.60)\",\n \"agentsCSS\": 0,\n \"sbShadow\": \"rgba(0, 0, 0, 0.07) 0px 2px 9px 0px\",\n \"tbShadow\": \"rgba(0, 0, 0, 0.08) 0px 4px 8px 0px\",\n \"popShadow\": \"rgba(0, 0, 0, 0.08) 0px 4px 8px 0px\",\n \"folds\": 14,\n \"open1\": 14,\n \"open0\": 0\n}"
+===== I2) 折叠仍可开合（点第 1 个折叠头） =====
+"1"
+"{\"open\":\"0\",\"maxH\":\"0px\",\"op\":\"0\"}"
+"{\"open\":\"0\",\"maxH\":\"0px\",\"op\":\"0\"}"
+===== I3) 暗色 =====
+"ok"
+"{\n \"theme\": \"dark\",\n \"--r93-ok\": \"rgb(127, 209, 132)\",\n \"--r93-ioc\": \"rgb(247, 247, 247)\",\n \"--r93-ioc2\": \"rgb(201, 201, 201)\",\n \"--r93-warn-ic\": \"rgb(255, 182, 93)\",\n \"--r93-tag-ic\": \"rgb(255, 154, 46)\",\n \"--r93-dim\": \"rgb(107, 107, 107)\",\n \"--r93-meta\": \"rgb(134, 134, 134)\",\n \"--r93-sh\": \"0 4px 8px 0 rgba(0,0,0,0.08)\",\n \"--r93-sbsh\": \"0 2px 9px rgba(0,0,0,0.07)\",\n \"--r93-glass\": \"rgba(35,35,36,0.72)\",\n \"--r93-glass-pill\": \"rgba(35,35,36,0.60)\",\n \"agentsCSS\": 0,\n \"sbShadow\": \"rgba(0, 0, 0, 0.07) 0px 2px 9px 0px\",\n \"tbShadow\": \"rgba(0, 0, 0, 0.08) 0px 4px 8px 0px\",\n \"popShadow\": \"rgba(0, 0, 0, 0.08) 0px 4px 8px 0px\",\n \"folds\": 14,\n \"open1\": 13,\n \"open0\": 1\n}"

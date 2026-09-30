@@ -1,0 +1,10 @@
+-- 初始 --
+"{\"open\":\"1\",\"oh\":160,\"maxH\":\"161px\"}"
+-- 收起（eval）--
+"{\"open\":\"0\",\"oh\":0,\"maxH\":\"0px\"}"
+-- 落点诊断（fc 中心 elementsFromPoint）--
+"{\"rect\":[420,939,67,22],\"scrollY\":0,\"top\":[]}"
+-- agent-browser scrollintoview + click --
+"{\"open\":\"1\",\"oh\":160,\"maxH\":\"161px\"}"
+-- 落点诊断（click 之后，tag 还在 fc 上）--
+"{\"rect\":[0,0,0,0],\"top\":[\"HEADER.flex h-12 shrink-0 items-center justify-betw\",\"DIV.flex h-dvh flex-col overflow-hidden\",\"DIV.\",\"BODY.\"]}"
