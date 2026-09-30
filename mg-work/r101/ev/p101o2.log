@@ -1,0 +1,12 @@
+=== [1] 折叠 + 展开，同一 tick 抓 r93-fold-in 的起播状态 ===
+"{\"name\":\"r93-fold-in\",\"dur\":340,\"ease\":\"linear\",\"state\":\"running\",\"ct\":0,\"fill\":\"both\"}"
+"t+120ms: finished 340ms"
+=== [2] 汇总卡「⋯」：先滚到视口中央，再真点击 ===
+✗ Evaluation error: TypeError: hit.className.slice is not a function
+    at <anonymous>:1:330
+    at <anonymous>:1:351
+"{\"open\":true,\"labels\":[\"打开\",\"打开所在文件夹\",\"添加到对话\",\"添加到 GienCoder\",\"复制路径\",\"打开方式\"],\"divider\":1,\"box\":[1242,337,182,227],\"btnBottom\":333,\"dx\":0,\"dy\":4}"
+   （已截 r101-diff-menu2.png）
+=== [3] 真鼠标 hover「打开方式」→ 子菜单 ===
+"{\"open\":true,\"labels\":[\"VS Code\",\"Trae\",\"Google Chrome\",\"Microsoft Edge\",\"Notes\",\"文件资源管理器\"],\"box\":[1063,525,182,216]}"
+   （已截 r101-diff-menu-sub2.png）

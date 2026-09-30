@@ -1221,8 +1221,23 @@ body .r88-arch-row:focus-within .r88-arch-act{min-height:calc(32px * var(--ui-fs
      var(--color-danger-6)，不需本块。 */
   .r92-perm-danger { color: var(--color-danger-6); }
 </style>
-<!-- r93-nav -->
-<script id="r93-nav-js">
+<style id="r101-hdr-css">
+  /* r101 第②批 ②：顶栏装饰图（r92 ① 那张 `assets/images/bg-img-1.png`）按**宽度 70%** 缩放。
+     原铺法是「不写 background-size」= 素材原尺寸 1580×134；顶栏高 48 ⇒ 竖直居中后上下各被裁掉
+     （只露中间那条 48px 横带），横向在 1440 视口下右对齐、左端溢出 140px。
+     本轮改成 `background-size: 70%`（单值 ⇒ 高按同比例自适应，落 `70% auto`）：
+       · 图宽 = 视口宽 × 70%（1440 ⇒ 1008px），点阵密度随之变细（素材点距 8px ⇒ 5.6px）；
+       · 仍右对齐 + 竖直居中（r92 那两条不动，本块只覆盖尺寸这一项）。
+     ⚠ 本块**必须**排在 `r92-hdr-css` 之后（同特异性 ⇒ 后写者胜）：注入点固定在 `</body>` 前，
+       而 r92 块也在 `</body>` 前、更靠前 ⇒ 恒成立。
+     ⚠ 选择器与 r92 完全一致（`header[class*="h-12"]`，**不是裸 header 标签**）——
+        avatar / task-detail 等页还有别的 `<header>`，裸标签会误伤（详见 r92 块里的注释）。 */
+  header[class*="h-12"] {
+    background-size: 70%;
+  }
+</style>
+<!-- r101-nav -->
+<script id="r101-nav-js">
 /* r93 ④ · 会话详情已独立成页（pages/conversation.html）
    —— 基础工作台只需要把「点 aside 里的会话任务标题」接到那一页去。
    背景：aside 是外壳 React 渲染的，拿不到它的 onClick，只能在捕获阶段识别（先例 r86/r88）。 */
@@ -1241,6 +1256,6 @@ body .r88-arch-row:focus-within .r88-arch-act{min-height:calc(32px * var(--ui-fs
   }, true);
 })();
 </script>
-<!-- /r93-nav -->
+<!-- /r101-nav -->
 </body>
 </html>

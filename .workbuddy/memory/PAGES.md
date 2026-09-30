@@ -794,6 +794,7 @@ DS 的 `--shadow3-down` 是 `0 8px 20px 10%`，**不是**这一档。保留不�
   * `.r93-tobottom` 默认 `--color-text-2`；★ r100 ③ 起 `:hover{ background: var(--color-fill-1);
     color: var(--color-text-1) }` —— **不再改边框色**。
   * `.r93-ib:hover` = **白底 + `box-shadow: inset 0 0 0 1px var(--color-border-2)`**（灰卡里不能用 fill-2，比卡底还深）；
+    ⚠ **★ r101 ③ 已改回** `background: var(--color-fill-2)`、**不要边框**（`box-shadow:none`）——此处以 r101 为准；
     `[data-r93-copy]` 点后加 `is-copied` → `IC('ok')` 绿勾（`--r93-ok` #30953B）+ 0.18s 弹出，1.6s 还原。
   * `.r93-ctx*`（≈55 行）= `task-detail` 的 `.td-ctx` 范式移植：182 / padding 6 / gap 2 / 圆角 8 / `--shadow3-down` /
     双类提权 + `animation:none`（本页内联的 `.giencoder-dropdown-popup` 带 0.2s 入场动画，播完 opacity 落 0 ⇒ 菜单闪没）。
@@ -833,3 +834,75 @@ DS 的 `--shadow3-down` 是 `0 8px 20px 10%`，**不是**这一档。保留不�
   * `.r93-nest` **已删除**（由 `.r93-tree` 取代）；`.r93-sumlist` 不再自己画线。
 * ⚠ 本页 `fold()` 工厂的 `o.mt` 用 `!= null` 判空（`mt:0` 是合法值）；肘节必须 `position:absolute`
   （绝对定位伪元素不算 flex item）——详见 PLAYBOOK P3.31④⑤。
+
+#### P3.11g ⑪ r101 十一条（会话详情页 · 2026-09-30）—— ★ **r93 代已提交 ⇒ 新建 `mg-work/r101/apply101.py`**
+
+* **载体 / 注入块 id 换代**：`r93-conv-css|js` + `r93-nav-js` → **`r101-conv-css|js` + `r101-nav-js`**；
+  脚本用 **`GENS` 逐代摘除表**（r93 + r101 一起摘、注入用本代 id）——细则见 **PLAYBOOK P3.32①**。
+  ★ **页面级 CSS 选择器一个字未改**：`ATTR_HOST='r93-conv-host'` / `ATTR_PAGE='data-r93-page'` **跨代沿用**。
+* **本页新增/修改的固定事实**：
+  * `.r93-fh:hover` / `.r93-fc:hover` = **`background: transparent`**（**不再铺浅灰底**）；
+    `.r93-fc:hover, .r93-fc:hover .r93-c3, .r93-fc:hover .r93-t14 { color: var(--color-text-1) }`、
+    `.r93-fh .r93-cv { color: var(--color-text-1) }` ⇒ hover 只提前景色。
+  * `.r93-t12l` 补 `color: var(--color-text-3)`（②「浅两级」= text-3，**DS 每级跨两个色阶**）；
+    ⚠ 「深度思考」正文（`.r93-t12l` 无 `-fm`）因此由 text-1 变 text-3 —— **是主动下调，不是还原设计稿**
+    （设计稿该处主笔画实测 **(31,31,31) = text-1**）。
+  * `.r93-t12l.r93-fm.r93-ell, .r93-sumrow .r93-t12l { font-size: calc(13px * var(--ui-fs-ratio)) }`
+    ⇒ 全页 `.r93-t12l` 直方图 **`{13px:17, 14px:1, 15px:1}`**（两个例外：「深度思考」正文 14px 由 `.r93-card` 钉死、
+    「任务产物」标签 15px 由 `.r93-artlabel` 定）。
+  * `.r93-ib:hover` = `background: var(--color-fill-2)`、**无边框**（覆盖 P3.11g ⑨ 的白底 + 内描边）。
+  * `.r93-iblk.r93-cv > svg { width:10px; height:10px }` —— **只缩 svg，槽仍 14×14**（`slotW=14px` / `svgW=10px`）；
+    这是为了保住 r99⑧「折叠前后零跳动」（实测 `dx=0`）。
+  * `.r93-sb { box-shadow: 0 2px 9px rgba(0,0,0,0.07) }` —— **不是 DS token**：设计稿实测峰值 Δ≈11、10px 收干，
+    DS `--shadow1-down` 强一倍以上 ⇒ 自造档（Σ\|Δ\|=3）。
+  * `.r93-tbsticky::after`（新增）= 40px `linear-gradient(to bottom, transparent, var(--color-bg-2))`、
+    `bottom:-44px`、`z-index:-1` ⇒ 滚动口底部渐隐；**挂 `.r93-tbsticky` 而非给 `.r93-scroll` 加 mask**
+    （mask 是祖先级绘制效果，会把「滚动到底部」药丸一起淡掉）。
+  * `.r93-ctx.giencoder-dropdown-submenu-popup { position:fixed }` + `.r93-ctx .giencoder-dropdown-submenu{position:relative}`
+    + `.r93-ctx .giencoder-dropdown-arrow{...14×14}` —— ★ **本页产物里没有子菜单的编译样式**
+    （conversation/task-detail 都查不到 `.giencoder-dropdown-submenu*`）⇒ 自补 3 条 `r93-` 适配层，**未改组件本体**。
+  * `.r93-spin { animation: r93-spin 1.2s linear infinite; transform-origin: 50% 50% }`（「压缩上下文」图标常转；
+    只要 hover 转 ⇒ 去掉类名即可）。
+  * `.r93-pane { position: relative }` + `.r93-sk*`（骨架屏遮罩 z=9，复用 DS `giencoder-skeleton-line/-title/-avatar`，
+    内层 `.r93-sk-in{width:calc(50% + 10px); min-width:860px}` 与内容列同宽同轴）。
+* **⑦ 右键菜单**（「任务产物」）。**打开方式▸6 项** 子菜单的 13 枚 svg 直接从
+  `mg-work/r69/part-ctx.js` 抽取（`load_ow_icons()`：线条 7 + 品牌 6 = 18,345 字符，数量不符即 `sys.exit`）——
+  **别手抄**。菜单本体仍走 `.r93-ctx*` 适配层。
+* **⑪ 骨架屏的时序**：`wire()` 里 `setTimeout(1100)` 加 `.is-out`、再 320ms 移除；
+  ⚠ 1.1s 窗口 **CLI 截图抓不到**（`open` 本身耗时 ≈1~2s）⇒ 目视取证只能临时改大延时再还原（PLAYBOOK P3.32④）。
+* ⚠ **验收 hover 类需求必须带 `matches(':hover')` 读数**（PLAYBOOK P3.32②）；本页三个 hover 目标已实测 `hov=true`。
+
+#### P3.11h r101 第二批七条（同代就地返工 · 2026-09-30 19:50）—— ★ **本页现在的「浮层几何」变了**
+
+⚠ **最重要的一条**：`.r93-bar` 从「`.r93-pane` 的流内兄弟」改成 **`position:absolute` 浮在滚动口之上**
+（宿主 `.r93-conv-host` 补 `position: relative`）⇒ 本页所有「相对 pane 定位」的浮层都要按新基准重算：
+
+* `.r93-bar { position:absolute; top/left/right:0; z-index:10; height:44px; background: var(--r93-glass);
+  backdrop-filter: blur(12px) }` —— **毛玻璃标题栏**。`z-index:10 > .r93-sk 的 9` 是刻意的
+  （原来标题栏在 pane 之外、骨架屏盖不到它，进 pane 之后必须压上去才能保住「加载中页头可见」）。
+  底色走新变量 `--r93-glass`（浅色 `rgba(255,255,255,0.72)` / 暗色 `rgba(35,35,36,0.72)`，**无设计稿依据**）。
+* `.r93-scroll { padding-top: 44px }` —— 与标题栏高度**成对**：不补这一档，首屏内容会整块上移 44px 钻到毛玻璃底下。
+  补上后**静止态与改前逐像素一致**（实测真实内容首块仍 `[420,125,…]`），只有滚起来才看得到区别。
+* `.r93-sk-in { padding: 76px 0 0 }`（= 44 + 32）—— 骨架屏的定位父级仍是 `.r93-pane`，跟着上移了 44px ⇒ 一起补。
+* `.r93-sk-card { margin-top: 20px }` —— 原来那块**浅灰容器**（`--r93-card` 圆角底 + 12px 内距）**已撤**
+  （第二批 ③）；3 条灰条现在与上面 3 条正文条同左缘（x=420）。
+* `.r93-tbsticky::after` 高度 **40 → 56px**（第二批 ④，底边仍 `-44px`）⇒ 渐隐带 = 滚动口最下 56px。
+  ⚠ 层级仍是「滚动内容 < 渐隐层 < 药丸」（A/B 裁片 `raw/r101-fadeab-crop.png` 可证药丸依旧清晰）。
+* `.r93-fc .r93-fchev` —— 折叠头**右端的 hover 箭头**：复用子菜单那枚 `fright` 图标，
+  **常驻占位 + `opacity` 淡入**（`display:none→flex` 会挤动标题）；基态带 `translateX(-2px)` 滑入
+  ⇒ **间距要在 hover 态量**（父级 `gap:4` + `margin-left:4` = 8px；基态量到的是 6px）。
+* `@keyframes r93-fold-in` + `.r93-fold[data-open='1'] > .r93-fb { animation: … .34s cubic-bezier(.34,1.56,.64,1) both }`
+  —— 展开回弹（display 开关天然重播）；`.r93-cv` 过渡换同曲线。**收起刻意不动画**（理由见 PLAYBOOK P3.33⑤）。
+* **菜单只剩一张**：第二批 ⑤ 把 r99 ⑦ 那张 `.r93-drow` 专用 4 项菜单**整段退役** ⇒
+  汇总行右键 / 左键 / 「⋯」三处全接产物卡的 FMenu（6 项 + 「打开方式 ▸」6 项）；
+  `runF('path')` 的名字来源 = `data-r93-artname` → `data-r93-file` 回落。**全页 `.r93-ctx` 恒 1 个**。
+
+**★ 本页新增的「块级」注入**：`<style id="r101-hdr-css">` —— `header[class*="h-12"] { background-size: 70% }`
+（压 r92 代的顶栏装饰图块）。**落 6 页**：base / conversation / avatar / skills / automation / settings
+（= 所有带 `r92-hdr-css` 的页面）；研发工作台 4 页（dev / kanban / req-kanban / task-detail）本来没铺这张图 ⇒ 未动。
+⚠ 注入/摘除的开关在该脚本里写作 `hdr_patch()` / `hdr_unpatch()`（`'r92-hdr-css' in text` 当判据）。
+
+⚠ **本页首屏所有折叠块都是展开态**（`foldClosed=0`）⇒ 要验折叠头样式（hover 箭头、`.r93-fc` hover 色）
+必须先**真点击一次**把某块折叠，`querySelector('.r93-fold[data-open="0"] > .r93-fc')` 首屏恒为 `null`。
+⚠ **毛玻璃标题栏会接住点击**：滚动口最上 44px 的内容点不到 ⇒ 自动化取证用 `agent-browser click` 时要先
+`scrollIntoView({block:'center'})`（否则目标被滚进那一条带，点击落在标题栏上、`eval` 读不到菜单）。

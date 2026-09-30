@@ -2561,3 +2561,184 @@ r100 ⑥ 的「说明文字行」在画稿里是**带浅灰圆角底的胶囊**�
 同 r99：没有新建代数，`apply93.py` 里本轮改动全标 `★ r100`，回退 = 定点删这些段落。
 ⚠ 唯一超出本代常规范围的是 ① 的更名：`main()` 里新增 `2b` 步改 **`task-detail.html`** 的一处可见文案
 （另一页），已按对称原则在 `--revert` 分支写了逆操作。
+
+---
+
+### P3.32 r101 定稿（会话详情页十一条 · 2026-09-30）—— ★ **上一代已提交时，新一代怎么接**
+
+#### ① ★★★ `GENS` 逐代摘除表：上一代已提交，页面里仍留着它的注入物
+
+**触发条件**：上一代（r93）**已 commit + push**（`d7e2151`），但页面里它的三块注入物
+（`<style id="r93-conv-css">` / `<script id="r93-conv-js">` / `<!-- r93-nav -->…<script id="r93-nav-js">`）**还在**。
+此时若照「就地返工」体位只摘本代 id，会连着撞两件事：
+
+1. `main()` 的「摘块后基线不得残留本代标记」自检炸掉（上一代的 id 还在页里）；
+2. **两代 CSS/JS 并存** ⇒ 双份生效、后写者胜，改一处不生效还找不到原因。
+
+**解法 = 代数表 + 逐代剥离正则**（`mg-work/r101/apply101.py`）：
+
+```python
+# 元组 = (tag 前缀, CSS id, JS id, NAV JS id)；nav 的注释对恒为 `<!-- <tag>-nav -->`
+GENS = (('r93',  'r93-conv-css',  'r93-conv-js',  'r93-nav-js'),
+        ('r101', 'r101-conv-css', 'r101-conv-js', 'r101-nav-js'))
+CSS_ID, JS_ID, NAV_ID = GENS[-1][1], GENS[-1][2], GENS[-1][3]   # 注入用**本代** id
+_N_CSS = '|'.join(g[1] for g in GENS)          # 'r93-conv-css|r101-conv-css'
+_N_JS  = '|'.join(g[2] for g in GENS)
+_N_NAV = '|'.join(g[3] for g in GENS)
+_N_TAG = '|'.join(g[0] for g in GENS)          # 'r93|r101'（给 nav 注释对用）
+
+RE_STYLE = re.compile(r'<style id="(?:%s)">.*?</style>\n?' % _N_CSS, re.S)
+RE_JS    = re.compile(r'<script id="(?:%s)">.*?</script>\n?' % _N_JS, re.S)
+RE_NAV   = re.compile(r'<!-- (?:%s)-nav -->\n?<script id="(?:%s)">.*?</script>\n?'
+                      r'<!-- /(?:%s)-nav -->\n?' % (_N_TAG, _N_NAV, _N_TAG), re.S)
+```
+
+`main()` 的自检改成**两层循环**：对 `GENS` 的**每一代**三个 id 逐个查残留，再单查本代的 nav 注释串。
+
+**★ 跨代沿用的两条标记**：`ATTR_HOST = 'r93-conv-host'` / `ATTR_PAGE = 'data-r93-page'`——
+它们**只出现在被整块重写的 CSS/JS 里**（不进页面静态 DOM 之外的任何地方）⇒ 无残留风险，
+所以**页面级 CSS 选择器一个字都不用改**（`html[data-r93-page='conversation'] …` 整块沿用）。
+判据：**「会随代数改名」的只有『注入块的 id』和『nav 的注释对』**，别顺手把功能类前缀也换掉——
+那会把 r93~r101 累积的几千行 CSS 全改一遍，风险远大于收益。
+
+**实测残留判据**（收尾必跑）：
+```
+grep -c "r101-conv-css" pages/conversation.html   # → 1
+grep -c "r101-nav-js"   pages/base.html           # → 1
+grep -c "r93-conv-css"  pages/conversation.html   # → 0（上一代必须 0）
+```
+
+#### ② ★★ hover 类需求：**只用 `backgroundColor` 读数是不可判定的**
+
+`backgroundColor: transparent` 既可能是「hover 规则命中了」，也可能是「根本没 hover 上、读的是默认态」
+—— 两种情形读数**一模一样**。r99 就因此留了一个「无法直证、待人工复核」的尾巴。
+
+**决定性读数 = 同一个探针里连查 `matches(':hover')`**：
+
+```js
+out.fh = { hov: fh.matches(':hover'), bg: cs(fh).backgroundColor, color: cs(fh).color, /* …子元素色… */ };
+```
+再配合真鼠标 `agent-browser hover <选择器>` + `scrollintoview`（先滚进视野再 hover，否则 hover 落在别处）。
+r101 实测三个目标全部 `hov=true`：展开头 `bg=rgba(0,0,0,0)` / `color=rgb(31,31,31)`、
+折叠头 `bg=transparent` / `color=ico=t14=rgb(31,31,31)`、图标按钮 `bg=rgb(242,242,242)` / `sh=none`。
+⇒ **以后凡是「hover/active/focus 态」的需求，验收读数必须带 `matches(':hover')` 这一项。**
+
+#### ③ ★★ 脚本内注释会**原样注入页面** —— 两类自检会被自己的注释打爆
+
+`applyNN.py` 里的 `CSS = r"""…"""` / `JS_TMPL = r"""…"""` / 文件头 docstring 的文本**逐字进产物 html**，
+所以注释不是「写给人看的旁注」，而是**页面内容的一部分**：
+
+| 注释里写了什么 | 会打爆什么 | 改法 |
+|---|---|---|
+| 裸 `<style>` / `<script>` / `</style>` / `</script>` | `main()` 的 `<style>` / `<script>` **计数自检**（`!! <style> 计数异常`） | 写成「页面样式块」 |
+| 裸 `color:#30953B` 之类字面 hex | `verify-design.check_hardcoded_hex` → **TOKEN-GAP**（`ALLOWED_HEX` 不含它） | 写成「色 = `--r93-ok`」 |
+| 裸 `linear-gradient` / `radial-gradient` | 门禁的**渐变计数**（页面级 info 会 +1） | 短语化（r94 踩过） |
+| 裸 `font-size: 15px` | 门禁的**字号计数**（该检查**不跳注释行**） | 短语化（r98 踩过） |
+
+⚠ 门禁 `verify-design.py` 的跳行条件是 `if '<!--' in line or '/*' in line: continue`
+⇒ **CSS 注释 `/* … */` 豁免，JS 行注释 `//` 不豁免**。同一句注释放 CSS 块里没事、放 JS 里就报警。
+⇒ 通用铁律：**新增注释里不得出现被断言的 token**（标签名 / hex / 渐变词 / 裸字号）。
+
+#### ④ ★ 骨架屏 / 一闪而过的中间态：CLI 截图**抓不到**，只能「临时改大延时 → 截 → 立即还原」
+
+`agent-browser open` 本身耗时 ≈1~2s，之后 `screenshot` 又要几百 ms ⇒ **1.1s 生命周期的元素必然抓空**
+（症状：紧跟 open 的 `eval` 读到 `n=1`，紧接着的 `screenshot` 却是已移除后的画面）。
+两条可用口径：
+1. **运行态读数**照常取（`eval` 挂在 open 之后立刻跑，能读到 `n=1` + 几何 + `animation-name`）；
+2. **目视截图**只能**临时把延时改大**（如 1100 → 60000），截完**立即还原**，
+   并用 `grep -c "}, 1100);"`（应 1）+ `grep -c "60000"`（应 0）做还原核对。
+⇒ 汇报时把「读数已证 / 截图靠临时改参证」分开说清，别把后者当「实时截图」。
+
+#### ⑤ ★ 覆盖范围要按「**同卡相邻同构**」自检，不能只看用户点名的那一个
+
+r101 ⑨ 点的是「折叠头 meta」，首版就只改 `.r93-t12l.r93-fm.r93-ell`。
+实测发现**同一张「调用 N 个工具」卡**里，汇总清单的 4 个 `.r93-sumrow .r93-t12l` 与折叠头**上下紧邻**，
+仍是 12px ⇒ 卡内 13/12 **混档**，肉眼一眼看出。
+⇒ 改「某一档字号/色」后，跑一个**按 computed 值 + className 分组计数**的探针，
+把「同容器内同构但没被覆盖到」的挑出来（r96 的 `t14dist`、r101 的 `t12l` 直方图都是这个套路）。
+判据：**同一容器内、同一语义层级的文本，字号/色必须一致**；不一致就要么扩选择器、要么在验收里写明「刻意例外」。
+
+#### ⑥ ★ 投影类还原：**先用像素剖面反推「实测有多弱」，再去 token 里找或自造**
+
+设计稿投影的**绝对强度**常与 DS token 差很远（r101 ⑩：实测峰值 Δ≈11、10px 收干；
+DS `--shadow1-down` 峰值 Δ≈26 = **强一倍以上**）。
+定档配方：① 从设计稿 PNG 取「被投影元素下方逐行平均灰度」剖面（rel+0..+N）；
+② 在**同一个浏览器会话**里内联试 3~4 档候选，各取一次剖面；
+③ 按 **Σ|Δ| 最小** 选（打平时选「上方外溢更小」的那档，因为投影向上溢出最刺眼）。
+⚠ 量剖面要**先滚到元素可见**再截图（全页截图后 Pillow 裁），别用元素截图——它裁到元素边界，投影正好被切掉。
+
+#### ⑦ r101 的体位提示
+
+* r93 **已提交** ⇒ 本代**新建** `mg-work/r101/apply101.py`（`CSS_ID/JS_ID/NAV_ID` 换 `r101-*`，见 ①）。
+* ⚠ 图标资产**不在本代重复入库**：`RAWI_DIRS` 先查 `mg-work/r101/raw/asset/icons`、
+  回落 `mg-work/r93/raw/asset/icons`（78 件同一次设计稿导出，本代一件未改）。
+* ⚠ ⑦ 的图标直接从 `mg-work/r69/part-ctx.js` 抽取（`load_ow_icons()`，线条 7 枚 + 品牌 6 枚，校验不过就 `sys.exit`）
+  —— **别再手抄一遍 svg**。
+* 🚫 未经邵先生显式发话「commit and push」不得 commit / push；r101 未提交时返工**就地改原补丁**、不另起代数。
+
+### P3.33 r101 第二批（七条 · 同日 19:50）—— ★ 六条新教训
+
+#### ① ★★ 跨行块的「剥离正则」必须带 `re.S`
+
+`RE_HDR = re.compile(r'<style id="…">.*?</style>\n?')` 少写一个 `re.S` ⇒ `.` 不跨行 ⇒ **块永远摘不掉**。
+症状很有欺骗性：**不是**「摘不掉」，而是第二遍跑时自检先炸 `!! 摘块后基线里仍残留标记 'r101-hdr-css'`，
+一眼看去像「残留检测写错了」。
+⇒ 本文件里 `RE_STYLE / RE_JS / RE_NAV` 三条都带 `re.S`，加新块时**照抄那三条**、别手写。
+⇒ 排查手法：用 `importlib` 加载脚本 → 逐条 `rx.sub('', src)` 并打印每次的 `count()`，一跑就知道是哪条 RE 没生效。
+
+#### ② ★ 「上一代已提交」时想改它的产物 = **新起一块同特异性、靠文档顺序取胜的块**
+
+邵先生第二批 ② 要改的是 **r92 代**铺的 `header[class*="h-12"]`（r92 已提交 ⇒ 按硬规则不能回改 `apply92.py`）。
+做法：新起 `<style id="r101-hdr-css">` **只写被改的那一项**（`background-size: 70%`），
+注入点固定在 `</body>` 前 ⇒ 恒在 r92 块之后 ⇒ 同特异性下后写者胜（与 r77/r78 压 `.r74-ripple` 同一机制）。
+⇒ 代价是「同一属性分散在两块里」，注释里必须写清「谁覆盖谁、为什么不能回改旧补丁」。
+⇒ 落点要**按块找页**：用 `'r92-hdr-css' in text` 当开关，而不是硬编码页名列表
+（本次自动命中 6 页；研发工作台那 4 页本来没铺这张图 ⇒ 自动跳过）。
+
+#### ③ ★ 浮在滚动口上的「毛玻璃标题栏」怎么落地 + 怎么取证
+
+* 先确认标题栏**是不是流内兄弟** —— r101 的 `.r93-bar` 是（与滚动口**相切** ⇒ `backdrop-filter` **没有 backdrop 可糊**）；
+  读一次 `bar` / `scroll` 的 rect 就能定性（`bar.bottom === scroll.top`）。
+* 落地三件套：宿主 `position: relative` ⇒ 标题栏 `position: absolute; z-index: N` ⇒
+  **滚动口补 `padding-top: 标题栏高`**（把被盖掉的那一档补回来，**静止态才能与改前逐像素一致**）。
+* ⚠ **凡是「相对 pane 定位」的浮层都要跟着改**：本次是骨架屏 `.r93-sk`（`inset: 0`）——
+  它的内层上内距要一起 32 → 76，否则整块上移 44px 钻进标题栏底下。
+* ⚠ **层级**：标题栏 `z-index` 必须**大于**骨架屏的 9（取 10），否则「加载中页头照旧可见」这条老行为会被破坏。
+* 取证配方 = **A/B 截图**：同一滚动位拍两张，第二张前用 `eval` 把 `backdrop-filter` 改成 `none`，
+  再用 Pillow 算带内「平均 |Δ| / 变化像素占比 / 相邻像素梯度能」；**梯度能下降**就是「被糊过」的硬证据
+  （实测 12.32 → 2.86，降 76.8%，变化像素 85.8%）。选窗时**避开标题栏自带的 chrome**（页签、标题、⋯），
+  否则那些「不糊的像素」会把指标稀释掉。
+* ⚠ **副作用要写进验收**：标题栏盖住的那 44px 里内容**点不到**（被标题栏接住）——
+  这直接坑自动化取证：`agent-browser click` 若把目标滚进那一条带就点在标题栏上，
+  症状是「`eval` 读不到菜单」，极易误判成「点击没绑上」。修法 = 先 `scrollIntoView({block:'center'})` 再点。
+
+#### ④ ★ 「菜单合一」类改造：先数清「几张菜单 × 几个触发器」，再动刀
+
+r101 ⑦ 之后本页有**两张互不相干**的菜单（`.r93-drow` 的 4 项菜单 / 产物卡的 6 项 + 子菜单）。
+第二批 ⑤ 要求「保持一致」⇒ **退役旧的那张**，把它的**触发器**改接到留下的那张上。触发器由 1 个变 3 个时注意：
+  ① 关菜单的 `document pointerdown` 要补「**左键触发器自己不关**」（否则同一次点击先关后开闪一下）；
+  ② 「复制路径」的**取值来源**改成多路回落（`data-r93-artname` → `data-r93-file`）；
+  ③ 旧菜单的 `build*/open*/close*` 三个函数 + 它们的事件监听要**整段删干净**，`grep` 函数名确认只剩注释。
+⇒ 长段替换别手抄：写个一次性 python 脚本，用**唯一标记切片 + 计数断言**（本次 `ev/patch_menus.py`，用完即删）。
+⇒ 「替换 vs 合并」要给用户留话口：本次删掉的 4 项（查看文件 / 查看改动 / 复制文件路径 / 撤销此文件改动）
+   在验收里明确写「若其实要并集，说一声」。
+
+#### ⑤ ★「弹性微动效」的最小实现：`display` 开关 + 回弹曲线
+
+`display: none ↔ block` 的显隐**天生会重播 animation** ⇒ 只要写一段 keyframes
+（`from { opacity:0; transform: translateY(-8px) }` / `to { … none }`）
++ `animation: … .34s cubic-bezier(.34,1.56,.64,1) both`（back-out 曲线**自带超调 = 弹性**，
+不用手写三段 keyframes），再给 chevron 的 `transition` 换同一条曲线 ⇒ 两个方向都有回弹。
+⚠ **反向（收起）要动画就必须改高度动画**（`grid-template-rows: 0fr→1fr` + 内层 `overflow: hidden`），
+而 `overflow: hidden` 会**剪掉卡内向上翻的 popover** ⇒ 本工程判定「得不偿失」，收起保持瞬收，并把理由写进注释。
+⚠ 取证：点完**在同一个 `eval` 里**立刻读 `getAnimations()`（要看到 `playState:"running"`、`currentTime≈0`、`fill:"both"`）——
+等下一次 CLI 调用再读，动画早已 `finished`。
+
+#### ⑥ ★「hover 才出现的小图标」用「常驻占位 + opacity」，不要 `display: none`
+
+`display: none → flex` 会**改变按钮宽度**（hover 时文字被挤动、ellipsis 重算）；
+改用常驻占位 + `opacity: 0 → 1`（可再加 `translateX(-2px)` 滑入），间距用「父级 `gap` + 元素 `margin-left`」凑目标值
+（本次 4+4 = **8px**）。
+⚠ 读数注意：基态带位移时 `getBoundingClientRect` 量到的间距会比真值**小 2px** ⇒ **必须在 hover 态量**（并同时读 `matches(':hover')`）。
+⚠ 数据坑：本页首屏**所有折叠块都是展开态**（`foldClosed=0`）⇒ 要验「折叠头」的样式必须先**真点击一次**把它折叠，
+   不能指望首屏就能选到 `.r93-fold[data-open="0"] > .r93-fc`。

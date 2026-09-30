@@ -1,0 +1,19 @@
+=== [1] 折叠第一个折叠块（真点击） ===
+"clicked: 上下文注入"
+=== [2] 折叠后读数（箭头静态 opacity / 间距 / 子女） ===
+"{\"host\":[269,49,1162,656],\"bar\":[269,49,1162,44],\"scroll\":[269,49,1162,544],\"barPos\":\"absolute\",\"barBg\":\"rgba(255, 255, 255, 0.72)\",\"barZ\":\"10\",\"barBd\":\"blur(12px)\",\"scrollPad\":\"44px 0px 0px\",\"hdr\":{\"size\":\"70% auto\",\"pos\":\"100% 50%\",\"img\":\"url(\\\"file:///E:/GienCoder/giencoder-design-engin\",\"box\":[0,0,1440,48]},\"fade\":{\"h\":\"56px\",\"bottom\":\"-44px\",\"bg\":\"linear-gradient(rgba(0, 0, 0, 0), rgb(255, 255, 255))\"},\"foldAnim\":\"r93-fold-in / 0.34s / cubic-bezier(0.34, 1.56, 0.64, 1)\",\"cvTrans\":\"transform 0.34s cubic-bezier(0.34, 1.56, 0.64, 1)\",\"foldOpen\":13,\"foldClosed\":1,\"fc\":{\"box\":[420,429,115,22],\"kids\":[\"r93-iblk r93-i14 r93-c3|14x14\",\"r93-t14 r93-ell|75x22\",\"r93-iblk r93-i14 r93-fchev|14x14\"],\"gapToPrev\":6,\"arrowBox\":[519,433,14,14],\"arrowOp\":\"0\",\"arrowTrans\":\"opacity, transform\"},\"diffMenus\":0,\"sk\":0}"
+=== [3] 真鼠标 hover 折叠头，再读箭头 ===
+"{\"hov\":true,\"arrowOp\":\"1\",\"arrowBox\":[521,433,14,14],\"gap\":8,\"gapFromRightEdge\":0,\"fcBox\":[420,429,115,22],\"fcColor\":\"rgb(31, 31, 31)\"}"
+   （已截 r101-fc-hover2.png）
+=== [4] 再点一次展开 → 抓 r93-fold-in 动画是否在播 ===
+"{\"n\":1,\"list\":[\"r93-fold-in@340ms/finished\"],\"refoldClosed\":0}"
+=== [5] 汇总卡「⋯」→ 菜单内容 ===
+"no menu"
+=== [6] hover「打开方式」→ 子菜单 ===
+"no sub"
+=== [7] Esc 关闭 → 汇总行整行右键（合成事件）→ 菜单应与上面同一套 ===
+"ctx-dispatch"
+"{\"open\":true,\"labels\":[\"打开\",\"打开所在文件夹\",\"添加到对话\",\"添加到 GienCoder\",\"复制路径\",\"打开方式\"]}"
+=== [8] 产物卡右键（回归：应与上面逐字相同） ===
+"art-ctx"
+"{\"labels\":[\"打开\",\"打开所在文件夹\",\"添加到对话\",\"添加到 GienCoder\",\"复制路径\",\"打开方式\"]}"

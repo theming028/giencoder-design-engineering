@@ -1,0 +1,9 @@
+=== [1] 静态读数（未滚动） ===
+"{\"host\":[269,49,1162,656],\"bar\":[269,49,1162,44],\"scroll\":[269,49,1162,544],\"barPos\":\"absolute\",\"barBg\":\"rgba(255, 255, 255, 0.72)\",\"barZ\":\"10\",\"barBd\":\"blur(12px)\",\"scrollPad\":\"44px 0px 0px\",\"hdr\":{\"size\":\"70% auto\",\"pos\":\"100% 50%\",\"img\":\"url(\\\"file:///E:/GienCoder/giencoder-design-engin\",\"box\":[0,0,1440,48]},\"fade\":{\"h\":\"56px\",\"bottom\":\"-44px\",\"bg\":\"linear-gradient(rgba(0, 0, 0, 0), rgb(255, 255, 255))\"},\"foldAnim\":\"r93-fold-in / 0.34s / cubic-bezier(0.34, 1.56, 0.64, 1)\",\"cvTrans\":\"transform 0.34s cubic-bezier(0.34, 1.56, 0.64, 1)\",\"foldOpen\":14,\"foldClosed\":0,\"diffMenus\":0,\"sk\":0}"
+
+=== [2] 滚动到 1200 / 1800，各拍 ON/OFF 两张 ===
+   top=1200 已拍
+   top=1800 已拍
+
+=== [3] 滚动后的几何（bar 是否仍贴顶、内容是否已到它底下） ===
+"{\"scrollTop\":1800,\"bar\":[269,49,1162,44],\"scroll\":[269,49,1162,544],\"wrapTop\":-1707}"
