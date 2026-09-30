@@ -1,12 +1,12 @@
 # HANDOFF · 下一轮接手卡
 
 > **每轮覆盖重写。新会话开局先读这一页，再按需 grep `PLAYBOOK.md` / `PAGES.md`。**
-> 最后更新：2026-09-30 17:5x（**r88 + r89 + r90 + r91 + r92 + r93（含 ④ 独立页）+ r94 + r95 + r96 + r97 + r98 + r99 已落地并通过四查 + 像素级实测取证；🚫 按约定未 commit，等邵先生发话**）
+> 最后更新：2026-09-30 18:3x（**r86 ~ r100 全部落地并通过四查 + 像素级实测取证，且已 commit + push：`6a4b0ea..d7e2151`（776 文件 / +156039 行）；工作区已干净**）
 > ⚠️ **最新一拍 = r99 十四条**（会话详情页 `.r93-conv-host` 微调；**r93 代未提交 ⇒ 全部就地返工 `mg-work/r93/apply93.py`**）。
 > ★★ 本轮最要紧的一条经验：**别按「裸坐标」推算图标几何** —— 设计稿导出的 8 个 svg 带 `transform="matrix(...)"`，
 > 我写的 `fit_viewbox()` 不认 transform、把**本来正确**的 SKILL / c2 图标改坏（只剩 1px 残片），**已整段删除**。
 > 详见 `mg-work/r93/acceptance.md` 十二节 · PLAYBOOK **P3.30**。**新会话若不碰图标可跳过。**
-> 工作区：**16 个文件 ` M`**（9 页 + 3 份 DS 源 + 4 份记忆）+ `?? pages/conversation.html`（★ r93 ④ 新建页）+ `?? mg-work/r86|r87|r88|r92|r93/` + `?? .workbuddy/memory/2026-09-30.md` + `?? assets/images/`（`origin/main` 停在 `1ecc7ee`）
+> 工作区：**干净（`git status --porcelain` = 0）**。`origin/main` 已到 **`d7e2151`** —— r86~r100 一次提交推上去（776 文件 / +156039 行）。
 > ⚠ **r89 / r90 / r91 / r92 对设置页的改动、r93 需求 1 对字号机制的改动，全都是 r88 的就地返工**（r88 未提交 ⇒ 按硬规则不另起代数，直接改 `mg-work/r88/apply88.py` 与 `apply88b-fontsize.py`）。
 > ⚠ **r93 需求 2 是新建**，落在 `mg-work/r93/apply93.py`（③ 之前：只动 base.html 单页；**④ 之后：base.html + 新建 conversation.html + 9 页路由表各一条**）。
 > ⚠ **★ `pages/` 下每个页面都是「完全自包含」的独立 html**（顶栏 + aside + 外壳各一份，**没有共享布局、没有真实路由**）⇒ 新开一页 = **由源页净底重建（不复制）**；页面间跳转靠每页内嵌 `<!-- SHELL-NAV-FIX v5 -->` 的 `ROUTE` 表 + `hashchange`（见第十节）。
@@ -30,11 +30,14 @@
 | `?? mg-work/r93/` | `apply93.py`（含 `--revert`）/ `acceptance.md`（**十三节**：r93 ④ / r94 / r95 / r96 / r97 / r98 / r99 / **r100**）/ `before/`（**25 个**：10 页基线 + 9 个 `*-r93c.html` = ④ 前快照 + `*-r96` / `*-r97` / `*-r99` / **`conversation-r100.html`** 前置基线）/ `ev/`（`p94*`~**`p100*`** 探针 + 读数 `vd-r93c-base.txt` 75 / `vd-r93c.txt` 76 / `vd-r94*.txt` ~ **`vd-r100.txt`** + **隔离测试页 `icontest.html`**）/ `raw/`（设计稿导出 + 量测截图 + `v3-*` / `r94-*` ~ **`r100*`**.png） |
 | `?? .workbuddy/memory/2026-09-30.md` | 当日原始日志（含 r92 / r93 / **r93 ④** / r94~**r100** 各段） |
 
-`origin/main` @ `1ecc7ee`（r80–r85 已推送）。**长期约定「默认不自动 commit / push」（2026-09-28 起）**。
+`origin/main` @ **`d7e2151`**（r86~r100 已推送；上一站 `1ecc7ee` = r80–r85）。**长期约定「默认不自动 commit / push」（2026-09-28 起）；邵先生显式说「commit and push」时才执行**。
 
 ⚠ `.gitignore`：`mg-work/r80/raw/sel_*.json`、`mg-work/*/gate/*/pages/`。`before/` 与 `raw/` **是**入库惯例。
 ⚠ **推送凭据**：PAT 已写入 `~/.git-credentials`，推送带 `-c credential.helper=store`（详见第九节）。
-⚠ 安全：该 PAT 曾出现在对话记录里，**建议 Revoke**。
+⚠ **安全（r100 首推被拒时查明）**：该 PAT **就是当前在用的推送凭据**（与 `~/.git-credentials` 同一枚），它曾出现在对话记录里、
+又被明文抄进 `mg-work/r87/acceptance.md:174` 的「安全备忘」（那行自己写着「建议 Revoke」，却从没执行）⇒ 首推被 **GitHub Push Protection** 拒。
+已就地打码 + `commit --amend` + `reflog expire --all` + `gc --prune=now` 清干净（详见 PLAYBOOK **P5.1**）。
+**⚠ 但「已泄露」打码是解决不了的 —— 请尽快 Revoke 该 token 并换发新 PAT**（换发后只需覆盖 `~/.git-credentials`，推送命令不用改）。
 
 `.workbuddy/memory/` 两份：**仓库内（权威，随 git 走）** 与工作区 `E:/GienCoder/.workbuddy/memory/`（速记）。改记忆**以仓库内为准**。
 

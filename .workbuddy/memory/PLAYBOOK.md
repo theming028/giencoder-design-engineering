@@ -1226,6 +1226,31 @@ r84 把 `open_view.js` 放在 `r83/ev/`，`cat mg-work/r84/ev/open_view.js` 报�
   而该轮 raw 的实质产物仅 **14 个 / 81K**）—— 查法：`find <dir> -type f -printf '%s %p\n' | sort -rn | head` +
   `find <dir> -type f | sed 's/.*\.//' | sort | uniq -c | sort -rn`。
 
+### P5.1 🚨 提交里带 token 明文 ⇒ GitHub Push Protection 拒推（r100 事故）
+
+**症状**：`remote: - Push cannot contain secrets` / `! [remote rejected] main -> main (push declined due to repository rule violations)`，
+并给出 `locations: commit <sha> / path <file>:<line>`。
+**实例**：`mg-work/r87/acceptance.md:174` 的一行「安全备忘」把 PAT 明文抄了进去 —— **那行自己还写着「建议 Revoke」，却一直没执行**（见下 ⚠️b）。
+
+- **入库前必须扫两处**（只扫工作区不够，Push Protection 扫的是**待推送区间**）：
+  ```bash
+  P='gh[pousr]_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{30,}|AKIA[0-9A-Z]{16}|BEGIN [A-Z ]*PRIVATE KEY'
+  grep -rInE "$P" --exclude-dir=.git .          # ① 工作区（含未跟踪文件）
+  git log origin/main..HEAD -p | grep -nE "$P"  # ② 待推送补丁（含历史，二者都要空）
+  ```
+- **补救体位**（此时提交**尚未推上去** ⇒ 可整容，不必毁库）：
+  1. 就地**打码**该行 —— 不只删字符，要**说明原因**并立规矩（如「本仓文档/探针日志自此一律不记录 token 明文」）；
+  2. `git add <改的文件> && git commit --amend --no-edit`（未推送的单个提交，**amend 是正解**；已推送才需 `filter-repo`/BFG）；
+  3. 复扫：`git log --all -S '<原串>'` 与 `git grep -nE "$P" HEAD` **都必须为空**；
+  4. `git reflog expire --expire=now --all && git gc --prune=now` ⇒ 剪掉含密的**悬空 commit/blob**
+     （验证：`git cat-file -t <旧 commit>` 应报 `Not a valid object name`）；
+  5. 重推，成功判据 = `旧SHA..新SHA  main -> main`。
+- ⚠️ **两件事必须同时查**，否则白忙：
+  **(a)** 该串在**已推送**的历史里有没有 → `git log origin/main -S '<原串>'`；有 ⇒ 只能 Revoke + filter-repo + 强推。
+  **(b)** **该 token 是否仍在用** → 与 `~/.git-credentials` 比对。本案一比即知是**同一枚** ⇒ 它**从未被 Revoke**，
+  是**活的推送凭据**，必须尽快换发（打码只解决「入库」，不解决「已泄露」）。
+- ⚠️ GitHub 回执里给的 `.../secret-scanning/unblock-secret/<id>` 链接是**放行**通道，**不要点**（等于把密钥永久写进公开历史）。
+
 ---
 
 ## P6 提速工作法（用户反馈"响应慢"后固化）
