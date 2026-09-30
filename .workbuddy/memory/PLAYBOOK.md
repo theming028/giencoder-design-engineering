@@ -1203,23 +1203,38 @@ r84 把 `open_view.js` 放在 `r83/ev/`，`cat mg-work/r84/ev/open_view.js` 报�
   提交前先扫一遍敏感串（`ghp_` / `github_pat_` / `AKIA` / `PRIVATE KEY`）。仓库已跟踪 `mg-work`，属既有惯例。
 - ⚠️ macOS 旧环境的 `git remote -v` origin URL **内嵌 GitHub PAT（明文）**（凭据就在 URL 里，所以那次不必配 helper）；
   本机（Windows）的 URL 是**干净的**，认证需另配（见下条）⇒ 无论哪种环境，汇报时都不要打印完整 URL。
-- ★ **Windows 环境（本机仓库 `E:/GienCoder/giencoder-design-engineering`）推送三步**（r85 打通）：
-  ① **注入代理的端口每轮会变**（实测走过 `53395` / `62399`），旧记录把端口写死是隐患 ⇒ 先 `env | grep -i proxy` **现查**，
-     再 `env -u https_proxy -u HTTPS_PROXY -u http_proxy -u HTTP_PROXY` **清掉**（env 的代理对 `github.com:443` 稳定 502）；
+- ★ **Windows 环境（本机仓库 `E:/GienCoder/giencoder-design-engineering`）推送三步**（r85 打通 / **r105 更正姿势**）：
+  ① **注入代理的端口每轮会变**（实测走过 `53395` / `62399`），旧记录把端口写死是隐患 ⇒ 先 `env | grep -i proxy` **现查**。
+     ⚠ **但 2026-09-30 实测本机已无任何 proxy 环境变量** ⇒ 那种情况下**根本不需要** `env -u ...`；
+     有 ctx 代理时再考虑清掉（env 的代理对 `github.com:443` 稳定 502）。
   ② 出口用 `http://127.0.0.1:7890`（`curl -sI -x http://127.0.0.1:7890 --max-time 10 https://github.com` 回 `200 OK` 即通）；
   ③ **认证**：本机原本**没有**可用凭据 —— `~/.gitconfig` 里 `credential.helper=` 为空、`~/.ssh` 只有 known_hosts、
      Windows 凭据管理器与 `~/.netrc` 均无 github 条目 ⇒ PAT 写入 `~/.git-credentials`，推送时带 **`-c credential.helper=store`**
      （⚠ Windows 下 `chmod 600` **不生效**，实测仍是 `-rw-r--r--` ⇒ 用 `icacls "<path>" /inheritance:r /grant:r "<user>:(R)"` 收紧）
 
   ```bash
-  env -u https_proxy -u HTTPS_PROXY -u http_proxy -u HTTP_PROXY \
-    git -c credential.helper=store \
-        -c http.proxy=http://127.0.0.1:7890 -c https.proxy=http://127.0.0.1:7890 \
-        -c http.version=HTTP/1.1 push origin main
+  git -c credential.helper=store \
+      -c http.proxy=http://127.0.0.1:7890 -c https.proxy=http://127.0.0.1:7890 \
+      -c http.version=HTTP/1.1 push origin main
   ```
 
   ⚠ 缺认证时**报的是** `fatal: could not read Username for 'https://github.com': terminal prompts disabled`
   （非交互环境**不会弹窗**）—— **别误判成网络问题**。⚠️ 不要设全局 helper、不要把凭据写进仓库。
+
+- 🚨🚨 **`env` 前缀会让整条命令被「静默吞掉」（r105 踩了半小时，务必先读这条）**：
+  本机 harness 下，任何以 **`env ...`** 开头的命令都可能 **exit 0 + 零输出 + 完全不执行**，
+  且**连 `GIT_TRACE=1` 的 trace 都不打**，看起来像「git 网络坏了 / 推上去了但远端没变」。
+  实证对照（同一目录、同一条命令）：
+  ```text
+  env git ls-remote origin   →  exit=0  bytes=0      ← 被吞掉，什么都没发生
+  git ls-remote origin       →  exit=0  bytes=103    ← 正常（103 字节 = 4 行 ref）
+  ```
+  **判据**：`git status -sb` 仍显示 `[ahead N]` + `git rev-parse origin/main` 停在旧值 + 命令零输出
+  ⇒ **先怀疑 `env` 前缀，而不是先怀疑网络/凭据**。
+  **姿势**：推送一律**裸调 `git`**（如上代码块，已去掉 `env -u`）；需要落盘取证时用
+  `cmd > /tmp/out.txt 2>&1` **再 `cat` 文件**（管道 `| tail` 在部分网络命令上也会丢输出）。
+  ▸ 顺带排除法：`curl -x http://127.0.0.1:7890 https://api.github.com/...` 回 200
+  ⇒ 代理与 GitHub 都通，**问题不在网络**。
 - ⚠️ **要排除某类产物前，先查既有入库惯例**（r85 两例，别凭直觉）：
   `before/` 基线**是**入库惯例（r74 9 个 / r76 9 个 / r77 11 个）；而 `mg-work/*/gate*` 入库的 **8 个全是 txt 报告**（页面副本不入库）。
   r85 据此排除 `mg-work/r85/gate/*/pages/` 与 `mg-work/r80/raw/sel_*.json`（**285 个 / 21M** 的「选中节点」原始 dump，

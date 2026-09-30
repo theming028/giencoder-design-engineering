@@ -1,8 +1,8 @@
 # HANDOFF · 下一轮接手卡
 
 > **每轮覆盖重写。新会话开局先读这一页，再按需 grep `PLAYBOOK.md` / `PAGES.md`。**
-> 最后更新：2026-09-30 23:5x（**r102 十一条 + r103 六条 + r104 四条 + r105 三条已落地 → 四查全绿 + 1440/2560/暗色取证；🚫 未提交**）
-> ⚠️ **最新一拍 = r105 三条**（会话详情页 + 8 个独立页；**r102 / r103 / r104 均未提交 ⇒ 就地返工**，仍改
+> 最后更新：2026-09-30 23:5x（**r102 十一条 + r103 六条 + r104 四条 + r105 三条已落地 → 四查全绿 + 1440/2560/暗色取证 → ✅ 已提交推送 `87e2caa`（228 文件 / +17128 −178）；README 已同步更新**）
+> ⚠️ **最新一拍 = r105 三条**（会话详情页 + 8 个独立页；**r102 / r103 / r104 当时均未提交 ⇒ 就地返工**，仍改
 > `mg-work/r102/apply102.py`、注入块 id 仍 `r102-conv-css` / `r102-conv-js` / `r102-nav-js`、**不另起代数**）：
 > ① **任何其他独立页面点会话任务 ⇒ 跳 `conversation.html` → 已做**：把 `base.html` 里**已有**的那块
 >   `r102-nav-js`（捕获阶段委托识别 `aside` 里会话项）**扩到其余 8 页**；走 `nav_patch → invert_if_absent`
@@ -33,21 +33,21 @@
 >   对比度 ≈ **2.0**（远低于 4.5）、激活行成**整块白**。修法只覆盖那 7 个自定义属性、**不动几何**（源件逐字不动 ⇒ 同源校验仍成立）。
 > ★★ r104 那条仍要紧（PLAYBOOK **P3.36**）：**正 z-index 创建层叠上下文 ⇒ 其内部所有后代浮窗的 z-index 被封顶在那一层**
 >   （r103 ⑤ 给 hero 加 `z-index:1` 的代价）⇒ 修法是**把兄弟宿主整块降到 `z-index: 0`**，两条**成对**（实测详见 acceptance r104 段）。
-> 工作区：**10 页 ` M` + `?? mg-work/r102/`**（`conversation.html` **793028** / sha `e67474395502`；`base.html` **472150（+0）**；
->   其余 **8 页各 +714**）。`origin/main` 停在 **`9f252e5`**（r101 已推送）。
+> 工作区：**`git status` 干净（本批已全部入库）**（`conversation.html` **793028** / sha `e67474395502`；`base.html` **472150（+0）**；
+>   其余 **8 页各 +714**）。`origin/main` = **`87e2caa`**（= 本地 HEAD，已推送）。
 > ⚠ **r89 / r90 / r91 / r92 对设置页的改动、r93 需求 1 对字号机制的改动，全都是 r88 的就地返工**（r88 未提交 ⇒ 按硬规则不另起代数，直接改 `mg-work/r88/apply88.py` 与 `apply88b-fontsize.py`）。
 > ⚠ **r94 ~ r100 全部是 r93 代就地返工**（落在 `mg-work/r93/apply93.py`）；**r101 起是新代**（`mg-work/r101/apply101.py`，承接 r93 代的产物）；
 > **r102 又是新代**（`mg-work/r102/apply102.py`，承接 r101 代的产物 —— `GENS` 现在有 r93 / r101 / r102 三代）；
 > **r103 是 r102 的「未提交期就地返工」**（仍改 `apply102.py`，注入块 id 不变）；
 > **r104 / r105 同样是就地返工**（仍改 `apply102.py`）⇒
-> **r102 十一条 + r103 六条 + r104 四条 + r105 三条是同一次交付**（等邵先生发话 commit / push）。
+> **r102 十一条 + r103 六条 + r104 四条 + r105 三条是同一次交付**，已于 2026-09-30 23:5x 提交推送（**`87e2caa`**）。
 > ⚠ **★ `pages/` 下每个页面都是「完全自包含」的独立 html**（顶栏 + aside + 外壳各一份，**没有共享布局、没有真实路由**）⇒ 新开一页 = **由源页净底重建（不复制）**；页面间跳转靠每页内嵌 `<!-- SHELL-NAV-FIX v5 -->` 的 `ROUTE` 表 + `hashchange`（见第十节）。
 
 ---
 
 ## 一、当前工作区状态
 
-**r102 ~ r105 尚未提交**（工作区 = **10 页 ` M`** + 4 份 `.workbuddy/memory/*.md` + `?? mg-work/r102/`）。
+**r102 ~ r105 已全部提交推送**（**`87e2caa`**，228 文件 / +17128 −178；工作区 `git status` **干净**）。
 r86 ~ r100 于 18:2x 提交推送（`6a4b0ea..d7e2151`，776 文件 / +156039 −532）；**r101 于 20:2x 提交推送**（`1d11fc9..9f252e5`，117 文件 / +10377 −123）。
 
 | 改动 | 内容 |
@@ -56,17 +56,18 @@ r86 ~ r100 于 18:2x 提交推送（`6a4b0ea..d7e2151`，776 文件 / +156039 �
 | `pages/base.html` | **471444 → 472150 字符**（r101 +706，r102 ~ r105 **+0**）；LF 文本 `sha c406a60add16`（r101 态 `2ffe5f16d5c8`）＝ nav 脚本 id 由 `r101-nav-js` 换成 **`r102-nav-js`**（注释对同步换名，**长度相同**）+ **`r101-hdr-css`（顶栏图 70%）** |
 | `pages/{avatar,skills,automation,settings,dev,kanban,req-kanban,task-detail}.html` | **各 +714**（r105 ① 注入同一块 `r102-nav-js`；这 8 页在 r101 已各 +703）；终态 `568086 / 361583 / 361696 / 459222 / 450205 / 568052 / 513791 / 767428` |
 | `mg-work/r101/` | `apply101.py`（含 `--revert` / `--dry`）/ `acceptance.md`（**十三节**）/ `before/`（2 份前置基线）/ `ev/`（探针 + 终态取证 + `vd-r101*`）/ `raw/` —— **已提交**，仅供追溯 |
-| `mg-work/r102/` | `apply102.py`（**163605 字符 / 220815 字节**；`cp` 自 r101 后大改；**r103 六条 + r104 四条 + r105 三条也在里面**，含 `--revert` / `--dry`）/ `acceptance.md`（**六节 r102 + r103 段 + r104 段 + 新增 r105 段**，39524 字节）/ `before/`（`conversation-r102.html` 721864 / `base-r102.html` 490294）/ **`part105/`**（`browse.css` 15937 / `browse.html` 31688 / `browse.js` 47410 / `ctrl-conv.js` 15465，r105 ③ 三件套 + 控制器）/ `ev/`（`p102a~p102f` + `p103a~p103k` + `p104a~p104q` + **`p105a~p105j` + `p105e/f/g1.js` + `extract105.py` + `write_acc105.py` + `.log`** + `audit104.py/.log` + `vd-r102a/b.txt` / `vd-r103a.txt` / `vd-r104b/c.txt` / **`vd-r105a/b.txt`**）/ `raw/`（基线 / 改后 1440+2560 / 折叠 / hover / `g103-*` ~ `k103-*` / `z104-*` `a104-*`~`z2560-*` `c2560-*` / **`x105-*` `y105-*` `z2560-browse*` `z2560-dark-browse` `z1440-dark-105` r105 裁片**）—— **`??` 未提交** |
+| `mg-work/r102/` | `apply102.py`（**163605 字符 / 220815 字节**；`cp` 自 r101 后大改；**r103 六条 + r104 四条 + r105 三条也在里面**，含 `--revert` / `--dry`）/ `acceptance.md`（**六节 r102 + r103 段 + r104 段 + 新增 r105 段**，39524 字节）/ `before/`（`conversation-r102.html` 721864 / `base-r102.html` 490294）/ **`part105/`**（`browse.css` 15937 / `browse.html` 31688 / `browse.js` 47410 / `ctrl-conv.js` 15465，r105 ③ 三件套 + 控制器）/ `ev/`（`p102a~p102f` + `p103a~p103k` + `p104a~p104q` + **`p105a~p105j` + `p105e/f/g1.js` + `extract105.py` + `write_acc105.py` + `.log`** + `audit104.py/.log` + `vd-r102a/b.txt` / `vd-r103a.txt` / `vd-r104b/c.txt` / **`vd-r105a/b.txt`**）/ `raw/`（基线 / 改后 1440+2560 / 折叠 / hover / `g103-*` ~ `k103-*` / `z104-*` `a104-*`~`z2560-*` `c2560-*` / **`x105-*` `y105-*` `z2560-browse*` `z2560-dark-browse` `z1440-dark-105` r105 裁片**）—— **已提交**（`87e2caa`）|
 | `.workbuddy/memory/2026-09-30.md` | 当日原始日志（含 r92 / r93 / **r93 ④** / r94~**r105** 各段） |
 
 > 历史（已提交的那批，仅供追溯）：`settings.html` 457805 字符（r88~r93①）；`{avatar,skills,automation}` = 566669 / 360166 / 360279；
 > `{dev,kanban,req-kanban,task-detail}` = 449491 / 567338 / 513077 / 766714；`assets/images/bg-img-1.png`（顶栏装饰）；`giencoder-design-system/components.css` + `.gienx-templates/_shared/components.css` + `components/select.json`（r87 select）。
 > `?? mg-work/r92/` · `?? mg-work/r93/`（`apply93.py` + `acceptance.md` 十三节 + `before/` 25 份 + `ev/` + `raw/`）—— **均已提交**。
 
-`origin/main` @ **`9f252e5`**（r101 已推送；**本地已领先一站 = r102 十一条 + r103 六条 + r104 四条 + r105 三条，工作区未提交**；上一站 `d7e2151` = r86~r100，再上一站 `1ecc7ee` = r80–r85）。**长期约定「默认不自动 commit / push」（2026-09-28 起）；邵先生显式说「commit and push」时才执行**。
+`origin/main` @ **`87e2caa`**（**r102 十一条 + r103 六条 + r104 四条 + r105 三条已推送**，工作区**干净**；上一站 `9f252e5` = r101，再上一站 `d7e2151` = r86~r100，`1ecc7ee` = r80–r85）。**长期约定「默认不自动 commit / push」（2026-09-28 起）；邵先生显式说「commit and push」时才执行**。
 
 ⚠ `.gitignore`：`mg-work/r80/raw/sel_*.json`、`mg-work/*/gate/*/pages/`。`before/` 与 `raw/` **是**入库惯例。
 ⚠ **推送凭据**：PAT 已写入 `~/.git-credentials`，推送带 `-c credential.helper=store`（详见第九节）。
+⚠ 🚨 **推送体位（r105 更正）**：一律**裸调 `git`** —— 本机 **`env …` 开头的命令会被「静默吞掉」**（exit 0 + 零输出 + 完全不执行，连 `GIT_TRACE` 都不打）；当日 `env | grep -i proxy` **无命中** ⇒ **不需要 `env -u`**。详见 PLAYBOOK P5。
 ⚠ **安全（r100 首推被拒时查明）**：该 PAT **就是当前在用的推送凭据**（与 `~/.git-credentials` 同一枚），它曾出现在对话记录里、
 又被明文抄进 `mg-work/r87/acceptance.md:174` 的「安全备忘」（那行自己写着「建议 Revoke」，却从没执行）⇒ 首推被 **GitHub Push Protection** 拒。
 已就地打码 + `commit --amend` + `reflog expire --all` + `gc --prune=now` 清干净（详见 PLAYBOOK **P5.1**）。
@@ -451,7 +452,7 @@ python mg-work/r93/apply93.py             # 需求 2 + ④（**必须最后跑**
 
 ---
 
-## 二·c ★ r102（最新一拍 · 会话详情页十一条 · 2026-09-30 20:4x）—— **🚫 未提交**
+## 二·c ★ r102（会话详情页十一条 · 2026-09-30 20:4x）—— **已提交（`87e2caa`）**
 
 > 完整版见 `mg-work/r102/acceptance.md`（六节）；脚本内新教训见 PLAYBOOK **P3.34**（五条）；本页固定事实见 PAGES **P3.11g ⑫**。
 
@@ -495,7 +496,7 @@ python mg-work/r93/apply93.py             # 需求 2 + ④（**必须最后跑**
 
 ---
 
-## 二·d ★ r103（最新一拍 · 会话详情页六条 · 2026-09-30 21:1x）—— **就地返工，与 r102 同批未提交**
+## 二·d ★ r103（会话详情页六条 · 2026-09-30 21:1x）—— **就地返工，与 r102 同批（已提交 `87e2caa`）**
 
 > 完整版见 `mg-work/r102/acceptance.md` 的 **r103 段**；机制级教训见 PLAYBOOK **P3.35**；本页固定事实见 PAGES **P3.11g ⑬**。
 
@@ -531,7 +532,7 @@ python mg-work/r93/apply93.py             # 需求 2 + ④（**必须最后跑**
 
 ---
 
-## 二·e ★ r105（最新一拍 · 会话详情页 + 8 个独立页三条 · 2026-09-30 23:0x）—— **就地返工，与 r102/r103/r104 同批未提交**
+## 二·e ★ r105（最新一拍 · 会话详情页 + 8 个独立页三条 · 2026-09-30 23:0x）—— **就地返工，与 r102/r103/r104 同批（已提交 `87e2caa`）**
 
 > 完整版见 `mg-work/r102/acceptance.md` 的 **r105 段**；机制级教训见 PLAYBOOK **P3.37**（四条）；本页固定事实见 PAGES **P3.11g ⑮**。
 > （r104 四条无独立章节，要点见本页头部 + acceptance r104 段 + PLAYBOOK P3.36。）
@@ -617,7 +618,7 @@ python mg-work/r93/apply93.py             # 需求 2 + ④（**必须最后跑**
 
 **★ r101 复查（同日第十一轮 · 最新）**：同上口径全绿 —— 幂等 ✓（第二遍 base + conversation 双「已是目标态」）｜`check-syntax` **10/10**｜`verify-design` **76 条**，与 `vd-r93c.txt` **逐行 diff 只剩 1 条**（conversation 渐变 `62 → 63` = ⑥ 的渐隐层，info 级页面统计）｜★ **新增决定性探针 `ev/p101hov.js`**（连查 `matches(':hover')`）⇒ 三个 hover 目标全部 `hov=true`｜**终态一次性取证 `ev/p101fin.sh` + `p101fin.log`**（骨架屏两拍 / 11 条静态读数 / 3 个 hover / dx=0 / 右键菜单）｜双视口 1440 + 2560｜像素：投影剖面 Σ\|Δ\|=3、渐隐带 `r101-fin-fadezoom.png`。
 
-**★ r102 ~ r105 复查（同日第十二~十五轮 · 均已落地未提交）**：同一口径全绿 ——
+**★ r102 ~ r105 复查（同日第十二~十五轮 · 已全部落地并提交 `87e2caa`）**：同一口径全绿 ——
 幂等 ✓（第二遍双「已是目标态」，r105 后 `conversation.html` sha **不变**）｜`check-syntax pages/*.html` **10/10 ALL_OK**
 （conversation `script=9 style=16` —— **16 与 HEAD 一致，旧记录写 15 是笔误**）｜`verify-design ./pages` 与 **`vd-r101e.txt`
 逐字节相同**（**17148 字符** / md5 `84f552c5b5a6` / `diff_exit=0`）⇒ **零新增**｜
@@ -716,11 +717,10 @@ r105 死代码：`r93-morebtn` 全仓 **3 处全在注释**（活规则 0 条）
    → `mg-work/r87/apply87a-select.py` → `mg-work/r86/apply86.py`（**后两个被 r88 的 PRIOR 涵盖，重复跑也是 `+0`**）。
 2. 改页面**一律走 `mg-work/rNN/applyNN.py`**，体位 = 「先 `strip_all(当前页)` 取净底 → 再注入」⇒ **改完直接重跑即自愈**。
    **例外**：上一轮尚未提交时的即时返工 ⇒ **就地修订原补丁、不另起代数**（判据：`git status` 里仍是 ` M`）。
-   ★ 现状（2026-09-30 23:5x）：`r86 ~ r100`（`d7e2151`）与 **`r101`（`9f252e5`）均已提交**；
-   **`r102` 十一条 + `r103` 六条 + `r104` 四条 + `r105` 三条已落地但未提交**（工作区 = **10 页 ` M`** + `?? mg-work/r102/`）⇒
-   **未提交期的返工一律就地改 `mg-work/r102/apply102.py`，不另起代数**
-   （判据：`git status` 里仍是 ` M`）；只有邵先生发话提交后才新建 `mg-work/r103/apply103.py`
-   （照抄 r102 的 `GENS` 逐代摘除表，把三代变四代、`r102` 列为「上一代」）；
+   ★ 现状（2026-09-30 23:5x）：`r86 ~ r100`（`d7e2151`）、**`r101`（`9f252e5`）**、
+   **`r102` 十一条 + `r103` 六条 + `r104` 四条 + `r105` 三条（`87e2caa`）** —— **全部已提交**，工作区**干净** ⇒
+   **r102 代已交付 ⇒ 此后会话详情页的新改动要新建 `mg-work/r106/apply106.py`**（照抄 r102 的 `GENS` 逐代摘除表，
+   把 r93 / r101 / r102 三代做成四代、`r102` 列为「上一代」），**不再就地返工**。
    若针对**设置页 / 字号机制 / 其它页**，回到 `apply88.py` / `apply88b-fontsize.py`。
    ⚠ **r105 ① 的产物落在 8 个「独立页」上**（各 +714）⇒ 复跑补丁时这 8 页会**同样被扫到**；改动只在 `nav_patch` 一处，
    不要为它们单开补丁（`invert_if_absent` 保证第二遍一字不动、**只保位置**）。
@@ -741,7 +741,7 @@ rm -f pages/conversation.html                                     # 摘掉 ④ �
 # 再回到 r93 需求 2 之前
 cp mg-work/r93/before/base-r93pre.html    pages/base.html        # base → r92/r93① 态（471920）
 cp mg-work/r93/before/base.html           pages/base.html        # base → r92 收尾态（含 r87-ui-css 块 r92 态）
-# ★ r102 ~ r105 回滚（本批 = r102 十一条 + r103 六条 + r104 四条 + r105 三条，🚫 未提交）
+# ★ r102 ~ r105 回滚（本批 = r102 十一条 + r103 六条 + r104 四条 + r105 三条，已提交 87e2caa —— 回滚属应急，须自重）
 python mg-work/r102/apply102.py --revert   # conversation → r101 交付态；8 页摘 nav 块；base 摘 nav id 换名（长度相同）
 cp mg-work/r102/before/conversation-r102.html pages/conversation.html   # conversation → r102 前（= r101 交付态 721864）
 # r92 回滚
