@@ -1,0 +1,8219 @@
+{
+ "id": "1393:18748",
+ "tag": "div",
+ "name": "容器 264",
+ "style": {
+  "width": "1168px",
+  "height": "5144px",
+  "position": "relative"
+ },
+ "props": null,
+ "text": null,
+ "src": null,
+ "kids": [
+  {
+   "id": "fw647:13383",
+   "tag": "div",
+   "name": "矩形 203",
+   "style": {
+    "position": "absolute",
+    "left": "0px",
+    "top": "0px",
+    "z-index": "0"
+   },
+   "props": null,
+   "text": null,
+   "src": null,
+   "kids": [
+    {
+     "id": null,
+     "tag": "img",
+     "name": null,
+     "style": {},
+     "props": null,
+     "text": null,
+     "src": "./asset/icons/svg_b3ed235d.svg",
+     "kids": []
+    }
+   ]
+  },
+  {
+   "id": "1393:18474",
+   "tag": "div",
+   "name": "容器 178",
+   "style": {
+    "width": "1168px",
+    "height": "44px",
+    "position": "absolute",
+    "left": "0px",
+    "top": "0px",
+    "z-index": "1"
+   },
+   "props": null,
+   "text": null,
+   "src": null,
+   "kids": [
+    {
+     "id": "fw647:14508",
+     "tag": "div",
+     "name": "矩形 204",
+     "style": {
+      "position": "absolute",
+      "left": "0px",
+      "top": "0px",
+      "z-index": "0"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": [
+      {
+       "id": null,
+       "tag": "img",
+       "name": null,
+       "style": {},
+       "props": null,
+       "text": null,
+       "src": "./asset/icons/svg_31dd5c7e.svg",
+       "kids": []
+      }
+     ]
+    },
+    {
+     "id": "724:13248",
+     "tag": "div",
+     "name": "radio-button-group",
+     "style": {
+      "width": "112px",
+      "height": "28px",
+      "display": "flex",
+      "justify-content": "flex-start",
+      "align-items": "center",
+      "background": "#F7F7F7",
+      "border-radius": "6px",
+      "position": "absolute",
+      "left": "8px",
+      "top": "8px",
+      "z-index": "1"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": []
+    },
+    {
+     "id": "1393:18473",
+     "tag": "div",
+     "name": "容器 177",
+     "style": {
+      "width": "376px",
+      "height": "24px",
+      "position": "absolute",
+      "left": "396px",
+      "top": "10px",
+      "z-index": "2"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": [
+      {
+       "id": "fw647:14074",
+       "tag": "ui-component",
+       "name": "text/title",
+       "style": {
+        "width": "205px",
+        "height": "24px",
+        "display": "flex",
+        "justify-content": "flex-start",
+        "align-items": "flex-end",
+        "gap": "8px"
+       },
+       "props": "{}",
+       "text": null,
+       "src": null,
+       "kids": []
+      },
+      {
+       "id": "fw647:14035",
+       "tag": "div",
+       "name": "容器 26",
+       "style": {
+        "width": "72px",
+        "height": "24px",
+        "display": "flex",
+        "justify-content": "flex-start",
+        "align-items": "center",
+        "gap": "4px",
+        "padding-top": "2px",
+        "padding-bottom": "2px",
+        "padding-right": "10px",
+        "padding-left": "10px",
+        "background": "#FFF3E8",
+        "border-style": "dashed",
+        "border-color": "#FDDDC3",
+        "border-width": "1px",
+        "border-radius": "24px",
+        "position": "absolute",
+        "left": "213px",
+        "top": "0px",
+        "z-index": "1"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": "fw647:14036",
+         "tag": "img",
+         "name": "容器",
+         "style": {
+          "width": "12px",
+          "height": "12px",
+          "color": "#F77234"
+         },
+         "props": null,
+         "text": null,
+         "src": "./asset/icons/svg_07c0df05.svg",
+         "kids": []
+        }
+       ]
+      },
+      {
+       "id": "fw647:14065",
+       "tag": "ui-component",
+       "name": "text/title",
+       "style": {
+        "width": "79px",
+        "height": "16px",
+        "display": "flex",
+        "justify-content": "flex-start",
+        "align-items": "flex-end",
+        "gap": "8px"
+       },
+       "props": "{}",
+       "text": null,
+       "src": null,
+       "kids": []
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "1393:18481",
+   "tag": "div",
+   "name": "容器 183",
+   "style": {
+    "width": "840px",
+    "height": "74px",
+    "position": "absolute",
+    "left": "164px",
+    "top": "272px",
+    "z-index": "2"
+   },
+   "props": null,
+   "text": null,
+   "src": null,
+   "kids": [
+    {
+     "id": "fw647:14374",
+     "tag": "div",
+     "name": "直线 28",
+     "style": {
+      "width": "840px",
+      "height": "0px",
+      "border-style": "solid",
+      "border-color": "#F2F2F2",
+      "border-top-width": "0px",
+      "border-bottom-width": "1px",
+      "border-right-width": "0px",
+      "border-left-width": "0px",
+      "position": "absolute",
+      "left": "0px",
+      "top": "74px",
+      "z-index": "0"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": []
+    },
+    {
+     "id": "1393:18480",
+     "tag": "div",
+     "name": "容器 182",
+     "style": {
+      "width": "73px",
+      "height": "24px",
+      "position": "absolute",
+      "left": "0px",
+      "top": "0px",
+      "z-index": "2"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": [
+      {
+       "id": "fw647:14376",
+       "tag": "div",
+       "name": "组 9144",
+       "style": {
+        "position": "absolute",
+        "left": "0px",
+        "top": "0px",
+        "z-index": "0"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": null,
+         "tag": "img",
+         "name": null,
+         "style": {},
+         "props": null,
+         "text": null,
+         "src": "./asset/icons/svg_f429800f.svg",
+         "kids": []
+        }
+       ]
+      },
+      {
+       "id": "fw647:14459",
+       "tag": "ui-component",
+       "name": "text/title",
+       "style": {
+        "width": "43px",
+        "height": "22px",
+        "display": "flex",
+        "justify-content": "flex-start",
+        "align-items": "flex-end",
+        "gap": "8px"
+       },
+       "props": "{}",
+       "text": null,
+       "src": null,
+       "kids": []
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "1393:18479",
+   "tag": "div",
+   "name": "容器 181",
+   "style": {
+    "width": "728px",
+    "height": "164px",
+    "position": "absolute",
+    "left": "276px",
+    "top": "76px",
+    "z-index": "3"
+   },
+   "props": null,
+   "text": null,
+   "src": null,
+   "kids": [
+    {
+     "id": "1393:18475",
+     "tag": "div",
+     "name": "容器 179",
+     "style": {
+      "width": "728px",
+      "height": "132px",
+      "position": "absolute",
+      "left": "0px",
+      "top": "0px",
+      "z-index": "0"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": [
+      {
+       "id": "fw647:14397",
+       "tag": "div",
+       "name": "容器 27",
+       "style": {
+        "width": "728px",
+        "height": "40px",
+        "display": "flex",
+        "justify-content": "flex-start",
+        "align-items": "flex-start",
+        "gap": "6px",
+        "padding-top": "9px",
+        "padding-bottom": "9px",
+        "padding-right": "12px",
+        "padding-left": "12px",
+        "background": "#E5EDFE",
+        "border-top-left-radius": "8px",
+        "border-top-right-radius": "8px",
+        "border-bottom-right-radius": "2px",
+        "border-bottom-left-radius": "8px",
+        "position": "absolute",
+        "left": "0px",
+        "top": "0px",
+        "z-index": "0"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": "fw647:14402",
+         "tag": "div",
+         "name": "容器 25",
+         "style": {
+          "display": "flex",
+          "justify-content": "flex-start",
+          "align-items": "flex-start",
+          "gap": "4px",
+          "padding-top": "1px",
+          "padding-bottom": "1px",
+          "padding-right": "6px",
+          "padding-left": "6px",
+          "background": "#FFFFFF",
+          "border-radius": "3px",
+          "box-shadow": "0px 1px 2px 0px #D0D7EA"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": []
+        },
+        {
+         "id": "fw647:14398",
+         "tag": "span",
+         "name": "创建一个任务看板，加到左侧菜单。根据任务状态分三个泳道，未开始，进行中，已完成。",
+         "style": {
+          "color": "#1F1F1F",
+          "font-size": "14px",
+          "font-family": "MiSans",
+          "line-height": "22px"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": []
+        }
+       ]
+      },
+      {
+       "id": "fw647:14408",
+       "tag": "div",
+       "name": "容器 158",
+       "style": {
+        "width": "185px",
+        "height": "40px",
+        "display": "flex",
+        "justify-content": "flex-start",
+        "align-items": "center",
+        "gap": "8px",
+        "padding-top": "9px",
+        "padding-bottom": "9px",
+        "padding-right": "12px",
+        "padding-left": "12px",
+        "background": "#F7F7F7",
+        "border-style": "solid",
+        "border-color": "#F2F2F2",
+        "border-width": "1px",
+        "border-radius": "8px",
+        "position": "absolute",
+        "left": "543px",
+        "top": "46px",
+        "z-index": "1"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": "fw647:14409",
+         "tag": "img",
+         "name": "容器",
+         "style": {
+          "width": "16px",
+          "height": "16px"
+         },
+         "props": null,
+         "text": null,
+         "src": "./asset/icons/svg_8a09417c.svg",
+         "kids": []
+        }
+       ]
+      },
+      {
+       "id": "fw647:14404",
+       "tag": "div",
+       "name": "容器 159",
+       "style": {
+        "width": "160px",
+        "height": "40px",
+        "display": "flex",
+        "justify-content": "flex-start",
+        "align-items": "center",
+        "gap": "8px",
+        "padding-top": "9px",
+        "padding-bottom": "9px",
+        "padding-right": "12px",
+        "padding-left": "12px",
+        "background": "#F5F6F7",
+        "border-style": "solid",
+        "border-color": "#F2F2F2",
+        "border-width": "1px",
+        "border-radius": "8px",
+        "position": "absolute",
+        "left": "377px",
+        "top": "46px",
+        "z-index": "2"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": "fw647:14405",
+         "tag": "img",
+         "name": "容器",
+         "style": {
+          "width": "16px",
+          "height": "16px"
+         },
+         "props": null,
+         "text": null,
+         "src": "./asset/icons/svg_8a09417c.svg",
+         "kids": []
+        }
+       ]
+      },
+      {
+       "id": "fw647:14382",
+       "tag": "div",
+       "name": "容器 157",
+       "style": {
+        "width": "300px",
+        "height": "40px",
+        "display": "flex",
+        "justify-content": "flex-start",
+        "align-items": "center",
+        "gap": "8px",
+        "padding-top": "9px",
+        "padding-bottom": "9px",
+        "padding-right": "12px",
+        "padding-left": "12px",
+        "background": "#F5F6F7",
+        "border-style": "solid",
+        "border-color": "#F2F2F2",
+        "border-width": "1px",
+        "border-radius": "8px",
+        "position": "absolute",
+        "left": "428px",
+        "top": "92px",
+        "z-index": "3"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": "fw647:14383",
+         "tag": "img",
+         "name": "容器",
+         "style": {
+          "width": "16px",
+          "height": "16px"
+         },
+         "props": null,
+         "text": null,
+         "src": "./asset/icons/svg_6b6ff8ec.svg",
+         "kids": []
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "1393:18477",
+     "tag": "div",
+     "name": "容器 180",
+     "style": {
+      "width": "95px",
+      "height": "24px",
+      "position": "absolute",
+      "left": "633px",
+      "top": "140px",
+      "z-index": "1"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": [
+      {
+       "id": "fw647:14497",
+       "tag": "span",
+       "name": "15:26",
+       "style": {
+        "color": "#868686",
+        "font-size": "12px",
+        "font-family": "MiSans",
+        "line-height": "16px",
+        "position": "absolute",
+        "left": "0px",
+        "top": "4px",
+        "z-index": "2"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": []
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "1393:18486",
+   "tag": "div",
+   "name": "容器 187",
+   "style": {
+    "width": "840px",
+    "height": "218px",
+    "position": "absolute",
+    "left": "164px",
+    "top": "358px",
+    "z-index": "4"
+   },
+   "props": null,
+   "text": null,
+   "src": null,
+   "kids": [
+    {
+     "id": "fw647:14366",
+     "tag": "div",
+     "name": "折叠状态",
+     "style": {
+      "width": "88px",
+      "height": "22px",
+      "display": "flex",
+      "justify-content": "flex-start",
+      "align-items": "center",
+      "gap": "4px",
+      "border-radius": "4px",
+      "position": "absolute",
+      "left": "0px",
+      "top": "0px",
+      "z-index": "0",
+      "overflow": "hidden"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": [
+      {
+       "id": "fw647:08348",
+       "tag": "img",
+       "name": "容器",
+       "style": {
+        "width": "14px",
+        "height": "14px",
+        "color": "#868686"
+       },
+       "props": null,
+       "text": null,
+       "src": "./asset/icons/svg_c92382eb.svg",
+       "kids": []
+      },
+      {
+       "id": "fw647:14369",
+       "tag": "span",
+       "name": "上下文注入",
+       "style": {
+        "color": "#868686",
+        "font-size": "14px",
+        "font-family": "MiSans",
+        "line-height": "22px"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": []
+      }
+     ]
+    },
+    {
+     "id": "1393:18485",
+     "tag": "div",
+     "name": "展开状态",
+     "style": {
+      "width": "840px",
+      "height": "184px",
+      "position": "absolute",
+      "left": "0px",
+      "top": "34px",
+      "z-index": "1"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": [
+      {
+       "id": "fw647:15079",
+       "tag": "div",
+       "name": "容器 161",
+       "style": {
+        "width": "175px",
+        "height": "22px",
+        "display": "flex",
+        "justify-content": "flex-start",
+        "align-items": "center",
+        "gap": "8px",
+        "position": "absolute",
+        "left": "0px",
+        "top": "0px",
+        "z-index": "0"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": "fw647:14867",
+         "tag": "div",
+         "name": "Link",
+         "style": {
+          "display": "flex",
+          "justify-content": "flex-start",
+          "align-items": "center",
+          "gap": "4px",
+          "border-radius": "4px",
+          "overflow": "hidden"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": [
+          {
+           "id": "fw647:14868",
+           "tag": "ui-icon",
+           "name": "direction/down",
+           "style": {
+            "width": "14px",
+            "height": "14px",
+            "color": "#1F1F1F"
+           },
+           "props": null,
+           "text": null,
+           "src": null,
+           "kids": []
+          },
+          {
+           "id": "fw647:14869",
+           "tag": "span",
+           "name": "上下文注入",
+           "style": {
+            "color": "#1F1F1F",
+            "font-size": "14px",
+            "font-family": "MiSans",
+            "line-height": "22px"
+           },
+           "props": null,
+           "text": null,
+           "src": null,
+           "kids": []
+          }
+         ]
+        },
+        {
+         "id": "fw647:15346",
+         "tag": "img",
+         "name": "圆形 1",
+         "style": {
+          "width": "4px",
+          "height": "4px",
+          "color": "#C9C9C9"
+         },
+         "props": null,
+         "text": null,
+         "src": "./asset/icons/svg_9ddc2d77.svg",
+         "kids": []
+        }
+       ]
+      },
+      {
+       "id": "1393:18483",
+       "tag": "div",
+       "name": "容器 185",
+       "style": {
+        "width": "822px",
+        "height": "150px",
+        "position": "absolute",
+        "left": "18px",
+        "top": "34px",
+        "z-index": "1"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": "fw647:14885",
+         "tag": "div",
+         "name": "矩形 353",
+         "style": {
+          "width": "822px",
+          "height": "150px",
+          "background": "#F5F6F7",
+          "border-radius": "8px",
+          "position": "absolute",
+          "left": "0px",
+          "top": "0px",
+          "z-index": "0"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": []
+        },
+        {
+         "id": "fw647:14988",
+         "tag": "div",
+         "name": "矩形 219",
+         "style": {
+          "width": "6px",
+          "height": "88px",
+          "background": "rgba(0,0,0,0.16)",
+          "border-radius": "6px",
+          "position": "absolute",
+          "left": "812px",
+          "top": "4px",
+          "z-index": "4"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": []
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "1393:18489",
+   "tag": "div",
+   "name": "容器 190",
+   "style": {
+    "width": "840px",
+    "height": "268px",
+    "position": "absolute",
+    "left": "164px",
+    "top": "592px",
+    "z-index": "5"
+   },
+   "props": null,
+   "text": null,
+   "src": null,
+   "kids": [
+    {
+     "id": "fw647:14993",
+     "tag": "div",
+     "name": "组 10048",
+     "style": {
+      "width": "74px",
+      "height": "22px",
+      "position": "absolute",
+      "left": "0px",
+      "top": "0px",
+      "z-index": "0"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": [
+      {
+       "id": "fw647:14994",
+       "tag": "div",
+       "name": "Link",
+       "style": {
+        "width": "74px",
+        "height": "22px",
+        "display": "flex",
+        "justify-content": "flex-start",
+        "align-items": "center",
+        "gap": "4px",
+        "border-radius": "4px",
+        "position": "absolute",
+        "left": "0px",
+        "top": "0px",
+        "z-index": "0",
+        "overflow": "hidden"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": "fw647:15222",
+         "tag": "img",
+         "name": "容器",
+         "style": {
+          "width": "14px",
+          "height": "14px",
+          "color": "#868686"
+         },
+         "props": null,
+         "text": null,
+         "src": "./asset/icons/svg_babd97a5.svg",
+         "kids": []
+        },
+        {
+         "id": "fw647:14996",
+         "tag": "span",
+         "name": "深度思考",
+         "style": {
+          "color": "#868686",
+          "font-size": "14px",
+          "font-family": "MiSans",
+          "line-height": "22px"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": []
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "1393:18488",
+     "tag": "div",
+     "name": "容器 189",
+     "style": {
+      "width": "840px",
+      "height": "234px",
+      "position": "absolute",
+      "left": "0px",
+      "top": "34px",
+      "z-index": "1"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": [
+      {
+       "id": "fw647:15005",
+       "tag": "div",
+       "name": "组 10049",
+       "style": {
+        "width": "74px",
+        "height": "22px",
+        "position": "absolute",
+        "left": "0px",
+        "top": "0px",
+        "z-index": "0"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": "fw647:15006",
+         "tag": "div",
+         "name": "Link",
+         "style": {
+          "width": "74px",
+          "height": "22px",
+          "display": "flex",
+          "justify-content": "flex-start",
+          "align-items": "center",
+          "gap": "4px",
+          "border-radius": "4px",
+          "position": "absolute",
+          "left": "0px",
+          "top": "0px",
+          "z-index": "0",
+          "overflow": "hidden"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": [
+          {
+           "id": "fw647:15007",
+           "tag": "ui-icon",
+           "name": "direction/down",
+           "style": {
+            "width": "14px",
+            "height": "14px",
+            "color": "#1F1F1F"
+           },
+           "props": null,
+           "text": null,
+           "src": null,
+           "kids": []
+          },
+          {
+           "id": "fw647:15008",
+           "tag": "span",
+           "name": "深度思考",
+           "style": {
+            "color": "#1F1F1F",
+            "font-size": "14px",
+            "font-family": "MiSans",
+            "line-height": "22px"
+           },
+           "props": null,
+           "text": null,
+           "src": null,
+           "kids": []
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "1393:18487",
+       "tag": "div",
+       "name": "容器 188",
+       "style": {
+        "width": "822px",
+        "height": "200px",
+        "position": "absolute",
+        "left": "18px",
+        "top": "34px",
+        "z-index": "1"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": "fw647:15209",
+         "tag": "div",
+         "name": "矩形 219",
+         "style": {
+          "width": "6px",
+          "height": "48px",
+          "background": "rgba(0,0,0,0.16)",
+          "border-radius": "6px",
+          "position": "absolute",
+          "left": "812px",
+          "top": "4px",
+          "z-index": "1"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": []
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "1393:18493",
+   "tag": "div",
+   "name": "容器 194",
+   "style": {
+    "width": "840px",
+    "height": "262px",
+    "position": "absolute",
+    "left": "164px",
+    "top": "914px",
+    "z-index": "7"
+   },
+   "props": null,
+   "text": null,
+   "src": null,
+   "kids": [
+    {
+     "id": "fw647:15261",
+     "tag": "div",
+     "name": "Link",
+     "style": {
+      "width": "50px",
+      "height": "22px",
+      "display": "flex",
+      "justify-content": "flex-start",
+      "align-items": "center",
+      "gap": "4px",
+      "border-radius": "4px",
+      "position": "absolute",
+      "left": "0px",
+      "top": "0px",
+      "z-index": "0",
+      "overflow": "hidden"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": [
+      {
+       "id": "fw647:08366",
+       "tag": "img",
+       "name": "容器",
+       "style": {
+        "width": "14px",
+        "height": "14px",
+        "color": "#F53F3F"
+       },
+       "props": null,
+       "text": null,
+       "src": "./asset/icons/svg_1edf52f8.svg",
+       "kids": []
+      },
+      {
+       "id": "fw647:15264",
+       "tag": "span",
+       "name": "Bash",
+       "style": {
+        "color": "#868686",
+        "font-size": "14px",
+        "font-family": "MiSans",
+        "line-height": "22px"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": []
+      }
+     ]
+    },
+    {
+     "id": "fw647:16791",
+     "tag": "div",
+     "name": "Link",
+     "style": {
+      "width": "50px",
+      "height": "22px",
+      "display": "flex",
+      "justify-content": "flex-start",
+      "align-items": "center",
+      "gap": "4px",
+      "border-radius": "4px",
+      "position": "absolute",
+      "left": "0px",
+      "top": "34px",
+      "z-index": "1",
+      "overflow": "hidden"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": [
+      {
+       "id": "fw647:16792",
+       "tag": "img",
+       "name": "容器",
+       "style": {
+        "width": "14px",
+        "height": "14px",
+        "color": "#868686"
+       },
+       "props": null,
+       "text": null,
+       "src": "./asset/icons/svg_b1ed08f4.svg",
+       "kids": []
+      },
+      {
+       "id": "fw647:16794",
+       "tag": "span",
+       "name": "Bash",
+       "style": {
+        "color": "#868686",
+        "font-size": "14px",
+        "font-family": "MiSans",
+        "line-height": "22px"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": []
+      }
+     ]
+    },
+    {
+     "id": "1393:18492",
+     "tag": "div",
+     "name": "容器 193",
+     "style": {
+      "width": "840px",
+      "height": "194px",
+      "position": "absolute",
+      "left": "0px",
+      "top": "68px",
+      "z-index": "2"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": [
+      {
+       "id": "fw647:15270",
+       "tag": "div",
+       "name": "Link",
+       "style": {
+        "width": "245px",
+        "height": "22px",
+        "display": "flex",
+        "justify-content": "flex-start",
+        "align-items": "center",
+        "gap": "8px",
+        "border-radius": "4px",
+        "position": "absolute",
+        "left": "0px",
+        "top": "0px",
+        "z-index": "0",
+        "overflow": "hidden"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": "fw647:15332",
+         "tag": "div",
+         "name": "组 10056",
+         "style": {
+          "width": "50px",
+          "height": "22px",
+          "flex": "none",
+          "position": "relative"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": [
+          {
+           "id": "fw647:15272",
+           "tag": "span",
+           "name": "Bash",
+           "style": {
+            "color": "#1F1F1F",
+            "font-size": "14px",
+            "font-family": "MiSans",
+            "line-height": "22px",
+            "position": "absolute",
+            "left": "18px",
+            "top": "0px",
+            "z-index": "1"
+           },
+           "props": null,
+           "text": null,
+           "src": null,
+           "kids": []
+          }
+         ]
+        },
+        {
+         "id": "fw647:15339",
+         "tag": "img",
+         "name": "圆形 1",
+         "style": {
+          "width": "4px",
+          "height": "4px",
+          "color": "#C9C9C9"
+         },
+         "props": null,
+         "text": null,
+         "src": "./asset/icons/svg_9ddc2d77.svg",
+         "kids": []
+        },
+        {
+         "id": "fw647:15315",
+         "tag": "span",
+         "name": "Inspect harness bin and dsh cli",
+         "style": {
+          "color": "#868686",
+          "font-size": "12px",
+          "font-family": "MiSans",
+          "line-height": "22px"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": []
+        }
+       ]
+      },
+      {
+       "id": "1393:18491",
+       "tag": "div",
+       "name": "容器 192",
+       "style": {
+        "width": "822px",
+        "height": "160px",
+        "position": "absolute",
+        "left": "18px",
+        "top": "34px",
+        "z-index": "1"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": "fw647:15465",
+         "tag": "div",
+         "name": "矩形 353",
+         "style": {
+          "position": "absolute",
+          "left": "0px",
+          "top": "0px",
+          "z-index": "0"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": [
+          {
+           "id": null,
+           "tag": "img",
+           "name": null,
+           "style": {},
+           "props": null,
+           "text": null,
+           "src": "./asset/icons/svg_b955cbe9.svg",
+           "kids": []
+          }
+         ]
+        },
+        {
+         "id": "fw647:15415",
+         "tag": "div",
+         "name": "矩形 219",
+         "style": {
+          "width": "6px",
+          "height": "88px",
+          "background": "rgba(0,0,0,0.16)",
+          "border-radius": "6px",
+          "position": "absolute",
+          "left": "812px",
+          "top": "44px",
+          "z-index": "2"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": []
+        },
+        {
+         "id": "1393:18490",
+         "tag": "div",
+         "name": "容器 191",
+         "style": {
+          "width": "822px",
+          "height": "40px",
+          "position": "absolute",
+          "left": "0px",
+          "top": "0px",
+          "z-index": "3"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": [
+          {
+           "id": "fw647:15458",
+           "tag": "div",
+           "name": "矩形 355",
+           "style": {
+            "position": "absolute",
+            "left": "0px",
+            "top": "0px",
+            "z-index": "0"
+           },
+           "props": null,
+           "text": null,
+           "src": null,
+           "kids": [
+            {
+             "id": null,
+             "tag": "img",
+             "name": null,
+             "style": {},
+             "props": null,
+             "text": null,
+             "src": "./asset/icons/svg_95690ca6.svg",
+             "kids": []
+            }
+           ]
+          },
+          {
+           "id": "fw647:15448",
+           "tag": "div",
+           "name": "容器 162",
+           "style": {
+            "width": "435px",
+            "height": "16px",
+            "display": "flex",
+            "justify-content": "flex-start",
+            "align-items": "flex-start",
+            "gap": "8px",
+            "position": "absolute",
+            "left": "30px",
+            "top": "12px",
+            "z-index": "1"
+           },
+           "props": null,
+           "text": null,
+           "src": null,
+           "kids": []
+          },
+          {
+           "id": "fw647:15464",
+           "tag": "div",
+           "name": "圆形 2",
+           "style": {
+            "position": "absolute",
+            "left": "12px",
+            "top": "17px",
+            "z-index": "2"
+           },
+           "props": null,
+           "text": null,
+           "src": null,
+           "kids": [
+            {
+             "id": null,
+             "tag": "img",
+             "name": null,
+             "style": {
+              "color": "#30953B"
+             },
+             "props": null,
+             "text": null,
+             "src": "./asset/icons/svg_61dbc788.svg",
+             "kids": []
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "1393:18496",
+   "tag": "div",
+   "name": "容器 197",
+   "style": {
+    "width": "840px",
+    "height": "252px",
+    "position": "absolute",
+    "left": "164px",
+    "top": "1192px",
+    "z-index": "8"
+   },
+   "props": null,
+   "text": null,
+   "src": null,
+   "kids": [
+    {
+     "id": "fw647:15473",
+     "tag": "div",
+     "name": "Link",
+     "style": {
+      "width": "74px",
+      "height": "22px",
+      "display": "flex",
+      "justify-content": "flex-start",
+      "align-items": "center",
+      "gap": "4px",
+      "border-radius": "4px",
+      "position": "absolute",
+      "left": "0px",
+      "top": "0px",
+      "z-index": "0",
+      "overflow": "hidden"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": [
+      {
+       "id": "fw647:08371",
+       "tag": "img",
+       "name": "容器",
+       "style": {
+        "width": "14px",
+        "height": "14px",
+        "color": "#868686"
+       },
+       "props": null,
+       "text": null,
+       "src": "./asset/icons/svg_bfdedd58.svg",
+       "kids": []
+      },
+      {
+       "id": "fw647:15476",
+       "tag": "span",
+       "name": "网页搜索",
+       "style": {
+        "color": "#868686",
+        "font-size": "14px",
+        "font-family": "MiSans",
+        "line-height": "22px"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": []
+      }
+     ]
+    },
+    {
+     "id": "1393:18495",
+     "tag": "div",
+     "name": "容器 196",
+     "style": {
+      "width": "840px",
+      "height": "218px",
+      "position": "absolute",
+      "left": "0px",
+      "top": "34px",
+      "z-index": "1"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": [
+      {
+       "id": "fw647:15480",
+       "tag": "div",
+       "name": "Link",
+       "style": {
+        "width": "553px",
+        "height": "22px",
+        "display": "flex",
+        "justify-content": "flex-start",
+        "align-items": "center",
+        "gap": "8px",
+        "border-radius": "4px",
+        "position": "absolute",
+        "left": "0px",
+        "top": "0px",
+        "z-index": "0",
+        "overflow": "hidden"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": "fw647:15481",
+         "tag": "div",
+         "name": "组 10056",
+         "style": {
+          "width": "74px",
+          "height": "22px",
+          "flex": "none",
+          "position": "relative"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": [
+          {
+           "id": "fw647:15483",
+           "tag": "span",
+           "name": "网页搜索",
+           "style": {
+            "color": "#1F1F1F",
+            "font-size": "14px",
+            "font-family": "MiSans",
+            "line-height": "22px",
+            "position": "absolute",
+            "left": "18px",
+            "top": "0px",
+            "z-index": "1"
+           },
+           "props": null,
+           "text": null,
+           "src": null,
+           "kids": []
+          }
+         ]
+        },
+        {
+         "id": "fw647:15487",
+         "tag": "img",
+         "name": "圆形 1",
+         "style": {
+          "width": "4px",
+          "height": "4px",
+          "color": "#C9C9C9"
+         },
+         "props": null,
+         "text": null,
+         "src": "./asset/icons/svg_9ddc2d77.svg",
+         "kids": []
+        },
+        {
+         "id": "fw647:15488",
+         "tag": "span",
+         "name": "左侧菜单 sidebar page 开发, dsh-desktop client plugin create left menu item docs",
+         "style": {
+          "color": "#868686",
+          "font-size": "12px",
+          "font-family": "MiSans",
+          "line-height": "22px"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": []
+        }
+       ]
+      },
+      {
+       "id": "1393:18494",
+       "tag": "div",
+       "name": "容器 195",
+       "style": {
+        "width": "822px",
+        "height": "184px",
+        "position": "absolute",
+        "left": "18px",
+        "top": "34px",
+        "z-index": "1"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": "fw647:15493",
+         "tag": "div",
+         "name": "矩形 353",
+         "style": {
+          "position": "absolute",
+          "left": "0px",
+          "top": "0px",
+          "z-index": "0"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": [
+          {
+           "id": null,
+           "tag": "img",
+           "name": null,
+           "style": {
+            "color": "#F5F6F7"
+           },
+           "props": null,
+           "text": null,
+           "src": "./asset/icons/svg_ee9fa45e.svg",
+           "kids": []
+          }
+         ]
+        },
+        {
+         "id": "fw647:15499",
+         "tag": "div",
+         "name": "矩形 219",
+         "style": {
+          "width": "6px",
+          "height": "88px",
+          "background": "rgba(0,0,0,0.16)",
+          "border-radius": "6px",
+          "position": "absolute",
+          "left": "812px",
+          "top": "4px",
+          "z-index": "2"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": []
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "1393:18502",
+   "tag": "div",
+   "name": "容器 203",
+   "style": {
+    "width": "840px",
+    "height": "276px",
+    "position": "absolute",
+    "left": "164px",
+    "top": "1460px",
+    "z-index": "9"
+   },
+   "props": null,
+   "text": null,
+   "src": null,
+   "kids": [
+    {
+     "id": "fw647:15926",
+     "tag": "div",
+     "name": "Link",
+     "style": {
+      "width": "152px",
+      "height": "22px",
+      "display": "flex",
+      "justify-content": "flex-start",
+      "align-items": "center",
+      "gap": "8px",
+      "border-radius": "4px",
+      "position": "absolute",
+      "left": "0px",
+      "top": "0px",
+      "z-index": "0",
+      "overflow": "hidden"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": [
+      {
+       "id": "fw647:16029",
+       "tag": "div",
+       "name": "容器 163",
+       "style": {
+        "display": "flex",
+        "justify-content": "flex-start",
+        "align-items": "center",
+        "gap": "4px"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": "fw647:08383",
+         "tag": "img",
+         "name": "容器",
+         "style": {
+          "width": "14px",
+          "height": "14px",
+          "color": "#868686"
+         },
+         "props": null,
+         "text": null,
+         "src": "./asset/icons/svg_7c1c891e.svg",
+         "kids": []
+        },
+        {
+         "id": "fw647:15929",
+         "tag": "span",
+         "name": "需求采访",
+         "style": {
+          "color": "#868686",
+          "font-size": "14px",
+          "font-family": "MiSans",
+          "line-height": "22px"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": []
+        }
+       ]
+      },
+      {
+       "id": "fw647:15933",
+       "tag": "img",
+       "name": "圆形 1",
+       "style": {
+        "width": "4px",
+        "height": "4px",
+        "color": "#C9C9C9"
+       },
+       "props": null,
+       "text": null,
+       "src": "./asset/icons/svg_9ddc2d77.svg",
+       "kids": []
+      },
+      {
+       "id": "fw647:15934",
+       "tag": "span",
+       "name": "1/3 已回答",
+       "style": {
+        "color": "#868686",
+        "font-size": "12px",
+        "font-family": "MiSans",
+        "line-height": "22px"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": []
+      }
+     ]
+    },
+    {
+     "id": "1393:18501",
+     "tag": "div",
+     "name": "容器 202",
+     "style": {
+      "width": "840px",
+      "height": "242px",
+      "position": "absolute",
+      "left": "0px",
+      "top": "34px",
+      "z-index": "1"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": [
+      {
+       "id": "fw647:15891",
+       "tag": "div",
+       "name": "Link",
+       "style": {
+        "width": "154px",
+        "height": "22px",
+        "display": "flex",
+        "justify-content": "flex-start",
+        "align-items": "center",
+        "gap": "8px",
+        "border-radius": "4px",
+        "position": "absolute",
+        "left": "0px",
+        "top": "0px",
+        "z-index": "0",
+        "overflow": "hidden"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": "fw647:15892",
+         "tag": "div",
+         "name": "组 10056",
+         "style": {
+          "width": "74px",
+          "height": "22px",
+          "flex": "none",
+          "position": "relative"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": [
+          {
+           "id": "fw647:15894",
+           "tag": "span",
+           "name": "需求采访",
+           "style": {
+            "color": "#1F1F1F",
+            "font-size": "14px",
+            "font-family": "MiSans",
+            "line-height": "22px",
+            "position": "absolute",
+            "left": "18px",
+            "top": "0px",
+            "z-index": "1"
+           },
+           "props": null,
+           "text": null,
+           "src": null,
+           "kids": []
+          }
+         ]
+        },
+        {
+         "id": "fw647:15898",
+         "tag": "img",
+         "name": "圆形 1",
+         "style": {
+          "width": "4px",
+          "height": "4px",
+          "color": "#C9C9C9"
+         },
+         "props": null,
+         "text": null,
+         "src": "./asset/icons/svg_9ddc2d77.svg",
+         "kids": []
+        },
+        {
+         "id": "fw647:15899",
+         "tag": "span",
+         "name": "3/3 已回答",
+         "style": {
+          "color": "#868686",
+          "font-size": "12px",
+          "font-family": "MiSans",
+          "line-height": "22px"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": []
+        }
+       ]
+      },
+      {
+       "id": "1393:18500",
+       "tag": "div",
+       "name": "容器 201",
+       "style": {
+        "width": "822px",
+        "height": "208px",
+        "position": "absolute",
+        "left": "18px",
+        "top": "34px",
+        "z-index": "1"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": "fw647:15903",
+         "tag": "div",
+         "name": "矩形 353",
+         "style": {
+          "position": "absolute",
+          "left": "0px",
+          "top": "0px",
+          "z-index": "0"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": [
+          {
+           "id": null,
+           "tag": "img",
+           "name": null,
+           "style": {
+            "color": "#F5F6F7"
+           },
+           "props": null,
+           "text": null,
+           "src": "./asset/icons/svg_48cef25a.svg",
+           "kids": []
+          }
+         ]
+        },
+        {
+         "id": "1393:18499",
+         "tag": "div",
+         "name": "容器 200",
+         "style": {
+          "width": "252px",
+          "height": "48px",
+          "position": "absolute",
+          "left": "20px",
+          "top": "20px",
+          "z-index": "1"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": []
+        },
+        {
+         "id": "1393:18498",
+         "tag": "div",
+         "name": "容器 199",
+         "style": {
+          "width": "486px",
+          "height": "48px",
+          "position": "absolute",
+          "left": "20px",
+          "top": "80px",
+          "z-index": "2"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": []
+        },
+        {
+         "id": "1393:18497",
+         "tag": "div",
+         "name": "容器 198",
+         "style": {
+          "width": "154px",
+          "height": "48px",
+          "position": "absolute",
+          "left": "20px",
+          "top": "140px",
+          "z-index": "3"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": []
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "1393:18504",
+   "tag": "div",
+   "name": "容器 205",
+   "style": {
+    "width": "840px",
+    "height": "288px",
+    "position": "absolute",
+    "left": "164px",
+    "top": "1752px",
+    "z-index": "10"
+   },
+   "props": null,
+   "text": null,
+   "src": null,
+   "kids": [
+    {
+     "id": "fw647:16186",
+     "tag": "div",
+     "name": "Link",
+     "style": {
+      "width": "765px",
+      "height": "22px",
+      "display": "flex",
+      "justify-content": "flex-start",
+      "align-items": "center",
+      "gap": "8px",
+      "border-radius": "4px",
+      "position": "absolute",
+      "left": "0px",
+      "top": "34px",
+      "z-index": "0",
+      "overflow": "hidden"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": [
+      {
+       "id": "fw647:16187",
+       "tag": "div",
+       "name": "组 10056",
+       "style": {
+        "width": "102px",
+        "height": "22px",
+        "flex": "none",
+        "position": "relative"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": "fw647:16189",
+         "tag": "span",
+         "name": "更新任务清单",
+         "style": {
+          "color": "#1F1F1F",
+          "font-size": "14px",
+          "font-family": "MiSans",
+          "line-height": "22px",
+          "position": "absolute",
+          "left": "18px",
+          "top": "0px",
+          "z-index": "1"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": []
+        }
+       ]
+      },
+      {
+       "id": "fw647:16193",
+       "tag": "img",
+       "name": "圆形 1",
+       "style": {
+        "width": "4px",
+        "height": "4px",
+        "color": "#C9C9C9"
+       },
+       "props": null,
+       "text": null,
+       "src": "./asset/icons/svg_9ddc2d77.svg",
+       "kids": []
+      },
+      {
+       "id": "fw647:16194",
+       "tag": "span",
+       "name": "0/5 已完成",
+       "style": {
+        "color": "#868686",
+        "font-size": "12px",
+        "font-family": "MiSans",
+        "line-height": "22px"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": []
+      },
+      {
+       "id": "fw647:16303",
+       "tag": "img",
+       "name": "圆形 2",
+       "style": {
+        "width": "4px",
+        "height": "4px",
+        "color": "#C9C9C9"
+       },
+       "props": null,
+       "text": null,
+       "src": "./asset/icons/svg_9ddc2d77.svg",
+       "kids": []
+      },
+      {
+       "id": "fw647:16304",
+       "tag": "span",
+       "name": "Study existing task-board plugin's mount/sidebar architecture to learn the DSH client-plugin pattern",
+       "style": {
+        "color": "#868686",
+        "font-size": "12px",
+        "font-family": "MiSans",
+        "line-height": "22px"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": []
+      }
+     ]
+    },
+    {
+     "id": "fw647:16198",
+     "tag": "div",
+     "name": "Link",
+     "style": {
+      "width": "182px",
+      "height": "22px",
+      "display": "flex",
+      "justify-content": "flex-start",
+      "align-items": "center",
+      "gap": "8px",
+      "border-radius": "4px",
+      "position": "absolute",
+      "left": "0px",
+      "top": "0px",
+      "z-index": "1",
+      "overflow": "hidden"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": [
+      {
+       "id": "fw647:16199",
+       "tag": "div",
+       "name": "容器 163",
+       "style": {
+        "display": "flex",
+        "justify-content": "flex-start",
+        "align-items": "center",
+        "gap": "4px"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": "fw647:08391",
+         "tag": "img",
+         "name": "容器",
+         "style": {
+          "width": "14px",
+          "height": "14px",
+          "color": "#868686"
+         },
+         "props": null,
+         "text": null,
+         "src": "./asset/icons/svg_eaa3d24d.svg",
+         "kids": []
+        },
+        {
+         "id": "fw647:16202",
+         "tag": "span",
+         "name": "更新任务清单",
+         "style": {
+          "color": "#868686",
+          "font-size": "14px",
+          "font-family": "MiSans",
+          "line-height": "22px"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": []
+        }
+       ]
+      },
+      {
+       "id": "fw647:16206",
+       "tag": "img",
+       "name": "圆形 1",
+       "style": {
+        "width": "4px",
+        "height": "4px",
+        "color": "#C9C9C9"
+       },
+       "props": null,
+       "text": null,
+       "src": "./asset/icons/svg_9ddc2d77.svg",
+       "kids": []
+      },
+      {
+       "id": "fw647:16207",
+       "tag": "span",
+       "name": "0/5 已完成",
+       "style": {
+        "color": "#868686",
+        "font-size": "12px",
+        "font-family": "MiSans",
+        "line-height": "22px"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": []
+      }
+     ]
+    },
+    {
+     "id": "1393:18503",
+     "tag": "div",
+     "name": "容器 204",
+     "style": {
+      "width": "822px",
+      "height": "220px",
+      "position": "absolute",
+      "left": "18px",
+      "top": "68px",
+      "z-index": "2"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": [
+      {
+       "id": "fw647:16212",
+       "tag": "div",
+       "name": "矩形 353",
+       "style": {
+        "position": "absolute",
+        "left": "0px",
+        "top": "0px",
+        "z-index": "0"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": null,
+         "tag": "img",
+         "name": null,
+         "style": {},
+         "props": null,
+         "text": null,
+         "src": "./asset/icons/svg_c605c40e.svg",
+         "kids": []
+        }
+       ]
+      },
+      {
+       "id": "fw647:16549",
+       "tag": "div",
+       "name": "矩形 355",
+       "style": {
+        "position": "absolute",
+        "left": "0px",
+        "top": "180px",
+        "z-index": "1"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": null,
+         "tag": "img",
+         "name": null,
+         "style": {},
+         "props": null,
+         "text": null,
+         "src": "./asset/icons/svg_edbdbbc2.svg",
+         "kids": []
+        }
+       ]
+      },
+      {
+       "id": "fw647:16496",
+       "tag": "div",
+       "name": "容器 162",
+       "style": {
+        "width": "694px",
+        "height": "144px",
+        "display": "flex",
+        "justify-content": "flex-start",
+        "align-items": "flex-start",
+        "gap": "12px",
+        "position": "absolute",
+        "left": "20px",
+        "top": "16px",
+        "z-index": "2"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": []
+      },
+      {
+       "id": "fw647:16621",
+       "tag": "div",
+       "name": "容器 163",
+       "style": {
+        "width": "358px",
+        "height": "16px",
+        "display": "flex",
+        "justify-content": "flex-start",
+        "align-items": "flex-start",
+        "gap": "12px",
+        "position": "absolute",
+        "left": "20px",
+        "top": "192px",
+        "z-index": "3"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": []
+      },
+      {
+       "id": "fw647:16661",
+       "tag": "div",
+       "name": "矩形 219",
+       "style": {
+        "width": "6px",
+        "height": "88px",
+        "background": "rgba(0,0,0,0.16)",
+        "border-radius": "6px",
+        "position": "absolute",
+        "left": "812px",
+        "top": "4px",
+        "z-index": "4"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": []
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "1393:18506",
+   "tag": "div",
+   "name": "容器 207",
+   "style": {
+    "width": "840px",
+    "height": "312px",
+    "position": "absolute",
+    "left": "164px",
+    "top": "2056px",
+    "z-index": "11"
+   },
+   "props": null,
+   "text": null,
+   "src": null,
+   "kids": [
+    {
+     "id": "fw647:16817",
+     "tag": "div",
+     "name": "Link",
+     "style": {
+      "width": "305px",
+      "height": "22px",
+      "display": "flex",
+      "justify-content": "flex-start",
+      "align-items": "center",
+      "gap": "8px",
+      "border-radius": "4px",
+      "position": "absolute",
+      "left": "0px",
+      "top": "34px",
+      "z-index": "0",
+      "overflow": "hidden"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": [
+      {
+       "id": "fw647:16818",
+       "tag": "div",
+       "name": "组 10056",
+       "style": {
+        "width": "74px",
+        "height": "22px",
+        "flex": "none",
+        "position": "relative"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": "fw647:16820",
+         "tag": "span",
+         "name": "文件写入",
+         "style": {
+          "color": "#1F1F1F",
+          "font-size": "14px",
+          "font-family": "MiSans",
+          "line-height": "22px",
+          "position": "absolute",
+          "left": "18px",
+          "top": "0px",
+          "z-index": "1"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": []
+        }
+       ]
+      },
+      {
+       "id": "fw647:16824",
+       "tag": "img",
+       "name": "圆形 1",
+       "style": {
+        "width": "4px",
+        "height": "4px",
+        "color": "#C9C9C9"
+       },
+       "props": null,
+       "text": null,
+       "src": "./asset/icons/svg_9ddc2d77.svg",
+       "kids": []
+      },
+      {
+       "id": "fw647:16825",
+       "tag": "span",
+       "name": "gienx-taskboard-kanban/package.json",
+       "style": {
+        "color": "#8E8E8E",
+        "font-size": "12px",
+        "font-family": "MiSans",
+        "line-height": "22px"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": []
+      }
+     ]
+    },
+    {
+     "id": "fw647:16834",
+     "tag": "div",
+     "name": "Link",
+     "style": {
+      "width": "305px",
+      "height": "22px",
+      "display": "flex",
+      "justify-content": "flex-start",
+      "align-items": "center",
+      "gap": "8px",
+      "border-radius": "4px",
+      "position": "absolute",
+      "left": "0px",
+      "top": "0px",
+      "z-index": "1",
+      "overflow": "hidden"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": [
+      {
+       "id": "fw647:16835",
+       "tag": "div",
+       "name": "容器 163",
+       "style": {
+        "display": "flex",
+        "justify-content": "flex-start",
+        "align-items": "center",
+        "gap": "4px"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": "fw647:16332",
+         "tag": "img",
+         "name": "容器",
+         "style": {
+          "width": "14px",
+          "height": "14px",
+          "color": "#868686"
+         },
+         "props": null,
+         "text": null,
+         "src": "./asset/icons/svg_9e161bef.svg",
+         "kids": []
+        },
+        {
+         "id": "fw647:16838",
+         "tag": "span",
+         "name": "文件写入",
+         "style": {
+          "color": "#868686",
+          "font-size": "14px",
+          "font-family": "MiSans",
+          "line-height": "22px"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": []
+        }
+       ]
+      },
+      {
+       "id": "fw647:16842",
+       "tag": "img",
+       "name": "圆形 1",
+       "style": {
+        "width": "4px",
+        "height": "4px",
+        "color": "#C9C9C9"
+       },
+       "props": null,
+       "text": null,
+       "src": "./asset/icons/svg_9ddc2d77.svg",
+       "kids": []
+      },
+      {
+       "id": "fw647:16843",
+       "tag": "span",
+       "name": "gienx-taskboard-kanban/package.json",
+       "style": {
+        "color": "#868686",
+        "font-size": "12px",
+        "font-family": "MiSans",
+        "line-height": "22px"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": []
+      }
+     ]
+    },
+    {
+     "id": "1393:18505",
+     "tag": "div",
+     "name": "容器 206",
+     "style": {
+      "width": "822px",
+      "height": "244px",
+      "position": "absolute",
+      "left": "18px",
+      "top": "68px",
+      "z-index": "2"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": [
+      {
+       "id": "fw647:16848",
+       "tag": "div",
+       "name": "矩形 353",
+       "style": {
+        "position": "absolute",
+        "left": "0px",
+        "top": "0px",
+        "z-index": "0"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": null,
+         "tag": "img",
+         "name": null,
+         "style": {},
+         "props": null,
+         "text": null,
+         "src": "./asset/icons/svg_28470e4e.svg",
+         "kids": []
+        }
+       ]
+      },
+      {
+       "id": "fw647:16849",
+       "tag": "div",
+       "name": "矩形 355",
+       "style": {
+        "position": "absolute",
+        "left": "0px",
+        "top": "0px",
+        "z-index": "1"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": null,
+         "tag": "img",
+         "name": null,
+         "style": {},
+         "props": null,
+         "text": null,
+         "src": "./asset/icons/svg_95690ca6.svg",
+         "kids": []
+        }
+       ]
+      },
+      {
+       "id": "fw647:16872",
+       "tag": "div",
+       "name": "矩形 219",
+       "style": {
+        "width": "6px",
+        "height": "88px",
+        "background": "rgba(0,0,0,0.16)",
+        "border-radius": "6px",
+        "position": "absolute",
+        "left": "812px",
+        "top": "44px",
+        "z-index": "4"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": []
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "1393:18510",
+   "tag": "div",
+   "name": "容器 210",
+   "style": {
+    "width": "840px",
+    "height": "132px",
+    "position": "absolute",
+    "left": "164px",
+    "top": "2384px",
+    "z-index": "12"
+   },
+   "props": null,
+   "text": null,
+   "src": null,
+   "kids": [
+    {
+     "id": "fw647:17205",
+     "tag": "div",
+     "name": "Link",
+     "style": {
+      "width": "125px",
+      "height": "22px",
+      "display": "flex",
+      "justify-content": "flex-start",
+      "align-items": "center",
+      "gap": "8px",
+      "border-radius": "4px",
+      "position": "absolute",
+      "left": "0px",
+      "top": "34px",
+      "z-index": "0",
+      "overflow": "hidden"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": [
+      {
+       "id": "fw647:17206",
+       "tag": "div",
+       "name": "组 10056",
+       "style": {
+        "width": "55px",
+        "height": "22px",
+        "flex": "none",
+        "position": "relative"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": "fw647:17208",
+         "tag": "span",
+         "name": "SKILL",
+         "style": {
+          "color": "#1F1F1F",
+          "font-size": "14px",
+          "font-family": "MiSans",
+          "line-height": "22px",
+          "position": "absolute",
+          "left": "18px",
+          "top": "0px",
+          "z-index": "1"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": []
+        }
+       ]
+      },
+      {
+       "id": "fw647:17212",
+       "tag": "img",
+       "name": "圆形 1",
+       "style": {
+        "width": "4px",
+        "height": "4px",
+        "color": "#C9C9C9"
+       },
+       "props": null,
+       "text": null,
+       "src": "./asset/icons/svg_9ddc2d77.svg",
+       "kids": []
+      },
+      {
+       "id": "fw647:17213",
+       "tag": "span",
+       "name": "deepwiki",
+       "style": {
+        "color": "#868686",
+        "font-size": "12px",
+        "font-family": "MiSans",
+        "line-height": "22px"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": []
+      }
+     ]
+    },
+    {
+     "id": "fw647:17217",
+     "tag": "div",
+     "name": "Link",
+     "style": {
+      "width": "125px",
+      "height": "22px",
+      "display": "flex",
+      "justify-content": "flex-start",
+      "align-items": "center",
+      "gap": "8px",
+      "border-radius": "4px",
+      "position": "absolute",
+      "left": "0px",
+      "top": "0px",
+      "z-index": "1",
+      "overflow": "hidden"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": [
+      {
+       "id": "fw647:17218",
+       "tag": "div",
+       "name": "容器 163",
+       "style": {
+        "display": "flex",
+        "justify-content": "flex-start",
+        "align-items": "center",
+        "gap": "4px"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": "fw647:16336",
+         "tag": "img",
+         "name": "容器",
+         "style": {
+          "width": "14px",
+          "height": "14px",
+          "color": "#868686"
+         },
+         "props": null,
+         "text": null,
+         "src": "./asset/icons/svg_1d5c65e3.svg",
+         "kids": []
+        },
+        {
+         "id": "fw647:17221",
+         "tag": "span",
+         "name": "SKILL",
+         "style": {
+          "color": "#868686",
+          "font-size": "14px",
+          "font-family": "MiSans",
+          "line-height": "22px"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": []
+        }
+       ]
+      },
+      {
+       "id": "fw647:17225",
+       "tag": "img",
+       "name": "圆形 1",
+       "style": {
+        "width": "4px",
+        "height": "4px",
+        "color": "#C9C9C9"
+       },
+       "props": null,
+       "text": null,
+       "src": "./asset/icons/svg_9ddc2d77.svg",
+       "kids": []
+      },
+      {
+       "id": "fw647:17226",
+       "tag": "span",
+       "name": "deepwiki",
+       "style": {
+        "color": "#868686",
+        "font-size": "12px",
+        "font-family": "MiSans",
+        "line-height": "22px"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": []
+      }
+     ]
+    },
+    {
+     "id": "1393:18509",
+     "tag": "div",
+     "name": "容器 209",
+     "style": {
+      "width": "822px",
+      "height": "64px",
+      "position": "absolute",
+      "left": "18px",
+      "top": "68px",
+      "z-index": "2"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": [
+      {
+       "id": "fw647:17231",
+       "tag": "div",
+       "name": "矩形 353",
+       "style": {
+        "position": "absolute",
+        "left": "0px",
+        "top": "0px",
+        "z-index": "0"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": null,
+         "tag": "img",
+         "name": null,
+         "style": {
+          "color": "#F5F6F7"
+         },
+         "props": null,
+         "text": null,
+         "src": "./asset/icons/svg_280e5d46.svg",
+         "kids": []
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "1393:18513",
+   "tag": "div",
+   "name": "容器 213",
+   "style": {
+    "width": "840px",
+    "height": "200px",
+    "position": "absolute",
+    "left": "164px",
+    "top": "2532px",
+    "z-index": "13"
+   },
+   "props": null,
+   "text": null,
+   "src": null,
+   "kids": [
+    {
+     "id": "fw647:17409",
+     "tag": "div",
+     "name": "Link",
+     "style": {
+      "width": "424px",
+      "height": "22px",
+      "display": "flex",
+      "justify-content": "flex-start",
+      "align-items": "center",
+      "gap": "8px",
+      "border-radius": "4px",
+      "position": "absolute",
+      "left": "0px",
+      "top": "34px",
+      "z-index": "0",
+      "overflow": "hidden"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": [
+      {
+       "id": "fw647:17410",
+       "tag": "div",
+       "name": "组 10056",
+       "style": {
+        "width": "73px",
+        "height": "22px",
+        "flex": "none",
+        "position": "relative"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": "fw647:17412",
+         "tag": "span",
+         "name": "Tool call",
+         "style": {
+          "color": "#1F1F1F",
+          "font-size": "14px",
+          "font-family": "MiSans",
+          "line-height": "22px",
+          "position": "absolute",
+          "left": "18px",
+          "top": "0px",
+          "z-index": "1"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": []
+        }
+       ]
+      },
+      {
+       "id": "fw647:17416",
+       "tag": "img",
+       "name": "圆形 1",
+       "style": {
+        "width": "4px",
+        "height": "4px",
+        "color": "#C9C9C9"
+       },
+       "props": null,
+       "text": null,
+       "src": "./asset/icons/svg_9ddc2d77.svg",
+       "kids": []
+      },
+      {
+       "id": "fw647:17417",
+       "tag": "span",
+       "name": "str_replace_editor · src/ui/components/drag-strip/index.tsx",
+       "style": {
+        "color": "#868686",
+        "font-size": "12px",
+        "font-family": "MiSans",
+        "line-height": "22px"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": []
+      }
+     ]
+    },
+    {
+     "id": "fw647:17421",
+     "tag": "div",
+     "name": "Link",
+     "style": {
+      "width": "424px",
+      "height": "22px",
+      "display": "flex",
+      "justify-content": "flex-start",
+      "align-items": "center",
+      "gap": "8px",
+      "border-radius": "4px",
+      "position": "absolute",
+      "left": "0px",
+      "top": "0px",
+      "z-index": "1",
+      "overflow": "hidden"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": [
+      {
+       "id": "fw647:17422",
+       "tag": "div",
+       "name": "容器 163",
+       "style": {
+        "display": "flex",
+        "justify-content": "flex-start",
+        "align-items": "center",
+        "gap": "4px"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": "fw647:16341",
+         "tag": "img",
+         "name": "容器",
+         "style": {
+          "width": "14px",
+          "height": "14px",
+          "color": "#868686"
+         },
+         "props": null,
+         "text": null,
+         "src": "./asset/icons/svg_b730ef8d.svg",
+         "kids": []
+        },
+        {
+         "id": "fw647:17425",
+         "tag": "span",
+         "name": "Tool call",
+         "style": {
+          "color": "#868686",
+          "font-size": "14px",
+          "font-family": "MiSans",
+          "line-height": "22px"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": []
+        }
+       ]
+      },
+      {
+       "id": "fw647:17429",
+       "tag": "img",
+       "name": "圆形 1",
+       "style": {
+        "width": "4px",
+        "height": "4px",
+        "color": "#C9C9C9"
+       },
+       "props": null,
+       "text": null,
+       "src": "./asset/icons/svg_9ddc2d77.svg",
+       "kids": []
+      },
+      {
+       "id": "fw647:17430",
+       "tag": "span",
+       "name": "str_replace_editor · src/ui/components/drag-strip/index.tsx",
+       "style": {
+        "color": "#868686",
+        "font-size": "12px",
+        "font-family": "MiSans",
+        "line-height": "22px"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": []
+      }
+     ]
+    },
+    {
+     "id": "1393:18512",
+     "tag": "div",
+     "name": "容器 212",
+     "style": {
+      "width": "822px",
+      "height": "132px",
+      "position": "absolute",
+      "left": "18px",
+      "top": "68px",
+      "z-index": "2"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": [
+      {
+       "id": "fw647:17549",
+       "tag": "div",
+       "name": "矩形 353",
+       "style": {
+        "position": "absolute",
+        "left": "0px",
+        "top": "0px",
+        "z-index": "0"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": null,
+         "tag": "img",
+         "name": null,
+         "style": {},
+         "props": null,
+         "text": null,
+         "src": "./asset/icons/svg_8cca31aa.svg",
+         "kids": []
+        }
+       ]
+      },
+      {
+       "id": "1393:18511",
+       "tag": "div",
+       "name": "容器 211",
+       "style": {
+        "width": "822px",
+        "height": "40px",
+        "position": "absolute",
+        "left": "0px",
+        "top": "0px",
+        "z-index": "1"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": "fw647:17548",
+         "tag": "div",
+         "name": "矩形 355",
+         "style": {
+          "position": "absolute",
+          "left": "0px",
+          "top": "0px",
+          "z-index": "0"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": [
+          {
+           "id": null,
+           "tag": "img",
+           "name": null,
+           "style": {},
+           "props": null,
+           "text": null,
+           "src": "./asset/icons/svg_95690ca6.svg",
+           "kids": []
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "1393:18515",
+   "tag": "div",
+   "name": "容器 215",
+   "style": {
+    "width": "840px",
+    "height": "132px",
+    "position": "absolute",
+    "left": "164px",
+    "top": "2748px",
+    "z-index": "14"
+   },
+   "props": null,
+   "text": null,
+   "src": null,
+   "kids": [
+    {
+     "id": "fw647:17603",
+     "tag": "div",
+     "name": "Link",
+     "style": {
+      "width": "183px",
+      "height": "22px",
+      "display": "flex",
+      "justify-content": "flex-start",
+      "align-items": "center",
+      "gap": "8px",
+      "border-radius": "4px",
+      "position": "absolute",
+      "left": "0px",
+      "top": "34px",
+      "z-index": "0",
+      "overflow": "hidden"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": [
+      {
+       "id": "fw647:17604",
+       "tag": "div",
+       "name": "组 10056",
+       "style": {
+        "width": "150px",
+        "height": "22px",
+        "flex": "none",
+        "position": "relative"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": "fw647:17606",
+         "tag": "span",
+         "name": "以重试模型请求 (1/5)",
+         "style": {
+          "color": "#1F1F1F",
+          "font-size": "14px",
+          "font-family": "MiSans",
+          "line-height": "22px",
+          "position": "absolute",
+          "left": "18px",
+          "top": "0px",
+          "z-index": "1"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": []
+        }
+       ]
+      },
+      {
+       "id": "fw647:17610",
+       "tag": "img",
+       "name": "圆形 1",
+       "style": {
+        "width": "4px",
+        "height": "4px",
+        "color": "#C9C9C9"
+       },
+       "props": null,
+       "text": null,
+       "src": "./asset/icons/svg_9ddc2d77.svg",
+       "kids": []
+      },
+      {
+       "id": "fw647:17611",
+       "tag": "span",
+       "name": "2s",
+       "style": {
+        "color": "#868686",
+        "font-size": "12px",
+        "font-family": "MiSans",
+        "line-height": "22px"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": []
+      }
+     ]
+    },
+    {
+     "id": "fw647:17615",
+     "tag": "div",
+     "name": "Link",
+     "style": {
+      "width": "183px",
+      "height": "22px",
+      "display": "flex",
+      "justify-content": "flex-start",
+      "align-items": "center",
+      "gap": "8px",
+      "border-radius": "4px",
+      "position": "absolute",
+      "left": "0px",
+      "top": "0px",
+      "z-index": "1",
+      "overflow": "hidden"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": [
+      {
+       "id": "fw647:17616",
+       "tag": "div",
+       "name": "容器 163",
+       "style": {
+        "display": "flex",
+        "justify-content": "flex-start",
+        "align-items": "center",
+        "gap": "4px"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": "fw647:16345",
+         "tag": "img",
+         "name": "容器",
+         "style": {
+          "width": "14px",
+          "height": "14px",
+          "color": "#868686"
+         },
+         "props": null,
+         "text": null,
+         "src": "./asset/icons/svg_e85b8c94.svg",
+         "kids": []
+        },
+        {
+         "id": "fw647:17619",
+         "tag": "span",
+         "name": "以重试模型请求 (1/5)",
+         "style": {
+          "color": "#868686",
+          "font-size": "14px",
+          "font-family": "MiSans",
+          "line-height": "22px"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": []
+        }
+       ]
+      },
+      {
+       "id": "fw647:17623",
+       "tag": "img",
+       "name": "圆形 1",
+       "style": {
+        "width": "4px",
+        "height": "4px",
+        "color": "#C9C9C9"
+       },
+       "props": null,
+       "text": null,
+       "src": "./asset/icons/svg_9ddc2d77.svg",
+       "kids": []
+      },
+      {
+       "id": "fw647:17624",
+       "tag": "span",
+       "name": "2s",
+       "style": {
+        "color": "#868686",
+        "font-size": "12px",
+        "font-family": "MiSans",
+        "line-height": "22px"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": []
+      }
+     ]
+    },
+    {
+     "id": "1393:18514",
+     "tag": "div",
+     "name": "容器 214",
+     "style": {
+      "width": "822px",
+      "height": "64px",
+      "position": "absolute",
+      "left": "18px",
+      "top": "68px",
+      "z-index": "2"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": [
+      {
+       "id": "fw647:17629",
+       "tag": "div",
+       "name": "矩形 353",
+       "style": {
+        "position": "absolute",
+        "left": "0px",
+        "top": "0px",
+        "z-index": "0"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": null,
+         "tag": "img",
+         "name": null,
+         "style": {},
+         "props": null,
+         "text": null,
+         "src": "./asset/icons/svg_9daa3bf1.svg",
+         "kids": []
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "1393:18521",
+   "tag": "div",
+   "name": "容器 221",
+   "style": {
+    "width": "840px",
+    "height": "404px",
+    "position": "absolute",
+    "left": "164px",
+    "top": "2896px",
+    "z-index": "15"
+   },
+   "props": null,
+   "text": null,
+   "src": null,
+   "kids": [
+    {
+     "id": "fw647:17830",
+     "tag": "div",
+     "name": "容器 163",
+     "style": {
+      "width": "107px",
+      "height": "22px",
+      "display": "flex",
+      "justify-content": "flex-start",
+      "align-items": "center",
+      "gap": "4px",
+      "position": "absolute",
+      "left": "0px",
+      "top": "0px",
+      "z-index": "0"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": [
+      {
+       "id": "fw647:16374",
+       "tag": "img",
+       "name": "容器",
+       "style": {
+        "width": "14px",
+        "height": "14px",
+        "color": "#868686"
+       },
+       "props": null,
+       "text": null,
+       "src": "./asset/icons/svg_5312e834.svg",
+       "kids": []
+      },
+      {
+       "id": "fw647:17833",
+       "tag": "span",
+       "name": "调用 5 个工具",
+       "style": {
+        "color": "#868686",
+        "font-size": "14px",
+        "font-family": "MiSans",
+        "line-height": "22px"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": []
+      }
+     ]
+    },
+    {
+     "id": "1393:18520",
+     "tag": "div",
+     "name": "容器 220",
+     "style": {
+      "width": "840px",
+      "height": "370px",
+      "position": "absolute",
+      "left": "0px",
+      "top": "34px",
+      "z-index": "1"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": [
+      {
+       "id": "fw647:17817",
+       "tag": "div",
+       "name": "Link",
+       "style": {
+        "width": "107px",
+        "height": "22px",
+        "display": "flex",
+        "justify-content": "flex-start",
+        "align-items": "center",
+        "gap": "8px",
+        "border-radius": "4px",
+        "position": "absolute",
+        "left": "0px",
+        "top": "0px",
+        "z-index": "0",
+        "overflow": "hidden"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": "fw647:17818",
+         "tag": "div",
+         "name": "组 10056",
+         "style": {
+          "width": "107px",
+          "height": "22px",
+          "flex": "none",
+          "position": "relative"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": [
+          {
+           "id": "fw647:17820",
+           "tag": "span",
+           "name": "调用 5 个工具",
+           "style": {
+            "color": "#1F1F1F",
+            "font-size": "14px",
+            "font-family": "MiSans",
+            "line-height": "22px",
+            "position": "absolute",
+            "left": "18px",
+            "top": "0px",
+            "z-index": "1"
+           },
+           "props": null,
+           "text": null,
+           "src": null,
+           "kids": []
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "1393:18518",
+       "tag": "div",
+       "name": "容器 218",
+       "style": {
+        "width": "822px",
+        "height": "200px",
+        "position": "absolute",
+        "left": "18px",
+        "top": "34px",
+        "z-index": "1"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": "fw647:18151",
+         "tag": "div",
+         "name": "Link",
+         "style": {
+          "width": "424px",
+          "height": "22px",
+          "display": "flex",
+          "justify-content": "flex-start",
+          "align-items": "center",
+          "gap": "8px",
+          "border-radius": "4px",
+          "position": "absolute",
+          "left": "0px",
+          "top": "34px",
+          "z-index": "0",
+          "overflow": "hidden"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": [
+          {
+           "id": "fw647:18156",
+           "tag": "div",
+           "name": "组 10056",
+           "style": {
+            "width": "73px",
+            "height": "22px",
+            "flex": "none",
+            "position": "relative"
+           },
+           "props": null,
+           "text": null,
+           "src": null,
+           "kids": [
+            {
+             "id": "fw647:18157",
+             "tag": "span",
+             "name": "Tool call",
+             "style": {
+              "color": "#1F1F1F",
+              "font-size": "14px",
+              "font-family": "MiSans",
+              "line-height": "22px",
+              "position": "absolute",
+              "left": "18px",
+              "top": "0px",
+              "z-index": "1"
+             },
+             "props": null,
+             "text": null,
+             "src": null,
+             "kids": []
+            }
+           ]
+          },
+          {
+           "id": "fw647:18161",
+           "tag": "img",
+           "name": "圆形 1",
+           "style": {
+            "width": "4px",
+            "height": "4px",
+            "color": "#C9C9C9"
+           },
+           "props": null,
+           "text": null,
+           "src": "./asset/icons/svg_9ddc2d77.svg",
+           "kids": []
+          },
+          {
+           "id": "fw647:18152",
+           "tag": "span",
+           "name": "str_replace_editor · src/ui/components/drag-strip/index.tsx",
+           "style": {
+            "color": "#868686",
+            "font-size": "12px",
+            "font-family": "MiSans",
+            "line-height": "22px"
+           },
+           "props": null,
+           "text": null,
+           "src": null,
+           "kids": []
+          }
+         ]
+        },
+        {
+         "id": "fw647:18138",
+         "tag": "div",
+         "name": "Link",
+         "style": {
+          "width": "424px",
+          "height": "22px",
+          "display": "flex",
+          "justify-content": "flex-start",
+          "align-items": "center",
+          "gap": "8px",
+          "border-radius": "4px",
+          "position": "absolute",
+          "left": "0px",
+          "top": "0px",
+          "z-index": "1",
+          "overflow": "hidden"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": [
+          {
+           "id": "fw647:18144",
+           "tag": "div",
+           "name": "容器 163",
+           "style": {
+            "display": "flex",
+            "justify-content": "flex-start",
+            "align-items": "center",
+            "gap": "4px"
+           },
+           "props": null,
+           "text": null,
+           "src": null,
+           "kids": [
+            {
+             "id": "fw647:18149",
+             "tag": "img",
+             "name": "容器",
+             "style": {
+              "width": "14px",
+              "height": "14px",
+              "color": "#868686"
+             },
+             "props": null,
+             "text": null,
+             "src": "./asset/icons/svg_b730ef8d.svg",
+             "kids": []
+            },
+            {
+             "id": "fw647:18145",
+             "tag": "span",
+             "name": "Tool call",
+             "style": {
+              "color": "#868686",
+              "font-size": "14px",
+              "font-family": "MiSans",
+              "line-height": "22px"
+             },
+             "props": null,
+             "text": null,
+             "src": null,
+             "kids": []
+            }
+           ]
+          },
+          {
+           "id": "fw647:18139",
+           "tag": "img",
+           "name": "圆形 1",
+           "style": {
+            "width": "4px",
+            "height": "4px",
+            "color": "#C9C9C9"
+           },
+           "props": null,
+           "text": null,
+           "src": "./asset/icons/svg_9ddc2d77.svg",
+           "kids": []
+          },
+          {
+           "id": "fw647:18140",
+           "tag": "span",
+           "name": "str_replace_editor · src/ui/components/drag-strip/index.tsx",
+           "style": {
+            "color": "#868686",
+            "font-size": "12px",
+            "font-family": "MiSans",
+            "line-height": "22px"
+           },
+           "props": null,
+           "text": null,
+           "src": null,
+           "kids": []
+          }
+         ]
+        },
+        {
+         "id": "1393:18517",
+         "tag": "div",
+         "name": "容器 217",
+         "style": {
+          "width": "804px",
+          "height": "132px",
+          "position": "absolute",
+          "left": "18px",
+          "top": "68px",
+          "z-index": "2"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": [
+          {
+           "id": "fw647:18135",
+           "tag": "div",
+           "name": "矩形 353",
+           "style": {
+            "position": "absolute",
+            "left": "0px",
+            "top": "0px",
+            "z-index": "0"
+           },
+           "props": null,
+           "text": null,
+           "src": null,
+           "kids": [
+            {
+             "id": null,
+             "tag": "img",
+             "name": null,
+             "style": {},
+             "props": null,
+             "text": null,
+             "src": "./asset/icons/svg_635fb6c1.svg",
+             "kids": []
+            }
+           ]
+          },
+          {
+           "id": "1393:18516",
+           "tag": "div",
+           "name": "容器 216",
+           "style": {
+            "width": "804px",
+            "height": "40px",
+            "position": "absolute",
+            "left": "0px",
+            "top": "0px",
+            "z-index": "1"
+           },
+           "props": null,
+           "text": null,
+           "src": null,
+           "kids": [
+            {
+             "id": "fw647:18137",
+             "tag": "div",
+             "name": "矩形 355",
+             "style": {
+              "position": "absolute",
+              "left": "0px",
+              "top": "0px",
+              "z-index": "0"
+             },
+             "props": null,
+             "text": null,
+             "src": null,
+             "kids": [
+              {
+               "id": null,
+               "tag": "img",
+               "name": null,
+               "style": {},
+               "props": null,
+               "text": null,
+               "src": "./asset/icons/svg_1e7afea7.svg",
+               "kids": []
+              }
+             ]
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "1393:18519",
+       "tag": "div",
+       "name": "容器 219",
+       "style": {
+        "width": "305px",
+        "height": "124px",
+        "position": "absolute",
+        "left": "18px",
+        "top": "246px",
+        "z-index": "2"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": "fw647:18194",
+         "tag": "div",
+         "name": "Link",
+         "style": {
+          "width": "125px",
+          "height": "22px",
+          "display": "flex",
+          "justify-content": "flex-start",
+          "align-items": "center",
+          "gap": "8px",
+          "border-radius": "4px",
+          "position": "absolute",
+          "left": "0px",
+          "top": "0px",
+          "z-index": "0",
+          "overflow": "hidden"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": [
+          {
+           "id": "fw647:18200",
+           "tag": "div",
+           "name": "容器 163",
+           "style": {
+            "display": "flex",
+            "justify-content": "flex-start",
+            "align-items": "center",
+            "gap": "4px"
+           },
+           "props": null,
+           "text": null,
+           "src": null,
+           "kids": [
+            {
+             "id": "fw647:18205",
+             "tag": "img",
+             "name": "容器",
+             "style": {
+              "width": "14px",
+              "height": "14px",
+              "color": "#868686"
+             },
+             "props": null,
+             "text": null,
+             "src": "./asset/icons/svg_1d5c65e3.svg",
+             "kids": []
+            },
+            {
+             "id": "fw647:18201",
+             "tag": "span",
+             "name": "SKILL",
+             "style": {
+              "color": "#868686",
+              "font-size": "14px",
+              "font-family": "MiSans",
+              "line-height": "22px"
+             },
+             "props": null,
+             "text": null,
+             "src": null,
+             "kids": []
+            }
+           ]
+          },
+          {
+           "id": "fw647:18195",
+           "tag": "img",
+           "name": "圆形 1",
+           "style": {
+            "width": "4px",
+            "height": "4px",
+            "color": "#C9C9C9"
+           },
+           "props": null,
+           "text": null,
+           "src": "./asset/icons/svg_9ddc2d77.svg",
+           "kids": []
+          },
+          {
+           "id": "fw647:18196",
+           "tag": "span",
+           "name": "deepwiki",
+           "style": {
+            "color": "#868686",
+            "font-size": "12px",
+            "font-family": "MiSans",
+            "line-height": "22px"
+           },
+           "props": null,
+           "text": null,
+           "src": null,
+           "kids": []
+          }
+         ]
+        },
+        {
+         "id": "fw647:18217",
+         "tag": "div",
+         "name": "Link",
+         "style": {
+          "width": "152px",
+          "height": "22px",
+          "display": "flex",
+          "justify-content": "flex-start",
+          "align-items": "center",
+          "gap": "8px",
+          "border-radius": "4px",
+          "position": "absolute",
+          "left": "0px",
+          "top": "34px",
+          "z-index": "1",
+          "overflow": "hidden"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": [
+          {
+           "id": "fw647:18223",
+           "tag": "div",
+           "name": "容器 163",
+           "style": {
+            "display": "flex",
+            "justify-content": "flex-start",
+            "align-items": "center",
+            "gap": "4px"
+           },
+           "props": null,
+           "text": null,
+           "src": null,
+           "kids": [
+            {
+             "id": "fw647:18224",
+             "tag": "img",
+             "name": "容器",
+             "style": {
+              "width": "14px",
+              "height": "14px",
+              "color": "#868686"
+             },
+             "props": null,
+             "text": null,
+             "src": "./asset/icons/svg_7c1c891e.svg",
+             "kids": []
+            },
+            {
+             "id": "fw647:18226",
+             "tag": "span",
+             "name": "需求采访",
+             "style": {
+              "color": "#868686",
+              "font-size": "14px",
+              "font-family": "MiSans",
+              "line-height": "22px"
+             },
+             "props": null,
+             "text": null,
+             "src": null,
+             "kids": []
+            }
+           ]
+          },
+          {
+           "id": "fw647:18222",
+           "tag": "img",
+           "name": "圆形 1",
+           "style": {
+            "width": "4px",
+            "height": "4px",
+            "color": "#C9C9C9"
+           },
+           "props": null,
+           "text": null,
+           "src": "./asset/icons/svg_9ddc2d77.svg",
+           "kids": []
+          },
+          {
+           "id": "fw647:18218",
+           "tag": "span",
+           "name": "1/3 已回答",
+           "style": {
+            "color": "#868686",
+            "font-size": "12px",
+            "font-family": "MiSans",
+            "line-height": "22px"
+           },
+           "props": null,
+           "text": null,
+           "src": null,
+           "kids": []
+          }
+         ]
+        },
+        {
+         "id": "fw647:18240",
+         "tag": "div",
+         "name": "Link",
+         "style": {
+          "width": "305px",
+          "height": "22px",
+          "display": "flex",
+          "justify-content": "flex-start",
+          "align-items": "center",
+          "gap": "8px",
+          "border-radius": "4px",
+          "position": "absolute",
+          "left": "0px",
+          "top": "68px",
+          "z-index": "2",
+          "overflow": "hidden"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": [
+          {
+           "id": "fw647:18246",
+           "tag": "div",
+           "name": "容器 163",
+           "style": {
+            "display": "flex",
+            "justify-content": "flex-start",
+            "align-items": "center",
+            "gap": "4px"
+           },
+           "props": null,
+           "text": null,
+           "src": null,
+           "kids": [
+            {
+             "id": "fw647:18247",
+             "tag": "img",
+             "name": "容器",
+             "style": {
+              "width": "14px",
+              "height": "14px",
+              "color": "#868686"
+             },
+             "props": null,
+             "text": null,
+             "src": "./asset/icons/svg_9e161bef.svg",
+             "kids": []
+            },
+            {
+             "id": "fw647:18249",
+             "tag": "span",
+             "name": "文件写入",
+             "style": {
+              "color": "#868686",
+              "font-size": "14px",
+              "font-family": "MiSans",
+              "line-height": "22px"
+             },
+             "props": null,
+             "text": null,
+             "src": null,
+             "kids": []
+            }
+           ]
+          },
+          {
+           "id": "fw647:18245",
+           "tag": "img",
+           "name": "圆形 1",
+           "style": {
+            "width": "4px",
+            "height": "4px",
+            "color": "#C9C9C9"
+           },
+           "props": null,
+           "text": null,
+           "src": "./asset/icons/svg_9ddc2d77.svg",
+           "kids": []
+          },
+          {
+           "id": "fw647:18241",
+           "tag": "span",
+           "name": "gienx-taskboard-kanban/package.json",
+           "style": {
+            "color": "#868686",
+            "font-size": "12px",
+            "font-family": "MiSans",
+            "line-height": "22px"
+           },
+           "props": null,
+           "text": null,
+           "src": null,
+           "kids": []
+          }
+         ]
+        },
+        {
+         "id": "fw647:18263",
+         "tag": "div",
+         "name": "Link",
+         "style": {
+          "width": "182px",
+          "height": "22px",
+          "display": "flex",
+          "justify-content": "flex-start",
+          "align-items": "center",
+          "gap": "8px",
+          "border-radius": "4px",
+          "position": "absolute",
+          "left": "0px",
+          "top": "102px",
+          "z-index": "3",
+          "overflow": "hidden"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": [
+          {
+           "id": "fw647:18268",
+           "tag": "div",
+           "name": "容器 163",
+           "style": {
+            "display": "flex",
+            "justify-content": "flex-start",
+            "align-items": "center",
+            "gap": "4px"
+           },
+           "props": null,
+           "text": null,
+           "src": null,
+           "kids": [
+            {
+             "id": "fw647:18273",
+             "tag": "img",
+             "name": "容器",
+             "style": {
+              "width": "14px",
+              "height": "14px",
+              "color": "#868686"
+             },
+             "props": null,
+             "text": null,
+             "src": "./asset/icons/svg_eaa3d24d.svg",
+             "kids": []
+            },
+            {
+             "id": "fw647:18269",
+             "tag": "span",
+             "name": "更新任务清单",
+             "style": {
+              "color": "#868686",
+              "font-size": "14px",
+              "font-family": "MiSans",
+              "line-height": "22px"
+             },
+             "props": null,
+             "text": null,
+             "src": null,
+             "kids": []
+            }
+           ]
+          },
+          {
+           "id": "fw647:18275",
+           "tag": "img",
+           "name": "圆形 1",
+           "style": {
+            "width": "4px",
+            "height": "4px",
+            "color": "#C9C9C9"
+           },
+           "props": null,
+           "text": null,
+           "src": "./asset/icons/svg_9ddc2d77.svg",
+           "kids": []
+          },
+          {
+           "id": "fw647:18264",
+           "tag": "span",
+           "name": "0/5 已完成",
+           "style": {
+            "color": "#868686",
+            "font-size": "12px",
+            "font-family": "MiSans",
+            "line-height": "22px"
+           },
+           "props": null,
+           "text": null,
+           "src": null,
+           "kids": []
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "fw647:18281",
+       "tag": "div",
+       "name": "直线 31",
+       "style": {
+        "position": "absolute",
+        "left": "6px",
+        "top": "34px",
+        "z-index": "3"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": null,
+         "tag": "img",
+         "name": null,
+         "style": {
+          "color": "#E5E5E5"
+         },
+         "props": null,
+         "text": null,
+         "src": "./asset/icons/svg_ebd1e221.svg",
+         "kids": []
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "1393:18523",
+   "tag": "div",
+   "name": "容器 223",
+   "style": {
+    "width": "840px",
+    "height": "54px",
+    "position": "absolute",
+    "left": "164px",
+    "top": "3324px",
+    "z-index": "16"
+   },
+   "props": null,
+   "text": null,
+   "src": null,
+   "kids": [
+    {
+     "id": "1393:18522",
+     "tag": "div",
+     "name": "容器 222",
+     "style": {
+      "width": "840px",
+      "height": "22px",
+      "position": "absolute",
+      "left": "0px",
+      "top": "0px",
+      "z-index": "0"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": [
+      {
+       "id": "fw647:18342",
+       "tag": "div",
+       "name": "容器 164",
+       "style": {
+        "width": "388px",
+        "height": "22px",
+        "display": "flex",
+        "justify-content": "flex-start",
+        "align-items": "center",
+        "gap": "8px",
+        "position": "absolute",
+        "left": "226px",
+        "top": "0px",
+        "z-index": "0"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": "fw647:18353",
+         "tag": "img",
+         "name": "容器",
+         "style": {
+          "width": "14px",
+          "height": "14px"
+         },
+         "props": null,
+         "text": null,
+         "src": "./asset/icons/svg_1448f5c9.svg",
+         "kids": []
+        },
+        {
+         "id": "fw647:18341",
+         "tag": "img",
+         "name": "圆形 4",
+         "style": {
+          "width": "6px",
+          "height": "6px",
+          "color": "#E5E5E5"
+         },
+         "props": null,
+         "text": null,
+         "src": "./asset/icons/svg_1d44dafd.svg",
+         "kids": []
+        }
+       ]
+      },
+      {
+       "id": "fw647:18346",
+       "tag": "div",
+       "name": "直线 32",
+       "style": {
+        "position": "absolute",
+        "left": "214px",
+        "top": "10.5px",
+        "z-index": "1"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": null,
+         "tag": "img",
+         "name": null,
+         "style": {
+          "color": "#E5E5E5"
+         },
+         "props": null,
+         "text": null,
+         "src": "./asset/icons/svg_38cbaeab.svg",
+         "kids": []
+        }
+       ]
+      },
+      {
+       "id": "fw647:18349",
+       "tag": "div",
+       "name": "直线 33",
+       "style": {
+        "position": "absolute",
+        "left": "840px",
+        "top": "11px",
+        "z-index": "2"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": null,
+         "tag": "img",
+         "name": null,
+         "style": {
+          "color": "#E5E5E5"
+         },
+         "props": null,
+         "text": null,
+         "src": "./asset/icons/svg_38cbaeab.svg",
+         "kids": []
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "1393:18525",
+   "tag": "div",
+   "name": "容器 225",
+   "style": {
+    "width": "840px",
+    "height": "54px",
+    "position": "absolute",
+    "left": "164px",
+    "top": "3402px",
+    "z-index": "17"
+   },
+   "props": null,
+   "text": null,
+   "src": null,
+   "kids": [
+    {
+     "id": "1393:18524",
+     "tag": "div",
+     "name": "容器 224",
+     "style": {
+      "width": "840px",
+      "height": "22px",
+      "position": "absolute",
+      "left": "0px",
+      "top": "0px",
+      "z-index": "0"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": [
+      {
+       "id": "fw647:18400",
+       "tag": "div",
+       "name": "容器 164",
+       "style": {
+        "width": "404px",
+        "height": "22px",
+        "display": "flex",
+        "justify-content": "flex-start",
+        "align-items": "center",
+        "gap": "8px",
+        "position": "absolute",
+        "left": "218px",
+        "top": "0px",
+        "z-index": "0"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": "fw647:16386",
+         "tag": "img",
+         "name": "容器",
+         "style": {
+          "width": "14px",
+          "height": "14px",
+          "color": "#30953B"
+         },
+         "props": null,
+         "text": null,
+         "src": "./asset/icons/svg_812e0422.svg",
+         "kids": []
+        },
+        {
+         "id": "fw647:18410",
+         "tag": "img",
+         "name": "圆形 4",
+         "style": {
+          "width": "6px",
+          "height": "6px",
+          "color": "#E5E5E5"
+         },
+         "props": null,
+         "text": null,
+         "src": "./asset/icons/svg_1d44dafd.svg",
+         "kids": []
+        }
+       ]
+      },
+      {
+       "id": "fw647:18416",
+       "tag": "div",
+       "name": "直线 32",
+       "style": {
+        "position": "absolute",
+        "left": "206px",
+        "top": "10.5px",
+        "z-index": "1"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": null,
+         "tag": "img",
+         "name": null,
+         "style": {
+          "color": "#E5E5E5"
+         },
+         "props": null,
+         "text": null,
+         "src": "./asset/icons/svg_19c68c88.svg",
+         "kids": []
+        }
+       ]
+      },
+      {
+       "id": "fw647:18417",
+       "tag": "div",
+       "name": "直线 33",
+       "style": {
+        "position": "absolute",
+        "left": "840px",
+        "top": "11px",
+        "z-index": "2"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": null,
+         "tag": "img",
+         "name": null,
+         "style": {
+          "color": "#E5E5E5"
+         },
+         "props": null,
+         "text": null,
+         "src": "./asset/icons/svg_19c68c88.svg",
+         "kids": []
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "1393:18529",
+   "tag": "div",
+   "name": "容器 229",
+   "style": {
+    "width": "840px",
+    "height": "184px",
+    "position": "absolute",
+    "left": "164px",
+    "top": "3480px",
+    "z-index": "18"
+   },
+   "props": null,
+   "text": null,
+   "src": null,
+   "kids": [
+    {
+     "id": "fw647:18518",
+     "tag": "div",
+     "name": "Link",
+     "style": {
+      "width": "220px",
+      "height": "22px",
+      "display": "flex",
+      "justify-content": "flex-start",
+      "align-items": "center",
+      "gap": "8px",
+      "border-radius": "4px",
+      "position": "absolute",
+      "left": "0px",
+      "top": "34px",
+      "z-index": "0",
+      "overflow": "hidden"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": [
+      {
+       "id": "fw647:18519",
+       "tag": "div",
+       "name": "组 10056",
+       "style": {
+        "width": "74px",
+        "height": "22px",
+        "flex": "none",
+        "position": "relative"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": "fw647:18521",
+         "tag": "span",
+         "name": "搜索资料",
+         "style": {
+          "color": "#1F1F1F",
+          "font-size": "14px",
+          "font-family": "MiSans",
+          "line-height": "22px",
+          "position": "absolute",
+          "left": "18px",
+          "top": "0px",
+          "z-index": "1"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": []
+        }
+       ]
+      },
+      {
+       "id": "fw647:18525",
+       "tag": "img",
+       "name": "圆形 1",
+       "style": {
+        "width": "4px",
+        "height": "4px",
+        "color": "#C9C9C9"
+       },
+       "props": null,
+       "text": null,
+       "src": "./asset/icons/svg_9ddc2d77.svg",
+       "kids": []
+      },
+      {
+       "id": "fw647:18526",
+       "tag": "span",
+       "name": "gienx harness client ui",
+       "style": {
+        "color": "#868686",
+        "font-size": "12px",
+        "font-family": "MiSans",
+        "line-height": "22px"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": []
+      }
+     ]
+    },
+    {
+     "id": "fw647:18530",
+     "tag": "div",
+     "name": "Link",
+     "style": {
+      "width": "74px",
+      "height": "22px",
+      "display": "flex",
+      "justify-content": "flex-start",
+      "align-items": "center",
+      "gap": "8px",
+      "border-radius": "4px",
+      "position": "absolute",
+      "left": "0px",
+      "top": "0px",
+      "z-index": "1",
+      "overflow": "hidden"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": [
+      {
+       "id": "fw647:18531",
+       "tag": "div",
+       "name": "容器 163",
+       "style": {
+        "display": "flex",
+        "justify-content": "flex-start",
+        "align-items": "center",
+        "gap": "4px"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": "fw647:16390",
+         "tag": "img",
+         "name": "容器",
+         "style": {
+          "width": "14px",
+          "height": "14px",
+          "color": "#868686"
+         },
+         "props": null,
+         "text": null,
+         "src": "./asset/icons/svg_536db15e.svg",
+         "kids": []
+        },
+        {
+         "id": "fw647:18534",
+         "tag": "span",
+         "name": "搜索资料",
+         "style": {
+          "color": "#868686",
+          "font-size": "14px",
+          "font-family": "MiSans",
+          "line-height": "22px"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": []
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "1393:18528",
+     "tag": "div",
+     "name": "容器 228",
+     "style": {
+      "width": "822px",
+      "height": "116px",
+      "position": "absolute",
+      "left": "18px",
+      "top": "68px",
+      "z-index": "2"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": [
+      {
+       "id": "fw647:18544",
+       "tag": "div",
+       "name": "矩形 353",
+       "style": {
+        "position": "absolute",
+        "left": "0px",
+        "top": "0px",
+        "z-index": "0"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": null,
+         "tag": "img",
+         "name": null,
+         "style": {
+          "color": "#F5F6F7"
+         },
+         "props": null,
+         "text": null,
+         "src": "./asset/icons/svg_6dbb16fe.svg",
+         "kids": []
+        }
+       ]
+      },
+      {
+       "id": "1393:18527",
+       "tag": "div",
+       "name": "容器 227",
+       "style": {
+        "width": "408px",
+        "height": "42px",
+        "position": "absolute",
+        "left": "12px",
+        "top": "12px",
+        "z-index": "1"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": []
+      },
+      {
+       "id": "1393:18526",
+       "tag": "div",
+       "name": "容器 226",
+       "style": {
+        "width": "283px",
+        "height": "42px",
+        "position": "absolute",
+        "left": "12px",
+        "top": "62px",
+        "z-index": "2"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": []
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "1393:18533",
+   "tag": "div",
+   "name": "容器 233",
+   "style": {
+    "width": "840px",
+    "height": "152px",
+    "position": "absolute",
+    "left": "164px",
+    "top": "3808px",
+    "z-index": "19"
+   },
+   "props": null,
+   "text": null,
+   "src": null,
+   "kids": [
+    {
+     "id": "fw647:18945",
+     "tag": "div",
+     "name": "Link",
+     "style": {
+      "width": "267px",
+      "height": "22px",
+      "display": "flex",
+      "justify-content": "flex-start",
+      "align-items": "center",
+      "gap": "8px",
+      "border-radius": "4px",
+      "position": "absolute",
+      "left": "0px",
+      "top": "34px",
+      "z-index": "0",
+      "overflow": "hidden"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": [
+      {
+       "id": "fw647:18946",
+       "tag": "div",
+       "name": "组 10056",
+       "style": {
+        "width": "132px",
+        "height": "22px",
+        "flex": "none",
+        "position": "relative"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": "fw647:18948",
+         "tag": "span",
+         "name": "未知 surface 事件",
+         "style": {
+          "color": "#1F1F1F",
+          "font-size": "14px",
+          "font-family": "MiSans",
+          "line-height": "22px",
+          "position": "absolute",
+          "left": "18px",
+          "top": "0px",
+          "z-index": "1"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": []
+        }
+       ]
+      },
+      {
+       "id": "fw647:18952",
+       "tag": "img",
+       "name": "圆形 1",
+       "style": {
+        "width": "4px",
+        "height": "4px",
+        "color": "#C9C9C9"
+       },
+       "props": null,
+       "text": null,
+       "src": "./asset/icons/svg_9ddc2d77.svg",
+       "kids": []
+      },
+      {
+       "id": "fw647:18953",
+       "tag": "span",
+       "name": "workspace/reminder",
+       "style": {
+        "color": "#868686",
+        "font-size": "12px",
+        "font-family": "MiSans",
+        "line-height": "22px"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": []
+      }
+     ]
+    },
+    {
+     "id": "fw647:18957",
+     "tag": "div",
+     "name": "Link",
+     "style": {
+      "width": "132px",
+      "height": "22px",
+      "display": "flex",
+      "justify-content": "flex-start",
+      "align-items": "center",
+      "gap": "8px",
+      "border-radius": "4px",
+      "position": "absolute",
+      "left": "0px",
+      "top": "0px",
+      "z-index": "1",
+      "overflow": "hidden"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": [
+      {
+       "id": "fw647:18958",
+       "tag": "div",
+       "name": "容器 163",
+       "style": {
+        "display": "flex",
+        "justify-content": "flex-start",
+        "align-items": "center",
+        "gap": "4px"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": "fw647:16405",
+         "tag": "img",
+         "name": "容器",
+         "style": {
+          "width": "14px",
+          "height": "14px",
+          "color": "#868686"
+         },
+         "props": null,
+         "text": null,
+         "src": "./asset/icons/svg_66ad9348.svg",
+         "kids": []
+        },
+        {
+         "id": "fw647:18961",
+         "tag": "span",
+         "name": "未知 surface 事件",
+         "style": {
+          "color": "#868686",
+          "font-size": "14px",
+          "font-family": "MiSans",
+          "line-height": "22px"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": []
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "1393:18532",
+     "tag": "div",
+     "name": "容器 232",
+     "style": {
+      "width": "822px",
+      "height": "84px",
+      "position": "absolute",
+      "left": "18px",
+      "top": "68px",
+      "z-index": "2"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": [
+      {
+       "id": "fw647:18967",
+       "tag": "div",
+       "name": "矩形 353",
+       "style": {
+        "position": "absolute",
+        "left": "0px",
+        "top": "0px",
+        "z-index": "0"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": null,
+         "tag": "img",
+         "name": null,
+         "style": {
+          "color": "#F5F6F7"
+         },
+         "props": null,
+         "text": null,
+         "src": "./asset/icons/svg_057625ca.svg",
+         "kids": []
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "1393:18531",
+   "tag": "div",
+   "name": "容器 231",
+   "style": {
+    "width": "840px",
+    "height": "44px",
+    "position": "absolute",
+    "left": "164px",
+    "top": "3688px",
+    "z-index": "20"
+   },
+   "props": null,
+   "text": null,
+   "src": null,
+   "kids": [
+    {
+     "id": "fw647:18819",
+     "tag": "div",
+     "name": "矩形 356",
+     "style": {
+      "width": "840px",
+      "height": "44px",
+      "background": "#FFF7E8",
+      "border-style": "solid",
+      "border-color": "#FFE4BA",
+      "border-width": "1px",
+      "border-radius": "8px",
+      "position": "absolute",
+      "left": "0px",
+      "top": "0px",
+      "z-index": "0"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": []
+    },
+    {
+     "id": "fw647:18885",
+     "tag": "div",
+     "name": "容器 166",
+     "style": {
+      "width": "549px",
+      "height": "22px",
+      "display": "flex",
+      "justify-content": "flex-start",
+      "align-items": "center",
+      "gap": "12px",
+      "position": "absolute",
+      "left": "16px",
+      "top": "11px",
+      "z-index": "1"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": [
+      {
+       "id": "fw647:18884",
+       "tag": "div",
+       "name": "容器 165",
+       "style": {
+        "display": "flex",
+        "justify-content": "flex-start",
+        "align-items": "center",
+        "gap": "8px"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": "fw647:18824",
+         "tag": "img",
+         "name": "圆形 5",
+         "style": {
+          "width": "6px",
+          "height": "6px",
+          "color": "#D25F00"
+         },
+         "props": null,
+         "text": null,
+         "src": "./asset/icons/svg_ab052888.svg",
+         "kids": []
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "1393:18530",
+   "tag": "div",
+   "name": "容器 230",
+   "style": {
+    "width": "840px",
+    "height": "44px",
+    "position": "absolute",
+    "left": "164px",
+    "top": "3748px",
+    "z-index": "21"
+   },
+   "props": null,
+   "text": null,
+   "src": null,
+   "kids": [
+    {
+     "id": "fw647:18901",
+     "tag": "div",
+     "name": "矩形 356",
+     "style": {
+      "width": "840px",
+      "height": "44px",
+      "background": "#FFF7E8",
+      "border-style": "solid",
+      "border-color": "#FFE4BA",
+      "border-width": "1px",
+      "border-radius": "8px",
+      "position": "absolute",
+      "left": "0px",
+      "top": "0px",
+      "z-index": "0"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": []
+    },
+    {
+     "id": "fw647:18903",
+     "tag": "div",
+     "name": "容器 165",
+     "style": {
+      "width": "98px",
+      "height": "22px",
+      "display": "flex",
+      "justify-content": "flex-start",
+      "align-items": "center",
+      "gap": "8px",
+      "position": "absolute",
+      "left": "16px",
+      "top": "11px",
+      "z-index": "1"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": [
+      {
+       "id": "fw647:18904",
+       "tag": "img",
+       "name": "圆形 5",
+       "style": {
+        "width": "6px",
+        "height": "6px",
+        "color": "#D25F00"
+       },
+       "props": null,
+       "text": null,
+       "src": "./asset/icons/svg_ab052888.svg",
+       "kids": []
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "1393:18535",
+   "tag": "div",
+   "name": "容器 235",
+   "style": {
+    "width": "840px",
+    "height": "22px",
+    "position": "absolute",
+    "left": "164px",
+    "top": "3984px",
+    "z-index": "22"
+   },
+   "props": null,
+   "text": null,
+   "src": null,
+   "kids": [
+    {
+     "id": "fw647:19206",
+     "tag": "div",
+     "name": "直线 32",
+     "style": {
+      "position": "absolute",
+      "left": "362px",
+      "top": "11px",
+      "z-index": "0"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": [
+      {
+       "id": null,
+       "tag": "img",
+       "name": null,
+       "style": {
+        "color": "#E5E5E5"
+       },
+       "props": null,
+       "text": null,
+       "src": "./asset/icons/svg_b49ce54b.svg",
+       "kids": []
+      }
+     ]
+    },
+    {
+     "id": "fw647:19207",
+     "tag": "div",
+     "name": "直线 33",
+     "style": {
+      "position": "absolute",
+      "left": "840px",
+      "top": "11px",
+      "z-index": "1"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": [
+      {
+       "id": null,
+       "tag": "img",
+       "name": null,
+       "style": {
+        "color": "#E5E5E5"
+       },
+       "props": null,
+       "text": null,
+       "src": "./asset/icons/svg_b49ce54b.svg",
+       "kids": []
+      }
+     ]
+    },
+    {
+     "id": "1393:18534",
+     "tag": "div",
+     "name": "容器 234",
+     "style": {
+      "width": "92px",
+      "height": "22px",
+      "position": "absolute",
+      "left": "374px",
+      "top": "0px",
+      "z-index": "2"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": [
+      {
+       "id": "fw647:19293",
+       "tag": "div",
+       "name": "容器",
+       "style": {
+        "position": "absolute",
+        "left": "0px",
+        "top": "4px",
+        "z-index": "1"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": null,
+         "tag": "img",
+         "name": null,
+         "style": {
+          "color": "#333333"
+         },
+         "props": null,
+         "text": null,
+         "src": "./asset/icons/svg_e79db3dd.svg",
+         "kids": []
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "1393:18600",
+   "tag": "div",
+   "name": "容器 248",
+   "style": {
+    "width": "840px",
+    "height": "230px",
+    "position": "absolute",
+    "left": "164px",
+    "top": "4414px",
+    "z-index": "23"
+   },
+   "props": null,
+   "text": null,
+   "src": null,
+   "kids": [
+    {
+     "id": "1393:18589",
+     "tag": "div",
+     "name": "容器 241",
+     "style": {
+      "width": "414px",
+      "height": "56px",
+      "position": "absolute",
+      "left": "0px",
+      "top": "38px",
+      "z-index": "1"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": [
+      {
+       "id": "fw647:19663",
+       "tag": "div",
+       "name": "矩形 336",
+       "style": {
+        "position": "absolute",
+        "left": "0px",
+        "top": "0px",
+        "z-index": "0"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": null,
+         "tag": "img",
+         "name": null,
+         "style": {
+          "color": "#F5F6F7"
+         },
+         "props": null,
+         "text": null,
+         "src": "./asset/icons/svg_83c4c898.svg",
+         "kids": []
+        }
+       ]
+      },
+      {
+       "id": "fw647:19674",
+       "tag": "div",
+       "name": "Link",
+       "style": {
+        "width": "123px",
+        "height": "22px",
+        "display": "flex",
+        "justify-content": "flex-start",
+        "align-items": "center",
+        "gap": "4px",
+        "border-radius": "4px",
+        "position": "absolute",
+        "left": "60px",
+        "top": "8px",
+        "z-index": "1",
+        "overflow": "hidden"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": "fw647:19675",
+         "tag": "span",
+         "name": "prd-template.html",
+         "style": {
+          "color": "#1F1F1F",
+          "font-size": "14px",
+          "font-family": "MiSans",
+          "font-weight": "500",
+          "line-height": "22px"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": []
+        }
+       ]
+      },
+      {
+       "id": "fw647:19669",
+       "tag": "div",
+       "name": "Link",
+       "style": {
+        "width": "36px",
+        "height": "16px",
+        "display": "flex",
+        "justify-content": "flex-start",
+        "align-items": "center",
+        "gap": "4px",
+        "border-radius": "4px",
+        "position": "absolute",
+        "left": "60px",
+        "top": "32px",
+        "z-index": "2",
+        "overflow": "hidden"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": "fw647:19670",
+         "tag": "span",
+         "name": "128KB",
+         "style": {
+          "color": "#868686",
+          "font-size": "12px",
+          "font-family": "MiSans",
+          "line-height": "16px"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": []
+        }
+       ]
+      },
+      {
+       "id": "fw647:19665",
+       "tag": "div",
+       "name": "直线 33",
+       "style": {
+        "position": "absolute",
+        "left": "48px",
+        "top": "16px",
+        "z-index": "3"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": null,
+         "tag": "img",
+         "name": null,
+         "style": {
+          "color": "#E5E5E5"
+         },
+         "props": null,
+         "text": null,
+         "src": "./asset/icons/svg_5727cb81.svg",
+         "kids": []
+        }
+       ]
+      },
+      {
+       "id": "fw647:19666",
+       "tag": "div",
+       "name": "容器",
+       "style": {
+        "position": "absolute",
+        "left": "12px",
+        "top": "16px",
+        "z-index": "4"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": null,
+         "tag": "img",
+         "name": null,
+         "style": {
+          "color": "#327FCB"
+         },
+         "props": null,
+         "text": null,
+         "src": "./asset/icons/svg_58f34b4f.svg",
+         "kids": []
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "1393:18590",
+     "tag": "div",
+     "name": "容器 242",
+     "style": {
+      "width": "414px",
+      "height": "56px",
+      "position": "absolute",
+      "left": "0px",
+      "top": "106px",
+      "z-index": "2"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": [
+      {
+       "id": "fw647:19631",
+       "tag": "div",
+       "name": "矩形 336",
+       "style": {
+        "position": "absolute",
+        "left": "0px",
+        "top": "0px",
+        "z-index": "0"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": null,
+         "tag": "img",
+         "name": null,
+         "style": {
+          "color": "#F5F6F7"
+         },
+         "props": null,
+         "text": null,
+         "src": "./asset/icons/svg_83c4c898.svg",
+         "kids": []
+        }
+       ]
+      },
+      {
+       "id": "fw647:19644",
+       "tag": "div",
+       "name": "容器",
+       "style": {
+        "position": "absolute",
+        "left": "12px",
+        "top": "16px",
+        "z-index": "1"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": null,
+         "tag": "img",
+         "name": null,
+         "style": {
+          "color": "#6B6B6B"
+         },
+         "props": null,
+         "text": null,
+         "src": "./asset/icons/svg_6d57fa43.svg",
+         "kids": []
+        }
+       ]
+      },
+      {
+       "id": "fw647:19638",
+       "tag": "div",
+       "name": "Link",
+       "style": {
+        "width": "241px",
+        "height": "22px",
+        "display": "flex",
+        "justify-content": "flex-start",
+        "align-items": "center",
+        "gap": "4px",
+        "border-radius": "4px",
+        "position": "absolute",
+        "left": "60px",
+        "top": "8px",
+        "z-index": "2",
+        "overflow": "hidden"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": "fw647:19639",
+         "tag": "span",
+         "name": "user-story-breakdown-template.md",
+         "style": {
+          "color": "#1F1F1F",
+          "font-size": "14px",
+          "font-family": "MiSans",
+          "font-weight": "500",
+          "line-height": "22px"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": []
+        }
+       ]
+      },
+      {
+       "id": "fw647:19633",
+       "tag": "div",
+       "name": "Link",
+       "style": {
+        "width": "36px",
+        "height": "16px",
+        "display": "flex",
+        "justify-content": "flex-start",
+        "align-items": "center",
+        "gap": "4px",
+        "border-radius": "4px",
+        "position": "absolute",
+        "left": "60px",
+        "top": "32px",
+        "z-index": "3",
+        "overflow": "hidden"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": "fw647:19634",
+         "tag": "span",
+         "name": "128KB",
+         "style": {
+          "color": "#868686",
+          "font-size": "12px",
+          "font-family": "MiSans",
+          "line-height": "16px"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": []
+        }
+       ]
+      },
+      {
+       "id": "fw647:19643",
+       "tag": "div",
+       "name": "直线 33",
+       "style": {
+        "position": "absolute",
+        "left": "48px",
+        "top": "16px",
+        "z-index": "4"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": null,
+         "tag": "img",
+         "name": null,
+         "style": {
+          "color": "#E5E5E5"
+         },
+         "props": null,
+         "text": null,
+         "src": "./asset/icons/svg_5727cb81.svg",
+         "kids": []
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "1393:18591",
+     "tag": "div",
+     "name": "容器 243",
+     "style": {
+      "width": "414px",
+      "height": "56px",
+      "position": "absolute",
+      "left": "0px",
+      "top": "174px",
+      "z-index": "3"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": [
+      {
+       "id": "fw647:19629",
+       "tag": "div",
+       "name": "矩形 336",
+       "style": {
+        "position": "absolute",
+        "left": "0px",
+        "top": "0px",
+        "z-index": "0"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": null,
+         "tag": "img",
+         "name": null,
+         "style": {
+          "color": "#F5F6F7"
+         },
+         "props": null,
+         "text": null,
+         "src": "./asset/icons/svg_83c4c898.svg",
+         "kids": []
+        }
+       ]
+      },
+      {
+       "id": "fw647:19626",
+       "tag": "div",
+       "name": "容器",
+       "style": {
+        "position": "absolute",
+        "left": "12px",
+        "top": "16px",
+        "z-index": "1"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": null,
+         "tag": "img",
+         "name": null,
+         "style": {
+          "color": "#6B6B6B"
+         },
+         "props": null,
+         "text": null,
+         "src": "./asset/icons/svg_f31b60d8.svg",
+         "kids": []
+        }
+       ]
+      },
+      {
+       "id": "fw647:19621",
+       "tag": "div",
+       "name": "Link",
+       "style": {
+        "width": "113px",
+        "height": "22px",
+        "display": "flex",
+        "justify-content": "flex-start",
+        "align-items": "center",
+        "gap": "4px",
+        "border-radius": "4px",
+        "position": "absolute",
+        "left": "60px",
+        "top": "17px",
+        "z-index": "2",
+        "overflow": "hidden"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": "fw647:19622",
+         "tag": "span",
+         "name": "查看所有产物 (12)",
+         "style": {
+          "color": "#1F1F1F",
+          "font-size": "14px",
+          "font-family": "MiSans",
+          "font-weight": "500",
+          "line-height": "22px"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": []
+        }
+       ]
+      },
+      {
+       "id": "fw647:19628",
+       "tag": "div",
+       "name": "直线 33",
+       "style": {
+        "position": "absolute",
+        "left": "48px",
+        "top": "16px",
+        "z-index": "3"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": null,
+         "tag": "img",
+         "name": null,
+         "style": {
+          "color": "#E5E5E5"
+         },
+         "props": null,
+         "text": null,
+         "src": "./asset/icons/svg_5727cb81.svg",
+         "kids": []
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "1393:18592",
+     "tag": "div",
+     "name": "卡片hover效果",
+     "style": {
+      "width": "414px",
+      "height": "56px",
+      "position": "absolute",
+      "left": "426px",
+      "top": "38px",
+      "z-index": "4"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": [
+      {
+       "id": "fw647:19607",
+       "tag": "div",
+       "name": "矩形 336",
+       "style": {
+        "position": "absolute",
+        "left": "0px",
+        "top": "0px",
+        "z-index": "0"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": null,
+         "tag": "img",
+         "name": null,
+         "style": {},
+         "props": null,
+         "text": null,
+         "src": "./asset/icons/svg_f9eee419.svg",
+         "kids": []
+        }
+       ]
+      },
+      {
+       "id": "fw647:19603",
+       "tag": "div",
+       "name": "容器",
+       "style": {
+        "position": "absolute",
+        "left": "12px",
+        "top": "16px",
+        "z-index": "2"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": null,
+         "tag": "img",
+         "name": null,
+         "style": {},
+         "props": null,
+         "text": null,
+         "src": "./asset/icons/svg_a5ad09ed.svg",
+         "kids": []
+        }
+       ]
+      },
+      {
+       "id": "fw647:19615",
+       "tag": "div",
+       "name": "Link",
+       "style": {
+        "width": "122px",
+        "height": "22px",
+        "display": "flex",
+        "justify-content": "flex-start",
+        "align-items": "center",
+        "gap": "4px",
+        "border-radius": "4px",
+        "position": "absolute",
+        "left": "60px",
+        "top": "8px",
+        "z-index": "3",
+        "overflow": "hidden"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": "fw647:19616",
+         "tag": "span",
+         "name": "spec-template.md",
+         "style": {
+          "color": "#3770F7",
+          "font-size": "14px",
+          "font-family": "MiSans",
+          "font-weight": "500",
+          "line-height": "22px"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": []
+        }
+       ]
+      },
+      {
+       "id": "fw647:19610",
+       "tag": "div",
+       "name": "Link",
+       "style": {
+        "width": "36px",
+        "height": "16px",
+        "display": "flex",
+        "justify-content": "flex-start",
+        "align-items": "center",
+        "gap": "4px",
+        "border-radius": "4px",
+        "position": "absolute",
+        "left": "60px",
+        "top": "32px",
+        "z-index": "4",
+        "overflow": "hidden"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": "fw647:19611",
+         "tag": "span",
+         "name": "128KB",
+         "style": {
+          "color": "#868686",
+          "font-size": "12px",
+          "font-family": "MiSans",
+          "line-height": "16px"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": []
+        }
+       ]
+      },
+      {
+       "id": "fw647:19608",
+       "tag": "div",
+       "name": "直线 33",
+       "style": {
+        "position": "absolute",
+        "left": "48px",
+        "top": "16px",
+        "z-index": "5"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": null,
+         "tag": "img",
+         "name": null,
+         "style": {
+          "color": "#E5E5E5"
+         },
+         "props": null,
+         "text": null,
+         "src": "./asset/icons/svg_5727cb81.svg",
+         "kids": []
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "1393:18593",
+     "tag": "div",
+     "name": "容器 245",
+     "style": {
+      "width": "414px",
+      "height": "56px",
+      "position": "absolute",
+      "left": "426px",
+      "top": "106px",
+      "z-index": "5"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": [
+      {
+       "id": "fw647:19648",
+       "tag": "div",
+       "name": "矩形 336",
+       "style": {
+        "position": "absolute",
+        "left": "0px",
+        "top": "0px",
+        "z-index": "0"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": null,
+         "tag": "img",
+         "name": null,
+         "style": {
+          "color": "#F5F6F7"
+         },
+         "props": null,
+         "text": null,
+         "src": "./asset/icons/svg_83c4c898.svg",
+         "kids": []
+        }
+       ]
+      },
+      {
+       "id": "fw647:19649",
+       "tag": "div",
+       "name": "容器",
+       "style": {
+        "position": "absolute",
+        "left": "12px",
+        "top": "16px",
+        "z-index": "1"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": null,
+         "tag": "img",
+         "name": null,
+         "style": {
+          "color": "#6B6B6B"
+         },
+         "props": null,
+         "text": null,
+         "src": "./asset/icons/svg_6d57fa43.svg",
+         "kids": []
+        }
+       ]
+      },
+      {
+       "id": "fw647:19657",
+       "tag": "div",
+       "name": "Link",
+       "style": {
+        "width": "160px",
+        "height": "22px",
+        "display": "flex",
+        "justify-content": "flex-start",
+        "align-items": "center",
+        "gap": "4px",
+        "border-radius": "4px",
+        "position": "absolute",
+        "left": "60px",
+        "top": "8px",
+        "z-index": "2",
+        "overflow": "hidden"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": "fw647:19658",
+         "tag": "span",
+         "name": "user-story-template.md",
+         "style": {
+          "color": "#1F1F1F",
+          "font-size": "14px",
+          "font-family": "MiSans",
+          "font-weight": "500",
+          "line-height": "22px"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": []
+        }
+       ]
+      },
+      {
+       "id": "fw647:19652",
+       "tag": "div",
+       "name": "Link",
+       "style": {
+        "width": "36px",
+        "height": "16px",
+        "display": "flex",
+        "justify-content": "flex-start",
+        "align-items": "center",
+        "gap": "4px",
+        "border-radius": "4px",
+        "position": "absolute",
+        "left": "60px",
+        "top": "32px",
+        "z-index": "3",
+        "overflow": "hidden"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": "fw647:19653",
+         "tag": "span",
+         "name": "128KB",
+         "style": {
+          "color": "#868686",
+          "font-size": "12px",
+          "font-family": "MiSans",
+          "line-height": "16px"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": []
+        }
+       ]
+      },
+      {
+       "id": "fw647:19647",
+       "tag": "div",
+       "name": "直线 33",
+       "style": {
+        "position": "absolute",
+        "left": "48px",
+        "top": "16px",
+        "z-index": "4"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": null,
+         "tag": "img",
+         "name": null,
+         "style": {
+          "color": "#E5E5E5"
+         },
+         "props": null,
+         "text": null,
+         "src": "./asset/icons/svg_5727cb81.svg",
+         "kids": []
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "1393:18599",
+   "tag": "div",
+   "name": "容器 247",
+   "style": {
+    "width": "256px",
+    "height": "24px",
+    "position": "absolute",
+    "left": "164px",
+    "top": "4664px",
+    "z-index": "24"
+   },
+   "props": null,
+   "text": null,
+   "src": null,
+   "kids": [
+    {
+     "id": "fw647:19591",
+     "tag": "div",
+     "name": "Link",
+     "style": {
+      "width": "142px",
+      "height": "24px",
+      "display": "flex",
+      "justify-content": "flex-start",
+      "align-items": "center",
+      "gap": "4px",
+      "border-radius": "4px",
+      "position": "absolute",
+      "left": "80px",
+      "top": "0px",
+      "z-index": "1",
+      "overflow": "hidden"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": [
+      {
+       "id": "fw647:19592",
+       "tag": "img",
+       "name": "容器",
+       "style": {
+        "width": "14px",
+        "height": "14px",
+        "color": "#868686"
+       },
+       "props": null,
+       "text": null,
+       "src": "./asset/icons/svg_bff3c9ce.svg",
+       "kids": []
+      },
+      {
+       "id": "fw647:19594",
+       "tag": "span",
+       "name": "Token 速率：256/s",
+       "style": {
+        "color": "#868686",
+        "font-size": "14px",
+        "font-family": "MiSans",
+        "line-height": "24px"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": []
+      }
+     ]
+    },
+    {
+     "id": "fw647:19598",
+     "tag": "div",
+     "name": "直线 46",
+     "style": {
+      "position": "absolute",
+      "left": "68px",
+      "top": "5px",
+      "z-index": "2"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": [
+      {
+       "id": null,
+       "tag": "img",
+       "name": null,
+       "style": {
+        "color": "#E5E5E5"
+       },
+       "props": null,
+       "text": null,
+       "src": "./asset/icons/svg_e6d49921.svg",
+       "kids": []
+      }
+     ]
+    },
+    {
+     "id": "fw647:19599",
+     "tag": "div",
+     "name": "直线 47",
+     "style": {
+      "position": "absolute",
+      "left": "234px",
+      "top": "5px",
+      "z-index": "3"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": [
+      {
+       "id": null,
+       "tag": "img",
+       "name": null,
+       "style": {
+        "color": "#E5E5E5"
+       },
+       "props": null,
+       "text": null,
+       "src": "./asset/icons/svg_e6d49921.svg",
+       "kids": []
+      }
+     ]
+    },
+    {
+     "id": "1393:18598",
+     "tag": "div",
+     "name": "容器 246",
+     "style": {
+      "width": "56px",
+      "height": "24px",
+      "position": "absolute",
+      "left": "0px",
+      "top": "0px",
+      "z-index": "4"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": []
+    }
+   ]
+  },
+  {
+   "id": "1393:18747",
+   "tag": "div",
+   "name": "容器 263",
+   "style": {
+    "width": "840px",
+    "height": "188px",
+    "position": "absolute",
+    "left": "164px",
+    "top": "4928px",
+    "z-index": "26"
+   },
+   "props": null,
+   "text": null,
+   "src": null,
+   "kids": [
+    {
+     "id": "fw647:20687",
+     "tag": "div",
+     "name": "矩形 204",
+     "style": {
+      "position": "absolute",
+      "left": "0px",
+      "top": "0px",
+      "z-index": "0"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": [
+      {
+       "id": null,
+       "tag": "img",
+       "name": null,
+       "style": {},
+       "props": null,
+       "text": null,
+       "src": "./asset/icons/svg_b75f405e.svg",
+       "kids": []
+      }
+     ]
+    },
+    {
+     "id": "1393:18746",
+     "tag": "div",
+     "name": "容器 262",
+     "style": {
+      "width": "822px",
+      "height": "48px",
+      "position": "absolute",
+      "left": "6px",
+      "top": "6px",
+      "z-index": "1"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": [
+      {
+       "id": "1393:18740",
+       "tag": "div",
+       "name": "容器 256",
+       "style": {
+        "width": "192px",
+        "height": "48px",
+        "position": "absolute",
+        "left": "0px",
+        "top": "0px",
+        "z-index": "0"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": "fw647:20665",
+         "tag": "div",
+         "name": "矩形 339",
+         "style": {
+          "position": "absolute",
+          "left": "0px",
+          "top": "0px",
+          "z-index": "0"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": [
+          {
+           "id": null,
+           "tag": "img",
+           "name": null,
+           "style": {},
+           "props": null,
+           "text": null,
+           "src": "./asset/icons/svg_784fed98.svg",
+           "kids": []
+          }
+         ]
+        },
+        {
+         "id": "1393:18738",
+         "tag": "div",
+         "name": "容器 254",
+         "style": {
+          "width": "110px",
+          "height": "34px",
+          "position": "absolute",
+          "left": "48px",
+          "top": "7px",
+          "z-index": "1"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": []
+        },
+        {
+         "id": "fw647:20667",
+         "tag": "div",
+         "name": "容器",
+         "style": {
+          "position": "absolute",
+          "left": "166px",
+          "top": "17px",
+          "z-index": "2"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": [
+          {
+           "id": null,
+           "tag": "img",
+           "name": null,
+           "style": {},
+           "props": null,
+           "text": null,
+           "src": "./asset/icons/svg_410da48c.svg",
+           "kids": []
+          }
+         ]
+        },
+        {
+         "id": "1393:18739",
+         "tag": "div",
+         "name": "容器 255",
+         "style": {
+          "width": "32px",
+          "height": "32px",
+          "position": "absolute",
+          "left": "8px",
+          "top": "8px",
+          "z-index": "3"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": [
+          {
+           "id": "fw647:20674",
+           "tag": "div",
+           "name": "矩形 340",
+           "style": {
+            "width": "32px",
+            "height": "32px",
+            "background": "#E6E1FC",
+            "border-radius": "4px",
+            "position": "absolute",
+            "left": "0px",
+            "top": "0px",
+            "z-index": "0"
+           },
+           "props": null,
+           "text": null,
+           "src": null,
+           "kids": []
+          },
+          {
+           "id": "fw647:20672",
+           "tag": "div",
+           "name": "容器",
+           "style": {
+            "position": "absolute",
+            "left": "8px",
+            "top": "8px",
+            "z-index": "1"
+           },
+           "props": null,
+           "text": null,
+           "src": null,
+           "kids": [
+            {
+             "id": null,
+             "tag": "img",
+             "name": null,
+             "style": {
+              "color": "#6E27D9"
+             },
+             "props": null,
+             "text": null,
+             "src": "./asset/icons/svg_a131949f.svg",
+             "kids": []
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "1393:18743",
+       "tag": "div",
+       "name": "容器 259",
+       "style": {
+        "width": "170px",
+        "height": "48px",
+        "position": "absolute",
+        "left": "198px",
+        "top": "0px",
+        "z-index": "1"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": "fw647:20678",
+         "tag": "div",
+         "name": "矩形 339",
+         "style": {
+          "position": "absolute",
+          "left": "0px",
+          "top": "0px",
+          "z-index": "0"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": [
+          {
+           "id": null,
+           "tag": "img",
+           "name": null,
+           "style": {},
+           "props": null,
+           "text": null,
+           "src": "./asset/icons/svg_d90de04d.svg",
+           "kids": []
+          }
+         ]
+        },
+        {
+         "id": "1393:18741",
+         "tag": "div",
+         "name": "容器 257",
+         "style": {
+          "width": "88px",
+          "height": "34px",
+          "position": "absolute",
+          "left": "48px",
+          "top": "7px",
+          "z-index": "2"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": []
+        },
+        {
+         "id": "1393:18742",
+         "tag": "div",
+         "name": "容器 258",
+         "style": {
+          "width": "32px",
+          "height": "32px",
+          "position": "absolute",
+          "left": "8px",
+          "top": "8px",
+          "z-index": "3"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": [
+          {
+           "id": "fw647:20676",
+           "tag": "div",
+           "name": "矩形 340",
+           "style": {
+            "width": "32px",
+            "height": "32px",
+            "background": "#E0E7FF",
+            "border-radius": "4px",
+            "position": "absolute",
+            "left": "0px",
+            "top": "0px",
+            "z-index": "0"
+           },
+           "props": null,
+           "text": null,
+           "src": null,
+           "kids": []
+          },
+          {
+           "id": "fw647:20679",
+           "tag": "div",
+           "name": "容器",
+           "style": {
+            "position": "absolute",
+            "left": "8px",
+            "top": "8px",
+            "z-index": "1"
+           },
+           "props": null,
+           "text": null,
+           "src": null,
+           "kids": [
+            {
+             "id": null,
+             "tag": "img",
+             "name": null,
+             "style": {
+              "color": "#4F46E5"
+             },
+             "props": null,
+             "text": null,
+             "src": "./asset/icons/svg_21c343d2.svg",
+             "kids": []
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "1393:18744",
+       "tag": "div",
+       "name": "容器 260",
+       "style": {
+        "width": "198px",
+        "height": "48px",
+        "position": "absolute",
+        "left": "374px",
+        "top": "0px",
+        "z-index": "2"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": "fw647:20685",
+         "tag": "div",
+         "name": "矩形 339",
+         "style": {
+          "position": "absolute",
+          "left": "0px",
+          "top": "0px",
+          "z-index": "0"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": [
+          {
+           "id": null,
+           "tag": "img",
+           "name": null,
+           "style": {},
+           "props": null,
+           "text": null,
+           "src": "./asset/icons/svg_3d1e351c.svg",
+           "kids": []
+          }
+         ]
+        },
+        {
+         "id": "fw647:20686",
+         "tag": "div",
+         "name": "组 9197",
+         "style": {
+          "width": "99px",
+          "height": "34px",
+          "position": "absolute",
+          "left": "48px",
+          "top": "7px",
+          "z-index": "1"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": []
+        },
+        {
+         "id": "fw647:20684",
+         "tag": "div",
+         "name": "矩形 340",
+         "style": {
+          "width": "32px",
+          "height": "32px",
+          "background": "#DBEAFE",
+          "border-radius": "4px",
+          "position": "absolute",
+          "left": "8px",
+          "top": "8px",
+          "z-index": "2"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": []
+        },
+        {
+         "id": "fw647:20682",
+         "tag": "div",
+         "name": "容器",
+         "style": {
+          "position": "absolute",
+          "left": "16px",
+          "top": "16px",
+          "z-index": "3"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": [
+          {
+           "id": null,
+           "tag": "img",
+           "name": null,
+           "style": {
+            "color": "#2563EB"
+           },
+           "props": null,
+           "text": null,
+           "src": "./asset/icons/svg_296dcd57.svg",
+           "kids": []
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "1393:18745",
+       "tag": "div",
+       "name": "容器 261",
+       "style": {
+        "width": "164px",
+        "height": "48px",
+        "position": "absolute",
+        "left": "578px",
+        "top": "0px",
+        "z-index": "3"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": "fw647:20656",
+         "tag": "div",
+         "name": "蒙版组 2",
+         "style": {
+          "width": "164px",
+          "height": "48px",
+          "position": "absolute",
+          "left": "0px",
+          "top": "0px",
+          "z-index": "0"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": [
+          {
+           "id": "fw647:20657",
+           "tag": "div",
+           "name": "组 9827",
+           "style": {
+            "width": "164px",
+            "height": "48px",
+            "position": "absolute",
+            "left": "0px",
+            "top": "0px",
+            "z-index": "1"
+           },
+           "props": null,
+           "text": null,
+           "src": null,
+           "kids": [
+            {
+             "id": "fw647:20661",
+             "tag": "div",
+             "name": "矩形 341",
+             "style": {
+              "position": "absolute",
+              "left": "0px",
+              "top": "0px",
+              "z-index": "0"
+             },
+             "props": null,
+             "text": null,
+             "src": null,
+             "kids": [
+              {
+               "id": null,
+               "tag": "img",
+               "name": null,
+               "style": {},
+               "props": null,
+               "text": null,
+               "src": "./asset/icons/svg_bc4b8b58.svg",
+               "kids": []
+              }
+             ]
+            },
+            {
+             "id": "fw647:20662",
+             "tag": "div",
+             "name": "组 9197",
+             "style": {
+              "width": "77px",
+              "height": "34px",
+              "position": "absolute",
+              "left": "48px",
+              "top": "7px",
+              "z-index": "1"
+             },
+             "props": null,
+             "text": null,
+             "src": null,
+             "kids": []
+            },
+            {
+             "id": "fw647:20660",
+             "tag": "div",
+             "name": "矩形 340",
+             "style": {
+              "width": "32px",
+              "height": "32px",
+              "background": "#FEE2E2",
+              "border-radius": "4px",
+              "position": "absolute",
+              "left": "8px",
+              "top": "8px",
+              "z-index": "2"
+             },
+             "props": null,
+             "text": null,
+             "src": null,
+             "kids": []
+            },
+            {
+             "id": "fw647:20658",
+             "tag": "div",
+             "name": "容器",
+             "style": {
+              "position": "absolute",
+              "left": "16px",
+              "top": "16px",
+              "z-index": "3"
+             },
+             "props": null,
+             "text": null,
+             "src": null,
+             "kids": [
+              {
+               "id": null,
+               "tag": "img",
+               "name": null,
+               "style": {
+                "color": "#DC2626"
+               },
+               "props": null,
+               "text": null,
+               "src": "./asset/icons/svg_5939b075.svg",
+               "kids": []
+              }
+             ]
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "fw647:20842",
+     "tag": "div",
+     "name": "组 10153",
+     "style": {
+      "width": "840px",
+      "height": "128px",
+      "position": "absolute",
+      "left": "0px",
+      "top": "60px",
+      "z-index": "2"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": [
+      {
+       "id": "fw647:20654",
+       "tag": "div",
+       "name": "矩形 220",
+       "style": {
+        "position": "absolute",
+        "left": "0px",
+        "top": "0px",
+        "z-index": "0"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": null,
+         "tag": "img",
+         "name": null,
+         "style": {},
+         "props": null,
+         "text": null,
+         "src": "./asset/icons/svg_e0c640d0.svg",
+         "kids": []
+        }
+       ]
+      },
+      {
+       "id": "fw647:20629",
+       "tag": "div",
+       "name": "组 9061",
+       "style": {
+        "width": "174px",
+        "height": "28px",
+        "position": "absolute",
+        "left": "12px",
+        "top": "88px",
+        "z-index": "2"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": "fw647:20641",
+         "tag": "div",
+         "name": "组 9060",
+         "style": {
+          "width": "28px",
+          "height": "28px",
+          "position": "absolute",
+          "left": "34px",
+          "top": "0px",
+          "z-index": "0"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": [
+          {
+           "id": "fw647:20644",
+           "tag": "div",
+           "name": "矩形 201",
+           "style": {
+            "width": "28px",
+            "height": "28px",
+            "background": "#FFFFFF",
+            "border-radius": "4px",
+            "position": "absolute",
+            "left": "0px",
+            "top": "0px",
+            "z-index": "0"
+           },
+           "props": null,
+           "text": null,
+           "src": null,
+           "kids": []
+          },
+          {
+           "id": "fw647:20642",
+           "tag": "div",
+           "name": "容器",
+           "style": {
+            "position": "absolute",
+            "left": "7px",
+            "top": "7px",
+            "z-index": "1"
+           },
+           "props": null,
+           "text": null,
+           "src": null,
+           "kids": [
+            {
+             "id": null,
+             "tag": "img",
+             "name": null,
+             "style": {
+              "color": "#6B6B6B"
+             },
+             "props": null,
+             "text": null,
+             "src": "./asset/icons/svg_e08b0fbd.svg",
+             "kids": []
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "id": "fw647:20630",
+         "tag": "div",
+         "name": "组 9059",
+         "style": {
+          "width": "28px",
+          "height": "28px",
+          "position": "absolute",
+          "left": "0px",
+          "top": "0px",
+          "z-index": "1"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": [
+          {
+           "id": "fw647:20633",
+           "tag": "div",
+           "name": "矩形 200",
+           "style": {
+            "width": "28px",
+            "height": "28px",
+            "background": "#FFFFFF",
+            "border-radius": "4px",
+            "position": "absolute",
+            "left": "0px",
+            "top": "0px",
+            "z-index": "0"
+           },
+           "props": null,
+           "text": null,
+           "src": null,
+           "kids": []
+          },
+          {
+           "id": "fw647:20631",
+           "tag": "div",
+           "name": "icon-wrapper",
+           "style": {
+            "position": "absolute",
+            "left": "8px",
+            "top": "8px",
+            "z-index": "1"
+           },
+           "props": null,
+           "text": null,
+           "src": null,
+           "kids": [
+            {
+             "id": null,
+             "tag": "img",
+             "name": null,
+             "style": {
+              "color": "#6B6B6B"
+             },
+             "props": null,
+             "text": null,
+             "src": "./asset/icons/svg_f222a191.svg",
+             "kids": []
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "id": "fw647:20634",
+         "tag": "div",
+         "name": "dropdown-trigger",
+         "style": {
+          "width": "106px",
+          "height": "28px",
+          "display": "flex",
+          "justify-content": "flex-start",
+          "align-items": "center",
+          "gap": "4px",
+          "padding-top": "5px",
+          "padding-bottom": "5px",
+          "padding-right": "8px",
+          "padding-left": "8px",
+          "border-radius": "4px",
+          "position": "absolute",
+          "left": "68px",
+          "top": "0px",
+          "z-index": "2",
+          "overflow": "hidden"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": [
+          {
+           "id": "fw647:20635",
+           "tag": "img",
+           "name": "容器",
+           "style": {
+            "width": "14px",
+            "height": "14px",
+            "color": "#6B6B6B"
+           },
+           "props": null,
+           "text": null,
+           "src": "./asset/icons/svg_9798373b.svg",
+           "kids": []
+          },
+          {
+           "id": "fw647:20637",
+           "tag": "span",
+           "name": "默认权限",
+           "style": {
+            "color": "#6B6B6B",
+            "font-size": "14px",
+            "font-family": "MiSans",
+            "line-height": "22px"
+           },
+           "props": null,
+           "text": null,
+           "src": null,
+           "kids": []
+          },
+          {
+           "id": "fw647:20703",
+           "tag": "ui-icon",
+           "name": "direction/down",
+           "style": {
+            "width": "12px",
+            "height": "12px",
+            "color": "#6B6B6B"
+           },
+           "props": null,
+           "text": null,
+           "src": null,
+           "kids": []
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "fw647:20645",
+       "tag": "div",
+       "name": "组 9925",
+       "style": {
+        "width": "202px",
+        "height": "28px",
+        "position": "absolute",
+        "left": "626px",
+        "top": "88px",
+        "z-index": "3"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": "fw647:20646",
+         "tag": "div",
+         "name": "组 9826",
+         "style": {
+          "position": "absolute",
+          "left": "174px",
+          "top": "0px",
+          "z-index": "0"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": [
+          {
+           "id": null,
+           "tag": "img",
+           "name": null,
+           "style": {},
+           "props": null,
+           "text": null,
+           "src": "./asset/icons/svg_2f5c1e18.svg",
+           "kids": []
+          }
+         ]
+        },
+        {
+         "id": "fw647:20649",
+         "tag": "div",
+         "name": "组 9924",
+         "style": {
+          "width": "28px",
+          "height": "28px",
+          "position": "absolute",
+          "left": "138px",
+          "top": "0px",
+          "z-index": "2"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": [
+          {
+           "id": "fw647:20650",
+           "tag": "div",
+           "name": "矩形 15",
+           "style": {
+            "width": "28px",
+            "height": "28px",
+            "background": "#FFFFFF",
+            "border-radius": "4px",
+            "position": "absolute",
+            "left": "0px",
+            "top": "0px",
+            "z-index": "0"
+           },
+           "props": null,
+           "text": null,
+           "src": null,
+           "kids": []
+          },
+          {
+           "id": "fw647:20651",
+           "tag": "div",
+           "name": "容器",
+           "style": {
+            "position": "absolute",
+            "left": "5px",
+            "top": "5px",
+            "z-index": "1"
+           },
+           "props": null,
+           "text": null,
+           "src": null,
+           "kids": [
+            {
+             "id": null,
+             "tag": "img",
+             "name": null,
+             "style": {},
+             "props": null,
+             "text": null,
+             "src": "./asset/icons/svg_401e4b68.svg",
+             "kids": []
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "1393:18682",
+   "tag": "div",
+   "name": "容器 253",
+   "style": {
+    "width": "840px",
+    "height": "40px",
+    "position": "absolute",
+    "left": "164px",
+    "top": "4876px",
+    "z-index": "27"
+   },
+   "props": null,
+   "text": null,
+   "src": null,
+   "kids": [
+    {
+     "id": "fw647:20695",
+     "tag": "div",
+     "name": "矩形 402",
+     "style": {
+      "position": "absolute",
+      "left": "0px",
+      "top": "0px",
+      "z-index": "0"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": [
+      {
+       "id": null,
+       "tag": "img",
+       "name": null,
+       "style": {},
+       "props": null,
+       "text": null,
+       "src": "./asset/icons/svg_c2b46e05.svg",
+       "kids": []
+      }
+     ]
+    },
+    {
+     "id": "fw647:20696",
+     "tag": "div",
+     "name": "容器",
+     "style": {
+      "position": "absolute",
+      "left": "16px",
+      "top": "13px",
+      "z-index": "1"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": [
+      {
+       "id": null,
+       "tag": "img",
+       "name": null,
+       "style": {},
+       "props": null,
+       "text": null,
+       "src": "./asset/icons/svg_410da48c.svg",
+       "kids": []
+      }
+     ]
+    },
+    {
+     "id": "fw647:20700",
+     "tag": "div",
+     "name": "容器 149",
+     "style": {
+      "width": "315px",
+      "height": "22px",
+      "display": "flex",
+      "justify-content": "flex-start",
+      "align-items": "center",
+      "gap": "8px",
+      "position": "absolute",
+      "left": "38px",
+      "top": "9px",
+      "z-index": "2"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": [
+      {
+       "id": "fw647:20701",
+       "tag": "img",
+       "name": "圆形 3",
+       "style": {
+        "width": "6px",
+        "height": "6px",
+        "color": "#C4C7C9"
+       },
+       "props": null,
+       "text": null,
+       "src": "./asset/icons/svg_f1cc24b4.svg",
+       "kids": []
+      },
+      {
+       "id": "fw647:20702",
+       "tag": "div",
+       "name": "容器 146",
+       "style": {
+        "display": "flex",
+        "justify-content": "flex-start",
+        "align-items": "flex-start",
+        "gap": "6px"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": []
+      }
+     ]
+    },
+    {
+     "id": "fw647:20693",
+     "tag": "div",
+     "name": "容器",
+     "style": {
+      "position": "absolute",
+      "left": "816px",
+      "top": "14px",
+      "z-index": "3"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": [
+      {
+       "id": null,
+       "tag": "img",
+       "name": null,
+       "style": {
+        "color": "#6B6B6B"
+       },
+       "props": null,
+       "text": null,
+       "src": "./asset/icons/svg_55f7cbed.svg",
+       "kids": []
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "1393:18507",
+   "tag": "div",
+   "name": "容器 208",
+   "style": {
+    "width": "314px",
+    "height": "66px",
+    "position": "absolute",
+    "left": "523px",
+    "top": "2046px",
+    "z-index": "29"
+   },
+   "props": null,
+   "text": null,
+   "src": null,
+   "kids": [
+    {
+     "id": "966:36295",
+     "tag": "span",
+     "name": "gienx-taskboard-kanban/package.json",
+     "style": {
+      "color": "#3770F7",
+      "font-size": "12px",
+      "font-family": "MiSans",
+      "line-height": "22px",
+      "position": "absolute",
+      "left": "51px",
+      "top": "44px",
+      "z-index": "0"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": []
+    },
+    {
+     "id": "966:36456",
+     "tag": "div",
+     "name": "容器 176",
+     "style": {
+      "width": "314px",
+      "height": "36px",
+      "display": "flex",
+      "justify-content": "flex-start",
+      "align-items": "flex-start",
+      "gap": "4px",
+      "padding": "4px",
+      "background": "#FFFFFF",
+      "border-style": "solid",
+      "border-color": "#E5E5E5",
+      "border-width": "1px",
+      "border-radius": "8px",
+      "box-shadow": "0px 4px 8px 0px rgba(0,0,0,0.08)",
+      "position": "absolute",
+      "left": "0px",
+      "top": "0px",
+      "z-index": "1"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": []
+    }
+   ]
+  },
+  {
+   "id": "1393:18681",
+   "tag": "div",
+   "name": "容器 252",
+   "style": {
+    "width": "840px",
+    "height": "300px",
+    "position": "absolute",
+    "left": "164px",
+    "top": "4090px",
+    "z-index": "30"
+   },
+   "props": null,
+   "text": null,
+   "src": null,
+   "kids": [
+    {
+     "id": "fw647:20329",
+     "tag": "div",
+     "name": "直线 48",
+     "style": {
+      "width": "840px",
+      "height": "0px",
+      "border-style": "solid",
+      "border-color": "#F2F2F2",
+      "border-top-width": "0px",
+      "border-bottom-width": "1px",
+      "border-right-width": "0px",
+      "border-left-width": "0px",
+      "position": "absolute",
+      "left": "0px",
+      "top": "292px",
+      "z-index": "0"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": []
+    },
+    {
+     "id": "fw647:19756",
+     "tag": "div",
+     "name": "矩形 357",
+     "style": {
+      "width": "840px",
+      "height": "300px",
+      "background": "#F5F6F7",
+      "border-style": "solid",
+      "border-color": "#ECEEF2",
+      "border-width": "1px",
+      "border-radius": "8px",
+      "position": "absolute",
+      "left": "0px",
+      "top": "0px",
+      "z-index": "1"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": []
+    },
+    {
+     "id": "1393:18538",
+     "tag": "div",
+     "name": "容器 238",
+     "style": {
+      "width": "822px",
+      "height": "28px",
+      "position": "absolute",
+      "left": "12px",
+      "top": "6px",
+      "z-index": "2"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": [
+      {
+       "id": "1393:18536",
+       "tag": "div",
+       "name": "容器 236",
+       "style": {
+        "width": "209px",
+        "height": "22px",
+        "position": "absolute",
+        "left": "0px",
+        "top": "3px",
+        "z-index": "0"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": "fw647:16429",
+         "tag": "div",
+         "name": "容器",
+         "style": {
+          "position": "absolute",
+          "left": "0px",
+          "top": "3px",
+          "z-index": "0"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": [
+          {
+           "id": null,
+           "tag": "img",
+           "name": null,
+           "style": {
+            "color": "#1F1F1F"
+           },
+           "props": null,
+           "text": null,
+           "src": "./asset/icons/svg_fdb14c72.svg",
+           "kids": []
+          }
+         ]
+        },
+        {
+         "id": "fw647:19865",
+         "tag": "div",
+         "name": "容器 168",
+         "style": {
+          "width": "185px",
+          "height": "22px",
+          "display": "flex",
+          "justify-content": "flex-start",
+          "align-items": "center",
+          "gap": "12px",
+          "position": "absolute",
+          "left": "24px",
+          "top": "0px",
+          "z-index": "1"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": [
+          {
+           "id": "fw647:19864",
+           "tag": "div",
+           "name": "容器 167",
+           "style": {
+            "display": "flex",
+            "justify-content": "flex-start",
+            "align-items": "flex-start",
+            "gap": "8px"
+           },
+           "props": null,
+           "text": null,
+           "src": null,
+           "kids": []
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "1393:18537",
+       "tag": "div",
+       "name": "容器 237",
+       "style": {
+        "width": "148px",
+        "height": "28px",
+        "position": "absolute",
+        "left": "674px",
+        "top": "0px",
+        "z-index": "1"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": "fw647:19941",
+         "tag": "div",
+         "name": "Button",
+         "style": {
+          "width": "70px",
+          "height": "28px",
+          "display": "flex",
+          "justify-content": "center",
+          "align-items": "center",
+          "gap": "4px",
+          "padding-top": "4px",
+          "padding-bottom": "4px",
+          "padding-right": "12px",
+          "padding-left": "12px",
+          "background": "#FFFFFF",
+          "border-style": "solid",
+          "border-color": "#E5E5E5",
+          "border-width": "1px",
+          "border-radius": "8px",
+          "position": "absolute",
+          "left": "0px",
+          "top": "0px",
+          "z-index": "0",
+          "overflow": "hidden"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": [
+          {
+           "id": "fw647:19969",
+           "tag": "img",
+           "name": "容器",
+           "style": {
+            "width": "14px",
+            "height": "14px",
+            "color": "#1F1F1F"
+           },
+           "props": null,
+           "text": null,
+           "src": "./asset/icons/svg_ac810281.svg",
+           "kids": []
+          },
+          {
+           "id": "fw647:19943",
+           "tag": "span",
+           "name": "撤销",
+           "style": {
+            "color": "#1F1F1F",
+            "font-size": "14px",
+            "font-family": "MiSans",
+            "line-height": "20px"
+           },
+           "props": null,
+           "text": null,
+           "src": null,
+           "kids": []
+          }
+         ]
+        },
+        {
+         "id": "fw647:19948",
+         "tag": "div",
+         "name": "Button",
+         "style": {
+          "width": "70px",
+          "height": "28px",
+          "display": "flex",
+          "justify-content": "center",
+          "align-items": "center",
+          "gap": "4px",
+          "padding-top": "4px",
+          "padding-bottom": "4px",
+          "padding-right": "12px",
+          "padding-left": "12px",
+          "background": "#FFFFFF",
+          "border-style": "solid",
+          "border-color": "#E5E5E5",
+          "border-width": "1px",
+          "border-radius": "8px",
+          "position": "absolute",
+          "left": "78px",
+          "top": "0px",
+          "z-index": "1",
+          "overflow": "hidden"
+         },
+         "props": null,
+         "text": null,
+         "src": null,
+         "kids": [
+          {
+           "id": "fw647:19981",
+           "tag": "img",
+           "name": "容器",
+           "style": {
+            "width": "14px",
+            "height": "14px",
+            "color": "#1F1F1F"
+           },
+           "props": null,
+           "text": null,
+           "src": "./asset/icons/svg_4be648ce.svg",
+           "kids": []
+          },
+          {
+           "id": "fw647:19950",
+           "tag": "span",
+           "name": "审查",
+           "style": {
+            "color": "#1F1F1F",
+            "font-size": "14px",
+            "font-family": "MiSans",
+            "line-height": "20px"
+           },
+           "props": null,
+           "text": null,
+           "src": null,
+           "kids": []
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "1393:18680",
+     "tag": "div",
+     "name": "容器 251",
+     "style": {
+      "width": "840px",
+      "height": "260px",
+      "position": "absolute",
+      "left": "0px",
+      "top": "40px",
+      "z-index": "3"
+     },
+     "props": null,
+     "text": null,
+     "src": null,
+     "kids": [
+      {
+       "id": "fw647:20095",
+       "tag": "div",
+       "name": "矩形 358",
+       "style": {
+        "position": "absolute",
+        "left": "0px",
+        "top": "0px",
+        "z-index": "0"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": null,
+         "tag": "img",
+         "name": null,
+         "style": {},
+         "props": null,
+         "text": null,
+         "src": "./asset/icons/svg_9515b592.svg",
+         "kids": []
+        }
+       ]
+      },
+      {
+       "id": "fw647:20122",
+       "tag": "div",
+       "name": "直线 48",
+       "style": {
+        "width": "840px",
+        "height": "0px",
+        "border-style": "solid",
+        "border-color": "#F2F2F2",
+        "border-top-width": "0px",
+        "border-bottom-width": "1px",
+        "border-right-width": "0px",
+        "border-left-width": "0px",
+        "position": "absolute",
+        "left": "0px",
+        "top": "36px",
+        "z-index": "1"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": []
+      },
+      {
+       "id": "fw647:20189",
+       "tag": "div",
+       "name": "容器 167",
+       "style": {
+        "width": "63px",
+        "height": "16px",
+        "display": "flex",
+        "justify-content": "flex-start",
+        "align-items": "flex-start",
+        "gap": "8px",
+        "position": "absolute",
+        "left": "721px",
+        "top": "10px",
+        "z-index": "3"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": []
+      },
+      {
+       "id": "fw647:20209",
+       "tag": "div",
+       "name": "直线 48",
+       "style": {
+        "width": "840px",
+        "height": "0px",
+        "border-style": "solid",
+        "border-color": "#F2F2F2",
+        "border-top-width": "0px",
+        "border-bottom-width": "1px",
+        "border-right-width": "0px",
+        "border-left-width": "0px",
+        "position": "absolute",
+        "left": "0px",
+        "top": "72px",
+        "z-index": "4"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": []
+      },
+      {
+       "id": "fw647:20215",
+       "tag": "div",
+       "name": "容器 167",
+       "style": {
+        "width": "40px",
+        "height": "16px",
+        "display": "flex",
+        "justify-content": "flex-start",
+        "align-items": "flex-start",
+        "gap": "8px",
+        "position": "absolute",
+        "left": "744px",
+        "top": "46px",
+        "z-index": "6"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": []
+      },
+      {
+       "id": "fw647:20233",
+       "tag": "div",
+       "name": "直线 48",
+       "style": {
+        "width": "840px",
+        "height": "0px",
+        "border-style": "solid",
+        "border-color": "#F2F2F2",
+        "border-top-width": "0px",
+        "border-bottom-width": "1px",
+        "border-right-width": "0px",
+        "border-left-width": "0px",
+        "position": "absolute",
+        "left": "0px",
+        "top": "109px",
+        "z-index": "7"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": []
+      },
+      {
+       "id": "fw647:20424",
+       "tag": "div",
+       "name": "矩形 359",
+       "style": {
+        "position": "absolute",
+        "left": "1px",
+        "top": "72px",
+        "z-index": "8"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": [
+        {
+         "id": null,
+         "tag": "img",
+         "name": null,
+         "style": {
+          "color": "#F5F6F7"
+         },
+         "props": null,
+         "text": null,
+         "src": "./asset/icons/svg_8074a3d3.svg",
+         "kids": []
+        }
+       ]
+      },
+      {
+       "id": "1393:18660",
+       "tag": "div",
+       "name": "容器 249",
+       "style": {
+        "width": "40px",
+        "height": "16px",
+        "display": "flex",
+        "justify-content": "flex-start",
+        "align-items": "flex-start",
+        "gap": "8px",
+        "position": "absolute",
+        "left": "744px",
+        "top": "82px",
+        "z-index": "9"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": []
+      },
+      {
+       "id": "fw647:20257",
+       "tag": "div",
+       "name": "直线 48",
+       "style": {
+        "width": "840px",
+        "height": "0px",
+        "border-style": "solid",
+        "border-color": "#F2F2F2",
+        "border-top-width": "0px",
+        "border-bottom-width": "1px",
+        "border-right-width": "0px",
+        "border-left-width": "0px",
+        "position": "absolute",
+        "left": "0px",
+        "top": "144px",
+        "z-index": "11"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": []
+      },
+      {
+       "id": "fw647:20263",
+       "tag": "div",
+       "name": "容器 167",
+       "style": {
+        "width": "63px",
+        "height": "16px",
+        "display": "flex",
+        "justify-content": "flex-start",
+        "align-items": "flex-start",
+        "gap": "8px",
+        "position": "absolute",
+        "left": "721px",
+        "top": "118px",
+        "z-index": "13"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": []
+      },
+      {
+       "id": "fw647:20281",
+       "tag": "div",
+       "name": "直线 48",
+       "style": {
+        "width": "840px",
+        "height": "0px",
+        "border-style": "solid",
+        "border-color": "#F2F2F2",
+        "border-top-width": "0px",
+        "border-bottom-width": "1px",
+        "border-right-width": "0px",
+        "border-left-width": "0px",
+        "position": "absolute",
+        "left": "0px",
+        "top": "180px",
+        "z-index": "14"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": []
+      },
+      {
+       "id": "fw647:20287",
+       "tag": "div",
+       "name": "容器 167",
+       "style": {
+        "width": "63px",
+        "height": "16px",
+        "display": "flex",
+        "justify-content": "flex-start",
+        "align-items": "flex-start",
+        "gap": "8px",
+        "position": "absolute",
+        "left": "721px",
+        "top": "154px",
+        "z-index": "16"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": []
+      },
+      {
+       "id": "fw647:20305",
+       "tag": "div",
+       "name": "直线 48",
+       "style": {
+        "width": "840px",
+        "height": "0px",
+        "border-style": "solid",
+        "border-color": "#F2F2F2",
+        "border-top-width": "0px",
+        "border-bottom-width": "1px",
+        "border-right-width": "0px",
+        "border-left-width": "0px",
+        "position": "absolute",
+        "left": "0px",
+        "top": "216px",
+        "z-index": "17"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": []
+      },
+      {
+       "id": "fw647:20311",
+       "tag": "div",
+       "name": "容器 167",
+       "style": {
+        "width": "63px",
+        "height": "16px",
+        "display": "flex",
+        "justify-content": "flex-start",
+        "align-items": "flex-start",
+        "gap": "8px",
+        "position": "absolute",
+        "left": "721px",
+        "top": "190px",
+        "z-index": "19"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": []
+      },
+      {
+       "id": "fw647:20335",
+       "tag": "div",
+       "name": "容器 167",
+       "style": {
+        "width": "63px",
+        "height": "16px",
+        "display": "flex",
+        "justify-content": "flex-start",
+        "align-items": "flex-start",
+        "gap": "8px",
+        "position": "absolute",
+        "left": "721px",
+        "top": "226px",
+        "z-index": "21"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": []
+      },
+      {
+       "id": "fw647:20206",
+       "tag": "div",
+       "name": "矩形 219",
+       "style": {
+        "width": "6px",
+        "height": "128px",
+        "background": "rgba(0,0,0,0.16)",
+        "border-radius": "6px",
+        "position": "absolute",
+        "left": "830px",
+        "top": "4px",
+        "z-index": "22"
+       },
+       "props": null,
+       "text": null,
+       "src": null,
+       "kids": []
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

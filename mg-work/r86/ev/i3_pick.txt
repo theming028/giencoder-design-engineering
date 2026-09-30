@@ -1,0 +1,1 @@
+"{\"text\":\"自动模式\",\"selTexts\":[\"自动模式\",\"Workspace Write\",\"排队发送\",\"中文\"],\"openCls\":false,\"expanded\":\"false\"}"

@@ -1,0 +1,23 @@
+=== apply88 ===
+settings.html  457805 → 457805 (+0)  摘掉旧块 2 件
+=== apply88b ===
+   automation.html      已是目标态（无改动）
+   avatar.html          已是目标态（无改动）
+   base.html            已是目标态（无改动）
+   conversation.html    已是目标态（无改动）
+   dev.html             已是目标态（无改动）
+   kanban.html          已是目标态（无改动）
+   req-kanban.html      已是目标态（无改动）
+   settings.html        已是目标态（无改动）
+   skills.html          已是目标态（无改动）
+   task-detail.html     已是目标态（无改动）
+
+✅ r87-b 完成（应用）
+=== apply92 ===
+  skip  base.html 权限文字内联色                        已应用
+  skip  base.html 权限危险色样式                        已应用
+
+应用: 0 项 | 跳过: 8 项
+=== apply93 ===
+   base.html            已是目标态（无改动）
+   conversation.html    已是目标态（无改动）

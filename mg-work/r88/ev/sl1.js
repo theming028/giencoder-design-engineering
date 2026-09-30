@@ -1,0 +1,1 @@
+(function(){var s=document.querySelector('.r85-slider');return s.getAttribute('aria-valuenow')+' | ui-fs='+getComputedStyle(document.documentElement).getPropertyValue('--ui-fs')+' | ls='+localStorage.getItem('gi-ui-fs')+' | dragging='+s.classList.contains('is-drag')+' | thumbX='+s.querySelector('.r85-sl-thumb').getBoundingClientRect().x.toFixed(1);})()

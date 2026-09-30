@@ -1,0 +1,621 @@
+div 容器 264 id=1393:18748 | width: 1168px; height: 5144px; position: relative
+  div 矩形 203 id=fw647:13383 | position: absolute; left: 0px; top: 0px; z-index: 0
+    img ? id=?
+  div 容器 178 id=1393:18474 | width: 1168px; height: 44px; position: absolute; left: 0px; top: 0px; z-index: 1
+    div 矩形 204 id=fw647:14508 | position: absolute; left: 0px; top: 0px; z-index: 0
+      img ? id=?
+    div radio-button-group id=724:13248 | width: 112px; height: 28px; display: flex; justify-content: flex-start; align-items: center; background: #F7F7F7; border-radius: 6px; position: absolute; left: 8px; top: 8px; z-index: 1
+      ui-component components/radio-button id=724:13249 | height: 28px; display: flex; justify-content: flex-start; align-items: center | props={"尺寸":"中","选中":"true","悬停":"false","禁用":"false"} | text={"北京":"对话"}
+      ui-component components/radio-button id=724:13254 | height: 28px; display: flex; justify-content: flex-start; align-items: center | props={"尺寸":"中","选中":"false","悬停":"false","禁用":"false"} | text={"北京":"轨迹"}
+    div 容器 177 id=1393:18473 | width: 376px; height: 24px; position: absolute; left: 396px; top: 10px; z-index: 2
+      ui-component text/title id=fw647:14074 | width: 205px; height: 24px; display: flex; justify-content: flex-start; align-items: flex-end; gap: 8px
+      div 容器 26 id=fw647:14035 | width: 72px; height: 24px; display: flex; justify-content: flex-start; align-items: center; gap: 4px; padding-top: 2px; padding-bottom: 2px; padding-right: 10px; padding-left: 10px; background: #FFF3E8; border-style: dashed; border-color: #FDDDC3; border-width: 1px; border-radius: 24px; position: absolute; left: 213px; top: 0px; z-index: 1
+        img 容器 id=fw647:14036 | width: 12px; height: 12px; color: #F77234
+        ui-component text/text id=fw647:14056 | display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"自动化"}
+      ui-component text/title id=fw647:14065 | width: 79px; height: 16px; display: flex; justify-content: flex-start; align-items: flex-end; gap: 8px
+    ui-component icon-wrapper id=fw647:14064 | width: 28px; height: 28px; display: flex; justify-content: center; align-items: center; flex-direction: column | props={"尺寸":"14"}
+  div 容器 183 id=1393:18481 | width: 840px; height: 74px; position: absolute; left: 164px; top: 272px; z-index: 2
+    div 直线 28 id=fw647:14374 | width: 840px; height: 0px; border-style: solid; border-color: #F2F2F2; border-top-width: 0px; border-bottom-width: 1px; border-right-width: 0px; border-left-width: 0px; position: absolute; left: 0px; top: 74px; z-index: 0
+    ui-component Link id=fw647:14447 | width: 164px; height: 22px; display: flex; justify-content: flex-start; align-items: center; gap: 2px | props={"类型":"默认","状态":"默认"} | text={"文字链接":"任务完成，耗时28m12s"}
+    div 容器 182 id=1393:18480 | width: 73px; height: 24px; position: absolute; left: 0px; top: 0px; z-index: 2
+      div 组 9144 id=fw647:14376 | position: absolute; left: 0px; top: 0px; z-index: 0
+        img ? id=?
+      ui-component text/title id=fw647:14459 | width: 43px; height: 22px; display: flex; justify-content: flex-start; align-items: flex-end; gap: 8px
+  div 容器 181 id=1393:18479 | width: 728px; height: 164px; position: absolute; left: 276px; top: 76px; z-index: 3
+    div 容器 179 id=1393:18475 | width: 728px; height: 132px; position: absolute; left: 0px; top: 0px; z-index: 0
+      div 容器 27 id=fw647:14397 | width: 728px; height: 40px; display: flex; justify-content: flex-start; align-items: flex-start; gap: 6px; padding-top: 9px; padding-bottom: 9px; padding-right: 12px; padding-left: 12px; background: #E5EDFE; border-top-left-radius: 8px; border-top-right-radius: 8px; border-bottom-right-radius: 2px; border-bottom-left-radius: 8px; position: absolute; left: 0px; top: 0px; z-index: 0
+        div 容器 25 id=fw647:14402 | display: flex; justify-content: flex-start; align-items: flex-start; gap: 4px; padding-top: 1px; padding-bottom: 1px; padding-right: 6px; padding-left: 6px; background: #FFFFFF; border-radius: 3px; box-shadow: 0px 1px 2px 0px #D0D7EA
+          ui-component text/text id=fw647:14427 | display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"/awesome-design-md"}
+        span 创建一个任务看板，加到左侧菜单。根据任务状态分三个泳道，未开始，进行中，已完成。 id=fw647:14398 | color: #1F1F1F; font-size: 14px; font-family: MiSans; line-height: 22px
+      div 容器 158 id=fw647:14408 | width: 185px; height: 40px; display: flex; justify-content: flex-start; align-items: center; gap: 8px; padding-top: 9px; padding-bottom: 9px; padding-right: 12px; padding-left: 12px; background: #F7F7F7; border-style: solid; border-color: #F2F2F2; border-width: 1px; border-radius: 8px; position: absolute; left: 543px; top: 46px; z-index: 1
+        img 容器 id=fw647:14409 | width: 16px; height: 16px
+        ui-component text/text id=fw647:14439 | display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"产品初版设计方案.md"}
+      div 容器 159 id=fw647:14404 | width: 160px; height: 40px; display: flex; justify-content: flex-start; align-items: center; gap: 8px; padding-top: 9px; padding-bottom: 9px; padding-right: 12px; padding-left: 12px; background: #F5F6F7; border-style: solid; border-color: #F2F2F2; border-width: 1px; border-radius: 8px; position: absolute; left: 377px; top: 46px; z-index: 2
+        img 容器 id=fw647:14405 | width: 16px; height: 16px
+        ui-component text/text id=fw647:14433 | display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"部门人员名单.xlsx"}
+      div 容器 157 id=fw647:14382 | width: 300px; height: 40px; display: flex; justify-content: flex-start; align-items: center; gap: 8px; padding-top: 9px; padding-bottom: 9px; padding-right: 12px; padding-left: 12px; background: #F5F6F7; border-style: solid; border-color: #F2F2F2; border-width: 1px; border-radius: 8px; position: absolute; left: 428px; top: 92px; z-index: 3
+        img 容器 id=fw647:14383 | width: 16px; height: 16px
+        ui-component text/text id=fw647:14421 | display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"vscode-light-modern-color-system.xlsx"}
+    div 容器 180 id=1393:18477 | width: 95px; height: 24px; position: absolute; left: 633px; top: 140px; z-index: 1
+      ui-component 点击后变成绿色的勾勾图标 id=fw647:14502 | width: 24px; height: 24px; display: flex; justify-content: center; align-items: center; flex-direction: column | props={"尺寸":"14"}
+      ui-component icon-wrapper id=fw647:14503 | width: 24px; height: 24px; display: flex; justify-content: center; align-items: center; flex-direction: column | props={"尺寸":"14"}
+      span 15:26 id=fw647:14497 | color: #868686; font-size: 12px; font-family: MiSans; line-height: 16px; position: absolute; left: 0px; top: 4px; z-index: 2
+  div 容器 187 id=1393:18486 | width: 840px; height: 218px; position: absolute; left: 164px; top: 358px; z-index: 4
+    div 折叠状态 id=fw647:14366 | width: 88px; height: 22px; display: flex; justify-content: flex-start; align-items: center; gap: 4px; border-radius: 4px; position: absolute; left: 0px; top: 0px; z-index: 0; overflow: hidden
+      img 容器 id=fw647:08348 | width: 14px; height: 14px; color: #868686
+      span 上下文注入 id=fw647:14369 | color: #868686; font-size: 14px; font-family: MiSans; line-height: 22px
+    div 展开状态 id=1393:18485 | width: 840px; height: 184px; position: absolute; left: 0px; top: 34px; z-index: 1
+      div 容器 161 id=fw647:15079 | width: 175px; height: 22px; display: flex; justify-content: flex-start; align-items: center; gap: 8px; position: absolute; left: 0px; top: 0px; z-index: 0
+        div Link id=fw647:14867 | display: flex; justify-content: flex-start; align-items: center; gap: 4px; border-radius: 4px; overflow: hidden
+          span 上下文注入 id=fw647:14869 | color: #1F1F1F; font-size: 14px; font-family: MiSans; line-height: 22px
+        img 圆形 1 id=fw647:15346 | width: 4px; height: 4px; color: #C9C9C9
+        ui-component text/text id=fw647:14873 | display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"skill-catalog"}
+      div 容器 185 id=1393:18483 | width: 822px; height: 150px; position: absolute; left: 18px; top: 34px; z-index: 1
+        div 矩形 353 id=fw647:14885 | width: 822px; height: 150px; background: #F5F6F7; border-radius: 8px; position: absolute; left: 0px; top: 0px; z-index: 0
+        ui-component text/text id=fw647:14916 | width: 84px; height: 16px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"取代先前的快照"}
+        ui-component text/text id=fw647:14934 | width: 82px; height: 16px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"sandbox:policy"}
+        ui-component text/text id=fw647:14945 | width: 788px; height: 80px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"Current DSH file policy: workspace-write. Any available operation enforced by the DSH file sandbox may modify files under the session workspace: \"/Users/shaoyuming/Library/Application Support/dsh-desktop/launch-root\". Some platform temporary areas may also be writable.\nApproval policy: ask. Operations that require approval may ask through the configured answerers; without an available answerer, the request fails closed."}
+        div 矩形 219 id=fw647:14988 | width: 6px; height: 88px; background: rgba(0,0,0,0.16); border-radius: 6px; position: absolute; left: 812px; top: 4px; z-index: 4
+  div 容器 190 id=1393:18489 | width: 840px; height: 268px; position: absolute; left: 164px; top: 592px; z-index: 5
+    div 组 10048 id=fw647:14993 | width: 74px; height: 22px; position: absolute; left: 0px; top: 0px; z-index: 0
+      div Link id=fw647:14994 | width: 74px; height: 22px; display: flex; justify-content: flex-start; align-items: center; gap: 4px; border-radius: 4px; position: absolute; left: 0px; top: 0px; z-index: 0; overflow: hidden
+        img 容器 id=fw647:15222 | width: 14px; height: 14px; color: #868686
+        span 深度思考 id=fw647:14996 | color: #868686; font-size: 14px; font-family: MiSans; line-height: 22px
+    div 容器 189 id=1393:18488 | width: 840px; height: 234px; position: absolute; left: 0px; top: 34px; z-index: 1
+      div 组 10049 id=fw647:15005 | width: 74px; height: 22px; position: absolute; left: 0px; top: 0px; z-index: 0
+        div Link id=fw647:15006 | width: 74px; height: 22px; display: flex; justify-content: flex-start; align-items: center; gap: 4px; border-radius: 4px; position: absolute; left: 0px; top: 0px; z-index: 0; overflow: hidden
+          span 深度思考 id=fw647:15008 | color: #1F1F1F; font-size: 14px; font-family: MiSans; line-height: 22px
+      div 容器 188 id=1393:18487 | width: 822px; height: 200px; position: absolute; left: 18px; top: 34px; z-index: 1
+        ui-component text/text id=fw647:15080 | width: 822px; height: 200px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"让我理解用户的需求。这是关于 Table 组件右键菜单的三个改动：\n󰀐标题\"Default 基础表格（带排序 + 行选择）\"改为\"Default 基础表格（带排序 + 行选择 + 支持右键菜单）\"\n󰀐右键菜单里的文字默认都应该是黑色的（即之前我选的\"继承操作列颜色\"方案要改成\"标准菜单深色文字\"）\n󰀐右键菜单不需要键盘快捷选择的那种选中态，可去掉（即去掉 focus trap、↑/↓/Enter 键盘导航相关的选中态，以及 focus 进入首项等）\n我需要先读取相关文件来了解现状，然后精确修改。\n让我先读取 component-table.html 的当前状态，找到相关代码。\n让我先 grep 定位相关部分。\n需要读取："}
+        div 矩形 219 id=fw647:15209 | width: 6px; height: 48px; background: rgba(0,0,0,0.16); border-radius: 6px; position: absolute; left: 812px; top: 4px; z-index: 1
+  ui-component text/text id=fw647:15184 | width: 462px; height: 22px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"我来深度理解一下你选中的这个项目。先看看目录结构，然后做全面分析。"}
+  div 容器 194 id=1393:18493 | width: 840px; height: 262px; position: absolute; left: 164px; top: 914px; z-index: 7
+    div Link id=fw647:15261 | width: 50px; height: 22px; display: flex; justify-content: flex-start; align-items: center; gap: 4px; border-radius: 4px; position: absolute; left: 0px; top: 0px; z-index: 0; overflow: hidden
+      img 容器 id=fw647:08366 | width: 14px; height: 14px; color: #F53F3F
+      span Bash id=fw647:15264 | color: #868686; font-size: 14px; font-family: MiSans; line-height: 22px
+    div Link id=fw647:16791 | width: 50px; height: 22px; display: flex; justify-content: flex-start; align-items: center; gap: 4px; border-radius: 4px; position: absolute; left: 0px; top: 34px; z-index: 1; overflow: hidden
+      img 容器 id=fw647:16792 | width: 14px; height: 14px; color: #868686
+      span Bash id=fw647:16794 | color: #868686; font-size: 14px; font-family: MiSans; line-height: 22px
+    div 容器 193 id=1393:18492 | width: 840px; height: 194px; position: absolute; left: 0px; top: 68px; z-index: 2
+      div Link id=fw647:15270 | width: 245px; height: 22px; display: flex; justify-content: flex-start; align-items: center; gap: 8px; border-radius: 4px; position: absolute; left: 0px; top: 0px; z-index: 0; overflow: hidden
+        div 组 10056 id=fw647:15332 | width: 50px; height: 22px; flex: none; position: relative
+          ui-component direction/down id=fw647:15271
+          span Bash id=fw647:15272 | color: #1F1F1F; font-size: 14px; font-family: MiSans; line-height: 22px; position: absolute; left: 18px; top: 0px; z-index: 1
+        img 圆形 1 id=fw647:15339 | width: 4px; height: 4px; color: #C9C9C9
+        span Inspect harness bin and dsh cli id=fw647:15315 | color: #868686; font-size: 12px; font-family: MiSans; line-height: 22px
+      div 容器 192 id=1393:18491 | width: 822px; height: 160px; position: absolute; left: 18px; top: 34px; z-index: 1
+        div 矩形 353 id=fw647:15465 | position: absolute; left: 0px; top: 0px; z-index: 0
+          img ? id=?
+        ui-component text/text id=fw647:15428 | width: 780px; height: 96px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"total 64\ndrwxr-xr-x@   5 shaoyuming  staff    160 Sep  3 06:53 .\ndrwxr-xr-x@  18 shaoyuming  staff    576 Sep  3 06:53 ..\ndrwxr-xr-x@ 327 shaoyuming  staff  10464 Sep  3 06:53 node_modules\ndrwxr-xr-x@   4 shaoyuming  staff    128 Sep  3 06:53 out\n-rw-r--r--@   1 shaoyuming  staff  31490 Sep  3 06:53 package.json"}
+        div 矩形 219 id=fw647:15415 | width: 6px; height: 88px; background: rgba(0,0,0,0.16); border-radius: 6px; position: absolute; left: 812px; top: 44px; z-index: 2
+        div 容器 191 id=1393:18490 | width: 822px; height: 40px; position: absolute; left: 0px; top: 0px; z-index: 3
+          div 矩形 355 id=fw647:15458 | position: absolute; left: 0px; top: 0px; z-index: 0
+            img ? id=?
+          div 容器 162 id=fw647:15448 | width: 435px; height: 16px; display: flex; justify-content: flex-start; align-items: flex-start; gap: 8px; position: absolute; left: 30px; top: 12px; z-index: 1
+            ui-component text/text id=fw647:15416 | display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"launch-root"}
+            ui-component text/text id=fw647:15422 | display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"ls -la \"/Applications/DSH Desktop.app/Contents/Resources/app/\""}
+          div 圆形 2 id=fw647:15464 | position: absolute; left: 12px; top: 17px; z-index: 2
+            img ? id=? | color: #30953B
+          ui-component icon-wrapper id=fw647:15468 | width: 24px; height: 24px; display: flex; justify-content: center; align-items: center; flex-direction: column | props={"尺寸":"14"}
+          ui-component icon-wrapper id=fw647:17810 | width: 24px; height: 24px; display: flex; justify-content: center; align-items: center; flex-direction: column | props={"尺寸":"14"}
+  div 容器 197 id=1393:18496 | width: 840px; height: 252px; position: absolute; left: 164px; top: 1192px; z-index: 8
+    div Link id=fw647:15473 | width: 74px; height: 22px; display: flex; justify-content: flex-start; align-items: center; gap: 4px; border-radius: 4px; position: absolute; left: 0px; top: 0px; z-index: 0; overflow: hidden
+      img 容器 id=fw647:08371 | width: 14px; height: 14px; color: #868686
+      span 网页搜索 id=fw647:15476 | color: #868686; font-size: 14px; font-family: MiSans; line-height: 22px
+    div 容器 196 id=1393:18495 | width: 840px; height: 218px; position: absolute; left: 0px; top: 34px; z-index: 1
+      div Link id=fw647:15480 | width: 553px; height: 22px; display: flex; justify-content: flex-start; align-items: center; gap: 8px; border-radius: 4px; position: absolute; left: 0px; top: 0px; z-index: 0; overflow: hidden
+        div 组 10056 id=fw647:15481 | width: 74px; height: 22px; flex: none; position: relative
+          ui-component direction/down id=fw647:15482
+          span 网页搜索 id=fw647:15483 | color: #1F1F1F; font-size: 14px; font-family: MiSans; line-height: 22px; position: absolute; left: 18px; top: 0px; z-index: 1
+        img 圆形 1 id=fw647:15487 | width: 4px; height: 4px; color: #C9C9C9
+        span 左侧菜单 sidebar page 开发, dsh-desktop client plugin create left menu item docs id=fw647:15488 | color: #868686; font-size: 12px; font-family: MiSans; line-height: 22px
+      div 容器 195 id=1393:18494 | width: 822px; height: 184px; position: absolute; left: 18px; top: 34px; z-index: 1
+        div 矩形 353 id=fw647:15493 | position: absolute; left: 0px; top: 0px; z-index: 0
+          img ? id=? | color: #F5F6F7
+        ui-component text/text id=fw647:15494 | width: 788px; height: 160px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"󰀐dsh-md-quiz/NOTES.md at main · MrElysium/dsh-md-quiz - Skip to content\n󰀐DSH Desktop 文档\n󰀐hello-dsh/README.md at main · pingfanfan/hello-dsh - Skip to content\n󰀐dsh-desktop/docs/README.md at master · anywhere-labs/dsh-desktop - Skip to content\n󰀐deepseek-harness/packages/client/ui-sidebar/README.zh.md at master · deepseek-ai/deepseek-harness · GitHub\n󰀐DSH Desktop\n󰀐dsh-sidebar-files - \n󰀐dsh-desktop/dsh-plugin-desktop/README.md at v2.0.2 · anywhere-labs/dsh-desktop - Skip to content"}
+        div 矩形 219 id=fw647:15499 | width: 6px; height: 88px; background: rgba(0,0,0,0.16); border-radius: 6px; position: absolute; left: 812px; top: 4px; z-index: 2
+  div 容器 203 id=1393:18502 | width: 840px; height: 276px; position: absolute; left: 164px; top: 1460px; z-index: 9
+    div Link id=fw647:15926 | width: 152px; height: 22px; display: flex; justify-content: flex-start; align-items: center; gap: 8px; border-radius: 4px; position: absolute; left: 0px; top: 0px; z-index: 0; overflow: hidden
+      div 容器 163 id=fw647:16029 | display: flex; justify-content: flex-start; align-items: center; gap: 4px
+        img 容器 id=fw647:08383 | width: 14px; height: 14px; color: #868686
+        span 需求采访 id=fw647:15929 | color: #868686; font-size: 14px; font-family: MiSans; line-height: 22px
+      img 圆形 1 id=fw647:15933 | width: 4px; height: 4px; color: #C9C9C9
+      span 1/3 已回答 id=fw647:15934 | color: #868686; font-size: 12px; font-family: MiSans; line-height: 22px
+    div 容器 202 id=1393:18501 | width: 840px; height: 242px; position: absolute; left: 0px; top: 34px; z-index: 1
+      div Link id=fw647:15891 | width: 154px; height: 22px; display: flex; justify-content: flex-start; align-items: center; gap: 8px; border-radius: 4px; position: absolute; left: 0px; top: 0px; z-index: 0; overflow: hidden
+        div 组 10056 id=fw647:15892 | width: 74px; height: 22px; flex: none; position: relative
+          ui-component direction/down id=fw647:15893
+          span 需求采访 id=fw647:15894 | color: #1F1F1F; font-size: 14px; font-family: MiSans; line-height: 22px; position: absolute; left: 18px; top: 0px; z-index: 1
+        img 圆形 1 id=fw647:15898 | width: 4px; height: 4px; color: #C9C9C9
+        span 3/3 已回答 id=fw647:15899 | color: #868686; font-size: 12px; font-family: MiSans; line-height: 22px
+      div 容器 201 id=1393:18500 | width: 822px; height: 208px; position: absolute; left: 18px; top: 34px; z-index: 1
+        div 矩形 353 id=fw647:15903 | position: absolute; left: 0px; top: 0px; z-index: 0
+          img ? id=? | color: #F5F6F7
+        div 容器 200 id=1393:18499 | width: 252px; height: 48px; position: absolute; left: 20px; top: 20px; z-index: 1
+          ui-component text/text id=fw647:16051 | width: 252px; height: 22px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"你要把「任务看板」加到哪个左侧菜单？"}
+          ui-component text/text id=fw647:16065 | width: 195px; height: 22px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"这个 GienX 桌面 GUI 的左侧栏"}
+        div 容器 199 id=1393:18498 | width: 486px; height: 48px; position: absolute; left: 20px; top: 80px; z-index: 2
+          ui-component text/text id=fw647:16098 | width: 486px; height: 22px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"环境中已装了一个 5 泳道、支持 agent 执行的「任务看板」插件。如何处理？"}
+          ui-component text/text id=fw647:16103 | width: 229px; height: 22px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"无视它，我新建一个简单 3 泳道看板"}
+        div 容器 198 id=1393:18497 | width: 154px; height: 48px; position: absolute; left: 20px; top: 140px; z-index: 3
+          ui-component text/text id=fw647:16113 | width: 154px; height: 22px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"任务数据希望存到哪里？"}
+          ui-component text/text id=fw647:16118 | width: 42px; height: 22px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"未回答"}
+  div 容器 205 id=1393:18504 | width: 840px; height: 288px; position: absolute; left: 164px; top: 1752px; z-index: 10
+    div Link id=fw647:16186 | width: 765px; height: 22px; display: flex; justify-content: flex-start; align-items: center; gap: 8px; border-radius: 4px; position: absolute; left: 0px; top: 34px; z-index: 0; overflow: hidden
+      div 组 10056 id=fw647:16187 | width: 102px; height: 22px; flex: none; position: relative
+        ui-component direction/down id=fw647:16188
+        span 更新任务清单 id=fw647:16189 | color: #1F1F1F; font-size: 14px; font-family: MiSans; line-height: 22px; position: absolute; left: 18px; top: 0px; z-index: 1
+      img 圆形 1 id=fw647:16193 | width: 4px; height: 4px; color: #C9C9C9
+      span 0/5 已完成 id=fw647:16194 | color: #868686; font-size: 12px; font-family: MiSans; line-height: 22px
+      img 圆形 2 id=fw647:16303 | width: 4px; height: 4px; color: #C9C9C9
+      span Study existing task-board plugin's mount/sidebar architecture to learn the DSH client-plugin pattern id=fw647:16304 | color: #868686; font-size: 12px; font-family: MiSans; line-height: 22px
+    div Link id=fw647:16198 | width: 182px; height: 22px; display: flex; justify-content: flex-start; align-items: center; gap: 8px; border-radius: 4px; position: absolute; left: 0px; top: 0px; z-index: 1; overflow: hidden
+      div 容器 163 id=fw647:16199 | display: flex; justify-content: flex-start; align-items: center; gap: 4px
+        img 容器 id=fw647:08391 | width: 14px; height: 14px; color: #868686
+        span 更新任务清单 id=fw647:16202 | color: #868686; font-size: 14px; font-family: MiSans; line-height: 22px
+      img 圆形 1 id=fw647:16206 | width: 4px; height: 4px; color: #C9C9C9
+      span 0/5 已完成 id=fw647:16207 | color: #868686; font-size: 12px; font-family: MiSans; line-height: 22px
+    div 容器 204 id=1393:18503 | width: 822px; height: 220px; position: absolute; left: 18px; top: 68px; z-index: 2
+      div 矩形 353 id=fw647:16212 | position: absolute; left: 0px; top: 0px; z-index: 0
+        img ? id=?
+      div 矩形 355 id=fw647:16549 | position: absolute; left: 0px; top: 180px; z-index: 1
+        img ? id=?
+      div 容器 162 id=fw647:16496 | width: 694px; height: 144px; display: flex; justify-content: flex-start; align-items: flex-start; gap: 12px; position: absolute; left: 20px; top: 16px; z-index: 2
+        ui-component text/text id=fw647:16503 | display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"输入"}
+        ui-component text/text id=fw647:16497 | display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"{\n  \"todos\": [\n    {\n      \"content\": \"Study existing task-board plugin&#39;s mount/sidebar architecture to learn the DSH client-plugin pattern\",\n      \"status\": \"in_progress\"\n    },\n    {\n      \"content\": \"Design the new 3-lane kanban plugin structure and data model\",\n      \"status\": \"pending\""}
+      div 容器 163 id=fw647:16621 | width: 358px; height: 16px; display: flex; justify-content: flex-start; align-items: flex-start; gap: 12px; position: absolute; left: 20px; top: 192px; z-index: 3
+        ui-component text/text id=fw647:16628 | display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"输出"}
+        ui-component text/text id=fw647:16622 | display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"Updated todo list: 4 pending, 1 in progress, 0 completed."}
+      div 矩形 219 id=fw647:16661 | width: 6px; height: 88px; background: rgba(0,0,0,0.16); border-radius: 6px; position: absolute; left: 812px; top: 4px; z-index: 4
+  div 容器 207 id=1393:18506 | width: 840px; height: 312px; position: absolute; left: 164px; top: 2056px; z-index: 11
+    div Link id=fw647:16817 | width: 305px; height: 22px; display: flex; justify-content: flex-start; align-items: center; gap: 8px; border-radius: 4px; position: absolute; left: 0px; top: 34px; z-index: 0; overflow: hidden
+      div 组 10056 id=fw647:16818 | width: 74px; height: 22px; flex: none; position: relative
+        ui-component direction/down id=fw647:16819
+        span 文件写入 id=fw647:16820 | color: #1F1F1F; font-size: 14px; font-family: MiSans; line-height: 22px; position: absolute; left: 18px; top: 0px; z-index: 1
+      img 圆形 1 id=fw647:16824 | width: 4px; height: 4px; color: #C9C9C9
+      span gienx-taskboard-kanban/package.json id=fw647:16825 | color: #8E8E8E; font-size: 12px; font-family: MiSans; line-height: 22px
+    div Link id=fw647:16834 | width: 305px; height: 22px; display: flex; justify-content: flex-start; align-items: center; gap: 8px; border-radius: 4px; position: absolute; left: 0px; top: 0px; z-index: 1; overflow: hidden
+      div 容器 163 id=fw647:16835 | display: flex; justify-content: flex-start; align-items: center; gap: 4px
+        img 容器 id=fw647:16332 | width: 14px; height: 14px; color: #868686
+        span 文件写入 id=fw647:16838 | color: #868686; font-size: 14px; font-family: MiSans; line-height: 22px
+      img 圆形 1 id=fw647:16842 | width: 4px; height: 4px; color: #C9C9C9
+      span gienx-taskboard-kanban/package.json id=fw647:16843 | color: #868686; font-size: 12px; font-family: MiSans; line-height: 22px
+    div 容器 206 id=1393:18505 | width: 822px; height: 244px; position: absolute; left: 18px; top: 68px; z-index: 2
+      div 矩形 353 id=fw647:16848 | position: absolute; left: 0px; top: 0px; z-index: 0
+        img ? id=?
+      div 矩形 355 id=fw647:16849 | position: absolute; left: 0px; top: 0px; z-index: 1
+        img ? id=?
+      ui-component text/text id=fw647:16862 | width: 641px; height: 16px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"/Users/shaoyuming/Library/Application Support/dsh-desktop/launch-root/dsh-taskboard-kanban/package.json"}
+      ui-component icon-wrapper id=fw647:17116 | width: 24px; height: 24px; display: flex; justify-content: center; align-items: center; flex-direction: column | props={"尺寸":"14"}
+      div 矩形 219 id=fw647:16872 | width: 6px; height: 88px; background: rgba(0,0,0,0.16); border-radius: 6px; position: absolute; left: 812px; top: 44px; z-index: 4
+      ui-component text/text id=fw647:17169 | width: 780px; height: 180px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"{\n  \"name\": \"dsh-taskboard-kanban\",\n  \"version\": \"0.1.0\",\n… 其余 18 行\n      \"inject\": []\n    }\n  }\n}\n└ +25 -0 · 1 个文件"}
+  div 容器 210 id=1393:18510 | width: 840px; height: 132px; position: absolute; left: 164px; top: 2384px; z-index: 12
+    div Link id=fw647:17205 | width: 125px; height: 22px; display: flex; justify-content: flex-start; align-items: center; gap: 8px; border-radius: 4px; position: absolute; left: 0px; top: 34px; z-index: 0; overflow: hidden
+      div 组 10056 id=fw647:17206 | width: 55px; height: 22px; flex: none; position: relative
+        ui-component direction/down id=fw647:17207
+        span SKILL id=fw647:17208 | color: #1F1F1F; font-size: 14px; font-family: MiSans; line-height: 22px; position: absolute; left: 18px; top: 0px; z-index: 1
+      img 圆形 1 id=fw647:17212 | width: 4px; height: 4px; color: #C9C9C9
+      span deepwiki id=fw647:17213 | color: #868686; font-size: 12px; font-family: MiSans; line-height: 22px
+    div Link id=fw647:17217 | width: 125px; height: 22px; display: flex; justify-content: flex-start; align-items: center; gap: 8px; border-radius: 4px; position: absolute; left: 0px; top: 0px; z-index: 1; overflow: hidden
+      div 容器 163 id=fw647:17218 | display: flex; justify-content: flex-start; align-items: center; gap: 4px
+        img 容器 id=fw647:16336 | width: 14px; height: 14px; color: #868686
+        span SKILL id=fw647:17221 | color: #868686; font-size: 14px; font-family: MiSans; line-height: 22px
+      img 圆形 1 id=fw647:17225 | width: 4px; height: 4px; color: #C9C9C9
+      span deepwiki id=fw647:17226 | color: #868686; font-size: 12px; font-family: MiSans; line-height: 22px
+    div 容器 209 id=1393:18509 | width: 822px; height: 64px; position: absolute; left: 18px; top: 68px; z-index: 2
+      div 矩形 353 id=fw647:17231 | position: absolute; left: 0px; top: 0px; z-index: 0
+        img ? id=? | color: #F5F6F7
+      ui-component text/text id=fw647:17241 | width: 798px; height: 40px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"Browser automation CLI for AI agents. Use when the user needs to interact with websites, including navigating pages, filling forms, clicking buttons, taking screenshots, extracting data, testing web apps, or automating any browser task. Triggers include requests to \"open a web..."}
+  div 容器 213 id=1393:18513 | width: 840px; height: 200px; position: absolute; left: 164px; top: 2532px; z-index: 13
+    div Link id=fw647:17409 | width: 424px; height: 22px; display: flex; justify-content: flex-start; align-items: center; gap: 8px; border-radius: 4px; position: absolute; left: 0px; top: 34px; z-index: 0; overflow: hidden
+      div 组 10056 id=fw647:17410 | width: 73px; height: 22px; flex: none; position: relative
+        ui-component direction/down id=fw647:17411
+        span Tool call id=fw647:17412 | color: #1F1F1F; font-size: 14px; font-family: MiSans; line-height: 22px; position: absolute; left: 18px; top: 0px; z-index: 1
+      img 圆形 1 id=fw647:17416 | width: 4px; height: 4px; color: #C9C9C9
+      span str_replace_editor · src/ui/components/drag-strip/index.tsx id=fw647:17417 | color: #868686; font-size: 12px; font-family: MiSans; line-height: 22px
+    div Link id=fw647:17421 | width: 424px; height: 22px; display: flex; justify-content: flex-start; align-items: center; gap: 8px; border-radius: 4px; position: absolute; left: 0px; top: 0px; z-index: 1; overflow: hidden
+      div 容器 163 id=fw647:17422 | display: flex; justify-content: flex-start; align-items: center; gap: 4px
+        img 容器 id=fw647:16341 | width: 14px; height: 14px; color: #868686
+        span Tool call id=fw647:17425 | color: #868686; font-size: 14px; font-family: MiSans; line-height: 22px
+      img 圆形 1 id=fw647:17429 | width: 4px; height: 4px; color: #C9C9C9
+      span str_replace_editor · src/ui/components/drag-strip/index.tsx id=fw647:17430 | color: #868686; font-size: 12px; font-family: MiSans; line-height: 22px
+    div 容器 212 id=1393:18512 | width: 822px; height: 132px; position: absolute; left: 18px; top: 68px; z-index: 2
+      div 矩形 353 id=fw647:17549 | position: absolute; left: 0px; top: 0px; z-index: 0
+        img ? id=?
+      div 容器 211 id=1393:18511 | width: 822px; height: 40px; position: absolute; left: 0px; top: 0px; z-index: 1
+        div 矩形 355 id=fw647:17548 | position: absolute; left: 0px; top: 0px; z-index: 0
+          img ? id=?
+        ui-component text/text id=fw647:17556 | width: 229px; height: 16px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"src/ui/components/drag-strip/index.tsx"}
+        ui-component icon-wrapper id=fw647:17562 | width: 24px; height: 24px; display: flex; justify-content: center; align-items: center; flex-direction: column | props={"尺寸":"14"}
+      ui-component text/text id=fw647:17550 | width: 780px; height: 60px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"const THICKNESS = 6\nconst THICKNESS = 8\n└ +1 -1 · 1 file"}
+  div 容器 215 id=1393:18515 | width: 840px; height: 132px; position: absolute; left: 164px; top: 2748px; z-index: 14
+    div Link id=fw647:17603 | width: 183px; height: 22px; display: flex; justify-content: flex-start; align-items: center; gap: 8px; border-radius: 4px; position: absolute; left: 0px; top: 34px; z-index: 0; overflow: hidden
+      div 组 10056 id=fw647:17604 | width: 150px; height: 22px; flex: none; position: relative
+        ui-component direction/down id=fw647:17605
+        span 以重试模型请求 (1/5) id=fw647:17606 | color: #1F1F1F; font-size: 14px; font-family: MiSans; line-height: 22px; position: absolute; left: 18px; top: 0px; z-index: 1
+      img 圆形 1 id=fw647:17610 | width: 4px; height: 4px; color: #C9C9C9
+      span 2s id=fw647:17611 | color: #868686; font-size: 12px; font-family: MiSans; line-height: 22px
+    div Link id=fw647:17615 | width: 183px; height: 22px; display: flex; justify-content: flex-start; align-items: center; gap: 8px; border-radius: 4px; position: absolute; left: 0px; top: 0px; z-index: 1; overflow: hidden
+      div 容器 163 id=fw647:17616 | display: flex; justify-content: flex-start; align-items: center; gap: 4px
+        img 容器 id=fw647:16345 | width: 14px; height: 14px; color: #868686
+        span 以重试模型请求 (1/5) id=fw647:17619 | color: #868686; font-size: 14px; font-family: MiSans; line-height: 22px
+      img 圆形 1 id=fw647:17623 | width: 4px; height: 4px; color: #C9C9C9
+      span 2s id=fw647:17624 | color: #868686; font-size: 12px; font-family: MiSans; line-height: 22px
+    div 容器 214 id=1393:18514 | width: 822px; height: 64px; position: absolute; left: 18px; top: 68px; z-index: 2
+      div 矩形 353 id=fw647:17629 | position: absolute; left: 0px; top: 0px; z-index: 0
+        img ? id=?
+      ui-component text/text id=fw647:17638 | width: 798px; height: 40px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"重试延迟：2000ms\n失败原因：provider connection reset"}
+  div 容器 221 id=1393:18521 | width: 840px; height: 404px; position: absolute; left: 164px; top: 2896px; z-index: 15
+    div 容器 163 id=fw647:17830 | width: 107px; height: 22px; display: flex; justify-content: flex-start; align-items: center; gap: 4px; position: absolute; left: 0px; top: 0px; z-index: 0
+      img 容器 id=fw647:16374 | width: 14px; height: 14px; color: #868686
+      span 调用 5 个工具 id=fw647:17833 | color: #868686; font-size: 14px; font-family: MiSans; line-height: 22px
+    div 容器 220 id=1393:18520 | width: 840px; height: 370px; position: absolute; left: 0px; top: 34px; z-index: 1
+      div Link id=fw647:17817 | width: 107px; height: 22px; display: flex; justify-content: flex-start; align-items: center; gap: 8px; border-radius: 4px; position: absolute; left: 0px; top: 0px; z-index: 0; overflow: hidden
+        div 组 10056 id=fw647:17818 | width: 107px; height: 22px; flex: none; position: relative
+          ui-component direction/down id=fw647:17819
+          span 调用 5 个工具 id=fw647:17820 | color: #1F1F1F; font-size: 14px; font-family: MiSans; line-height: 22px; position: absolute; left: 18px; top: 0px; z-index: 1
+      div 容器 218 id=1393:18518 | width: 822px; height: 200px; position: absolute; left: 18px; top: 34px; z-index: 1
+        div Link id=fw647:18151 | width: 424px; height: 22px; display: flex; justify-content: flex-start; align-items: center; gap: 8px; border-radius: 4px; position: absolute; left: 0px; top: 34px; z-index: 0; overflow: hidden
+          div 组 10056 id=fw647:18156 | width: 73px; height: 22px; flex: none; position: relative
+            ui-component direction/down id=fw647:18162
+            span Tool call id=fw647:18157 | color: #1F1F1F; font-size: 14px; font-family: MiSans; line-height: 22px; position: absolute; left: 18px; top: 0px; z-index: 1
+          img 圆形 1 id=fw647:18161 | width: 4px; height: 4px; color: #C9C9C9
+          span str_replace_editor · src/ui/components/drag-strip/index.tsx id=fw647:18152 | color: #868686; font-size: 12px; font-family: MiSans; line-height: 22px
+        div Link id=fw647:18138 | width: 424px; height: 22px; display: flex; justify-content: flex-start; align-items: center; gap: 8px; border-radius: 4px; position: absolute; left: 0px; top: 0px; z-index: 1; overflow: hidden
+          div 容器 163 id=fw647:18144 | display: flex; justify-content: flex-start; align-items: center; gap: 4px
+            img 容器 id=fw647:18149 | width: 14px; height: 14px; color: #868686
+            span Tool call id=fw647:18145 | color: #868686; font-size: 14px; font-family: MiSans; line-height: 22px
+          img 圆形 1 id=fw647:18139 | width: 4px; height: 4px; color: #C9C9C9
+          span str_replace_editor · src/ui/components/drag-strip/index.tsx id=fw647:18140 | color: #868686; font-size: 12px; font-family: MiSans; line-height: 22px
+        div 容器 217 id=1393:18517 | width: 804px; height: 132px; position: absolute; left: 18px; top: 68px; z-index: 2
+          div 矩形 353 id=fw647:18135 | position: absolute; left: 0px; top: 0px; z-index: 0
+            img ? id=?
+          div 容器 216 id=1393:18516 | width: 804px; height: 40px; position: absolute; left: 0px; top: 0px; z-index: 1
+            div 矩形 355 id=fw647:18137 | position: absolute; left: 0px; top: 0px; z-index: 0
+              img ? id=?
+            ui-component text/text id=fw647:18169 | width: 229px; height: 16px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"src/ui/components/drag-strip/index.tsx"}
+            ui-component icon-wrapper id=fw647:18175 | width: 24px; height: 24px; display: flex; justify-content: center; align-items: center; flex-direction: column | props={"尺寸":"14"}
+          ui-component text/text id=fw647:18163 | width: 780px; height: 60px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"const THICKNESS = 6\nconst THICKNESS = 8\n└ +1 -1 · 1 file"}
+      div 容器 219 id=1393:18519 | width: 305px; height: 124px; position: absolute; left: 18px; top: 246px; z-index: 2
+        div Link id=fw647:18194 | width: 125px; height: 22px; display: flex; justify-content: flex-start; align-items: center; gap: 8px; border-radius: 4px; position: absolute; left: 0px; top: 0px; z-index: 0; overflow: hidden
+          div 容器 163 id=fw647:18200 | display: flex; justify-content: flex-start; align-items: center; gap: 4px
+            img 容器 id=fw647:18205 | width: 14px; height: 14px; color: #868686
+            span SKILL id=fw647:18201 | color: #868686; font-size: 14px; font-family: MiSans; line-height: 22px
+          img 圆形 1 id=fw647:18195 | width: 4px; height: 4px; color: #C9C9C9
+          span deepwiki id=fw647:18196 | color: #868686; font-size: 12px; font-family: MiSans; line-height: 22px
+        div Link id=fw647:18217 | width: 152px; height: 22px; display: flex; justify-content: flex-start; align-items: center; gap: 8px; border-radius: 4px; position: absolute; left: 0px; top: 34px; z-index: 1; overflow: hidden
+          div 容器 163 id=fw647:18223 | display: flex; justify-content: flex-start; align-items: center; gap: 4px
+            img 容器 id=fw647:18224 | width: 14px; height: 14px; color: #868686
+            span 需求采访 id=fw647:18226 | color: #868686; font-size: 14px; font-family: MiSans; line-height: 22px
+          img 圆形 1 id=fw647:18222 | width: 4px; height: 4px; color: #C9C9C9
+          span 1/3 已回答 id=fw647:18218 | color: #868686; font-size: 12px; font-family: MiSans; line-height: 22px
+        div Link id=fw647:18240 | width: 305px; height: 22px; display: flex; justify-content: flex-start; align-items: center; gap: 8px; border-radius: 4px; position: absolute; left: 0px; top: 68px; z-index: 2; overflow: hidden
+          div 容器 163 id=fw647:18246 | display: flex; justify-content: flex-start; align-items: center; gap: 4px
+            img 容器 id=fw647:18247 | width: 14px; height: 14px; color: #868686
+            span 文件写入 id=fw647:18249 | color: #868686; font-size: 14px; font-family: MiSans; line-height: 22px
+          img 圆形 1 id=fw647:18245 | width: 4px; height: 4px; color: #C9C9C9
+          span gienx-taskboard-kanban/package.json id=fw647:18241 | color: #868686; font-size: 12px; font-family: MiSans; line-height: 22px
+        div Link id=fw647:18263 | width: 182px; height: 22px; display: flex; justify-content: flex-start; align-items: center; gap: 8px; border-radius: 4px; position: absolute; left: 0px; top: 102px; z-index: 3; overflow: hidden
+          div 容器 163 id=fw647:18268 | display: flex; justify-content: flex-start; align-items: center; gap: 4px
+            img 容器 id=fw647:18273 | width: 14px; height: 14px; color: #868686
+            span 更新任务清单 id=fw647:18269 | color: #868686; font-size: 14px; font-family: MiSans; line-height: 22px
+          img 圆形 1 id=fw647:18275 | width: 4px; height: 4px; color: #C9C9C9
+          span 0/5 已完成 id=fw647:18264 | color: #868686; font-size: 12px; font-family: MiSans; line-height: 22px
+      div 直线 31 id=fw647:18281 | position: absolute; left: 6px; top: 34px; z-index: 3
+        img ? id=? | color: #E5E5E5
+  div 容器 223 id=1393:18523 | width: 840px; height: 54px; position: absolute; left: 164px; top: 3324px; z-index: 16
+    div 容器 222 id=1393:18522 | width: 840px; height: 22px; position: absolute; left: 0px; top: 0px; z-index: 0
+      div 容器 164 id=fw647:18342 | width: 388px; height: 22px; display: flex; justify-content: flex-start; align-items: center; gap: 8px; position: absolute; left: 226px; top: 0px; z-index: 0
+        img 容器 id=fw647:18353 | width: 14px; height: 14px
+        ui-component text/text id=fw647:18283 | display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"压缩上下文"}
+        img 圆形 4 id=fw647:18341 | width: 6px; height: 6px; color: #E5E5E5
+        ui-component text/text id=fw647:18330 | display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"已压缩 19 条历史记录（约 18,320 tokens）"}
+      div 直线 32 id=fw647:18346 | position: absolute; left: 214px; top: 10.5px; z-index: 1
+        img ? id=? | color: #E5E5E5
+      div 直线 33 id=fw647:18349 | position: absolute; left: 840px; top: 11px; z-index: 2
+        img ? id=? | color: #E5E5E5
+    ui-component text/text id=fw647:18372 | width: 778px; height: 24px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"此前对话围绕「会话流渲染管线」展开：定位了 conversation / runtime / renderer 三层包职责，枚举了 15 类 ChatNode kind 与对应行组件"}
+  div 容器 225 id=1393:18525 | width: 840px; height: 54px; position: absolute; left: 164px; top: 3402px; z-index: 17
+    div 容器 224 id=1393:18524 | width: 840px; height: 22px; position: absolute; left: 0px; top: 0px; z-index: 0
+      div 容器 164 id=fw647:18400 | width: 404px; height: 22px; display: flex; justify-content: flex-start; align-items: center; gap: 8px; position: absolute; left: 218px; top: 0px; z-index: 0
+        img 容器 id=fw647:16386 | width: 14px; height: 14px; color: #30953B
+        ui-component text/text id=fw647:18405 | display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"上下文已压缩"}
+        img 圆形 4 id=fw647:18410 | width: 6px; height: 6px; color: #E5E5E5
+        ui-component text/text id=fw647:18411 | display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"已压缩 24 条历史记录（约 31,220 tokens）"}
+      div 直线 32 id=fw647:18416 | position: absolute; left: 206px; top: 10.5px; z-index: 1
+        img ? id=? | color: #E5E5E5
+      div 直线 33 id=fw647:18417 | position: absolute; left: 840px; top: 11px; z-index: 2
+        img ? id=? | color: #E5E5E5
+    ui-component text/text id=fw647:18418 | width: 300px; height: 24px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"上下文接近窗口上限，已将前 40 条历史折叠为摘要"}
+  div 容器 229 id=1393:18529 | width: 840px; height: 184px; position: absolute; left: 164px; top: 3480px; z-index: 18
+    div Link id=fw647:18518 | width: 220px; height: 22px; display: flex; justify-content: flex-start; align-items: center; gap: 8px; border-radius: 4px; position: absolute; left: 0px; top: 34px; z-index: 0; overflow: hidden
+      div 组 10056 id=fw647:18519 | width: 74px; height: 22px; flex: none; position: relative
+        ui-component direction/down id=fw647:18520
+        span 搜索资料 id=fw647:18521 | color: #1F1F1F; font-size: 14px; font-family: MiSans; line-height: 22px; position: absolute; left: 18px; top: 0px; z-index: 1
+      img 圆形 1 id=fw647:18525 | width: 4px; height: 4px; color: #C9C9C9
+      span gienx harness client ui id=fw647:18526 | color: #868686; font-size: 12px; font-family: MiSans; line-height: 22px
+    div Link id=fw647:18530 | width: 74px; height: 22px; display: flex; justify-content: flex-start; align-items: center; gap: 8px; border-radius: 4px; position: absolute; left: 0px; top: 0px; z-index: 1; overflow: hidden
+      div 容器 163 id=fw647:18531 | display: flex; justify-content: flex-start; align-items: center; gap: 4px
+        img 容器 id=fw647:16390 | width: 14px; height: 14px; color: #868686
+        span 搜索资料 id=fw647:18534 | color: #868686; font-size: 14px; font-family: MiSans; line-height: 22px
+    div 容器 228 id=1393:18528 | width: 822px; height: 116px; position: absolute; left: 18px; top: 68px; z-index: 2
+      div 矩形 353 id=fw647:18544 | position: absolute; left: 0px; top: 0px; z-index: 0
+        img ? id=? | color: #F5F6F7
+      div 容器 227 id=1393:18527 | width: 408px; height: 42px; position: absolute; left: 12px; top: 12px; z-index: 1
+        ui-component text/text id=fw647:18545 | width: 155px; height: 20px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"󰀐gienx-harness — GitHub"}
+        ui-component text/text id=fw647:18720 | width: 390px; height: 20px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"Harness-style client packages: ui-conversation, ui-tool, ui-trajectory…"}
+      div 容器 226 id=1393:18526 | width: 283px; height: 42px; position: absolute; left: 12px; top: 62px; z-index: 2
+        ui-component text/text id=fw647:18768 | width: 146px; height: 20px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"󰄐cordis framework docs"}
+        ui-component text/text id=fw647:18773 | width: 265px; height: 20px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"Context proxy, plugin registry, service injection"}
+  div 容器 233 id=1393:18533 | width: 840px; height: 152px; position: absolute; left: 164px; top: 3808px; z-index: 19
+    div Link id=fw647:18945 | width: 267px; height: 22px; display: flex; justify-content: flex-start; align-items: center; gap: 8px; border-radius: 4px; position: absolute; left: 0px; top: 34px; z-index: 0; overflow: hidden
+      div 组 10056 id=fw647:18946 | width: 132px; height: 22px; flex: none; position: relative
+        ui-component direction/down id=fw647:18947
+        span 未知 surface 事件 id=fw647:18948 | color: #1F1F1F; font-size: 14px; font-family: MiSans; line-height: 22px; position: absolute; left: 18px; top: 0px; z-index: 1
+      img 圆形 1 id=fw647:18952 | width: 4px; height: 4px; color: #C9C9C9
+      span workspace/reminder id=fw647:18953 | color: #868686; font-size: 12px; font-family: MiSans; line-height: 22px
+    div Link id=fw647:18957 | width: 132px; height: 22px; display: flex; justify-content: flex-start; align-items: center; gap: 8px; border-radius: 4px; position: absolute; left: 0px; top: 0px; z-index: 1; overflow: hidden
+      div 容器 163 id=fw647:18958 | display: flex; justify-content: flex-start; align-items: center; gap: 4px
+        img 容器 id=fw647:16405 | width: 14px; height: 14px; color: #868686
+        span 未知 surface 事件 id=fw647:18961 | color: #868686; font-size: 14px; font-family: MiSans; line-height: 22px
+    div 容器 232 id=1393:18532 | width: 822px; height: 84px; position: absolute; left: 18px; top: 68px; z-index: 2
+      div 矩形 353 id=fw647:18967 | position: absolute; left: 0px; top: 0px; z-index: 0
+        img ? id=? | color: #F5F6F7
+      ui-component text/text id=fw647:18975 | width: 305px; height: 60px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"{ \n󰀀\"text\": \"这是一个未来版本才会识别的 surface 事件。\" \n}"}
+  div 容器 231 id=1393:18531 | width: 840px; height: 44px; position: absolute; left: 164px; top: 3688px; z-index: 20
+    div 矩形 356 id=fw647:18819 | width: 840px; height: 44px; background: #FFF7E8; border-style: solid; border-color: #FFE4BA; border-width: 1px; border-radius: 8px; position: absolute; left: 0px; top: 0px; z-index: 0
+    div 容器 166 id=fw647:18885 | width: 549px; height: 22px; display: flex; justify-content: flex-start; align-items: center; gap: 12px; position: absolute; left: 16px; top: 11px; z-index: 1
+      div 容器 165 id=fw647:18884 | display: flex; justify-content: flex-start; align-items: center; gap: 8px
+        img 圆形 5 id=fw647:18824 | width: 6px; height: 6px; color: #D25F00
+        ui-component text/text id=fw647:18825 | display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"已达到输出 token 上限"}
+      ui-component text/text id=fw647:18842 | display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"回答被截断，已有输出保留在对话中。发送 “继续” 可让模型接着输出。"}
+  div 容器 230 id=1393:18530 | width: 840px; height: 44px; position: absolute; left: 164px; top: 3748px; z-index: 21
+    div 矩形 356 id=fw647:18901 | width: 840px; height: 44px; background: #FFF7E8; border-style: solid; border-color: #FFE4BA; border-width: 1px; border-radius: 8px; position: absolute; left: 0px; top: 0px; z-index: 0
+    div 容器 165 id=fw647:18903 | width: 98px; height: 22px; display: flex; justify-content: flex-start; align-items: center; gap: 8px; position: absolute; left: 16px; top: 11px; z-index: 1
+      img 圆形 5 id=fw647:18904 | width: 6px; height: 6px; color: #D25F00
+      ui-component text/text id=fw647:18905 | display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"本轮运行失败"}
+    ui-component text/text id=fw647:18910 | width: 240px; height: 16px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"上游提供方连接被重置，且重试次数已用尽。"}
+    ui-component text/text id=fw647:19714 | width: 53px; height: 16px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"TIMEOUT"}
+  div 容器 235 id=1393:18535 | width: 840px; height: 22px; position: absolute; left: 164px; top: 3984px; z-index: 22
+    div 直线 32 id=fw647:19206 | position: absolute; left: 362px; top: 11px; z-index: 0
+      img ? id=? | color: #E5E5E5
+    div 直线 33 id=fw647:19207 | position: absolute; left: 840px; top: 11px; z-index: 1
+      img ? id=? | color: #E5E5E5
+    div 容器 234 id=1393:18534 | width: 92px; height: 22px; position: absolute; left: 374px; top: 0px; z-index: 2
+      ui-component text/text id=fw647:19195 | width: 70px; height: 22px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"模型已切换"}
+      div 容器 id=fw647:19293 | position: absolute; left: 0px; top: 4px; z-index: 1
+        img ? id=? | color: #333333
+  div 容器 248 id=1393:18600 | width: 840px; height: 230px; position: absolute; left: 164px; top: 4414px; z-index: 23
+    ui-component divider id=fw647:19683 | width: 840px; height: 22px; display: flex; justify-content: center; align-items: center; gap: 16px | props={"类型":"水平","虚线":"false","文本":"true","⬑对齐":"居中"} | text={"中电金信":"任务产物"}
+    div 容器 241 id=1393:18589 | width: 414px; height: 56px; position: absolute; left: 0px; top: 38px; z-index: 1
+      div 矩形 336 id=fw647:19663 | position: absolute; left: 0px; top: 0px; z-index: 0
+        img ? id=? | color: #F5F6F7
+      div Link id=fw647:19674 | width: 123px; height: 22px; display: flex; justify-content: flex-start; align-items: center; gap: 4px; border-radius: 4px; position: absolute; left: 60px; top: 8px; z-index: 1; overflow: hidden
+        span prd-template.html id=fw647:19675 | color: #1F1F1F; font-size: 14px; font-family: MiSans; font-weight: 500; line-height: 22px
+      div Link id=fw647:19669 | width: 36px; height: 16px; display: flex; justify-content: flex-start; align-items: center; gap: 4px; border-radius: 4px; position: absolute; left: 60px; top: 32px; z-index: 2; overflow: hidden
+        span 128KB id=fw647:19670 | color: #868686; font-size: 12px; font-family: MiSans; line-height: 16px
+      div 直线 33 id=fw647:19665 | position: absolute; left: 48px; top: 16px; z-index: 3
+        img ? id=? | color: #E5E5E5
+      div 容器 id=fw647:19666 | position: absolute; left: 12px; top: 16px; z-index: 4
+        img ? id=? | color: #327FCB
+      ui-component icon-wrapper id=1393:18597 | width: 24px; height: 24px; display: flex; justify-content: center; align-items: center; flex-direction: column | props={"尺寸":"14"}
+    div 容器 242 id=1393:18590 | width: 414px; height: 56px; position: absolute; left: 0px; top: 106px; z-index: 2
+      div 矩形 336 id=fw647:19631 | position: absolute; left: 0px; top: 0px; z-index: 0
+        img ? id=? | color: #F5F6F7
+      div 容器 id=fw647:19644 | position: absolute; left: 12px; top: 16px; z-index: 1
+        img ? id=? | color: #6B6B6B
+      div Link id=fw647:19638 | width: 241px; height: 22px; display: flex; justify-content: flex-start; align-items: center; gap: 4px; border-radius: 4px; position: absolute; left: 60px; top: 8px; z-index: 2; overflow: hidden
+        span user-story-breakdown-template.md id=fw647:19639 | color: #1F1F1F; font-size: 14px; font-family: MiSans; font-weight: 500; line-height: 22px
+      div Link id=fw647:19633 | width: 36px; height: 16px; display: flex; justify-content: flex-start; align-items: center; gap: 4px; border-radius: 4px; position: absolute; left: 60px; top: 32px; z-index: 3; overflow: hidden
+        span 128KB id=fw647:19634 | color: #868686; font-size: 12px; font-family: MiSans; line-height: 16px
+      div 直线 33 id=fw647:19643 | position: absolute; left: 48px; top: 16px; z-index: 4
+        img ? id=? | color: #E5E5E5
+      ui-component icon-wrapper id=1393:18596 | width: 24px; height: 24px; display: flex; justify-content: center; align-items: center; flex-direction: column | props={"尺寸":"14"}
+    div 容器 243 id=1393:18591 | width: 414px; height: 56px; position: absolute; left: 0px; top: 174px; z-index: 3
+      div 矩形 336 id=fw647:19629 | position: absolute; left: 0px; top: 0px; z-index: 0
+        img ? id=? | color: #F5F6F7
+      div 容器 id=fw647:19626 | position: absolute; left: 12px; top: 16px; z-index: 1
+        img ? id=? | color: #6B6B6B
+      div Link id=fw647:19621 | width: 113px; height: 22px; display: flex; justify-content: flex-start; align-items: center; gap: 4px; border-radius: 4px; position: absolute; left: 60px; top: 17px; z-index: 2; overflow: hidden
+        span 查看所有产物 (12) id=fw647:19622 | color: #1F1F1F; font-size: 14px; font-family: MiSans; font-weight: 500; line-height: 22px
+      div 直线 33 id=fw647:19628 | position: absolute; left: 48px; top: 16px; z-index: 3
+        img ? id=? | color: #E5E5E5
+      ui-component icon-wrapper id=1393:18595 | width: 24px; height: 24px; display: flex; justify-content: center; align-items: center; flex-direction: column | props={"尺寸":"14"}
+    div 卡片hover效果 id=1393:18592 | width: 414px; height: 56px; position: absolute; left: 426px; top: 38px; z-index: 4
+      div 矩形 336 id=fw647:19607 | position: absolute; left: 0px; top: 0px; z-index: 0
+        img ? id=?
+      ui-component icon-wrapper id=fw647:19682 | width: 24px; height: 24px; display: flex; justify-content: center; align-items: center; flex-direction: column | props={"尺寸":"14"}
+      div 容器 id=fw647:19603 | position: absolute; left: 12px; top: 16px; z-index: 2
+        img ? id=?
+      div Link id=fw647:19615 | width: 122px; height: 22px; display: flex; justify-content: flex-start; align-items: center; gap: 4px; border-radius: 4px; position: absolute; left: 60px; top: 8px; z-index: 3; overflow: hidden
+        span spec-template.md id=fw647:19616 | color: #3770F7; font-size: 14px; font-family: MiSans; font-weight: 500; line-height: 22px
+      div Link id=fw647:19610 | width: 36px; height: 16px; display: flex; justify-content: flex-start; align-items: center; gap: 4px; border-radius: 4px; position: absolute; left: 60px; top: 32px; z-index: 4; overflow: hidden
+        span 128KB id=fw647:19611 | color: #868686; font-size: 12px; font-family: MiSans; line-height: 16px
+      div 直线 33 id=fw647:19608 | position: absolute; left: 48px; top: 16px; z-index: 5
+        img ? id=? | color: #E5E5E5
+    div 容器 245 id=1393:18593 | width: 414px; height: 56px; position: absolute; left: 426px; top: 106px; z-index: 5
+      div 矩形 336 id=fw647:19648 | position: absolute; left: 0px; top: 0px; z-index: 0
+        img ? id=? | color: #F5F6F7
+      div 容器 id=fw647:19649 | position: absolute; left: 12px; top: 16px; z-index: 1
+        img ? id=? | color: #6B6B6B
+      div Link id=fw647:19657 | width: 160px; height: 22px; display: flex; justify-content: flex-start; align-items: center; gap: 4px; border-radius: 4px; position: absolute; left: 60px; top: 8px; z-index: 2; overflow: hidden
+        span user-story-template.md id=fw647:19658 | color: #1F1F1F; font-size: 14px; font-family: MiSans; font-weight: 500; line-height: 22px
+      div Link id=fw647:19652 | width: 36px; height: 16px; display: flex; justify-content: flex-start; align-items: center; gap: 4px; border-radius: 4px; position: absolute; left: 60px; top: 32px; z-index: 3; overflow: hidden
+        span 128KB id=fw647:19653 | color: #868686; font-size: 12px; font-family: MiSans; line-height: 16px
+      div 直线 33 id=fw647:19647 | position: absolute; left: 48px; top: 16px; z-index: 4
+        img ? id=? | color: #E5E5E5
+      ui-component icon-wrapper id=1393:18594 | width: 24px; height: 24px; display: flex; justify-content: center; align-items: center; flex-direction: column | props={"尺寸":"14"}
+  div 容器 247 id=1393:18599 | width: 256px; height: 24px; position: absolute; left: 164px; top: 4664px; z-index: 24
+    ui-component icon-wrapper id=fw647:19681 | width: 24px; height: 24px; display: flex; justify-content: center; align-items: center; flex-direction: column | props={"尺寸":"14"}
+    div Link id=fw647:19591 | width: 142px; height: 24px; display: flex; justify-content: flex-start; align-items: center; gap: 4px; border-radius: 4px; position: absolute; left: 80px; top: 0px; z-index: 1; overflow: hidden
+      img 容器 id=fw647:19592 | width: 14px; height: 14px; color: #868686
+      span Token 速率：256/s id=fw647:19594 | color: #868686; font-size: 14px; font-family: MiSans; line-height: 24px
+    div 直线 46 id=fw647:19598 | position: absolute; left: 68px; top: 5px; z-index: 2
+      img ? id=? | color: #E5E5E5
+    div 直线 47 id=fw647:19599 | position: absolute; left: 234px; top: 5px; z-index: 3
+      img ? id=? | color: #E5E5E5
+    div 容器 246 id=1393:18598 | width: 56px; height: 24px; position: absolute; left: 0px; top: 0px; z-index: 4
+      ui-component icon-wrapper id=fw647:19738 | width: 24px; height: 24px; display: flex; justify-content: center; align-items: center; flex-direction: column | props={"尺寸":"14"}
+      ui-component icon-wrapper id=fw647:19739 | width: 24px; height: 24px; display: flex; justify-content: center; align-items: center; flex-direction: column | props={"尺寸":"14"}
+  ui-component text/text id=fw647:19303 | width: 840px; height: 44px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"很好，目录存在。现在让我来构建完整的原型。鉴于其规模，我将创建一个完整的单文件 HTML 应用，并包含全部 18 个页面/组件。让我系统地完成它。"}
+  div 容器 263 id=1393:18747 | width: 840px; height: 188px; position: absolute; left: 164px; top: 4928px; z-index: 26
+    div 矩形 204 id=fw647:20687 | position: absolute; left: 0px; top: 0px; z-index: 0
+      img ? id=?
+    div 容器 262 id=1393:18746 | width: 822px; height: 48px; position: absolute; left: 6px; top: 6px; z-index: 1
+      div 容器 256 id=1393:18740 | width: 192px; height: 48px; position: absolute; left: 0px; top: 0px; z-index: 0
+        div 矩形 339 id=fw647:20665 | position: absolute; left: 0px; top: 0px; z-index: 0
+          img ? id=?
+        div 容器 254 id=1393:18738 | width: 110px; height: 34px; position: absolute; left: 48px; top: 7px; z-index: 1
+          ui-component text/text id=fw647:20722 | width: 48px; height: 16px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"游戏策划"}
+          ui-component text/text id=fw647:20728 | width: 110px; height: 16px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"研究休闲游戏设计趋势"}
+        div 容器 id=fw647:20667 | position: absolute; left: 166px; top: 17px; z-index: 2
+          img ? id=?
+        div 容器 255 id=1393:18739 | width: 32px; height: 32px; position: absolute; left: 8px; top: 8px; z-index: 3
+          div 矩形 340 id=fw647:20674 | width: 32px; height: 32px; background: #E6E1FC; border-radius: 4px; position: absolute; left: 0px; top: 0px; z-index: 0
+          div 容器 id=fw647:20672 | position: absolute; left: 8px; top: 8px; z-index: 1
+            img ? id=? | color: #6E27D9
+      div 容器 259 id=1393:18743 | width: 170px; height: 48px; position: absolute; left: 198px; top: 0px; z-index: 1
+        div 矩形 339 id=fw647:20678 | position: absolute; left: 0px; top: 0px; z-index: 0
+          img ? id=?
+        ui-component icon-wrapper id=fw647:20789 | width: 14px; height: 14px; display: flex; justify-content: center; align-items: center; flex-direction: column | props={"尺寸":"14"}
+        div 容器 257 id=1393:18741 | width: 88px; height: 34px; position: absolute; left: 48px; top: 7px; z-index: 2
+          ui-component text/text id=fw647:20740 | width: 48px; height: 16px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"项目经理"}
+          ui-component text/text id=fw647:20734 | width: 88px; height: 16px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"设计游戏玩法攻略"}
+        div 容器 258 id=1393:18742 | width: 32px; height: 32px; position: absolute; left: 8px; top: 8px; z-index: 3
+          div 矩形 340 id=fw647:20676 | width: 32px; height: 32px; background: #E0E7FF; border-radius: 4px; position: absolute; left: 0px; top: 0px; z-index: 0
+          div 容器 id=fw647:20679 | position: absolute; left: 8px; top: 8px; z-index: 1
+            img ? id=? | color: #4F46E5
+      div 容器 260 id=1393:18744 | width: 198px; height: 48px; position: absolute; left: 374px; top: 0px; z-index: 2
+        div 矩形 339 id=fw647:20685 | position: absolute; left: 0px; top: 0px; z-index: 0
+          img ? id=?
+        div 组 9197 id=fw647:20686 | width: 99px; height: 34px; position: absolute; left: 48px; top: 7px; z-index: 1
+          ui-component text/text id=fw647:20746 | width: 84px; height: 16px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"软件开发工程师"}
+          ui-component text/text id=fw647:20752 | width: 99px; height: 16px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"开发完整的游戏能力"}
+        div 矩形 340 id=fw647:20684 | width: 32px; height: 32px; background: #DBEAFE; border-radius: 4px; position: absolute; left: 8px; top: 8px; z-index: 2
+        div 容器 id=fw647:20682 | position: absolute; left: 16px; top: 16px; z-index: 3
+          img ? id=? | color: #2563EB
+        ui-component icon-wrapper id=fw647:20790 | width: 14px; height: 14px; display: flex; justify-content: center; align-items: center; flex-direction: column | props={"尺寸":"14"}
+      div 容器 261 id=1393:18745 | width: 164px; height: 48px; position: absolute; left: 578px; top: 0px; z-index: 3
+        div 蒙版组 2 id=fw647:20656 | width: 164px; height: 48px; position: absolute; left: 0px; top: 0px; z-index: 0
+          div 组 9827 id=fw647:20657 | width: 164px; height: 48px; position: absolute; left: 0px; top: 0px; z-index: 1
+            div 矩形 341 id=fw647:20661 | position: absolute; left: 0px; top: 0px; z-index: 0
+              img ? id=?
+            div 组 9197 id=fw647:20662 | width: 77px; height: 34px; position: absolute; left: 48px; top: 7px; z-index: 1
+              ui-component text/text id=fw647:20716 | width: 60px; height: 16px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"测试工程师"}
+              ui-component text/text id=fw647:20710 | width: 77px; height: 16px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"对整个游戏进行"}
+            div 矩形 340 id=fw647:20660 | width: 32px; height: 32px; background: #FEE2E2; border-radius: 4px; position: absolute; left: 8px; top: 8px; z-index: 2
+            div 容器 id=fw647:20658 | position: absolute; left: 16px; top: 16px; z-index: 3
+              img ? id=? | color: #DC2626
+      ui-component icon-wrapper id=fw647:20788 | width: 24px; height: 24px; display: flex; justify-content: center; align-items: center; flex-direction: column | props={"尺寸":"14"}
+    div 组 10153 id=fw647:20842 | width: 840px; height: 128px; position: absolute; left: 0px; top: 60px; z-index: 2
+      div 矩形 220 id=fw647:20654 | position: absolute; left: 0px; top: 0px; z-index: 0
+        img ? id=?
+      ui-component text/text id=fw647:20704 | width: 247px; height: 22px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"描述你的任务，/ 调用技能，@引用文件"}
+      div 组 9061 id=fw647:20629 | width: 174px; height: 28px; position: absolute; left: 12px; top: 88px; z-index: 2
+        div 组 9060 id=fw647:20641 | width: 28px; height: 28px; position: absolute; left: 34px; top: 0px; z-index: 0
+          div 矩形 201 id=fw647:20644 | width: 28px; height: 28px; background: #FFFFFF; border-radius: 4px; position: absolute; left: 0px; top: 0px; z-index: 0
+          div 容器 id=fw647:20642 | position: absolute; left: 7px; top: 7px; z-index: 1
+            img ? id=? | color: #6B6B6B
+        div 组 9059 id=fw647:20630 | width: 28px; height: 28px; position: absolute; left: 0px; top: 0px; z-index: 1
+          div 矩形 200 id=fw647:20633 | width: 28px; height: 28px; background: #FFFFFF; border-radius: 4px; position: absolute; left: 0px; top: 0px; z-index: 0
+          div icon-wrapper id=fw647:20631 | position: absolute; left: 8px; top: 8px; z-index: 1
+            img ? id=? | color: #6B6B6B
+        div dropdown-trigger id=fw647:20634 | width: 106px; height: 28px; display: flex; justify-content: flex-start; align-items: center; gap: 4px; padding-top: 5px; padding-bottom: 5px; padding-right: 8px; padding-left: 8px; border-radius: 4px; position: absolute; left: 68px; top: 0px; z-index: 2; overflow: hidden
+          img 容器 id=fw647:20635 | width: 14px; height: 14px; color: #6B6B6B
+          span 默认权限 id=fw647:20637 | color: #6B6B6B; font-size: 14px; font-family: MiSans; line-height: 22px
+      div 组 9925 id=fw647:20645 | width: 202px; height: 28px; position: absolute; left: 626px; top: 88px; z-index: 3
+        div 组 9826 id=fw647:20646 | position: absolute; left: 174px; top: 0px; z-index: 0
+          img ? id=?
+        ui-component dropdown-trigger id=fw647:20782 | width: 130px; height: 28px; display: flex; justify-content: flex-start; align-items: center; gap: 2px | props={"悬停":"false","激活":"false","禁用":"false"} | text={"默认":"DeepSeek-V4-Pro"}
+        div 组 9924 id=fw647:20649 | width: 28px; height: 28px; position: absolute; left: 138px; top: 0px; z-index: 2
+          div 矩形 15 id=fw647:20650 | width: 28px; height: 28px; background: #FFFFFF; border-radius: 4px; position: absolute; left: 0px; top: 0px; z-index: 0
+          div 容器 id=fw647:20651 | position: absolute; left: 5px; top: 5px; z-index: 1
+            img ? id=?
+  div 容器 253 id=1393:18682 | width: 840px; height: 40px; position: absolute; left: 164px; top: 4876px; z-index: 27
+    div 矩形 402 id=fw647:20695 | position: absolute; left: 0px; top: 0px; z-index: 0
+      img ? id=?
+    div 容器 id=fw647:20696 | position: absolute; left: 16px; top: 13px; z-index: 1
+      img ? id=?
+    div 容器 149 id=fw647:20700 | width: 315px; height: 22px; display: flex; justify-content: flex-start; align-items: center; gap: 8px; position: absolute; left: 38px; top: 9px; z-index: 2
+      ui-component text/text id=fw647:20776 | display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"执行第 2/5 个待办"}
+      img 圆形 3 id=fw647:20701 | width: 6px; height: 6px; color: #C4C7C9
+      ui-component text/text id=fw647:20770 | display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"游戏玩法策略构思"}
+      div 容器 146 id=fw647:20702 | display: flex; justify-content: flex-start; align-items: flex-start; gap: 6px
+        ui-component text/text id=fw647:20764 | display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"+1,256"}
+        ui-component text/text id=fw647:20758 | display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"-22"}
+    div 容器 id=fw647:20693 | position: absolute; left: 816px; top: 14px; z-index: 3
+      img ? id=? | color: #6B6B6B
+  ui-component text/text id=fw647:20893 | width: 640px; height: 16px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"2 轮 · 27 步 · LLM 3m36s · 工具调用 7.2s · 首 token 平均 0.8s · 159 tok/s · 缓存命中 96% · 输入 1M tok · 输出 31.1K token"}
+  div 容器 208 id=1393:18507 | width: 314px; height: 66px; position: absolute; left: 523px; top: 2046px; z-index: 29
+    span gienx-taskboard-kanban/package.json id=966:36295 | color: #3770F7; font-size: 12px; font-family: MiSans; line-height: 22px; position: absolute; left: 51px; top: 44px; z-index: 0
+    div 容器 176 id=966:36456 | width: 314px; height: 36px; display: flex; justify-content: flex-start; align-items: flex-start; gap: 4px; padding: 4px; background: #FFFFFF; border-style: solid; border-color: #E5E5E5; border-width: 1px; border-radius: 8px; box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.08); position: absolute; left: 0px; top: 0px; z-index: 1
+      ui-component Link id=966:36308 | display: flex; justify-content: flex-end; align-items: center; gap: 4px | props={"类型":"默认","状态":"默认"} | text={"文字链接":"复制链接"}
+      ui-component Link id=966:36489 | display: flex; justify-content: flex-end; align-items: center; gap: 4px | props={"类型":"默认","状态":"默认"} | text={"文字链接":"已复制"}
+      ui-component Link id=966:36343 | display: flex; justify-content: flex-end; align-items: center; gap: 4px | props={"类型":"默认","状态":"默认"} | text={"文字链接":"打开所在文件夹"}
+  div 容器 252 id=1393:18681 | width: 840px; height: 300px; position: absolute; left: 164px; top: 4090px; z-index: 30
+    div 直线 48 id=fw647:20329 | width: 840px; height: 0px; border-style: solid; border-color: #F2F2F2; border-top-width: 0px; border-bottom-width: 1px; border-right-width: 0px; border-left-width: 0px; position: absolute; left: 0px; top: 292px; z-index: 0
+    div 矩形 357 id=fw647:19756 | width: 840px; height: 300px; background: #F5F6F7; border-style: solid; border-color: #ECEEF2; border-width: 1px; border-radius: 8px; position: absolute; left: 0px; top: 0px; z-index: 1
+    div 容器 238 id=1393:18538 | width: 822px; height: 28px; position: absolute; left: 12px; top: 6px; z-index: 2
+      div 容器 236 id=1393:18536 | width: 209px; height: 22px; position: absolute; left: 0px; top: 3px; z-index: 0
+        div 容器 id=fw647:16429 | position: absolute; left: 0px; top: 3px; z-index: 0
+          img ? id=? | color: #1F1F1F
+        div 容器 168 id=fw647:19865 | width: 185px; height: 22px; display: flex; justify-content: flex-start; align-items: center; gap: 12px; position: absolute; left: 24px; top: 0px; z-index: 1
+          ui-component text/text id=fw647:19799 | display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"已编辑 18 个文件"}
+          div 容器 167 id=fw647:19864 | display: flex; justify-content: flex-start; align-items: flex-start; gap: 8px
+            ui-component text/text id=fw647:19812 | display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"+800"}
+            ui-component text/text id=fw647:19843 | display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"-125"}
+      div 容器 237 id=1393:18537 | width: 148px; height: 28px; position: absolute; left: 674px; top: 0px; z-index: 1
+        div Button id=fw647:19941 | width: 70px; height: 28px; display: flex; justify-content: center; align-items: center; gap: 4px; padding-top: 4px; padding-bottom: 4px; padding-right: 12px; padding-left: 12px; background: #FFFFFF; border-style: solid; border-color: #E5E5E5; border-width: 1px; border-radius: 8px; position: absolute; left: 0px; top: 0px; z-index: 0; overflow: hidden
+          img 容器 id=fw647:19969 | width: 14px; height: 14px; color: #1F1F1F
+          span 撤销 id=fw647:19943 | color: #1F1F1F; font-size: 14px; font-family: MiSans; line-height: 20px
+        div Button id=fw647:19948 | width: 70px; height: 28px; display: flex; justify-content: center; align-items: center; gap: 4px; padding-top: 4px; padding-bottom: 4px; padding-right: 12px; padding-left: 12px; background: #FFFFFF; border-style: solid; border-color: #E5E5E5; border-width: 1px; border-radius: 8px; position: absolute; left: 78px; top: 0px; z-index: 1; overflow: hidden
+          img 容器 id=fw647:19981 | width: 14px; height: 14px; color: #1F1F1F
+          span 审查 id=fw647:19950 | color: #1F1F1F; font-size: 14px; font-family: MiSans; line-height: 20px
+    div 容器 251 id=1393:18680 | width: 840px; height: 260px; position: absolute; left: 0px; top: 40px; z-index: 3
+      div 矩形 358 id=fw647:20095 | position: absolute; left: 0px; top: 0px; z-index: 0
+        img ? id=?
+      div 直线 48 id=fw647:20122 | width: 840px; height: 0px; border-style: solid; border-color: #F2F2F2; border-top-width: 0px; border-bottom-width: 1px; border-right-width: 0px; border-left-width: 0px; position: absolute; left: 0px; top: 36px; z-index: 1
+      ui-component text/text id=fw647:20123 | width: 47px; height: 22px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"store.js"}
+      div 容器 167 id=fw647:20189 | width: 63px; height: 16px; display: flex; justify-content: flex-start; align-items: flex-start; gap: 8px; position: absolute; left: 721px; top: 10px; z-index: 3
+        ui-component text/text id=fw647:20196 | display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"+800"}
+        ui-component text/text id=fw647:20190 | display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"-125"}
+      div 直线 48 id=fw647:20209 | width: 840px; height: 0px; border-style: solid; border-color: #F2F2F2; border-top-width: 0px; border-bottom-width: 1px; border-right-width: 0px; border-left-width: 0px; position: absolute; left: 0px; top: 72px; z-index: 4
+      ui-component text/text id=fw647:20210 | width: 38px; height: 22px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"app.js"}
+      div 容器 167 id=fw647:20215 | width: 40px; height: 16px; display: flex; justify-content: flex-start; align-items: flex-start; gap: 8px; position: absolute; left: 744px; top: 46px; z-index: 6
+        ui-component text/text id=fw647:20216 | display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"+12"}
+        ui-component text/text id=fw647:20221 | display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"-0"}
+      div 直线 48 id=fw647:20233 | width: 840px; height: 0px; border-style: solid; border-color: #F2F2F2; border-top-width: 0px; border-bottom-width: 1px; border-right-width: 0px; border-left-width: 0px; position: absolute; left: 0px; top: 109px; z-index: 7
+      div 矩形 359 id=fw647:20424 | position: absolute; left: 1px; top: 72px; z-index: 8
+        img ? id=? | color: #F5F6F7
+      div 容器 249 id=1393:18660 | width: 40px; height: 16px; display: flex; justify-content: flex-start; align-items: flex-start; gap: 8px; position: absolute; left: 744px; top: 82px; z-index: 9
+        ui-component text/text id=1393:18667 | display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"+12"}
+        ui-component text/text id=1393:18661 | display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"-0"}
+      ui-component text/text id=fw647:20234 | width: 54px; height: 22px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"app.json"}
+      div 直线 48 id=fw647:20257 | width: 840px; height: 0px; border-style: solid; border-color: #F2F2F2; border-top-width: 0px; border-bottom-width: 1px; border-right-width: 0px; border-left-width: 0px; position: absolute; left: 0px; top: 144px; z-index: 11
+      ui-component text/text id=fw647:20258 | width: 83px; height: 22px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"create-trip.js"}
+      div 容器 167 id=fw647:20263 | width: 63px; height: 16px; display: flex; justify-content: flex-start; align-items: flex-start; gap: 8px; position: absolute; left: 721px; top: 118px; z-index: 13
+        ui-component text/text id=fw647:20264 | display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"+800"}
+        ui-component text/text id=fw647:20269 | display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"-125"}
+      div 直线 48 id=fw647:20281 | width: 840px; height: 0px; border-style: solid; border-color: #F2F2F2; border-top-width: 0px; border-bottom-width: 1px; border-right-width: 0px; border-left-width: 0px; position: absolute; left: 0px; top: 180px; z-index: 14
+      ui-component text/text id=fw647:20282 | width: 50px; height: 22px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"detail.js"}
+      div 容器 167 id=fw647:20287 | width: 63px; height: 16px; display: flex; justify-content: flex-start; align-items: flex-start; gap: 8px; position: absolute; left: 721px; top: 154px; z-index: 16
+        ui-component text/text id=fw647:20288 | display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"+800"}
+        ui-component text/text id=fw647:20293 | display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"-125"}
+      div 直线 48 id=fw647:20305 | width: 840px; height: 0px; border-style: solid; border-color: #F2F2F2; border-top-width: 0px; border-bottom-width: 1px; border-right-width: 0px; border-left-width: 0px; position: absolute; left: 0px; top: 216px; z-index: 17
+      ui-component text/text id=fw647:20306 | width: 87px; height: 22px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"detail-diary.js"}
+      div 容器 167 id=fw647:20311 | width: 63px; height: 16px; display: flex; justify-content: flex-start; align-items: flex-start; gap: 8px; position: absolute; left: 721px; top: 190px; z-index: 19
+        ui-component text/text id=fw647:20312 | display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"+800"}
+        ui-component text/text id=fw647:20317 | display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"-125"}
+      ui-component text/text id=fw647:20330 | width: 70px; height: 22px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"favorites.js"}
+      div 容器 167 id=fw647:20335 | width: 63px; height: 16px; display: flex; justify-content: flex-start; align-items: flex-start; gap: 8px; position: absolute; left: 721px; top: 226px; z-index: 21
+        ui-component text/text id=fw647:20336 | display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"+800"}
+        ui-component text/text id=fw647:20341 | display: flex; justify-content: center; align-items: flex-start; flex-direction: column | props={"层级":"主要","标记":"False","块引用":"False","复制":"false","编辑":"false"} | text={"中电金信":"-125"}
+      div 矩形 219 id=fw647:20206 | width: 6px; height: 128px; background: rgba(0,0,0,0.16); border-radius: 6px; position: absolute; left: 830px; top: 4px; z-index: 22
+      ui-component icon-wrapper id=1393:18601 | width: 24px; height: 24px; display: flex; justify-content: center; align-items: center; flex-direction: column | props={"尺寸":"14"}
+      ui-component icon-wrapper id=1393:18607 | width: 24px; height: 24px; display: flex; justify-content: center; align-items: center; flex-direction: column | props={"尺寸":"14"}
+      ui-component icon-wrapper id=1393:18609 | width: 24px; height: 24px; display: flex; justify-content: center; align-items: center; flex-direction: column | props={"尺寸":"14"}
+      ui-component icon-wrapper id=1393:18610 | width: 24px; height: 24px; display: flex; justify-content: center; align-items: center; flex-direction: column | props={"尺寸":"14"}
+      ui-component icon-wrapper id=1393:18611 | width: 24px; height: 24px; display: flex; justify-content: center; align-items: center; flex-direction: column | props={"尺寸":"14"}
+      ui-component icon-wrapper id=1393:18612 | width: 24px; height: 24px; display: flex; justify-content: center; align-items: center; flex-direction: column | props={"尺寸":"14"}
+      ui-component icon-wrapper id=1393:18613 | width: 24px; height: 24px; display: flex; justify-content: center; align-items: center; flex-direction: column | props={"尺寸":"14"}
+  ui-component Button id=1393:18683 | width: 120px; height: 32px; display: flex; justify-content: center; align-items: center; gap: 4px | props={"类型":"次要按钮","种类":"标准","形状":"长方形","尺寸":"中","状态":"默认"} | text={"取消":"滚动到底部"}

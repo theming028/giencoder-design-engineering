@@ -1,0 +1,1 @@
+"{\"text\":\"完全访问\",\"textCol\":\"rgb(245, 63, 63)\",\"textInline\":\"color: var(--color-danger-6); line-height: 19px; flex: 0 0 auto; overflow: visible; text-overflow: clip;\",\"icoCol\":\"rgb(245, 63, 63)\",\"icoCls\":\"lucide lucide-lock size-[14px] shrink-0 r92-perm-danger\",\"expanded\":\"false\",\"menuOpen\":false,\"workdirTextCol\":\"rgb(78, 78, 78)\"}"

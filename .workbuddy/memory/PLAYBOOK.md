@@ -1516,3 +1516,1023 @@ var n=document.querySelector('.r85-page'), out=[];
 while(n && n!==document.documentElement){var s=getComputedStyle(n);
   out.push([n.tagName,n.className,s.backgroundColor,s.backgroundImage.slice(0,110)]); n=n.parentElement;}
 ```
+
+---
+
+## P3.19 r86 定稿：给**外壳渲染的**元素加约束 / 「DS 组件已内联但未启用」/ 内距反证法（四坑）
+
+> 对象 = r85 落地的「设置」页四条修订。补丁 `mg-work/r86/apply86.py`，验收 `mg-work/r86/acceptance.md`。
+
+### ① ★★★ 外壳（React）渲染的元素，改法 = `!important` 压内联 + 捕获阶段拦事件
+
+**现象**：`pages/settings.html` **源码里根本没有 `<aside>`** —— 它在 bundle 里由 React 组件挂载，
+宽度由 state 写成**内联 `style.width`**，右缘还挂着一条拖拽把手：
+`role="separator" aria-label="调整菜单宽度"` + `className="group absolute inset-y-0 right-0 flex w-1.5 cursor-col-resize …"`（实测 **6px**，紧贴 aside 右缘）。
+
+**判据**：先 grep 内联 `style="width` 与 `role="separator"`，**别看自己的 CSS 里的 `aside{width}`**（那是无效的）。
+
+**做法（两层，都不碰 React）**：
+
+```css
+aside { width: 256px !important; }                    /* 压住内联 style ⇒ 拖了也不动 */
+aside[aria-hidden='true'] { width: 0 !important; }    /* 收起态 —— 外壳 JSX 是 aria-hidden={!asideOpen}，收起时该属性才出现 */
+[role='separator'][aria-label='调整菜单宽度'] { display: none !important; }
+```
+
+```js
+['mousedown','pointerdown'].forEach(function(t){
+  document.addEventListener(t, function(ev){
+    if (ev.target.closest && ev.target.closest('[role="separator"][aria-label="调整菜单宽度"]')) {
+      ev.stopPropagation(); ev.preventDefault();   /* 捕获阶段 = true；双保险 + 挡掉拖拽时的文字选择 */
+    }
+  }, true);
+});
+```
+
+⚠ 外壳里本来就有 `asideDisabled` 概念（`asideDisabled: !(路由 === '/dev')`）—— **只有 `/dev` 禁用**，
+所以「设置页不能拖」不是外壳自带的，必须自己加。
+⚠ 折叠态选择器别写 `aside[aria-hidden="false"]`（false 时属性根本不出现，写它等于永不命中）。
+⚠ 宽度取**外壳默认值**（实测 `inlineW:256px`）—— 写死 256 的前提是外壳默认宽不变，改外壳时要同步。
+
+### ② ★★★ 新增控件前先 grep「DS 组件类名」——本轮那个 Select **早就内联在页面里，只是从没被用过**
+
+页面 bundle 里已带 `components.css` 的**全套**组件样式（含「=== Select 选择器 ===」**34 条规则** + popup 动效），
+但 r85 当时另写了 `.r85-sel` / `.r85-menu` 一整套手搓件 —— 邵先生要求「用设计系统的标准 select 组件」时才发现。
+**⇒ 铁律：要复用某控件前，先 `grep` 组件类名字面（`giencoder-select` / `giencoder-popup-open`…），
+命中就照 `giencoder-design-system/components/preview/component-<name>.html` 的官方 DOM 搭，别手搓。**
+
+**提交型判据**：手搓件删除要**连带删净 JS 函数与其唯一调用点**（本轮删 `.r85-sel` 4 条 + `.r85-menu` 4 条 +
+`openMenu()` + 调用点 + 无用 `hideMenu`），并**在 `DEAD_TOKENS` 里断言它为 0** —— 否则残留类名会在下一轮骗过自己。
+
+**组件本体一行不改**，差异走**适配层**（`body[data-r85-set] .r85-ctl > …`，3 条 CSS）：
+① selector `flex:none`（防被 `r85-ctl` 的 flex 拉伸）；② `view { padding-right:8px }`（见坑 ③）；
+③ `option:focus { background: var(--color-fill-2); outline:none }`
+（**组件本体只有 `:hover` 高亮，键盘导航时 `:focus` 无视觉 ⇒ 必须补**，否则 ArrowDown 移了个寂寞）。
+
+### ③ ★★★ 「DS 默认值 vs 设计稿」的取舍判据 + **宽度反证法**反推真实内距
+
+改完立刻截图就发现「标准模式」被截断（`textClientW 52 / textScrollW 56`）。根因：DS `padding:0 12px` 左右对称。
+加 `padding-right:8px` 后文字区 56px 正好容纳，箭头墨迹右距 **11px** ≈ 设计稿的 **10px**（比默认值更贴合设计稿）。
+
+★ **这个 8px 不是凑出来的，是被宽度等式锁定的**：
+
+```
+1(边框) + 12(左内距) + 56(文字) + 8(gap) + 12(箭头) + 8(右内距) + 1(边框) = 98  ← 与设计稿实测 98 完全吻合
+```
+
+⇒ **通用手法：拿「元素总宽 + 已知子件宽」反推未知内距**，比目测可靠，且能反过来给适配层定值。
+
+**取舍口径**（本轮按 DS 标准落地，差异已在 acceptance §三 列出请邵先生拍板）：
+
+| 项 | 设计稿 | DS 标准 | 处置 |
+|---|---|---|---|
+| 边框色 | `#F2F2F2`(border-1) | `#E5E5E5`(border-2) | 按 DS；要改设计稿各 1 行适配层 |
+| 圆角 | ~~≈6px~~ **（r87 更正：这是 2x 视图误读；设计稿实为 8px）** | 4px（`--border-radius-medium`）→ **r87 用户明确要求改 8px** | **已关闭**：r87 已把 `.giencoder-select-view` 定为 8px（`--border-radius-large`），与设计稿一致 |
+| 表面层 | 无投影 | `0 1px 2px #0f172a0a, 0 0 0 1px var(--select-ring)`，hover 消失 | **r87 已去掉那圈 `var(--select-ring)` spread**（它让边框视觉加粗），仅保留 `0 1px 2px rgba(15,23,42,0.04)` |
+
+用户说「用**设计系统的标准** X 组件」⇒ **默认按 DS 标准**，把与设计稿的差异**列成表请他拍板**，
+不要自作主张覆盖 DS 组件样式（那等于把「标准」二字作废）。
+
+### ④ ★ 两个自检脚本自身的坑（本轮踩到，全是**脚本**错不是页面错）
+
+1. **`JS_TMPL % {...}` 里的裸 `%`（取模运算符）撞上格式化占位符** ⇒ `TypeError: not enough arguments for format string`。
+   ⇒ 往 `%` 模板里塞 JS 时，**取模改用边界判断**（`next = cur+step; if (next>=n) next=0;`），别赌它不冲突。
+2. **新增注释里出现被 `DEAD_TOKENS` 断言的类名字面** ⇒ 脚本自检直接拒跑（本轮注释写了「r85 手搓的 `.r85-sel`」）。
+   ⇒ **老坑重犯**：断言 token 只管「不该再出现的旧类名」，那就**连注释都别写它**，改写措辞（「r85 手搓的那套自绘选择器」）。
+3. **`RAW` 指向本代 `raw/` 导致 `FileNotFoundError`**：本轮素材沿用 r85 导出 ⇒
+   `RAW = os.path.join(os.path.dirname(HERE), 'r85', 'raw')`（**上一代**目录），
+   ⚠ 但 `mg-work/r86/raw/` 仍留着空目录（git 不跟踪空目录，无害）。
+
+---
+
+## P3.20 r87 定稿：全局字号机制 / DS 源有**三份** / 「幂等脚本别把自己注入的块一起还原」（四坑）
+
+### ① ★★★ 本工程的「全局字号」杠杆**不是** `html{font-size}` —— 必须先做结构性取证再选方案
+
+| 通道 | 事实 | 结论 |
+|---|---|---|
+| 外壳（React 渲染的顶栏/侧栏） | 用**尾风 px 类**：`.text-sm{font-size:14px;line-height:20px}` —— **不是 rem** | `html{font-size}` 杠杆**不成立** |
+| 页面自绘 + DS 组件 | 走 `var(--font-size-*)`，token 在 `:root` 里是**字面 px** | 改 token 定义即可等比 |
+| 全站文字类总量 | 仅 6 种（`text-xs`12/16、`text-sm`14/20、`text-lg`18/28、`text-2xl`24/32、`text-[13px]`、`text-[11px]`） | 外壳逐条覆盖**有限可穷举** |
+
+⇒ 定稿方案 = **变量等比缩放**（邵先生答复「我不太懂，使用你推荐的方式」）。五条硬约束：
+
+1. `:root{--ui-fs:14; --ui-fs-ratio:calc(var(--ui-fs)/14)}` —— **`--ui-fs`/`--ui-fs-ratio` 只允许 `:root` 声明一次**，
+   否则会盖掉 `<html>` 上的内联值（内联与 `:root` **同特异性**，后写赢）。
+2. 首帧脚本必须写在 `<head>` 且用 `documentElement.style.setProperty('--ui-fs', …)` ⇒ 无闪烁。
+3. 覆盖规则**一律加 `body` 前缀** ⇒ 特异性高于任何后置的普通规则，**与脚本执行顺序无关**。
+4. 行高/高度**只在「自身声明了 token 字号」的规则内派生**；`height:Npx` 派生成**成对**的
+   `height:calc(Npx*R);min-height:calc(Npx*R)`（可逆、幂等）。
+5. **图标盒与布局盒刻意不跟随** —— 只缩放「文字相关」尺寸（否则整页会散架）。
+6. 6 档实测要做**等比断言**：导航高 = 36×k、select 高 = 32×k、分段高 = 40×k（k = px/14）——
+   这三条比「看起来变大了」可靠得多。
+
+### ② ★★★ DS 组件样式在仓库里有**三份**源 —— 只改一处会回潮
+
+| # | 位置 | 性质 |
+|---|---|---|
+| 1 | `giencoder-design-system/components.css` | 主源（美化、用 `var()`） |
+| 2 | `giencoder-design-system/gienx-templates/_shared/components.css` | **模板层副本**（`build.py` 复用）—— 极易漏 |
+| 3 | `pages/*.html` 内联副本 | 构建产物（PostCSS 已把 token 内联成**字面量**） |
+
+⇒ 改 DS 组件 = 3 份源 + 9 页 + `components/<slug>.json` 契约。**改完必须全仓 grep 断言零残留**：
+`grep -rn "<被删的变量名>" --include=*.css --include=*.html --include=*.json . | grep -v "^./mg-work/"`
+（r87 首轮就漏了第 2 份，靠这条 grep 抓回来。）
+
+### ③ ★★★ 幂等脚本**不能把自己注入的块一起 unscale**（本轮真 bug，会永久损毁）
+
+`apply87.py` 末尾原为 `out = scale_css(unscale(out))`，而 `out` 里已含 `<style id="r87-ui-css">`。
+该块里两类声明**所在规则不含 `var(--font-size-*)`** ⇒ `scale_block` 不会重新派生 ⇒ 被还原后**永久损毁**：
+
+| 声明 | 被还原成 | 后果 |
+|---|---|---|
+| 尾风 `.text-*` 的 `line-height:calc(Npx*R)` | 字面 `16/20/28/32px` | **外壳（React）放大字号时裁字** |
+| `.giencoder-select-view{min-height:calc(32px*R)}` | 字面 `32px` | **select 不跟着长高**（24px 档：按钮 54.8 vs select 38） |
+
+⚠ 只有这两个中招，`height:calc(...)` 那些**侥幸存活** —— 因为 `unscale` 的三条正则里
+`RE_SCALED_H2` 要求 `height+min-height` **成对**才匹配，`RE_SCALED_MH`/`RE_SCALED_LH` 只认裸的 min-height / line-height。
+⇒ **别用「跑两遍 sha 不变」当通过判据！它照样不变，因为损毁发生在第一遍。** 必须**逐条断言注入内容**：
+
+```python
+assert 'body .text-sm{font-size:calc(14px * var(--ui-fs-ratio));line-height:calc(20px * var(--ui-fs-ratio))}' in css
+assert 'body .giencoder-select-view{min-height:calc(32px * var(--ui-fs-ratio))}' in css
+```
+
+**修法 = `converge(css)`**：用哨兵把本代样式块**摘出** → 只对「其余 CSS」`unscale → scale` → 原样放回。
+**凡「固定点幂等 + 自己会注入块」的脚本都要走这条路。**
+
+### ④ ★★ 「改前/改后对照图」要用**元素截图**，别用全页截图
+
+全页截图在两次独立链路间会因**滚动位置 / 外壳高度**整体位移（r87 第一次做的对照图左右列错位 20px，
+肉眼以为「内容变了」，实际是截图偏移）。**元素截图自动裁到元素边界 ⇒ 天然同原点**。
+
+配套两条：
+- 用**像素扫描**验证两组图同原点（找某个特征色带的行范围，如导航选中底 `#ECEEF2` → 两次都必须是 76..111）。
+- 用**逐行 diff 分组**证明「只改了该改的地方」：r87 的 `.r85-page` 前后差异仅 **7 处**（全在右侧控件列），
+  `.r85-nav-host` 仅 **1 处**（系统选中文字）⇒ 比「看起来一样」强得多。
+
+```python
+d = (np.abs(np.asarray(before).astype(int) - np.asarray(after).astype(int)).max(axis=2) > 8)
+# 再按行分组打印 (行范围, 列范围, 差异像素数)
+```
+
+### ⑤ ⚠ 其他本轮小坑（速记）
+
+- `getComputedStyle(el)['--custom-prop']` **恒为 `undefined`** ⇒ 自定义属性必须 `getPropertyValue('--x')`（探针里漏写会静默丢字段）。
+- Windows 下 **`/tmp` 不存在** ⇒ 临时文件写仓内或 `mg-work/rNN/ev/`。
+- **单行压缩 bundle 上的正则量词必须写有界**（`[^{}]{0,300}?`）⇒ 无界回溯会跑到被 SIGTERM。
+- Pillow 合成脚本里坐标元组**索引极易写错**（`(title,l,t,r,b,k)`：高是 `r[4]-r[2]`，写成 `r[4]-r[3]` ⇒
+  `ValueError: Width and height must be >= 0`）。
+- `agent-browser screenshot "" <path>` = 全页；`screenshot "<sel>" <path>` = 元素（位置参数）。
+
+---
+
+## P3.21 r88 定稿：「可选子部件判空」/「拖拽事件挂 window」/「给 DS 组件加子元素先读 gap」（三坑）
+
+### ① ★★★ DS 组件里的**可选子部件**必须判空 —— 否则整页白屏，且症状极具误导性
+
+`ctlSelect` 里原来无条件写：
+
+```js
+suf.querySelector('.giencoder-select-clear').addEventListener('click', …);
+```
+
+该 select 设了 `c.noClear` 时 `.giencoder-select-clear` **根本不存在** ⇒ `querySelector` 返回 `null`
+⇒ `null.addEventListener` 抛 `TypeError` ⇒ 异常冒泡出 `buildArchPage()` ⇒ `.r85-page-host` 里**什么都没有**。
+
+**症状（本轮实测）**：页签能点、左侧导航正常、**只有内容区空白**；控制台无关键字可搜（`Ctrl+F` 找不到有效锚点）。
+第一次排查时怀疑过「宿主选择器写错 / 路由没命中 / 数据为空」，全是错的方向。
+
+**判据**：任何 `querySelector(…)` 后面直接接方法调用（`.addEventListener` / `.style.x` / `.textContent =`）都是嫌疑点。
+**修法**：`var el = …; if (el) { el.addEventListener(…) }`。
+⇒ 一般化为硬规则：**"可选子部件"（清空钮 / 箭头 / 角标 / loading 层）一律判空**。
+
+### ② ★★★ 拖拽的 `pointermove` / `pointerup` 必须挂 `window`，不是元素
+
+```js
+wrap.addEventListener('pointerdown', onDown);   // 只有 down 挂元素
+window.addEventListener('pointermove', onMove); // ★ move/up 挂 window
+window.addEventListener('pointerup', endDrag);
+window.addEventListener('pointercancel', endDrag);
+window.addEventListener('blur', endDrag);       // ★ 兜底
+```
+
+**为什么**：若 `setPointerCapture` 失败（合成事件、异常、浏览器差异），只挂 `wrap` 会在指针移出元素后
+**再也收不到 `up`** ⇒ `dragging` 永远卡在 `true` ⇒ 之后鼠标**划过滑块就误拖**（"拖不动"变成"乱拖"）。
+挂 `window` 时两种情况下都收得到。`blur` 兜底处理"按住时切换窗口"。
+
+配套（r88 的滑块修法）：
+- **命中层要够大**：旧实现把 `click` 挂在 `height:1px` 的 `.r85-sl-track` 上 ⇒ 实际只有 1px 能点中。
+  改成整块容器（252×36）+ **装饰子元素全部 `pointer-events:none`**。
+- `touch-action:none`（否则触控/笔会走滚动仲裁）；`cursor:pointer`。
+- **拖动中只改视觉，松手才落盘**（`setIdx` vs `fsApply(idx, true)`）⇒ 拖过 6 档只 toast 一次。
+- 键盘可达：`tabindex=0` / `role=slider` / `aria-valuemin|max|now|valuetext` / ↑↓←→·Home·End / `:focus-visible` 光圈。
+- ⚠ **验证拖拽别"按住鼠标跨 bash 调用"**：agent-browser daemon 会 SIGTERM（`batch` 与长链同样会崩）。
+  改为**单次 `eval` 内派发合成的 `PointerEvent` 序列** —— 因为 move/up 已挂 `window`，同一批处理器能收到，
+  等价性成立（实测 11 项：按下跳档 / 拖动更新 / 越界夹紧 / 松手落盘 / 松手后不误拖 / 点按跳档 / 键盘四键）。
+
+### ③ ★★ 给 DS 组件加子元素前，先读它的 `gap` / `padding`
+
+`.giencoder-select-view` 自带 **`gap:8px`**。r88 往下拉里插了个「文件夹图标前缀槽」，本意是
+`[10 内距][图标 16][6 间距][文字]`，实际被 flex `gap` 又撑开 8px ⇒ **文字整体右偏 9px**（对比设计稿逐段扫描才发现）。
+**修法**：`padding:0 8px 0 10px` + `.r88-sel-prefix{margin-right:-2px}`（用负 margin 抵掉 gap）⇒ 差 ≤1px。
+
+⇒ 一般化：**给 DS 组件加子元素 = 一次"几何再协商"**。先读该组件容器的 `display/gap/padding/box-sizing`，
+再决定是改 padding 还是用负 margin 抵消；**别默认 `gap` 为 0**。
+
+### ④ ⚠ 其他本轮小坑（速记）
+
+- **设计稿取数 scale 用 2.0**（本轮反复校验）：PNG **1680×1316 device** = 画板 **840×658 design**（整数）
+  ⇒ scale 恒 2.0；曾误用 2.011 导致 0.5% 系统偏差。四连校验：搜索/下拉高 64 device = 32 design；
+  内容区宽 1680 device = 840 design = **设置页内容盒宽**；行间距恒 148 device = 74 design。
+- **圆角只能"渲染候选 + SSD 拟合"定**（别用面积法一家之言）：搜索框顶边每行最左非白像素曲线拟合 r=14 device
+  （8 个深度残差 ≤0.5px）、卡片面积法 13.5、行尾钮 ~12 ⇒ 落 **6~7px**；DS **没有 7px 档** ⇒ 取 **6px**。
+  ⚠ 面积法在有文字/图标干扰的框上**极不稳**（同一搜索框 n=24 时给出 18.3 device）。
+- **"整页像素差"不能当验收判据**：r88 整页差 **3.16%**，但**全部来自字形**（字体族 + 子像素抗锯齿彩边），
+  结构件（框线/分隔线/按钮/图标位）**无整块差异**。⇒ 验收要看**结构件几何**（元素截图 + DOM 量测双证），
+  像素差只当"有没有大块错位"的粗筛。
+- **★ 内描边必须用 `outline` 而不是 `border`**：卡片 `outline:1px solid …; outline-offset:-1px`。
+  写 `border` 会让内容盒 840→838、整列 y 推低 2~3px（r85 踩过、r88 复述）。
+- **★ 带 token 字号的规则里别写裸 `height`**：`apply88b` 的 `scale_block` 会派生成 `calc(N×ratio)`
+  ⇒ 布局盒（空态框）改用 `padding` 撑高。**同理**：任何"必须固定不变"的尺寸也不该放进这类规则。
+- **`pages/*.html` 是 CRLF**：`ls`/`wc -c` 报 = **含 CRLF 的字节数**，Python 文本模式读会转 LF
+  ⇒ 字符数与字节数差异巨大（例：settings.html 452851 字符 / 470273 字节）**勿混用**。
+- **agent-browser**：CLI 绝对路径 `C:/Users/Administrator/.workbuddy/binaries/node/workspace/node_modules/agent-browser/bin/agent-browser.js`
+  （node 用 `…/node/versions/22.22.2-3/node.exe`；0.27.0；**不在 PATH**）；`eval` **每次量测前必须重新 `open`**
+  （否则 `Cannot read properties of null`）。
+- **超长链式 bash 命令**会报 `sandbox-center cmd decisionRecord missing actual resource subject` ⇒ 拆成单条命令。
+- 项目里**已装 4 个 skill**（`design-pixel-measure` / `css-pseudo-state-evidence` / `motion-primitives-port` / `mastergo-to-html`）；
+  本文档与它们的边界：**skill = 通用方法学，本文件 = 本工程踩坑留痕**。
+
+---
+
+## P3.22 r89 / r90 / r91 定稿：**小尺寸图标必须「按渲染尺寸建 1:1 网格」**（含取证配方）
+
+> 起因：邵先生报「图标 `r88-arch-mic` 有异常」（r89）→ 修完 12px 那份后，r90 又报「下拉前缀 `r88-sel-prefix` 也不对」。
+
+### ① ★★ 症状与根因
+
+| # | 症状 | 数值根因 |
+|---|---|---|
+| 1 | 图标**明显扁小** | 路径只占 11.5×8.6 单位，×0.75 后墨迹 **8.6×6.5px**；设计稿实测 **10.5×10px（近似方形）** |
+| 2 | 标签台阶**糊成一坨** | 用了斜边 `l1.3 1.6`（对角线仅 1.2px）；设计稿是**直角台阶** |
+| 3 | 描边**发虚**（1px 摊到 2 行像素） | `stroke-width:1.5` 单位 × 0.75 = **1.125px**，且坐标不落在半像素上 |
+
+⇒ 三条都是同一个根因：**图标的设计网格 ≠ 渲染像素网格**（16 单位 ≠ 12px）。
+
+**★ r90 追加的第 4 条（换了 1:1 网格之后仍会踩）**：
+
+| # | 症状 | 数值根因 |
+|---|---|---|
+| 4 | 竖线/横线**又细又虚**（明明 1px 描边却像 0.5px 的灰线） | 1px 描边的**中心线落在整数坐标**上（如 `x=2`）⇒ 覆盖 `1.5..2.5` ⇒ **摊成 k-1 与 k 两列各 50% 灰** |
+
+⇒ **中心线必须落 `x.5` / `y.5`**，这样 1px 描边恰好覆盖 `k..k+1`（一整列/一整行像素）。
+推论：**要左右对称（居中）且 1px 清晰，图形的外沿尺寸必须是偶数**（16 盒里墨迹宽取 13 这种奇数必然落半像素 ⇒ 只能要么接受虚、要么改成 14 或 12）。
+
+### ② ★★★ 定稿配方
+
+```
+viewBox = "0 0 N N"，渲染 N px，N = 图标的实际渲染尺寸   ⇒ 1 单位 = 1px
+坐标一律取 x.5（1px 描边正好盖满整数像素区间 k..k+1 ⇒ 整像素对齐，零抗锯齿）
+直角用 h/v（不用斜边；斜边在 12~16px 下必然发虚）
+stroke-width = 1（= 1px）
+外沿尺寸取偶数（才能左右对称 + 全像素对齐）
+```
+
+实测例（12px 的行内文件夹）：
+```js
+'<svg viewBox="0 0 12 12" fill="none">'
+  '<path d="M1.5 1.5h4v2h5v7h-9z" stroke="currentColor" stroke-width="1"/>'  /* 外框，标签直角台阶 */
+  '<path d="M1.5 5.5h9" stroke="currentColor" stroke-width="1"/>'           /* 中部横线 */
+'</svg>'
+```
+结果：墨迹 10×10（设计 10.5×9.75）、标签外宽 5px（设计 4.5~5）、横线在 icon-local `y=4`（设计 4）—— **全部 ≤0.5px**。
+
+实测例（16px 的下拉前缀文件夹，r90）：
+```js
+'<svg viewBox="0 0 16 16" fill="none">'
+  '<path d="M1.5 2.5h5v2h8v9h-13z" stroke="currentColor" stroke-width="1"/>'  /* x 中心线 1.5/6.5/14.5，y 2.5/4.5/13.5 */
+  '<path d="M1.5 7.5h13" stroke="currentColor" stroke-width="1"/>'            /* 中部横线（距图标顶 5，设计 5） */
+'</svg>'
+```
+结果：墨迹 14×12（设计 13×12 —— 宽多 1px 是「偶数才能对称对齐像素」的让步）、ASCII 墨迹图里**每列都是实心单像素、无灰边**。
+
+⚠ **同一个字形在不同渲染尺寸要各备一份**：本页 `i_folder`（16 网格，给渲染 **16px** 的 `.r88-sel-prefix`）与
+`i_folder12`（12 网格，给渲染 **12px** 的 `.r88-arch-mic`）**并存**。别图省事共用一个。
+
+### ③ ★ 图标比对取证配方（`mg-work/r88/ev/mic.py`）
+
+1. 从设计稿 PNG（2x）裁 icon 区域；从**元素截图**（1x）裁同一 design 坐标区域。
+2. **同倍率**对齐再目视：设计 14×，实现 **28×**（1x → 2x → 14x）⇒ 两边图标物理尺寸一致，一眼看出比例差。
+3. 同时打印 **ASCII 墨迹图**（`#` <110 / `+` <170 / `.` <225 / 空格），逐像素读几何：
+   ```
+   for y in range(h): row += '#' if lum[x,y] < 110 else ('+' if <170 else ('.' if <225 else ' '))
+   ```
+   ⇒ 这一步才能读出「标签是直角还是斜边」「横线在 40% 还是 46% 高」这类结论，缩略图目测绝对读不出。
+
+### ④ ★ 证明「只改了该改的地方」：逐行分组 diff（`mg-work/r88/ev/diffgrp.py`）
+
+比两张**同态**元素截图（同原点、同 840×658），按**连续行**分组、组内再按**连续列**分组打印：
+```python
+m = (np.abs(a - b).max(axis=2) > THR); rows = np.where(m.any(axis=1))[0]   # 再合并连续行
+```
+r89 实测：差异 3.648%，**16 个行组全部对应三项改动**（标题 1 / 卡片四角 2 / 7 个图标 / 6 条分隔线），零意外。
+★ 尤其有用：**「卡片圆角 r6→r8」只在 `y133..134` 与 `y655..656` 的 `x1-2,837-838` 出现 4 个像素**
+⇒ 一行就能证明「盒子没动，只动了角」。
+
+r90 实测：差异 1.562%，**10 个行组全部对应三项改动**（清空钮四角 2 / 下拉图标 1 / 7 行×2 按钮 7）。
+
+⚠ ★★ **做这个 diff 前必须确认视口足够高**：元素截图**超出视口的部分会渲染成空白**（r90 第一次跑出 7.478% 的假差异，
+真因是 `set viewport` 没设、`innerHeight 569` 而页面底在 743 ⇒ 后 3 行压根没画）。
+⇒ **截图前 `set viewport 1440 900`，并在同一链路 `eval window.innerHeight` 核对**。
+
+### ⑤ ★★ 按钮必须挂 DS Button 类名（邵先生 r90 定：**全局强制性要求**）
+
+正解三层：
+1. **基类 + 变体**：`giencoder-btn` + `-secondary`（中性描边，最常用）/ `-primary` / `-danger` / `-text` / `-outline` / `-dashed` + `-size-small|default|large` + `-icon`。
+2. **适配层只补几何**（用页面前缀类，如 `r88-arch-act` 叠在组件类之上）：尺寸 / 内距 / DS 没有的语义色（如「浅底危险」）。**不改组件本体**。
+3. **别覆盖 DS 已有的外观属性**：圆角、描边色、hover 底色、FF 表面层动效全部由组件给。
+
+⚠ ★ **动手前先查 `r73-radius-css`（全站按钮圆角块）**：
+```css
+.giencoder-btn:not(.giencoder-btn-size-small) { border-radius: 8px; }   /* 非 small 档提到 8px */
+```
+⇒ 全站口径是「**large 8px / small 4px**」。**不要再按设计稿去压 6px**（那会与全站按钮不一致）。
+⚠ DS 基类自带 `border: 1px solid transparent`（**占 2px 宽**）⇒ 想凑设计稿的整数宽度时，内距要减 1（如 `padding: 0 11px` 得 108 宽，而 `0 12px` 得 110）。
+⚠ **展开/变化态的高度只写 `min-height`、别写 `height`**：组件给的是固定 `height`，而 CSS 里 min-height 优先于 height ⇒ 两者共存即「默认跟组件、态内自定」；且**故意不加 `body` 前缀**（低特异性），好让 `apply88b` 的 `body …` 版派生接管做字号跟随。
+
+### ⑥ ★★ 同一个控件里「图标」与「文字」要不同深浅 ⇒ **把 `color` 下移到 `svg`**
+
+DS 按钮的 `color` 控制的是整个按钮（含内联 svg 的 `currentColor`）。当需求是「图标浅一档、文字保持原样」时，
+**不要改按钮的 `color`**，而是：
+```css
+.r88-arch-act > svg { color: var(--color-text-2); }   /* 只作用图标 */
+/* 按钮 color 保持 DS 的 --color-text-1 ⇒ 展开态的文字仍是设计稿值 */
+```
+★ 之所以能这么拆，是因为该按钮的**默认态只显示 svg、hover 态 svg 被 `display:none`**（图标→文字的形态切换）。
+⇒ 判据/反证：**逐行分组 diff 里"被 hover 的那一行"不应出现在差异中**（它的 svg 已 `display:none`）。
+
+### ⑦ ★★ 元素截图内取色：**坐标 = 元素内相对坐标**，且「等于容器底色」才叫「无底」
+
+`screenshot "<sel>"` 的原点 = **元素左上角**（不是视口原点）。r91 我第一次沿用视口坐标，
+取到的全是「空隙 / 相邻元素」的像素，读出 `(244,245,246)` 还误判成「hover 过渡未收敛」——
+其实那就是 aside 自己的底色 `#F4F5F6`。**正解**：先 `eval` 打一次
+「`el.getBoundingClientRect()` − 容器 `rect`」的差值，拿到元素内相对坐标再取值。
+
+★ **「默认不给背景色」的取证判据** = **取到的像素 == 容器自身的底色**（本例 `(244,245,246)`），
+判定前必须先量一次容器底色，否则「透明」和「浅灰底」在截图里长得一样。
+★ 量化「三处底色一致」= 在**同一相对坐标**上分别截三种状态，断言像素元组**逐通道相等**。
+★ ⚠ 取色点在控件内要**避开图标与文字**（本例取 `y = 项垂直中心`、`x = 远离左内距的空白处`）。
+
+---
+
+## P3.23 r92 定稿：**改压缩 bundle 里的 React 源** / 装饰背景图 / 后置 CSS 的两个盲区（六坑）
+
+> 起因：邵先生四条 —— ①顶栏加装饰背景图 ②返回钮图标+文字深一级 ③aside 组标题左距 12px ④「完全访问」转红。
+
+### ① ★★★ 「给 React 渲染的元素加新色」的唯一两条路
+
+后置 CSS 有**两个盲区**，踩了就白干：
+
+| 盲区 | 现象 | 判据 |
+|---|---|---|
+| **尾风任意类** | `className="… [color:var(--color-text-1)]"` | 任意类是**构建期产物** ⇒ 新增 `[color:var(--color-danger-6)]` 这个类名**不会进产物 CSS**，写上去等于没写 |
+| **内联 style** | `style={{ color: … }}` | 内联优先级最高 ⇒ CSS 覆盖需 `!important`（而 `!important` 又会被同层 `!important` 抢） |
+
+⇒ 只有两条路：
+1. **挂自定义类**（不走尾风）：改 React 源把 className 尾巴换成 `r92-perm-danger`，再由注入块给 `.r92-perm-danger{color:var(--color-danger-6)}`。
+2. **直接改内联值**：改 React 源里那个 `style={{color: …}}` 的三目，取 `var(--color-danger-6)`（**内联里写 `var()` 是合法的**，只要变量在 `:root` 有值）。
+
+★ 判据：想给**任何** React 条件渲染的部件换色，先 `grep` 它的色是「类」还是「内联」——
+是类就查这个类名在产物 CSS 里存不存在（`grep '\[color\:var' pages/x.html`），不存在就必须走第 1 条。
+
+### ② ★★ 就地改压缩 React 源的幂等配方（`replace_once` + `inject_tail`）
+
+先例：r77 需求 3（改版权行序）、r92 ④（改权限触发器）。抄 `mg-work/r92/apply92.py` 头部的两个工具函数即可。
+
+```
+replace_once(path, OLD, NEW, label, mark=NEW)   # NEW 命中 ⇒ skip；否则断言 count(OLD)==1 再替换
+inject_tail(path, style_id, css, label)         # 见 ③ 的 </body> 陷阱
+```
+
+* **锚点必须长到唯一**：取「左邻 + 目标 + 右邻」一整段（本例含 `` `size-[14px] shrink-0 `+ `` 与 `,children:s}`），跑前 `print(s.count(OLD))` 确认 =1。
+* **三目式改法**：`X?A:B` → `新条件?新值:(X?A:B)`（**保括号**，否则 `?:` 右结合会让原逻辑走样）。
+* ⚠ 锚点里**不要含会被 `apply88b` 派生的 `line-height:Npx` / `height:Npx`** 之外的数值 —— 实际拿 `var()` / 类名最安全（本轮两个新锚点都零 px）。
+
+### ③ ★ `inject_tail` 别断言 `count('</body>') == 1`
+
+`base.html` 的 r76 CSS **注释里也出现过一次** `</body>`（讲「落点必须在 `</body>` 前」那段说明）⇒ 全文 2 处，直接断言 =1 会误报。
+**正解**：`idx = s.rfind('</body>')`，并要求 `len(s) - idx < 80`（后面只剩 `</html>`）⇒ 才是收尾标签。
+（断言仍保留 `count('<style')` / `count('</style>')` 各 **+1** 的标签级自检。）
+
+### ④ ★★ 装饰背景图：素材必须先量「底色 / 点阵 / 平底占比」，再决定铺法
+
+`assets/images/bg-img-1.png` 实测（`mg-work/r92/ev/img-analyze.py` + `dot-size.py`）：
+
+| 项 | 量法 | 本轮结果 |
+|---|---|---|
+| 尺寸 | `Image.size` | 1580×134 |
+| 平底 / 平底占比 | 沿 `y=h/2` 扫「明显偏离底色的第一列」 | `#F6F8FA`，占 **67.5%** |
+| 点阵色 | 沿右缘取最暗像素 | `#DDE3EB` |
+| 点径 / 点距 | 沿一行做**游程（run-length）** | **4px 点 / 8px 隙**（8px 网格） |
+| alpha | `getchannel('A').getextrema()` | 全 255（**不透明**）⇒ 会整块盖住元素自身底色 |
+
+★ **「居右、不重复」= 只给 `background-image` / `background-repeat` / `background-position`，不写 `background-size`**（默认 `auto` = 原尺寸）。要「缩到元素高」才写 `auto 100%`。
+★ **不透明素材 + 底色 ≠ 元素底色 ⇒ 一定会有接缝**：本轮 Δ=(2,3,4)（1920 视口实测在 x=340）。判定接缝位置：`元素宽 − 素材宽`（右对齐）。
+★ **范围要按「底色分组」定，不能按「页面名」猜**：基础工作台顶栏 `#F4F5F6` 与素材平底接近 ⇒ 落 5 页；研发工作台顶栏 `#E5EDF5` ⇒ 铺上去会抹掉蓝调 ⇒ 不落。
+★ **横向验证「哪些页有 / 哪些页没有」**：一次 `for pg in 9页` 的链路，每页 `eval` 同一个探针（`bgi / rep / pos / size / bgc`）⇒ 一表看清范围。
+
+### ⑤ ★★ 裸 `header` 标签选择器会误伤（本工程有两页各含 3~4 个 `<header>`）
+
+```
+avatar.html      : header × 5  （外壳 + av-main-head + av-hs-bar + td-right-bar + td-browse-bar）
+task-detail.html : header × 4  （外壳 + td-bar + td-right-bar + td-browse-bar）
+```
+⇒ 一律用 `header[class*="h-12"]`（外壳顶栏独有的尾风类）。**改任何「外壳部件」前先 `querySelectorAll` 数一遍同名标签。**
+
+### ⑥ ★ 探针命中的「同名业务类」要先枚举
+
+`.ws-dropdown-hover` 在 base.html 里**有 2 个**（工作目录 / 默认权限），`querySelector` 返回第一个 ⇒
+第一版探针全打在「工作目录」上，5 个态的读数**全是错的却彼此自洽**（这最危险）。
+**正解**：先跑一次 `ev/p92-which.js` 枚举所有候选（打印 `text` / `parentStyle` / `icoCls`），再用 `:has(<独有特征>)` 精确定位（本例 `.ws-dropdown-hover:has(svg.lucide-lock)`）。
+
+### ⑦ ★ 大文件上别用 `difflib.SequenceMatcher`
+
+500KB 单行 bundle 上 `SequenceMatcher.get_opcodes()` 会跑到 **SIGTERM**（等不到结果）。
+**正解**：先按已知**注入块 id** 把本代块 `re.sub` 摘掉，再用「**公共前缀 / 公共后缀**」定位剩余改动窗口 ——
+窗口长度 <1KB 时直接 `print` 出来人工核；窗口 == 0 就是「逐字节相同（除注入块外零改动）」，
+这比行级 diff **更强**的断言（本轮 3 页直接证到逐字节相同）。
+
+---
+
+## P3.24 r93 定稿：**字号机制的特异性反噬** / **设计稿「状态变体」是叠放的** / **`ui-component` 不带字号** / **独立页 + 纯 CSS 复用外壳真组件**（七坑）
+
+> 起因：邵先生两条 —— ① aside 分组标题行高被改坏（应 32px）② 点会话标题后 main 展示会话详情，按设计稿 `1393:18748` 像素级还原。
+
+### ① ★★★ 给「字号机制」加规则后，必须重查它对任意值工具类的**特异性反噬**
+
+`<style id="r87-ui-css">` 里写的是 `body .text-xs{font-size:…;line-height:…}` —— 特异性 **(0,1,1)**。
+而尾风 arbitrary 类 `.leading-\[32px\]{line-height:32px}` 只有 **(0,1,0)** ⇒ **机制层赢了**，
+aside 分组标题（`text-xs leading-[32px]`）行高 32 → **16**，整行腰斩（邵先生报的就是这个）。
+
+两条修法，缺一不可：
+
+1. **让位**：机制层给 size 类派行高时挂 `:not([class*="leading-"])` ⇒
+   `body .text-xs:not([class*="leading-"]){line-height:…}`（显式声明过 `leading-*` 的元素不再被派生）。
+2. **补齐**：对要支持的 arbitrary 行高补一条**同特异性**的派生规则，**写在 text-\* 之后**（同 (0,1,1)，后写者胜）：
+   `body .leading-\[32px\]{line-height:calc(32px * var(--ui-fs-ratio))}` 等（本轮三个档：19 / 22 / 32）。
+
+★ **判据泛化**：凡是「全局机制层用 `body .cls` 覆盖工具类」的写法，都要先列出**同元素上还会出现的单类 arbitrary 工具类**，
+逐条确认谁赢；赢错了就「让位 + 补齐」两步走。**症状好认**：某个元素高度/行高**恰好等于另一个属性档位的值**（32→16 = text-xs 的基准行高）。
+
+### ② ★★★ 设计稿导出图里「**状态变体是叠放的**」⇒ 绝对 y 不可信
+
+MasterGo 导出时，**同一个折叠块容器内会同时叠放「折叠态」与「展开态」两个变体**：
+
+```
+容器 187 T358 H218 ├─ 折叠状态 T0  H22
+                    └─ 展开状态 T34 H184   ← 真机只有这个
+```
+
+⇒ **真机块高 = 容器高 − 变体偏移**（本轮恒为 **34**，逐块固定、**不累积**）；
+容器之间的 top 差仍是 12/16/24 的正常间距序列（**间距可直接信**）。
+
+**正解**：① 量「间距」直接读容器 top 差；② 量「块高/总高」必须 `容器高 − 34` 逐块累加。
+本轮去掉 offset 后设计真机内容总高 **4106px**，与实机实测 **4106px** 完全一致 —— 这一步是「数值对不上」的真正分水岭。
+
+★ **症状**：实机每一块都比设计稿**恰好少一个恒定值**（本轮 34）；导出 PNG 的绝对 y 直接当坐标会得到"每块被推低 34px"的错觉。
+
+### ③ ★★ `ui-component` 是**不带 font-size 的纯框** ⇒ 字号必须三角验证
+
+设计稿 DSL 里的 `ui-component` 只有 `width/height`，**没有 font-size**。单看框高会把 **12/20 误判成 14/22**
+（本轮初版统一写 14/22 ⇒ 上下文注入 190(应150)、SKILL 90(应64)、深度思考 222(应200)、网页搜索 200(应184) 全错）。
+
+**三角验证**（三条证据互锁）：
+1. **框高**：`卡高 = 上下 padding + n 行 × 行高` ⇒ 反解行高（例：SKILL 64 = 24 + 2×20）；
+2. **PNG 墨迹行中心距**：扫文字行带求 Δ（例：Bash 卡 Δ16.5/16/16… ⇒ 行高 16）；
+3. **已知文本宽度 ÷ 当量字符数**：全角字按 1、半角按 ~0.5 折算（例：「你要把「任务看板」加到哪个左侧菜单？」252px ÷ 18 全角 = 14px）。
+
+★ 三者交叉后才敢定；**只对得上两条时优先信 1 + 3**（PNG 行距受抗锯齿影响 ±1）。
+
+### ④ ★ 私有区图标字符（U+F0xxx）在实机**无字形**
+
+导出图里看起来是「图标」的方块，可能只是 **Nerd Font 把私有区码点渲染出来的符号**（本轮深度思考卡的列表序号被渲染成 `󰀐`）。
+实机字体没有这个字形 ⇒ 退化成**豆腐块** + **改变折行数**（多折 1 行把卡撑高 22px）。
+
+**正解**：拿 PNG **裁图放大看清**那一格到底是什么（本轮看清是 **「1. 2. 3.」**）⇒ 改成有序列表**纯文本**。
+★ 泛化：设计稿里的任何"图标"，先用裁图确认「是矢量图形 / 是 emoji / 是私有区码点 / 就是普通文字」，再决定实现方式。
+
+### ⑤ ★★ 暗色适配：字面白底一律换 `var(--color-bg-2)`
+
+注入块里写死的 `background:#FFFFFF`（本轮 11 处）与浅灰卡底 `#F5F6F7` 在 `[giencoder-theme='dark']` 下会**整片白屏**。
+**正解**：白底统一换 **`var(--color-bg-2)`**（浅 `#fff` / 暗 `#232324`，**浅色视觉零变化**）；
+其余设计稿实测色（`#F5F6F7` / `#E5EDFE` / `#FFF3E8` …）全部提为页面级 `--rNN-*` 变量并**补一份暗色档**。
+★ 判据：新写进页面的每一个字面色，都要能回答「暗色下它变成什么」；答不上来就提变量。
+
+### ⑥ ★ 字体度量差异会改**折行数**，用 `min-height` 保卡高
+
+同一段文案，设计稿字体（MiSans）比实机字体（Mona Sans）宽 ⇒ 设计 5 行、实机 4 行（本轮上下文注入卡）。
+**正解**：卡上给 `min-height`（本轮 150px）保高，**不要靠 `max-width` 硬凑折行**（会破坏横向对齐）。
+
+### ⑦ ★★ 独立成页 + **纯 CSS 复用外壳真实组件**（r93 ④）
+
+**A. 「要不要做独立页」的判据 —— 先看本工程的路由架构**
+
+`pages/` 下**每一个页面都是完全自包含的独立 html**（顶栏 + aside + 外壳各一份），**没有共享布局、没有真实客户端路由**，
+页间跳转 = 每页内嵌 `ROUTE` 表 + `hashchange`（见 HANDOFF 第十节）。
+⇒ 问「某视图该不该独立成页」时：
+- **页内切换**（同一个页面里换内容区）：适合**同一工作台的并列视图**，切换成本低、能保留 aside 选中态；
+- **独立成页**：适合**语义上是"另一件事"**的视图（本工程 r93 ④ 会话详情就是）；代价是要**再复制一份整套外壳** + 处理路由。
+
+**B. 新页体位：由「源页净底」重建，**不要复制**
+
+```
+net = strip_all(源页, 摘掉本代注入块)          # 净底 = 唯一来源
+new = net 换 <html data-rNN-page=slug> + <title>
+new = inject_tail(new, 本页 CSS + 本页 JS)
+源页 = inject_tail(net, 只留「点 X ⇒ 跳 new」的 nav 脚本)
+```
+两边同源于 `net` ⇒ **两页各自重跑都幂等**（第二遍「已是目标态」）；`apply93.py` 即此。
+⚠ **新页的注入块 id 必须唯一**（`r93-conv-css` / `r93-conv-js`）：`converge()` 靠块 id 识别「自己注入的块」并原样跳过，重名会互相误判。
+
+**C. 复用「外壳真实组件」= 纯 CSS 改视觉顺序（零复制、零重绘）**
+
+不给 React 源动刀、也不把组件 HTML 抄一遍，而是**把真组件留在原地**，用页面级选择器把**它所在的 hero 容器**改成「贴底、无问候语、无页脚」，再把**自己的宿主**用 `order:-1` 提到它前面：
+
+```css
+html[data-rNN-page='slug'] .rNN-host { order:-1; flex:1 1 auto; min-height:0; overflow:hidden; }
+html[data-rNN-page='slug'] main > div > div.flex-1.justify-center { flex:0 0 auto!important; justify-content:flex-end!important; padding-bottom:12px!important; }
+html[data-rNN-page='slug'] main > div > div.flex-1.justify-center > .pointer-events-none { display:none!important; }  /* 问候语 */
+html[data-rNN-page='slug'] main > div > div.flex-1.justify-center > div.mt-8 { margin-top:0!important; }
+html[data-rNN-page='slug'] main > div > div.pb-6 { display:none!important; }                                          /* 版权页脚 */
+```
+- **宿主内只保留"真组件没有的要素"**（本轮状态条 + agent 卡），**把与真组件重复的要素整段删掉**（自绘输入卡的 textarea/工具条/发送钮）；
+- ★ **判据 = 最终视觉顺序必须等于设计稿**（本轮：内容 → Token 速率 → 滚动到底部 → 状态条 → agent 卡行 → **真输入卡** → 工作目录/权限行）。
+
+**D. ★ 钉在容器底部的真组件，其弹层要「翻向」**
+
+真 select 默认**向下**弹（`top:calc(100% + 4px)`）；容器若是有 `overflow:hidden` 的 `main` 底部 ⇒ 弹层被裁
+（本轮实测「默认权限」popup y 871..997、main 底 892，只剩 21px）。页面级适配：
+
+```css
+html[data-rNN-page='slug'] .giencoder-select-popup,
+html[data-rNN-page='slug'] [aria-label='权限选择'] { top:auto!important; bottom:calc(100% + 4px)!important; }
+```
+⚠ `calc(100% + 4px)` 含 `%` ⇒ **不会被 `apply88b` 的 `unscale()` 改坏**（它只认 `calc(<数字>px * var(--ui-fs-ratio))` 或裸 `Npx` 结尾）；
+⚠ **不要**用内联 `style.display` 改开合（见 MEMORY 硬规则 6）。
+
+**E. 路由改动的三个必查**
+1. **`ROUTE` 表**：**全部页**（含新页自身）各插一条 —— 幂等 `replace_once` + **counted 断言恰好 1 次**；
+2. **顶栏页签**（`SHELL-TABS-FIX v4` 的 `DEV_PAGES`）**要不要跟着改**（本轮 conversation 不在 `DEV_PAGES` ⇒ 「基础工作台」页签在它上面是空操作，**符合预期**）；
+3. **`--revert` 四件套**：新页文件 + 源页 nav 脚本 + N 页 `ROUTE` 条目 + 相关快照，一起退干净。
+
+---
+
+## P3.25 r94 定稿：**改容器宽度要「内容盒守恒」** / **「用户说的容器」未必是血统所在** / **门禁会扫注释**（五坑）
+
+> 起因：邵先生 5 条 —— ① `r93-seg-cap` 在页头居中 ② `r93-wrap` 宽 = main 的 50%（min 860） ③ 对话框只留输入卡本体
+> ④ `div.mt-8` 内的波点全去 ⑤ `r93-card--ctx` 最高 240 内滚、去掉 `r93-vsb` 假滚动条。
+
+### ① ★ 从设计稿量出来的**固定 `left/top` 值，不能当响应式定位用**
+
+`.r93-seg-cap` 原本 `left: 396px` —— 那是按设计稿 **1168 宽面板**量的绝对值。在 1440 视口下恰好像居中，**换视口立刻跑偏**。
+⇒ 凡「居中」需求，一律 `left: 50%; transform: translateX(-50%)`（垂直同理 `top:50% + translateY`）。
+★ 判据：量到的 `左距` 与 `右距` **不相等**（本轮 396 vs 389，差 7px）就说明它是"量的"而不是"算的"。
+⚠ `translateX(-50%)` 含 `%` ⇒ 不会被字号机制层的 `unscale()` 正则误改（见 P3.24⑦D）。
+
+### ② ★★ 改容器宽度时，**内容盒必须守恒**（`box-sizing` + 对称 `padding`）
+
+需求是「`r93-wrap` 宽度 = main 的 50%、最小 860px」，但**内容块（气泡 728 / 卡 822 / full 840）是设计稿固定宽**。
+直接改容器宽 ⇒ 固定宽子元素**左对齐** ⇒ 整体偏移 `(860 − 840) / 2 = 10px`。
+
+**正解**：容器 `width:50%; min-width:860px; box-sizing:border-box; padding:32px 10px 24px;`
+⇒ 容器 860、**内容盒仍是 840 且居中** ⇒ 内容横向**零位移**（本轮实测 `bub [537,…]` / `card [443,…]` 与改前完全一致）。
+
+★ 泛化：**「容器变宽/变窄」类需求，先问「里面有没有固定宽子元素」**；有 ⇒ 用对称 padding 把内容盒保回原宽，
+别让它们跟着容器跑（否则整块内容偏左/偏右，用户下一轮还会提）。
+
+> ⚠ **r95 后续 —— 本条已被取代**：用户下一轮直接说「`r93-card` 这类容器**右侧要撑满**」⇒ 正解是**把固定宽改成流式**
+> （`calc(100% - 18px)` / `100%`），**不是**用 padding 保住旧内容盒。对称 padding 只适合「用户明确要求横向零位移」的
+> 过渡场景；**长期方向一律流式**。细则见 **P3.26**。
+
+### ③ ★★ 「用户说的那个容器」**未必是元素的血统所在** —— 先实测再动手
+
+需求原话是「`mt-8 flex w-full flex-col items-center gap-2` **容器内**的波点元素全部去掉」。
+实测该容器**只有 1 个子元素**（composer 外壳），**根本没有波点子节点** —— 用户看到的「波点」其实来自
+**`main.dot-bg` 本体 + `main.dot-bg::before`**（全页仅这两处 `radial-gradient`，容器背景是透明的，点阵透过来）。
+
+**正解**：先跑「血统探针」（枚举容器的 `children` + 全页扫 `background-image` 含 `radial-gradient` 的元素），
+**确认真正的来源**，再决定改哪一层；同时**在汇报里说明「你说的容器里没有该元素，真源在 X」**，别闷头改错对象。
+
+### ④ ★ 「假滚动条」换成真 `overflow`，但**别把 popover 裁掉**
+
+设计稿常画一根**绝对定位的色条**冒充滚动条（本轮 `.r93-vsb`，5 处）。要「溢出内滚」时：
+
+```css
+.r93-card--ctx { min-height: 150px; max-height: 240px; overflow-y: auto; overflow-x: hidden; }
+```
+并**删掉色条**（CSS 规则 + 全部 DOM）。
+⚠ **只给「纯文本卡」加 `overflow`** —— 本工程 `.r93-card` 基类**刻意不写 overflow**（卡内文件路径的 hover popover 要溢出卡片，见 r93 ②）；
+给这类卡加 `overflow:auto` 会把浮层切掉。
+
+★ **溢出取证的正确姿势**：**运行时不落盘**地塞一份重复内容 ⇒ 读 `scrollHeight / clientHeight / scrollTop`，测完 `removeChild`。
+（本轮：`150/150` → 塞双份 → `244/240`、`scrollable:true`、`scrollTop` 可达 4 ✓）
+
+### ⑤ ★★ 门禁**会把你注释里的 CSS 关键词也算进去**
+
+r94 首跑 `verify-design` 时报 conversation 的「渐变处数」**62 → 63**，与基线 diff 非零。
+根因：我在新写的 CSS 注释里用了 **`radial-gradient`** 这个词（扫描器按关键词计数，不看它是否在注释里）。
+
+**正解**：新注释**别写字面关键词**（`gradient` / `font-size:` / 色值 …），改用人话描述（本轮改成「装饰层」）。
+★ 这是「**新增注释里不得出现被断言的 token**」这条老规则的**门禁版**——断言对象是自己的脚本，门禁是外部的扫描器，
+两者都要防。改完**必须与基线逐条 diff 归零**再收工。
+
+---
+
+## P3.26 r95 定稿：**「右侧撑满」= 固定宽改流式** / **`overflow` 滚动条占宽会让同页多列不同轴**（五节）
+
+> 起因：邵先生 2 条 —— ① 「类似 `r93-card r93-card--ctx` 这种容器的右侧要撑满」
+> ② 「底部对话框相关的内容模块也要自适应撑满」。**就地在 `mg-work/r93/apply93.py` 返工**（r93 未提交）。
+
+### ① ★★ 「某容器右侧要撑满」的通用解法 = **固定像素宽 → 流式**
+
+**先量再改**：把「用户点名的容器」与「页面里**不可能被改动的锚元素**」（本轮 = composer 外壳）的**右边界**都量出来，
+Δ ≠ 0 就是「没撑满」。本轮 1440 实测三组元素三条线：
+
+| 组 | 元素 | 右边界 |
+|---|---|---|
+| 内容 | `.r93-card--ctx` / `.r93-card--full` / `.r93-bub` / `.r93-todocard` | 1265 |
+| 底部 | `.r93-sb` / `.r93-cp`（`width:840px; margin:0 auto`） | 1270 |
+| 对话框 | composer `outer` / 输入卡 | **1280** |
+
+**正解**：整列改流式 —— `width: 100%`；**要保留设计稿左缩进的写 `calc(100% - 18px)`**（缩进留在 `margin-left`）。
+★ 用户说「**右侧**要撑满」= 左侧缩进/对齐**要保留**、只把右边顶满 —— **别顺手把左边也拉平**。
+★ 底部列与对话框外壳要**一起改成同口径**：本轮 `.r93-bottom` 加 `width:50%; min-width:860px; box-sizing:border-box; margin:0 auto`
+＋ 子项 `width:100%; margin:0`；**React 渲染的外壳**用 `width:50% !important; min-width:860px !important` 覆盖 Tailwind 写死的定值。
+★ 同页「网格类卡片」（本轮产物卡 `414px`）也要跟着流式（`calc(50% - 6px)`），否则两列合起来仍差 20px 顶不到右边。
+
+### ② ★★ `overflow` 容器的**滚动条会占宽** ⇒ 同页多列不同轴（本轮真凶）
+
+`.r93-scroll` 出现滚动条后**内容盒收窄**（本轮单侧 10px）⇒ `margin:0 auto` 的内容列相对**没有滚动条**的
+底部列 / composer **偏左半个滚动条宽**（实测 5px，肉眼像"没对齐"、极难猜到根因）。
+
+**正解**：给滚动容器加 **`scrollbar-gutter: stable both-edges;`** ⇒ 两侧各让等量 gutter，内容**恒居中**
+（实测 `offsetWidth 1162 → clientWidth 1142`；wrap 左边界 **415 → 420**，与底部/对话框同轴）。
+★ 附带好处：**无滚动条时同样保留 gutter** ⇒ 有/无滚动条两种状态**同轴**，不会跳。
+★ 自检口诀：量 `scroll.offsetWidth − scroll.clientWidth`，**非 0 就说明滚动条在占宽**。
+
+### ③ ★ 「同类卡片」要分清**是不是「容器」** —— 不是所有同类元素都要改
+
+- `.r93-bub`（用户气泡 728px）：**右对齐**（`margin-left:auto`）⇒ 容器改宽后**自动**跟上新右边界，**宽度不用动**
+  （设计稿语义本就是「不满宽」）；
+- `.r93-agent`（4 张 agent 卡）：按内容宽**左对齐**，属设计稿固定排版，**不是「容器」** ⇒ 未动。
+
+⇒ 判「要不要撑满」看两点：**它是容器还是内容**、**它当前左对齐还是右对齐**。拿不准就在汇报里点明「X 我未动，理由 Y」。
+
+### ④ ★ 收敛层安全性：**带 `%` 的 `calc()` 是安全的**
+
+`calc(100% - 18px)` / `calc(50% - 6px)` / `100%` / `50%` **都不匹配** `apply88b` 的
+`RE_RAW_H / RE_RAW_MH / RE_RAW_LH / RE_SCALED_*`（它们只认「`calc(<数字>px * var(--ui-fs-ratio))`」或「**裸 `Npx` 结尾**」）
+⇒ **不会被 `unscale()` 改坏**（同 r93 ④ 的 `calc(100% + 4px)`）。
+⚠ 反面纪律仍然成立：**别自己发明带裸 px 的 `height` / `min-height`**（那类会被缩放层处理）。
+
+### ⑤ 取证模板（「对齐类」改动专用）
+
+以**锚元素右边界**为基准**逐块算 Δ**，全 0 才算过：
+
+```
+ctx/todocard  [438,842] → 右 1280  Δ=0        bub      [552,728] → 右 1280  Δ=0
+alert/diff    [420,860] → 右 1280  Δ=0        arts/note[420,860] → 右 1280  Δ=0
+bottom/sb/cp  [420,860] → 右 1280             outer/输入卡 [420,860] → 右 1280
+artcard       [420,424]（两列 ⇒ 第二张右边界 1280）
+sticky 药丸    [790,·,120,·] 中心 850 = 内容列中心 ((420+1280)/2)
+```
+★ **必须量两个视口**（1440 / 1920）证明是「自适应」而不是「恰好」；量 `doc/win` 证明**无横向溢出**。
+
+## P3.27 r96 定稿：**设计稿的「HTML 导出」是样式权威源** / **改工具类默认色先枚举使用点** / **别把「相邻元素宽度」当成「线宽」**（五节）
+
+> 背景：r96 五条里 ③⑤ 是纯视觉语义/还原；⑤ 一次性暴露出旧实现的**两处硬错** ——
+> 起因都是「只有一个取数通道（PNG）+ 只看颜色不看结构」。
+
+### ① ★★ 设计稿取数：**先读导出的 HTML，再用 PNG 校验**
+
+`raw/design-1393-18748.html` 是设计稿导出的**带样式 DOM**，里面每个节点都有
+`data-node-id` / `data-name` / `style="width;height;left;top;gap;color;font-size;line-height"`，
+DS 实例还带 `props='{"尺寸":"14"}'`。**这是精确值，比扫图快一个数量级**：
+
+```python
+S = io.open('raw/design-1393-18748.html', encoding='utf-8').read()
+i = S.find('Token 速率')          # 或按 data-name / 文本搜
+print(S[max(0,i-2600):i+300])     # 往前读一大段就能拿到整块结构（含 left/top/gap/color）
+```
+
+**PNG（`raw/design-rgb.png`，1x 整页）只干三件事**：
+1. **验色值**（该图色值准确：r96 实测图中图标 (107,107,107) 与 HTML 里其它 `#6B6B6B` 逐字一致）；
+2. **反推形状**（`ui-component` 这类 DS 实例**不导出独立 svg** ⇒ 只能按点阵还原成 `ICON_INLINE`）；
+3. 量**渲染后的实际位置**（导出会漏 `left/top` 的元素）。
+
+⚠ **必须交叉验证**：
+- 只信 HTML ⇒ 漏掉「导出缺 `left/top`」的元素（r96 的省略号按钮就是）；
+- 只信 PNG ⇒ 会把**相邻元素的宽度**误当成**线宽**（见 ③）。
+
+取形状的标准手法（r96 分支图标）：
+```python
+# 灰度点阵打印（ramp = ' .:-=+*#%@'，10× 放大再肉眼确认）
+# ⇒ 判断「空心还是实心」看圆心像素是否比圆边**浅**（浅 = stroke，深 = fill）
+# ⇒ 换算到项目统一的 16 网格（× 16/14）后写进 ICON_INLINE
+```
+
+### ② ★ 改「工具类的默认色/字号」⇒ 先跑一遍**使用点分组计数**
+
+`.r93-t14` 在 14 处被使用，但其中 9 处由**别的类**给色（`.r93-ft` / `.r93-nt` / `.r93-dname` /
+`.r93-c1` / `.r93-fc` / `.r93-sumrow` / `.r93-att` / `.r93-ubt` / `.r93-sbtxt`）⇒ 改默认值**只影响裸用的那几处**。
+
+**做法**（探针里加 5 行，r96 实测有效）：
+```js
+var dist = {};
+document.querySelectorAll('.r93-t14').forEach(function (e) {
+  var k = getComputedStyle(e).color + ' | ' + (e.className || '');
+  dist[k] = (dist[k] || 0) + 1;
+});
+```
+一眼看出「哪些组合会跟着变」，比逐个读 DOM 快得多。
+
+⚠ **两条特异性纪律**：
+1. 同类（(0,1,0)）规则**后定义者胜** ⇒ 新默认值写在所有覆盖类**之前**，否则会反噬；
+2. 要覆盖「另一个单类」时直接**提特异性**：`.r93-t14.r93-c2 { color: var(--color-text-1) }`（(0,2,0)），
+   **与书写顺序无关** ⇒ 这是最稳的写法。
+
+同理，**给基类加 `font-size` 的波及面 = 「无类名文本」**：自带 `--font-size-*` 的后代统统不受影响
+（r96 ②：`.r93-card{font-size:13px}` 后只有 3 个裸 `<a>` 变化）。
+
+### ③ ⚠ **别把「相邻元素的宽度」当成「线宽」**
+
+r93 定稿时把设计稿节点「容器 246（**56×24**）」的 **56 当成了分隔线宽度** ⇒ `.r93-nline{width:56px}`，
+渲染成 **56px 长的横线**；而设计稿真正的分隔线是另一个节点 —— 一个 `viewBox="0 0 2 14"` 的 svg ⇒ **1×14 竖线**。
+
+**教训**：量「线」时一定回到 HTML 的**节点类型**（`直线 N` / `<line>` / `viewBox` 的窄边），
+**不要**从 PNG 上「看到一条横线就以为是横向的」—— 竖线在 1x 图里只有 1px 宽，很容易和相邻元素的边界混淆。
+
+### ④ 逐元素对位表（「还原度」类需求的标准交付物）
+
+把「实测 rel x」与「设计 rel x」并排列出来，**差在哪里要能解释**：
+
+| 元素 | 实测 | 设计 | 差 | 解释 |
+|---|---|---|---|---|
+| 图标1/2 盒 | 0..24 / 32..56 | 同 | ✔ | 盒 24 + gap 8 |
+| 分隔线1 | 68（1×14） | 68 | ✔ | |
+| 时钟 / 文字 | 81 / 99 | 80 / 99 | +1 | |
+| 分隔线2 | 227 | 234 | **−7** | **字体度量**：实机 Mona Sans 下文字 116 vs 设计 MiSans 123 |
+| 省略号盒 | 224..248 | 231.5..255.5 | **−7.5** | 同上；**相对前一根线的关系一致**（在线左 3px vs 2.5px） |
+
+★ **差值能归因到「字体度量」就不算间距错** —— 此时**不要**为了钉死位置去写死容器宽（会 `overflow:hidden` 截断长文案）。
+★ 交付**同尺度上下对照图**（本页 `raw/r96-cmp2.png`：上=设计稿裁切、下=实机截图裁切、同一放大倍数）比口头描述有力得多。
+
+### ⑤ 自检口径不变（照抄 r94/r95）
+
+`apply93.py` 连跑两遍双「已是目标态」｜`check-syntax.py pages/*.html` 10/10｜
+`verify-design.py ./pages` 与 **r93 基线 `vd-r93c.txt` 逐字节相同**（76 条：66 warning / 10 info / 0 critical）｜
+清理 `pages/gaps.log` + `mg-work/kanban/r13/chk/`。
+
+---
+
+## P3.28 r97 定稿：「等宽」类需求的真正敌人 = **`width:N%` 的基数** / `*` 不贡献特异性（四节）
+
+> 症状原话：**「底部对话框相对于上面的内容似乎两端似乎都短了一截？整个内容的模块元素都需要等宽的」**。
+
+### ① ★★ 先分清「等宽」是哪一种，再动手
+
+一个页面里的「模块等宽」有**两种完全不同的诉求**，改法互斥：
+
+| 诉求 | 判据 | 改法 |
+|---|---|---|
+| **A. 容器列宽一致** | 用户说的是「对话框 vs 上面的内容」这类**不同层级**的盒子 | 统一**宽度基准**（见 ③）——**不要**去动各模块内部的设计稿缩进 |
+| **B. 每个模块都拉到满宽** | 用户明确点名「卡片 / 气泡也要等宽」 | 去掉 `.r93-card{margin-left:18px; width:calc(100% - 18px)}`、气泡 `728px` → 满宽 |
+
+r97 邵先生没说 B，且设计稿 `容器 185` 明确是 `width:822px; left:18px`（右侧贴齐、左侧缩进 18）、
+气泡明确 728 右对齐不满宽 ⇒ **本轮只做 A**，把 B 作为待拍板项写进 HANDOFF（**别默默替用户改掉设计稿的排版**）。
+
+### ② ★★ 「两端都短一截」在**窄视口测不出来** —— 必须双视口取证
+
+r97 首查：1440 下 `.r93-wrap` / `.r93-bottom` / composer **全是 `[420, 860] → 右 1280`，完全对齐**。
+换到 **2560** 才现形：wrap `[845,1131]` / bottom `[840,1141]` / composer **`[852,1117]`**
+⇒ **输入卡比状态条两端各短 12px**。
+
+**判据**：凡是「宽度由百分比算出来」的元素，**必须至少测两个视口**（推荐 **1440 + 2560**），
+比一比**右边界**是否全等。只测 1440 会被 `min-width` 兜住、误判「已经对齐了」。
+（同源教训见 HANDOFF 第六节 item 16 —— r95 当时就算出了「理论 10px 差」但判定「脆、暂不做」，本轮用户报上来才补。）
+
+### ③ ★★ `width:50%` 的基数是**父盒**，父盒不同宽 ⇒ 结果不同
+
+排查表（r97 实例）：
+
+| 元素 | 父盒 | 与 main 内宽的差 | 为什么 |
+|---|---|---|---|
+| `.r93-wrap` | `.r93-scroll` 的**滚动内容盒** | −20 | `scrollbar-gutter: stable both-edges` 左右各让 10 |
+| `.r93-bottom` | `.r93-pane` | 0 | 基准正确 |
+| composer（外壳真组件） | `div.mt-8`（hero 的 `w-full` 子盒） | −48 | hero 带 `px-6` |
+
+**修法优先级**：
+1. **清掉父盒的横向内距**（`padding-left/right: 0`）⇒ 父盒直接等于目标基准，**不引入魔数**（r97 用的就是这条）；
+2. 补基准差 `calc(50% + Δ)` —— ⚠ Δ 若依赖滚动条宽，**必须先把滚动条宽显式钉死**
+   （`.r93-scroll::-webkit-scrollbar{width:10px}`）并在注释里写明「改滚动条宽要同步改 Δ」；
+3. ❌ 别用 `vw`（会把 aside 宽度也卷进来）、❌ 别写死 px（丢掉响应式）。
+
+### ④ ★ `*` 的通配符**不贡献特异性**（与「工具类默认值」是同一个坑的另一面）
+
+`.r93-card *` 看着像 (0,1,1)，**其实只有 (0,1,0)**。首跑实测：卡内 **37 处**变 13px，
+**唯独 5 处 `.r93-pre` 仍是 12px** —— 因为 `.r93-pre` 与它同级、且写在它**后面**（后定义者胜）。
+（`.r93-t12c` 等恰因写在**前面**被覆盖，把坑掩盖了。）
+
+**修法**：类名写两遍 → **`.r93-card.r93-card, .r93-card.r93-card *`** = (0,2,0)，与书写顺序无关。
+❌ 不用 `!important`；❌ 不要靠「把规则挪到块末尾」—— 那正是最脆的写法；
+❌ 不要用 `*:not(#x)` 这类晦涩写法。
+
+**顺带（本轮另一条）**：给按钮加「胶囊」时 DS 里**没有**胶囊半径 token（最大 `--border-radius-xl:12px`）
+⇒ 直接写 `border-radius:999px` 并在注释里给出「高 32 ⇒ R=16 全圆角」的设计稿形状依据（PNG 左缘轨迹反推）。
+
+**再顺带**：**纯 CSS `::after` 是「给 React 渲染的容器补一行文案」的最优解** ——
+挂在外壳的 `div.mt-8`（`flex-col items-center gap-2`）上，伪元素天然成为**第 2 个居中 flex 项**，
+间距直接吃容器的 `gap`，**零 DOM 注入、React 重渲染拿不掉**（r97 ④）。
+
+### ⑤ 自检口径不变
+
+`apply93.py` 连跑两遍双「已是目标态」｜`check-syntax.py pages/*.html` 10/10｜
+`verify-design.py ./pages` 与 `vd-r93c.txt` **逐字节相同**（76 条）｜清理 `pages/gaps.log` + `mg-work/kanban/r13/chk/`。
+★ **新增**：字号/尺寸类改动要跑一次**回归隔离**（把被改的属性用临时 `<style>` 强制回原值再测一次几何）——
+r97 用它证明了那 2px 卡片溢出**不是本轮引入的**（`ev/p97f.sh`）。
+
+---
+
+## P3.29 r98 定稿：**门禁对注释的双重标准** / `:first-child` 撞装饰元素 / `font:inherit` 后写者胜 / **差分卡逐像素还原**（五节）
+
+> 症状原话：**「整个对话内容部分的 14px 的字号统一调整为 15px；单轮对话末尾的 rateline 模块下面间距是 48px；这个容器 r93-diff 的样式还原不到位，比如颜色间距等，请对比设计稿像素级还原」**。
+> 三条都是会话详情页 `conversation.html` ⇒ 按硬规则**就地返工 `mg-work/r93/apply93.py`**（判据：`git status` 仍是 ` M`）。
+
+### ① ★★ 门禁 `verify-design.py` 对**注释行**是双重标准（hex 跳过 / 字号不跳过）
+
+`check_hardcoded_hex` 的 `re` 命中后会 `if '<!--' in line or '/*' in line: continue` —— **整行跳过注释**；
+但 `check_hardcoded_px_fontsize`（`font-?size[`:]*\s*(\d+)px`）**没有任何注释豁免**。
+⇒ 我在**新增注释**里为了说明「不写裸 px 字面量」顺手写了那串字面量，门禁直接从 **76 跳到 77**。
+
+**铁律（第三次踩了，r94 是 `radial-gradient`、r98 是字号）**：
+- **新增的注释文本本身就是「被扫描面」**，写注释时**不得出现任何会被断言的 token 字面量**（字号 px / hex / 禁用关键词）；
+- 想举例就**改写措辞**（「裸字号写法」「十六进制字面色」），或把示例拆成不连续字符；
+- 报「比基线多 N 条」时，**先在 HEAD 基线上同口径复跑一遍**再定性，别急着改代码（自检脚本自己也会假警报，P3.15）。
+
+### ② ★ `:first-child` 撞上「插在列表头部的装饰元素」⇒ 首行仍带边线
+
+需求「首行不要上边线」，我写了 `.r93-drow:first-child{border-top:0}`，实测**首行 `border-top` 仍是 1px**。
+根因：`.r93-dlist` 的**第一个子元素是装饰 `<i class="r93-dsb">`（滚动条）而不是首行** ⇒ `.r93-drow` 从来不是 `first-child`。
+
+**修法（双保险）**：① 换成 **`:first-of-type`**（按标签类型命中，`<i>`/`<div>` 互不影响）；
+② 顺手把 `<i class="r93-dsb">` 从列表**头部挪到尾部**（装饰件的落点尽量选「不参与同名选择器计数」的一端）。
+**判据**：凡「首位/末位特殊样式」遇到同容器内有装饰子元素（滚动条 / 分隔线 / 占位符），先枚举 `children` 再定选择器，
+`first-child` / `last-child` 优先降级为 `:first-of-type` / `:last-of-type`。
+
+### ③ ★ `font: inherit`（shorthand）会**后写者胜**地压掉更早的同特异性字号类
+
+「任务完成，耗时28m12s」一直显示 14px。根因：`.r93-bt { font: inherit }`（第 412 行）与 `.r93-t12`（第 363 行）
+**同为 (0,1,0)**，但 shorthand **写在后面** ⇒ 字号被 `inherit` 重置（= 父级 14px），`.r93-t12` 的 12px 失效。
+
+**判据/修法**：
+- `font:` 是**重置型 shorthand**（含 `font-size`）⇒ 它出现在哪儿，**它之前**所有同特异性的字号/行高类都作废；
+- 修法 = 在 shorthand **之后**补一条同特异性规则覆盖（r98 走的就是这条：把 `.r93-alink{font-size:var(--font-size-body-1)}`
+  写在 `.r93-bt` 之后），**不要**改 shorthand 本身（会波及它别的用途）；
+- 用量反推验证字号：设计稿墨迹宽 **160px ≈ 11 汉字 + 5 半角 @12px**（@14px 要 189px）⇒ 一锤定音是 12px 不是 14px。
+
+### ④ 差分卡逐像素还原的**取数配方**（双源 + 卡内相对坐标）
+
+| 步骤 | 做法 |
+|---|---|
+| 权威样式 | `raw/design-1393-18748.html`（节点 `style` 精确值） |
+| 逐像素校验 | `raw/design-rgb.png`（PNG 扫描；**1x 整页**，坐标一律**卡内相对值**） |
+| 底/带分层 | 表头带 `#F5F6F7` + **列表纯白面板** ⇒ 两层背景，别把整卡写成一个底色 |
+| 分隔线 | 表头底 1px `#ECEEF2`（`--r93-edge`）、行间 1px `#F2F2F2`（`--color-border-1`）—— **两处不是同一色** |
+| 首行无上边线 | 见 ② |
+| 色值实测 | +800 = **(48,149,59)** = `--r93-ok`（**不是** `--color-success-6`(59,179,70)，偏亮）|
+| ⋯ 字色 | 最深像素 **(31,31,31)** = `text-1`（不是 `text-2`）；悬停 = **白底 + 1px 描边盒** 24×24 |
+| 按钮宽 | DS 次要 small 基类带 1px transparent 边框占 2px ⇒ 想要 **70** 就 `padding: 0 11px`（不是 12）|
+| 表头图标槽 | 设计稿槽宽 **24**、字形左缩 2 ⇒ `margin-right:-3px` 把「视觉间隙 12」压到「盒间隙 9」，标题落卡内 **36** |
+| 滚动条 | 设计稿 `矩形 219` = **6×128**、rgba(0,0,0,.16)、r6、卡内右 4 / 顶 4 ⇒ 静态 `<i>` + 绝对定位（**见待拍板：列表不滚动时是否保留**）|
+
+★ **设计稿叠了 hover 态**（那行 `app.json` 同时叠出行底 + 文件名 primary + ⋯ 白底描边盒）⇒ **本页用真 CSS `:hover`**，
+**不静态写死**（同 P3.24② 的「变体叠放」教训）。
+
+### ⑤ 自检口径不变 + 双视口
+
+`apply93.py` 连跑两遍双「已是目标态」｜`check-syntax.py pages/*.html` **10/10**｜
+`verify-design.py ./pages` 与 `vd-r93c.txt` **逐字节相同**（**21882 字节**，76 条）｜清理 `pages/gaps.log` + `mg-work/kanban/r13/chk/`。
+几何实测 **1440 + 2560 双档**（`ev/p98b.js`）：内容区字号分布 12×49 / 13×42 / **15×59** / 14×2（残留 14 = 两个 DS small 按钮，预期内）；
+`.r93-wrap` padding-bottom **48**；差分卡右对齐账 ⋯−13 / 数字−54 / 名+11 全对 ⇒ 视觉 `raw/r98-cmp.png`（设计 vs 实机上下对照）。
+
+
+---
+
+### P3.30 r99 定稿（会话详情页十四条 · 2026-09-30）
+
+#### ① ★★★ 别按「裸坐标」推算图标几何 —— `transform` 会让它反向翻车
+
+`raw/asset/icons/*.svg` 里 **8 个** 文件的绘图元素带有 `transform="matrix(...)"`：
+
+| 文件 | transform | 用途 |
+|---|---|---|
+| `svg_1d5c65e3.svg` | `matrix(-1,0,0,1,26,0)` | SKILL（扳手） |
+| `svg_e08b0fbd.svg` | `matrix(-1,0,0,1,26,0)` | 工具条第 2 枚（已无引用） |
+| `svg_5727cb81.svg` `svg_e6d49921.svg` `svg_ebd1e221.svg` | `matrix(0,1,-1,0,1,-1)` | 直线（**90° 旋转**的实现方式） |
+| `svg_19c68c88.svg` `svg_38cbaeab.svg` `svg_b49ce54b.svg` | `matrix(-1,0,0,-1,N,1)` | DS 组件内部结构图（未引用） |
+
+**事故**：我按「字形 bbox 越出 viewBox 面积 > 35%」写了 `fit_viewbox()` 自动重算 viewBox，
+`svg_1d5c65e3` 报越界 90%、`svg_e08b0fbd` 越界 92%，于是把 viewBox 改成 `11.784 -0.05 14.225 14.225` /
+`11.955 -0.385 14.429 14.429`。**真相**：路径坐标确实在 x[12.8, 25.0]，但镜像后落在 x[1, 13]，
+**原 `viewBox="0 0 14 14"` 本来就是对的**；改完字形被推出框外，渲出只剩左沿 1px 残片。
+处置：**整段删除** `glyph_bbox`/`fit_viewbox`/`_r3`，原处留复盘注释。按 transform 感知重体检 78 个文件 ⇒ 真越界的只有 4 件未引用的 DS 内部图。
+
+**铁律**：① 算几何先看元素/祖先上有没有 `transform`；② 与 `getBBox()` 交叉验证；
+③ ★ **任何「自动修正/自动体检」逻辑上线后，必须目视复核一个受影响样本**——探针只会告诉你「viewBox 变了」，不会告诉你「变坏了」；
+④ 判「图标本体坏 or 宿主 CSS 坏」用 **隔离测试页**（`mg-work/r93/ev/icontest.html`：把内联 `<svg>` 抠进只有 `body{margin:0}` 的最小页，直开截图）。
+
+#### ② 弹层尺寸要在过渡结束后量
+
+`.r93-ctx` 写死 `width:182px`，探针报 **174.72** = `182 × scale(0.96)` —— 开合是 `scale .96→1` 的 0.2s 过渡，
+**探针在过渡中取的值**。⇒ 量弹层先 `transition:none` 或显式等过渡；**先怀疑量测时机，再怀疑样式没生效**。
+
+#### ③ 设计稿 HTML 导出的 `left/top` 只对「绝对定位祖先链」累积
+
+同页两个极端：`1393:18599 容器 247`（rateline）在绝对链上，`left:164; top:4664` **可直接信**；
+`1393:18477 容器 180`（umeta）祖先全是 flex，用 HTMLParser 累加得到 **(0,0)**（假值）⇒ 只能回 PNG 逐像素。
+⇒ 引坐标前**先判祖先链类型**；`board(x,y) → png(x+1,y+1)` 只对**整页导出节点**（`容器 264` 1168×5144 → png 1170×5146）成立。
+
+#### ④ DS 实例里的图标只能手写
+
+`ui-component`（`props='{"尺寸":"14"}'`）导出的仍是纯框、**没有内部图形**，也不在 `raw/asset/icons/` 里。
+手写配方（r99 umeta「重新生成」）：PNG 上按 14×14 盒逐像素 → 用「到候选圆心的距离」分成 `|d−R| ≤ 0.95`（弧）与其余（箭头）两档
+→ 定圆心 (9,10)/R=5、弧为上半圆、箭头在左下 → 写成 **14 栅格**（与 `.r93-i14` 盒 1:1，`stroke-width:1.3` 就是设计稿 1.3px）。
+渲染后**再逐像素回比设计稿**（`raw/r99-final-umeta-cmp2.png`）。
+
+#### ⑤ r99 的「就地返工」体位提示
+
+本轮除十四条外，**没有**新建代数；`apply93.py` 里所有本轮改动都标了 `★ r99`，
+回退 = 定点删这些段落（脚本是「先 `strip_all` 取净底再注入」⇒ 改完**直接重跑即自愈**）。
+⚠ `before/` 里**没有 r98 终态快照**（该代只存了 r96/r97）⇒ 已补存 `before/conversation-r99.html` 作为下一轮基线。
+
+---
+
+### P3.31 r100 定稿（会话详情页八条 · 2026-09-30）
+
+#### ① ★ 设计稿的 HTML 导出会**丢掉 DS 实例自身的底色与圆角** —— 这类元素只能回 PNG
+
+r100 ⑥ 的「说明文字行」在画稿里是**带浅灰圆角底的胶囊**，但 `raw/design-1393-18748.html` 里
+`fw647:18372` / `fw647:18418` 两个 `ui-component` 只有 `width/height/display/flex-direction`，
+**既没有 `background` 也没有 `border-radius`**（`props` 还写着 `标记:"False"`）。
+原因：底色与圆角属于 DS 实例的**样式覆盖**，导出器不落 inline style —— 与 P3.17「设计稿里的图标是
+未展开的 DS 组件」、P3.17「`ui-component` 不带字号」是同一条规律的第三个面。
+⇒ **凡是「看起来有底/有圆角」的小件，HTML 里查不到就一定要回 PNG 逐像素扫。**
+
+#### ② 「悬浮胶囊」逐像素还原配方（三件套：宽度 / 底色 / 圆角）
+
+```
+1) 定盒：按行扫非白像素，连续密集的行区间 = 胶囊的 y 范围，其 x 的 min/max = 盒宽
+   （r100 实测两行 = 778×24 与 300×24，与 HTML 里 text/text 的声明宽度逐一对上）
+2) 定内距：在盒内按阈值（如 r<180）取「墨迹」的 x 范围 ⇒ 左内距 13 / 右内距 13
+   ⇒ **盒宽 = 文字宽 + 两侧内距**；墨迹阈值会吃掉约 1px 字形侧承 ⇒ 实现取 12px
+3) 定底色：直接读盒中心的像素值，然后**回 token 表里找同值的那一档**
+   （r100 实测 rgb(247,247,247) 正好 = `--color-fill-1` = gray-1，一次命中，不必新造变量）
+4) 定圆角：把左上角那一块的灰度剖面打出来（`for dy: for dx: pixel[dy][dx]`），
+   与 r∈{4,6,8,10,12} 的解析解 `inset(dy)=r−sqrt(r²−(r−dy−0.5)²)` 对表；
+   24 高的胶囊取到上限 r=12 = `--border-radius-xl`（= 视觉全圆角）
+```
+⚠ 导出 PNG 边缘带重采样软边（相邻 4 个像素渐变），拟合会**偏大 1px 左右** ⇒ 取值时锚在 token 上，
+别按拟合值写裸 px。
+
+#### ③ hover 类需求的读法：**逐字照做，别顺手多撤**
+
+邵先生 r100 ③ 说「hover 时**边框颜色不要变化**，图标和文字颜色再变为深一级的颜色即可」，
+⑤ 说「加个**浅灰底色**即可，**边框颜色不要变**」。两条都只点名了「边框」：
+⇒ 只撤 `border-color`，**底色保留**（r99 ② 加的 `--color-fill-1` 没被要求撤）。
+「即可」在这里修饰的是**前景色的做法**（怎么变深），不是「把别的都去掉」。
+判据：**需求里没被点名的属性，默认保持原样**；拿不准就把两种读法都写进汇报让用户一句话定。
+（对应 P2「用户会刻意区分措辞」的延伸。）
+
+#### ④ 画「层级连接线」的两个实现要点
+
+1. **绝对定位的伪元素不算 flex item** —— `.r93-fold`（列向 flex）上挂 `::before` 做肘节时，
+   只要写了 `position:absolute` 就不会被当成 flex item 把折叠头挤下去；忘了写就整块错位。
+2. **画线的职责要上移到共同祖先**，别留在某个子列表上 —— 原来是 `.r93-sumlist::before`
+   只覆盖 4 行清单，本轮要「贯穿 Tool call 块 + 4 行」⇒ 线挪到 `.r93-tree::before`，
+   `sumlist` 只留排布，否则会在两个子块接缝处断成两段、倍率不齐。
+3. 层级缩进直接取设计稿的 `left`：`L0=0 / L1=18 / L2=36`；本页实现 = `.r93-tree{margin-left:6px;
+   padding-left:12px}`（合计 18）+ `.r93-card` 自带 `margin-left:18px`（⇒ 36），与设计稿逐项对上。
+4. **嵌套折叠块**用同一个 `fold()` 工厂生成 ⇒ 展开头 / 折叠头天然同宽同图标档，
+   不会再出现「展开态 i14 / 折叠态 i12」这种两态错位。
+
+#### ⑤ `o.mt ? …` 的假值坑
+
+`fold()` 工厂原来写 `(o.mt ? ' style="--mt:' + o.mt + 'px"' : '')`，`mt:0` 被当假值 ⇒
+内嵌层退化成默认 16px 上边距。**凡「0 是合法值」的数值参数，一律用 `!= null` 判空。**
+
+#### ⑥ r100 的「就地返工」体位提示
+
+同 r99：没有新建代数，`apply93.py` 里本轮改动全标 `★ r100`，回退 = 定点删这些段落。
+⚠ 唯一超出本代常规范围的是 ① 的更名：`main()` 里新增 `2b` 步改 **`task-detail.html`** 的一处可见文案
+（另一页），已按对称原则在 `--revert` 分支写了逆操作。

@@ -1,0 +1,176 @@
+{
+ "url": "file:///E:/GienCoder/giencoder-design-engineering/pages/settings.html?v=1790724161404418100",
+ "hash": "",
+ "aside": {
+  "box": [
+   12,
+   48,
+   256,
+   1044
+  ],
+  "inlineW": "256px",
+  "ariaHidden": "false",
+  "scrollerW": 256
+ },
+ "sep": {
+  "box": [
+   262,
+   48,
+   6,
+   1044
+  ],
+  "cls": "group absolute inset-y-0 right-0 flex w-1.5 cursor-col-resize items-center justify-center hover:bg-black/10",
+  "holder": "relative flex shrink-0 flex-col overflow-hidden rounded-lg bg-[#F4F5F6] transiti"
+ },
+ "sels": [
+  {
+   "box": [
+    1232,
+    162,
+    98,
+    32
+   ],
+   "w": "98px",
+   "h": "32px",
+   "bd": "1px rgb(242, 242, 242)",
+   "r": "8px",
+   "bg": "rgb(255, 255, 255)",
+   "fs": "14px"
+  },
+  {
+   "box": [
+    1176,
+    236,
+    154,
+    32
+   ],
+   "w": "154px",
+   "h": "32px",
+   "bd": "1px rgb(242, 242, 242)",
+   "r": "8px",
+   "bg": "rgb(255, 255, 255)",
+   "fs": "14px"
+  },
+  {
+   "box": [
+    1232,
+    310,
+    98,
+    32
+   ],
+   "w": "98px",
+   "h": "32px",
+   "bd": "1px rgb(242, 242, 242)",
+   "r": "8px",
+   "bg": "rgb(255, 255, 255)",
+   "fs": "14px"
+  },
+  {
+   "box": [
+    1260,
+    630,
+    70,
+    32
+   ],
+   "w": "70px",
+   "h": "32px",
+   "bd": "1px rgb(242, 242, 242)",
+   "r": "8px",
+   "bg": "rgb(255, 255, 255)",
+   "fs": "14px"
+  }
+ ],
+ "selCount": 4,
+ "lines": [
+  {
+   "i": 1,
+   "bg": "rgb(242, 242, 242)",
+   "h": "1px",
+   "content": "\"\""
+  },
+  {
+   "i": 2,
+   "bg": "rgb(242, 242, 242)",
+   "h": "1px",
+   "content": "\"\""
+  },
+  {
+   "i": 4,
+   "bg": "rgb(242, 242, 242)",
+   "h": "1px",
+   "content": "\"\""
+  },
+  {
+   "i": 5,
+   "bg": "rgb(242, 242, 242)",
+   "h": "1px",
+   "content": "\"\""
+  },
+  {
+   "i": 6,
+   "bg": "rgb(242, 242, 242)",
+   "h": "1px",
+   "content": "\"\""
+  },
+  {
+   "i": 7,
+   "bg": "rgb(242, 242, 242)",
+   "h": "1px",
+   "content": "\"\""
+  },
+  {
+   "i": 8,
+   "bg": "rgb(242, 242, 242)",
+   "h": "1px",
+   "content": "\"\""
+  },
+  {
+   "i": 10,
+   "bg": "rgb(242, 242, 242)",
+   "h": "1px",
+   "content": "\"\""
+  }
+ ],
+ "ic": {
+  "box": [
+   530,
+   158,
+   40,
+   40
+  ],
+  "bg": "rgb(242, 242, 242)",
+  "r": "8px"
+ },
+ "page": [
+  510,
+  85,
+  840,
+  918
+ ],
+ "nav": [
+  18,
+  48,
+  232,
+  268
+ ],
+ "cards": [
+  [
+   510,
+   137,
+   840,
+   230
+  ],
+  [
+   510,
+   383,
+   840,
+   448
+  ],
+  [
+   510,
+   847,
+   840,
+   156
+  ]
+ ]
+}

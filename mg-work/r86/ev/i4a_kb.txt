@@ -1,0 +1,1 @@
+"{\"afterDown1\":{\"open\":true,\"active\":\"标准模式\",\"activeCls\":\"giencoder-select-option\",\"ae\":\"r86opt-1\",\"focusBg\":\"rgb(242, 242, 242)\"}}"

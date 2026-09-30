@@ -1,0 +1,530 @@
+{
+ "cardFontDist": {
+  "12px | div.r93-t12s": {
+   "n": 2,
+   "sample": "取代先前的快照"
+  },
+  "12px | div.r93-t12s r93-ctxtext": {
+   "n": 1,
+   "sample": "Current DSH file polic"
+  },
+  "12px | div.r93-t12l": {
+   "n": 1,
+   "sample": "让我理解用户的需求。这是关于 Table 组"
+  },
+  "12px | span.r93-t12 r93-cpath": {
+   "n": 1,
+   "sample": "launch-root"
+  },
+  "12px | span.r93-t12 r93-c1": {
+   "n": 3,
+   "sample": "ls -la \"/Applications/"
+  },
+  "12px | pre.r93-pre r93-pre--tight r93-code": {
+   "n": 1,
+   "sample": "total 64\ndrwxr-xr-x@  "
+  },
+  "12px | a.r93-wlink r93-t12c": {
+   "n": 10,
+   "sample": "1. dsh-md-quiz/NOTES.m"
+  },
+  "14px | div.r93-t14": {
+   "n": 3,
+   "sample": "你要把「任务看板」加到哪个左侧菜单？"
+  },
+  "14px | div.r93-t14 r93-c2": {
+   "n": 3,
+   "sample": "这个 GienX 桌面 GUI 的左侧栏"
+  },
+  "12px | span.r93-t12 r93-cpath r93-flink": {
+   "n": 1,
+   "sample": "/Users/shaoyuming/Libr"
+  },
+  "13px | a.(anon)": {
+   "n": 3,
+   "sample": "复制链接"
+  },
+  "12px | pre.r93-pre r93-code": {
+   "n": 4,
+   "sample": "{\n  \"name\": \"dsh-taskb"
+  },
+  "12px | span.r93-diffstar": {
+   "n": 3,
+   "sample": "└ +25 -0 · 1 个文件"
+  },
+  "12px | div.r93-t12c": {
+   "n": 3,
+   "sample": "Browser automation CLI"
+  },
+  "12px | div.r93-t12c r93-c3": {
+   "n": 2,
+   "sample": "Harness-style client p"
+  },
+  "12px | span.r93-clink": {
+   "n": 1,
+   "sample": "'text': '这是一个未来版本才会识别的"
+  }
+ },
+ "cards": [
+  {
+   "i": 0,
+   "cls": "r93-card r93-card--ctx",
+   "rect": [
+    438,
+    441,
+    842,
+    150
+   ],
+   "fs": "13px"
+  },
+  {
+   "i": 1,
+   "cls": "r93-card",
+   "rect": [
+    438,
+    641,
+    842,
+    200
+   ],
+   "fs": "13px"
+  },
+  {
+   "i": 2,
+   "cls": "r93-card r93-card--edge",
+   "rect": [
+    438,
+    929,
+    842,
+    160
+   ],
+   "fs": "13px"
+  },
+  {
+   "i": 3,
+   "cls": "r93-card",
+   "rect": [
+    438,
+    1139,
+    842,
+    184
+   ],
+   "fs": "13px"
+  },
+  {
+   "i": 4,
+   "cls": "r93-card",
+   "rect": [
+    438,
+    1373,
+    842,
+    208
+   ],
+   "fs": "13px"
+  },
+  {
+   "i": 5,
+   "cls": "r93-todocard",
+   "rect": [
+    438,
+    1631,
+    842,
+    220
+   ],
+   "fs": "14px"
+  },
+  {
+   "i": 6,
+   "cls": "r93-card r93-card--edge",
+   "rect": [
+    438,
+    1901,
+    842,
+    244
+   ],
+   "fs": "13px"
+  },
+  {
+   "i": 7,
+   "cls": "r93-card",
+   "rect": [
+    438,
+    2195,
+    842,
+    64
+   ],
+   "fs": "13px"
+  },
+  {
+   "i": 8,
+   "cls": "r93-card r93-card--edge",
+   "rect": [
+    438,
+    2309,
+    842,
+    132
+   ],
+   "fs": "13px"
+  },
+  {
+   "i": 9,
+   "cls": "r93-card",
+   "rect": [
+    438,
+    2491,
+    842,
+    64
+   ],
+   "fs": "13px"
+  },
+  {
+   "i": 10,
+   "cls": "r93-card r93-card--edge",
+   "rect": [
+    456,
+    2639,
+    824,
+    132
+   ],
+   "fs": "13px"
+  },
+  {
+   "i": 11,
+   "cls": "r93-card",
+   "rect": [
+    438,
+    3121,
+    842,
+    116
+   ],
+   "fs": "13px"
+  },
+  {
+   "i": 12,
+   "cls": "r93-card",
+   "rect": [
+    438,
+    3415,
+    842,
+    84
+   ],
+   "fs": "13px"
+  },
+  {
+   "i": 13,
+   "cls": "r93-diff",
+   "rect": [
+    420,
+    3629,
+    860,
+    300
+   ],
+   "fs": "14px"
+  },
+  {
+   "i": 14,
+   "cls": "r93-artcard r93-bt",
+   "rect": [
+    420,
+    3991,
+    424,
+    56
+   ],
+   "fs": "14px"
+  },
+  {
+   "i": 15,
+   "cls": "r93-artcard r93-bt",
+   "rect": [
+    856,
+    3991,
+    424,
+    56
+   ],
+   "fs": "14px"
+  },
+  {
+   "i": 16,
+   "cls": "r93-artcard r93-bt",
+   "rect": [
+    420,
+    4059,
+    424,
+    56
+   ],
+   "fs": "14px"
+  },
+  {
+   "i": 17,
+   "cls": "r93-artcard r93-bt",
+   "rect": [
+    856,
+    4059,
+    424,
+    56
+   ],
+   "fs": "14px"
+  },
+  {
+   "i": 18,
+   "cls": "r93-artcard r93-bt",
+   "rect": [
+    420,
+    4127,
+    424,
+    56
+   ],
+   "fs": "14px"
+  }
+ ],
+ "tobottom": {
+  "rect": [
+   790,
+   569,
+   120,
+   32
+  ],
+  "radius": "8px",
+  "bg": "rgb(255, 255, 255)",
+  "border": "1px rgb(229, 229, 229)",
+  "shadow": "rgba(0, 0, 0, 0.08) 0px 4px 8px 0px",
+  "self": "rgb(31, 31, 31)",
+  "pad": "16px/0px"
+ },
+ "tobottomKids": [
+  {
+   "tag": "SPAN",
+   "cls": "r93-iblk r93-i12",
+   "color": "rgb(31, 31, 31)",
+   "fs": "14px",
+   "txt": ""
+  },
+  {
+   "tag": "svg",
+   "cls": "svg",
+   "color": "rgb(31, 31, 31)",
+   "fs": "14px",
+   "txt": ""
+  },
+  {
+   "tag": "path",
+   "cls": "svg",
+   "color": "rgb(31, 31, 31)",
+   "fs": "14px",
+   "txt": ""
+  },
+  {
+   "tag": "SPAN",
+   "cls": "r93-t14",
+   "color": "rgb(134, 134, 134)",
+   "fs": "14px",
+   "txt": "滚动到底部"
+  }
+ ],
+ "horiz": {
+  "wrap": [
+   420,
+   93,
+   860,
+   4158
+  ],
+  "bottom": [
+   420,
+   613,
+   860,
+   112
+  ],
+  "sb": [
+   420,
+   613,
+   860,
+   40
+  ],
+  "cp": [
+   420,
+   665,
+   860,
+   48
+  ],
+  "agents": [
+   420,
+   665,
+   860,
+   48
+  ],
+  "card1": [
+   438,
+   441,
+   842,
+   150
+  ],
+  "todocard": [
+   438,
+   1631,
+   842,
+   220
+  ],
+  "note": [
+   420,
+   2931,
+   860,
+   22
+  ],
+  "alert": [
+   420,
+   3261,
+   860,
+   44
+  ],
+  "diff": [
+   420,
+   3629,
+   860,
+   300
+  ],
+  "arts": [
+   420,
+   3953,
+   860,
+   230
+  ],
+  "artcard": [
+   420,
+   3991,
+   424,
+   56
+  ],
+  "rateline": [
+   420,
+   4203,
+   860,
+   24
+  ],
+  "bub": [
+   552,
+   125,
+   728,
+   164
+  ]
+ },
+ "mt8": {
+  "cls": "mt-8 flex w-full flex-col items-center gap-2",
+  "rect": [
+   293,
+   725,
+   1114,
+   154
+  ],
+  "kids": 1,
+  "display": "flex",
+  "dir": "column",
+  "gap": "8px"
+ },
+ "mt8kid": [
+  {
+   "tag": "DIV",
+   "cls": "flex w-[800px] flex-col rounded-[16px] bg-[var(--color-fill-1)] px-3 py-3 transition-[height] duration-200",
+   "rect": [
+    420,
+    725,
+    860,
+    154
+   ]
+  }
+ ],
+ "composerOuter": {
+  "rect": [
+   420,
+   725,
+   860,
+   154
+  ],
+  "bg": "rgba(0, 0, 0, 0)",
+  "pad": "0px"
+ },
+ "composerCard": {
+  "cls": "relative flex w-full flex-col rounded-[16px] border bg-white p-3 transition-colors",
+  "rect": [
+   420,
+   725,
+   860,
+   154
+  ],
+  "bg": "rgb(255, 255, 255)"
+ },
+ "composerCardKids": [
+  {
+   "tag": "TEXTAREA",
+   "cls": "min-w-0 resize-none bg-transparent text-sm leading-[22px] [color:var(--color-text-1)] outline-none placeholder:[color:var(--color-text-3)] min-h-[96px]",
+   "rect": [
+    433,
+    738,
+    834,
+    96
+   ]
+  },
+  {
+   "tag": "DIV",
+   "cls": "mt-auto flex items-center justify-between",
+   "rect": [
+    433,
+    834,
+    834,
+    32
+   ]
+  },
+  {
+   "tag": "DIV",
+   "cls": "giencoder-select",
+   "rect": [
+    433,
+    866,
+    834,
+    0
+   ]
+  }
+ ],
+ "hasMeta": false,
+ "hasTok": false,
+ "hasRounds": true,
+ "innerKids": [
+  {
+   "tag": "DIV",
+   "cls": "flex flex-1 flex-col items-center justify-center px-6",
+   "rect": [
+    269,
+    725,
+    1162,
+    166
+   ],
+   "txt": "有什么工作任务要处理？艾迪停用数字分身标准模式标准模式专家模"
+  },
+  {
+   "tag": "DIV",
+   "cls": "pb-6 text-center text-xs leading-relaxed [color:var(--color-text-4)]",
+   "rect": [
+    0,
+    0,
+    0,
+    0
+   ],
+   "txt": "© 2026 中电金信中电金信研究院 · 数字构建平台实验室"
+  },
+  {
+   "tag": "DIV",
+   "cls": "r93-conv-host",
+   "rect": [
+    269,
+    49,
+    1162,
+    676
+   ],
+   "txt": "对话轨迹开发管理系统单文件工作台…自动化07月02日 15:"
+  }
+ ],
+ "doc": [
+  1440,
+  1440,
+  900,
+  900
+ ]
+}

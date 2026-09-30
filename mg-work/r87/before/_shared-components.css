@@ -1,0 +1,686 @@
+/* ═══════════════════════════════════════════════════════════════
+   components.css — 源启设计 核心组件样式（v3）
+   与 giencoder/colors_and_type.css 配套；preview/component-*.html 为代码模板
+   本文件覆盖高频核心组件；其余组件样式按 components/{slug}.json 契约实现
+   ═══════════════════════════════════════════════════════════════ */
+
+/* === Button 按钮 ===
+   点击动效参考 Fluid Functionalism Button：
+   - 表面层机制：实心按钮背景用 --btn-bg 变量承载，外扩 1px 同色 box-shadow spread
+     补齐到完整尺寸；按压（:active）收起 spread → 表面每边内缩恰好 1px
+     （不用 scale，避免宽按钮水平/垂直变形不一致）
+   - 过渡：按压 80ms 快、释放 180ms 慢（cubic-bezier(0.23,1,0.32,1) 出场曲线），
+     背景/边框 80ms ease
+   - 色阶：hover 向浅档过渡（primary-6 → primary-5），active 回原色/加深一档 + 内缩 */
+.giencoder-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 4px;
+  border: 1px solid transparent; border-radius: var(--border-radius-medium);
+  font-size: var(--font-size-body-3); font-family: var(--font-family);
+  cursor: pointer;
+  transition: box-shadow 180ms cubic-bezier(0.23, 1, 0.32, 1),
+              background-color 80ms ease, border-color 80ms ease, color 80ms ease;
+  line-height: 1.5715; white-space: nowrap; outline: none; padding: 0 16px;
+}
+.giencoder-btn:active { transition-duration: 80ms, 80ms, 80ms, 80ms; }
+.giencoder-btn:focus-visible { box-shadow: 0 0 0 2px var(--color-primary-light-2); }
+.giencoder-btn-size-large { height: 36px; font-size: var(--font-size-body-3); padding: 0 20px; }
+.giencoder-btn-size-default { height: 32px; }
+.giencoder-btn-size-small { height: 28px; padding: 0 12px; }
+.giencoder-btn-size-mini { height: 24px; padding: 0 8px; font-size: var(--font-size-body-1); }
+.giencoder-btn-primary {
+  --btn-bg: var(--color-primary-6);
+  --btn-ring: var(--btn-bg); /* 外扩 1px 同色圈：补齐表面 + 按压收起实现内缩 */
+  background: var(--btn-bg); color: var(--color-white); font-weight: 500;
+  box-shadow: 0 0 0 1px var(--btn-ring);
+}
+.giencoder-btn-primary:hover { --btn-bg: var(--color-primary-5); background: var(--btn-bg); }
+.giencoder-btn-primary:active {
+  --btn-bg: var(--color-primary-7); background: var(--btn-bg);
+  box-shadow: 0 0 0 0 var(--btn-ring);
+}
+.giencoder-btn-secondary {
+  --btn-bg: var(--color-bg-5);
+  --btn-ring: var(--btn-bg);
+  background: var(--btn-bg); color: var(--color-text-1); border-color: var(--color-border-2);
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 0 0 1px var(--btn-ring);
+}
+.giencoder-btn-secondary:hover { --btn-bg: var(--color-fill-1); background: var(--btn-bg); } /* hover 边框保持 border-2，仅背景变化 */
+.giencoder-btn-secondary:active {
+  --btn-bg: var(--color-bg-5); background: var(--btn-bg);
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 0 0 0 var(--btn-ring);
+}
+.giencoder-btn-outline {
+  background: transparent; color: var(--color-primary-6); border-color: transparent;
+  /* FF tertiary：描边环以「外 1px 阴影 + inset 0px」常驻，按压切换为「外 0px + inset 1px」→ 圆环随表面内移 1px */
+  box-shadow: 0 0 0 1px var(--color-primary-6), inset 0 0 0 0px var(--color-primary-6);
+}
+.giencoder-btn-outline:hover { background: var(--color-primary-light-1); }
+.giencoder-btn-outline:active {
+  background: var(--color-primary-light-2);
+  box-shadow: 0 0 0 0px var(--color-primary-6), inset 0 0 0 1px var(--color-primary-6);
+}
+.giencoder-btn-dashed {
+  background: transparent; color: var(--color-primary-6);
+  border-style: dashed; border-color: var(--color-primary-6);
+  /* 保持虚线描边身份；填充表面以同色 spread 补齐到完整尺寸，按压收起 → 内缩 1px */
+  --btn-ring: transparent;
+  box-shadow: 0 0 0 1px var(--btn-ring);
+}
+.giencoder-btn-dashed:hover { background: var(--color-primary-light-1); --btn-ring: var(--color-primary-light-1); box-shadow: 0 0 0 1px var(--btn-ring); }
+.giencoder-btn-dashed:active { background: var(--color-primary-light-2); --btn-ring: var(--color-primary-light-2); box-shadow: 0 0 0 0px var(--btn-ring); }
+.giencoder-btn-text { background: transparent; color: var(--color-primary-6); --btn-ring: transparent; box-shadow: 0 0 0 1px var(--btn-ring); }
+.giencoder-btn-text:hover { background: var(--color-fill-1); --btn-ring: var(--color-fill-1); box-shadow: 0 0 0 1px var(--btn-ring); }
+.giencoder-btn-text:active { background: var(--color-fill-2); --btn-ring: var(--color-fill-2); box-shadow: 0 0 0 0px var(--btn-ring); }
+.giencoder-btn-danger {
+  --btn-bg: var(--color-danger-6);
+  --btn-ring: var(--btn-bg);
+  background: var(--btn-bg); color: var(--color-white); font-weight: 500;
+  box-shadow: 0 0 0 1px var(--btn-ring);
+}
+.giencoder-btn-danger:hover { --btn-bg: var(--color-danger-5); background: var(--btn-bg); }
+.giencoder-btn-danger:active {
+  --btn-bg: var(--color-danger-6); background: var(--btn-bg);
+  box-shadow: 0 0 0 0 var(--btn-ring);
+}
+.giencoder-btn-warning {
+  --btn-bg: var(--color-warning-6);
+  --btn-ring: var(--btn-bg);
+  background: var(--btn-bg); color: var(--color-white); font-weight: 500;
+  box-shadow: 0 0 0 1px var(--btn-ring);
+}
+.giencoder-btn-warning:hover { --btn-bg: var(--color-warning-5); background: var(--btn-bg); }
+.giencoder-btn-warning:active {
+  --btn-bg: var(--color-warning-6); background: var(--btn-bg);
+  box-shadow: 0 0 0 0 var(--btn-ring);
+}
+.giencoder-btn-success {
+  --btn-bg: var(--color-success-6);
+  --btn-ring: var(--btn-bg);
+  background: var(--btn-bg); color: var(--color-white); font-weight: 500;
+  box-shadow: 0 0 0 1px var(--btn-ring);
+}
+.giencoder-btn-success:hover { --btn-bg: var(--color-success-5); background: var(--btn-bg); }
+.giencoder-btn-success:active {
+  --btn-bg: var(--color-success-6); background: var(--btn-bg);
+  box-shadow: 0 0 0 0 var(--btn-ring);
+}
+.giencoder-btn-danger-text { color: var(--color-primary-6); }
+.giencoder-btn-danger-text:hover { color: var(--color-danger-6); }
+.giencoder-btn-disabled, .giencoder-btn[disabled] { opacity: 0.4; cursor: not-allowed; pointer-events: none; }
+.giencoder-btn-loading { cursor: default; }
+.giencoder-btn-icon { display: inline-flex; }
+.giencoder-icon-loading { animation: giencoder-spin 1s linear infinite; }
+@keyframes giencoder-spin { to { transform: rotate(360deg); } }
+.giencoder-btn-group { display: inline-flex; }
+/* 相邻按钮负 margin -1px 合并边框 → 中间 1px 分隔线（无 2px 双边框缝隙），紧密衔接 */
+.giencoder-btn-group .giencoder-btn + .giencoder-btn { margin-left: -1px; }
+/* 组内圆角：仅最左保留左圆角、最右保留右圆角，中间按钮直角；单按钮组保留完整圆角 */
+.giencoder-btn-group .giencoder-btn:not(:first-child) { border-top-left-radius: 0; border-bottom-left-radius: 0; }
+.giencoder-btn-group .giencoder-btn:not(:last-child) { border-top-right-radius: 0; border-bottom-right-radius: 0; }
+/* 组内抑制外扩 ring：hover/active 时 --btn-ring 变浅色（fill-1 / light-1 等）会外扩 1px 侵入
+   相邻按钮表面，视觉上形成“中间按钮左右各 1px 间隙” → 组内统一透明化；
+   中缝分隔始终由边框线承担，保持 1px 单线 */
+.giencoder-btn-group .giencoder-btn { --btn-ring: transparent; }
+/* hover/focus/active 提升层级：边框/背景覆盖邻居，重叠处不被邻居背景遮住 */
+.giencoder-btn-group .giencoder-btn:hover,
+.giencoder-btn-group .giencoder-btn:focus-visible,
+.giencoder-btn-group .giencoder-btn:active { position: relative; z-index: 2; }
+/* 组内焦点指示：内描边 1px，不越出按钮边界（外扩焦点环同样会侵入邻居） */
+.giencoder-btn-group .giencoder-btn:focus-visible { outline: 1px solid var(--color-primary-light-2); outline-offset: -1px; }
+
+
+/* === Tag 标签 === */
+.giencoder-tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  height: 24px; padding: 0 8px;
+  border-radius: var(--border-radius-medium); font-size: var(--font-size-body-1); font-weight: 500;
+  line-height: 1; white-space: nowrap;
+  background: var(--color-fill-2); color: var(--color-text-1);
+  border: 1px solid transparent;
+}
+/* Solid 彩色变体：15% 彩色混入背景 + 前景深色文字（对齐 FF Badge solid 公式） */
+.giencoder-tag-primary { background: color-mix(in srgb, var(--color-primary-6) 15%, var(--color-bg-1)); color: var(--color-text-1); }
+.giencoder-tag-success { background: color-mix(in srgb, var(--color-success-6) 15%, var(--color-bg-1)); color: var(--color-text-1); }
+.giencoder-tag-warning { background: color-mix(in srgb, var(--color-warning-6) 15%, var(--color-bg-1)); color: var(--color-text-1); }
+.giencoder-tag-danger { background: color-mix(in srgb, var(--color-danger-6) 15%, var(--color-bg-1)); color: var(--color-text-1); }
+.giencoder-tag-outline { background: var(--color-bg-1); border-color: var(--color-border-3); color: var(--color-text-1); }
+.giencoder-tag-outline.giencoder-tag-primary { border-color: var(--color-primary-6); color: var(--color-primary-6); }
+.giencoder-tag-outline.giencoder-tag-success { border-color: var(--color-success-6); color: var(--color-success-6); }
+.giencoder-tag-outline.giencoder-tag-danger { border-color: var(--color-danger-6); color: var(--color-danger-6); }
+.giencoder-tag-light { background: var(--color-fill-1); color: var(--color-text-1); }
+.giencoder-tag-light.giencoder-tag-primary { background: color-mix(in srgb, var(--color-primary-6) 15%, var(--color-bg-1)); color: var(--color-text-1); }
+.giencoder-tag-light.giencoder-tag-success { background: color-mix(in srgb, var(--color-success-6) 15%, var(--color-bg-1)); color: var(--color-text-1); }
+.giencoder-tag-light.giencoder-tag-warning { background: color-mix(in srgb, var(--color-warning-6) 15%, var(--color-bg-1)); color: var(--color-text-1); }
+.giencoder-tag-light.giencoder-tag-danger { background: color-mix(in srgb, var(--color-danger-6) 15%, var(--color-bg-1)); color: var(--color-text-1); }
+.giencoder-tag-disabled { opacity: 0.4; }
+.giencoder-tag-dot { width: 7px; height: 7px; border-radius: 50%; display: inline-block; }
+.giencoder-tag-dot-success { background: var(--color-success-6); }
+.giencoder-tag-dot-warning { background: var(--color-warning-6); }
+.giencoder-tag-dot-danger { background: var(--color-danger-6); }
+.giencoder-tag-dot-gray { background: var(--color-text-4); }
+/* Status 圆点变体：白底 + 描边 + 深字（对齐 FF Badge dot 变体壳） */
+.giencoder-tag-status { background: var(--color-bg-1); border-color: var(--color-border-2); color: var(--color-text-1); }
+.giencoder-tag-close-btn { border: none; background: none; cursor: pointer; padding: 0; display: inline-flex; color: inherit; opacity: 0.7; }
+.giencoder-tag-close-btn:hover { opacity: 1; }
+.giencoder-tag-checkable { cursor: pointer; border: 1px solid var(--color-border-2); background: var(--color-bg-1); color: var(--color-text-2); }
+.giencoder-tag-checkable:hover { border-color: var(--color-primary-6); color: var(--color-primary-6); }
+.giencoder-tag-checked { background: color-mix(in srgb, var(--color-primary-6) 15%, var(--color-bg-1)); border-color: var(--color-primary-6); color: var(--color-text-1); }
+
+
+/* === Radio 单选框 === */
+.giencoder-radio { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; font-size: var(--font-size-body-3); color: var(--color-text-1); }
+.giencoder-radio-input { position: absolute; opacity: 0; width: 0; height: 0; }
+.giencoder-radio-mask {
+  width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--color-border-3);
+  display: inline-block; position: relative; transition: all var(--transition-duration-1) var(--transition-timing-function-standard);
+  flex-shrink: 0;
+}
+.giencoder-radio-input:checked + .giencoder-radio-mask { border-color: var(--color-primary-6); }
+.giencoder-radio-input:checked + .giencoder-radio-mask::after {
+  content: ''; position: absolute; inset: 2px; border-radius: 50%; background: var(--color-primary-6);
+}
+.giencoder-radio-disabled { cursor: not-allowed; opacity: 0.4; }
+.giencoder-radio-group { display: inline-flex; gap: 16px; }
+/* 按钮形态：凹槽轨道 + 滑动滑块指示器（样式映射自 Fluid Functionalism Tabs 分段控制） */
+.giencoder-radio-group-button {
+  gap: 2px; padding: 2px; position: relative;
+  border: none; border-radius: var(--border-radius-medium);
+  background: var(--color-fill-2);
+}
+.giencoder-radio-button-slider {
+  position: absolute; top: 2px; left: 2px; height: 32px;
+  border-radius: var(--border-radius-medium);
+  border: 1px solid var(--color-border-2); /* 选中态描边：浅灰轮廓（border-2），不喧宾夺主；border-box 内收，不改变 JS 定位尺寸 */
+  background: var(--color-bg-5);
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+              width 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: 0; pointer-events: none;
+}
+.giencoder-radio-button {
+  display: inline-flex; align-items: center; justify-content: center; height: 32px; padding: 0 12px;
+  cursor: pointer; font-size: var(--font-size-body-3); color: var(--color-text-2);
+  border-radius: var(--border-radius-medium); border: none; position: relative; z-index: 1;
+  transition: color var(--transition-duration-1) var(--transition-timing-function-standard),
+              background-color var(--transition-duration-1) var(--transition-timing-function-standard);
+  user-select: none; white-space: nowrap; background: transparent;
+}
+.giencoder-radio-button:hover { color: var(--color-text-1); background: rgba(127, 127, 127, 0.08); }
+.giencoder-radio-button-checked { color: var(--color-text-1); font-weight: 600; }
+.giencoder-radio-button-checked:hover { color: var(--color-text-1); background: transparent; }
+.giencoder-radio-group-button .giencoder-radio-button:has(.giencoder-radio-input:focus-visible) {
+  outline: 2px solid #6B97FF; outline-offset: 2px;
+}
+
+
+/* === Switch 开关 === */
+.giencoder-switch {
+  position: relative; width: 44px; height: 22px; border-radius: 22px; border: none;
+  background: var(--color-fill-3); cursor: pointer; transition: all var(--transition-duration-2) var(--transition-timing-function-standard);
+  padding: 0; flex-shrink: 0;
+}
+.giencoder-switch:hover { background: var(--color-fill-4); }
+.giencoder-switch-checked { background: var(--color-primary-6); }
+.giencoder-switch-checked:hover { background: var(--color-primary-5); }
+.giencoder-switch-handle {
+  position: absolute; top: 2px; left: 2px; width: 18px; height: 18px; border-radius: 50%;
+  background: var(--color-white); box-shadow: var(--shadow1-down); transition: left var(--transition-duration-2) var(--transition-timing-function-standard);
+}
+.giencoder-switch-checked .giencoder-switch-handle { left: 24px; }
+.giencoder-switch-disabled { opacity: 0.4; cursor: not-allowed; }
+.giencoder-switch-text { font-size: 10px; color: var(--color-text-1); position: absolute; right: 8px; top: 50%; transform: translateY(-50%); z-index: 1; }
+.giencoder-switch-checked .giencoder-switch-text { right: auto; left: 8px; color: var(--color-white); }
+
+
+/* === Input 输入框 === */
+.giencoder-input-wrapper {
+  display: inline-flex; align-items: center; border: 1px solid var(--color-border-2);
+  border-radius: var(--border-radius-medium); background: var(--color-bg-2); padding: 0 12px;
+  transition: border-color var(--transition-duration-1) var(--transition-timing-function-standard);
+  min-width: 120px;
+  /* 默认 medium 32px 总高（含边框），与 Button/Select 等齐平 —— 契约 sizes.medium = 32px */
+  height: 32px; box-sizing: border-box;
+}
+.giencoder-input-wrapper:hover { border-color: var(--color-border-3); }
+.giencoder-input-wrapper:focus-within { border-color: var(--color-primary-6); box-shadow: 0 0 0 2px var(--color-primary-light-2); }
+.giencoder-input { border: none; outline: none; background: transparent; height: 100%; min-width: 0; font-size: var(--font-size-body-3); color: var(--color-text-1); width: 100%; font-family: var(--font-family); }
+/* 尺寸变体：由 wrapper 固定高度控制（border-box，含边框），input 高度 100% 撑满 */
+.giencoder-input-wrapper[data-size="mini"] { height: 24px; padding: 0 8px; }
+.giencoder-input-wrapper[data-size="small"] { height: 28px; }
+.giencoder-input-wrapper[data-size="medium"] { height: 32px; }
+.giencoder-input-wrapper[data-size="large"] { height: 36px; }
+.giencoder-input-wrapper.giencoder-input-error { border-color: var(--color-danger-6); }
+.giencoder-input-wrapper.giencoder-input-error:focus-within { box-shadow: 0 0 0 2px var(--color-danger-light-2); }
+.giencoder-input-wrapper.giencoder-input-disabled { background: var(--color-fill-1); cursor: not-allowed; box-shadow: none; }
+.giencoder-input-wrapper.giencoder-input-disabled:hover { border-color: var(--color-border-2); }
+.giencoder-input-wrapper.giencoder-input-disabled .giencoder-input { color: var(--color-text-4); }
+.giencoder-input-prefix, .giencoder-input-suffix { display: inline-flex; align-items: center; color: var(--color-text-3); margin-right: 8px; flex-shrink: 0; }
+.giencoder-input-suffix { margin-right: 0; margin-left: 8px; }
+.giencoder-input-clear-btn { border: none; background: none; cursor: pointer; color: var(--color-text-3); display: inline-flex; padding: 0; }
+.giencoder-input-clear-btn:hover { color: var(--color-text-2); }
+.giencoder-textarea-wrapper { width: 100%; }
+.giencoder-textarea { width: 100%; border: 1px solid var(--color-border-2); border-radius: var(--border-radius-medium); padding: 6px 12px; font-size: var(--font-size-body-3); font-family: var(--font-family); color: var(--color-text-1); outline: none; resize: vertical; transition: border-color var(--transition-duration-1); }
+.giencoder-textarea:hover { border-color: var(--color-border-3); }
+.giencoder-textarea:focus { border-color: var(--color-primary-6); box-shadow: 0 0 0 2px var(--color-primary-light-2); }
+.giencoder-textarea:disabled { background: var(--color-fill-1); cursor: not-allowed; box-shadow: none; color: var(--color-text-4); }
+.giencoder-form-label { display: block; margin-bottom: 8px; font-size: var(--font-size-body-3); color: var(--color-text-1); }
+.giencoder-form-help { font-size: var(--font-size-body-1); color: var(--color-text-3); margin-top: 4px; }
+.giencoder-form-message { font-size: var(--font-size-body-1); margin-top: 4px; }
+.giencoder-form-message-error { color: var(--color-danger-6); }
+
+
+/* === Checkbox 复选框 === */
+.giencoder-checkbox { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; font-size: var(--font-size-body-3); color: var(--color-text-1); }
+.giencoder-checkbox-input { position: absolute; opacity: 0; width: 0; height: 0; }
+.giencoder-checkbox-mask {
+  width: 14px; height: 14px; border-radius: 2px; border: 2px solid var(--color-border-3);
+  display: inline-block; position: relative; transition: all var(--transition-duration-1); flex-shrink: 0;
+}
+.giencoder-checkbox-input:checked + .giencoder-checkbox-mask, .giencoder-checkbox-checked .giencoder-checkbox-mask { background: var(--color-primary-6); border-color: var(--color-primary-6); }
+.giencoder-checkbox-input:checked + .giencoder-checkbox-mask::after, .giencoder-checkbox-checked .giencoder-checkbox-mask::after {
+  content: ''; position: absolute; left: 50%; top: 50%; width: 4px; height: 6px;
+  border: solid var(--color-white); border-width: 0 1.5px 1.5px 0;
+  transform: translate(-50%, -55%) rotate(45deg);
+}
+.giencoder-checkbox-indeterminate .giencoder-checkbox-mask { background: var(--color-primary-6); border-color: var(--color-primary-6); }
+.giencoder-checkbox-indeterminate .giencoder-checkbox-mask::after { content: ''; position: absolute; left: 50%; top: 50%; width: 8px; height: 0; border-top: 2px solid var(--color-white); transform: translate(-50%, -50%); }
+.giencoder-checkbox-disabled { cursor: not-allowed; opacity: 0.4; }
+
+/* === Select 选择器 === */
+.giencoder-select {
+  display: inline-flex; flex-direction: column; position: relative; font-size: var(--font-size-body-3);
+  color: var(--color-text-1); width: 100%;
+}
+.giencoder-select-view {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  min-height: 32px; padding: 0 12px; background: var(--color-bg-2);
+  border: 1px solid var(--color-border-2); border-radius: 4px; cursor: pointer;
+  /* Secondary 按钮同款表面层机制：外扩 1px 同色 spread 补齐表面 + 轻投影抬升；
+     hover 背景向浅灰档过渡（fill-1）、投影加深；按压/展开收起 spread → 表面内缩 1px 下沉 */
+  --select-ring: var(--color-bg-2);
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 0 0 1px var(--select-ring);
+  transition: border-color var(--transition-duration-1) var(--transition-timing-function-standard),
+              box-shadow 180ms cubic-bezier(0.23, 1, 0.32, 1), background-color 80ms ease;
+}
+.giencoder-select-view:hover {
+  /* hover 对齐 Secondary 基准：仅背景变 fill-1，无投影无 ring（box-shadow: none 覆盖默认表面层） */
+  background: var(--color-fill-1);
+  box-shadow: none;
+}
+.giencoder-select-view:active {
+  background: var(--color-bg-2);
+  box-shadow: none;
+  transition-duration: 80ms, 80ms, 80ms;
+}
+/* 弹层展开 = 保持按压态：表面回白、主题色边框常驻 */
+.giencoder-select-view[aria-expanded="true"] {
+  background: var(--color-bg-2);
+  border-color: var(--color-primary-6);
+  box-shadow: none;
+}
+.giencoder-select-view:focus-visible { border-color: var(--color-primary-6); box-shadow: 0 0 0 2px var(--color-primary-light-2); outline: none; }
+.giencoder-select-view-text { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--color-text-1); }
+.giencoder-select-placeholder { color: var(--color-text-3); }
+.giencoder-select-suffix { display: inline-flex; align-items: center; color: var(--color-text-3); flex-shrink: 0; transition: transform var(--transition-duration-2) var(--transition-timing-function-spring); }
+/* 有值清除：suffix 内箭头 + 清除 X 同框，hover 时箭头隐去、X 浮现；点击 X 清除所选（JS 维护 .giencoder-select-has-value） */
+.giencoder-select-clear {
+  display: none; border: none; background: none; cursor: pointer; padding: 0;
+  color: var(--color-text-3); line-height: 0;
+  transition: color var(--transition-duration-1) var(--transition-timing-function-standard);
+}
+.giencoder-select-clear:hover { color: var(--color-text-1); }
+.giencoder-select-has-value .giencoder-select-view:hover .giencoder-select-arrow { display: none; }
+.giencoder-select-has-value .giencoder-select-view:hover .giencoder-select-clear { display: inline-flex; }
+.giencoder-select-disabled .giencoder-select-clear { display: none !important; }
+.giencoder-select-selection { display: flex; align-items: center; gap: 4px; flex: 1; flex-wrap: wrap; min-height: 28px; padding: 2px 0; }
+/* 多选：内距上下左右对称（view 2px + selection 2px = 四周 4px 一致） */
+.giencoder-select-multiple .giencoder-select-view { padding: 2px; }
+.giencoder-select-multiple .giencoder-select-selection { padding: 2px; }
+.giencoder-select-popup {
+  position: absolute; top: calc(100% + 4px); left: 0; right: 0; z-index: 1000;
+  background: var(--color-bg-5); border: 1px solid var(--color-border-2); border-radius: 8px;
+  box-shadow: var(--shadow2-down); padding: 6px; max-height: 280px; overflow-y: auto;
+}
+.giencoder-select-option-list { list-style: none; margin: 0; padding: 0; }
+.giencoder-select-option {
+  padding: 4px 12px; border-radius: 4px; margin-bottom: 2px; cursor: pointer; font-size: var(--font-size-body-3);
+  color: var(--color-text-1); transition: background var(--transition-duration-1);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.giencoder-select-option:last-child { margin-bottom: 0; }
+.giencoder-select-option:hover { background: var(--color-fill-2); } /* hover 与 Dropdown 菜单项一致 */
+.giencoder-select-option-selected { background: var(--color-primary-light-1); color: var(--color-primary-6); font-weight: 500; }
+.giencoder-select-option-disabled { color: var(--color-text-4); cursor: not-allowed; }
+.giencoder-select-option-disabled:hover { background: transparent; }
+.giencoder-select-disabled .giencoder-select-view { background: var(--color-fill-1); cursor: not-allowed; box-shadow: none; }
+.giencoder-select-disabled .giencoder-select-view:hover { border-color: var(--color-border-2); background: var(--color-fill-1); box-shadow: none; }
+.giencoder-select-disabled .giencoder-select-view-text, .giencoder-select-disabled .giencoder-select-placeholder { color: var(--color-text-4); }
+.giencoder-select-error .giencoder-select-view { border-color: var(--color-danger-6); }
+.giencoder-select-error .giencoder-select-view:focus-visible { box-shadow: 0 0 0 2px var(--color-danger-light-2); }
+
+
+/* === Card 卡片 === */
+.giencoder-card { background: var(--color-bg-2); border: 1px solid var(--color-border-2); border-radius: var(--border-radius-medium); }
+.giencoder-card-hoverable { cursor: pointer; transition: box-shadow var(--transition-duration-2) var(--transition-timing-function-standard), border-color var(--transition-duration-2); }
+.giencoder-card-hoverable:hover { box-shadow: var(--shadow2-down); border-color: var(--color-border-2); }
+.giencoder-card-header { display: flex; align-items: center; justify-content: space-between; padding: 8px 16px; border-bottom: 1px solid var(--color-border-1); }
+.giencoder-card-header-title { font-size: var(--font-size-title-1); font-weight: 600; color: var(--color-text-1); }
+.giencoder-card-header-extra { display: flex; }
+.giencoder-card-body { padding: 16px; font-size: var(--font-size-body-3); color: var(--color-text-2); }
+
+
+/* === Modal / Drawer === */
+.giencoder-modal-mask, .giencoder-drawer-mask {
+  /* 全局统一的蒙层材质：罩色 --color-mask-bg + 高斯模糊 blur(10px)（与 .td-coop 同口径） */
+  background: var(--color-mask-bg);
+  -webkit-backdrop-filter: blur(10px) saturate(100%);
+  backdrop-filter: blur(10px) saturate(100%);
+}
+/* Modal 容器：浮层大面板圆角 12px（高于面板类 8px 一级），overflow 裁剪子元素背景 */
+.giencoder-modal { border-radius: 12px; overflow: hidden; }
+.giencoder-modal-header, .giencoder-drawer-header { display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; border-bottom: 1px solid var(--color-border-1); }
+.giencoder-modal-title, .giencoder-drawer-title { font-size: var(--font-size-title-1); font-weight: 600; color: var(--color-text-1); }
+.giencoder-modal-close-btn, .giencoder-drawer-close-btn { border: none; background: none; cursor: pointer; color: var(--color-text-3); display: inline-flex; padding: 4px; border-radius: 4px; }
+.giencoder-modal-close-btn:hover, .giencoder-drawer-close-btn:hover { background: var(--color-fill-2); color: var(--color-text-2); }
+.giencoder-modal-content, .giencoder-drawer-content { padding: 20px; font-size: var(--font-size-body-3); color: var(--color-text-2); }
+.giencoder-modal-footer, .giencoder-drawer-footer { padding: 12px 20px; border-top: 1px solid var(--color-border-1); display: flex; justify-content: flex-end; gap: 12px; }
+
+
+/* === Alert 警告提示 === */
+.giencoder-alert { display: flex; align-items: flex-start; gap: 10px; padding: 12px 16px; border-radius: 8px; font-size: var(--font-size-body-3); }
+.giencoder-alert-info { background: var(--color-primary-light-1); color: var(--color-primary-6); }
+.giencoder-alert-success { background: var(--color-success-light-1); color: var(--color-success-6); }
+.giencoder-alert-warning { background: var(--color-warning-light-1); color: var(--color-warning-6); }
+.giencoder-alert-error { background: var(--color-danger-light-1); color: var(--color-danger-6); }
+.giencoder-alert-icon { display: inline-flex; flex-shrink: 0; margin-top: 1px; }
+.giencoder-alert-content { flex: 1; color: var(--color-text-1); }
+.giencoder-alert-title { font-weight: 600; margin-bottom: 2px; }
+.giencoder-alert-description { color: var(--color-text-2); }
+.giencoder-alert-close-btn { border: none; background: none; cursor: pointer; color: inherit; opacity: 0.7; display: inline-flex; padding: 2px; }
+.giencoder-alert-close-btn:hover { opacity: 1; }
+.giencoder-alert-action { display: flex; align-items: center; flex-shrink: 0; }
+
+
+/* === Table 表格 === */
+.giencoder-table { width: 100%; }
+.giencoder-table-container { overflow: auto; }
+.giencoder-table-content { width: 100%; border-collapse: collapse; font-size: var(--font-size-body-3); }
+.giencoder-table-th { position: relative; padding: 6px 12px; text-align: left; background: var(--color-fill-1); color: var(--color-text-3); font-weight: 500; font-size: var(--font-size-body-1); line-height: 20px; border-bottom: 1px solid var(--color-border-2); white-space: nowrap; }
+.giencoder-table-td { padding: 8px 12px; color: var(--color-text-1); border-bottom: 1px solid var(--color-border-1); }
+.giencoder-table-tr:hover .giencoder-table-td { background: var(--color-fill-1); }
+.giencoder-table-tr-checked .giencoder-table-td { background: var(--color-primary-light-1); }
+/* 操作列容器（仅 td 生效）：左对齐 + 分隔线，让操作按钮组左对齐 + 中间一条分隔线。 */
+td.giencoder-table-operation { display: flex; gap: var(--spacing-6); justify-content: flex-start; align-items: center; }
+td.giencoder-table-operation > * { position: relative; }
+td.giencoder-table-operation > *:not(:first-child)::before { content: ''; position: absolute; left: calc(var(--spacing-3) * -1); top: 50%; transform: translateY(-50%); width: 1px; height: 1em; background: var(--color-border-2); }
+td.giencoder-table-operation .giencoder-btn { font-size: var(--font-size-body-3); }
+td.giencoder-table-operation .giencoder-btn-size-mini { padding: 0 4px; }
+.giencoder-table-checkbox { width: 40px; text-align: center; }
+.giencoder-table-checkbox .giencoder-checkbox { display: inline-flex; vertical-align: middle; }
+.giencoder-table-th.giencoder-table-checkbox, .giencoder-table-td.giencoder-table-checkbox { line-height: 1; }
+/* 排序：表头列点击排序，但图标保持静态（始终灰色指上，不变色不旋转）。
+   排序状态通过 [data-sort] 属性表达，由实现方按需附加 UI 反馈（如行高亮、aria-sort）；
+   组件库默认只负责"图标不变化 + 数据已重排"这种最简契约，避免 SVG 跳动造成的'翻转'错觉。
+   调用方如需视觉反馈，可通过自定义选择器覆盖：
+     .giencoder-table-th-sortable[data-sort="asc"] .giencoder-table-sorter,
+     .giencoder-table-th-sortable[data-sort="desc"] .giencoder-table-sorter { color: var(--color-primary-6); }
+     .giencoder-table-th-sortable[data-sort="desc"] .giencoder-table-sorter svg { transform: rotate(180deg); }
+*/
+.giencoder-table-th-sortable { cursor: pointer; user-select: none; }
+.giencoder-table-sorter { display: inline-flex; margin-left: 4px; color: var(--color-text-4); vertical-align: middle; }
+.giencoder-table-pagination { display: flex; justify-content: flex-end; padding: 12px 0; }
+
+
+/* === Pagination 分页 === */
+.giencoder-pagination { display: inline-flex; align-items: center; gap: 4px; }
+.giencoder-pagination-item {
+  min-width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center;
+  border-radius: var(--border-radius-medium); border: 1px solid var(--color-border-2); background: var(--color-bg-2);
+  font-size: var(--font-size-body-3); color: var(--color-text-2); cursor: pointer; transition: all var(--transition-duration-1);
+  padding: 0 4px;
+}
+.giencoder-pagination-item:hover { background: var(--color-fill-1); color: var(--color-text-1); border-color: var(--color-border-2); }
+.giencoder-pagination-item-active { background: var(--color-primary-6); color: var(--color-white); border-color: var(--color-primary-6); }
+.giencoder-pagination-item-active:hover { background: var(--color-primary-6); color: var(--color-white); border-color: var(--color-primary-6); }
+.giencoder-pagination-item-ellipsis { cursor: default; }
+.giencoder-pagination-item-ellipsis:hover { background: transparent; }
+/* 分页器统计文字（左侧浅灰）：如"共 128 条" */
+.giencoder-pagination-stats { color: var(--color-text-3, #737a87); font-size: var(--font-size-body-3); }
+.giencoder-pagination-jumper { display: inline-flex; align-items: center; gap: 6px; font-size: var(--font-size-body-3); color: var(--color-text-3); margin-left: 8px; }
+.giencoder-pagination-jumper .giencoder-input-wrapper { min-width: 0; }
+/* 每页条数选择器：宽度由文字自适应（不固定 96px），弹层与触发框同宽 */
+.giencoder-pagination-options .giencoder-select { width: auto; }
+
+
+/* === Steps 步骤条 === */
+.giencoder-steps { display: flex; }
+.giencoder-steps-horizontal { flex-direction: row; }
+.giencoder-steps-vertical { flex-direction: column; }
+.giencoder-steps-item { display: flex; flex: 1; position: relative; }
+/* 水平步骤条：item 内部垂直堆叠（icon 在上，标题/描述在下），连接线在 icon 中心高度穿过，不会碰到文字 */
+.giencoder-steps-horizontal .giencoder-steps-item { flex-direction: column; align-items: center; }
+.giencoder-steps-item:not(:last-child)::after { content: ''; position: absolute; top: 15px; left: 34px; right: 8px; height: 1px; background: var(--color-border-2); }
+/* 水平连接线（贯穿 + 实心图标盖线，与垂直 tail 同源）：线横贯整个 item 宽度，icon(z-index:1, 不透明)盖住线身 → 相邻 item 的线天然相接、连续不断 */
+.giencoder-steps-horizontal .giencoder-steps-item:not(:last-child)::after { left: 0; right: 0; }
+/* 最后一步：icon 居中，前一项的线只到 item 左缘 → 补画「item 左缘 → icon 左缘」段，保证与前面连续（icon 盖住右端） */
+.giencoder-steps-horizontal .giencoder-steps-item:last-child::after { content: ''; position: absolute; top: 15px; left: 0; right: calc(50% + 16px); height: 1px; background: var(--color-border-2); }
+/* 垂直连接线（Ant 风格 tail）：贯穿整个 item 高度，实心圆图标盖住线身 → item 之间无缝连续；min-height 保证矮内容下竖线可见 */
+.giencoder-steps-vertical .giencoder-steps-item:not(:last-child) { min-height: 48px; }
+.giencoder-steps-vertical .giencoder-steps-item:not(:last-child)::after { top: 0; left: 15px; right: auto; bottom: 0; width: 1px; height: auto; }
+.giencoder-steps-head { margin-right: 10px; }
+.giencoder-steps-horizontal .giencoder-steps-head { margin-right: 0; margin-bottom: 8px; }
+.giencoder-steps-icon {
+  width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  background: var(--color-fill-2); color: var(--color-text-3); font-size: var(--font-size-body-3); font-weight: 500;
+  position: relative; z-index: 1; flex-shrink: 0;
+}
+.giencoder-steps-horizontal .giencoder-steps-content { display: flex; flex-direction: column; align-items: center; }
+.giencoder-steps-icon-process { background: var(--color-primary-6); color: var(--color-white); }
+.giencoder-steps-icon-finish { background: var(--color-primary-light-1); color: var(--color-primary-6); }
+.giencoder-steps-icon-error { background: var(--color-danger-6); color: var(--color-white); }
+.giencoder-steps-title { font-size: var(--font-size-body-3); font-weight: 500; color: var(--color-text-1); }
+.giencoder-steps-description { font-size: var(--font-size-body-1); color: var(--color-text-3); margin-top: 2px; }
+.giencoder-steps-item-wait .giencoder-steps-title { color: var(--color-text-2); }
+
+
+/* === Tabs 标签页 === */
+.giencoder-tabs-header { display: flex; border-bottom: 1px solid var(--color-border-2); position: relative; }
+.giencoder-tabs-tab { padding: 10px 16px; cursor: pointer; font-size: var(--font-size-body-3); color: var(--color-text-2); transition: color var(--transition-duration-1); position: relative; display: inline-flex; align-items: center; gap: 6px; }
+.giencoder-tabs-tab:hover { color: var(--color-text-1); }
+.giencoder-tabs-tab-active { color: var(--color-primary-6); font-weight: 500; }
+.giencoder-tabs-ink { position: absolute; bottom: -1px; height: 2px; background: var(--color-primary-6); transition: all var(--transition-duration-2); }
+.giencoder-tabs-content { padding: 16px 0; font-size: var(--font-size-body-3); color: var(--color-text-2); }
+.giencoder-tabs-card .giencoder-tabs-header { border-bottom: none; gap: 4px; }
+.giencoder-tabs-card .giencoder-tabs-tab { height: 36px; padding: 0 16px; border: 1px solid var(--color-border-2); border-radius: var(--border-radius-medium) var(--border-radius-medium) 0 0; background: var(--color-fill-1); }
+.giencoder-tabs-card .giencoder-tabs-tab-active { background: var(--color-bg-2); border-bottom-color: var(--color-bg-2); color: var(--color-primary-6); font-weight: 500; }
+.giencoder-tabs-tab-close-btn { border: none; background: none; cursor: pointer; color: var(--color-text-3); display: inline-flex; padding: 0; border-radius: 50%; }
+.giencoder-tabs-tab-close-btn:hover { background: var(--color-fill-3); color: var(--color-text-1); }
+/* Subtle（映射自 Fluid Functionalism TabsSubtle）：无下划线，激活项为浅灰圆角 pill 填充 */
+.giencoder-tabs-subtle .giencoder-tabs-header { border-bottom: none; gap: 4px; }
+.giencoder-tabs-subtle .giencoder-tabs-tab { padding: 6px 12px; border-radius: var(--border-radius-large); transition: color var(--transition-duration-1), background-color var(--transition-duration-1); }
+.giencoder-tabs-subtle .giencoder-tabs-tab:hover { background: var(--color-fill-1); color: var(--color-text-1); }
+.giencoder-tabs-subtle .giencoder-tabs-tab-active { background: var(--color-fill-2); color: var(--color-text-1); font-weight: 500; }
+.giencoder-tabs-subtle .giencoder-tabs-content { padding: 12px 0; }
+
+
+/* === Menu 菜单 === */
+.giencoder-menu { padding: 4px; font-size: var(--font-size-body-3); }
+.giencoder-menu-vertical { width: 200px; }
+.giencoder-menu-item { display: flex; align-items: center; gap: 10px; height: 36px; padding: 0 12px; cursor: pointer; color: var(--color-text-1); transition: background var(--transition-duration-1); border-radius: 4px; position: relative; }
+.giencoder-menu-item + .giencoder-menu-item,
+.giencoder-menu-item + .giencoder-menu-submenu-title,
+.giencoder-menu-submenu-title + .giencoder-menu-item,
+.giencoder-menu-submenu-title + .giencoder-menu-submenu-title { margin-top: 2px; }
+.giencoder-menu-item:hover { background: var(--color-fill-1); }
+.giencoder-menu-item-selected { color: var(--color-primary-6); background: var(--color-primary-light-1); font-weight: 500; }
+.giencoder-menu-item-selected::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--color-primary-6); }
+.giencoder-menu-item-disabled { color: var(--color-text-4); cursor: not-allowed; }
+.giencoder-menu-item-disabled:hover { background: transparent; }
+.giencoder-menu-icon { display: inline-flex; }
+.giencoder-menu-arrow { margin-left: auto; display: inline-flex; transition: transform var(--transition-duration-2) var(--transition-timing-function-spring); }
+.giencoder-menu-group-title { padding: 8px 16px 4px; font-size: var(--font-size-body-1); color: var(--color-text-3); }
+.giencoder-menu-horizontal { display: flex; padding: 0; }
+.giencoder-menu-horizontal .giencoder-menu-item { height: auto; padding: 10px 16px; border-radius: 0; }
+.giencoder-menu-horizontal .giencoder-menu-item + .giencoder-menu-item { margin-top: 0; }
+.giencoder-menu-horizontal .giencoder-menu-item-selected { background: transparent; }
+.giencoder-menu-horizontal .giencoder-menu-item-selected::before { width: 100%; height: 2px; top: auto; bottom: 0; }
+.giencoder-menu-submenu-title { display: flex; align-items: center; gap: 10px; height: 36px; padding: 0 12px; cursor: pointer; color: var(--color-text-1); border-radius: 4px; }
+.giencoder-menu-submenu-title:hover { background: var(--color-fill-1); }
+.giencoder-menu-submenu-content { padding: 0; }
+.giencoder-menu-submenu-open .giencoder-menu-arrow { transform: rotate(180deg); }
+
+
+/* === Layout 布局 === */
+.giencoder-layout { display: flex; flex-direction: column; width: 100%; }
+.giencoder-layout-body { display: flex; flex: 1; }
+.giencoder-layout-header, .giencoder-layout-footer { flex-shrink: 0; }
+.giencoder-layout-header { background: var(--color-fill-1); }
+.giencoder-layout-sider { flex-shrink: 0; }
+.giencoder-layout-content { flex: 1; }
+
+
+/* === Skeleton 骨架屏 === */
+.giencoder-skeleton-line {
+  display: block; height: 14px; border-radius: 4px; background: linear-gradient(90deg, var(--color-fill-2) 25%, var(--color-fill-3) 37%, var(--color-fill-2) 63%);
+  background-size: 400% 100%; animation: giencoder-skeleton-loading 1.4s ease infinite; margin-bottom: 12px;
+}
+.giencoder-skeleton-title { height: 20px; border-radius: 4px; background: var(--color-fill-3); margin-bottom: 16px; }
+.giencoder-skeleton-avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--color-fill-3); flex-shrink: 0; }
+@keyframes giencoder-skeleton-loading { 0% { background-position: 100% 50%; } 100% { background-position: 0 50%; } }
+
+
+/* === Spin 加载中 === */
+.giencoder-spin-loading {
+  display: inline-block; border-radius: 50%; border: 2px solid var(--color-fill-3);
+  border-top-color: var(--color-primary-6); animation: giencoder-spin 0.8s linear infinite;
+}
+.giencoder-spin-loading-mini { width: 14px; height: 14px; }
+.giencoder-spin-loading-small { width: 18px; height: 18px; }
+.giencoder-spin-loading-medium { width: 22px; height: 22px; }
+.giencoder-spin-loading-large { width: 28px; height: 28px; }
+.giencoder-spin-wrapper { position: relative; }
+.giencoder-spin-mask { position: absolute; inset: 0; background: var(--color-spin-layer-bg); }
+
+
+/* === Message 全局消息 === */
+.giencoder-message {
+  display: flex; align-items: center; gap: 8px; padding: 10px 16px;
+  border-radius: 999px; background: var(--color-bg-2);
+  border: 1px solid var(--color-border-2); box-shadow: var(--shadow2-down);
+  font-size: var(--font-size-body-3);
+}
+.giencoder-message-close-btn:hover { color: var(--color-text-1); }
+
+
+/* === List 列表 === */
+.giencoder-list-item-action { display: flex; gap: var(--spacing-4); flex-shrink: 0; }
+.giencoder-list-item-action .giencoder-btn { font-size: var(--font-size-body-3); }
+
+
+/* === Badge 徽标 === */
+.giencoder-badge { position: relative; display: inline-block; }
+.giencoder-badge-count {
+  position: absolute; top: -6px; right: -8px; min-width: 16px; height: 16px; padding: 0 5px;
+  border-radius: 8px; background: var(--color-danger-6); color: var(--color-white);
+  font-size: 10px; line-height: 16px; text-align: center; z-index: 1; font-weight: 500;
+}
+.giencoder-badge-count-max { letter-spacing: -0.5px; }
+.giencoder-badge-standalone .giencoder-badge-count { position: static; display: inline-block; }
+.giencoder-badge-dot { position: absolute; top: -2px; right: -2px; width: 8px; height: 8px; border-radius: 50%; background: var(--color-danger-6); }
+.giencoder-badge-status { display: inline-flex; align-items: center; gap: 6px; font-size: var(--font-size-body-3); }
+.giencoder-badge-status-dot { width: 8px; height: 8px; border-radius: 50%; }
+.giencoder-badge-status-success { background: var(--color-success-6); }
+.giencoder-badge-status-warning { background: var(--color-warning-6); }
+.giencoder-badge-status-danger { background: var(--color-danger-6); }
+.giencoder-badge-status-normal { background: var(--color-text-3); }
+.giencoder-badge-status-processing { background: var(--color-primary-6); }
+.giencoder-badge-status-text { color: var(--color-text-2); }
+
+
+/* === Avatar 头像 === */
+.giencoder-avatar { display: inline-flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; }
+.giencoder-avatar-group .giencoder-avatar { border: 2px solid var(--color-bg-1); margin-left: -8px; }
+.giencoder-avatar-group .giencoder-avatar:first-child { margin-left: 0; }
+
+
+/* === Breadcrumb 面包屑 === */
+.giencoder-breadcrumb { display: flex; align-items: center; font-size: var(--font-size-body-3); }
+.giencoder-breadcrumb-item { display: inline-flex; align-items: center; }
+.giencoder-breadcrumb-item-link { color: var(--color-text-2); text-decoration: none; transition: color var(--transition-duration-1); }
+.giencoder-breadcrumb-item-link:hover { color: var(--color-text-1); }
+.giencoder-breadcrumb-item-current { color: var(--color-text-1); }
+.giencoder-breadcrumb-item-separator { margin: 0 8px; color: var(--color-text-3); display: inline-flex; }
+.giencoder-breadcrumb-item-ellipsis { color: var(--color-text-3); }
+
+
+/* === Descriptions 描述列表 === */
+.giencoder-descriptions-table { width: 100%; font-size: var(--font-size-body-3); }
+.giencoder-descriptions-item-label { color: var(--color-text-3); vertical-align: top; }
+.giencoder-descriptions-item-value { color: var(--color-text-1); }
+
+
+/* === Progress 进度条 === */
+.giencoder-progress-line { display: flex; align-items: center; gap: 8px; }
+.giencoder-progress-outer { flex: 1; }
+.giencoder-progress-inner { height: 8px; border-radius: 4px; background: var(--color-fill-2); overflow: hidden; position: relative; }
+.giencoder-progress-bar { height: 100%; border-radius: 4px; transition: width var(--transition-duration-3) var(--transition-timing-function-standard); position: relative; overflow: hidden; }
+.giencoder-progress-bar::after { content: ''; position: absolute; inset: 0; background-image: linear-gradient(45deg, rgba(255,255,255,.25) 25%, transparent 25%, transparent 50%, rgba(255,255,255,.25) 50%, rgba(255,255,255,.25) 75%, transparent 75%, transparent); background-size: 16px 16px; animation: giencoder-progress-stripes 1s linear infinite; }
+.giencoder-progress-bar-primary { background: var(--color-primary-6); }
+.giencoder-progress-bar-success { background: var(--color-success-6); }
+.giencoder-progress-bar-danger { background: var(--color-danger-6); }
+.giencoder-progress-buffer { position: absolute; inset: 0; background: var(--color-primary-light-2); }
+@keyframes giencoder-progress-stripes { from { background-position: 16px 0; } to { background-position: 0 0; } }
+.giencoder-progress-text { font-size: var(--font-size-body-1); color: var(--color-text-2); min-width: 36px; text-align: right; }
+.giencoder-progress-text-success { color: var(--color-success-6); }
+.giencoder-progress-text-danger { color: var(--color-danger-6); }
+
+
+/* === Result 结果页 === */
+.giencoder-result { text-align: center; padding: 40px 0; }
+.giencoder-result-icon { margin-bottom: 16px; }
+.giencoder-result-title { font-size: var(--font-size-title-2); font-weight: 600; color: var(--color-text-1); }
+.giencoder-result-subtitle { font-size: var(--font-size-body-3); color: var(--color-text-3); margin-top: 8px; }
+.giencoder-result-extra { margin-top: 24px; display: flex; gap: 12px; justify-content: center; }
+
+
+/* === Empty 空状态 === */
+.giencoder-empty { text-align: center; }
+.giencoder-empty-image { display: flex; justify-content: center; }
+.giencoder-empty-description { margin-top: 12px; }
+.giencoder-empty-action { margin-top: 16px; }
+
+
+/* === Statistic 统计数值 === */
+.giencoder-statistic-title { font-size: var(--font-size-body-1); color: var(--color-text-3); }
+.giencoder-statistic-content { font-size: var(--font-size-title-3); font-weight: 600; color: var(--color-text-1); margin-top: 8px; line-height: 1.2; }
+.giencoder-statistic-card { background: var(--color-fill-1); border-radius: var(--border-radius-large); padding: var(--spacing-7); }
+
+
+/* === Upload 上传 === */
+.giencoder-upload-trigger, .giencoder-upload-drag-trigger { transition: all var(--transition-duration-2); }
+.giencoder-upload-drag-trigger:hover { border-color: var(--color-primary-6) !important; background: var(--color-primary-light-1) !important; }
+.giencoder-upload-list-item { height: 36px; box-sizing: border-box; transition: background var(--transition-duration-1); }
+
+
+/* === Collapse 折叠面板 === */
+.giencoder-collapse-item-header:hover { background: var(--color-fill-1); }
+.giencoder-collapse-arrow { transition: transform var(--transition-duration-2) var(--transition-timing-function-spring); display: inline-flex; }
+
+
+/* === Timeline 时间轴 === */
+.giencoder-timeline-item { display: flex; position: relative; }
+.giencoder-timeline-dot-wrapper { display: flex; justify-content: center; align-items: flex-start; padding-top: 5px; margin-right: 12px; position: relative; }
+/* 竖线：节点下方 3px 起（默认 8px 圆点 → 16px），延伸到 item 底部与下一节点无缝衔接（不穿入下一节点） */
+.giencoder-timeline-item:not(:last-child) .giencoder-timeline-dot-wrapper::after { content: ''; position: absolute; top: 16px; bottom: 0; width: 1px; background: var(--color-border-2); }
+/* 自定义节点（14px 图标）：图标底部 19px → 竖线 22px 起，避免穿过图标 */
+.giencoder-timeline-item:not(:last-child) .giencoder-timeline-dot-wrapper:has(.giencoder-timeline-dot-custom)::after { top: 22px; }
+.giencoder-timeline-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--color-fill-3); flex-shrink: 0; }
+.giencoder-timeline-dot-primary { background: var(--color-primary-6); }
+.giencoder-timeline-dot-success { background: var(--color-success-6); }
+.giencoder-timeline-dot-warning { background: var(--color-warning-6); }
+.giencoder-timeline-dot-gray { background: var(--color-fill-3); }
+.giencoder-timeline-dot-custom { display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.giencoder-timeline-content { flex: 1; }
+
+
+/* === Tooltip 文字气泡 === */
+.giencoder-tooltip-popup { box-shadow: var(--shadow1-down); }

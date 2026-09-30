@@ -1,0 +1,1 @@
+"{\"fs\":\"24\",\"actH\":\"48px\",\"actMinH\":\"auto\",\"actW\":\"28px\",\"rowH\":102.58,\"navW\":244,\"navScrollW\":244,\"navOverflow\":0,\"clearW\":168,\"clearH\":61.7,\"overflowList\":2,\"ov\":[\"r88-arch-bar sw=858 cw=840 | t=全部项目全部项目银行演练\",\"giencoder-select giencoder-select-has-value r88-arch-proj sw=218 cw=200 | t=全部项目全部项目银行演练\"],\"pageOX\":0}"

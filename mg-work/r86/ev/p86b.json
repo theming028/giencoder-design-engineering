@@ -1,0 +1,214 @@
+{
+ "aside": {
+  "box": [
+   12,
+   48,
+   256,
+   1044
+  ],
+  "inlineW": "256px",
+  "cssW": "256px",
+  "ariaHidden": "false"
+ },
+ "sep": {
+  "exists": true,
+  "display": "none",
+  "box": [
+   0,
+   0,
+   0,
+   0
+  ]
+ },
+ "selCount": 4,
+ "sels": [
+  {
+   "w": 98,
+   "box": [
+    1232,
+    162,
+    98,
+    32
+   ],
+   "view": true,
+   "role": "combobox",
+   "expanded": "false",
+   "text": "标准模式",
+   "suffix": true,
+   "arrow": true,
+   "clear": true,
+   "popup": true,
+   "popupOpen": false,
+   "optCount": 3,
+   "optSel": 1,
+   "hasValue": false,
+   "viewH": "32px",
+   "viewBd": "1px rgb(229, 229, 229)",
+   "viewR": "4px",
+   "viewPad": "12px / 12px"
+  },
+  {
+   "w": 154,
+   "box": [
+    1176,
+    236,
+    154,
+    32
+   ],
+   "view": true,
+   "role": "combobox",
+   "expanded": "false",
+   "text": "Workspace Write",
+   "suffix": true,
+   "arrow": true,
+   "clear": true,
+   "popup": true,
+   "popupOpen": false,
+   "optCount": 3,
+   "optSel": 1,
+   "hasValue": false,
+   "viewH": "32px",
+   "viewBd": "1px rgb(229, 229, 229)",
+   "viewR": "4px",
+   "viewPad": "12px / 12px"
+  },
+  {
+   "w": 98,
+   "box": [
+    1232,
+    310,
+    98,
+    32
+   ],
+   "view": true,
+   "role": "combobox",
+   "expanded": "false",
+   "text": "排队发送",
+   "suffix": true,
+   "arrow": true,
+   "clear": true,
+   "popup": true,
+   "popupOpen": false,
+   "optCount": 3,
+   "optSel": 1,
+   "hasValue": false,
+   "viewH": "32px",
+   "viewBd": "1px rgb(229, 229, 229)",
+   "viewR": "4px",
+   "viewPad": "12px / 12px"
+  },
+  {
+   "w": 70,
+   "box": [
+    1260,
+    630,
+    70,
+    32
+   ],
+   "view": true,
+   "role": "combobox",
+   "expanded": "false",
+   "text": "中文",
+   "suffix": true,
+   "arrow": true,
+   "clear": true,
+   "popup": true,
+   "popupOpen": false,
+   "optCount": 3,
+   "optSel": 1,
+   "hasValue": false,
+   "viewH": "32px",
+   "viewBd": "1px rgb(229, 229, 229)",
+   "viewR": "4px",
+   "viewPad": "12px / 12px"
+  }
+ ],
+ "legacy": {
+  "selBtn": 0,
+  "menu": 0
+ },
+ "lines": [
+  {
+   "i": 1,
+   "bg": "rgb(229, 229, 229)",
+   "h": "1px"
+  },
+  {
+   "i": 2,
+   "bg": "rgb(229, 229, 229)",
+   "h": "1px"
+  },
+  {
+   "i": 4,
+   "bg": "rgb(229, 229, 229)",
+   "h": "1px"
+  },
+  {
+   "i": 5,
+   "bg": "rgb(229, 229, 229)",
+   "h": "1px"
+  },
+  {
+   "i": 6,
+   "bg": "rgb(229, 229, 229)",
+   "h": "1px"
+  },
+  {
+   "i": 7,
+   "bg": "rgb(229, 229, 229)",
+   "h": "1px"
+  },
+  {
+   "i": 8,
+   "bg": "rgb(229, 229, 229)",
+   "h": "1px"
+  },
+  {
+   "i": 10,
+   "bg": "rgb(229, 229, 229)",
+   "h": "1px"
+  }
+ ],
+ "ic": {
+  "bg": "rgb(229, 229, 229)",
+  "box": [
+   530,
+   158,
+   40,
+   40
+  ],
+  "r": "8px"
+ },
+ "page": [
+  510,
+  85,
+  840,
+  918
+ ],
+ "nav": [
+  18,
+  48,
+  232,
+  268
+ ],
+ "cards": [
+  [
+   510,
+   137,
+   840,
+   230
+  ],
+  [
+   510,
+   383,
+   840,
+   448
+  ],
+  [
+   510,
+   847,
+   840,
+   156
+  ]
+ ]
+}

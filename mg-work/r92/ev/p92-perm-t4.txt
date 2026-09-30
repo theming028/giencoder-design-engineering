@@ -1,0 +1,1 @@
+"{\"text\":\"默认权限\",\"textCol\":\"rgb(78, 78, 78)\",\"textInline\":\"color: var(--color-text-2); line-height: 19px; flex: 0 0 auto; overflow: visible; text-overflow: clip;\",\"icoCol\":\"rgb(78, 78, 78)\",\"icoCls\":\"lucide lucide-lock size-[14px] shrink-0 [color:var(--color-text-2)]\",\"expanded\":\"false\",\"menuOpen\":false,\"workdirTextCol\":\"rgb(78, 78, 78)\"}"

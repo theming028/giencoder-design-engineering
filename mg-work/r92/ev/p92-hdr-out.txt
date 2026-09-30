@@ -1,0 +1,27 @@
+##### base
+"{\"cls\":\"flex h-12 shrink-0 items-center justify-between px-4 bg-[#F4F5F6]\",\"bgi\":\"url(\\\"file:///E:/GienCoder/giencoder-design-engineering/assets/images/bg-img-1.png\\\")\",\"rep\":\"no-repeat\",\"pos\":\"100% 50%\",\"size\":\"auto\",\"bgc\":\"rgb(244, 245, 246)\",\"w\":1920,\"h\":48,\"hdrCount\":1,\"innerW\":1920}"
+
+##### settings
+"{\"cls\":\"flex h-12 shrink-0 items-center justify-between px-4 bg-[#F4F5F6]\",\"bgi\":\"url(\\\"file:///E:/GienCoder/giencoder-design-engineering/assets/images/bg-img-1.png\\\")\",\"rep\":\"no-repeat\",\"pos\":\"100% 50%\",\"size\":\"auto\",\"bgc\":\"rgb(244, 245, 246)\",\"w\":1920,\"h\":48,\"hdrCount\":1,\"innerW\":1920}"
+
+##### avatar
+"{\"cls\":\"flex h-12 shrink-0 items-center justify-between px-4 bg-[#F4F5F6]\",\"bgi\":\"url(\\\"file:///E:/GienCoder/giencoder-design-engineering/assets/images/bg-img-1.png\\\")\",\"rep\":\"no-repeat\",\"pos\":\"100% 50%\",\"size\":\"auto\",\"bgc\":\"rgb(244, 245, 246)\",\"w\":1920,\"h\":48,\"hdrCount\":5,\"innerW\":1920}"
+
+##### skills
+"{\"cls\":\"flex h-12 shrink-0 items-center justify-between px-4 bg-[#F4F5F6]\",\"bgi\":\"url(\\\"file:///E:/GienCoder/giencoder-design-engineering/assets/images/bg-img-1.png\\\")\",\"rep\":\"no-repeat\",\"pos\":\"100% 50%\",\"size\":\"auto\",\"bgc\":\"rgb(244, 245, 246)\",\"w\":1920,\"h\":48,\"hdrCount\":1,\"innerW\":1920}"
+
+##### automation
+"{\"cls\":\"flex h-12 shrink-0 items-center justify-between px-4 bg-[#F4F5F6]\",\"bgi\":\"url(\\\"file:///E:/GienCoder/giencoder-design-engineering/assets/images/bg-img-1.png\\\")\",\"rep\":\"no-repeat\",\"pos\":\"100% 50%\",\"size\":\"auto\",\"bgc\":\"rgb(244, 245, 246)\",\"w\":1920,\"h\":48,\"hdrCount\":1,\"innerW\":1920}"
+
+##### dev
+"{\"cls\":\"flex h-12 shrink-0 items-center justify-between px-4 bg-[#E5EDF5]\",\"bgi\":\"none\",\"rep\":\"repeat\",\"pos\":\"0% 0%\",\"size\":\"auto\",\"bgc\":\"rgb(229, 237, 245)\",\"w\":1920,\"h\":48,\"hdrCount\":1,\"innerW\":1920}"
+
+##### kanban
+"{\"cls\":\"flex h-12 shrink-0 items-center justify-between px-4 bg-[#E5EDF5]\",\"bgi\":\"none\",\"rep\":\"repeat\",\"pos\":\"0% 0%\",\"size\":\"auto\",\"bgc\":\"rgb(229, 237, 245)\",\"w\":1920,\"h\":48,\"hdrCount\":1,\"innerW\":1920}"
+
+##### req-kanban
+"{\"cls\":\"flex h-12 shrink-0 items-center justify-between px-4 bg-[#E5EDF5]\",\"bgi\":\"none\",\"rep\":\"repeat\",\"pos\":\"0% 0%\",\"size\":\"auto\",\"bgc\":\"rgb(229, 237, 245)\",\"w\":1920,\"h\":48,\"hdrCount\":1,\"innerW\":1920}"
+
+##### task-detail
+"{\"cls\":\"flex h-12 shrink-0 items-center justify-between px-4 bg-[#F4F5F6]\",\"bgi\":\"none\",\"rep\":\"repeat\",\"pos\":\"0% 0%\",\"size\":\"auto\",\"bgc\":\"rgb(229, 237, 245)\",\"w\":1920,\"h\":48,\"hdrCount\":4,\"innerW\":1920}"
+

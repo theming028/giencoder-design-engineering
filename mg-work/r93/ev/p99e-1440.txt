@@ -1,0 +1,7 @@
+✓ Done
+✓ 会话 · 基础工作台
+  file:///E:/GienCoder/giencoder-design-engineering/pages/conversation.html?v=1790761270
+✓ Done
+=== viewport 1440 ===
+"{\"dpr\":1,\"scroll\":{\"hostTop\":49,\"docScroll\":0},\"dlist\":{\"rect\":[421,3734,858,258],\"dsb\":0,\"hasVBar\":false,\"ovf\":\"auto\"},\"tobottom\":{\"rect\":[788,549,125,32],\"color\":\"rgb(78, 78, 78)\",\"bg\":\"rgb(255, 255, 255)\",\"cls\":\"r93-tobottom r93-bt is-on\"},\"rateline\":{\"rect\":[420,4267,860,24],\"line1\":[68,69],\"rate\":[81,224],\"line2\":[234,235],\"more\":[233,257]},\"fixedIcons\":[{\"vb\":\"11.784 -0.05 14.225 14.225\",\"rect\":[0,0,0,0]},{\"vb\":\"11.784 -0.05 14.225 14.225\",\"rect\":[438,2851,14,14]}],\"umeta\":{\"rect\":[552,287,728,24],\"icons\":[[1231,292,14,14],[1261,292,14,14]]},\"drow\":{\"rect\":[421,3806,858,36],\"name\":\"app.json\",\"more\":[1242,3813,24,24]},\"artlabel\":{\"rect\":[820,4017,60,22],\"fs\":\"15px\"},\"alink\":{\"rect\":[420,381,173,22],\"fs\":\"15px\"},\"pill\":{\"rect\":[564,134,158,22],\"fs\":\"15px\",\"color\":\"rgb(52, 145, 250)\"},\"asst\":{\"rect\":[420,343,860,74],\"border\":\"rgb(229, 229, 229)\"},\"quiz\":{\"rect\":[438,1417,842,208],\"pad\":\"20px\"},\"fh\":{\"rect\":[420,429,176,22],\"ico\":[420,433,14,14]},\"copyBtn\":{\"rect\":[1256,287,24,24],\"title\":\"复制\",\"html\":\"<span class=\\\"r93-iblk r93-i14\\\"><svg viewBox=\\\"0 0 16 16\\\" fill=\\\"none\\\" aria-hidden=\"}}"
+✓ Screenshot saved to mg-work/r93/raw/r99-final1440.png
