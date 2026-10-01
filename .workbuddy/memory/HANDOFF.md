@@ -2,7 +2,7 @@
 
 > **每轮覆盖重写。新会话开局先读这一页，再按需 grep `PLAYBOOK.md` / `PAGES.md`。**
 > **每轮覆盖重写。新会话开局先读这一页，再按需 grep `PLAYBOOK.md` / `PAGES.md`。**
-> 最后更新：2026-10-01 14:1x（**r106 已提交 `4d081ba`** + **r107 侧栏模块标签化已落地（十一拍累积）** → 四查全绿 + 五模块实测 + 多轮真 bug / 机制坑修复 → 🚫 **未提交**（默认不自动 commit））
+> 最后更新：2026-10-01 14:2x（**r106 已提交 `4d081ba`** + **r107 侧栏模块标签化已落地（十一拍累积）** → 四查全绿 + 五模块实测 + 多轮真 bug / 机制坑修复 → **已推送 `e9c9498`**（2026-10-01 14:2x 邵先生发话 commit and push））
 > ⚠️ **最新一拍 = r107「侧栏模块标签化」**（复刻 Codex 右栏；**r106 已交付 ⇒ 本代是新一代**，
 > **新建 `mg-work/r107/apply107.py`**（由 `ev/make107.py` 从 apply106 做 **13 处精确替换**生成），
 > `GENS` 摘除表扩到**五代**（r93/r101/r102/r106/r107），注入块 id = `r107-conv-css` / `r107-conv-js`；
@@ -146,10 +146,10 @@
 >   本代 `conversation`：**799231 → 866988**（第一拍 +67757）→ **876008**（第二拍 +9020）→ **894916**（第三拍 +18908）
 >   → **920259**（第四拍 +25343）→ **921730**（第五拍 +1471）→ **925776**（第六拍 +4046）→ **927464 Unicode 字符**（第七拍 +1688）；
 >   **相对 HEAD 合计 +128233**。UTF-8 字节（LF 归一）870627 → 952672 → 976078 → 1004420 → 1006094 → 1012253 → **1015265**；工作区字节（CRLF）947490 → 958664 → 979610 → 1011192 → 1012899 → 1019153 → **1022207**；LF `sha1 79aa4533761b`。
-> 工作区（未提交）：**`M pages/conversation.html`（927464 字符）+ `M pages/avatar.html`（`+1 / −1`，第七拍文案）+ `?? mg-work/r107/`**
+> 工作区：**干净**（仅剩 `?? mg-work/r107/ev/bak{7,8,9,10}/` 4 个返工备份目录，刻意留在库外）。已推送 `e9c9498`：`conversation.html` **958568 字符**。
 >   —— **`base.html` 逐字节不变**；8 个外壳页里**只有 `avatar.html` 因第七拍文案动了 1 处**，其余 7 页不动
 >   （nav 块沿用 `r106-nav-js`；`apply107` 跑完打印「base.html 已是目标态」）。
->   `origin/main` = **`87e2caa`**（本地 HEAD 已到 `f13b3bf`，**本代未推送**）。
+>   `origin/main` = **`e9c9498`**（本地 HEAD 已到 `e9c9498` = r107 代终态，**已推送**）。
 > ⚠ **本代不要重跑 `apply106.py`**（它只认四代 ⇒「基线残留 r107-conv-css」自检直接退出）；
 >   退 r107 只需 `git checkout -- pages/conversation.html`。
 > ⚠ **r89 / r90 / r91 / r92 对设置页的改动、r93 需求 1 对字号机制的改动，全都是 r88 的就地返工**（r88 未提交 ⇒ 按硬规则不另起代数，直接改 `mg-work/r88/apply88.py` 与 `apply88b-fontsize.py`）。
@@ -176,8 +176,8 @@
 **r102 ~ r105 已全部提交推送**（**`87e2caa`**）；**r106 六条（`4d081ba`）+ Codex 右栏调研（`f13b3bf`）也已提交**（2026-10-01 09:4x，邵先生发话 commit）。
 r86 ~ r100 于 18:2x 提交推送（`6a4b0ea..d7e2151`）；**r101 于 20:2x 提交推送**（`1d11fc9..9f252e5`）。
 
-★★ **r107（侧栏模块标签化）＝本代新产物，🚫 尚未提交**（默认不自动 commit）。工作区 `git status`：
-**`M pages/conversation.html`（927464 字符）+ `M pages/avatar.html`（`+1 / −1`）+ `?? mg-work/r107/`** —— **base.html 逐字节不变**（8 个外壳页里只有 avatar.html 因文案动 1 处，其余 7 页不动）。
+★★ **r107（侧栏模块标签化）＝本代新产物，已推送 `e9c9498`**（2026-10-01 14:2x 邵先生发话 commit and push）。推送后工作区：
+**干净**（只剩 `?? mg-work/r107/ev/bak{7,8,9,10}/` 4 个返工备份目录，刻意留在库外）—— **base.html 逐字节不变**（8 个外壳页里只有 avatar.html 因文案动 1 处，其余 7 页不动）。
 > ★★★ 这是本代刻意设计的结果：nav 块**沿用 `r106-nav-js` 不换名**（硬规则「跨代沿用的宿主标记不换名」），
 > 于是 `apply107.py` 跑完 `base.html` 打印「已是目标态（无改动）」⇒ 满足「不得改动其他不必涉及的模块」。
 > ⚠ 工作区字节数比仓库 blob 大**「行数」个字节** = `core.autocrlf=true` 的行尾差，**不是内容改动**。
@@ -189,13 +189,13 @@ r86 ~ r100 于 18:2x 提交推送（`6a4b0ea..d7e2151`）；**r101 于 20:2x 提
 
 | 改动 | 内容 |
 |---|---|
-| `pages/conversation.html` | **634719 → 793028 字符**（r101 两批 +38126 → r102 +10199 → r103 +2421 → r104 +6183 → **r105 ② +2173 → ③ +99207**）；LF 文本 `sha e67474395502`（r101 交付态 `98140cc4bf8f`、r102 态 `249fbc984716`、r103 态 `a340b6a9e89f`、r104 态 `05b899bd4366`）；`script=9 style=16`（**16 与 HEAD 一致，旧记录写 15 是笔误**）；注入块 id 经 `r93-conv-*` → `r101-conv-*` → `r102-conv-*` → **`r106-conv-css` / `r106-conv-js`**（历代残留 0）；r102 十一条 + r103 六条 + r104 四条 + r105 三条见 `mg-work/r102/acceptance.md`，**r106 六条见 `mg-work/r106/acceptance.md`**。★ **r106 态（未提交）：793028 → 798613 字符（+5585）**，工作区 blob `e17d227b58bf`。★★ **r107 态（未提交）**：`799231 → 866988（一 +67757）→ 876008（二 +9020）→ 894916（三 +18908）→ 920259（四 +25343）→ 921730（五 +1471）→ 925776（六 +4046）`，**相对 HEAD +126545**；工作区字节 1019153（CRLF）/ UTF-8 1012253（LF 归一），LF `sha 6655f13a1afd`；注入块 id `r107-conv-css` / `r107-conv-js`（**`r106-*` / `r102-*` / `r101-*` / `r93-conv-*` 全 0**）；r107 六拍见 `mg-work/r107/acceptance.md`（**十一节**） |
+| `pages/conversation.html` | **634719 → 793028 字符**（r101 两批 +38126 → r102 +10199 → r103 +2421 → r104 +6183 → **r105 ② +2173 → ③ +99207**）；LF 文本 `sha e67474395502`（r101 交付态 `98140cc4bf8f`、r102 态 `249fbc984716`、r103 态 `a340b6a9e89f`、r104 态 `05b899bd4366`）；`script=9 style=16`（**16 与 HEAD 一致，旧记录写 15 是笔误**）；注入块 id 经 `r93-conv-*` → `r101-conv-*` → `r102-conv-*` → **`r106-conv-css` / `r106-conv-js`**（历代残留 0）；r102 十一条 + r103 六条 + r104 四条 + r105 三条见 `mg-work/r102/acceptance.md`，**r106 六条见 `mg-work/r106/acceptance.md`**。★ **r106 态（未提交）：793028 → 798613 字符（+5585）**，工作区 blob `e17d227b58bf`。★★ **r107 态（已交付 `e9c9498`）**：`799231 → 866988（一 +67757）→ 876008（二 +9020）→ 894916（三 +18908）→ 920259（四 +25343）→ 921730（五 +1471）→ 925776（六 +4046）`，**相对 HEAD +126545**；工作区字节 1019153（CRLF）/ UTF-8 1012253（LF 归一），LF `sha 6655f13a1afd`；注入块 id `r107-conv-css` / `r107-conv-js`（**`r106-*` / `r102-*` / `r101-*` / `r93-conv-*` 全 0**）；r107 十一拍见 `mg-work/r107/acceptance.md`（**十六节**） |
 | `pages/base.html` | **471444 → 472150 字符**（r101 +706，r102 ~ r105 **+0**）；LF 文本 `sha c406a60add16`（r101 态 `2ffe5f16d5c8`）＝ nav 脚本 id 由 `r101-nav-js` 换成 **`r102-nav-js`**（注释对同步换名，**长度相同**）+ **`r101-hdr-css`（顶栏图 70%）**。r106 态：仍 **+0**，nav id → `r106-nav-js`（等长），工作区 blob `3436a5e7857e`。★ **r107 态：仍 472150 字符 / 逐字节不变（nav id 刻意沿用 `r106-nav-js`）** |
 | `pages/{avatar,skills,automation,settings,dev,kanban,req-kanban,task-detail}.html` | **各 +714**（r105 ① 注入同一块 `r102-nav-js`；这 8 页在 r101 已各 +703）；终态 `568086 / 361583 / 361696 / 459222 / 450205 / 568052 / 513791 / 767428` |
 | `mg-work/r101/` | `apply101.py`（含 `--revert` / `--dry`）/ `acceptance.md`（**十三节**）/ `before/`（2 份前置基线）/ `ev/`（探针 + 终态取证 + `vd-r101*`）/ `raw/` —— **已提交**，仅供追溯 |
 | `mg-work/r102/` | `apply102.py`（**163605 字符 / 220815 字节**；`cp` 自 r101 后大改；**r103 六条 + r104 四条 + r105 三条也在里面**，含 `--revert` / `--dry`）/ `acceptance.md`（**六节 r102 + r103 段 + r104 段 + 新增 r105 段**，39524 字节）/ `before/`（`conversation-r102.html` 721864 / `base-r102.html` 490294）/ **`part105/`**（`browse.css` 15937 / `browse.html` 31688 / `browse.js` 47410 / `ctrl-conv.js` 15465，r105 ③ 三件套 + 控制器）/ `ev/`（`p102a~p102f` + `p103a~p103k` + `p104a~p104q` + **`p105a~p105j` + `p105e/f/g1.js` + `extract105.py` + `write_acc105.py` + `.log`** + `audit104.py/.log` + `vd-r102a/b.txt` / `vd-r103a.txt` / `vd-r104b/c.txt` / **`vd-r105a/b.txt`**）/ `raw/`（基线 / 改后 1440+2560 / 折叠 / hover / `g103-*` ~ `k103-*` / `z104-*` `a104-*`~`z2560-*` `c2560-*` / **`x105-*` `y105-*` `z2560-browse*` `z2560-dark-browse` `z1440-dark-105` r105 裁片**）—— **已提交**（`87e2caa`）|
 | `mg-work/r106/` | **已提交（`4d081ba`）**：`apply106.py`（含 `--revert` / `--dry`；第三拍新增 ④b 规则）/ `acceptance.md`（**六条 · 三拍**，含「④b 定位过程」节）/ `before/`（`conversation-r106.html` 865582 / `conversation-r106a.html` 870416 / **`conversation-r106b.html` 872270 = 第三拍前态** / `base-r106.html` / `base-r106a.html`）/ `ev/`（`make106.py` + `p106a~p106m` 探针与日志 + `vd-r106a/b/c.txt`）/ `raw/`（`b106-*` / `a106-*` / `a106v2-*` / `g106-*` + **`m106-{1280,1370,1440,1920,2560}-open.png` + `m106b-1280-open.png`**）|
-| `mg-work/r107/` | **本代（🚫 未提交）**：`apply107.py`（**由 `ev/make107.py` 从 apply106 做 13 处精确替换生成**；GENS 五代、nav 沿用 r106；含 `--revert` / `--dry`）/ `acceptance.md`（**十二节**：口径 / nav 不换名体位 / 五模块 / **两个真 bug** / 稳定性证明 / 取舍 / 取证 / **第二拍** / **第三拍** / **第四拍五条** / **第五拍两条** / **第六拍三条** / **第七拍七条**）/ **`part107/`**（第七拍后：`_head.html` 5270 · `_mods.html` 35916 · **`browse.html` 71578 = 组装件** · `panel.css` 39686 · `panel.js` 48583）/ `ev/`（`make107.py` · **`splice107.py`** · `probe107.sh` · `debug107.sh` · `debug107b.sh` · `final107.sh` · `shots107.sh` · `shots107d.sh` · `shots107e.sh` · `shots107f.sh` + `verify107e.sh` · **`shots107g.sh` + `verify107g.sh` + `probe107f.sh`（第六拍）** · **`p107d1~p107d9.js`（第四拍探针）** · **`p107e1/e2.js` + `fix107e1.py` + `fix107e2.py`（第五拍）** · **`p107f1~p107f7.js` + `p107g1.js`（第六拍探针）** · **`p107h1~h3.js` + `probe107h{,2,3}.sh` + `patch107h{,2}.py` + `doc107h{,2}.py`（第七拍）** · `scan-flatten.py` + `.log` + `vd-r107{,b,c}.txt`）/ `raw/`（`g1~g7` 出图 · `f1~f9` 功能 · `d1~d7` 诊断 · `h1~h3` 窄档/字号 · `s1~s12` 首轮 · `d1-summary` / `d2-modmenu` / `d3-ctxmenu` / `d4-selbar` / `d5-ctx-src` / `d6-ctx-file` / `d7-ctx-el`（第四拍裁片）· `e1~e6`（第五拍）· **`f1-composer` / `f3-alert1100` / `f4-skill1280`（第六拍改前）· `g1-stats` / `g2-skill1440` / `g3-skill1280` / `g4-alert1100` / `g5-alert1100`（第六拍改后）** · **`h2-{add-menu,opts-menu,commit}`（第七拍改前）· `h3-{add-menu,opts-menu,commit,ctxmenu}`（第七拍改后）**）。**无 `before/`** —— 前置态 = HEAD 的 conversation.html，`git show` 可取 |
+| `mg-work/r107/` | **已推送（`e9c9498`）**：`apply107.py`（**由 `ev/make107.py` 从 apply106 做 13 处精确替换生成**；GENS 五代、nav 沿用 r106；含 `--revert` / `--dry`）/ `acceptance.md`（**十二节**：口径 / nav 不换名体位 / 五模块 / **两个真 bug** / 稳定性证明 / 取舍 / 取证 / **第二拍** / **第三拍** / **第四拍五条** / **第五拍两条** / **第六拍三条** / **第七拍七条**）/ **`part107/`**（第七拍后：`_head.html` 5270 · `_mods.html` 35916 · **`browse.html` 71578 = 组装件** · `panel.css` 39686 · `panel.js` 48583）/ `ev/`（`make107.py` · **`splice107.py`** · `probe107.sh` · `debug107.sh` · `debug107b.sh` · `final107.sh` · `shots107.sh` · `shots107d.sh` · `shots107e.sh` · `shots107f.sh` + `verify107e.sh` · **`shots107g.sh` + `verify107g.sh` + `probe107f.sh`（第六拍）** · **`p107d1~p107d9.js`（第四拍探针）** · **`p107e1/e2.js` + `fix107e1.py` + `fix107e2.py`（第五拍）** · **`p107f1~p107f7.js` + `p107g1.js`（第六拍探针）** · **`p107h1~h3.js` + `probe107h{,2,3}.sh` + `patch107h{,2}.py` + `doc107h{,2}.py`（第七拍）** · `scan-flatten.py` + `.log` + `vd-r107{,b,c}.txt`）/ `raw/`（`g1~g7` 出图 · `f1~f9` 功能 · `d1~d7` 诊断 · `h1~h3` 窄档/字号 · `s1~s12` 首轮 · `d1-summary` / `d2-modmenu` / `d3-ctxmenu` / `d4-selbar` / `d5-ctx-src` / `d6-ctx-file` / `d7-ctx-el`（第四拍裁片）· `e1~e6`（第五拍）· **`f1-composer` / `f3-alert1100` / `f4-skill1280`（第六拍改前）· `g1-stats` / `g2-skill1440` / `g3-skill1280` / `g4-alert1100` / `g5-alert1100`（第六拍改后）** · **`h2-{add-menu,opts-menu,commit}`（第七拍改前）· `h3-{add-menu,opts-menu,commit,ctxmenu}`（第七拍改后）**）。**无 `before/`** —— 前置态 = HEAD 的 conversation.html，`git show` 可取 |
 | `docs/codex-refs/` + `docs/codex-sidepanel-research.md` | **已提交（`f13b3bf`）**：12 张 Codex 右栏实机截图 + 十节调研速报（r107 的设计依据） |
 | `.workbuddy/memory/2026-09-30.md` | 当日原始日志（含 r92 / r93 / **r93 ④** / r94~**r105** 各段；**2026-10-01.md 续记 r106 + r107（七拍）**） |
 
@@ -203,7 +203,7 @@ r86 ~ r100 于 18:2x 提交推送（`6a4b0ea..d7e2151`）；**r101 于 20:2x 提
 > `{dev,kanban,req-kanban,task-detail}` = 449491 / 567338 / 513077 / 766714；`assets/images/bg-img-1.png`（顶栏装饰）；`giencoder-design-system/components.css` + `.gienx-templates/_shared/components.css` + `components/select.json`（r87 select）。
 > `?? mg-work/r92/` · `?? mg-work/r93/`（`apply93.py` + `acceptance.md` 十三节 + `before/` 25 份 + `ev/` + `raw/`）—— **均已提交**。
 
-`origin/main` @ **`87e2caa`**（**r102 十一条 + r103 六条 + r104 四条 + r105 三条已推送**，工作区**干净**；上一站 `9f252e5` = r101，再上一站 `d7e2151` = r86~r100，`1ecc7ee` = r80–r85）。**长期约定「默认不自动 commit / push」（2026-09-28 起）；邵先生显式说「commit and push」时才执行**。
+`origin/main` @ **`e9c9498`**（**r106 六条 + Codex 右栏调研 + r107 十一拍已全部推送**，工作区**干净**；上一站 `9f252e5` = r101，再上一站 `d7e2151` = r86~r100，`1ecc7ee` = r80–r85）。**长期约定「默认不自动 commit / push」（2026-09-28 起）；邵先生显式说「commit and push」时才执行**。
 
 ⚠ `.gitignore`：`mg-work/r80/raw/sel_*.json`、`mg-work/*/gate/*/pages/`。`before/` 与 `raw/` **是**入库惯例。
 ⚠ **推送凭据**：PAT 已写入 `~/.git-credentials`，推送带 `-c credential.helper=store`（详见第九节）。
@@ -757,7 +757,7 @@ E4 `PART105`→`PART_DIRS`｜E5 插入 `R106_CSS`｜E6 `build_css` 拼 `R106_CSS
 
 ---
 
-## 二·g ★★ r107（最新一拍 · 会话详情页「侧栏模块标签化」＝复刻 Codex 右栏 · 2026-10-01 09:3x 起，共**十一拍**）—— **新一代（r106 已交付 `4d081ba`），🚫 未提交**
+## 二·g ★★ r107（最新一拍 · 会话详情页「侧栏模块标签化」＝复刻 Codex 右栏 · 2026-10-01 09:3x 起，共**十一拍**）—— **新一代（r106 已交付 `4d081ba`），已推送 `e9c9498`**
 
 > 完整版见 `mg-work/r107/acceptance.md`（**十六节**，含第二 ~ 十一拍返工）；机制级教训见 PLAYBOOK **P3.39 ~ P3.47**；
 > 本页固定事实见 PAGES **P3.11i**；设计依据 = `docs/codex-sidepanel-research.md` + `docs/codex-refs/`（`f13b3bf`）。
@@ -1266,13 +1266,12 @@ r105 死代码：`r93-morebtn` 全仓 **3 处全在注释**（活规则 0 条）
 
 2. 改页面**一律走 `mg-work/rNN/applyNN.py`**，体位 = 「先 `strip_all(当前页)` 取净底 → 再注入」⇒ **改完直接重跑即自愈**。
    **例外**：上一轮尚未提交时的即时返工 ⇒ **就地修订原补丁、不另起代数**（判据：`git status` 里仍是 ` M`）。
-   ★ 现状（**2026-10-01 09:5x**）：`r86 ~ r100`（`d7e2151`）、**`r101`（`9f252e5`）**、
-   **`r102~r105`（`87e2caa`）**、**`r106` 六条（`4d081ba`）**、**Codex 右栏调研（`f13b3bf`）** —— **全部已提交**；
-   ★ **`r107`（侧栏模块标签化）已落地但 🚫 尚未提交**（工作区 `?? mg-work/r107/` + **只有 `conversation.html` 一个 ` M`**）⇒
-   此刻若还要改**会话详情页 / 右栏**：**就地返工 `mg-work/r107/apply107.py`**（判据 = `git status` 里 `conversation.html` 仍是 ` M`、
-   且 `r107-*` 块已存在）—— **不要新建 r108**。
-   待到 r107 交付（邵先生发话 commit）之后，**再**新建 `mg-work/r108/apply108.py`
+   ★ 现状（**2026-10-01 14:2x**）：`r86 ~ r100`（`d7e2151`）、**`r101`（`9f252e5`）**、
+   **`r102~r105`（`87e2caa`）**、**`r106` 六条（`4d081ba`）**、**Codex 右栏调研（`f13b3bf`）**、
+   **`r107` 十一拍（`e9c9498`）** —— **全部已提交并推送**。
+   ★ **r107 已交付 ⇒ 已封板**：若还要改**会话详情页 / 右栏**，**新建 `mg-work/r108/apply108.py`**
    （照抄 r107 的**五代** `GENS` 摘除表，扩成六代；并可继续沿用 `NAV_TAG='r106'`，只要 nav 脚本仍未改）。
+   **不要**再就地改 `apply107.py` —— 它已是交付态，改了会凭空产生与 `e9c9498` 的未提交差异。
    若针对**设置页 / 字号机制 / 其它页**，回到 `apply88.py` / `apply88b-fontsize.py`。
    ⚠ **r105 ① 的产物落在 8 个「独立页」上**（各 +714）⇒ 复跑补丁时这 8 页会**同样被扫到**；改动只在 `nav_patch` 一处，
    不要为它们单开补丁（`invert_if_absent` 保证第二遍一字不动、**只保位置**）。

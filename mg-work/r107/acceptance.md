@@ -1286,3 +1286,18 @@ UTF-8（LF 归一）**1055517 字节** ｜ 工作区字节（CRLF）**1063012** 
 ★ **体位**：本拍**首次动了 `_mods.html`** ⇒ 改序必须 `part107/_mods.html` → `ev/splice107.py`（重组
 `browse.html`）→ `mg-work/r107/apply107.py`；⚠ **`browse.html` 是 splice 的产物、不是手改对象**
 （手改会在下次 splice 时被冲掉）。
+
+---
+
+## 十七、交付（2026-10-01 14:2x 邵先生发话「commit and push」）
+
+| 项 | 值 |
+|---|---|
+| 提交 | **`e9c9498`**（推送输出 `de396d0..e9c9498  main -> main`）|
+| 范围 | `git add -A` 共 **355 个文件 / +29750 −103 行**：`pages/conversation.html`（`+2806 / −12`）+ `pages/avatar.html`（`+1 / −1`，第七拍遗留）+ 5 份记忆文档 + `?? mg-work/r107/` |
+| 一次推上去的区间 | `4d081ba`（r106 六条）+ `f13b3bf`（Codex 右栏调研）+ `e9c9498`（r107 十一拍）|
+| **刻意排除** | `mg-work/r107/ev/bak{7,8,9,10}/`（696K，共 11 份返工期的三源快照）—— 属临时产物、不属交付链路 ⇒ 留在库外 |
+| 自动排除 | `mg-work/r107/raw/`（158 张截图 / 22M）已被 `.gitignore` 屏蔽 |
+| 终态 | `conversation.html` **958568 字符**（UTF-8 LF 归一 1055517 字节 / 工作区 CRLF 1063012 / LF `sha1 5ce6b87f5150`）；`base.html` **472150 逐字节不变** |
+| 校验 | `git rev-parse HEAD` == `git rev-parse origin/main` == `e9c9498`；`git status -sb` = `## main...origin/main`（无 ahead / behind）|
+| 推送体位 | **裸调 `git`**（⚠ 不套 `env` 前缀，本机会被静默吞掉）+ `-c credential.helper=store -c http.proxy=http://127.0.0.1:7890 -c https.proxy=… -c http.version=HTTP/1.1` |
