@@ -1,0 +1,11 @@
+### open（保持右栏关闭）
+=== [A] 遮挡回归：面板没盖住工具条上那两枚按钮 ===
+{"全屏": {"rect": [1359, 57, 28, 28], "hitSelf": true, "hit": "[object SVGAnimatedString]"}, "打开侧栏": {"rect": [1395, 57, 28, 28], "hitSelf": true, "hit": "[object SVGAnimatedString]"}, "zdTop": 93}
+=== [B] 切到「审查」模块 ⇒ 量 diff 折叠图标的可见几何 ===
+{"found": true, "rect": [813, 156, 13, 13], "color": "rgb(31, 31, 31)", "w": "13px", "h": "13px", "toggleColor": "rgb(10, 10, 11)", "toggleDisplay": "flex", "cardCount": 4, "firstCard": {"rect": [800, 142, 623, 299], "radius": "8px", "border": "rgb(229, 229, 229)", "bg": "rgb(255, 255, 255)"}}
+=== [C] 暗色档 ===
+{"cardBg": "rgb(35, 35, 36)", "cardBorder": "rgb(78, 78, 78)", "nameColor": "rgb(247, 247, 247)", "secColor": "rgb(169, 169, 169)", "miniBg": "rgb(35, 35, 36)", "miniBorder": "rgb(78, 78, 78)", "todoColor": "rgb(169, 169, 169)"}
+=== [D] 字号杠杆 --ui-fs = 18 ===
+{"ratio": "calc(18 / 14)", "headH": 46, "headFS": "16.7143px", "secHH": 36, "secHFS": "15.4286px", "rowH": 32, "rowFS": "16.7143px", "cardR": [320, 512], "miniR": [0, 0]}
+=== [E] 窄档 620 宽 ===
+{"mainR": [12, 48, 39, 844], "cardR": [29, 105, 6, 512], "overflowRight": -16}

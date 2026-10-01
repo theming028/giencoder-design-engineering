@@ -5832,6 +5832,13 @@ body .r88-arch-row:focus-within .r88-arch-act{min-height:calc(32px * var(--ui-fs
   background-color: var(--r81-hover-bg);
 }
 
+</style><style id="r108-td-css">
+  /* ★ 第十三拍 ⑤：任务详情页「状态」徽章的文字改 13px。
+     DS 的 `.giencoder-badge-status` 默认 `font-size: var(--font-size-body-3)`（14px），
+     文字节点 `.giencoder-badge-status-text` 自己不声明字号（靠继承）⇒ 这里只给它补一条
+     同档 token（`--font-size-body-2` = 13px），不动父级、不需要抬特异性。
+     ⚠ 只落本页：该类是全站 DS 类，改 DS 源会连带动其余 9 页（硬规则「不得改动其他不必涉及的模块」）。 */
+  .giencoder-badge-status-text { font-size: var(--font-size-body-2); }
 </style><script id="r81-ws-js">
 
 /* SHELL-PROCESS-SWITCH v2 —— 研发工作台顶栏「切换工艺流程空间」（勿手改此块） */

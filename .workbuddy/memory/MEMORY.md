@@ -178,7 +178,7 @@
 > ④ 的「空间足够」判据是**容器可用宽**（不是视口分辨率），若要用 `@media` 断点请发话｜
 > ★ **④b 口径**：本代取 `min(100%, 728px)`（列够保持 728）；若要「用户消息块始终与内容列同宽」则是 `width: 100%`（一行改动，但 2560 下气泡会宽到 1141）。
 
-> **r107（2026-10-01 09:3x ~ 13:1x · 会话详情页「侧栏模块标签化」= 复刻 Codex 右栏 · 十一拍）—— **已推送 `e9c9498`**（新一代，承接 r106 `4d081ba`；2026-10-01 14:2x 邵先生发话）**：
+> **r107（2026-10-01 09:3x ~ 13:1x · 会话详情页「侧栏模块标签化」= 复刻 Codex 右栏 · 十一拍）—— **已推送 `e9c9498`**（**已封板**；新一代，承接 r106 `4d081ba`；2026-10-01 14:2x 邵先生发话）**：
 > ★ **体位**：r106 代**已交付** ⇒ **新建 `mg-work/r107/apply107.py`**（由 `ev/make107.py` 从 `apply106.py` 做 **13 处精确替换**生成，命中数不符即 `sys.exit`）。
 > `GENS` = **五代**（`r93` / `r101` / `r102` / `r106` / **`r107`**）；`PART_DIRS` = `r107/part107` → `r102/part105` 双目录回退。
 > ★★★ **本代最关键的决定 —— nav 块沿用 `r106-nav-js`（不换名）**：`GENS[-1] = ('r107','r107-conv-css','r107-conv-js','r106-nav-js')` + `NAV_TAG='r106'`
@@ -253,3 +253,130 @@
 > ★★ **新增定论见 PLAYBOOK P3.39 ~ P3.47**；各拍要点见 **PAGES P3.11i（共十一拍）**；逐条实测见 **`mg-work/r107/acceptance.md`（十六节）**。
 > ⚠ **本代不要重跑 `apply106.py`**（GENS 只有四代 ⇒ 会把「基线残留 `r107-conv-css`」判成错误直接退出）；退 r107 = `git checkout -- pages/conversation.html`。
 > **待拍板**：④b 用户消息块口径（`min(100%,728px)` vs `100%`）｜`r93-bar` 底线与面板底线**仍是两色**｜折叠默认范围｜官方 SSH（alpha，不在侧栏）/ 多窗口 / 系统托盘 **不在静态页范围**（本轮已拍板不做）。
+
+> **r108（2026-10-01 19:4x 起 · 会话详情页「diff 卡片化 + 文件树抽屉」+ 六条精修「含 ★ 复刻 ZCode 右上角任务信息面板」· **第十二拍 + 第十三拍补丁**）—— 🚫 未提交**（r107 已交付 `e9c9498`）：
+> ★ **体位**：r107 **已交付** ⇒ **新建 `mg-work/r108/apply108.py`**（`ev/make108.py` 从 apply107 做 **7 处精确替换**）；
+> `GENS` = **六代**（r93/r101/r102/r106/r107/r108）；`PART_DIRS` = `part108` → `part107` → `part105` **三级回落**
+> （本代只覆盖 `_mods.html` / `panel.css` / `panel.js` 三件）。
+> ★★★ **nav 块继续沿用 `r106-nav-js`（不换名）** ⇒ `base.html` + 8 外壳页**逐字节不变**，`git status` 只有 ` M pages/conversation.html`。
+> ⚠ **但 CSS / JS 两块都改了 ⇒ 换名 `r108-conv-css` / `r108-conv-js`**（沿用同代名会把新内容一起摘掉）。
+> **两条** = ① **`.td-diff` 独立成卡片**（`.td-rv-body` 改 flex 纵列 + `gap:8px` + `padding:8px`；
+> `.td-diff` = 1px 描边 + 8px 圆角 + `--color-bg-2` 底 + `overflow:hidden`；头/体补 `border-top: 1px --color-border-1`）
+> ⇒ 实测四张卡卡间距 **`[8,8,8]`**；
+> ② **「在文件树中定位」右侧加「文件树」按钮 + 右侧文件树抽屉**（`data-td-rv-act="tree"` · `.td-tree` `z-index:35` ·
+> 遮罩 + `min(296px,86%)` 面板 + `.td-tree-files` 10 行 · 开合 = `hidden` + `.is-open`
+> （`removeAttribute` → `void offsetWidth` → `add`）· 关 = 摘类后 **240ms** 挂 `hidden`）
+> ⇒ 实测 `panelBox=[1135,49,296,842]`（右缘贴右栏右缘）、**Esc 只关抽屉不关侧栏**。
+> ★★★ **本拍最关键的技术决定 —— 抽屉树用独立类名 `td-tf*`**：`ctrl-conv.js` 的 `pane` 是**整个 aside**、
+> `.td-browse-files` 用 `querySelector` **只绑第一棵** ⇒ 复用 `td-bf*` 会打架（抽屉里的行点了没反应）；
+> 零干扰已实测（抽屉点文件后「文件」模块 `filesActive` / `filesRows 28` / `filesHidden 9` 一字未变）。
+> 🔧 三处坑 = ① 「文件树」按钮被 `[data-td-rv-act]` 通用循环弹多余 toast（加 `if (kind === 'tree') return`，**保留 closeMenus**）；
+> ② `.td-tree-h` 被 `scan-flatten` 多报 1 条（派生高度规则缺 `var(--font-size-*)` ⇒ 被 `converge()` 压平 ⇒ 补 token 回 2 条）；
+> ③ 探针两处假失败（遮罩挡住自己的触发器 / `||` 短路表达式让动作没执行）。
+> **产物**：`958568 → 978614` 字符（第十二拍 +20046）；LF bytes 1078406 / 工作区 1086146 / 7741 行 / LF `sha1_lf 7a1be6be9b76`；
+> `base.html` **472150 逐字节不变**；`git diff --numstat` = `248  3`。
+> **门禁四绿**：幂等 ✓｜`check-syntax` 10/10｜`verify-design` 与 `vd-r107l2.txt` **逐字节同**
+> （md5 `3dbf654337559509110899e48bef1b1c`）｜`scan-flatten` 仍 **2 条**。
+> ★★ **新增定论见 PLAYBOOK P3.48**；各拍要点见 **PAGES P3.11i（共十六拍）**；逐条实测见 **`mg-work/r108/acceptance.md`（二十九节）**。
+> ⚠ **本代不要重跑 `apply107.py`**（GENS 只有五代 ⇒ 「基线残留 `r108-conv-css`」自检直接退出）；
+> 退 r108 = `git checkout -- pages/conversation.html`。
+> 🚫 未 commit / 未 push；提交时 `git reset -q -- mg-work/r107/ev/bak{7,8,9,10}/`。
+>
+> **★ r108 第十三拍（2026-10-01 20:2x · 六条 · ★★ 就地返工、未另起代数）—— 🚫 仍未提交**：第十二拍**未提交** ⇒ 按硬规则「**未交付 ⇒ 就地返工**」，本拍 = 第十二拍的**第二层补丁**（叠加在 `r108/` 内）。
+> ★ 新增脚本：`ev/patch108l2.py`（555 行，第 ①②③④⑥ 条）· `ev/patch108td.py`（85 行，第 ⑤ 条）；探针 `ev/p108n.js` + `probe108n{,2}.sh`；截图 `ev/shots108n{,2}.sh` + `raw/n-1440-*.png`（12 张）。
+> **六条** = ① `.td-sum-sec:hover { border-color: var(--color-border-2) }`（基态 border-1 `rgb(242,242,242)` → hover **`rgb(229,229,229)`** = 深一档）；② `.td-sum-h` 内 4 枚标题 `<svg>` 删净 + 清 `.td-sum-h svg` 死规则（实测 `sumHSvg:0`）；③ `.td-diff-cv { width:13px; height:13px; color: var(--color-text-1) }`（原 `text-3`；实测 `rect [813,156,13,13]` / `rgb(31,31,31)`）；④ `data-td-art` 从内部「预览」按钮**上移到卡片本体**（2 处）+ `cursor:pointer`（点图标区即开预览层、按钮入口保留）；⑤ **任务详情页** `.giencoder-badge-status-text` → 13px（★ 真源在父级 `.giencoder-badge-status` 的 14px，文字节点自己不声明字号 ⇒ **补本页一条规则即可、不动 DS 源**；落点 `<style id="r108-td-css">`）；⑥ **★★★ 复刻 ZCode 右上角任务信息面板**。
+> ★★★ **⑥ 最关键的坑 —— `.zd-host` 的 `top` 必须是 44px（不是 0）**：`<main>` 顶部有 `.r93-bar`（`position:absolute; height:44px; z-index:10`，r106 的**固定档**、不随 `--ui-fs` 变），右上角「全屏 / 打开侧栏」两枚按钮就在里面 ⇒ 面板从 `top:0` 起排会**把它盖住**（实测 `elementFromPoint` 命中的是面板自己的 `.zd-acts`，导致探针的 click 点到面板、右栏没开、下游 hover/click 全失效）。改 `top:44px` + `padding-top:12px` 后两枚按钮 `hitSelf:true`、`zdTop:93`。
+> ★ ⑥ 落地：`.zd-host#av-zd-status`（`pointer-events:none`）+ `.zd-card`（`auto`）= 四分区 `git`「Git 工具」/ `goal`「目标」/ `plan`「计划」/ `todo`「进程」，trailing `+566 −228` / `2 分 18 秒` / `3/5`；折叠 = `classList.toggle('is-closed')`（不写内联 display）；面板 ⇄ 胶囊 = `hidden` 互斥。实测 `cardRect [455,105,320,512]` / `panelRightGap:16` / `panelTopGap:57` / 折叠后卡高 **512 → 503** / 胶囊 `[672,105,103,32]`。上游 = `zai-org/ZCode`（Apache-2.0）`ConversationStatusPanel.tsx`（2085 行）+ `i18n/locales/zh-CN.ts`（`chat.statusPanel.*`）。
+> 🔧 另三坑 = ① `splice108.py` 守卫被**自己注释里的裸 `<aside>` token** 绊倒（第二次同型 ⇒ 注释改成「右栏容器 `aside.td-browse`」）；② `patch108td.py` 首版生成 `</style></style>`（锚点被整体替换 ⇒ 改为只代换 `{{BLOCK}}`）；③ ④ 的预览层 `x=792` 起、打开右栏后 `main` 只到 791 ⇒ 截 `main` **正好切掉预览层**（改截 `.td-sum-prev`）。
+> **门禁四件套（在 `top` 修正之后复跑）全绿**：幂等 ✓（`patch108l2.py` 第二遍「应用 0 / 跳过 8」；`patch108td.py`「跳过」；`apply108.py`「已是目标态」）｜`check-syntax` **10/10**｜`verify-design` 与 `vd-r107l2.txt` **逐字节同**（md5 `3dbf654337559509110899e48bef1b1c`）｜`scan-flatten` 仍 **2 条**。
+> **产物**：`conversation.html` 978614 → **995133 字符**（+16519；`git diff` **+582 / −11 行**）；`task-detail.html` 767428 → **767836 字符**（+408；**+7 / −0 行**）；`base.html` **472150 逐字节不变**。
+> ★★ **新增定论见 PLAYBOOK P3.49**（四条：固定高工具条遮挡 / 注释绊倒守卫 / 锚点 token 回填 / 截图切掉覆盖层）；逐条实测见 **`mg-work/r108/acceptance.md` 八 ~ 十二节**（共十三节）。
+>
+> **★ r108 第十四拍（2026-10-01 20:5x · 四条 · ★★ 就地返工、未另起代数）—— 🚫 仍未提交**：第十二 / 十三拍**未提交** ⇒ 同上规则，本拍 = **第三层补丁** `ev/patch108l3.py`（772 行 / **27 项**），全部围绕 **`.zd-card`**。
+> **四条** = ① **Git 三行接交互**（「更改」复用右栏链路 `[data-td-open-mod="review"]` ⇒ `openTab('review')`；「分支」= `.zd-menu-branch` 5 项 + 行值 `.zd-row-v[data-zd-branch]` 更新 + `.zd-toast` 轻提示；「提交或推送」= `.zd-menu-commit` 2 项，两枚互斥；摆位 = 触发行下缘 + 6px、右对齐卡片右缘、**用 `offsetWidth`**；关闭三路径 = 外点 + **Esc（`window` 捕获段）** + 选完收起）；
+> ② **删「计划」分区**（`secKinds ["git","goal","todo"]`）；③ **「目标」按上游校准**（lucide `goal` / 绿圈序号 / `pause`(24+14) / `minimize-2` / `padding 8px` + `radius 8px` + `leading-4` + `h-8 32px` + trailing `·`；★ **圆序号宽高同比** —— 本规则含字号 token ⇒ `scale_block` 只派生 `height` ⇒ 非默认字号下会成椭圆）；
+> ④ **弹性微动效**（折展 = `grid-template-rows: 1fr ⇄ 0fr` + 内层 `opacity/translate/scale`，**替掉 `display:none`**；面板 ⇄ 胶囊 = 出场微缩上浮 + 入场 `zd-panel-in` 回弹；缓动 = `--transition-timing-function-spring`，**时长一律 ≤300ms**）。
+> **六条坑** = **P3.50**（① 各层 `mark` 是「后一层替前一层保住」的契约 ② `drop_re` 的 `.*?` 必须 `(?s)` + 反判据 ③ 多处共用同一 mark = 静默漏改 ④ CRAFT-ANIM 300ms 上限 ⑤ 探针三类假失败 ⑥ **主题类结论先取色**）。
+> **产物**：`conversation.html` → **1009968 字符**（+14835；对 `HEAD` 累计 +51400；`855 / 19` 行）、`task-detail.html` **767836（未动）**、`base.html` **逐字节不变**。
+> ⚠ **工作区 `MEMORY.md` 受 3000 字符限额** ⇒ 原 58 条铁律整表已迁入 PLAYBOOK 附录「工作区速览 69 条」（第十五拍重整为「Windows 速记 + 红线索引 + 最近拍」、**第十六拍补回被误顶掉的第 58 条并加到 69 条**，实测 **2982 字符**）。
+>
+> **★ r108 第十五拍（2026-10-01 21:1x · 六条 · ★★ 就地返工、未另起代数）—— 🚫 仍未提交**：第十二 / 十三 / 十四拍**未提交** ⇒ 同上规则，本拍 = **第四层补丁** `ev/patch108l4.py`（**8 项**），全部围绕 **`.zd-card`** 的视觉精修 + 骨架屏门控。
+> **六条** = ① **`.zd-sec-t` = 正文黑 + 中粗 500 + 14px**（去 `inherit`、显式 `font-size: var(--font-size-body-3)` + `font-weight: 500` + `color: var(--color-text-1)`；顺带删掉死规则 `.zd-sec-t:hover`）；
+> ② **`.zd-ico` 补 hover**（照本页既有 `.td-browse-ico` 的**完整契约**：`inline-flex` / `24×24` / `padding:0` / `border:0` / `radius 4` / 透明底 / `text-2` + 同块内 `:hover { background: var(--color-fill-1); color: var(--color-text-1) }`，**基态在前**）；
+> ③ **「目标」只留 1 条**（`drop_re` 删圆序号那行 ⇒ `.zd-it` 1 / `.zd-it-no` 0）；
+> ④ **已完成进程加删除线 + 进行中转 loading**（`text-decoration: line-through` **不传播到绝对定位伪元素** ⇒ 只划文字；`::after` 实心弧 + `@keyframes zd-todo-spin`，★ 时长走 `--zd-spin-dur` **自定义属性**避开 CRAFT-ANIM 按行扫）；
+> ⑤ **骨架屏期隐藏面板**（纯 CSS 门控 **`html:has(.r93-sk) .zd-host { display: none }`**，骨架屏一移除即自动失效）；
+> ⑥ **`.zd-sec-x` 只在折叠态显示**（基态 `none` + `.zd-sec.is-closed .zd-sec-x { display: flex }`；**(0,1,0) vs (0,3,0)**，不打平）。
+> **五条坑** = **P3.51**（① `mark` 撞车 ⇒ **静默跳过**（加硬断言 + `keep_anchor` 豁免位）② 持续旋转时长写进自定义属性 ③ `:has()` 纯 CSS 门控 + 探针要 `try/catch` ④ `text-decoration` 不传播伪元素 ⑤ 自检判据别用太短片段）。
+> **产物**：`conversation.html` → **1012144 字符**（+2176；对 `HEAD` 累计 `896 / 19` 行）、`task-detail.html` **767836（未动）**、`base.html` **逐字节不变**。
+
+> **★ r108 第十六拍（2026-10-01 21:5x · 三条 · ★★ 就地返工、未另起代数）—— 🚫 仍未提交**：第十二 / 十三 / 十四 / 十五拍**未提交** ⇒ 同上规则，本拍 = **第五层补丁** `ev/patch108l5.py`（**10 步**）：① 产物预览改挂侧栏**「预览」页签** ② `.zd-host` 折展动效改「收进右上角 / 从右上角展开」 ③ `.zd-host` 整容器改**毛玻璃**。
+> **三条** = ① **产物 `td-sum-art` 卡片点击后的预览改挂 `td-browse-bar` 新页签** —— 旧浮层 `.td-sum-prev`（`position:absolute; inset:0`）**整体拆掉**（DOM + CSS + `.td-mod.td-sum{position:relative}` + **Esc 裁决链那一层**；残留 `zd-sum-prev` **0**），
+> 新载体 `#av-browse-pane-preview[data-td-pane="preview"]`、点产物 `openTab('preview', {name, ico})`；★ 同一枚页签**复用**承载多产物（连点两个只改名换图标）+ 复用分支加 `if (opts)` 守卫；
+> ② **`.zd-host` 折展动效** —— `transform-origin: 100% 0`（computed **`320px 0px`**）；收 ⇒ `scale 1→0.62` + `translate 0px→12px -12px` + `opacity→0`（186ms 到目标 / 203ms `hidden`）；展 ⇒ `@keyframes zd-panel-in` 260ms，**过冲** `scale 1.03715` 再回 1（453ms）；
+> ③ **`.zd-host` 改毛玻璃** —— 视觉四件（`.zd-card` / `.zd-mini` / `.zd-menu`×2 / `.zd-toast`）底色 `color-mix` 取透 + `backdrop-filter: blur(18px) saturate(160%)` + `@supports not` 不透明兜底；
+> ★★ **取证必须落像素**（只写 `backdrop-filter` 而底色不透明 = 看不出效果）：铺 320×180 纯红 ⇒ 卡面 `rgb(255,199,199)`（`0.78×白 + 0.22×红`），沿 y 衰减 `199`→`237`(y190，已越出红块下沿= **模糊外溢**) →`254`。
+> **六条坑** = **P3.52**（① **删变量没删引用 ⇒ 按键抛 `ReferenceError`**（判据剥注释 + 保 `\b` 词界）② `openTab` 复用分支不更新页签名（加 `opts` 守卫）③ `.td-mod-bar` **内容驱动高度**（内容盒上限 = `min-height` − 上下 padding − border-bottom = 27px）④ 同页工具条**本就不齐**（fs14 40/41、fs18 41/49/46）⑤ `backdrop-filter` **必须落像素** ⑥ `verify-design` 重写 `pages/gaps.log` ⇒ 收尾 `git checkout --`）。
+> **产物**：`conversation.html` → **1015095 字符**（+2951；对 `HEAD` 累计 **`1047 / 107`** 行；LF `sha1_lf da1acf6a091c` / 8436 行）、`task-detail.html` **767836（未动）**、`base.html` **逐字节不变**；`acceptance.md` **二十九节**。
+> ⚠ **PLAYBOOK 附录修错**：`doc108q.py` 的「追加 59~63」把 `old` 写成**第 58 条整行** ⇒ 58 被整条顶掉（附录实为 62 条、标题却写 63）⇒ 第十六拍**已补回 58 并加到 69 条**。
+
+### 第十七拍（r108 第六层补丁 · 四条 · 2026-10-01 22:2x · 🚫 未提交）
+
+> ① **`+` 菜单纳入 `placeRv()` 现场摆位** —— 根因是那句**显式放行** `.td-mod-menu` 的单族守卫
+>（注释还写着「保持它原来的 CSS 落位不动」）⇒ 它一直吃基类写死的 `left: 64px`，而 `+` 的 x 随页签数量浮动。
+> 改 `PLACE_ABS = ['td-mod-menu','td-rv-menu']` 白名单 ⇒ 实测 **dx 恒 0**（1 枚 `1505/1505`、4 枚 `1160/1160`、
+> `--ui-fs=18` `1196/1196`）；修复前 3 枚页签 **dx = −218px**。
+> ② **浏览器工具条瘦身** —— 删「截图到剪贴板 / 缩放 / 发送页面到对话」三枚（`brwActs = ["more"]` / `shotEls = 0`），
+> 配套清 `BRW_TEXT` 三条 + `shotFlash()` + `panel.css` 18-② 快门与只为它存在的 `.td-mod.td-brw{position:relative}`；
+> 右键菜单那条改为直接 `say(...)` 切断 `sb.click()` 死引用（有 `if (sb)` 守卫 ⇒ **不报错但「点了没反应」**）。
+> ③ **文件树抽屉让开标题栏** —— `.td-tree` 由 `inset: 0` 改 `top: 44px`（44 = `.td-browse-bar` 实测高，
+> 字号两档都是 44 ⇒ **不随字号杠杆变**）⇒ `treeRect.top − barRect.bottom = 0`（scrim 与 panel 一起下移）。
+> ④ **diff 演示内容加长** —— 统一 +17 / +12 行、并排 +11 / +6 行 ⇒ 卡片1 **11→28** / **6→17**、
+> 卡片2 **4→16** / **3→9**；`.td-rv-body` `scrollHeight == clientHeight == 757`（**正好填满、不溢出**）。
+> **八条坑** = **P3.53**（① `mark` 别选在「改前就在」的那行上（`BRW_TEXT` 的 `more:` 真踩 ⇒ 断言 `sys.exit`），
+> 要取「改完才形成的**相邻**关系」② `old` 被 `new` 原样保留 ⇒ 显式 `strict=False` ③ 自检别用「裸属性名计数」
+> （`data-td-brw-act` 该有 2 处）④ **「位置不对」先分清「没跑到算法」还是「压根没进算法」**（根因是**显式放行**的守卫）
+> ⑤ 删组件要清「借它力」的引用（`sb.click()` 不报错、只是「点了没反应」，更难发现）⑥ `.td-tree` 的包含块是
+> **整条侧栏** ⇒ 判据用相对量 ⑦ **探针可见性盲区：量到了 ≠ 看得见**（侧栏在视口外时 dx 仍 0、截图却是空的）
+> ⑧ `verify-design.py` 重写 `gaps.log`（第二次踩））。
+> **产物**：`conversation.html` → **1024705 字符**（+9610；对 `HEAD` 累计 **`1146 / 142`** 行；工作区 bytes 1143754 / **8500 行** / LF `sha1_lf cc2105413d08`）、
+> `task-detail.html` **767836（未动）**、`base.html` **逐字节不变**；`acceptance.md` **三十四节**。
+> 🚫 未 commit / 未 push。
+
+### 第十八拍（r108 第七层补丁 · 四条 · 2026-10-01 22:4x · 🚫 未提交）
+
+> ① **预览「在系统打开」拆两枚** —— `[data-td-prev-open]` → `[data-td-prev-save]`（另存为）+ `[data-td-prev-reveal]`（打开所在文件夹），
+> `panel.js` 各挂一条轻提示；实测 `另存为` `[1223,100,69,26]` + `打开所在文件夹` `[1298,100,121,26]`、栏 `[792,93,639,40]`（**栏高仍 40**）。
+> ② **去掉「最大化侧栏」** —— 按钮在 `.td-browse-acts`（**不在** `.td-mod-bar`），连同 `panel.js` 整段「最大化 / 还原」逻辑
+>（`maxBtn`/`setMax`/`setIcon`/`applyMaxW`/`data-td-maxw` + `STORE_KEY`/`MIN_PANEL`/`DEF_PANEL`/`MAIN_MIN`）一起清（−4039 字符）；
+> 实测 `browseActs = ["收起侧栏"]`、`maxBtn = 0`。
+> ③ **`td-rv-body` 滚不动 → 已修** —— 根因 = **flex 纵列 + 子件默认 `flex: 0 1 auto`（可收缩）+ `.td-diff{overflow:hidden}`**
+>⇒ 卡片被**压扁**（卡 1 实占 369 / 需 637）、溢出被**裁掉** ⇒ `scrollHeight === clientHeight` 恒真、约 489px 内容看不见；
+> 修法 = `.td-rv-body > .td-diff { flex: none; }` ⇒ `bodySz [757,757] → [757,1212]`、`cardFlex "0 0 auto"`、
+> `scrollTop 455`、**`pageScrollTopAfter = 0`**。
+> ④ **`+` 菜单「摘要」置首** —— 5 项整块重排 ⇒ `摘要 / 审查 / 终端 / 浏览器 / 文件`（y 不变）。
+> **九条坑** = **P3.54**（① 「存在性」断言抓不到「重复应用」⇒ 判据要 `count == 1`（mark 少写「★ 」⇒ 补丁重复应用两次、断言照样过）
+> ② 注释正文里写 `*/`（`` `part*/` ``）**提前闭合块注释** ⇒ `check-syntax` FAIL ③ 纯删除/mark 要落「新形成的相邻串」·能整块重排就别拆两步
+> ④ `old` 被 `new` 原样保留 ⇒ `strict=False`（第三次）⑤ **改了跨代资产 ⇒ 下游生成器要跟着改来源**（head P107→P108）
+> ⑥ 下游守卫别写裸属性名（`data-td-max` 被 demo diff 转义文本误报）⑦ 重建「改前」对照页**三件必须齐上**（否则混合态）
+> ⑧ **flex 纵列 + 可收缩子件 + 父级 `overflow:hidden` = 压扁 + 裁切 + 容器永不滚** ⑨ 探针自身也会假失败）。
+> **产物**：`conversation.html` → **1022257 字符**（−2448；对 `HEAD` 累计 **`1186 / 239`** 行；工作区 bytes 1141453 / **8442 行** / LF `sha1_lf f3e0bcc1a8e2`）、
+> `task-detail.html` **767836（未动）**、`base.html` **逐字节不变**；`acceptance.md` **三十九节**。
+> 🚫 未 commit / 未 push。
+
+### 第十九拍（r108 第八层补丁 · 两条 · 2026-10-01 22:5x · 🚫 未提交）
+
+> ① **整个右栏划词都弹浮条** —— 放行根由 `.r93-scroll` 扩到 **`.closest('.r93-scroll, .td-browse')`**
+>（两者是并列 flex 兄弟、互不包含 ⇒ 不误判；主对话口原能力未动）；真机 CDP **真鼠标**拖选：审查 diff 代码 / 摘要散文 / 文件代码区
+>改前 `selbarExists = false`（**浮条根本不弹**）→ 改后 `true`，浮条框 `[886,139,200,38]` 等、**在选区上方 8px**、`elementFromPoint` 命中浮条自身。
+> ② **菜单入场不再硬切** —— 根因 = `toggleMenu()` 把「摘 `[hidden]`（`display:none`）」与「挂开态类」挤在**同一 tick**
+>⇒ 浏览器拿不到「改前样式」⇒ `opacity/translate/scale` 过渡**被静默跳过**（契约里 0.2s spring 入场**从未运行过**）；
+> 修法 = 开态拆四步 `removeAttribute('hidden')` → **`void menu.offsetWidth`** → `placeRv()` → `classList.add(POP_OPEN)`；
+> 实测改前第 4 帧 `anims=-` / `op=1`（一帧到终态）→ 改后第 4 帧 `anims=opacity|scale|translate` / `op=0 / tr=0px 4px / sc=0.96`，
+> 逐帧 `op` 0 → .188 → .426 → … → 1（≈12 帧 ≈ 0.2s）、`scale` 过冲 **1.0039** 再回落、`off=(368,42)` **逐帧不变 = 零位移**。
+> **六条坑** = **P3.55**（① ★★★ **「摘 `[hidden]` + 挂开态类」同一 tick ⇒ 过渡被静默跳过**（无报错、computed 直接给终态 ⇒ 入场动画可能是死代码；判据 = 逐帧 `getAnimations()` + 开帧 computed；修法 = 中间 `void el.offsetWidth`）
+> ② 断言必须限定**函数体内**（全文计数被 `.zd-menu` 同形代码误报）③ 注释**不能插在被逐字断言的序列中间** ④ `old` 被 `new` 原样保留 ⇒ `strict=False`（**第四次**）
+> ⑤ 判据要跟着事实走（探针选择器先核 DOM：正文是 `.td-browse-body` 而非 `.td-mod-body`）⑥ **「改前对照页」不能沿用上一轮 `bakNN/`**（混合态）⇒ 本代另立 `ev/bak19/`）。
+> **产物**：`panel.js` 69623 → **72191 字符**；`conversation.html` → **1024825 字符**（+2568；对 `HEAD` 累计 **`1234 / 242`** 行；工作区 bytes 1145785 / **8487 行** / LF `sha1_lf 2c1ed815740e`）、
+> `task-detail.html` **767836（未动）**、`base.html` **逐字节不变**；`acceptance.md` **四十四节**。
+> 🚫 未 commit / 未 push。

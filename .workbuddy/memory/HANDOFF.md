@@ -1,9 +1,75 @@
 # HANDOFF · 下一轮接手卡
 
 > **每轮覆盖重写。新会话开局先读这一页，再按需 grep `PLAYBOOK.md` / `PAGES.md`。**
-> **每轮覆盖重写。新会话开局先读这一页，再按需 grep `PLAYBOOK.md` / `PAGES.md`。**
-> 最后更新：2026-10-01 14:2x（**r106 已提交 `4d081ba`** + **r107 侧栏模块标签化已落地（十一拍累积）** → 四查全绿 + 五模块实测 + 多轮真 bug / 机制坑修复 → **已推送 `e9c9498`**（2026-10-01 14:2x 邵先生发话 commit and push））
-> ⚠️ **最新一拍 = r107「侧栏模块标签化」**（复刻 Codex 右栏；**r106 已交付 ⇒ 本代是新一代**，
+> 最后更新：2026-10-01 22:5x（**r107 已推送 `e9c9498`** + **r108 已落地「第十二拍 diff 卡片化 + 文件树抽屉」+「第十三拍 六条」+「第十四拍 四条」+「第十五拍 六条」+「第十六拍 三条」+「第十七拍 四条」+「第十八拍 四条」+「第十九拍 两条（右栏全栏划词弹浮条 / `+` 菜单入场补上 0.2s spring）」** → 门禁四查全绿 + 真机实测（右栏三处划词出条 + 逐帧 spring 曲线 + 回归全绿）→ **🚫 未提交**）
+> ⚠️ **最新一拍 = r108 第十九拍（两条 · ★★ 就地返工、未另起代数）** —— 第十二 / 十三 / 十四 / 十五 / 十六 / 十七 / 十八拍仍未提交（判据 `git status` 里 `conversation.html` 仍是 ` M`）：
+> 本拍 = **右栏全栏划词都弹浮动工具条 + `+` / 四枚下拉的入场补上「从未跑过的 0.2s spring」**，**未动任何其他模块**（`task-detail.html` / `base.html` 一字未动）。
+> ① **整个右栏划词都弹浮条 → 已做**。放行根由 `.r93-scroll` 扩到 `.closest('.r93-scroll, .td-browse')`
+>   （两者是**并列的 flex 兄弟**、互不包含：1440 实测 `.r93-scroll` [13,49,778,604] / `.td-browse` [791,48,641,844] ⇒ 不误判；
+>   主对话口原有能力一字未动）。真机 CDP **真鼠标**拖选：审查 diff 代码 / 摘要散文小字 / 文件代码区 JSON
+>   —— 改前 `selbarExists = false`（**浮条根本不弹**）→ 改后 `true`，浮条框 `[886,139,200,38]` / `[835,59,200,38]` / `[1120,113,200,38]`、
+>   **在选区上方 8px**、`elementFromPoint` 命中浮条自身（`selbarOnTop = true`）；点「复制」⇒ 浮条收起 + 选区清空。
+> ② **菜单入场不再硬切 → 已修**。根因 = `toggleMenu()` 把「摘 `[hidden]`（`display:none`）」与「挂开态类」挤在**同一 tick**
+>   ⇒ 浏览器拿不到「改前样式」⇒ `opacity / translate / scale` 过渡**被静默跳过**（契约里 0.2s spring 入场**从未运行过**）。
+>   修法 = 开态拆四步：`menu.removeAttribute('hidden')` → **`void menu.offsetWidth`（强制重排）** → `placeRv()`（位置先行 ⇒ 零位移）→ `menu.classList.add(POP_OPEN)`。
+>   实测改前第 4 帧 `anims=-`、`op=1 / tr=0px / sc=1`（**一帧到终态**）；改后第 4 帧 `anims=opacity|scale|translate`、`op=0 / tr=0px 4px / sc=0.96`，
+>   逐帧 `op` 0 → .188273 → .425908 → … → 1（约 12 帧 ≈ 0.2s）、`scale` 过冲 **1.0039** 再回落、`off=(368,42)` **逐帧不变 = 零位移**。
+>   四枚下拉（`+` / 对比范围 / 提交·推送 / 显示选项）**同一条代码路径一起生效**，位置口径仍 = 触发器下缘 +6px（`+` 取整 7px）。
+> ★ **回归全绿**（改了 `toggleMenu` 时序 ⇒ 依赖它的旧路径全量重跑）：Esc 分层（侧栏**未被连坐**关掉）/ `+` 选「终端」/ 右键菜单 / 收侧栏 / 切页签 / `closeAll`。
+> ★ **补丁 = `ev/patch108l8.py`**（**4 步**；八层幂等 `l1 全跳过 / l2 0-8 / l3 0-27 / l4 0-8 / l5 0-10 / l6 0-15 / l7 0-9 / l8 0-4`）。
+> ★★ **本拍六条坑**见 PLAYBOOK **P3.55**（★★★ **「摘 `[hidden]`（`display:none`）+ 挂开态类」挤在同一 tick ⇒ CSS 过渡被静默跳过**（无报错、`getComputedStyle` 直接给终态 ⇒ 声明的入场动画可能是**死代码**；判据 = 逐帧 `getAnimations()` + **打开那一帧**读 computed；修法 = 中间**插一次强制重排**）/ 断言必须限定**函数体内**（全文计数会把另一处 `.zd-menu` 同形代码误报）/ 注释**不能插在被逐字断言的代码序列中间** / `old` 被 `new` 原样保留 ⇒ `strict=False`（**第四次**）/ **判据要跟着事实走**（探针选择器先核 DOM：正文是 `.td-browse-body` 而非 `.td-mod-body`）/ **「改前对照页」不能沿用上一轮 `bakNN/`**（混合态）⇒ 本代另立整代快照）。
+> ▸ **上一拍 = r108 第十八拍（四条 · 就地返工，🚫 未提交）**：① 预览工具条「在系统打开」拆「另存为 / 打开所在文件夹」· ② 去掉「最大化侧栏」（连带整段 JS，−4039 字符）· ③ `.td-rv-body > .td-diff { flex: none; }`（原 flex 子件被压扁 + 裁掉 ⇒ 容器永不滚）· ④ `+` 菜单「摘要」置首。要点见 PLAYBOOK **P3.54**。
+
+> ▸ **再上一拍 = r108 第十七拍（四条 · 就地返工，🚫 未提交）**：① `+` 菜单纳入 `placeRv` 现场摆位（原吃写死的 `left:64px`，3 页签时 dx = −218px）· ② 删浏览器工具条三枚按钮（连带快门死代码）· ③ `.td-tree` 改 `top:44px` 让开标题栏 · ④ diff 补 46 行。要点见 PLAYBOOK **P3.53**。
+> 要点与本拍同源，逐条见下方「### 第十九拍」。（其下数行 = 更早各拍，本轮已顺次降级标签。）
+
+> ▸ **更早 = r108 第十三拍（六条 · 就地返工，🚫 未提交）**：① `.td-sum-sec:hover` 边框深一档 / ② `.td-sum-h` 标题图标删净 /
+> ③ `.td-diff-toggle` 图标正文色 13px / ④ `.td-sum-art` 整卡可点预览 / ⑤ **`task-detail.html`** 徽章 13px（独立血脉 `ev/patch108td.py`）/
+> ⑥ **复刻 ZCode 右上角任务信息面板 `.zd-host#av-zd-status`**。要点与本拍同源，逐条见下方「### 第十三拍」。
+> ▸ **最早 = r108 第十二拍**：`.td-diff` 卡片化 + 「文件树」抽屉（独立类名 `td-tf*`）。
+> ★ 暗色档 / **`--ui-fs=18` 杠杆** / 窄档 620 三组回归全绿（头部 36→46、分区头 28→36、卡 `[320,512]` 没被压平）。
+> ★ **门禁四件套（在 top 修正之后复跑）全绿**：幂等 ✓（`patch108l2.py` 第二遍「**应用 0 / 跳过 8**」、`patch108td.py`「跳过」、`apply108.py`「已是目标态」）｜
+>   `check-syntax.py pages/*.html` **10/10**｜`verify-design.py ./pages` 与 `vd-r107l2.txt` **逐字节相同**（md5 `3dbf654337559509110899e48bef1b1c`）｜
+>   `scan-flatten.py part108/panel.css` 仍 **2 条**（`.td-mod-bar` / `.td-url`）。
+> **产物**：`conversation.html` 978614 → **995133 字符（+16519）**（`git diff` **+582 / −11 行**）；`task-detail.html` 767428 → **767836（+408）**（**+7 / −0 行**）；
+>   `base.html` **472150 逐字节不变**。
+> 逐条实测见 `mg-work/r108/acceptance.md`（**十三节**；八 ~ 十二 = 第十三拍）；机制级教训见 PLAYBOOK **P3.49**；本页固定事实见 PAGES **P3.11i**。
+> ⚠️ **上一拍 = r108 第十二拍「diff 卡片化 + 文件树抽屉」**（**同为 r108 未提交期**；r107 已交付 `e9c9498` ⇒ r108 是新一代，
+> **新建 `mg-work/r108/apply108.py`**（由 `ev/make108.py` 从 apply107 做 **7 处精确替换**生成），
+> `GENS` 摘除表扩到**六代**（r93/r101/r102/r106/r107/r108），注入块 id = `r108-conv-css` / `r108-conv-js`；
+> ★★★ **nav 块继续沿用 `r106-nav-js` 不换名**（`NAV_TAG='r106'`）⇒ **base + 8 外壳页逐字节不变、只改 `conversation.html` 一页**）：
+> ① **`.td-diff` 独立成一张张小卡片 → 已做**：`.td-rv-body` 改 `flex` 纵列 + `gap:8px` + `padding:8px`；
+>   `.td-diff` = `1px --color-border-2` 描边 + `8px` 圆角 + `--color-bg-2` 底 + `overflow:hidden`
+>   （让 `.td-diff-h:hover` 的底色被圆角裁住）；头 / 体之间补 `border-top: 1px --color-border-1`。
+>   实测四张卡 `[800,142,623,299] / [800,449,623,213] / [800,670,623,40] / [800,718,623,40]`、卡间距 **`[8,8,8]`**。
+> ② **「在文件树中定位」右侧新增「文件树」按钮 ⇒ 右侧弹文件树抽屉 → 已做**：
+>   按钮 `data-td-rv-act="tree"`（folder-tree SVG，24 网格 / stroke 2 / 渲染 16px），插在「定位」**右紧邻**；
+>   抽屉 `.td-tree[data-td-tree]`（`position:absolute; inset:0; z-index:35`；**下拉 30 < 抽屉 35 < 提交模态 40**）
+>   = 遮罩 + 右侧 `min(296px, 86%)` 面板 + 头部（`.td-tree-h` 40px）+ 搜索 + `.td-tree-files`（10 行）。
+>   开合 = `hidden` 属性 + `.is-open` 类（**先 `removeAttribute('hidden')` → `void offsetWidth` 强制 reflow → 再 `add('is-open')`**；
+>   关 = 摘 `is-open` → **240ms 后**挂 `hidden`）。实测 `panelBox=[1135,49,296,842]`（右缘 1431 = 右栏右缘）；
+>   **三条关闭路径全通**（遮罩 / Esc / 头部 ✕），**Esc 只关抽屉、不关侧栏**（裁决链：模态 → 抽屉 → 菜单）。
+> ★★★ **本拍最关键的技术决定 —— 抽屉树用「独立类名 `td-tf*`」**：`ctrl-conv.js` 的
+>   `pane = slot.querySelector('.td-browse')` 是**整个 aside**、`pane.querySelector('.td-browse-files')` **只绑第一棵**
+>   ⇒ 若复用 `td-bf*` 会两边互相打架、抽屉里的行点了没反应。零干扰已实测：
+>   抽屉里点 `Controls.tsx` ⇒ 抽屉 `active` 变，而「文件」模块那棵树 `filesActive` / `filesRows 28` / `filesHidden 9` **一字未变**。
+> 🔧 **途中排掉三处坑（两个真问题 + 一处探针假失败）**：
+>   ① **「文件树」按钮会弹一个多余的「已执行」toast** —— `panel.js` 那条 `[data-td-rv-act]` 通用循环把它也吃了
+>     ⇒ 在 `closeMenus(null)` 之后加 `if (kind === 'tree') return;`（**保留 closeMenus**、只跳过 toast）。
+>   ② **`.td-tree-h` 被 `scan-flatten` 多报 1 条**（基线 2 → 3）—— 该规则有 `height: calc(40px*ratio)` 但体里没有
+>     `var(--font-size-*)` ⇒ 会被 `apply88b.converge()` 压平 ⇒ 补 `font-size: var(--font-size-body-3)` 回到 2 条。
+>   ③ **探针两处假失败（产品没问题）**：抽屉遮罩挡住工具条点击（想切并排视图要先关抽屉）+
+>     短路表达式 `q() || fn().click()` 让「并排」根本没切过去。
+> ★ **门禁四件套全绿**：幂等 ✓（`patch108l1.py` 第二遍「应用 0 / 跳过 6」；`apply108.py` 第二遍「已是目标态」）｜
+>   `check-syntax.py pages/*.html` **10/10**｜`verify-design.py ./pages` 与 `vd-r107l2.txt` **逐字节相同**
+>   （md5 `3dbf654337559509110899e48bef1b1c`，21882 字节 ⇒ 零新增、一处渐变都没引）｜
+>   `scan-flatten.py part108/panel.css` 仍 **2 条**（`.td-mod-bar` / `.td-url`）。
+> ★ 边界验证：并排视图 `isSplit=true` / 统一行 `display:none`；`--ui-fs=18` 杠杆 ⇒ 树行 **28 → 36**、头部 **40 → 51**；
+>   窄档 620 ⇒ 面板仍 296（`min()` 的 `296px` 分支正确）。
+> **产物**：`conversation.html` **958568 → 978614 字符（+20046）**，LF bytes **1078406** / 工作区 bytes **1086146** /
+> **7741 行** / LF `sha1_lf 7a1be6be9b76`；`base.html` **472150 逐字节不变**；`git diff --numstat` = `248  3  pages/conversation.html`。
+> 逐条实测见 `mg-work/r108/acceptance.md`（**七节**）；机制级教训见 PLAYBOOK **P3.48**；本页固定事实见 PAGES **P3.11i**。
+> ⚠️ **上一拍 = r107「侧栏模块标签化」（已推送 `e9c9498`）**（复刻 Codex 右栏；**r106 已交付 ⇒ 本代是新一代**，
 > **新建 `mg-work/r107/apply107.py`**（由 `ev/make107.py` 从 apply106 做 **13 处精确替换**生成），
 > `GENS` 摘除表扩到**五代**（r93/r101/r102/r106/r107），注入块 id = `r107-conv-css` / `r107-conv-js`；
 > ★★★ **nav 块刻意沿用 `r106-nav-js` 不换名**（`NAV_TAG='r106'`）—— 硬规则「跨代沿用的宿主标记不换名」）：
@@ -146,10 +212,10 @@
 >   本代 `conversation`：**799231 → 866988**（第一拍 +67757）→ **876008**（第二拍 +9020）→ **894916**（第三拍 +18908）
 >   → **920259**（第四拍 +25343）→ **921730**（第五拍 +1471）→ **925776**（第六拍 +4046）→ **927464 Unicode 字符**（第七拍 +1688）；
 >   **相对 HEAD 合计 +128233**。UTF-8 字节（LF 归一）870627 → 952672 → 976078 → 1004420 → 1006094 → 1012253 → **1015265**；工作区字节（CRLF）947490 → 958664 → 979610 → 1011192 → 1012899 → 1019153 → **1022207**；LF `sha1 79aa4533761b`。
-> 工作区：**干净**（仅剩 `?? mg-work/r107/ev/bak{7,8,9,10}/` 4 个返工备份目录，刻意留在库外）。已推送 `e9c9498`：`conversation.html` **958568 字符**。
+> （r107 交付时）工作区：**干净**（仅剩 `?? mg-work/r107/ev/bak{7,8,9,10}/`）。已推送 `e9c9498`：`conversation.html` **958568 字符**。
 >   —— **`base.html` 逐字节不变**；8 个外壳页里**只有 `avatar.html` 因第七拍文案动了 1 处**，其余 7 页不动
 >   （nav 块沿用 `r106-nav-js`；`apply107` 跑完打印「base.html 已是目标态」）。
->   `origin/main` = **`e9c9498`**（本地 HEAD 已到 `e9c9498` = r107 代终态，**已推送**）。
+>   `origin/main` = **`e9c9498`**（本地 HEAD 仍 `e9c9498`；**r108 十二拍已在工作区落地、🚫 未提交**）。
 > ⚠ **本代不要重跑 `apply106.py`**（它只认四代 ⇒「基线残留 r107-conv-css」自检直接退出）；
 >   退 r107 只需 `git checkout -- pages/conversation.html`。
 > ⚠ **r89 / r90 / r91 / r92 对设置页的改动、r93 需求 1 对字号机制的改动，全都是 r88 的就地返工**（r88 未提交 ⇒ 按硬规则不另起代数，直接改 `mg-work/r88/apply88.py` 与 `apply88b-fontsize.py`）。
@@ -176,26 +242,29 @@
 **r102 ~ r105 已全部提交推送**（**`87e2caa`**）；**r106 六条（`4d081ba`）+ Codex 右栏调研（`f13b3bf`）也已提交**（2026-10-01 09:4x，邵先生发话 commit）。
 r86 ~ r100 于 18:2x 提交推送（`6a4b0ea..d7e2151`）；**r101 于 20:2x 提交推送**（`1d11fc9..9f252e5`）。
 
-★★ **r107（侧栏模块标签化）＝本代新产物，已推送 `e9c9498`**（2026-10-01 14:2x 邵先生发话 commit and push）。推送后工作区：
-**干净**（只剩 `?? mg-work/r107/ev/bak{7,8,9,10}/` 4 个返工备份目录，刻意留在库外）—— **base.html 逐字节不变**（8 个外壳页里只有 avatar.html 因文案动 1 处，其余 7 页不动）。
+★★ **r108（第十二 + 十三 + 十四 + 十五 + 十六 + 十七 + 十八 + 十九拍）＝本代新产物，🚫 未提交**（2026-10-01 22:5x，第十九拍）。工作区：
+**` M pages/conversation.html`（1024825 字符）+ ` M pages/task-detail.html`（767836 字符）+ `?? mg-work/r108/` + `?? mg-work/r107/ev/bak{7,8,9,10}/`** —— **base.html 逐字节不变**（8 个外壳页一字未动，nav 块沿用 `r106-nav-js`）。
+⚠ ★★ **本代动了第二页**：第 ⑤ 条（任务详情页徽章字号）走**独立血脉** `ev/patch108td.py`，既不参与 `splice108` 也不参与 `apply108`。
 > ★★★ 这是本代刻意设计的结果：nav 块**沿用 `r106-nav-js` 不换名**（硬规则「跨代沿用的宿主标记不换名」），
 > 于是 `apply107.py` 跑完 `base.html` 打印「已是目标态（无改动）」⇒ 满足「不得改动其他不必涉及的模块」。
 > ⚠ 工作区字节数比仓库 blob 大**「行数」个字节** = `core.autocrlf=true` 的行尾差，**不是内容改动**。
 > ★★ 判据：**先把工作区 `\r\n` 归一成 `\n`、再比同一口径**（`len(bytes)−CRLF数` **不是**字符数！）。
 
-⚠ ★ **本代不要重跑 `apply106.py`**：它的 `GENS` 只有四代，会把「基线里仍残留 `r107-conv-css`」判成错误直接退出。
-  退 r107 只需 `git checkout -- pages/conversation.html`（只改了这一页）。
+⚠ ★ **本代不要重跑 `apply107.py`**：它的 `GENS` 只有五代，会把「基线里仍残留 `r108-conv-css`」判成错误直接退出。
+  退 r108 只需 `git checkout -- pages/conversation.html`（只改了这一页）。
 
 
 | 改动 | 内容 |
 |---|---|
-| `pages/conversation.html` | **634719 → 793028 字符**（r101 两批 +38126 → r102 +10199 → r103 +2421 → r104 +6183 → **r105 ② +2173 → ③ +99207**）；LF 文本 `sha e67474395502`（r101 交付态 `98140cc4bf8f`、r102 态 `249fbc984716`、r103 态 `a340b6a9e89f`、r104 态 `05b899bd4366`）；`script=9 style=16`（**16 与 HEAD 一致，旧记录写 15 是笔误**）；注入块 id 经 `r93-conv-*` → `r101-conv-*` → `r102-conv-*` → **`r106-conv-css` / `r106-conv-js`**（历代残留 0）；r102 十一条 + r103 六条 + r104 四条 + r105 三条见 `mg-work/r102/acceptance.md`，**r106 六条见 `mg-work/r106/acceptance.md`**。★ **r106 态（未提交）：793028 → 798613 字符（+5585）**，工作区 blob `e17d227b58bf`。★★ **r107 态（已交付 `e9c9498`）**：`799231 → 866988（一 +67757）→ 876008（二 +9020）→ 894916（三 +18908）→ 920259（四 +25343）→ 921730（五 +1471）→ 925776（六 +4046）`，**相对 HEAD +126545**；工作区字节 1019153（CRLF）/ UTF-8 1012253（LF 归一），LF `sha 6655f13a1afd`；注入块 id `r107-conv-css` / `r107-conv-js`（**`r106-*` / `r102-*` / `r101-*` / `r93-conv-*` 全 0**）；r107 十一拍见 `mg-work/r107/acceptance.md`（**十六节**） |
+| `pages/conversation.html` | **634719 → 793028 字符**（r101 两批 +38126 → r102 +10199 → r103 +2421 → r104 +6183 → **r105 ② +2173 → ③ +99207**）；LF 文本 `sha e67474395502`（r101 交付态 `98140cc4bf8f`、r102 态 `249fbc984716`、r103 态 `a340b6a9e89f`、r104 态 `05b899bd4366`）；`script=9 style=16`（**16 与 HEAD 一致，旧记录写 15 是笔误**）；注入块 id 经 `r93-conv-*` → `r101-conv-*` → `r102-conv-*` → **`r106-conv-css` / `r106-conv-js`**（历代残留 0）；r102 十一条 + r103 六条 + r104 四条 + r105 三条见 `mg-work/r102/acceptance.md`，**r106 六条见 `mg-work/r106/acceptance.md`**。★ **r106 态（未提交）：793028 → 798613 字符（+5585）**，工作区 blob `e17d227b58bf`。★★ **r107 态（已交付 `e9c9498`）**：`799231 → 866988（一 +67757）→ 876008（二 +9020）→ 894916（三 +18908）→ 920259（四 +25343）→ 921730（五 +1471）→ 925776（六 +4046）`，**相对 HEAD +126545**；工作区字节 1019153（CRLF）/ UTF-8 1012253（LF 归一），LF `sha 6655f13a1afd`；注入块 id `r107-conv-css` / `r107-conv-js`（**`r106-*` / `r102-*` / `r101-*` / `r93-conv-*` 全 0**）；r107 十一拍见 `mg-work/r107/acceptance.md`（**十六节**）。★ **r108 态（🚫 未提交）**：958568 → **978614（第十二拍 +20046）→ 995133（第十三拍 +16519）→ 1009968（第十四拍 +14835）→ 1012144（第十五拍 +2176）→ 1015095（第十六拍 +2951）→ 1024705（第十七拍 +9610）→ 1022257（第十八拍 −2448）→ 1024825（第十九拍 +2568）**；工作区 bytes **1145785** / **8487 行** / LF `sha1_lf 2c1ed815740e`；注入块 id `r108-conv-css` / `r108-conv-js`（**`r107-*` 及以前全 0**；另加一档 `r108-l5`）；r108 **十二 ~ 十九拍**见 `mg-work/r108/acceptance.md`（**四十四节**，八 ~ 十二 = 第十三拍、十三 ~ 十九 = 第十四拍、二十 ~ 二十四 = 第十五拍、二十五 ~ 二十九 = 第十六拍、三十 ~ 三十四 = 第十七拍、三十五 ~ 三十九 = 第十八拍、**四十 ~ 四十四 = 第十九拍**） |
+| `pages/task-detail.html` | ★ **r108 第十三拍动了本页**（独立血脉 `ev/patch108td.py`）：767428 → **767836 字符（+408）**；`git diff --numstat` = **+7 / −0 行**；只加了一个 `<style id="r108-td-css">`（`.giencoder-badge-status-text { font-size: var(--font-size-body-2) }`，13px），插入点 = `</style>` 与 `<script id="r81-ws-js">` 之间；`check-syntax` `script=12 style=13` |
 | `pages/base.html` | **471444 → 472150 字符**（r101 +706，r102 ~ r105 **+0**）；LF 文本 `sha c406a60add16`（r101 态 `2ffe5f16d5c8`）＝ nav 脚本 id 由 `r101-nav-js` 换成 **`r102-nav-js`**（注释对同步换名，**长度相同**）+ **`r101-hdr-css`（顶栏图 70%）**。r106 态：仍 **+0**，nav id → `r106-nav-js`（等长），工作区 blob `3436a5e7857e`。★ **r107 态：仍 472150 字符 / 逐字节不变（nav id 刻意沿用 `r106-nav-js`）** |
 | `pages/{avatar,skills,automation,settings,dev,kanban,req-kanban,task-detail}.html` | **各 +714**（r105 ① 注入同一块 `r102-nav-js`；这 8 页在 r101 已各 +703）；终态 `568086 / 361583 / 361696 / 459222 / 450205 / 568052 / 513791 / 767428` |
 | `mg-work/r101/` | `apply101.py`（含 `--revert` / `--dry`）/ `acceptance.md`（**十三节**）/ `before/`（2 份前置基线）/ `ev/`（探针 + 终态取证 + `vd-r101*`）/ `raw/` —— **已提交**，仅供追溯 |
 | `mg-work/r102/` | `apply102.py`（**163605 字符 / 220815 字节**；`cp` 自 r101 后大改；**r103 六条 + r104 四条 + r105 三条也在里面**，含 `--revert` / `--dry`）/ `acceptance.md`（**六节 r102 + r103 段 + r104 段 + 新增 r105 段**，39524 字节）/ `before/`（`conversation-r102.html` 721864 / `base-r102.html` 490294）/ **`part105/`**（`browse.css` 15937 / `browse.html` 31688 / `browse.js` 47410 / `ctrl-conv.js` 15465，r105 ③ 三件套 + 控制器）/ `ev/`（`p102a~p102f` + `p103a~p103k` + `p104a~p104q` + **`p105a~p105j` + `p105e/f/g1.js` + `extract105.py` + `write_acc105.py` + `.log`** + `audit104.py/.log` + `vd-r102a/b.txt` / `vd-r103a.txt` / `vd-r104b/c.txt` / **`vd-r105a/b.txt`**）/ `raw/`（基线 / 改后 1440+2560 / 折叠 / hover / `g103-*` ~ `k103-*` / `z104-*` `a104-*`~`z2560-*` `c2560-*` / **`x105-*` `y105-*` `z2560-browse*` `z2560-dark-browse` `z1440-dark-105` r105 裁片**）—— **已提交**（`87e2caa`）|
 | `mg-work/r106/` | **已提交（`4d081ba`）**：`apply106.py`（含 `--revert` / `--dry`；第三拍新增 ④b 规则）/ `acceptance.md`（**六条 · 三拍**，含「④b 定位过程」节）/ `before/`（`conversation-r106.html` 865582 / `conversation-r106a.html` 870416 / **`conversation-r106b.html` 872270 = 第三拍前态** / `base-r106.html` / `base-r106a.html`）/ `ev/`（`make106.py` + `p106a~p106m` 探针与日志 + `vd-r106a/b/c.txt`）/ `raw/`（`b106-*` / `a106-*` / `a106v2-*` / `g106-*` + **`m106-{1280,1370,1440,1920,2560}-open.png` + `m106b-1280-open.png`**）|
 | `mg-work/r107/` | **已推送（`e9c9498`）**：`apply107.py`（**由 `ev/make107.py` 从 apply106 做 13 处精确替换生成**；GENS 五代、nav 沿用 r106；含 `--revert` / `--dry`）/ `acceptance.md`（**十二节**：口径 / nav 不换名体位 / 五模块 / **两个真 bug** / 稳定性证明 / 取舍 / 取证 / **第二拍** / **第三拍** / **第四拍五条** / **第五拍两条** / **第六拍三条** / **第七拍七条**）/ **`part107/`**（第七拍后：`_head.html` 5270 · `_mods.html` 35916 · **`browse.html` 71578 = 组装件** · `panel.css` 39686 · `panel.js` 48583）/ `ev/`（`make107.py` · **`splice107.py`** · `probe107.sh` · `debug107.sh` · `debug107b.sh` · `final107.sh` · `shots107.sh` · `shots107d.sh` · `shots107e.sh` · `shots107f.sh` + `verify107e.sh` · **`shots107g.sh` + `verify107g.sh` + `probe107f.sh`（第六拍）** · **`p107d1~p107d9.js`（第四拍探针）** · **`p107e1/e2.js` + `fix107e1.py` + `fix107e2.py`（第五拍）** · **`p107f1~p107f7.js` + `p107g1.js`（第六拍探针）** · **`p107h1~h3.js` + `probe107h{,2,3}.sh` + `patch107h{,2}.py` + `doc107h{,2}.py`（第七拍）** · `scan-flatten.py` + `.log` + `vd-r107{,b,c}.txt`）/ `raw/`（`g1~g7` 出图 · `f1~f9` 功能 · `d1~d7` 诊断 · `h1~h3` 窄档/字号 · `s1~s12` 首轮 · `d1-summary` / `d2-modmenu` / `d3-ctxmenu` / `d4-selbar` / `d5-ctx-src` / `d6-ctx-file` / `d7-ctx-el`（第四拍裁片）· `e1~e6`（第五拍）· **`f1-composer` / `f3-alert1100` / `f4-skill1280`（第六拍改前）· `g1-stats` / `g2-skill1440` / `g3-skill1280` / `g4-alert1100` / `g5-alert1100`（第六拍改后）** · **`h2-{add-menu,opts-menu,commit}`（第七拍改前）· `h3-{add-menu,opts-menu,commit,ctxmenu}`（第七拍改后）**）。**无 `before/`** —— 前置态 = HEAD 的 conversation.html，`git show` 可取 |
+| `mg-work/r108/` | **🚫 未提交（第十二 ~ 十九拍）**：`apply108.py`（**由 `ev/make108.py` 从 apply107 做 7 处精确替换生成**；GENS 六代、nav 沿用 `r106-nav-js`）/ `acceptance.md`（**四十四节**）/ **`part108/`**（本代**四件**：`_head.html` **4918 字节**（第十八拍**新建**，由 part107 拷贝后打 ②④）· `_mods.html` 51798 → … → 62454 → 70783 → **71067** 字符 · `panel.css` → … → 74888 → 75956 → **76769** 字符 / 1599 行 · `panel.js` → 71160 → 72477 → 72690 → 69623 → **72191** 字符 / 1639 行（第十九拍）；`ctrl-conv.js` / `browse.{css,js}` 三级回落取 part107 / part105）/ **`up/`**（上游 `ConversationStatusPanel.tsx` + `conversationStatusPanelModel.ts`）/ `ev/`（**第十二拍**：`make108.py` · `splice108.py` · `patch108l1.py` · `p108m.js` + `probe108m{,2,3,4,5,6}.sh` · `shots108m.sh` · `scan-flatten.py` · `vd-r108a/b.txt` · `m-raw.log` / `m2-raw.log`；**第十三拍**：`patch108l2.py`（555 行）· **`patch108td.py`**（85 行，任务详情页）· `p108n.js` + `probe108n.sh` / `probe108n2.sh` · `shots108n.sh` / `shots108n2.sh` · `vd-r108l2b.txt` · `n-raw.log` / `n2-raw.log`；**第十四拍**：`patch108l3.py`（772 行 / 27 项）· `p108p.js` / `p108p2.js` · `probe108p2.sh` · `shots108p.sh` · `pix.py` · `p-raw.log` / `p2-raw.log`；**第十五拍**：`patch108l4.py`（8 项）· `p108q.js` / `p108q2.js` · `probe108q.sh` · `bak15-panel.css` / `bak15-mods.html` · `q-raw.log`；**第十六拍**：`patch108l5.py`（10 步）· `p108r.js` · `probe108r.sh` / `probe108r2.sh` · `on.js` · `bak16/`；**第十七拍**：`patch108l6.py`（15 步）· `p108t.js` · `probe108t.sh` / `probe108t2.sh` · `bak17/` · `s-raw.log` / `t-raw.log`；**第十八拍**：`patch108l7.py`（9 步）· `p108u.js` / `p108u2.js` · `probe108u.sh` / `probe108u2.sh` / `probe108u3.sh` · `shots108u.sh` · `bak18/` · `bak18pre/` · `chk18{,b,c}.py` · `u-raw.log` / `u-after-raw.log`；**第十九拍**：`patch108l8.py`（4 步）· `r108v-recon.js` / `r108v2.js` / `r108v3.js` / `p108w.js` / `p108x.js` · `probe108v.sh` / `probe108v2.sh` / `probe108v3.sh` / `probe108w.sh` / `probe108x.sh` / `shots108v.sh` · `bak19/` · `{v,v2-before,v2-after,v3,w-before,w-after,x-after}-raw.log`）/ `raw/`（`m-1440-{diff,diff-pane,diff-split,tree,tree-panel,tree-fold,rvbar}.png` + `n-1440-{zd,zd-card,zd-fold,zd-mini,zd-dark,bar,sum,sum-hover,art-preview,art-pane,diff,diff-toggle,revbar}.png` + `r-1440-{pv-md,pv-xlsx,dark}.png` / `r2-{tabs-after-pvB,bars-fs14-terminal,bars-fs18-preview}.png` / `r-card-over-{red,page}.png` / `s-menu-{before,after}.png` / `t-{menu-4tabs-browse,menu-full,url-after,tree-open,rv-rows}.png` / `u-{before,after}-{menu,bar,pvbar,rv-top,rv-scrolled}.png` / `w-{before,after}-selbar.png` / `w-after-files-selbar.png` / `v-after-menu.png` / `x-after-{after-esc,ctx}.png`）|
 | `docs/codex-refs/` + `docs/codex-sidepanel-research.md` | **已提交（`f13b3bf`）**：12 张 Codex 右栏实机截图 + 十节调研速报（r107 的设计依据） |
 | `.workbuddy/memory/2026-09-30.md` | 当日原始日志（含 r92 / r93 / **r93 ④** / r94~**r105** 各段；**2026-10-01.md 续记 r106 + r107（七拍）**） |
 
@@ -203,7 +272,7 @@ r86 ~ r100 于 18:2x 提交推送（`6a4b0ea..d7e2151`）；**r101 于 20:2x 提
 > `{dev,kanban,req-kanban,task-detail}` = 449491 / 567338 / 513077 / 766714；`assets/images/bg-img-1.png`（顶栏装饰）；`giencoder-design-system/components.css` + `.gienx-templates/_shared/components.css` + `components/select.json`（r87 select）。
 > `?? mg-work/r92/` · `?? mg-work/r93/`（`apply93.py` + `acceptance.md` 十三节 + `before/` 25 份 + `ev/` + `raw/`）—— **均已提交**。
 
-`origin/main` @ **`e9c9498`**（**r106 六条 + Codex 右栏调研 + r107 十一拍已全部推送**，工作区**干净**；上一站 `9f252e5` = r101，再上一站 `d7e2151` = r86~r100，`1ecc7ee` = r80–r85）。**长期约定「默认不自动 commit / push」（2026-09-28 起）；邵先生显式说「commit and push」时才执行**。
+`origin/main` @ **`e9c9498`**（**r106 六条 + Codex 右栏调研 + r107 十一拍已全部推送**；**r108 十二拍 🚫 未提交**，工作区 ` M pages/conversation.html`；上一站 `9f252e5` = r101，再上一站 `d7e2151` = r86~r100，`1ecc7ee` = r80–r85）。**长期约定「默认不自动 commit / push」（2026-09-28 起）；邵先生显式说「commit and push」时才执行**。
 
 ⚠ `.gitignore`：`mg-work/r80/raw/sel_*.json`、`mg-work/*/gate/*/pages/`。`before/` 与 `raw/` **是**入库惯例。
 ⚠ **推送凭据**：PAT 已写入 `~/.git-credentials`，推送带 `-c credential.helper=store`（详见第九节）。
@@ -757,7 +826,7 @@ E4 `PART105`→`PART_DIRS`｜E5 插入 `R106_CSS`｜E6 `build_css` 拼 `R106_CSS
 
 ---
 
-## 二·g ★★ r107（最新一拍 · 会话详情页「侧栏模块标签化」＝复刻 Codex 右栏 · 2026-10-01 09:3x 起，共**十一拍**）—— **新一代（r106 已交付 `4d081ba`），已推送 `e9c9498`**
+## 二·g ★★ r107（上一拍 · 会话详情页「侧栏模块标签化」＝复刻 Codex 右栏 · 2026-10-01 09:3x 起，共**十一拍**）—— **新一代（r106 已交付 `4d081ba`），已推送 `e9c9498`**
 
 > 完整版见 `mg-work/r107/acceptance.md`（**十六节**，含第二 ~ 十一拍返工）；机制级教训见 PLAYBOOK **P3.39 ~ P3.47**；
 > 本页固定事实见 PAGES **P3.11i**；设计依据 = `docs/codex-sidepanel-research.md` + `docs/codex-refs/`（`f13b3bf`）。
@@ -1091,6 +1160,525 @@ UTF-8 字节（LF 归一）870627 → 952672 → 976078 → 1004420 → 1006094 
    产物 **936625 → 958568 字符**（+21943），`+2806 / −12` 行。★ 本拍**首次动了 `_mods.html`**
    ⇒ 改序 = `_mods.html → ev/splice107.py → apply107.py`（`browse.html` 是 splice 的产物）。
 
+## 二·h ★★ r108（最新一拍 · 会话详情页「diff 卡片化 + 文件树抽屉」+ 六条精修「含 ★ 复刻 ZCode 右上角任务信息面板」· 2026-10-01 19:4x 起，共**十二 ~ 十九拍**）—— **（r107 已交付 `e9c9498`），🚫 未提交**
+
+> 完整版见 `mg-work/r108/acceptance.md`（**四十四节**）；机制级教训见 PLAYBOOK **P3.48 ~ P3.55**；本页固定事实见 PAGES **P3.11i**。
+
+**① 体位**：r107 **已交付 `e9c9498`** ⇒ **新建 `mg-work/r108/apply108.py`**（**不就地返工**），
+由 **`ev/make108.py`** 从 `apply107.py` 做 **7 处精确替换**生成
+（E1 标题 / E2 ×5 路径 / E2b ×2 段号 / E3 `GENS` 加第六代 / E4 `PART_DIRS` 加 `part108` / E5 注释目录名 / E6 docstring 加第十二拍块；
+每处命中数断言，不符即 `sys.exit`）。`GENS` 扩成**六代**（r93/r101/r102/r106/r107/r108）。
+
+**★★★ nav 块继续沿用 `r106-nav-js`（不换名）**：`GENS[-1] = ('r108','r108-conv-css','r108-conv-js','r106-nav-js')` + `NAV_TAG='r106'`
+⇒ `base.html` 与 8 个外壳页**逐字节不变**，`git status` 只有 `conversation.html` 一个 ` M`。
+⚠ **但 CSS / JS 两块都改了 ⇒ 必须换名 `r108-conv-css` / `r108-conv-js`**（否则「摘块」正则会连本代新内容一起摘掉）。
+
+**② `PART_DIRS` 三级回落**：`(part108, part107, part105)` —— 本代只覆盖改过的三件
+（`_mods.html` · `panel.css` · `panel.js`），`_head.html` / `ctrl-conv.js` / `browse.{css,js}` 继续从 part107 / part105 取。
+
+**③ 改动清单**
+
+| 文件 | 改动 |
+|---|---|
+| `part108/_mods.html`（44246 → 52848 字节） | ① 工具条 `.td-mod-bar-acts` 里「在文件树中定位」**右紧邻**插 `data-td-rv-act="tree"` 按钮（folder-tree SVG）；② `</aside>` 前追加 `.td-tree[data-td-tree]` 抽屉（`.td-tree-scrim` / `.td-tree-panel` / `.td-tree-h` / `.td-browse-search` / `.td-tree-files` 10 行 `.td-tf*`） |
+| `part108/panel.css`（1090 → 1196 行） | **新增第 18 节**（`/* r108-l1 */` 幂等标记）：18.1 diff 卡片化 · 18.2 文件树抽屉 · `.td-tf*` 行几何逐条对齐 `browse.css` 的 `.td-bf` |
+| `part108/panel.js`（1335 → 1412 行） | 抽屉控制器（`treeRefresh()` / `treeShow()` / `treeHide()` + 点击委托 + document 点击收抽屉）；Esc 裁决链**加抽屉一层**（`if (treeOpen) { treeHide(); return; }` 插在 `modal` 之后、`menuOpen` 之前）；`[data-td-rv-act]` 通用循环加 `if (kind === 'tree') return;` |
+| `ev/make108.py` · `ev/splice108.py` · `ev/patch108l1.py` | 生成器（7 处替换）/ 组装器（头部取 part107、新模块取 part108、Files 正文从 part105 剪出）/ 补丁（6 步，`mark = new` 幂等） |
+
+**★★★ 独立类名隔离**：`ctrl-conv.js` 的 `pane = slot.querySelector('.td-browse')`（**整个 aside**）、
+`rows = pane.querySelectorAll('.td-bf')`、`files = pane.querySelector('.td-browse-files')`（**只绑第一个**）
+⇒ 抽屉树**必须用独立类名 `td-tf*`**，否则两边互相打架且抽屉里的行点了没反应。
+★ 实测零干扰：抽屉里点 `Controls.tsx` ⇒ 抽屉 `drawerActive` 变，而「文件」模块那棵树 `filesActive` / `filesRows 28` / `filesHidden 9` **一字未变**。
+★ 抽屉树自身折叠：点 `games` ⇒ `visibleRows 10 → 3`，再点回 10。
+
+**④ 真机实测（1440）**
+
+* diff：四张卡 rect `[800,142,623,299] / [800,449,623,213] / [800,670,623,40] / [800,718,623,40]`，**卡间距 `[8,8,8]`**；
+  卡描边 `1px solid rgb(229,229,229)` / 圆角 `8px` / 底 `rgb(255,255,255)` / `overflow:hidden`；
+  头 / 体分隔线 `1px rgb(242,242,242)`；并排下折叠 ⇒ 卡高 **40**、`rowsDisplay:none`（**无残留分隔线**）。
+* 按钮位置（`raw/m-1440-rvbar.png`）：工具条右端 = 复制 · **定位** · **文件树** · `⋯` · 提交⌄ · PR ⇒ **在「在文件树中定位」右紧邻** ✓。
+* 抽屉：`hidden:true→false`、`is-open` 同步、`btnAria false→true`、**`panelBox=[1135,49,296,842]`**、`transform:none`、`scrim opacity 1`；
+  与右栏 `paneBox=[791,48,641,844]` ⇒ 面板右缘 `1135+296 = 1431 = 791+641−1` = **紧贴右栏右缘** ✓。
+* 关闭路径：点遮罩 ⇒ `hidden=true` + `paneOpen=true`（**侧栏没被误关**）；**Esc** ⇒ `hidden=true` / `paneOpen=true` / `paneHidden=false`（**只关抽屉**）；重开 ⇒ `panelBox` 不变（无残留污染）。
+* 边界：`.td-tree-h` h=**40** fs=14px；`.td-tf` h=**28** fs=13px；并排 `isSplit=true` / 统一行 `display:none` / 并排行 `display:block` + `border-top:1px`；
+  **`--ui-fs=18`** ⇒ 树行 **28 → 36**、头部 **40 → 51**、行字号 13 → 16.71px（**杠杆生效、没被压平**）；窄档 620 ⇒ 面板仍 296。
+
+**⑤ 途中排掉三处坑**（详见 PLAYBOOK **P3.48**）
+
+1. **「文件树」按钮弹多余「已执行」toast** —— `panel.js` 的 `[data-td-rv-act]` 通用循环（`say(ACT_TEXT[kind] || '已执行')`）把它也吃了 ⇒
+   在 `closeMenus(null)` 之后加 `if (kind === 'tree') return;`（**保留 closeMenus**、只跳过 toast）。
+   复测：点「文件树」⇒ `toastShown=false`；再点「在文件树中定位」⇒ `toastText="已在「文件」标签中定位该文件"` + `activeTab="文件"` ⇒ **老动作没被带坏** ✓。
+2. **`.td-tree-h` 被 `scan-flatten` 多报 1 条（3 条 > 基线 2 条）** —— 该规则有 `height/min-height: calc(40px * var(--ui-fs-ratio))` 但体里
+   **没有 `var(--font-size-*)`** ⇒ 会被 `apply88b.converge()` 压平成裸 40px ⇒ 补 `font-size: var(--font-size-body-3)`（`patch108l1.py` 的 `CSS_NEW` 同步）⇒ 回到 **2 条** ✓。
+3. **探针两处假失败（产品代码没问题）** —— ① 抽屉开着时遮罩 `z-index:35` 挡住工具条点击 ⇒ 想点 `⋯` 切「并排视图」必须先关抽屉；
+   ② 上一版探针写 `document.querySelector(...) || (fn)().click()` 这种**短路表达式** ⇒ 左侧 `querySelector` 命中（哪怕元素 hidden）就短路，
+   「并排」根本没切过去。修：`probe108m6.sh` **先确认抽屉关闭**再点 ⇒ `isSplit=true` ✓。
+
+**⑥ 产物与门禁**：`conversation.html` **958568 → 978614 字符**（+20046）；LF bytes **1078406** / 工作区 bytes **1086146** / **7741 行** / LF `sha1_lf 7a1be6be9b76`；
+`base.html` **472150 逐字节不变**；`git diff --numstat` = `248  3  pages/conversation.html`。
+幂等 ✓（`patch108l1.py` 第二遍「应用 0 / 跳过 6」；`apply108.py` 第二遍「已是目标态」）｜`check-syntax.py pages/*.html` **10/10**（conversation `script=9 style=16`）｜
+`verify-design.py ./pages` 与 `mg-work/r107/ev/vd-r107l2.txt` **逐字节相同**（md5 `3dbf654337559509110899e48bef1b1c`，21882 字节 ⇒ 零新增）｜
+`scan-flatten.py part108/panel.css` ⇒ **2 条**（`.td-mod-bar` / `.td-url`）。
+
+**⑦ 交接**：🚫 **未 commit / 未 push**（等邵先生显式发话）。提交时注意 `git reset -q -- mg-work/r107/ev/bak{7,8,9,10}/`（返工期的临时三源快照、不入库）。
+
+---
+
+### 第十三拍（r108 第二层补丁 · 六条 · @WHEN@ 邵先生 · 🚫 仍未提交）
+
+> 完整版见 `mg-work/r108/acceptance.md` **八 ~ 十二节**；机制级教训见 PLAYBOOK **P3.49**。
+
+**需求（逐字）**：
+> 「1、当卡片"td-sum-sec"hover 时，边框的颜色会变成深一级的颜色；2、把"td-sum-h"这种标题前面的图标都去掉；
+> 3、"td-diff-toggle"的图标颜色浅了，需使用正文颜色，并且将图标的字号调整为 13px；4、产物卡片"td-sum-art"要整体可点击预览；
+> 5、任务详情页的"giencoder-badge-status-text"的字号改成 13px；6、完成上述任务后，请你调研智谱 AI 的 zcode 这个产品，
+> 我需要将其对话界面右上角的那个实时任务信息卡片的内容（Git tools、Goal、Progress 等）**完全的复刻**到 `conversation.html` 页面的右上角的同样位置；」
+
+**① 体位（就地返工，未另起代数）**：第十二拍 **未提交**（判据 `git status` 里 `conversation.html` 仍是 ` M`）
+⇒ 按硬规则「**未交付 ⇒ 就地返工**」，本拍 = 第十二拍的**第二层补丁**，叠加在 `r108/` 内，**不新建 r109**。
+改序仍是下→上：`part108/_mods.html` → `ev/splice108.py` → `apply108.py`。
+★ 第 ⑤ 条落在 **`pages/task-detail.html`** —— **另一页、另一条血脉**（r42→…→r92 建成后只被 r101/r102/r106 改过文案），
+既不参与 `splice108` 也不参与 `apply108` ⇒ 单独脚本 **`ev/patch108td.py`** 直接对页面落盘。
+
+**② 新增/改动的文件**
+
+| 文件 | 改动 |
+|---|---|
+| `ev/patch108l2.py`（**新建** 555 行） | 第 ①②③④⑥ 条，7 步 `drop_re` / `edit_all` / `tail` / `del_once` / `edit`；`mark = new` 幂等 |
+| `ev/patch108td.py`（**新建** 85 行） | 第 ⑤ 条；锚点 `</style><script id="r81-ws-js">`；支持 `--revert` |
+| `part108/_mods.html`（51798 → **59186** 字符） | 4 枚标题图标删净 / 2 处 `data-td-art` 上移到卡 / `PANEL_HTML`（7722 字符）追加在 `</aside>` 之前 |
+| `part108/panel.css`（→ **65976** 字符 / 1387 行） | 第 280 / 1203 / 1206 行小改 + 末尾**第 19 节** + 幂等标记 `/* r108-l2 */` |
+| `part108/panel.js`（→ **64682** 字符 / 1488 行） | 末尾追加面板控制器 IIFE（折展 / 胶囊 / 搬进 `main`）+ 4 枚 SVG 与文案 |
+| `ev/p108n.js` + `probe108n.sh` / `probe108n2.sh` | 多相位探针（`fix` / `hover0` / `hover1` / `art` / `zd0` / `zd1` / `zd2`）+ 边界回归（遮挡 / 暗色 / 杠杆 / 窄档） |
+| `ev/shots108n.sh` / `shots108n2.sh` + `raw/n-1440-*.png`（12 张） | 目视取证 |
+
+**③ 逐条落点**
+
+* **①** `.td-sum-sec:hover { border-color: var(--color-border-2) }`（同特异性 + 本块文档序在后 ⇒ 不用 `!important`）。
+  基态 `border: 1px solid var(--color-border-1)`（`rgb(242,242,242)`）；hover **`rgb(229,229,229)`** = 深一档。
+* **②** 正则 `<h4 class="td-sum-h">)<svg[^>]*>.*?</svg>` 替换成 ``（`expect=4`）；并 `del_once` 掉 `.td-sum-h svg` 死规则。
+  ⚠ **删除类改动没有「改完才出现」的 `mark` ⇒ 幂等判据改用「模式不再命中」**。
+* **③** `.td-diff-cv { flex:none; width:13px; height:13px; color: var(--color-text-1); transition: transform 160ms }`。
+  该规则体内**不含** `line-height/height/min-height` ⇒ **不触发 `apply88b.converge()` 的压平路径**（`scan-flatten` 仍 2 条）。
+* **④** `data-td-art="1"` 上移到 `.td-sum-art` 本体（2 处）+ `.td-sum-art[data-td-art] { cursor: pointer }`；内部按钮卸掉 `data`。
+* **⑤** 只用一条页面级覆盖（详见「关键发现」）。
+* **⑥** `PANEL_HTML` + `panel.css` 第 19 节 + `panel.js` 末段 IIFE（`place()` 搬进 `<main>`，失败则 `MutationObserver` + 4s 兜底）。
+
+**④ ★★★ 上游体位（ZCode）**：容器 `pointer-events-none absolute top-0 right-4 z-20 pt-4`；卡片
+`pointer-events-auto relative overflow-hidden rounded-2xl border shadow-md`；`panel` 档 = `w-80 max-h-[min(64dvh,32rem)]`；
+`mini` 档 = `inline-flex max-h-8.5`；分区头 `h-8 min-w-0 shrink-0 items-center gap-1.5 px-2 pr-8`，
+标题按钮里的 chevron **默认 `opacity-0`、hover/focus 才显形**（展开 ChevronDown / 收起 ChevronRight）。
+分区 kind = `environment | goal | sessionPlans | plan | terminal | workflow | agent`；
+文案逐字 = `Git 工具` / `更改` / `分支` / `提交 / 推送` / `目标` / `计划` / `进程` / `状态` / `收起为胶囊` / `展开状态`。
+
+**⑤ 途中排掉四处坑**
+
+1. ★★ **面板遮挡了 main 顶部工具条**（探针第一次 [B]/[C] 全废）：`.zd-host` 原本 `top:0`，与 `.r93-bar` 右上角两枚按钮重叠，
+   `elementFromPoint(1410,71)` 命中的是**面板自己的 `<span class="zd-acts">`** ⇒ 探针的 `click` 点到了面板、右栏始终没开、
+   `.td-sum-sec` 停在 `x=1445`（视口外）⇒ hover / 点击**静默失效**。修 = `top: 44px` + `padding-top: 12px`。
+2. ★★ **`splice108.py` 的守卫被自己的注释绊倒**（第十二拍「注释绊倒判据」的**同型复现**）：
+   `PANEL_HTML` 的说明注释里写了 `` `<aside class="td-browse">` 内只是为了… `` ⇒ `out.count('<aside')` 变成 **2** ⇒ 守卫 `!= 1` 报错。
+   修：注释改成「右栏容器 `aside.td-browse` 内只是为了」（**不出现 `<aside` 这两个 token**）。
+3. ★★ **`patch108td.py` 首版生成双 `</style>`**：锚点 `'</style><script id="r81-ws-js">'` 被**整体**替换 ⇒
+   变的只是 `</style>` → `BLOCK`，插入点前面本来就有的 `</style>` 与新块自己的 `</style>` 撞成 `</style></style>`
+   （DOM 解析时该 CSS 会被当 HTML 文本，**真 bug**）。修 = `REPLACEMENT = '</style>' + '{{BLOCK}}' + '<script id="r81-ws-js">'`，
+   替换时只代换 `{{BLOCK}}`；复测 `</style></style>` **0** 次。
+4. **截图框错了目标**：④ 的预览层 `rect x = 792` 起 —— 打开右栏后 `main` 只到 `x = 791`
+   ⇒ `screenshot "main"` **正好把预览层切在画面外**（拍照成功但内容缺失，比报错更隐蔽）。修：改截 `.td-sum-prev` / `.td-browse`。
+
+**⑥ 门禁与产物**（门禁在 `top` 修正**之后**复跑过一遍）
+幂等 ✓（`patch108l2.py` 第二遍「应用 0 / 跳过 8」；`patch108td.py`「跳过（已应用）」；`apply108.py`「已是目标态」）｜
+`check-syntax.py pages/*.html` **10/10**（conversation `script=9 style=16`、task-detail `script=12 style=13`）｜
+`verify-design.py ./pages` 与 `mg-work/r107/ev/vd-r107l2.txt` **逐字节相同**（md5 `3dbf654337559509110899e48bef1b1c`，21882 字节）｜
+`scan-flatten.py part108/panel.css` ⇒ **2 条**（`.td-mod-bar` / `.td-url`）｜`pages/gaps.log` 已 `git checkout --` 清理。
+`conversation.html` **978614 → 995133 字符（+16519）**（`git diff` **+582 / −11 行**）；
+`task-detail.html` **767428 → 767836 字符（+408）**（**+7 / −0 行**）；`base.html` **472150 逐字节不变**；
+代数核对：`r108-conv-css` / `r108-conv-js` 各 1，`r107/r106/r102-conv-*` **全 0**，base 的 nav 块仍是 `r106-nav-js`。
+
+**⑦ 交接**：🚫 **仍未 commit / 未 push**（等邵先生显式发话；届时 `git reset -q -- mg-work/r107/ev/bak*`；`raw/` 照旧入库）。
+★ r108 仍是**未交付的工作代** ⇒ 若还要改**会话详情页 / 右栏 / 任务详情页**，**继续在 `mg-work/r108/` 就地返工**；
+**不要**新建 r109、**不要**回头改 `apply107.py`。
+
+### 第十四拍（r108 第三层补丁 · 四条 · 2026-10-01 20:5x 邵先生 · 🚫 仍未提交）
+
+> 完整版见 `mg-work/r108/acceptance.md` **十三 ~ 十八节**；机制级教训见 PLAYBOOK **P3.50**。
+
+**需求（逐字）**：
+
+> 1、『zd-card』里的git工具的三个item（更改、分支、提交/推送）点击都无响应，需继续实现交互功能；
+> 2、『zd-card』里的『计划』模块不需要，可以去掉；
+> 3、『zd-card』里的『目标』的页面UI细节还原不到位，比如图标、间距等元素；
+> 4、『zd-card』的折叠和展开都需要点弹性微动效。
+
+**① 体位**：第十二 / 十三拍**未提交** ⇒ 按「未交付 ⇒ 就地返工」⇒ 本拍 = **第三层补丁** `ev/patch108l3.py`（**不另起 r109**）。
+三层各带独立 `mark`：l1（6 步）/ l2（8 步）/ l3（**27 项**）；改序仍是下→上
+`part108/{_mods.html,panel.css,panel.js}` → `ev/splice108.py` → `apply108.py`。
+
+**② 改动清单**
+
+| 文件 | 改动 |
+|---|---|
+| `part108/_mods.html`（59186 → **62859** 字符） | 删「计划」分区；三行接交互；图标全换 lucide 原路径；`.zd-cv` 14px；尾部追加 `.zd-menu-branch` / `.zd-menu-commit` / `.zd-toast`（★ 挂在 `.zd-mini` 之后、**`.zd-host` 内、`.zd-card` 外** —— 卡片 `overflow:hidden` 会裁掉 DS 弹层） |
+| `part108/panel.css`（65976 → **70729** 字符 / 1488 行） | 就地改 6 处（分区头 28→32 / 折叠箭头 12→14 + spring / 删 `.zd-sec.is-closed .zd-sec-b{display:none}` / 迭代行内距圆角 hover / 标题行高 20→16 / **圆序号宽高同比**）+ 末尾 `19.1`/`19.2`/`19.3` 三小节 + **G1~G8 八处选择器组各加一行 `.zd-menu`**（收进第 1 节的 DS Dropdown 适配层） |
+| `part108/panel.js`（64682 → **71160** 字符） | 末尾 IIFE 从「立刻 `hidden` 硬切」换成「Git 三行 + 两枚下拉（`closeZdMenus`/`toggleZdMenu`/`placeZdMenu`）+ `zdSwap` 弹性场次」 |
+| `ev/p108p.js` | 主链多相位探针（16 相位；`foldStart`/`miniOutStart`/`miniInStart` **在同一 eval 内装 rAF 采样器再触发点击**） |
+| `ev/probe108p2.sh` + `ev/p108p2.js` | **新建**：边界与回归探针（`bar`/`dark`/`fs`/`narrow`/`rv0`/`rvs`/`rvsh`/`rvc`/`rvo`/`rvall`/`final`） |
+| `ev/shots108p.sh` + `raw/p-1440-*.png`（16 张） | **新建**：目视取证（含暗色 / `--ui-fs=18` / 窄档 620 三档） |
+| `ev/pix.py` | **新建**：截图取色核验（防「目视误判明暗」） |
+| `up/ConversationStatusPanel.tsx` + `up/conversationStatusPanelModel.ts` | **新建**：上游源码入库（权威依据） |
+
+**③ 真机实测（1440）**
+
+* 静态：`secs:3` / `planGone:true` / `menuCount:2`；`rows ["更改+566 −228","分支feature/right-panel","提交或推送"]`；
+  目标两项 = 绿圈 `noRect [1112,335,16,16]` + lucide goal `icoPaths` 3 条 / `icoRect [1112,383,16,16]`；
+  `it.pad "8px/8px/8px/8px"` / `radius 8px` / `titleLH 16px` / `titleFS 13px`；
+  暂停钮 `[1364,299,24,24]` + svg 14×14；分区头 `32px` / `pad "0px 8px"` / `gap 6px`；折叠箭头 `14px` / `opacity 0`。
+* 分支菜单：`rect [1223,252,192,225]` / `dy:6` / `inView:true` / `minW 168px` / `pad 6px` / 条目 `"5px 8px"` + `radius 4px`；
+  选 `feature/right-panel` ⇒ `branchText` 更新 + `rowAria:"false"` + 轻提示。
+* 提交菜单：`rect [1247,284,168,80]` / `dy:6` / 分支菜单 `hidden:true`（互斥）。
+* Esc：两菜单 `hidden:true`，`browseOn:false` / `zcardHidden:false`。
+* 折展：`foldStart/foldRead` 33 帧；`gridTemplateRows 0→…→96`；`translate` 过零点回坐；`scale 0.98→…→1.00195→1`；`bodyDisplay:"grid"`。
+* 胶囊：出场 21 帧（`scale→0.934` / `translate→-6.58px` / 约 180ms 切件）；入场 39 帧（`maxScale 1.0058` / 回摆 `[1095,105,320,512]` / `settledScale:"none"`）。
+* 边界：`[A]` 两枚顶栏按钮 `hitSelf:true`、`overlap:false`、`hexLeak:[]`；`[B]` 暗色 `card rgb(35,35,36)` / `menu rgb(95,95,96)` / **`hexLeak:[]`**；
+  `[C]` `ratio "calc(18 / 14)"` / `secH 41.1406` / `headH 46.2812` / `itTitleLH 20.5714` / **`itNoRound:true`**；
+  `[D]` 620 档 `overflowRight:-17` / `inView:true`；`[E]` 四枚 `.td-rv-menu` **逐字未变** + hover 底色 `rgb(242,242,242)` + `openCount:1`。
+
+**④ 排掉的六处坑**（详见 PLAYBOOK **P3.50**）
+
+1. ★★ **各层 `mark` 是「后一层必须替前一层保住」的契约** —— l3 的 `CSS_TAIL` 把 l2 的 `/* r108-l2 */` 覆盖掉 ⇒ 复跑 l2 判「第 19 节还没写过」而**把整节 CSS 又追加一份**（`19. 任务信息面板` 与 `.zd-card {` 各 2 处）⇒ 改成 `CSS_TAIL + '/* r108-l2 */
+'` **原样接回** + 收尾加跨层标记兜底断言。
+2. **`drop_re` 的 `.*?` 缺 `(?s)`** ⇒ 「删『计划』分区」永远 0 命中、被静态判成「已应用」而**静默跳过** ⇒ 加 `(?s)` + 反判据（删完计数 = 3）。
+3. **八处 `GROUP_EDITS` 共用同一个 mark** ⇒ 第一处落地后其余七处全被判「已应用」而**静默漏改** ⇒ 每处自带独立锚点行。
+4. **`verify-design.py` 的 CRAFT-ANIM 上限 = 300ms** ⇒ 初稿 340/360ms 让 md5 从基线变 `bd9f423b…` ⇒ 全部压到 ≤300ms。
+5. ★ **探针自身三类假失败**：`ev()` 裁 `tail -1` 把有用信息裁掉 / `S(el).color` 不判空（分支菜单无 `.td-mm-key`）/ rAF 末帧 `scale` 为 `none` ⇒ `lastScale` 误报 0。
+6. ★★ **「暗色截图看起来是浅底」是假象** —— 取色实测 `rgb(35,35,36)` ⇒ 新增 `ev/pix.py`；**主题类结论先取色再下判断**。
+
+**⑤ 产物与门禁**：`conversation.html` 995133 → **1009968 字符（+14835）**（对 `HEAD` 累计 +51400）；
+LF bytes **1115013** / 工作区 bytes **1123344** / **8332 行** / LF `sha1_lf 73c9ccd93c3d`；
+`git diff --numstat` = `855  19  pages/conversation.html`；`task-detail.html` **767836（本拍未动，仍 `7  0`）**；`base.html` **逐字节不变**。
+代数核对：`r108-conv-css` / `r108-conv-js` 各 **1**，`r107/r106/r102-conv-*` **全 0**。
+幂等 ✓（l1 全跳过 / l2 `0/8` / l3 **`0/27`** + 4/4 断言「全部存活 ✓」；`apply108.py` 第二遍「已是目标态」）｜
+`check-syntax.py pages/*.html` **10/10** ｜ `verify-design.py ./pages` 与 `vd-r107l2.txt` **逐字节相同**（md5 `3dbf654337559509110899e48bef1b1c` / 21882 字节）｜
+`scan-flatten.py part108/panel.css` **2 条**（`.td-mod-bar` / `.td-url` 基线）｜ `pages/gaps.log` 已 `git checkout --` 清理。
+
+**⑥ 交接**：🚫 **仍未 commit / 未 push**（等邵先生显式发话）。提交时除 `git reset -q -- mg-work/r107/ev/bak*`
+还要 **`git reset -q -- mg-work/r108/ev/bak1[34]/ mg-work/r108/ev/bak14b-panel.css`**；`mg-work/r108/raw/` 与 `mg-work/r108/up/` 照旧入库。
+★ r108 仍是**未交付的工作代** ⇒ 若还要改会话详情页 / 右栏 / 任务详情页，**继续在 `mg-work/r108/` 就地返工**；
+**不要**新建 r109、**不要**回头改 `apply107.py`。
+★ ★★ **l3 之后若再叠一层**：新层的 `CSS_TAIL` 必须把 `/* r108-l3 */` **也原样接回**（否则 l3 复跑整块重挂）。
+
+### 第十五拍（r108 第四层补丁 · 六条 · 2026-10-01 21:1x 邵先生 · 🚫 仍未提交）
+
+> 完整版见 `mg-work/r108/acceptance.md` **十九 ~ 二十四节**；机制级教训见 PLAYBOOK **P3.51**。
+
+**需求（逐字）**：
+
+> 1、"`.zd-sec-t`"的标题文字都使用正文黑色，且中粗500，字号14px；
+> 2、"zd-card"容器里的操作图标都少了hover效果，需补充；
+> 3、"目标"模块里面保留一个目标即可；
+> 4、已完成的"进程"灰色标题加上删除线，进行中的进程要loading转起来；
+> 5、conversation.html 页面在显示骨架屏时不应该显示"zd-card"；
+> 6、"zd-sec-h"里的"zd-sec-x"只有在折叠状态时才显示，展开时不显示。
+
+**① 体位**：第十二 / 十三 / 十四拍**未提交** ⇒ 按「未交付 ⇒ 就地返工」⇒ 本拍 = **第四层补丁** `ev/patch108l4.py`
+（**8 项**，**不另起 r109**）。四层各带独立 `mark`；改序仍是下→上：
+`part108/{_mods.html,panel.css,panel.js}`（前两件走 `ev/splice108.py`）→ `apply108.py`（**无需** `make108.py`）。
+
+**② 改动清单**
+
+| 文件 | 改动 |
+|---|---|
+| `part108/_mods.html`（62859 → **62701** 字符 / 441 行） | 删「目标」区圆序号那一行（`drop_re` 连前导换行一起删）⇒ `.zd-it` 2 行 → **1 行** |
+| `part108/panel.css`（70729 → **73063** 字符 / 1531 行） | 6 处就地改：① `.zd-sec-t` 字号/字重/色 + 删死规则 · ② `.zd-ico` 换 `.td-browse-ico` 那套 + `:hover` · ④ `is-done` 删除线 + `is-doing::after` 旋转环 + `@keyframes zd-todo-spin` · ⑥ `.zd-sec-x` 基态 `none` + `.is-closed` 下 `flex`；另插 ⑤ 的 `html:has(.r93-sk)` 门控；末尾加 `/* r108-l4 */` 并把 `/* r108-l3 */` **原样接回** |
+| `part108/panel.js` | **71160 字符，一字未动** |
+| `part108/browse.html` | 98521 → **98363**（`splice108.py` 重建；**是产物、不是手改对象**） |
+| `ev/patch108l4.py` | **新建**（8 项；含「`mark` 歧义」硬断言 + `strict=False` 豁免位） |
+| `ev/p108q.js` / `p108q2.js` / `probe108q.sh` | **新建**（六条真机探针 / 加载期 rAF 时序采样器 / 执行链） |
+| `ev/bak15-panel.css` / `bak15-mods.html` | **新建**（首跑翻车后的回滚基线；提交前 `git reset`） |
+
+**③ 真机实测（1440）**：① 三个 `.zd-sec-t` **全** `fs 14px` / `fw 500` / `rgb(31,31,31)`（`lh 21px` 未声明、由行盒给出）；
+② 真鼠标 hover ⇒ `bg rgb(247,247,247)` + `color rgb(31,31,31)`（`icoN:2`）；③ `.zd-it` 1 / `.zd-it-no` 0；
+④ `deco: line-through` + 旋转 **0.82s / infinite**（角度 81° → 12°）；⑤ `display none ⇄ flex` + 真实加载期 `[[0,"none",true],[144,"flex",false]]`；
+⑥ 默认三档 trailing 全 `none` → 折叠「目标」`flex` → 再展开 `none`。
+
+**④ 排掉的五处坑**（详见 PLAYBOOK **P3.51**）
+
+1. ★★ **`mark` 撞车 ⇒ 整条改动被静默跳过**：① 的 mark 初稿取改后的声明串，与上文 `.td-sum-prev-t b` 那条**逐字相同** ⇒ 首跑判「已应用」、**① 根本没写进去**，末行照样打印「应用 N 项」。⇒ 给 `edit()` 加**「`old` 与 `mark` 同时存在即报错」**的硬断言 + 类外豁免位（初跑当场被逮到，回滚 `bak15-*` 重来）。
+2. ★★ **`verify-design.py` 的 CRAFT-ANIM 是「按行扫 `animation|transition … <数字>ms`」** ⇒ ④ 直接写 `animation: zd-todo-spin 820ms` 会新增 1 条 warning、门禁 md5 就不再等于基线 ⇒ 时长写进**自定义属性** `--zd-spin-dur: 820ms`，解释性注释也拆成「不含 `ms` 数字」的行。
+3. **自检判据自己写错两处**：`'.zd-sec-x {'` 会被同层新加的 `.zd-sec.is-closed .zd-sec-x {` 一起命中；`zd-todo-spin` 天然出现 2 次（`animation-name` + `@keyframes`）⇒ 判据一律取**「块首那几行」的更大片段**。
+4. **探针里 `querySelector('html:has(.r93-sk)')` 在不支持 `:has()` 的环境抛 `SyntaxError`** ⇒ 整条探针挂死、看起来像「产品坏了」⇒ 必须 `try/catch` 并标 `unsupported:<ErrName>`。
+5. **`agent-browser` 没有 `move` 命令** ⇒ 想取消 hover 只能 hover 一个**中性兄弟元素**（本轮用 `.zd-name`）。
+
+**⑤ 产物与门禁**：`conversation.html` 1009968 → **1012144 字符（+2176）**（对 `HEAD` 累计 `896 19` 行）；
+LF bytes **1118375** / 工作区 bytes **1126747** / **8373 行** / LF `sha1_lf 12b000018f86`；
+`task-detail.html` **767836（本拍未动，仍 `7 0`）**；`base.html` **472150 逐字节不变**。
+代数核对：`r108-conv-css` / `r108-conv-js` 各 **1**，`r107-conv-*` / `r106-nav-js` **全 0**。
+幂等 ✓（l1 全跳过 / l2 `0/8` / l3 `0/27` / l4 **`0/8`** + 4/4 断言「全部存活 ✓」；`apply108.py` 第二遍「已是目标态」）｜
+`check-syntax.py pages/*.html` **10/10** ｜ `verify-design.py ./pages` 与 `vd-r107l2.txt` **逐字节相同**（md5 `3dbf654337559509110899e48bef1b1c` / 21882 字节）｜
+`scan-flatten.py part108/panel.css` **2 条**（`.td-mod-bar` / `.td-url` 基线）｜ `pages/gaps.log` 已 `git checkout --` 清理。
+
+**⑥ 交接**：🚫 **仍未 commit / 未 push**（等邵先生显式发话）。提交时除 `git reset -q -- mg-work/r107/ev/bak*`
+还要 **`git reset -q -- mg-work/r108/ev/bak1[345]*`**；`mg-work/r108/part108/` 与 `raw/`、`up/` 照旧入库。
+★ r108 仍是**未交付的工作代** ⇒ 若还要改会话详情页 / 右栏 / 任务详情页，**继续在 `mg-work/r108/` 就地返工**；
+**不要**新建 r109、**不要**回头改 `apply107.py`。
+★ ★★ **l4 之后若再叠一层（`patch108l5.py`）**：新层的 `CSS_TAIL` 必须把 `/* r108-l4 */` **也原样接回**（否则 l4 复跑整块重挂）。
+
+### 第十六拍（r108 第五层补丁 · 三条 · 2026-10-01 21:5x 邵先生 · 🚫 仍未提交）
+
+> 完整版见 `mg-work/r108/acceptance.md` **二十五 ~ 二十九节**；机制级教训见 PLAYBOOK **P3.52**。
+
+**需求（逐字）**：
+
+> 1、改变一下产物"td-sum-art"卡片点击后的预览方式，在"td-browse-bar"作为一个新页签显示；
+> 2、"zd-host"的展开折叠动效换一种，最好是那种折叠时收进右上角，展开式从右上角向左下角方向展开；
+> 3、尝试把"zd-host"整个容器设计为模糊背景效果。
+
+**① 体位**：第十二 / 十三 / 十四 / 十五拍**未提交** ⇒ 按「未交付 ⇒ 就地返工」⇒ 本拍 = **第五层补丁** `ev/patch108l5.py`
+（**10 步**，**不另起 r109**）。五层各带独立 `mark`；改序仍是下→上：
+`part108/{_mods.html,panel.css,panel.js}`（前两件走 `ev/splice108.py`）→ `apply108.py`（**无需** `make108.py`）。
+
+**② 改动清单**
+
+| 文件 | 改动 |
+|---|---|
+| `part108/_mods.html`（62701 → **62454** 字符 / 441 行） | 删旧浮层块（原 268~305 行）；摘要 `</section>` 之后新增 `#av-browse-pane-preview[data-td-pane="preview"]`（工具条 = 图标砖 + 名称 + 元信息 + 「在系统打开」；正文 = `md` / `xlsx` 两套骨架） |
+| `part108/panel.css`（73063 → **74888** 字符 / 1569 行） | 18-③ 段重写为**页签版**（删 `.td-sum-prev*` 全套 + `.td-prev-btn.is-primary*`，新增 `.td-pv-name` / `.td-pv-hint` / `.td-pv-body`）；`.td-pv .td-sum-arti` 与 `.td-prev-btn` 收到 26px；④ 段重写为**右上角锚点**（`transform-origin:100% 0` + `scale .62` + `translate 12px -12px` + `@keyframes zd-panel-in`）；文件尾新增 **19.5 毛玻璃**段；末尾加 `/* r108-l5 */` 并把 `/* r108-l4 */` **原样接回** |
+| `part108/panel.js`（71160 → **72477** 字符 / 1670 行） | `openTab` 支持 `opts.ico`；**复用分支加 `if (opts)` 守卫**同步 name / ico / `aria-label`；`prevShow` 改为「先填内容 → `openTab('preview', {name, ico})`」；Esc 裁决链**删掉预览那一层**（并删掉悬空的 `prevEl` / `prevOpen` / `prevHide` 引用） |
+| `part108/browse.html` | 98363 → **98116**（`splice108.py` 重建；**是产物、不是手改对象**） |
+| `ev/patch108l5.py` | **新建**（10 步；含「mark 歧义」硬断言 + 跨层兜底断言） |
+| `ev/p108r.js` / `probe108r.sh` / `probe108r2.sh` + `on.js` | **新建**（相位探针 / 全链执行 / 复测 + 五模块工具条对照表） |
+| `ev/bak16/` | **新建**（回滚基线：`_mods.html` / `panel.css` / `panel.js` / `browse.html`；提交前 `git reset`） |
+
+**③ 真机实测（1440×900 / `--ui-fs=14`）**：① 点产物 ⇒ 页签 `[摘要, 预览]`、`barH 40`、`md=flex xlsx=none`；
+连点两个 ⇒ 页签**仍 1 枚**但名字/图标换成 xlsx（截图 `r2-tabs-after-pvB.png`）；页签 `×` ⇒ `preview` 回 `hidden`、`summary` 回 40px；
+旧浮层残留自检 `residue = {overlay:false, overlaySel:false, paneCount:1, sumPos:'static', prevElGlobal:'undefined'}`、`zd-sum-prev` **0**；
+② `transform-origin` **`320px 0px`**；收（t=186ms 到目标 / t=203ms `hidden`）与展（首帧 `scale .62` ⇒ **过冲 `1.03715`** ⇒ 回 1，t=453ms）见上文；
+③ computed 四件 `color(srgb 1 1 1 / 0.78)`（下拉 `0.82`）+ `backdrop-filter: blur(18px) saturate(1.6)`；
+`CSS.supports('backdrop-filter','blur(2px)')` = **true**；像素取证见 ③ 与 `ev/pix.py`。
+
+**④ 排掉的六处坑**（详见 PLAYBOOK **P3.52**）
+
+1. ★★★ **删一个变量只删「定义」、不删「引用」⇒ 按一次键抛 `ReferenceError`**：`prevEl` / `prevHide` 定义在摘要模块段、却被**下面**的 Esc 裁决链引用，而它在一个 `window` **捕获段**的 keydown 里 ⇒ 整条处理器抛错、并带坏「关整条侧栏」。修：新增两步删掉引用；判据要**剥注释再搜** + **保留 `\b` 词界**（`prevOpenBtn` 会命中 `prevOpen`，为此白跑一轮）。
+2. ★★ **`openTab` 的「已存在 ⇒ activate」分支不更新页签名 / 图标**：连点两个产物 ⇒ 页签写着第一个文件名、正文已是第二个（截图肉眼可见）。修：复用分支加 `if (opts) { 同步 name / ico / aria-label }`，★ **必须带 `opts` 守卫**（`+` 菜单 / 右键菜单不传 `opts`，不守卫会误改「文件 / 审查 / 终端」页签名）。
+3. ★★ **`.td-mod-bar` 高度是「内容驱动」而非 40px**：`min-height: calc(40px * ratio)` 被 `apply88b.converge()` 压平成裸 `40px` ⇒ 真实高 = `6 + max(内容高) + 6 + 1`，28px 的图标砖/按钮都顶成 **41px**。通用判据：**内容盒上限 = `min-height` − 上下 padding − border-bottom**。
+4. ★★ **同一页里工具条本来就不齐**：`--ui-fs=14` 摘要 **40** / 审查 **41**；`--ui-fs=18` 摘要 **41** / 审查 **49** / 预览 **46**。⇒ 「预览 40 = 摘要 40」已是本页最对齐的取法（两者互切时工具条不跳）。
+5. ★ **只写 `backdrop-filter`、底色仍是不透明 token ⇒ 完全看不出效果**，而 computed 照样报 `blur(...)`（本层第一版差点这么收货）⇒ 必须落像素（见 ③）。
+6. ★ **`verify-design.py` 每次都会重写 `pages/gaps.log`**（行号随任何改动漂移，本轮凭空多 `64 / 44` 行 diff）⇒ **收尾一律 `git checkout -- pages/gaps.log`**。
+
+**⑤ 产物与门禁**：`conversation.html` 1012144 → **1015095 字符（+2951）**（对 `HEAD` 累计 **`1047 107`** 行）；
+LF bytes **1124149** / 工作区 bytes **1132584** / **8436 行** / LF `sha1_lf da1acf6a091c`；
+`task-detail.html` **767836（本拍未动，仍 `7 0`）**；`base.html` **472150 逐字节不变**。
+代数核对：`r108-conv-css` / `r108-conv-js` / `r108-l5` 各 **1**，`r107-conv-*` / `zd-sum-prev` **全 0**。
+幂等 ✓（l1 全跳过 / l2 `0/8` / l3 `0/27` / l4 `0/8` / **l5 `0/10`** + 5/5 断言「全部存活 ✓」；`apply108.py` 第二遍「已是目标态」）｜
+`check-syntax.py pages/*.html` **10/10** ｜ `verify-design.py ./pages` 与基线 **逐字节相同**（md5 `3dbf654337559509110899e48bef1b1c` / 21882 字节）｜
+`scan-flatten.py part108/panel.css` **2 条**（`.td-mod-bar` / `.td-url` 基线）｜ `pages/gaps.log` 已 `git checkout --` 清理。
+
+**⑥ 交接**：🚫 **仍未 commit / 未 push**（等邵先生显式发话）。提交时除 `git reset -q -- mg-work/r107/ev/bak*`
+还要 **`git reset -q -- mg-work/r108/ev/bak1[3-6]*`**；`mg-work/r108/part108/` 与 `raw/`、`up/` 照旧入库。
+★ r108 仍是**未交付的工作代** ⇒ 若还要改会话详情页 / 右栏 / 任务详情页，**继续在 `mg-work/r108/` 就地返工**；
+**不要**新建 r109、**不要**回头改 `apply107.py`。
+★ **别忘 `git checkout -- pages/gaps.log`**（本轮它就凭空多了 64 / 44 行）。
+★ ★★ **l5 之后若再叠一层（`patch108l6.py`）**：新层的 `CSS_TAIL` 必须把 `/* r108-l5 */` **也原样接回**（否则 l5 复跑整块重挂）。
+
+### 第十七拍（r108 第六层补丁 · 四条 · 2026-10-01 22:2x 邵先生 · 🚫 仍未提交）
+
+> 完整版见 `mg-work/r108/acceptance.md` **三十 ~ 三十四节**；机制级教训见 PLAYBOOK **P3.53**。
+
+**需求（逐字）**：
+
+> 1、下拉菜单"td-mod-menu giencoder-dropdown-popup giencoder-popup-open"的位置没有跟着触发器"td-browse-add"走，导致位置偏移；
+> 2、浏览器的"截图到剪贴板、缩放、发送页面到对话"这三个图标按钮不需要，请去掉；
+> 3、新右栏的审查模式下，文件数的蒙层"td-tree is-open"要把标题栏"td-browse-bar"留出来，不要覆盖；
+> 4、为了便于演示和观察，我需要"td-diff-rows"里的代码多一些，代码内容长一些。
+
+**① 体位**：第十二 ~ 十六拍**未提交** ⇒ 按「未交付 ⇒ 就地返工」⇒ 本拍 = **第六层补丁** `ev/patch108l6.py`
+（**15 步**，**不另起 r109**）。六层各带独立 `mark`；改序仍是下→上：
+`part108/{_mods.html,panel.css,panel.js}`（前两件走 `ev/splice108.py`）→ `apply108.py`（**无需** `make108.py`）。
+
+**② 改动清单**
+
+| 文件 | 改动 |
+|---|---|
+| `part108/_mods.html`（62454 → **70783** 字符） | 删浏览器工具条三枚 `data-td-brw-act="shot\|zoom\|send"`（留一条 `<!-- r108-l6 ② -->` 留痕注释）；两张展开卡片补 46 行 diff（统一 +17 / +12、并排 +11 / +6，真实 HTML / CSS 文本） |
+| `part108/panel.css`（74888 → **75956** 字符 / 1573 行） | 第 1 节注释改「`.td-mod-menu` 也纳入 `placeRv`」+ `.td-mod-menu{left}` 降级为兜底；删 18-② 快门整块（`is-shot::after` + `@keyframes td-shot-flash` + 只为它存在的 `.td-mod.td-brw{position:relative}`）+ 18 节头注释同步；`.td-tree` 改 `top: 44px`；插入 `/* r108-l6 */`（**把 `/* r108-l5 */` 原样接回**） |
+| `part108/panel.js`（72477 → **72690** 字符） | `placeRv` 加 `PLACE_ABS = ['td-mod-menu','td-rv-menu']` 白名单（删掉旧的单族守卫 `!menu.classList.contains('td-rv-menu')`）+ 注释同步；`BRW_TEXT` 只留 `more`、删 `shotFlash()` 与 `if (kind === 'shot')` 调用；右键菜单那条「截图到剪贴板」改为直接 `say(...)`（切断 `sb.click()` 死引用） |
+| `part108/browse.html` | 102564 → **106445**（`splice108.py` 重建；**是产物、不是手改对象**） |
+| `ev/patch108l6.py` | **新建**（15 步；含「mark 歧义」硬断言 + 跨层兜底断言） |
+| `ev/p108t.js` / `probe108t.sh` / `probe108t2.sh` | **新建**（六相位探针 / 全链执行 / 菜单目视复测） |
+| `ev/bak17/` | **新建**（回滚基线：`_mods.html` / `panel.css` / `panel.js` / `browse.html`；提交前 `git reset`） |
+
+**③ 真机实测（1440×900 / `--ui-fs=14`）**：① 侧栏就位后 **dx 恒 0**（1 枚页签 `add[1505] / menu[1505]`；
+4 枚 `1160 / 1160`，inline `left:368px`；`--ui-fs=18` `1196 / 1196`，inline `left:404px`），`dy = 7` 恒定；
+主证据截图 `raw/t-menu-4tabs-browse.png`（菜单左缘精确对齐 `+`），修复前复现证据 `raw/s-menu-before.png`；
+② `brwActs = ["more"]`、`shotEls = 0`，截图 `raw/t-url-after.png` 只剩 后退 / 前进 / 刷新 / 地址栏 / 标注 / 更多；
+③ `treeRect.top − barRect.bottom = 0`、`scrimTopVsBarBottom = 0`、`treeTop: "44px"`，
+截图 `raw/t-tree-open.png` 标题栏（摘要 / 终端 / 浏览器 / 审查 / `+`）完整露出；
+④ 行数 28 / 17 / 16 / 9，`.td-rv-body` `scrollHeight == clientHeight == 757`，截图 `raw/t-rv-rows.png`。
+
+**④ 排掉的八处坑**（详见 PLAYBOOK **P3.53**）
+
+1. ★★★ **`mark` 选在「改前就存在的串」上** ⇒ `edit()` 抛「mark 歧义」并 `sys.exit`。本轮真踩：`BRW_TEXT` 里 `more: '…'` 那条**改前就在**（本来就是最后一条）⇒ 不能当 mark。正解 = 取**「改完才形成的相邻关系」**（`var BRW_TEXT = {` **紧跟** `more:`）。
+2. ★★ **`old` 会被 `new` 原样保留 ⇒ 复跑时 `old` 仍命中**（`.td-mod-menu { left: 64px; right: auto; }` 只在它**上方补了一段注释**）⇒ 必须显式 `strict=False`（与 l5「插在锚点前 + 接回锚点」同类）。
+3. ★★ **自检判据别用「裸属性名计数」**：`panel.js` 里 `data-td-brw-act` 保留 **2** 处才对（`querySelectorAll` + `getAttribute`）⇒ 判据改成「**带 kind 的**引用为 0」。**先想清楚这个计数该等于几**。
+4. ★★★ **「位置不对」先分清「没跑到算法」还是「压根没进算法」**：`+` 菜单漂移的根因不在算式里，而在那句**显式放行**的守卫 ⇒ 排查浮层位置的第一问是「这个元素进算法了吗」。
+5. ★★ **删掉一个组件要连带清「借它力」的引用**：右键菜单那条 `sb.click()`（有 `if (sb)` 守卫 ⇒ 不报错、**点了没反应**，更难发现）⇒ 判据 = 全页 grep 被删元素的**所有**引用点（DOM / 类名 / 属性选择器 / 事件）。
+6. ★★ **`.td-tree` 的包含块是 `.td-browse`（整条侧栏）而不是某个模块** ⇒ 改它的 `inset` 会**同时**把 scrim 与 panel 下移；判据要用**相对量**（`treeRect.top − barRect.bottom === 0`）。
+7. ★★ **探针的「可见性」盲区**：侧栏初始 `translateX` 把整条 `.td-browse` 推到视口右外（实测 `browse.left = 1432`、`+` 在 `1505` > 视口宽 1440）⇒ 这时量 dx 仍是 0（两边同处栏外、一起偏移）**但截图是空的**。要看菜单必须走「先点一枚页签 ⇒ 侧栏滑入」那条路径（`probe108t2.sh` 的 `openTabs` 步）。**量到了 ≠ 看得见**。
+8. ★ **`verify-design.py` 每次都会重写 `pages/gaps.log`**（行号随任何改动漂移）⇒ 收尾 `git checkout -- pages/gaps.log`。（第二次踩 ⇒ 已进 PLAYBOOK P3.53。）
+
+**⑤ 产物与门禁**：`conversation.html` 1015095 → **1024705 字符（+9610）**（对 `HEAD` 累计 **`1146 142`** 行）；
+工作区 bytes **1143754** / **8500 行** / LF `sha1_lf cc2105413d08`；
+`task-detail.html` **767836（本拍未动，仍 `7 0`）**；`base.html` **472150 逐字节不变**。
+代数核对：`r108-conv-css` / `r108-conv-js` / `r108-l5` 各 **1**、`r108-l6` **10**（含注释）；
+`is-shot` / `td-shot-flash` **各 1 且都在注释里**（代码 0 处）。
+幂等 ✓（l1 全跳过 / l2 `0/8` / l3 `0/27` / l4 `0/8` / l5 `0/10` / **l6 `0/15`** + 6/6 断言「全部存活 ✓」；`apply108.py` 第二遍「已是目标态」）｜
+`check-syntax.py pages/*.html` **10/10** ｜ `verify-design.py ./pages` 与基线 **逐字节相同**（md5 `3dbf654337559509110899e48bef1b1c` / 21882 字节）｜
+`scan-flatten.py part108/panel.css` **2 条**（`.td-mod-bar` / `.td-url` 基线）｜ `pages/gaps.log` 已 `git checkout --` 清理。
+
+**⑥ 交接**：🚫 **仍未 commit / 未 push**（等邵先生显式发话）。提交时除 `git reset -q -- mg-work/r107/ev/bak*`
+还要 **`git reset -q -- mg-work/r108/ev/bak1[3-7]*`**；`mg-work/r108/part108/` 与 `raw/`、`up/` 照旧入库。
+★ r108 仍是**未交付的工作代** ⇒ 若还要改会话详情页 / 右栏 / 任务详情页，**继续在 `mg-work/r108/` 就地返工**；
+**不要**新建 r109、**不要**回头改 `apply107.py`。
+★ **别忘 `git checkout -- pages/gaps.log`**（本轮它同样被重写）。
+★ ★★ **l6 之后若再叠一层（`patch108l7.py`）**：新层的 `CSS_TAIL` 必须把 `/* r108-l6 */` **也原样接回**（否则 l6 复跑整块重挂）。
+
+### 第十八拍（r108 第七层补丁 · 四条 · 2026-10-01 22:4x 邵先生 · 🚫 仍未提交）
+
+> 完整版见 `mg-work/r108/acceptance.md` **三十五 ~ 三十九节**；机制级教训见 PLAYBOOK **P3.54**。
+
+**需求（逐字）**：
+
+> 1、"td-mod-bar"右侧的按钮"在系统打开"需要拆分为两个按钮，分别是：另存为、打开所在文件夹；
+> 2、把"td-browse-bar"栏的"最大化侧栏"按钮去掉；
+> 3、"td-mod-body td-rv-body is-worddiff"容器不能滚动页面，需修复；
+> 4、把菜单"td-mod-menu giencoder-dropdown-popup giencoder-popup-open"里的"摘要"放在第一个
+
+**① 体位**：第十二 ~ 十七拍**未提交** ⇒ 按「未交付 ⇒ 就地返工」⇒ 本拍 = **第七层补丁** `ev/patch108l7.py`
+（**9 步**，**不另起 r109**）。七层各带独立 `mark`；改序仍是下→上：
+`part108/{_head.html,_mods.html,panel.css,panel.js}`（前两件走 `ev/splice108.py`）→ `apply108.py`（**无需** `make108.py`）。
+★ 本拍**新开一份本代覆盖件** `part108/_head.html`（由 `part107/_head.html` 逐字拷贝后打 ②④ 两处），
+并**把 `ev/splice108.py` 的 head 来源从 P107 改成 P108**（不改则 ②④ 落不进产物）；`part107/_head.html` **一字未动**。
+
+**② 改动清单**
+
+| 文件 | 改动 |
+|---|---|
+| `part108/_head.html`（**新建** 5416 → 4918 字节 / 22 行） | 由 `part107/_head.html` 拷贝；② 删 `.td-browse-acts` 里那枚 `aria-label="最大化侧栏"` 按钮；④ `+` 菜单 5 项整块重排（摘要置首） |
+| `part108/_mods.html`（70783 → **71067** 字符） | ① 预览工具条 `data-td-prev-open="1"` 那枚改两枚 `data-td-prev-save="1"` / `data-td-prev-reveal="1"` + 一条留痕注释 |
+| `part108/panel.css`（75956 → **76769** 字符 / 1599 行） | ③ 追加 `.td-rv-body > .td-diff { flex: none; }` + 19 行注释；插入 `/* r108-l7 */`（**把 `/* r108-l6 */` 原样接回**） |
+| `part108/panel.js`（72690 → **69623** 字符 / 1595 行） | ① `prevPane` 分支挂两条处理器、删旧 `prevOpenBtn` 分支；② 删整段「最大化 / 还原」逻辑（−4039 字符）+ 留痕注释 + 头注释同步 + 清 `STORE_KEY` / `DEF_PANEL` / `MIN_PANEL` / `MAIN_MIN` |
+| `part108/browse.html` | 106445 → **106251**（`splice108.py` 重建；**是产物、不是手改对象**） |
+| `ev/splice108.py` | head 来源 P107 → **P108** + 缺件硬失败 + 两条下游守卫（真按钮特征串 / 菜单顺序） |
+| `ev/patch108l7.py` | **新建**（9 步；含「mark 歧义」硬断言 + `count == 1` 重复应用断言 + `/*`/`*/` 配平断言） |
+| `ev/p108u.js` / `p108u2.js` · `probe108u{,2,3}.sh` · `shots108u.sh` | **新建**（十相位探针 / 压扁专项 / 三段执行 / 出图） |
+| `ev/bak18/`（post-l7）+ `ev/bak18pre/`（pre-l7） | **新建**（回滚基线；提交前 `git reset`） |
+
+**③ 真机实测（1440×900 / `--ui-fs=14`）**：① `另存为` `[1223,100,69,26]` + `打开所在文件夹` `[1298,100,121,26]`，
+栏 `[792,93,639,40]`（右缘 1419 = 栏内容右缘、**栏高仍 40**）；修复前单枚 `在系统打开` `[1324,100,95,26]`；
+主证据截图 `raw/u-after-pvbar.png` / 改前 `raw/u-before-pvbar.png`；
+② `browseActs = ["收起侧栏"]`、`maxBtn = 0`，截图 `raw/u-before-bar.png`（`[⤢][×]`）→ `raw/u-after-bar.png`（只剩 `[×]`）；
+③ 改前 `bodySz = [757,757]`（**`scrollHeight === clientHeight`**）、卡片 `[371,369,637]`（**实占 369 / 需 637**）；
+改后 `bodySz = [757,1212]`、`cardFlex = "0 0 auto"`、`scrollTop = 455`、`pageScrollTopAfter = 0`、`docOverflow = 0`；
+改前 `raw/u-before-rv-top.png` 与 `raw/u-before-rv-scrolled.png` **逐字节相同**（滚不动），改后两张**不同**；
+④ 菜单序 `摘要 / 审查 / 终端 / 浏览器 / 文件`（y 98/132/166/200/234），截图 `raw/u-after-menu.png`。
+
+**④ 排掉的九处坑**（详见 PLAYBOOK **P3.54**）
+
+1. ★★★ **「存在性」断言抓不到「重复应用」**：③ 的 mark 少写一个「★ 」（`/* r108-l7 ③` vs 实际 `/* ★ r108-l7 ③`）⇒ mark **永不命中** ⇒ 补丁**被重复应用**（+799 字符重复块），而当时「存在 `flex: none`」的断言**照样通过**。判据一律写 **`count == 1`**。
+2. ★★★ **注释正文里写 `*/` 会提前闭合块注释**：新注释里出现 `` `part*/` `` ⇒ `check-syntax` FAIL（9/10）。判据 = `/*` 与 `*/` 计数配平（本轮 panel.css `141/141`、panel.js `94/94`）。
+3. ★★ **纯删除类改动的 mark 必须落「删除后新形成的相邻串」**；**能一次整块重排就别拆两步**（④ 第一版拆「先摘行、再插行」⇒ 终态里 mark 与第 (a) 步的 `old` 同时存在 ⇒ 硬断言 `sys.exit`）。
+4. ★★ **`old` 被 `new` 原样保留 ⇒ 必须 `strict=False`**（③ 只在原 `.td-rv-body{…}` 块前追加、块本身逐字保留）—— **第三次踩**（l5 / l6 / l7）。
+5. ★★★ **改了跨代资产 ⇒ 下游生成器要跟着改来源**：本拍要动 `_head.html` ⇒ 必须把 `splice108.py` 的 head 来源 P107 改成 P108，并加「缺本代覆盖件即 `sys.exit`」保护。
+6. ★★ **下游守卫判据别写裸属性名**：`'data-td-max' in out` 被 `_mods.html` 的 demo diff **转义文本**命中误报 ⇒ 改取真按钮整段特征 `'<button class="td-browse-ico" type="button" aria-label="最大化侧栏"'`。
+7. ★★ **重建「改前」页面做对照，三件必须齐上**：只换 `browse.html` 会得到「混合态」（1022451 ≠ 1024705）⇒ 必须 `bak18/browse.html` + `bak18pre/panel.css` + `bak18pre/panel.js` 一起 ⇒ 精确复现 1024705。
+8. ★★★ **flex 纵列 + 可收缩子件 + 父级 `overflow:hidden` = 压扁 + 裁切 + 容器永不滚**：`scrollHeight === clientHeight` 会成为**恒真**，用「容器滚不滚」当判据永远看不出问题 ⇒ 判据要量**逐卡 `clientHeight` vs 内容所需高**。
+9. ★★ **探针自身也会假失败** —— `p108u2.js` 把「插入点」误写进 `stub()` 函数体、又对已展开项无脑 toggle（净开数恒 0）⇒ 先复核探针再怀疑产品。
+
+**⑤ 产物与门禁**：`conversation.html` 1024705 → **1022257 字符（−2448）**（对 `HEAD` 累计 **`1186 239`** 行）；
+工作区 bytes **1141453** / **8442 行** / LF `sha1_lf f3e0bcc1a8e2`；
+`task-detail.html` **831606 字节 / 767836 字符（本拍未动，仍 `7 0`）**；`base.html` **490294 字节 / 472150 字符 逐字节不变**。
+代数核对：`r108-l7` **7**、`r108-l6` **10**、`data-td-prev-save` / `data-td-prev-reveal` 各 **2**、`data-td-prev-open` **0**、
+`.td-rv-body > .td-diff { flex: none; }` **1**、`aria-label="最大化侧栏"` **0**（`data-td-max` **2 处均在 demo diff 转义文本里、有意保留**）。
+幂等 ✓（l1 全跳过 / l2 `0/8` / l3 `0/27` / l4 `0/8` / l5 `0/10` / l6 `0/15` / **l7 `0/9`**；`apply108.py` 第二遍「已是目标态」）｜
+`check-syntax.py pages/*.html` **10/10** ｜ `verify-design.py ./pages` **76 个问题（66 warning / 10 info / 0 critical）** ｜
+`scan-flatten.py part108/panel.css` **2 条**（`.td-mod-bar` / `.td-url` 基线）｜ `gaps.log` pre vs post l7 **逐字节相同**（md5 `81fb5522ffd1f97524c21819df7770fc`）。
+
+**⑥ 交接**：🚫 **仍未 commit / 未 push**（等邵先生显式发话）。提交时除 `git reset -q -- mg-work/r107/ev/bak*`
+还要 **`git reset -q -- mg-work/r108/ev/bak1[3-8]*`**；`mg-work/r108/part108/` 与 `raw/`、`up/` 照旧入库。
+★ r108 仍是**未交付的工作代** ⇒ 若还要改会话详情页 / 右栏 / 任务详情页，**继续在 `mg-work/r108/` 就地返工**；
+**不要**新建 r109、**不要**回头改 `apply107.py`。
+★ **别忘 `git checkout -- pages/gaps.log`**（本轮它同样被重写）。
+★ ★★ **l7 之后若再叠一层（`patch108l8.py`）**：新层的 `CSS_TAIL` 必须把 `/* r108-l7 */` **也原样接回**（否则 l7 复跑整块重挂）。
+
+### 第十九拍（r108 第八层补丁 · 两条 · 2026-10-01 22:5x 邵先生 · 🚫 仍未提交）
+
+> 完整版见 `mg-work/r108/acceptance.md` **四十 ~ 四十四节**；机制级教训见 PLAYBOOK **P3.55**。
+
+**需求（逐字）**：
+
+> 1、整个右栏"td-browse"所以的文本（含代码）被鼠标框选后，都要在上方显示浮动工具条（添加到对话、复制）；
+> 2、菜单"td-mod-menu giencoder-dropdown-popup giencoder-popup-open"出现的瞬间会有闪烁或跳动或位移现象，不够自然；
+
+**① 体位**：第十二 ~ 十八拍**未提交** ⇒ 按「未交付 ⇒ 就地返工」⇒ 本拍 = **第八层补丁** `ev/patch108l8.py`
+（**4 步**，**不另起 r109**）。★ **本层只改 `panel.js` 一件**（不改 CSS / 不改 HTML）
+⇒ **不必重跑 `ev/splice108.py`**，直接 `python mg-work/r108/apply108.py` 落盘即可（`part108/browse.html` 里没有 panel.js 的内容）。
+
+**② 改动清单**
+
+| 文件 | 改动 |
+|---|---|
+| `part108/panel.js`（69623 → **72191** 字符 / 1595 → **1639** 行） | ① 划词浮条放行根 `.r93-scroll` → `.closest('.r93-scroll, .td-browse')` + 段落头注释同步 + 文件头第 ⑦ 条；② `toggleMenu()` 开态由「同一 tick 两步」拆**四步**（`removeAttribute('hidden')` → **`void menu.offsetWidth`** → `placeRv()` → `classList.add(POP_OPEN)`） |
+| `part108/{panel.css,_head.html,_mods.html,browse.html}` | **一字未动**（md5 与 `ev/bak19/` 逐个相同）⇒ 无需重跑 `splice108.py` |
+| `pages/conversation.html`（产物） | 1022257 → **1024825 字符**（+2568）/ **8487 行**；对 `HEAD` 累计 **`1234 / 242`** 行；工作区 bytes **1145785** / `sha1_lf` **`2c1ed815740e`** |
+| `pages/base.html` / `pages/task-detail.html` | **逐字节不变** / **未动**（仍存量 `7 0`） |
+| `ev/patch108l8.py` | **新建**（4 步 + 跨层断言 / 函数体限定计数 / 注释括号配平） |
+| `ev/{r108v-recon.js,r108v2.js,r108v3.js,p108w.js,p108x.js}` · `probe108v{,2,3}.sh` · `probe108w.sh` · `probe108x.sh` · `shots108v.sh` | **新建**（② 逐帧采样 / A-B 对照 + ① 真鼠标拖选 + 回归重测 / 出图） |
+| `ev/bak19/` | **新建**（pre-l8 **整代快照**：四件 part + `conversation-pre-l8.html`） |
+
+**③ 真机实测（1440×900 / `--ui-fs=14`）**
+
+① 划词浮条（CDP 真鼠标 `move/down/move×3/up`，**不是**合成事件）：审查 diff 代码 `'   <aside class="td-browse" …'` /
+摘要小字 `'4 轮 · 12 次工具调用 · 2 分 '` / 文件代码区 `'"snake-game'` —— 改前 `selbarExists = false`（不弹）
+→ 改后 `true`，浮条框 `[886,139,200,38]` / `[835,59,200,38]` / `[1120,113,200,38]`、**在选区上方 8px**、
+`elementFromPoint` 命中浮条自身（`selbarOnTop = true`）；点「复制」⇒ 浮条收起（`selbarHidden = true`）+ 选区清空。
+截图 `raw/w-before-selbar.png`（有蓝色选区、**无浮条**）→ `raw/w-after-selbar.png`（选区上方出现「添加到对话 / 复制」）。
+★ 页签名 `.td-browse-tab` 与文件树行名 `.td-bf` 本来就带 `user-select: none`（它们是「控件」不是「内容」）⇒ 那两处仍拖不出选区，属**既有口径、本拍不动**。
+
+② 菜单入场（rAF 逐帧采样，关态采 4 帧 → 第 5 帧点开 → 再采 30 帧）：
+改前第 4 帧 `anims=-`、`op=1 / tr=0px / sc=1`（**一帧到终态**、此后 `getAnimations()` 恒空）；
+改后第 4 帧 `anims=opacity|scale|translate`、`op=0 / tr=0px 4px / sc=0.96`，逐帧 `op` 0 → .188273 → .425908 → … → 1
+（约 12 帧 ≈ 0.2s）、`scale` 过冲 **1.0039** 再回落；`off=(368,42)` **逐帧不变 = 零位移**。
+A/B 对照（`ev/r108v3.js`，两例只差那一行强制重排）：A 旧写法 `getAnimations() = []` 首帧即终态 vs B 两步写法 `opacity/scale/translate:running`。
+四枚下拉一起生效（同一条代码路径）：「点开即读」实测 `.td-mod-menu` / `.td-rv-scope-menu` / `.td-commit-menu` / `.td-rv-opts`
+均 `anims=opacity|scale|translate`、`op0=0`（`sc0=0.96`）；位置口径 `modDy=7` / `optsDy=6` / `scopeDy=6` / `commitDy=6`（与 l6 / 第十拍一致）。
+
+**④ 回归重测**：Esc 前 `openMenus=["td-rv-menu"]` + `sidebarOn=true`；Esc 后 `openMenus=[]` + **`sidebarOn=true`**（侧栏未被连坐）✓；
+`+` 选「终端」⇒ `activeTab=terminal` / `allMenusClosed=true` ✓；右键菜单仍可开（`box [841,194,168,193]`、走另一个函数 `ctxShow()`）✓；
+收侧栏 `sidebarOn=false` ✓；页签切换 / 四枚下拉能开能关 ✓；`closeAll` 后开着的有 **0** 枚 ✓。
+
+**⑤ 排掉的六处坑**（详见 PLAYBOOK **P3.55**）：① ★★★ **「摘 `[hidden]` + 挂开态类」同一 tick ⇒ 过渡被静默跳过**（无报错、computed 直接给终态 ⇒ 声明的入场动画可能是死代码；判据 = 逐帧 `getAnimations()` + 开帧 computed；修法 = 中间 `void el.offsetWidth`）；② ★★ 断言必须限定**函数体内**（全文计数被 `.zd-menu` 同形代码误报）；③ ★★ 注释**不能插在被逐字断言的序列中间**；④ ★★ `old` 被 `new` 原样保留 ⇒ `strict=False`（**第四次**）；⑤ ★★ 判据要跟着事实走（探针选择器先核 DOM：正文是 `.td-browse-body` 而非 `.td-mod-body`）；⑥ ★★ **「改前对照页」不能沿用上一轮 `bakNN/`**（混合态）⇒ 本代另立 `ev/bak19/`。
+
+**⑥ 产物与门禁**：`conversation.html` 1022257 → **1024825 字符（+2568）**（对 `HEAD` 累计 **`1234 242`** 行）；
+工作区 bytes **1145785** / **8487 行** / LF `sha1_lf 2c1ed815740e`；
+`task-detail.html` **767836 字符（未动，仍 `7 0`）**；`base.html` **逐字节不变**。
+代数核对：`★ r108-l8 ①（邵先生：` **1**、`★★ r108-l8 ②（邵先生：` **1**、`void menu.offsetWidth;` **1**、
+`.closest('.r93-scroll, .td-browse')` **1**、**`.closest('.r93-scroll')` 0**、`r108-l7` **7**、`r108-l6` **10**、`data-td-prev-save` **2**。
+八层幂等（l1 全跳过 / l2 0-8 / l3 0-27 / l4 0-8 / l5 0-10 / l6 0-15 / l7 0-9 / **l8 0-4**；`apply108.py` 第二遍「已是目标态」）｜
+`check-syntax.py pages/*.html` **10/10** ｜ `verify-design.py ./pages` **76 个问题（66 warning / 10 info / 0 critical）** ｜
+注释配平 `panel.js` `/*` **96** / `*/` **96** ｜ `gaps.log` pre vs post l8 **逐字节相同**（md5 `81fb5522ffd1f97524c21819df7770fc`）。
+
+**⑦ 交接**：🚫 **仍未 commit / 未 push**（等邵先生显式发话）。提交时除 `git reset -q -- mg-work/r107/ev/bak*`
+与 `mg-work/r108/ev/bak1[3-8]*`，还要 **`git reset -q -- mg-work/r108/ev/bak19`**；
+`mg-work/r108/part108/` 与 `raw/`、`up/` 照旧入库。
+★ r108 仍是**未交付的工作代** ⇒ 若还要改会话详情页 / 右栏 / 任务详情页，**继续在 `mg-work/r108/` 就地返工**；
+**不要**新建 r109、**不要**回头改 `apply107.py`。★ **别忘 `git checkout -- pages/gaps.log`**（本轮它同样被重写）。
+★ **关的那一侧本拍有意不动**（摘 `POP_OPEN` + 置 `[hidden]` ⇒ 立即 `display:none`，无退场动画）；
+理由 = `[hidden]` 是 Esc 分层 / 连点重开这些路径的**唯一状态位**，加退场延迟会与它们抢时序。
+★ 遗留（**有意保留、未动**）：另有两处**同型入口缺陷** —— 右键菜单 `ctxShow()` 与 `.zd-menu` 的 `placeZdMenu()`
+同样是「摘 `[hidden]` + 挂类」抢在同一 tick ⇒ 它们的入场也仍是硬切（各 1 行强制重排即可对齐）。
+★ ★★ **l8 之后若再叠一层（`patch108l9.py`）**：本层**未动 CSS** ⇒ `CSS_TAIL` 仍须把 `/* r108-l7 */` 原样接回；
+且须保住 `panel.js` 里两处 l8 留痕注释与那**四步连续序列**（收尾有跨层兜底断言）。
+
 ---
 
 ## 三、r88 ~ r92 做了什么（前情提要）
@@ -1257,21 +1845,24 @@ r105 死代码：`r93-morebtn` 全仓 **3 处全在注释**（活规则 0 条）
 1. 读本卡 → `git status` → 复跑补丁确认幂等：
    `mg-work/r88/apply88.py` → `mg-work/r88/apply88b-fontsize.py` → `mg-work/r92/apply92.py` → `mg-work/r93/apply93.py`
    → `mg-work/r101/apply101.py` → `mg-work/r102/apply102.py`
-   → **`mg-work/r107/apply107.py`**
+   → **`mg-work/r108/apply108.py`**
    → `mg-work/r87/apply87a-select.py` → `mg-work/r86/apply86.py`（**后两个被 r88 的 PRIOR 涵盖，重复跑也是 `+0`**）。
-   ⚠ ★★ **`apply102` / `apply106` / `apply107` 都作用于 `conversation.html`**：r102 与 r106 的块**已被 apply107 的 `GENS` 涵盖**，
-     所以**只需跑 `apply107` 一条即可自愈到 r107 态**（历代块会被整块剥离再重注）。
-     反过来**绝不要**跑到 r107 之后再跑 `apply106`（它只认四代 ⇒ 「基线残留 r107-conv-css」自检会直接退出）。
-   ⚠ 另：`part107/browse.html` 是**组装件** ⇒ 改 `_head.html` / `_mods.html` 后必须重跑 `ev/splice107.py` 再跑 `apply107.py`。
+   ⚠ ★★ **`apply102` / `apply106` / `apply107` / `apply108` 都作用于 `conversation.html`**：前几代的块**已被 apply108 的 `GENS` 涵盖**，
+     所以**只需跑 `apply108` 一条即可自愈到 r108 态**（历代块会被整块剥离再重注）。
+     反过来**绝不要**跑到 r108 之后再跑 `apply107`（它只认五代 ⇒ 「基线残留 r108-conv-css」自检会直接退出）。
+   ⚠ 另：`partNNN/browse.html` 是**组装件** ⇒ 改 `_head.html` / `_mods.html` 后必须重跑本代 `ev/spliceNNN.py` 再跑 `applyNNN.py`。
+     本代 `part108/` 只覆盖改过的三件，其余从 `part107` / `part105` **三级回落**。
 
 2. 改页面**一律走 `mg-work/rNN/applyNN.py`**，体位 = 「先 `strip_all(当前页)` 取净底 → 再注入」⇒ **改完直接重跑即自愈**。
    **例外**：上一轮尚未提交时的即时返工 ⇒ **就地修订原补丁、不另起代数**（判据：`git status` 里仍是 ` M`）。
-   ★ 现状（**2026-10-01 14:2x**）：`r86 ~ r100`（`d7e2151`）、**`r101`（`9f252e5`）**、
+   ★ 现状（**2026-10-01 19:4x**）：`r86 ~ r100`（`d7e2151`）、**`r101`（`9f252e5`）**、
    **`r102~r105`（`87e2caa`）**、**`r106` 六条（`4d081ba`）**、**Codex 右栏调研（`f13b3bf`）**、
-   **`r107` 十一拍（`e9c9498`）** —— **全部已提交并推送**。
-   ★ **r107 已交付 ⇒ 已封板**：若还要改**会话详情页 / 右栏**，**新建 `mg-work/r108/apply108.py`**
-   （照抄 r107 的**五代** `GENS` 摘除表，扩成六代；并可继续沿用 `NAV_TAG='r106'`，只要 nav 脚本仍未改）。
-   **不要**再就地改 `apply107.py` —— 它已是交付态，改了会凭空产生与 `e9c9498` 的未提交差异。
+   **`r107` 十一拍（`e9c9498`）** —— **全部已提交并推送**；**`r108` **十二 + 十三拍** 🚫 未提交**（工作区 ` M pages/conversation.html` + ` M pages/task-detail.html`）。
+   ★ **r108 尚在未提交期 ⇒ 可就地返工**（**第十三拍即按此体位就地叠加，未另起 r109**）：若还要改**会话详情页 / 右栏**，**直接改 `mg-work/r108/`**
+   （改序 = `part108/_mods.html` → `ev/splice108.py` → `apply108.py`；⚠ `apply108.py` 由 `ev/make108.py` 生成、**禁手改**）。
+   ⚠ ★★ **若改的是 `pages/task-detail.html`（另一条血脉）** ⇒ 走 **`ev/patch108td.py`**（锚点式、支持 `--revert`），**不要**把它塞进 `apply108.py`。
+   **不要**再把改动落回 `apply107.py` —— 它已是交付态（`e9c9498`）。
+   ⚠ 若 r108 已交付后再改，则新建 `mg-work/r109/`（照抄六代 `GENS`、扩成七代；nav 脚本仍未改则可继续沿用 `NAV_TAG='r106'`）。
    若针对**设置页 / 字号机制 / 其它页**，回到 `apply88.py` / `apply88b-fontsize.py`。
    ⚠ **r105 ① 的产物落在 8 个「独立页」上**（各 +714）⇒ 复跑补丁时这 8 页会**同样被扫到**；改动只在 `nav_patch` 一处，
    不要为它们单开补丁（`invert_if_absent` 保证第二遍一字不动、**只保位置**）。
@@ -1285,7 +1876,9 @@ r105 死代码：`r93-morebtn` 全仓 **3 处全在注释**（活规则 0 条）
 ## 八、回滚与取证
 
 ```bash
-# ★ r106 回滚（本代 · 首选：脚本自带 --revert）
+# ★ r108 回滚（本代 · 只改了一页 ⇒ 一行即退（推荐））
+git checkout -- pages/conversation.html
+# ★ r106 回滚（首选：脚本自带 --revert）
 python mg-work/r106/apply106.py --revert   # 摘 r106-conv-css/js + 10 页 nav 块 id 由 r106-* 回 r102-*（= r105 交付态）
 # 或按文件回滚（文件名必须与原页面同名，otherwise 外壳按名查路由表会落回 base 壳）
 cp mg-work/r106/before/conversation-r106.html pages/conversation.html   # → 865582 字节（CRLF，r105 交付态）

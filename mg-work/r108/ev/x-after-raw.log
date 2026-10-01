@@ -1,0 +1,286 @@
+### 侧栏滑进视口（审查模块）
+{
+  "done": "open:review",
+  "phase": "openSide"
+}
+{
+  "browse": [
+    791,
+    48,
+    641,
+    844
+  ],
+  "phase": "base",
+  "sidebarOn": true,
+  "tabs": [
+    "summary",
+    "review"
+  ]
+}
+### ① 四枚下拉逐个开（每枚：点开 → 等过渡跑完 → 读）
+{
+  "clicked": 1,
+  "phase": "openMod"
+}
+{
+  "items": [
+    "摘要",
+    "审查",
+    "终端",
+    "浏览器",
+    "文件"
+  ],
+  "mod": {
+    "anims": "",
+    "box": [
+      974,
+      91,
+      168,
+      182
+    ],
+    "clueless": "182px/42px",
+    "label": "mod",
+    "off": [
+      182,
+      42
+    ],
+    "op": "1",
+    "open": true,
+    "vis": "visible"
+  },
+  "modDy": 7,
+  "phase": "readMod"
+}
+{
+  "openLeft": 0,
+  "phase": "closeAll"
+}
+{
+  "clicked": 1,
+  "phase": "openOpts"
+}
+{
+  "opts": {
+    "anims": "",
+    "box": [
+      1243,
+      131,
+      172,
+      385
+    ],
+    "clueless": "451px/82px",
+    "label": "opts",
+    "off": [
+      451,
+      82
+    ],
+    "op": "1",
+    "open": true,
+    "vis": "visible"
+  },
+  "optsDy": 6,
+  "phase": "readOpts"
+}
+{
+  "openLeft": 0,
+  "phase": "closeAll"
+}
+{
+  "clicked": 1,
+  "phase": "openScope"
+}
+{
+  "phase": "readScope",
+  "scope": {
+    "anims": "",
+    "box": [
+      804,
+      132,
+      172,
+      114
+    ],
+    "clueless": "12px/83px",
+    "label": "scope",
+    "off": [
+      12,
+      83
+    ],
+    "op": "1",
+    "open": true,
+    "vis": "visible"
+  },
+  "scopeDy": 6
+}
+{
+  "openLeft": 0,
+  "phase": "closeAll"
+}
+{
+  "clicked": 1,
+  "phase": "openCommit"
+}
+{
+  "commit": {
+    "anims": "",
+    "box": [
+      1259,
+      133,
+      168,
+      80
+    ],
+    "clueless": "467px/84px",
+    "label": "commit",
+    "off": [
+      467,
+      84
+    ],
+    "op": "1",
+    "open": true,
+    "vis": "visible"
+  },
+  "commitDy": 6,
+  "phase": "readCommit"
+}
+{
+  "openLeft": 0,
+  "phase": "closeAll"
+}
+### ①b 四枚下拉「点开即读」——同一 eval 内拿 getAnimations（硬规则 25 ②）
+{
+  "anims": "opacity|scale|translate",
+  "op0": "0",
+  "phase": "peekMod",
+  "sc0": "0.96"
+}
+{
+  "openLeft": 0,
+  "phase": "closeAll"
+}
+{
+  "anims": "opacity|scale|translate",
+  "op0": "0",
+  "phase": "peekOpts"
+}
+{
+  "openLeft": 0,
+  "phase": "closeAll"
+}
+{
+  "anims": "opacity|scale|translate",
+  "op0": "0",
+  "phase": "peekScope"
+}
+{
+  "openLeft": 0,
+  "phase": "closeAll"
+}
+{
+  "anims": "opacity|scale|translate",
+  "op0": "0",
+  "phase": "peekCommit"
+}
+{
+  "openLeft": 0,
+  "phase": "closeAll"
+}
+### ② Esc 分层：只开「显示选项」时按 Esc
+{
+  "clicked": 1,
+  "phase": "openOptsOnly"
+}
+{
+  "openMenus": [
+    "td-rv-menu"
+  ],
+  "optsOpen": true,
+  "phase": "escState",
+  "sidebarOn": true
+}
+{
+  "openMenus": [],
+  "optsOpen": false,
+  "phase": "escState",
+  "sidebarOn": true
+}
+✓ Screenshot saved to E:/GienCoder/giencoder-design-engineering/mg-work/r108/raw/x-after-after-esc.png
+### ④ 右键菜单（审查 diff 代码行 —— 必须排在切模块之前）
+{
+  "fired": 1,
+  "phase": "ctxOpen"
+}
+{
+  "ctx": {
+    "anims": "",
+    "box": [
+      841,
+      194,
+      168,
+      193
+    ],
+    "clueless": "/",
+    "label": "ctx",
+    "off": [
+      841,
+      194
+    ],
+    "op": "1",
+    "open": true,
+    "vis": "visible"
+  },
+  "phase": "ctxRead"
+}
+✓ Screenshot saved to E:/GienCoder/giencoder-design-engineering/mg-work/r108/raw/x-after-ctx.png
+mg-work/r108/ev/probe108x.sh: line 66: +: command not found
+### ③  菜单选「终端」⇒ 切模块 + 菜单自动收
+{
+  "clicked": 1,
+  "phase": "openMod"
+}
+{
+  "phase": "pickTerm",
+  "picked": 1
+}
+{
+  "activeTab": "terminal",
+  "allMenusClosed": true,
+  "phase": "paneState",
+  "visiblePanes": [
+    "terminal"
+  ]
+}
+### ⑤ 收起侧栏
+{
+  "clicked": 1,
+  "phase": "closeSidebar"
+}
+{
+  "browse": [
+    1432,
+    48,
+    641,
+    844
+  ],
+  "phase": "sidebarState",
+  "sidebarOn": false
+}
+### ⑥ 重新滑入 + 切页签
+{
+  "done": "tab:summary",
+  "phase": "switchTab"
+}
+{
+  "browse": [
+    1432,
+    48,
+    641,
+    844
+  ],
+  "phase": "base",
+  "sidebarOn": false,
+  "tabs": [
+    "summary",
+    "review",
+    "terminal"
+  ]
+}
+done

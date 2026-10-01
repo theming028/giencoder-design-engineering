@@ -1,0 +1,34 @@
+### [0] base —— 工具条图标 / diff 行数
+"{\"browse\":[1432,48,641,844],\"bar\":[1433,49,639,44],\"brwActs\":[\"more\"],\"shotEls\":0,\"rows\":[[\"td-diff-rows\",28],[\"td-diff-rows td-diff-split\",17],[\"td-diff-rows\",16],[\"td-diff-rows td-diff-split\",9],[\"td-diff-rows\",1],[\"td-diff-rows td-diff-split\",1],[\"td-diff-rows\",1],[\"td-diff-rows td-diff-split\",1]]}"
+### [1a] ① 场景 A：只有 1 枚页签时点 +（同时会把侧栏滑入）
+"{\"clicked\":true}"
+### [1b] ① 量几何（dx 应 ≈ 0、dy = 6）
+"{\"g\":{\"addBtn\":[1505,57,28,28],\"menu\":[1505,91,168,182],\"dx\":0,\"dy\":7,\"hidden\":false,\"open\":true,\"inline\":\"top: 42px; left: 72px; right: auto;\",\"offsetParent\":\"td-browse-bar\",\"sidebarOn\":false}}"
+### [1c] 关菜单
+"{\"clicked\":true}"
+### [2a] ① 场景 B：多开到 4 枚页签（+ 右移）
+"{\"tabs\":[\"summary\",\"terminal\",\"browser\",\"review\"]}"
+### [2b] ① 再开菜单 + 量几何（关键：dx 应仍 ≈ 0）
+"{\"clicked\":true}"
+"{\"g\":{\"addBtn\":[1160,57,28,28],\"menu\":[1160,91,168,182],\"dx\":0,\"dy\":7,\"hidden\":false,\"open\":true,\"inline\":\"top: 42px; left: 368px; right: auto;\",\"offsetParent\":\"td-browse-bar\",\"sidebarOn\":false}}"
+### [2c] 关菜单
+"{\"clicked\":true}"
+### [3a] ① 场景 C：--ui-fs = 18（+ 位置再变一次）
+"{\"uiFs\":\"18\"}"
+"{\"clicked\":true}"
+"{\"g\":{\"addBtn\":[1196,57,28,28],\"menu\":[1196,91,168,213],\"dx\":0,\"dy\":7,\"hidden\":false,\"open\":true,\"inline\":\"top: 42px; left: 404px; right: auto;\",\"offsetParent\":\"td-browse-bar\",\"sidebarOn\":false}}"
+"{\"clicked\":true}"
+"{\"uiFs\":\"14\"}"
+### [4a] ③ 切到审查模块
+"{\"act\":\"tab:review\"}"
+### [4b] ④ 审查模块 diff 行数 / 可滚动高度
+"{\"bodyScrollH\":757,\"bodyClientH\":757,\"rows\":[[\"td-diff-rows\",28,24],[\"td-diff-rows td-diff-split\",17,15],[\"td-diff-rows\",16,16],[\"td-diff-rows td-diff-split\",9,9],[\"td-diff-rows\",1,1],[\"td-diff-rows td-diff-split\",1,1],[\"td-diff-rows\",1,1],[\"td-diff-rows td-diff-split\",1,1]],\"openDiffs\":2}"
+### [5a] ③ 打开文件树抽屉
+"{\"clicked\":true}"
+### [5b] ③ 量 tree / bar / scrim（treeTopVsBarBottom 应为 0）
+"{\"tree\":[792,93,639,798],\"bar\":[792,49,639,44],\"browse\":[791,48,641,844],\"scrim\":[792,93,639,798],\"panel\":[1135,93,296,798],\"treeTop\":\"44px\",\"treeTopVsBarBottom\":0,\"scrimTopVsBarBottom\":0}"
+### [5c] 关抽屉
+"{\"clicked\":true}"
+### [6] ② 浏览器模块：工具条只剩「更多」
+"to-browser"
+done

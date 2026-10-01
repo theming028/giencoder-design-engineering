@@ -1,0 +1,442 @@
+### [0] base（①③④⑥ 静态读数）
+{
+  "cardHidden": false,
+  "goal": {
+    "counts": [
+      "3/4"
+    ],
+    "icon": 1,
+    "no": 0,
+    "rows": 1,
+    "texts": [
+      "落地审查、终端、浏览器、摘要四个面板"
+    ]
+  },
+  "hostDisplay": "flex",
+  "icoN": 2,
+  "icos": [
+    {
+      "bg": "rgba(0, 0, 0, 0)",
+      "color": "rgb(78, 78, 78)",
+      "cursor": "pointer",
+      "disp": "flex",
+      "hidden": false,
+      "radius": "4px",
+      "rect": [
+        1386,
+        112,
+        24,
+        24
+      ],
+      "title": "收起为胶囊"
+    },
+    {
+      "bg": "rgba(0, 0, 0, 0)",
+      "color": "rgb(78, 78, 78)",
+      "cursor": "pointer",
+      "disp": "inline-flex",
+      "hidden": false,
+      "radius": "4px",
+      "rect": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "title": "暂停目标"
+    }
+  ],
+  "m": "base",
+  "secT": [
+    {
+      "color": "rgb(31, 31, 31)",
+      "cv": true,
+      "disp": "flex",
+      "fs": "14px",
+      "fw": "500",
+      "kind": "git",
+      "lh": "21px",
+      "text": "Git 工具"
+    },
+    {
+      "color": "rgb(31, 31, 31)",
+      "cv": true,
+      "disp": "flex",
+      "fs": "14px",
+      "fw": "500",
+      "kind": "goal",
+      "lh": "21px",
+      "text": "目标"
+    },
+    {
+      "color": "rgb(31, 31, 31)",
+      "cv": true,
+      "disp": "flex",
+      "fs": "14px",
+      "fw": "500",
+      "kind": "todo",
+      "lh": "21px",
+      "text": "进程"
+    }
+  ],
+  "secX_default": [
+    {
+      "closed": false,
+      "display": "none",
+      "flex": "1 1 auto",
+      "kind": "git",
+      "text": "+566−228"
+    },
+    {
+      "closed": false,
+      "display": "none",
+      "flex": "1 1 auto",
+      "kind": "goal",
+      "text": "2 分 18 秒·"
+    },
+    {
+      "closed": false,
+      "display": "none",
+      "flex": "1 1 auto",
+      "kind": "todo",
+      "text": "3/5"
+    }
+  ],
+  "todo": [
+    {
+      "after": {
+        "anim": "none",
+        "bl": "rgb(255, 255, 255)",
+        "bt": "rgb(229, 231, 235)",
+        "content": "\"\"",
+        "dur": "0s",
+        "radius": "0px",
+        "tf": "matrix(0.707107, -0.707107, 0.707107, 0.707107, 0, 0)"
+      },
+      "before": {
+        "bc": "rgb(59, 179, 70)",
+        "bg": "rgb(59, 179, 70)",
+        "op": "1",
+        "rect": [
+          1104,
+          410,
+          302,
+          44
+        ]
+      },
+      "cls": "is-done",
+      "color": "rgb(134, 134, 134)",
+      "deco": "line-through",
+      "text": "拆出侧栏骨架的三段式结构（标签栏 / 模"
+    },
+    {
+      "after": {
+        "anim": "none",
+        "bl": "rgb(255, 255, 255)",
+        "bt": "rgb(229, 231, 235)",
+        "content": "\"\"",
+        "dur": "0s",
+        "radius": "0px",
+        "tf": "matrix(0.707107, -0.707107, 0.707107, 0.707107, 0, 0)"
+      },
+      "before": {
+        "bc": "rgb(59, 179, 70)",
+        "bg": "rgb(59, 179, 70)",
+        "op": "1",
+        "rect": [
+          1104,
+          458,
+          302,
+          44
+        ]
+      },
+      "cls": "is-done",
+      "color": "rgb(134, 134, 134)",
+      "deco": "line-through",
+      "text": "落地审查模块：diff 折叠、统一⇄并排"
+    },
+    {
+      "after": {
+        "anim": "none",
+        "bl": "rgb(255, 255, 255)",
+        "bt": "rgb(229, 231, 235)",
+        "content": "\"\"",
+        "dur": "0s",
+        "radius": "0px",
+        "tf": "matrix(0.707107, -0.707107, 0.707107, 0.707107, 0, 0)"
+      },
+      "before": {
+        "bc": "rgb(59, 179, 70)",
+        "bg": "rgb(59, 179, 70)",
+        "op": "1",
+        "rect": [
+          1104,
+          506,
+          302,
+          22
+        ]
+      },
+      "cls": "is-done",
+      "color": "rgb(134, 134, 134)",
+      "deco": "line-through",
+      "text": "落地终端与浏览器模块（含元素标注）"
+    },
+    {
+      "after": {
+        "anim": "zd-todo-spin",
+        "bl": "rgba(0, 0, 0, 0)",
+        "bt": "rgb(55, 112, 247)",
+        "content": "\"\"",
+        "dur": "0.82s",
+        "radius": "50%",
+        "tf": "matrix(-0.99717, -0.0751816, 0.0751816, -0.99717, 0, 0)"
+      },
+      "before": {
+        "bc": "rgb(55, 112, 247)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "op": "0.28",
+        "rect": [
+          1104,
+          532,
+          302,
+          22
+        ]
+      },
+      "cls": "is-doing",
+      "color": "rgb(31, 31, 31)",
+      "deco": "none",
+      "text": "补全审查模块的显示选项与 staging"
+    },
+    {
+      "after": {
+        "anim": "none",
+        "bl": "rgb(229, 231, 235)",
+        "bt": "rgb(229, 231, 235)",
+        "content": "none",
+        "dur": "0s",
+        "radius": "0px",
+        "tf": "none"
+      },
+      "before": {
+        "bc": "rgb(201, 201, 201)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "op": "1",
+        "rect": [
+          1104,
+          558,
+          302,
+          22
+        ]
+      },
+      "cls": "",
+      "color": "rgb(78, 78, 78)",
+      "deco": "none",
+      "text": "补一轮暗色档与字号杠杆的回归"
+    }
+  ]
+}
+### [1] ④ 进行中那段弧在转吗（两次采样）
+{
+  "angleDeg": 81,
+  "animDur": "0.82s",
+  "animIter": "infinite",
+  "animName": "zd-todo-spin",
+  "doingTransform": "matrix(0.162025, 0.986787, -0.986787, 0.162025, 0, 0)",
+  "m": "sp0",
+  "t": 6803
+}
+{
+  "angleDeg": 12,
+  "animDur": "0.82s",
+  "animIter": "infinite",
+  "animName": "zd-todo-spin",
+  "doingTransform": "matrix(0.976414, 0.215907, -0.215907, 0.976414, 0, 0)",
+  "m": "sp1",
+  "t": 8286
+}
+### [2] ② .zd-ico hover 前
+{
+  "host": [
+    {
+      "bg": "rgba(0, 0, 0, 0)",
+      "color": "rgb(78, 78, 78)",
+      "i": 0,
+      "isHover": false,
+      "title": "收起为胶囊"
+    },
+    {
+      "bg": "rgba(0, 0, 0, 0)",
+      "color": "rgb(78, 78, 78)",
+      "i": 1,
+      "isHover": false,
+      "title": "暂停目标"
+    }
+  ],
+  "m": "ico0"
+}
+{
+  "host": [
+    {
+      "bg": "rgb(247, 247, 247)",
+      "color": "rgb(31, 31, 31)",
+      "i": 0,
+      "isHover": true,
+      "title": "收起为胶囊"
+    },
+    {
+      "bg": "rgba(0, 0, 0, 0)",
+      "color": "rgb(78, 78, 78)",
+      "i": 1,
+      "isHover": false,
+      "title": "暂停目标"
+    }
+  ],
+  "m": "ico1"
+}
+### [3] ⑥ 折叠「目标」分区（trailing 应出现）
+{
+  "m": "collapse",
+  "secX": [
+    {
+      "aria": "true",
+      "bodyRows": "96px",
+      "closed": false,
+      "kind": "git",
+      "xDisplay": "none"
+    },
+    {
+      "aria": "false",
+      "bodyRows": "0px",
+      "closed": true,
+      "kind": "goal",
+      "xDisplay": "flex"
+    },
+    {
+      "aria": "true",
+      "bodyRows": "170px",
+      "closed": false,
+      "kind": "todo",
+      "xDisplay": "none"
+    }
+  ]
+}
+{
+  "m": "expand",
+  "secX": [
+    {
+      "aria": "true",
+      "bodyRows": "96px",
+      "closed": false,
+      "kind": "git",
+      "xDisplay": "none"
+    },
+    {
+      "aria": "true",
+      "bodyRows": "34px",
+      "closed": false,
+      "kind": "goal",
+      "xDisplay": "none"
+    },
+    {
+      "aria": "true",
+      "bodyRows": "170px",
+      "closed": false,
+      "kind": "todo",
+      "xDisplay": "none"
+    }
+  ]
+}
+### [4] ⑤ 骨架屏门控
+{
+  "cardRectRestored": [
+    1095,
+    105,
+    320,
+    484
+  ],
+  "cardRectWhenHidden": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "displayAfter": "none",
+  "displayBefore": "flex",
+  "displayRestored": "flex",
+  "hasSupports": true,
+  "m": "skgate",
+  "ruleMatchedAfter": true,
+  "ruleMatchedBefore": false,
+  "skInDoc": false
+}
+### [6] 目视取证
+### [5a] 暗色档
+"dark-on"
+{
+  "card": {
+    "bg": "rgb(35, 35, 36)",
+    "border": "rgb(78, 78, 78)",
+    "color": "rgb(247, 247, 247)"
+  },
+  "dark": "dark",
+  "hexLeak": [],
+  "ico0": {
+    "bg": "rgba(0, 0, 0, 0)",
+    "color": "rgb(229, 229, 229)"
+  },
+  "m": "dark",
+  "secTfg": "rgb(247, 247, 247)",
+  "secTtitle": "rgb(247, 247, 247)",
+  "todoDoingArc": "rgb(84, 151, 255)",
+  "todoDoneColor": "rgb(169, 169, 169)"
+}
+"dark-off"
+### [5b] --ui-fs = 18
+"fs-on"
+{
+  "card": [
+    1095,
+    105,
+    320,
+    512
+  ],
+  "doingArcH": "12px",
+  "doingArcW": "12px",
+  "ico": {
+    "h": "24px",
+    "w": "24px"
+  },
+  "m": "fs",
+  "secH": {
+    "h": "41.1406px",
+    "minH": "41.1429px"
+  },
+  "secT": {
+    "fs": "18px",
+    "fw": "500",
+    "h": "27px",
+    "lh": "27px"
+  },
+  "uiFs": "18"
+}
+"fs-off"
+### [5c] 窄档 620
+{
+  "card": [
+    285,
+    105,
+    310,
+    498
+  ],
+  "inView": true,
+  "m": "narrow",
+  "main": [
+    268,
+    48,
+    344,
+    844
+  ],
+  "overflowRight": -17,
+  "vw": 620
+}
+### done

@@ -1,0 +1,17 @@
+=== base：② 标题栏动作 / ④ 菜单项顺序 ===
+"{\"browseActs\":[\"收起侧栏\"],\"maxBtn\":0,\"menuItems\":[\"摘要\",\"审查\",\"终端\",\"浏览器\",\"文件\"],\"winW\":1440}"
+=== ④ 菜单打开（多开页签，让侧栏滑进视口）===
+"{\"clicked\":true}"
+"{\"menuItems\":[[\"摘要\",\"summary\",98],[\"审查\",\"review\",132],[\"终端\",\"terminal\",166],[\"浏览器\",\"browser\",200],[\"文件\",\"files\",234]],\"menuRect\":[1505,91,168,182]}"
+=== ③ 审查模块：rv-body 与祖先链 ===
+"{\"clicked\":true}"
+"{\"clicked\":true}"
+"{\"act\":\"open:review\"}"
+"{\"body\":[792,134,639,757],\"bodySz\":[757,1212],\"bodyOf\":\"auto\",\"cardFlex\":\"0 0 auto\",\"cardFlexGrow\":\"0\",\"cardFlexShrink\":\"0\",\"cardNatural\":[[639,637,637],[453,451,451],[40,38,38],[40,38,38]],\"chain\":[[\"div.td-mod-body.td-rv-body.is-worddiff\",757,757,1212,\"auto\",\"flex\",\"1 1 auto\",\"0px\",\"static\"],[\"section.td-mod.td-rv\",798,798,798,\"hidden\",\"flex\",\"1 1 auto\",\"0px\",\"static\"],[\"aside.td-browse\",844,842,842,\"hidden\",\"flex\",\"0 0 auto\",\"auto\",\"relative\"],[\"div.td-browse-slot.av-slot-placed\",844,844,844,\"hidden\",\"flex\",\"0 0 641px\",\"auto\",\"static\"],[\"div.flex.min-h-0.flex-1.pb-2.pl-3.pr-2.av-browse-on\",852,852,852,\"visible\",\"flex\",\"1 1 0%\",\"0px\",\"static\"],[\"div.flex.h-dvh.flex-col.overflow-hidden\",900,900,900,\"hidden\",\"flex\",\"0 1 auto\",\"0px\",\"static\"],[\"div\",900,900,900,\"visible\",\"block\",\"0 1 auto\",\"0px\",\"static\"],[\"body\",900,900,900,\"visible\",\"block\",\"0 1 auto\",\"0px\",\"static\"],[\"html\",900,900,900,\"visible\",\"block\",\"0 1 auto\",\"0px\",\"static\"]],\"docSh\":900,\"docCh\":900,\"docOverflow\":0,\"diffs\":4,\"openDiffs\":2}"
+=== ③ 真实滚动路径：滚容器（看整页会不会被带走）===
+"{\"bodyScrollTop\":455,\"bodyScrollable\":455,\"pageScrollTopBefore\":0,\"pageScrollTopAfter\":0,\"diffRowsTop\":[801,-274,611,515]}"
+"{\"body\":[792,134,639,757],\"bodySz\":[757,1212],\"bodyOf\":\"auto\",\"cardFlex\":\"0 0 auto\",\"cardFlexGrow\":\"0\",\"cardFlexShrink\":\"0\",\"cardNatural\":[[639,637,637],[453,451,451],[40,38,38],[40,38,38]],\"chain\":[[\"div.td-mod-body.td-rv-body.is-worddiff\",757,757,1212,\"auto\",\"flex\",\"1 1 auto\",\"0px\",\"static\"],[\"section.td-mod.td-rv\",798,798,798,\"hidden\",\"flex\",\"1 1 auto\",\"0px\",\"static\"],[\"aside.td-browse\",844,842,842,\"hidden\",\"flex\",\"0 0 auto\",\"auto\",\"relative\"],[\"div.td-browse-slot.av-slot-placed\",844,844,844,\"hidden\",\"flex\",\"0 0 641px\",\"auto\",\"static\"],[\"div.flex.min-h-0.flex-1.pb-2.pl-3.pr-2.av-browse-on\",852,852,852,\"visible\",\"flex\",\"1 1 0%\",\"0px\",\"static\"],[\"div.flex.h-dvh.flex-col.overflow-hidden\",900,900,900,\"hidden\",\"flex\",\"0 1 auto\",\"0px\",\"static\"],[\"div\",900,900,900,\"visible\",\"block\",\"0 1 auto\",\"0px\",\"static\"],[\"body\",900,900,900,\"visible\",\"block\",\"0 1 auto\",\"0px\",\"static\"],[\"html\",900,900,900,\"visible\",\"block\",\"0 1 auto\",\"0px\",\"static\"]],\"docSh\":900,\"docCh\":900,\"docOverflow\":0,\"diffs\":4,\"openDiffs\":2}"
+=== ① 产物预览工具条 ===
+"{\"act\":\"sum-art\"}"
+"{\"barActs\":[[\"button\",\"td-prev-btn\",\"另存为\",null,\"1\",null],[\"button\",\"td-prev-btn\",\"打开所在文件夹\",null,null,\"1\"]],\"barActsBox\":[[1223,100,69,26],[1298,100,121,26]],\"barRect\":[792,93,639,40],\"tabs\":[\"summary\",\"review\",\"preview\"]}"
+done

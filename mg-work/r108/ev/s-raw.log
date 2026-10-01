@@ -1,0 +1,30 @@
+### [0] base —— 基线几何 / 浏览器工具条图标 / diff 行数
+"{\"browse\":[1432,48,641,844],\"bar\":[1433,49,639,44],\"barH\":44,\"addBtn\":[1505,57,28,28],\"tabs\":[[\"summary\",[1441,57,60,28]]],\"brwActs\":[\"shot\",\"zoom\",\"send\",\"more\"],\"rows\":[[\"td-diff-rows\",11],[\"td-diff-rows td-diff-split\",6],[\"td-diff-rows\",4],[\"td-diff-rows td-diff-split\",3],[\"td-diff-rows\",1],[\"td-diff-rows td-diff-split\",1],[\"td-diff-rows\",1],[\"td-diff-rows td-diff-split\",1]],\"moreBtns\":[\"⋯ 折叠 46 行未改动\",\"⋯ 折叠 46 行未改动\"],\"moreRow\":6,\"treeR\":[0,0,0,0]}"
+### [1a] 点 + 打开菜单（同一 eval 只点）
+"{\"clicked\":true}"
+### [1b] 读菜单与触发器几何（分帧后再读）
+"{\"menu\":[1497,91,168,182],\"addBtn\":[1505,57,28,28],\"hidden\":false,\"menuCls\":\"td-mod-menu giencoder-dropdown-popup giencoder-popup-open\",\"inlineStyle\":\"\",\"offsetParent\":\"td-browse-bar\",\"dx\":-8,\"dy\":7}"
+### [1c] 关菜单
+"{\"clicked\":true}"
+### [2a] 多开两枚页签（terminal + browser）⇒ + 应右移
+"{\"act\":\"terminal+browser\",\"tabs\":[\"summary\",\"terminal\",\"browser\"],\"addBtn\":[1715,57,28,28]}"
+### [2b] 再开菜单 + 读几何（看是否跟随）
+"{\"clicked\":true}"
+"{\"menu\":[856,91,168,182],\"addBtn\":[1074,57,28,28],\"hidden\":false,\"menuCls\":\"td-mod-menu giencoder-dropdown-popup giencoder-popup-open\",\"inlineStyle\":\"\",\"offsetParent\":\"td-browse-bar\",\"dx\":-218,\"dy\":7}"
+### [2c] 关菜单
+"{\"clicked\":true}"
+### [3a] 切到审查模块
+"{\"act\":\"open:review\"}"
+### [3b] 打开文件树抽屉
+"{\"clicked\":true}"
+### [3c] 读 tree / scrim / panel / bar 几何
+"{\"tree\":[792,49,639,842],\"scrim\":[792,49,639,842],\"panel\":[1135,49,296,842],\"bar\":[792,49,639,44],\"browse\":[791,48,641,844],\"treeTop\":\"0px\"}"
+### [3d] 关抽屉
+"{\"clicked\":true}"
+### [4a] 字号 18 档的标题栏高度
+"{\"barH\":44,\"uiFs\":\"18\"}"
+### [4b] 还原 14
+"{\"barH\":44,\"uiFs\":\"14\"}"
+### [5] 浏览器工具条截图（删按钮前的基线）
+"to-browser"
+done

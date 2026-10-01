@@ -633,9 +633,9 @@ agent 行 `agentSpan` = `[420,1280]` / `[840,1981]`（**填满**）；`div.mt-8`
 
 ---
 
-### P3.11i ★★ 会话详情页「侧栏模块标签化」（r107 · 复刻 Codex 右栏 · 2026-10-01 · **共十一拍**）
+### P3.11i ★★ 会话详情页「侧栏模块标签化」（r107 十一拍 + **r108 十二 ~ 十九拍** · 复刻 Codex 右栏 · 2026-10-01 · **共十九拍**）
 
-> 补丁 = `mg-work/r107/apply107.py`；设计依据 = `docs/codex-sidepanel-research.md` + `docs/codex-refs/`。
+> 补丁 = **`mg-work/r108/apply108.py`**（🚫 未提交 · 第十二拍；前身 `mg-work/r107/apply107.py` 已推送 `e9c9498`）；设计依据 = `docs/codex-sidepanel-research.md` + `docs/codex-refs/`。
 > **只影响 `pages/conversation.html`**：`base.html` 与 8 个外壳页**逐字节不变**（nav 块沿用 `r106-nav-js` 不换名）。
 > **十一拍要点**：① 三段式骨架 + 五模块 · ② 浮窗关不掉 / 侧聊对齐 · ③ 删侧聊 / 并排折叠 / 折叠全部 / 补 Codex 遗漏 ·
 > ④ 摘要升默认 + 卡片式 / 补划词浮条 / 补右键菜单 / tab 14px / 下拉 DS 化 ·
@@ -643,8 +643,79 @@ agent 行 `agentSpan` = `[420,1280]` / `[840,1981]`（**填满**）；`div.mt-8`
 > **⑥ 底部统计行「框选不到」实为 CSS 生成内容 → 换真 DOM / `.r93-pre` 去字体族 / 内容列变窄时技能浮窗与 `.r93-alert` 自适应** ·
 > **⑦ 右栏里的竞品名全换 GienCoder / 去掉下拉菜单的标题行与快捷键提示 / 选中项补底色 / 提交卡输入框拉通 / 右栏字体统一 / 全屏按钮联动** ·
 > **⑧ 全局宽度不足出省略号（三类分治）/ 去掉「折叠此文件」/ `.td-sum-h` 15px / `.td-diff-path` 展开中粗 / `.td-diff-path` 与 `.td-diff-rows` 内 13px / `.r107-stats` 居中** ·
-> **⑨ 全屏按钮图标随态切换（四角朝外 ⇄ 朝内，切 `<path d>`、不重建节点）/ 全屏态拖拽起点改读「实际渲染宽」（先停过渡再取几何）/ 拖拽事件改挂 `window` / 全屏态按下分栏条＝放弃全屏 / 收起侧栏也退全屏**
-> **⑩ 三枚 `.td-rv-menu` 改为「按触发器现场摆位」** —— 原四枚共用一条 `top:42px`（钉在标签栏下方），
+> **⑨ 全屏按钮图标随态切换（四角朝外 ⇄ 朝内，切 `<path d>`、不重建节点）/ 全屏态拖拽起点改读「实际渲染宽」（先停过渡再取几何）/ 拖拽事件改挂 `window` / 全屏态按下分栏条＝放弃全屏 / 收起侧栏也退全屏** ·
+> **⑩ r108 第十二拍** `.td-diff` 独立成小卡片（描边 + 8px 圆角 + `gap:8px`）+「文件树」抽屉（`.td-tree` · `z-index:35` · 296px · **独立类名 `td-tf*`** · Esc 算一层）·
+> **⑪ r108 第十三拍**（六条）：`.td-sum-sec:hover` 边框深一档 / `.td-sum-h` 标题图标删净 / `.td-diff-toggle` 图标正文色 13px / `.td-sum-art` 整卡可点预览 / **`task-detail.html`** 徽章 13px / **复刻 ZCode 右上角任务信息面板** ·
+> **⑫ r108 第十四拍（四条 · 全部围绕 `.zd-card`）**：
+> 　① **Git 三行接交互** —— 「更改」复用右栏链路（`[data-td-open-mod="review"]` ⇒ `openTab('review')` ⇒ `ensureOpen()`）；
+> 　　「分支」= `.zd-menu-branch`（`data-zd-br` 4 条 + divider + `data-zd-br-new`）→ 行值 `.zd-row-v[data-zd-branch]` 更新 + `.zd-toast` 轻提示；
+> 　　「提交或推送」= `.zd-menu-commit`（`data-zd-commit` 2 条，文案取上游 `git.actionMenu.*`）；两枚**互斥**；
+> 　　摆位 = 触发行下缘 + `ZD_GAP(6)`、右对齐卡片右缘（**`offsetWidth`** 而非 rect —— rect 会把入场 `scale(0.96)` 乘进去）；
+> 　　关闭三路径 = 外点（document）+ **Esc（`window` 捕获段，只有真关掉了才 `preventDefault`）** + 选完自动收起；
+> 　② **「计划」分区删净**（`secKinds ["git","goal","todo"]`，`list-checks` 图标由「进程」与胶囊复用）；
+> 　③ **「目标」按上游校准** —— 图标 = lucide `goal`（未完成）/ 绿圈序号（已完成）/ `pause`（暂停钮）/ `minimize-2`（收起为胶囊）；
+> 　　几何 = 迭代行 `padding 8px` + `radius 8px` + `gap 8px`、标题 `line-height 16px`（`leading-4`）、分区头 `32px`（`h-8`）、
+> 　　`.zd-ico` = 24 / 14（**不动 `.td-browse-ico` 的 28 / 16**）、`.zd-cv` 14px、trailing `·` 分隔符；
+> 　　★ **圆序号宽高同比**（本规则含字号 token ⇒ `scale_block` 只派生 `height` ⇒ 非默认字号下会成椭圆）；
+> ④ **弹性微动效** —— 折展 = `grid-template-rows: 1fr ⇄ 0fr` + 内层 `opacity/translate/scale`（上游 `CollapsibleContent` 同款，**替掉 `display:none`**）；
+> 　　面板 ⇄ 胶囊 = 出场「淡出 + 微缩上浮」+ 入场 `@keyframes zd-panel-in` 回弹；缓动 = `--transition-timing-function-spring`（`y1=1.56` ⇒ 过冲）；
+> 　　⚠ **时长一律 ≤300ms**（`verify-design.py` CRAFT-ANIM 上限）—— 弹性靠过冲、不是靠拉长时长。
+> **⑬ r108 第十五拍（六条 · 全部围绕 `.zd-card` 的视觉与门控）**：
+> 　① **`.zd-sec-t` = 正文黑 + 中粗 500 + 14px** —— 去 `inherit`，显式 `font-size: var(--font-size-body-3)` + `font-weight: 500` + `color: var(--color-text-1)`；
+> 　　顺带删掉已成**死规则**的 `.zd-sec-t:hover { color: text-1 }`；
+> 　② **`.zd-ico` 补 hover** —— 照本页既有 `.td-browse-ico` 的**完整契约**（`inline-flex` / `24×24` / `padding:0` / `border:0` / `radius 4` / 透明底 / `text-2`）
+> 　　+ 同块内 `:hover { background: var(--color-fill-1); color: var(--color-text-1) }`（**基态在前**，硬规则 28）；⚠ 伴生：`.zd-ico` 原本无 `color` ⇒ 两枚深浅不一致，改后**统一 `text-2`**；
+> 　③ **「目标」只留 1 条** —— 删带圆序号那行（`drop_re` 连前导换行一起删）⇒ `.zd-it` **1** / `.zd-it-no` **0**；
+> 　④ **已完成进程加删除线 + 进行中转 loading** —— `is-done { text-decoration: line-through }`（★ **不传播到绝对定位伪元素** ⇒ 只划文字、绿圈与对勾不受影响）；
+> 　　`is-doing::before` 压到 `opacity:.28`、`::after` 画 `primary-6` 实心弧 + `@keyframes zd-todo-spin`；★ 时长走**自定义属性** `--zd-spin-dur: 820ms`（避开 CRAFT-ANIM 按行扫）；
+> 　⑤ **骨架屏期隐藏面板** —— 纯 CSS 门控 **`html:has(.r93-sk) .zd-host { display: none }`**（骨架屏一从 DOM 移除即自动失效、零 JS）；
+> 　⑥ **`.zd-sec-x` 只在折叠态显示** —— 基态 `display:none` + `.zd-sec.is-closed .zd-sec-x { display: flex }`（**(0,1,0) vs (0,3,0)**，不打平）；
+> **⑰ r108 第十九拍（两条 · 右栏全栏划词弹浮条 / 菜单入场补上 0.2s spring）**：
+> 　① **整个右栏划词都弹浮动工具条** —— 根因 = 放行判据写死主对话口 `if (!e.target.closest('.r93-scroll')) { selHide(); return; }`
+> 　　⇒ 右栏里划词浮条**根本不弹**；改法 = 放行根扩为 **`.closest('.r93-scroll, .td-browse')`**
+> 　　（两者是**并列 flex 兄弟**、互不包含：1440 实测 `.r93-scroll` [13,49,778,604] / `.td-browse` [791,48,641,844]）；
+> 　　真机 CDP **真鼠标**拖选：审查 diff 代码 / 摘要散文小字 / 文件代码区 JSON —— 改前 `selbarExists = false` → 改后 `true`，
+> 　　浮条框 `[886,139,200,38]` / `[835,59,200,38]` / `[1120,113,200,38]`、**在选区上方 8px**、`elementFromPoint` 命中浮条自身。
+> 　② **`+` 菜单入场不再硬切** —— 根因 = `toggleMenu()` 把「摘 `[hidden]`（`display:none`）」与「挂开态类」挤在**同一 tick**
+> 　　⇒ 浏览器拿不到「改前样式」⇒ `opacity / translate / scale` 过渡**被静默跳过**（契约里 0.2s spring 入场**从未运行过**）；
+> 　　修法 = 开态拆四步 `removeAttribute('hidden')` → **`void menu.offsetWidth`（强制重排）** → `placeRv()` → `classList.add(POP_OPEN)`；
+> 　　实测改前第 4 帧 `anims=-` / `op=1`（一帧到终态）；改后第 4 帧 `anims=opacity|scale|translate` / `op=0 / tr=0px 4px / sc=0.96`，
+> 　　逐帧 `op` 0 → .188 → .426 → … → 1（≈12 帧 ≈ 0.2s）、`scale` 过冲 **1.0039** 再回落、`off=(368,42)` **逐帧不变 = 零位移**；
+> 　　四枚下拉（`+` / 对比范围 / 提交·推送 / 显示选项）同一条代码路径一起生效，位置口径仍 = 触发器下缘 +6px（`+` 取整 7px）。
+> **⑯ r108 第十八拍（四条 · 预览工具条拆两枚 / 去「最大化侧栏」/ 右栏 diff 滚动修复 / `+` 菜单「摘要」置首）**：
+> 　① **「在系统打开」拆成两枚** —— `.td-prev-btn[data-td-prev-open]` → `[data-td-prev-save]`（另存为）+ `[data-td-prev-reveal]`（打开所在文件夹），
+> 　　`panel.js` 各挂一条轻提示；实测 1440 `另存为` `[1223,100,69,26]` + `打开所在文件夹` `[1298,100,121,26]`，栏 `[792,93,639,40]`（**栏高仍 40**、右缘 1419 = 栏内容右缘）；
+> 　② **去掉「最大化侧栏」** —— 按钮在 `.td-browse-acts`（**不在** `.td-mod-bar`），连同 `panel.js` 整段「最大化 / 还原」逻辑
+> 　　（`maxBtn`/`setMax`/`setMaxIcon`/`applyMaxW`/`data-td-maxw` + `STORE_KEY`/`MIN_PANEL`/`DEF_PANEL`/`MAIN_MIN`）一起清；实测 `browseActs = ["收起侧栏"]`、`maxBtn = 0`；
+> 　③ **`td-rv-body` 滚不动 → 已修** —— 根因是 **flex 纵列 + 子件默认 `flex: 0 1 auto`（可收缩）+ `.td-diff{overflow:hidden}`**
+> 　　⇒ 卡片被**压扁**（卡 1 实占 369 / 需 637）、溢出被**裁掉**，`scrollHeight === clientHeight` 恒真（容器永不滚）、约 **489px** 内容永久看不见；
+> 　　修法 = `.td-rv-body > .td-diff { flex: none; }`；实测改前 `bodySz = [757,757]` / 卡片 `[371,369,637]`；
+> 　　改后 `bodySz = [757,1212]` / `cardFlex = "0 0 auto"` / `scrollTop = 455` / **`pageScrollTopAfter = 0`**、`docOverflow = 0`；
+> 　④ **`+` 菜单「摘要」置首** —— 5 项**整块重排** ⇒ `摘要 / 审查 / 终端 / 浏览器 / 文件`（y 98/132/166/200/234 不变）。
+> **⑮ r108 第十七拍（四条 · `+` 菜单定位跟随 / 浏览器工具条瘦身 / 文件树抽屉让开标题栏 / diff 加长）**：
+> 　① **`+` 菜单位置跟随触发器** —— 根因是 `placeRv()` 里那句 `!menu.classList.contains('td-rv-menu')` 把
+> 　　`.td-mod-menu` **显式放行**（注释还写着「保持它原来的 CSS 落位不动」）⇒ 它一直吃基类写死的 `left: 64px`；
+> 　　修法 = `PLACE_ABS = ['td-mod-menu','td-rv-menu']` 白名单 ⇒ 实测 **dx 恒 0**（1 枚页签 `1505/1505`、
+> 　　4 枚 `1160/1160`、`--ui-fs=18` `1196/1196`）；修复前 3 枚页签实测 **dx = −218px**；
+> 　② **浏览器工具条瘦身** —— 删「截图到剪贴板 / 缩放 / 发送页面到对话」三枚（`brwActs = ["more"]`、`shotEls = 0`），
+> 　　配套清掉 `BRW_TEXT` 三条 + `shotFlash()` + `panel.css` 18-② 快门（`.is-shot::after` + `@keyframes td-shot-flash`）
+> 　　与只为它存在的 `.td-mod.td-brw{position:relative}`；右键菜单那条改为直接 `say(...)`（切断 `sb.click()` 死引用）；
+> 　③ **文件树抽屉让开标题栏** —— `.td-tree` 由 `inset: 0` 改 `top: 44px`（44 = `.td-browse-bar` 实测高，
+> 　　`--ui-fs` 14/18 两档都是 44 ⇒ 不随字号杠杆变）⇒ 实测 `treeRect.top − barRect.bottom = 0`（scrim 与 panel 一起下移）；
+> 　④ **diff 演示内容加长** —— 统一视图 +17 / +12 行、并排 +11 / +6 行 ⇒ 实测行数 卡片 1 **11→28** / **6→17**、
+> 　　卡片 2 **4→16** / **3→9**，`.td-rv-body` `scrollHeight == clientHeight == 757`（**正好填满、不溢出**）。
+> **⑭ r108 第十六拍（三条 · 产物预览改挂页签 + `.zd-host` 折展动效 & 毛玻璃）**：
+
+> 　① **产物预览改挂「预览」页签** —— 旧浮层 `.td-sum-prev`（`position:absolute; inset:0` 盖住 `.td-mod.td-sum`）**整体拆掉**
+> 　　（DOM 一块 + CSS 全套 + `.td-mod.td-sum{position:relative}` + **Esc 裁决链里占的那一层**）；
+> 　　新载体 `#av-browse-pane-preview[data-td-pane="preview"]`（与审查 / 终端 / 浏览器 / 摘要同级），点产物 `openTab('preview', {name, ico})`；
+> 　　★ 同一枚页签**复用**承载多个产物（连点两个只改名 + 换图标，不开第二枚）；`zd-sum-prev` 残留 **0**；
+> 　② **折展动效「收进右上角 / 从右上角展开」** —— `transform-origin: 100% 0`（实测 computed `320px 0px`）；
+> 　　收 ⇒ `scale 1→0.62` + `translate 0px→12px -12px` + `opacity→0`（186ms 到目标 / 203ms `hidden`）；
+> 　　展 ⇒ `@keyframes zd-panel-in` 260ms，首帧 `scale .62 / translate 12px -12px`，**过冲** `scale 1.03715` 再回 `1 / 0px`（453ms）；
+> 　③ **`.zd-host` 改毛玻璃** —— 视觉四件（`.zd-card` / `.zd-mini` / `.zd-menu`×2 / `.zd-toast`）底色 `color-mix` 就地取透 + `backdrop-filter: blur(18px) saturate(160%)`，另留 `@supports not` 不透明兜底；
+> 　　★★ 取证必须**落像素**（只写 `backdrop-filter` 而底色不透明 = 看不出效果、computed 却照样报 `blur`）：临时铺 320×180 纯红 ⇒ 卡面 `rgb(255,199,199)`（= `0.78×白 + 0.22×红`），沿 y 平滑衰减并**外溢**到红块下沿之外（`237`@y190 → `254`@y470）；
+> 　★ 顺带：预览工具条两件控件各收 26px ⇒ 预览 **40px = 摘要 40px**（`.td-mod-bar` 高度**内容驱动**，内容盒上限 = 40 − 6 − 6 − 1 = 27px；同页工具条**本来就不齐**：fs14 摘要 40 / 审查 41，fs18 41 / 49 / 46）；> **⑩ 三枚 `.td-rv-menu` 改为「按触发器现场摆位」** —— 原四枚共用一条 `top:42px`（钉在标签栏下方），
 > 而这三枚的触发器在**审查工具条**里 ⇒ 菜单跑到**按钮上方** 34~36px（实测 dy = −35.0 / −34.0 / −36.0）；
 > 新增 `placeRv()` 在打开瞬间按触发器**实际几何**摆位（垂直 +6px / 水平锚定触发器 / 右侧放不下 clamp 到面板内边），
 > `.td-mod-menu` 一字不动
@@ -657,7 +728,9 @@ agent 行 `agentSpan` = `[420,1280]` / `[840,1981]`（**填满**）；`div.mt-8`
 > ④ **补三件官方能力**：**终端多标签**（`.td-term-tabs` + `bindTerm()` 按块绑定 + `+` 真新建）/
 > **浏览器截图**（`[data-td-brw-act="shot"]` + `.td-brw.is-shot::after` 快门 **260ms**，闪**整模块**而非滚动容器 `.td-view`）/
 > **产物预览层**（`.td-sum-prev` 覆盖摘要 + `md`/`xlsx` 两套骨架 + **Esc 算一层**）
-> （详见 `acceptance.md` 第七 / 八 / 九 / 十 / 十一 / 十二 / **十三** / **十四** / **十五** / **十六**节）。
+> **⑫（r108 第十二拍）`td-diff` 独立成小卡片（`1px` 描边 + `8px` 圆角 + `--color-bg-2` 底 + 容器 `gap:8px`）/ 「在文件树中定位」右侧新增「文件树」按钮 ⇒ 右侧弹**文件树抽屉**（`.td-tree` · `z-index:35` · 独立类名 `td-tf*` · Esc 算一层）**。
+> **⑬（r108 第十三拍 · 六条精修 + ★ 复刻 ZCode 右上角任务信息面板）**：`td-sum-sec` hover 边框深一档 / `td-sum-h` 标题图标移除 / `td-diff-toggle` 图标正文色 13px / `td-sum-art` 整卡可点预览 / `task-detail` 徽章字号 13px / **右上角 `.zd-host` 任务信息面板（四分区 Git 工具 · 目标 · 计划 · 进程 + 折叠 + 胶囊）**。
+> （详见 `mg-work/r107/acceptance.md` 第七 / 八 / 九 / 十 / 十一 / 十二 / **十三** / **十四** / **十五** / **十六**节；r108 = `mg-work/r108/acceptance.md` **十三节**，八 ~ 十二 = 第十三拍）。
 
 **结构（三段式，全部挂在 `aside.td-browse` 里）**
 
@@ -676,7 +749,9 @@ td-split#av-browse-split → td-browse-slot#av-browse-slot
       │   └ .td-term[data-td-term-pane="t1|t2|…"] ×N
       ├ section.td-mod.td-rv      [data-td-pane="review"]
       ├ section.td-mod.td-brw     [data-td-pane="browser"]
-      └ section.td-mod.td-sum     [data-td-pane="summary"]  ← 摘要（任务侧栏：摘要 / 计划 / 来源 / 产物）
+      ├ section.td-mod.td-sum     [data-td-pane="summary"]  ← 摘要（任务侧栏：摘要 / 计划 / 来源 / 产物）
+      ├ div.td-tree[data-td-tree]   ← ★ r108 ②：文件树抽屉（`z-index:35`；`.td-tree-panel` `min(296px,86%)` + `.td-tree-files` 内 10 行 `.td-tf*`，类名与「文件」模块的 `.td-bf*` **刻意分离**）
+      └ div.zd-host#av-zd-status    ← ★★ r108 ⑥：右上角任务信息面板（复刻 ZCode；`position:absolute` **top:44px** + `right:16px`；`z-index:20`；**`pointer-events:none`**，只有内层 `.zd-card` 是 `auto`；由 `panel.js` 的 `place()` 搬进 `<main>`）
 ```
 
 > ⚠ 四枚下拉菜单（`.td-mod-menu` / `.td-rv-scope-menu` / `.td-commit-menu` / `.td-rv-opts`）**都挂在各模块自己的工具条里**，
@@ -730,6 +805,15 @@ td-split#av-browse-split → td-browse-slot#av-browse-slot
 | **浏览器截图** | ★ **第十一拍 ④b**：`[data-td-brw-act="shot"]`（相机图标，插在「标注」与「缩放」之间）+ `.td-mod.td-brw{position:relative}` + `.td-brw.is-shot::after` 快门白闪 **260ms**。⚠ 闪**整模块**、不闪 `.td-view`（后者 `overflow:auto`，绝对定位子元素**跟着内容滚走**）；⚠ 动画必须 **≤300ms**（`verify-design.py` 的 `CRAFT-ANIM` 会数 >300ms 的） |
 | **产物预览层** | ★ **第十一拍 ④c**：`.td-sum-prev`（`position:absolute; inset:0; z-index:6`，包含块 = `.td-mod.td-sum`）+ 两套骨架 `[data-td-prev-kind="md"/"xlsx"]`（**按扩展名**切）。⚠ 骨架自带 `display:flex` ⇒ **必须显式写 `[hidden]{display:none}`**；⚠ **Esc 层级多了一层**（预览层 → 元素评论 → 菜单 → 模态） |
 | **地址栏激活态 / 浮条色** | ★ **第十一拍 ①②**：`.td-url-pill:focus-within`（底色转白 + `inset 0 0 0 1px` 主色 + 外 `0 0 0 2px` 浅主色环，`transition 120ms`）· `.td-selbar .giencoder-btn { color: var(--color-text-1) }`（DS `-btn-text` 默认主色蓝） |
+| **diff 独立卡片** | ★★ **r108 ①**：`.td-rv-body { display:flex; flex-direction:column; gap:8px; padding:8px }` + `.td-diff { border:1px solid var(--color-border-2); border-radius:8px; background:var(--color-bg-2); overflow:hidden }` + `.td-diff-rows { border-top:1px solid var(--color-border-1) }`。`overflow:hidden` 让 `.td-diff-h:hover` 底色被圆角裁住；`border-top` 不会双线（折叠态 `-rows` 本就 `display:none`，统一 / 并排两个 `-rows` 同刻只有一个可见）。实测四张卡 `[800,142,623,299] / [800,449,623,213] / [800,670,623,40] / [800,718,623,40]`、**卡间距 `[8,8,8]`**；描边 `1px rgb(229,229,229)` / 圆角 `8px` / 底 `rgb(255,255,255)`；并排折叠 ⇒ 卡高 **40**、`rowsDisplay:none` |
+| **文件树抽屉** | ★★ **r108 ②**：按钮 `[data-td-rv-act="tree"]`（folder-tree SVG，24 网格 / stroke 2 / 渲染 16px，插在「在文件树中定位」**右紧邻**）+ `.td-tree[data-td-tree]`（`position:absolute; inset:0; z-index:35`；**右栏下拉 30 < 抽屉 35 < 提交模态 40**）。开合 = `hidden` 属性 + `.is-open` 类（`removeAttribute('hidden')` → `void offsetWidth` **强制 reflow** → `add('is-open')`；关 = 摘 `is-open` → **240ms（过渡 220ms）后**挂 `hidden`）。`min(296px, 86%)` 面板 ⇒ 实测 **`panelBox=[1135,49,296,842]`**（右缘 1431 = `paneBox` 791+641−1）；**Esc 只关抽屉、不关侧栏**（裁决链：模态 → 抽屉 → 菜单）|
+| **抽屉树独立类名** | ★★★ **r108 最关键的决定**：`ctrl-conv.js` 的 `pane = slot.querySelector('.td-browse')` 是**整个 aside**、`pane.querySelector('.td-browse-files')` **只绑第一棵**（`querySelectorAll('.td-bf')` 会扫到抽屉树）⇒ 抽屉树**必须用独立类名 `td-tf*`**（行 `.td-tf` / 箭头 `.td-tf-arrow` / 图标 `.td-tf-ico` / 名称 `.td-tf-name`；`.td-tf.is-dir` 的 `padding-left` 与 `.td-bf.is-dir` 同口径），否则两边互相打架、抽屉里的行点了没反应。实测：抽屉里点 `Controls.tsx` ⇒ 抽屉 `active` 变，而「文件」模块那棵树 `filesActive` / `filesRows 28` / `filesHidden 9` **一字未变**；抽屉树自身折叠 `games` ⇒ 行 10 → 3 → 10 |
+| **摘要卡 hover 边框** | ★ **r108 第十三拍 ①**：`.td-sum-sec:hover { border-color: var(--color-border-2) }` —— 基态 `var(--color-border-1)` = `rgb(242,242,242)`（gray-2）、hover **`rgb(229,229,229)`**（gray-3）= **深一档**。同特异性 + 本块文档序在后 ⇒ 不用 `!important`。实测 `secHover:true`、rect 不动 |
+| **摘要标题无图标** | ★ **r108 第十三拍 ②**：`.td-sum-h` 内 4 枚 `<svg>` 整段删净 + 清掉 `.td-sum-h svg` 死规则 ⇒ 实测 `sumHCount:4` / **`sumHSvg:0`** / 文字 `["摘要","计划","来源","产物"]`。⚠ **删除类改动没有 `mark`** ⇒ 幂等判据改「模式不再命中」（`drop_re` 的 `expect` 第二遍 0）|
+| **diff 折叠图标色 / 尺寸** | ★ **r108 第十三拍 ③**：`.td-diff-cv { flex:none; width:13px; height:13px; color: var(--color-text-1); transition: transform 160ms }`（原 `--color-text-3`）—— 图标 svg 的 `width/height` 属性虽是 16，但 **`.td-diff-cv` 自身没框 ⇒ 必须补 `width/height` 才是真「13px」**。实测 `rect [813,156,13,13]` / `rgb(31,31,31)`；该规则体不含 `line-height/height/min-height` ⇒ 不触发 `converge()` 压平 |
+| **产物卡整卡可点** | ★ **r108 第十三拍 ④**：`data-td-art="1"` 从内部「预览」按钮**上移到 `.td-sum-art` 本体**（2 处）+ `.td-sum-art[data-td-art] { cursor: pointer }`；内部按钮卸掉 `data`（**视觉与键盘入口保留**）。实测点「图标区」（`.td-sum-arti`）即开预览层（`pvName:"右栏复刻方案.md"`）|
+| **★★ 右上角任务信息面板** | ★★★ **r108 第十三拍 ⑥（本拍最大件）**：`.zd-host#av-zd-status`（**`position:absolute` **top:44px**（**不是 0**）+ `right:16px`、`z-index:20`、`padding-top:12px`、`pointer-events:none`、`max-width: calc(100% - 32px)`） + `.zd-card`（`pointer-events:auto`）= **四分区** `git`「Git 工具」/ `goal`「目标」/ `plan`「计划」/ `todo`「进程」。★ **`top` 必须避开 `<main>` 顶部的 `.r93-bar`**（`position:absolute; height:44px; z-index:10`，r106 的**固定档**、**不随 `--ui-fs` 变**）—— 从 `top:0` 起排会**盖住右上角「全屏 / 打开侧栏」两枚按钮**。折叠 = 分区头 `classList.toggle('is-closed')`（**不写内联 display**）；面板 ⇄ 胶囊 = `hidden` 属性互斥。实测 `hostInMain:true` / **`cardRect [455,105,320,512]`** / `panelRightGap:16` / `panelTopGap:57` / `zdTop:93`（= 48 + 44 + 1）/ 折叠后卡高 **512 → 503** / 胶囊 `[672,105,103,32]` / 两枚工具条按钮 `hitSelf:true` |
+| **任务详情页徽章字号** | ★ **r108 第十三拍 ⑤**（**另一页 / 独立血脉**）：`.giencoder-badge-status-text` 的**文字节点自己不声明字号**（继承），真源在父级 `.giencoder-badge-status{font-size:var(--font-size-body-3)}`（14px）⇒ 只补一条**本页**规则 `.giencoder-badge-status-text { font-size: var(--font-size-body-2) }`（13px）即可、**无需特异性竞争、不动 DS 源**。落点 = `<style id="r108-td-css">`（插在 `</style>` 与 `<script id="r81-ws-js">` 之间）；⚠ 替换时要保留锚点自身两个 token，否则生成 `</style></style>`（该 CSS 会被当 HTML 文本、**真 bug**）。入口 = `ev/patch108td.py`（**不进 `apply108.py`**）|
 **⚠ 改这一块之前必看**
 
 1. **`part107/browse.html` 是组装件**：`ev/splice107.py` = 从 `part105/browse.html` **剪出 Files 正文**（逐字）
@@ -798,6 +882,12 @@ td-split#av-browse-split → td-browse-slot#av-browse-slot
 16. ★★ **判「容器变窄要不要自适应」的判据 = 容器可用宽，不是视口分辨率**（右栏开合 / 左导航收拢都会改它）
     ⇒ 一律写 `min(原值, 容器宽)`，天然跟着容器走（同 ④b 的 `.r93-bub`）。
     改完必须**在窄档复量**：1440 全绿不代表 1280 / 1100 也全绿（第六拍两条都是窄档才暴露）。
+17. ★★★ **给右栏加「与既有控件同构」的新件 ⇒ 一律换独立类名**（r108）：`ctrl-conv.js` 的 `pane` 是**整个 `aside.td-browse`**、`.td-browse-files` 用 `querySelector` **只绑第一棵** ⇒ 抽屉树用 `td-tf*` 才不打架（判据 = 操作抽屉后老模块的 `active` / `rows` / `hidden` 计数**一字未变**）。
+18. ★★ **覆盖层会挡住它自己的触发器** —— 抽屉 `z-index:35` 的遮罩铺满面板 ⇒ 探针里想点工具条上的 `⋯` **必须先关抽屉**（否则点到遮罩、把抽屉关掉），否则会把「切并排视图失败」误判成 bug。
+19. ★★ **带派生高度的新规则必须补 `var(--font-size-*)`** —— `.td-tree-h` 有 `height:calc(40px*ratio)` 但体里无 token ⇒ 被 `apply88b.converge()` 压平、`scan-flatten` 多报 1 条 ⇒ 补 `font-size: var(--font-size-body-3)` 回基线 2 条。
+20. ★★★ **新浮层必须避开「固定高工具条」，且先做 `elementFromPoint` 自检**（r108 十三拍）：`.zd-host` 从 `top:0` 起排会盖住 `<main>` 顶部 `.r93-bar`（`height:44px`、**不随 `--ui-fs` 变**）里的两枚按钮 ⇒ 探针的 `click` 点到浮层自己、真正的触发器**静默没被点到**（症状 = 下游元素停在视口外、hover/点击全失效）。改 `top:44px` 后 `hitSelf:true`。
+21. ★★ **「预览层被截在画面外」= 拍照成功的假失败** —— ④ 的预览层 `rect x=792` 起，而打开右栏后 `main` 只到 `x=791` ⇒ `screenshot "main"` **正好切掉它**（比报错更隐蔽）⇒ 截图目标要选**覆盖层自身**或它的父容器。
+22. ★★ **回填式补丁的锚点要「保留锚点自身的 token」** —— `patch108td.py` 首版把锚点 `'</style><script id="r81-ws-js">'` **整体**替换 ⇒ 生成 `</style></style>`（CSS 被当 HTML 文本）。正解 = `REPLACEMENT = '</style>' + '{{BLOCK}}' + '<script id="r81-ws-js">'`，只代换 `{{BLOCK}}`。
 
 ---
 

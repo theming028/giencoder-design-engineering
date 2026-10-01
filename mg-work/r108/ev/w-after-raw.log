@@ -1,0 +1,188 @@
+=== 侧栏滑进视口（审查模块）===
+{
+  "browse": [
+    1432,
+    48,
+    641,
+    844
+  ],
+  "done": "open:review",
+  "phase": "openSide"
+}
+=== 审查模块：几何 ===
+{
+  "browseUserSel": "auto",
+  "cardCount": 4,
+  "drTUserSel": "auto",
+  "drag": [
+    873,
+    194,
+    991,
+    214
+  ],
+  "phase": "rvGeom",
+  "picks": [
+    {
+      "box": [
+        871,
+        185,
+        298,
+        17
+      ],
+      "cls": "td-dr-t",
+      "txt": "<aside class=\"td-browse\" aria-label=\"文件预",
+      "y": 194
+    },
+    {
+      "box": [
+        871,
+        205,
+        280,
+        17
+      ],
+      "cls": "td-dr-t",
+      "txt": "<span class=\"td-browse-tab\">摘要</span>",
+      "y": 214
+    }
+  ],
+  "rows": 27,
+  "rvBodyUserSel": "auto",
+  "rvScrollTop": 0
+}
+drag = [873 194 991 214]
+=== 拖选后 ===
+{
+  "above": 8,
+  "phase": "read",
+  "selRange": 1,
+  "selText": "   <aside class=\"td-browse\" aria-label=\"文件预览\">\n89\n−     <span class=\"td",
+  "selbarBox": [
+    886,
+    139,
+    200,
+    38
+  ],
+  "selbarBtns": [
+    "添加到对话",
+    "复制"
+  ],
+  "selbarExists": true,
+  "selbarHidden": false,
+  "selbarHit": "SPAN.",
+  "selbarOnTop": true
+}
+✓ Screenshot saved to E:/GienCoder/giencoder-design-engineering/mg-work/r108/raw/w-after-selbar.png
+{
+  "found": true,
+  "phase": "clickCopy"
+}
+{
+  "above": 1310,
+  "phase": "read",
+  "selRange": 1,
+  "selText": "",
+  "selbarBox": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "selbarBtns": [
+    "添加到对话",
+    "复制"
+  ],
+  "selbarExists": true,
+  "selbarHidden": true
+}
+=== 摘要模块（散文）===
+{
+  "done": "tab:summary",
+  "phase": "openSummary"
+}
+{
+  "drag": [
+    866,
+    113,
+    1004,
+    113
+  ],
+  "phase": "geomSummary",
+  "pick": {
+    "box": [
+      864,
+      105,
+      170,
+      16
+    ],
+    "cls": "td-sum-hint",
+    "txt": "4 轮 · 12 次工具调用 · 2 分 18 秒"
+  }
+}
+drag = [866 113 1004 113]
+{
+  "above": 8,
+  "phase": "read",
+  "selRange": 1,
+  "selText": "4 轮 · 12 次工具调用 · 2 分 ",
+  "selbarBox": [
+    835,
+    59,
+    200,
+    38
+  ],
+  "selbarBtns": [
+    "添加到对话",
+    "复制"
+  ],
+  "selbarExists": true,
+  "selbarHidden": false,
+  "selbarHit": "SPAN.",
+  "selbarOnTop": true
+}
+=== 文件模块（代码区）===
+{
+  "done": "open:files",
+  "phase": "openFiles"
+}
+{
+  "drag": [
+    1187,
+    167,
+    1253,
+    167
+  ],
+  "phase": "geomFiles",
+  "pick": {
+    "box": [
+      1185,
+      159,
+      74,
+      16
+    ],
+    "cls": "td-code-s",
+    "txt": "\"snake-game\""
+  }
+}
+drag = [1187 167 1253 167]
+{
+  "above": 8,
+  "phase": "read",
+  "selRange": 1,
+  "selText": "\"snake-game",
+  "selbarBox": [
+    1120,
+    113,
+    200,
+    38
+  ],
+  "selbarBtns": [
+    "添加到对话",
+    "复制"
+  ],
+  "selbarExists": true,
+  "selbarHidden": false,
+  "selbarHit": "SPAN.",
+  "selbarOnTop": true
+}
+✓ Screenshot saved to E:/GienCoder/giencoder-design-engineering/mg-work/r108/raw/w-after-files-selbar.png
+done

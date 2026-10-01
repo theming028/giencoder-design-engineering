@@ -1,0 +1,21 @@
+### open
+### wait skeleton
+### 先打开右栏（否则摘要模块整块落在视口外 ⇒ hover/点击都点不到）
+=== [A] ①②③ 静态（无交互） ===
+"{\"phase\":\"fix\",\"sumHCount\":4,\"sumHSvg\":0,\"sumHText\":[\"摘要\",\"计划\",\"来源\",\"产物\"],\"diffCv\":{\"color\":\"rgb(31, 31, 31)\",\"w\":\"13px\",\"h\":\"13px\",\"rect\":[0,0,0,0]},\"sumSecBorder\":\"rgb(242, 242, 242)\",\"sumSecRect\":[804,145,615,123],\"artHasData\":true,\"artCursor\":\"pointer\",\"artRect\":[817,755,589,50],\"artBtnHasData\":false,\"artBtnRect\":[1356,768,42,22]}"
+=== [B] ① 摘要卡 hover：真鼠标移入（分帧） ===
+"{\"phase\":\"hover0\",\"secBorder\":\"rgb(242, 242, 242)\",\"secHover\":false,\"secRect\":[804,145,615,123]}"
+"{\"phase\":\"hover1\",\"secBorder\":\"rgb(229, 229, 229)\",\"secHover\":true,\"secRect\":[804,145,615,123]}"
+=== [C] ④ 产物卡整体可点：点「图标区」而非「预览」按钮 ===
+"{\"phase\":\"art\",\"pvHidden\":true,\"pvRect\":[0,0,0,0],\"pvName\":\"产物\",\"pvMeta\":\"—\",\"pvKind\":\"md\"}"
+"{\"phase\":\"art\",\"pvHidden\":false,\"pvRect\":[792,93,639,798],\"pvName\":\"右栏复刻方案.md\",\"pvMeta\":\"Markdown · 12 KB · 只读预览\",\"pvKind\":\"md\"}"
+=== [D] ⑥ 面板：位置 / 分区 / 计数 ===
+"{\"phase\":\"zd0\",\"hostInMain\":true,\"mainRect\":[12,48,779,844],\"hostRect\":[455,93,320,524],\"hostPE\":\"none\",\"cardRect\":[455,105,320,512],\"card\":{\"border\":\"rgb(229, 229, 229)\",\"radius\":\"8px\",\"bg\":\"rgb(255, 255, 255)\",\"maxH\":\"512px\",\"w\":\"320px\",\"pe\":\"auto\"},\"secs\":4,\"secTitles\":[\"Git 工具\",\"目标\",\"计划\",\"进程\"],\"secX\":[\"+566−228\",\"2 分 18 秒\",\"3/5\"],\"rows\":[\"更改+566 −228\",\"分支main\",\"提交 / 推送\",\"右栏复刻方案.md\"],\"its\":[\"1拆出侧栏骨架的三段式结构（标签栏 / 模块工具条 / 正文）3/3\",\"落地审查、终端、浏览器、摘要四个面板3/4\"],\"todoAll\":5,\"todoDone\":3,\"todoDoing\":1,\"miniHidden\":true,\"secBodyDisplay\":\"block\",\"panelRightGap\":16,\"panelTopGap\":57}"
+=== [E] ⑥ 折叠「Git 工具」分区 ===
+"{\"phase\":\"zd1\",\"closed\":true,\"bodyDisplay\":\"none\",\"aria\":\"false\",\"cardRect\":[455,105,320,503]}"
+=== [F] ⑥ 收起为胶囊 ===
+"{\"phase\":\"zd2\",\"cardHidden\":true,\"cardDisplay\":\"none\",\"miniHidden\":false,\"miniDisplay\":\"flex\",\"miniRect\":[672,105,103,32],\"miniText\":\"进程 3/5\",\"cardBodyDisplay\":\"flex\"}"
+=== [G] ⑥ 点胶囊摊回面板 ===
+"{\"phase\":\"zd2\",\"cardHidden\":false,\"cardDisplay\":\"flex\",\"miniHidden\":true,\"miniDisplay\":\"none\",\"miniRect\":[0,0,0,0],\"miniText\":\"进程 3/5\",\"cardBodyDisplay\":\"flex\"}"
+=== [H] 复核：面板仍在 main 内、卡片已回 ===
+"{\"phase\":\"zd0\",\"hostInMain\":true,\"mainRect\":[12,48,779,844],\"hostRect\":[455,93,320,515],\"hostPE\":\"none\",\"cardRect\":[455,105,320,503],\"card\":{\"border\":\"rgb(229, 229, 229)\",\"radius\":\"8px\",\"bg\":\"rgb(255, 255, 255)\",\"maxH\":\"512px\",\"w\":\"320px\",\"pe\":\"auto\"},\"secs\":4,\"secTitles\":[\"Git 工具\",\"目标\",\"计划\",\"进程\"],\"secX\":[\"+566−228\",\"2 分 18 秒\",\"3/5\"],\"rows\":[\"更改+566 −228\",\"分支main\",\"提交 / 推送\",\"右栏复刻方案.md\"],\"its\":[\"1拆出侧栏骨架的三段式结构（标签栏 / 模块工具条 / 正文）3/3\",\"落地审查、终端、浏览器、摘要四个面板3/4\"],\"todoAll\":5,\"todoDone\":3,\"todoDoing\":1,\"miniHidden\":true,\"secBodyDisplay\":\"none\",\"panelRightGap\":16,\"panelTopGap\":57}"

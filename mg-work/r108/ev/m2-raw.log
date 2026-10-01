@@ -1,0 +1,8 @@
+### 打开抽屉
+"{\"phase\":\"tree1\",\"treeOpen\":{\"present\":true,\"hidden\":false,\"open\":true,\"btnAria\":\"true\",\"zIndex\":\"35\",\"panelBox\":{\"x\":1135,\"y\":49,\"w\":296,\"h\":842},\"panelW\":296,\"panelTransform\":\"none\",\"panelRadius\":\"rgb(229, 229, 229)\",\"scrimBox\":{\"x\":792,\"y\":49,\"w\":639,\"h\":842},\"scrimOpacity\":\"1\",\"paneBox\":{\"x\":791,\"y\":48,\"w\":641,\"h\":844},\"rowCount\":10,\"visibleRows\":10,\"visibleNames\":[\".giencoder-x\",\"memory\",\"games\",\"snake-game\",\"dist\",\"public\",\"src\",\"Controls.tsx\",\"useSnakeGame...\",\"package.json\"],\"activeName\":\"useSnakeGame...\",\"closedDirs\":[\"memory\",\"dist\",\"public\"],\"hasSearch\":true,\"headerText\":\"文件树\",\"closeX\":2}}"
+### 点抽屉里的 「Controls.tsx」
+"{\"clicked\":true}"
+"{\"phase\":\"tree2c\",\"treeAfterPick\":{\"present\":true,\"hidden\":false,\"open\":true,\"btnAria\":\"true\",\"zIndex\":\"35\",\"panelBox\":{\"x\":1135,\"y\":49,\"w\":296,\"h\":842},\"panelW\":296,\"panelTransform\":\"none\",\"panelRadius\":\"rgb(229, 229, 229)\",\"scrimBox\":{\"x\":792,\"y\":49,\"w\":639,\"h\":842},\"scrimOpacity\":\"1\",\"paneBox\":{\"x\":791,\"y\":48,\"w\":641,\"h\":844},\"rowCount\":10,\"visibleRows\":10,\"visibleNames\":[\".giencoder-x\",\"memory\",\"games\",\"snake-game\",\"dist\",\"public\",\"src\",\"Controls.tsx\",\"useSnakeGame...\",\"package.json\"],\"activeName\":\"Controls.tsx\",\"closedDirs\":[\"memory\",\"dist\",\"public\"],\"hasSearch\":true,\"headerText\":\"文件树\",\"closeX\":2}}"
+### 回归：文件模块那棵树 & 抽屉树的选中态各自独立
+"{\"phase\":\"regress\",\"filesRows\":28,\"filesActive\":\"useSnakeGame...\",\"filesHidden\":9,\"drawerRows\":10,\"drawerHidden\":0,\"drawerActive\":\"Controls.tsx\"}"
+### done
