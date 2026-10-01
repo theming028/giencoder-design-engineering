@@ -1,0 +1,9 @@
+### open
+### arm
+"armed"
+### wait
+### TIMELINE
+"{\"tSkOut\":null,\"tSkGone\":1638,\"tNumVisible\":1638,\"gapSkToNum\":0,\"late\":1,\"skStillInDom\":false,\"numAnim\":{\"text\":\"5\",\"ni\":\"0\",\"delay\":\"0.44s\",\"dur\":\"0.3s\",\"fill\":\"both\",\"name\":\"r93-num-in\"},\"numCount\":13}"
+### open browse panel + browser module
+### UI
+"{\"selbar\":{\"exists\":true,\"hidden\":false,\"host\":{\"bg\":\"rgb(255, 255, 255)\",\"radius\":\"8px\"},\"btns\":[{\"txt\":\"添加到对话\",\"color\":\"rgb(31, 31, 31)\",\"svgStroke\":\"rgb(31, 31, 31)\",\"svgColor\":\"rgb(31, 31, 31)\"},{\"txt\":\"复制\",\"color\":\"rgb(31, 31, 31)\",\"svgStroke\":\"rgb(31, 31, 31)\",\"svgColor\":\"rgb(31, 31, 31)\"}]},\"tokenText1\":\"rgb(31, 31, 31)\",\"tokenPrimary6\":\"rgb(55, 112, 247)\",\"tokenPrimaryL2\":\"rgb(218, 228, 254)\",\"pill\":{\"exists\":true,\"inHidden\":false,\"before\":{\"bg\":\"rgb(242, 242, 242)\",\"shadow\":\"none\",\"color\":\"rgb(134, 134, 134)\",\"transition\":\"background-color, box-shadow 0.12s, 0.12s\"},\"afterFocus\":{\"bg\":\"rgb(242, 242, 242)\",\"shadow\":\"rgba(0, 0, 0, 0) 0px 0px 0px 0px inset, rgba(0, 0, 0, 0) 0px 0px 0px 0px\",\"matchesFocusWithin\":true,\"activeIsFocused\":true},\"lockColor\":\"rgb(78, 78, 78)\",\"afterBlur\":{\"bg\":\"rgb(242, 242, 242)\",\"shadow\":\"none\",\"matchesFocusWithin\":false}}}"

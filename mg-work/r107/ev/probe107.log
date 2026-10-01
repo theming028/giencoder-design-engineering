@@ -1,0 +1,34 @@
+### 0 open + viewport
+### 1 打开侧栏（真鼠标点页头那枚按钮）
+"{\"on\":true,\"tabs\":[\"files:文件\"],\"barH\":44,\"panelW\":641,\"panes\":[\"files\",\"review(hidden)\",\"terminal(hidden)\",\"browser(hidden)\",\"side(hidden)\"],\"menuHidden\":true,\"splitMainPlaced\":true}"
+mg-work/r107/ev/probe107.sh: line 31: +: command not found
+### 2 点  出模块菜单
+"{\"menuHidden\":false,\"items\":[\"review\",\"terminal\",\"browser\",\"files\",\"side\"]}"
+### 3 开「审查」
+"{\"tabs\":[\"files\",\"review*\"],\"rvVisible\":true,\"filesHidden\":true,\"diffs\":3,\"open\":2}"
+### 4 审查：并排视图
+"{\"isSplit\":false,\"splitRowsVisible\":\"none\",\"uniRowsDisplay\":\"block\"}"
+### 5 终端
+"{\"termVisible\":true,\"outs\":4,\"echo\":\"\",\"lines\":3}"
+### 6 浏览器 + 标注
+"{\"annot\":true,\"bar\":true}"
+"{\"note\":true,\"who\":\"卡片\"}"
+### 7 标签多开态 + 最大宽
+"{\"tabs\":[\"files\",\"review\",\"terminal\",\"browser*\"],\"tabRects\":[\"800,80\",\"882,80\",\"964,80\",\"1046,92\"],\"panelW\":641,\"mainW\":779}"
+### 8 关掉浏览器标签 → 激活邻居
+"{\"tabs\":[\"files\",\"review\",\"terminal*\"],\"activePane\":\"terminal\"}"
+### 9 最大化 / 还原
+"{\"maxw\":\"1040\",\"panelW\":1040,\"mainW\":380}"
+"{\"maxw\":null,\"panelW\":641}"
+### 10 侧边聊天：划词浮条
+"sel=\"\""
+"{\"bar\":false,\"pos\":\",\"}"
+### 11 点浮条 → 开「侧边聊天」标签
+"{\"tabs\":[\"files\",\"review\",\"terminal*\"],\"sideVisible\":false,\"quote\":\"在 main 里选中一段文字 → 点浮条上的「在侧边聊天中提问」，这里会引用原文。\",\"bar\":true}"
+### 12 侧边聊天发一条
+"{\"msgs\":3,\"last\":\"A顺带提一句：这里只改了视觉，未落盘的数据结构没有动。\"}"
+### 13 拖拽重排：把最后一枚标签拖到最前
+"dragged from 1004 to 802"
+"{\"tabs\":[\"terminal\",\"files\",\"review\"]}"
+### 14 全屏整页（供裁切）
+### done

@@ -1,0 +1,1089 @@
+/* ================================================================================
+   ★ r107 · 侧栏模块标签化（会话详情页 · 只作用于 .td-browse 这一块）
+   复刻对象 = Codex 右侧 Side Panel。三段式骨架照搬：
+     ① 标签栏（[模块]名称 × + `+` ，右端 `⤢` / `✕`）  ② 模块自己一行工具条  ③ 正文（独立滚动）
+   本代加「外壳 + 四个新模块（审查 / 终端 / 浏览器 / 摘要）」，**原「文件」模块的 DOM 与
+   controller 一字未动**（Files 正文由 `ev/splice107.py` 从 part105/browse.html 原样剪出）。
+   ⚠ 本块排在 browse.css / R106_CSS 之后 ⇒ 同特异性靠文档顺序取胜；不写 !important。
+   ⚠ 全部走 token（gray/green/red/blue 色阶在暗色档整体翻转）⇒ 无需另写暗色分支；
+     若将来非加不可的实测色，必须同时补 `[giencoder-theme='dark']` 分支（PLAYBOOK 规则 5）。
+   ================================================================================ */
+
+/* ---------------------------------------------------------------- 0. 标签栏 */
+/* ★ `.td-browse` 补 `position: relative`：提交模态（`.td-commit { inset: 0 }`）与后续任何
+   绝对定位子件都以「整条侧栏」为包含块 —— 源件没写 position，不补的话模态会以**视口**定位，
+   卡片跑到屏幕正中、遮罩也铺满整站。position:relative 不改 flex 项的布局尺寸。 */
+.td-browse { position: relative; }
+/* 原规则 padding: 4px 16px / gap: 8px；标签化后两侧各收 8px 给标签腾位置。 */
+.td-browse-bar {
+  padding: 0 8px;
+  gap: 4px;
+  position: relative;            /* `.td-mod-menu` 的定位参照 */
+}
+.td-browse-tabs {
+  /* ★ 不写 flex-grow：标签紧贴左缘、`+` 紧跟最后一枚标签（Codex 体位）；
+     剩余空间由 `.td-browse-acts { margin-left: auto }` 吃掉 ⇒ 按钮组仍靠右。
+     标签多到放不下时靠 `flex-shrink` + `overflow-x` 横向滚动。 */
+  flex: 0 1 auto; min-width: 0;
+  display: flex; align-items: center; gap: 2px;
+  overflow-x: auto; overflow-y: hidden;
+  scrollbar-width: none; -ms-overflow-style: none;
+}
+.td-browse-tabs::-webkit-scrollbar { display: none; }
+/* 覆盖 browse.css 的 .td-browse-tab（同特异性、本块在后）：
+   32 → 28 高（与 `+` / `⤢` / `✕` 的 28 盒齐平）、4 → 6 圆角、右侧留出 `×` 的位置。
+   ★ 本轮：字号 12 → **14px**（`--font-size-body-3`；原写 body-1 = 12px 偏小，与 `+` 菜单
+     和模块正文不在一个档上）。带 `height` 的规则必须写 token 字号，否则被 converge 压平。 */
+.td-browse-tab {
+  flex: none; max-width: 190px;
+  height: calc(28px * var(--ui-fs-ratio)); min-height: calc(28px * var(--ui-fs-ratio));
+  padding: 0 4px 0 8px; gap: 6px;
+  border-radius: 6px;
+  font-size: var(--font-size-body-3);
+  color: var(--color-text-2);
+  cursor: pointer; user-select: none; -webkit-user-select: none;
+  transition: background-color 120ms, color 120ms;
+}
+.td-browse-tab:hover { background: var(--color-fill-1); color: var(--color-text-1); }
+.td-browse-tab.is-active { background: var(--color-fill-2); color: var(--color-text-1); }
+.td-browse-tab.is-active:hover { background: var(--color-fill-3); }
+.td-browse-tab.is-dragging { opacity: .55; cursor: grabbing; }
+.td-browse-tabs.is-reordering, .td-browse-tabs.is-reordering .td-browse-tab { cursor: grabbing; }
+.td-tab-ico { display: inline-flex; flex: none; }
+.td-tab-name { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.td-tab-x {
+  display: inline-flex; align-items: center; justify-content: center;
+  flex: none; width: 18px; height: 18px; padding: 0;
+  border: 0; border-radius: 4px; background: transparent;
+  color: inherit; cursor: pointer;
+  opacity: 0; transition: opacity 120ms, background-color 120ms;
+}
+.td-browse-tab:hover .td-tab-x, .td-browse-tab.is-active .td-tab-x { opacity: 1; }
+/* 只剩一枚标签时不许关（关掉整条侧栏就没了）⇒ 直接不显示关闭按钮（panel.js 打 is-single 标记） */
+.td-browse-tabs.is-single .td-tab-x { display: none; }
+.td-tab-x:hover { background: var(--color-fill-3); color: var(--color-text-1); }
+.td-tab-x:focus-visible { opacity: 1; }
+
+/* `+` 之后、按钮组之前的竖线（原样保留），标签化后夹在 `+` 与「最大化/收起」之间 */
+.td-browse-sep { margin: 0 4px; }
+
+/* ---------------------------------------------------------------- 1. 下拉菜单
+   （模块选择 / 审查显示选项 / 对比范围 / 提交·推送 —— 四枚共用一套盒子样式，
+     与第 8 节右键菜单同源，故「面板 + 条目 + 分隔线」三条规则三处共用一套选择器组）
+   ★★ 第五拍返工：原挂 `.giencoder-select-popup` + `.giencoder-menu` 是**串了两个族** ——
+     前者是 **Select 组件**的弹层，后者 `menu.json` 的 `mapsFrom` = `sidenav/topnav`
+     （**主导航菜单**，不是下拉）⇒ 邵先生判「还没应用设计系统的组件」。
+     本类交互是「点 / 右键触发的**弹出菜单**，项可含图标与快捷键」⇒ 契约正主是
+     `dropdown.json`：`variants.contextMenu` = 右键展开；`states.selected` = 文字
+     `--color-primary-6` 或勾选图标；`interaction.hover` = 背景 `--color-fill-2`。
+     与**本页既有的行右键菜单**（r93 ⑦ `.r93-ctx`，同一套 DS Dropdown 取值）口径一致。
+   ⚠ 本页只内联了 `.giencoder-dropdown-popup` 的**骨架**（`transform-origin:top` /
+      `min-width:168px` / `padding:6px` + 一条 0.2s entry 动画），`-item` / `-divider` 的
+      编译样式**不存在** ⇒ 面板与条目按契约 + r93 实测值**按需自补**（r93 头注释里的既定做法），
+      并用「双类提权」把自己的类与 DS 类写在一起（同 `.r93-ctx` 的用法）。
+   ⚠⚠ 骨架里那条 `animation: giencoder-popup-in` **必须显式 `animation: none` 掉**：
+      它播完 `opacity` 会回落 0 ⇒ 菜单「闪一下就不见」；开合一律走契约状态类
+      `.giencoder-popup-open`（与站内其它 DS 弹层同口径，见 PLAYBOOK 规则 6）。 */
+.td-mod-menu.giencoder-dropdown-popup,
+.td-rv-menu.giencoder-dropdown-popup,
+.td-ctxmenu.giencoder-dropdown-popup {
+  box-sizing: border-box;
+  display: flex; flex-direction: column; gap: 2px;
+  min-width: 168px; max-width: 320px; padding: 6px;
+  background: var(--color-bg-popup);
+  border: 1px solid var(--color-border-2);
+  border-radius: 8px;
+  box-shadow: var(--shadow3-down);
+  transform-origin: top left;
+  animation: none;
+  opacity: 0; visibility: hidden; translate: 0 4px; scale: 0.96;
+  transition: opacity 0.15s cubic-bezier(0.34, 0.69, 0.1, 1),
+              translate 0.15s cubic-bezier(0.34, 0.69, 0.1, 1),
+              scale 0.15s cubic-bezier(0.34, 0.69, 0.1, 1),
+              visibility 0s 0.15s;
+}
+.td-mod-menu.giencoder-dropdown-popup.giencoder-popup-open,
+.td-rv-menu.giencoder-dropdown-popup.giencoder-popup-open,
+.td-ctxmenu.giencoder-dropdown-popup.giencoder-popup-open {
+  opacity: 1; visibility: visible; translate: 0 0; scale: 1;
+  transition: opacity 0.2s cubic-bezier(0.34, 0.69, 0.1, 1),
+              translate 0.2s var(--transition-timing-function-spring, cubic-bezier(0.34, 0.69, 0.1, 1)),
+              scale 0.2s var(--transition-timing-function-spring, cubic-bezier(0.34, 0.69, 0.1, 1)),
+              visibility 0s;
+}
+/* r107-k1
+   四枚下拉：定位参照是 `.td-browse`（有 position: relative），不是各自的父元素 ——
+   `.td-rv-opts` 挂在**审查模块自己的工具条**里，若以工具条为包含块会被 `.td-mod{overflow:hidden}` 裁掉。
+   右键菜单（`.td-ctxmenu`）走 `position: fixed` 跟随指针，不在此列。
+   `.td-mod-menu` 的触发器（`+`）就在标签栏里 ⇒ `top: 42px`（= 标签栏 44px 下方）天然是「按钮下方」，不动。
+   ★★ 第十拍（真 bug）：另外三枚 `.td-rv-menu`（对比范围 / 显示选项 / 提交·推送）的触发器
+   **全在审查模块的工具条**（`.td-mod-bar`）里 —— 它们共用同一条 `top: 42px` ⇒ 菜单跑到
+   **触发按钮上方**去了。1440 实测 dy（菜单 top − 触发器 bottom）= **−35.0 / −34.0 / −36.0**。
+   ⇒ 这三枚改由 panel.js 的 `placeRv()` 在**打开的瞬间**按触发器实际几何现场摆位：
+      垂直 = 触发器下方 6px（与 `.td-mod-menu` 的实测 gap 6.5 同口径）；
+      水平 = 锚定触发器左缘，右侧放不下就向左收贴住面板右内边。
+   ⇒ 下面的 `top` 只是 **JS 未生效时的兜底**（默认字号下的静态近似值），真位置由行内样式接管。
+   ⚠ 不能改用「包含块换成 `.td-mod-bar` + `top: 100%`」的纯 CSS 写法：祖先 `.td-mod{overflow:hidden}`
+     会把菜单裁掉（这是当年改用 `.td-browse` 当参照的原因，见上）。
+   ⚠ 也不能改写成静态 `calc(44px + 40px * var(--ui-fs-ratio) + 6px)`：工具条高度确实是
+     `min-height: calc(40px * var(--ui-fs-ratio))`，但标签栏高度来自跨代资产 browse.css（写死 40、
+     实测 44）⇒ 静态算式会随字号缩放脱节；而且「按各自触发器水平对齐」纯 CSS 表达不了
+     （三枚按钮的 x 各不相同）。 */
+.td-mod-menu.giencoder-dropdown-popup { position: absolute; top: 42px; z-index: 30; }
+.td-rv-menu.giencoder-dropdown-popup { position: absolute; top: 83px; z-index: 30; }
+.td-ctxmenu.giencoder-dropdown-popup { position: fixed; top: 0; left: 0; z-index: 60; }
+.td-mod-menu { left: 64px; right: auto; }
+.td-rv-scope-menu { left: 8px; right: auto; }
+.td-rv-opts, .td-commit-menu { right: 8px; left: auto; }
+/* ⚠ `[hidden]` 的 `display:none` 这次**能生效**了：上一版挂的是 `.giencoder-select-popup`，
+   而本页 r75 有一条 `.giencoder-select-popup { display: block !important }`（给浮窗过渡留起点）
+   ⇒ 连 `[hidden]` 都压不过；换成 `.giencoder-dropdown-popup` 后没有这条通配，兜底可用。 */
+.td-mod-menu.giencoder-dropdown-popup[hidden],
+.td-rv-menu.giencoder-dropdown-popup[hidden],
+.td-ctxmenu.giencoder-dropdown-popup[hidden] { display: none; }
+/* 条目：DS Dropdown 契约（`padding:5px 8px` / 圆角 4 / `gap:8px` / 行高 22 × `--ui-fs-ratio`）。
+   ⚠ 宿主是 `<button>`（DS 按 `<div>` 写的）⇒ 四条 UA 差异必须补：
+     ① `background: transparent`（按钮自带 `buttonface` 灰底；DS 只在 `:hover` 改底色）
+     ② `border: 0`（按钮自带 2px outset 边）③ 字体 / 字号**不继承**（会掉回 UA 的 13.33px Arial）
+     ④ `box-sizing` + 撑满 + 左对齐。
+   ★★ hover 必须在本块**显式写出来**（本页没有 `.giencoder-dropdown-item:hover` 裸规则，
+      `-item` 的编译样式不存在）⇒ 只有本块写了才有 hover。
+   ★ 第五拍修的真 bug：上一版基态写成 `.td-mm-item:not(.giencoder-menu-item-selected)` (0,2,0)，
+     与本页 DS 的 `:hover` / `-selected` **同特异性但文档序在后** ⇒ 两态一起被压掉
+     ⇒ 实测「四枚下拉 + 右键菜单 hover 全无」（真鼠标悬停、`matches(':hover')` 为 true，
+     底色仍是 `rgba(0,0,0,0)`）。本版把基态与 `:hover` 写在同一块、基态在前 ⇒ 顺序自洽。 */
+.td-mod-menu .giencoder-dropdown-item,
+.td-rv-menu .giencoder-dropdown-item,
+.td-ctxmenu .giencoder-dropdown-item {
+  box-sizing: border-box; width: 100%; border: 0;
+  display: flex; align-items: center; gap: 8px;
+  padding: 5px 8px; border-radius: 4px;
+  font-family: var(--font-family); font-size: var(--font-size-body-3);
+  line-height: calc(22px * var(--ui-fs-ratio));
+  color: var(--color-text-1); white-space: nowrap; cursor: pointer;
+  text-align: left; background: transparent;
+}
+.td-mod-menu .giencoder-dropdown-item:hover,
+.td-rv-menu .giencoder-dropdown-item:hover,
+.td-ctxmenu .giencoder-dropdown-item:hover { background: var(--color-fill-2); }
+/* 选中态：DS Dropdown **没有** `-selected` 类（不虚构）⇒ 按契约给的两种表达取
+   「勾选图标 + 主色文字」；✓ 由 HTML 里的 `.td-mm-mark` 承载，显隐由 panel.js 按
+   `aria-checked` 打的 `is-checked` 控制（radio / checkbox 两类都吃这一条）。 */
+.td-mod-menu .giencoder-dropdown-item.is-checked,
+.td-rv-menu .giencoder-dropdown-item.is-checked { color: var(--color-primary-6); }
+.td-mod-menu .giencoder-dropdown-item.is-checked .td-mm-mark,
+.td-rv-menu .giencoder-dropdown-item.is-checked .td-mm-mark { opacity: 1; }
+/* 分组标题：DS Dropdown 无此子部件 ⇒ 借用 Menu 的 `giencoder-menu-group-title`（仍是 DS 类，
+   不自绘）；但它自带 `padding:8px 16px 4px` 的左 16px 与 Dropdown 条目的左 8px 不齐 ⇒ 压到 8px。 */
+.td-mm-cap.giencoder-menu-group-title { padding-left: 8px; }
+/* DS 没覆盖的三个槽位：名称吃掉剩余宽度（保证省略号）、右侧快捷键、右侧 ✓ */
+.td-mm-name { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.td-mm-key, .td-ctx-key { flex: none; font-size: var(--font-size-body-1); color: var(--color-text-4); }
+/* DS 的 `.giencoder-menu-icon` 只写 `display:inline-flex`，没写 `flex` ⇒ 图标在窄菜单里会被压扁；
+   本版改挂 Dropdown（无 icon 子部件）⇒ 图标位收回自绘，两条一起给。 */
+.td-mm-ico { display: inline-flex; flex: none; }
+/* 复选 / 单选型条目的 ✓（`.is-checked` 时显形；颜色取主色，与文字同族） */
+.td-mm-mark {
+  flex: none; width: 14px; text-align: center;
+  font-size: var(--font-size-body-1); color: var(--color-primary-6);
+  opacity: 0; transition: opacity 120ms;
+}
+/* 分隔线 → DS Dropdown 的 divider 子部件（契约：1px + `--color-border-1`） */
+.td-mod-menu .giencoder-dropdown-divider,
+.td-rv-menu .giencoder-dropdown-divider,
+.td-ctxmenu .giencoder-dropdown-divider {
+  display: block; height: 1px; margin: 4px 2px; background: var(--color-border-1);
+}
+
+/* ---------------------------------------------------------------- 2. 模块面板（三段式的②③） */
+.td-mod {
+  flex: 1 1 auto; min-height: 0;
+  display: flex; flex-direction: column; overflow: hidden;
+}
+.td-mod[hidden], .td-browse-body[hidden] { display: none; }
+.td-mod-bar {
+  flex: none; box-sizing: border-box; min-height: calc(40px * var(--ui-fs-ratio));
+  display: flex; align-items: center; gap: 8px;
+  padding: 6px 12px;
+  border-bottom: 1px solid var(--color-border-1);
+}
+.td-mod-bar-acts { margin-left: auto; display: flex; align-items: center; gap: 6px; }
+.td-mod-body { flex: 1 1 auto; min-height: 0; overflow: auto; }
+
+/* ---------------------------------------------------------------- 3. 审查（diff） */
+.td-rv-scope {
+  flex: none;
+  display: inline-flex; align-items: center; gap: 4px;
+  height: calc(26px * var(--ui-fs-ratio)); padding: 0 8px;
+  border: 1px solid var(--color-border-2); border-radius: 6px;
+  background: transparent; color: var(--color-text-1);
+  font-size: var(--font-size-body-1); cursor: pointer;
+}
+.td-rv-scope:hover { background: var(--color-fill-1); }
+.td-rv-stat { flex: none; display: inline-flex; align-items: center; gap: 6px; font-size: var(--font-size-body-1); }
+.td-rv-stat .is-add, .td-diff-stat .is-add, .td-commit-num .is-add { color: var(--color-success-6); font-weight: 500; }
+.td-rv-stat .is-del, .td-diff-stat .is-del, .td-commit-num .is-del { color: var(--color-danger-6); font-weight: 500; }
+/* `flex: 0 1 auto` + ellipsis ⇒ 工具条挤的时候它先让位（宽 561px 下也不会把动作按钮顶出去） */
+.td-rv-meta {
+  flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  font-size: var(--font-size-body-1); color: var(--color-text-3);
+}
+.td-rv-commit {
+  display: inline-flex; align-items: center; gap: 6px;
+  height: calc(28px * var(--ui-fs-ratio)); padding: 0 10px;
+  border: 1px solid transparent; border-radius: 6px;
+  background: var(--color-primary-6); color: var(--color-white);
+  font-size: var(--font-size-body-1); cursor: pointer;
+}
+.td-rv-commit:hover { background: var(--color-primary-5); }
+/* `Open PR` —— 与提交按钮并排的次级按钮（Codex 那一排右端两枚） */
+.td-rv-pr {
+  display: inline-flex; align-items: center; gap: 6px;
+  height: calc(28px * var(--ui-fs-ratio)); padding: 0 10px;
+  border: 1px solid var(--color-border-2); border-radius: 6px;
+  background: transparent; color: var(--color-text-1);
+  font-size: var(--font-size-body-1); cursor: pointer;
+}
+.td-rv-pr:hover { background: var(--color-fill-1); }
+.td-rv-body { padding: 4px 0 16px; }
+
+.td-diff { border-bottom: 1px solid var(--color-border-1); }
+.td-diff-h {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 12px;
+  font-size: var(--font-size-body-1);
+}
+.td-diff-h:hover { background: var(--color-fill-1); }
+/* 折叠开关是 header 里的**真 button**：原来 `role="button"` 挂在 header 上，
+   里面再嵌「暂存 / 撤销」两个按钮会构成嵌套交互控件（a11y 反模式）⇒ 改成
+   「header = 容器，内部一个真按钮承载折叠语义」。视觉零变化（padding 仍在 header 上）。 */
+.td-diff-toggle {
+  flex: 1 1 auto; min-width: 0;
+  display: flex; align-items: center; gap: 8px;
+  padding: 0; border: 0; background: transparent;
+  font: inherit; color: inherit; text-align: left; cursor: pointer;
+}
+.td-diff-toggle:focus-visible { outline: 2px solid var(--color-primary-6); outline-offset: 2px; border-radius: 4px; }
+.td-diff-acts { flex: none; display: flex; align-items: center; gap: 4px; }
+.td-diff-btn {
+  flex: none; display: inline-flex; align-items: center;
+  height: calc(22px * var(--ui-fs-ratio)); padding: 0 8px;
+  border: 1px solid var(--color-border-2); border-radius: 6px;
+  background: transparent; color: var(--color-text-3);
+  font-size: var(--font-size-body-1); cursor: pointer;
+  transition: color 120ms, border-color 120ms, background-color 120ms;
+}
+.td-diff-btn:hover { color: var(--color-text-1); border-color: var(--color-border-3); background: var(--color-bg-2); }
+.td-diff-btn.is-danger:hover { color: var(--color-danger-6); border-color: var(--color-danger-5); }
+/* 暂存后的持续态（绿） */
+.td-diff-btn.is-staged { color: var(--color-success-6); border-color: var(--color-success-5); }
+.td-diff-cv { flex: none; color: var(--color-text-3); transition: transform 160ms; }
+.td-diff.is-open .td-diff-cv { transform: rotate(0deg); }
+.td-diff:not(.is-open) .td-diff-cv { transform: rotate(-90deg); }
+.td-diff-path {
+  flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  font-family: var(--font-family);
+  font-size: var(--font-size-body-2);
+  color: var(--color-text-1);
+}
+/* ★ 第八拍 ④：**展开后转中粗**。折叠态保持常规粗细 ⇒ 一眼就能看出哪几份改动是打开着的。
+   （与 `.td-diff.is-reverted .td-diff-path` 只差属性、不冲突：那条改的是划线/颜色。） */
+.td-diff.is-open .td-diff-path { font-weight: 500; }
+.td-diff-stat { flex: none; display: inline-flex; gap: 8px; font-family: var(--font-family); }
+.td-diff:not(.is-open) .td-diff-rows, .td-diff:not(.is-open) .td-note { display: none; }
+.td-diff-rows { padding: 2px 0 6px; font-size: var(--font-size-body-2); }
+.td-diff-split { display: none; }
+.td-rv-body.is-split .td-diff-rows:not(.td-diff-split) { display: none; }
+/* ★★ r107 第三拍修 bug（邵先生报「并排视图下代码文件不能正常展开和折叠」）：
+   上面那条折叠规则 `.td-diff:not(.is-open) .td-diff-rows`(0,3,0) 写在**本行之前**，
+   而初版这里是 `.td-rv-body.is-split .td-diff-split { display: block }`(0,3,0) ——
+   **同特异性 + 位置在后** ⇒ 折叠后并排行照样显示（统一视图正常、只有并排折不动）。
+   加一层 `.is-open` 把特异性提到 (0,4,0)，并且只有展开态才显示 —— 与统一视图的折叠路径一致。 */
+.td-rv-body.is-split .td-diff.is-open .td-diff-split { display: block; }
+
+/* 统一视图：一行 = 旧行号 / 新行号 / 代码，行首 2px 变更条 */
+.td-dr {
+  display: flex; align-items: flex-start;
+  font-family: var(--font-family);
+  font-size: var(--font-size-body-1);
+  line-height: calc(20px * var(--ui-fs-ratio));
+  border-left: 2px solid transparent;
+}
+.td-dr-no, .td-dr-nn {
+  flex: none; width: 34px; text-align: right; padding-right: 8px;
+  color: var(--color-text-4); font-style: normal;
+}
+.td-dr-t { flex: 1 1 auto; min-width: 0; white-space: pre; overflow-wrap: anywhere; color: var(--color-text-1); }
+.td-dr.is-add { background: var(--color-success-light-1); border-left-color: var(--color-success-5); }
+.td-dr.is-del { background: var(--color-danger-light-1); border-left-color: var(--color-danger-5); }
+.td-dr.is-add .td-dr-t, .td-dr.is-del .td-dr-t { color: var(--color-text-1); }
+/* 「自动换行」开启（`.is-wrap`）：长行折行而不是横向溢出（Codex `⋯` 里的 Enable word wrap）。
+   默认 `white-space: pre` 保留缩进且不折行。 */
+.td-rv-body.is-wrap .td-dr-t { white-space: pre-wrap; overflow-wrap: anywhere; }
+/* 「隐藏空白」开启（`.is-hidws`）：行内连续空白由 panel.js 包成 `.td-dr-ws`，这里压暗。 */
+.td-dr-ws { transition: opacity 120ms; }
+.td-rv-body.is-hidws .td-dr-ws { opacity: .22; }
+/* 「词级差异」：`<mark class="td-dr-wd">` 是**无脚本也能看**的静态标记，
+   `is-worddiff` 关掉时涂掉底色（默认开）。 */
+.td-dr-wd { background: transparent; color: inherit; border-radius: 2px; }
+.td-rv-body.is-worddiff .td-dr.is-add .td-dr-wd,
+.td-rv-body.is-worddiff .td-dsc.is-add .td-dsc-c:nth-child(2) .td-dr-wd { background: var(--color-success-light-2); }
+.td-rv-body.is-worddiff .td-dr.is-del .td-dr-wd,
+.td-rv-body.is-worddiff .td-dsc.is-del .td-dsc-c:nth-child(1) .td-dr-wd { background: var(--color-danger-light-2); }
+.td-rv-body.is-worddiff .td-dr.is-ctx .td-dr-wd { background: var(--color-primary-light-2); }
+
+/* 并排视图：两列，各带一条行号 */
+.td-dsc { display: flex; align-items: stretch; }
+.td-dsc-c {
+  flex: 1 1 50%; min-width: 0; display: flex; align-items: flex-start;
+  font-family: var(--font-family);
+  font-size: var(--font-size-body-1);
+  line-height: calc(20px * var(--ui-fs-ratio));
+  border-left: 2px solid transparent;
+}
+.td-dsc-c:first-child { border-right: 1px solid var(--color-border-1); }
+.td-dsc.is-add .td-dsc-c:nth-child(2) { background: var(--color-success-light-1); border-left-color: var(--color-success-5); }
+.td-dsc.is-del .td-dsc-c:nth-child(1) { background: var(--color-danger-light-1); border-left-color: var(--color-danger-5); }
+.td-dsc-c .td-dr-no { width: 30px; }
+
+.td-diff-more {
+  display: block; width: 100%; box-sizing: border-box;
+  padding: 3px 12px 3px 42px; border: 0;
+  background: var(--color-fill-1); color: var(--color-text-3);
+  font-family: var(--font-family);
+  font-size: var(--font-size-body-1); text-align: left; cursor: pointer;
+}
+.td-diff-more:hover { background: var(--color-fill-2); color: var(--color-text-1); }
+/* 「折叠 N 行未改动」展开后被放出来的行（panel.js 摘掉 hidden） */
+.td-dr[data-td-more-row][hidden], .td-dsc[data-td-more-row][hidden] { display: none; }
+
+/* 行内评论 */
+.td-note {
+  margin: 6px 12px 10px;
+  padding: 10px 12px;
+  background: var(--color-fill-1);
+  border: 1px solid var(--color-border-1);
+  border-radius: 8px;
+}
+.td-note-h { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.td-note-av {
+  flex: none; width: 20px; height: 20px; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--color-primary-1); color: var(--color-primary-6);
+  font-size: var(--font-size-body-1);
+}
+.td-note-who { font-size: var(--font-size-body-1); color: var(--color-text-1); }
+.td-note-time { font-size: var(--font-size-body-1); color: var(--color-text-4); }
+.td-note-b { font-size: var(--font-size-body-2); line-height: 1.5715; color: var(--color-text-1); }
+
+/* 提交模态 */
+.td-commit {
+  position: absolute; inset: 0; z-index: 40;
+  display: flex; align-items: center; justify-content: center;
+  padding: 16px; box-sizing: border-box;
+  background: var(--color-mask-bg);
+}
+.td-commit[hidden] { display: none; }
+.td-commit-card {
+  width: 100%; max-width: 340px; box-sizing: border-box;
+  padding: 16px; background: var(--color-bg-2);
+  border-radius: 10px; box-shadow: var(--shadow3-down);
+}
+.td-commit-h { display: flex; align-items: center; margin-bottom: 12px; }
+.td-commit-t { flex: 1 1 auto; font-size: var(--font-size-title-1); font-weight: 500; color: var(--color-text-1); }
+.td-commit-lb { display: block; margin-bottom: 6px; font-size: var(--font-size-body-1); color: var(--color-text-3); }
+.td-commit-in { margin-bottom: 12px; }
+.td-commit-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 0; font-size: var(--font-size-body-2); color: var(--color-text-1);
+  border-top: 1px solid var(--color-border-1);
+}
+.td-commit-num { display: inline-flex; gap: 8px; font-family: var(--font-family); font-size: var(--font-size-body-1); }
+.td-commit-num .is-add, .td-commit-num .is-del { font-style: normal; }
+.td-commit-ck {
+  display: flex; align-items: center; gap: 8px; padding: 8px 0;
+  font-size: var(--font-size-body-2); color: var(--color-text-1); cursor: pointer;
+  border-top: 1px solid var(--color-border-1);
+}
+.td-commit-msg {
+  display: block; width: 100%; box-sizing: border-box; margin: 8px 0 16px;
+  padding: 8px 10px; resize: vertical;
+  border: 1px solid var(--color-border-2); border-radius: 6px;
+  background: var(--color-bg-2); color: var(--color-text-1);
+  font-family: inherit; font-size: var(--font-size-body-2); line-height: 1.5715;
+}
+.td-commit-msg:focus { outline: none; border-color: var(--color-primary-6); }
+.td-commit-f { display: flex; justify-content: flex-end; gap: 8px; }
+.td-commit-btn {
+  height: calc(32px * var(--ui-fs-ratio)); padding: 0 16px;
+  border: 1px solid var(--color-border-2); border-radius: 6px;
+  background: transparent; color: var(--color-text-1);
+  font-size: var(--font-size-body-2); cursor: pointer;
+}
+.td-commit-btn:hover { background: var(--color-fill-1); }
+.td-commit-btn.is-primary { background: var(--color-primary-6); border-color: transparent; color: var(--color-white); }
+.td-commit-btn.is-primary:hover { background: var(--color-primary-5); }
+
+/* ---------------------------------------------------------------- 4. 终端 */
+.td-term {
+  flex: 1 1 auto; min-height: 0; overflow: auto;
+  box-sizing: border-box; padding: 12px 14px;
+  background: var(--color-fill-1);
+  font-family: var(--font-family);
+  font-size: var(--font-size-body-1);
+  line-height: calc(20px * var(--ui-fs-ratio));
+  color: var(--color-text-1);
+  cursor: text;
+}
+.td-term:focus { outline: none; }
+.td-term-line { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px; }
+.td-term-ps { color: var(--color-text-3); }
+.td-term-pd { color: var(--color-success-6); }
+.td-term-cmd { color: var(--color-text-1); }
+.td-term-echo { white-space: pre; color: var(--color-text-1); }
+.td-term-out { white-space: pre-wrap; color: var(--color-text-2); }
+.td-term-out.is-dim { color: var(--color-text-3); }
+/* 「清空」= 收起输出行（可逆：再点一次「恢复输出」），**不删 DOM** ——
+   静态演示页里把演示内容真删掉就再也回不来了。 */
+.td-term.is-cleared .td-term-out { display: none; }
+.td-term-caret {
+  display: inline-block; width: 7px; height: calc(13px * var(--ui-fs-ratio));
+  transform: translateY(2px);
+  background: var(--color-text-1);
+  animation: td-term-blink 1.1s steps(1) infinite;
+}
+@keyframes td-term-blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
+
+/* ---------------------------------------------------------------- 5. 浏览器 */
+.td-url {
+  flex: none; box-sizing: border-box;
+  display: flex; align-items: center; gap: 4px;
+  min-height: calc(40px * var(--ui-fs-ratio)); padding: 6px 12px;
+  border-bottom: 1px solid var(--color-border-1);
+}
+.td-url-pill {
+  flex: 1 1 auto; min-width: 0;
+  display: flex; align-items: center; gap: 6px;
+  box-sizing: border-box; height: calc(26px * var(--ui-fs-ratio));
+  padding: 0 10px; border-radius: 999px;
+  background: var(--color-fill-2); color: var(--color-text-3);
+}
+.td-url-pill input {
+  flex: 1 1 auto; min-width: 0; border: 0; background: transparent;
+  color: var(--color-text-1);
+  font-family: var(--font-family);
+  font-size: var(--font-size-body-1);
+}
+.td-url-pill input:focus { outline: none; }
+.td-url-annot {
+  flex: none; display: inline-flex; align-items: center; gap: 4px;
+  height: calc(26px * var(--ui-fs-ratio)); padding: 0 10px;
+  border: 1px solid var(--color-border-2); border-radius: 999px;
+  background: transparent; color: var(--color-text-2);
+  font-size: var(--font-size-body-1); cursor: pointer;
+}
+.td-url-annot:hover { background: var(--color-fill-1); color: var(--color-text-1); }
+.td-url-annot[aria-pressed='true'] {
+  border-color: transparent;
+  background: var(--color-primary-1); color: var(--color-primary-6);
+}
+.td-view { position: relative; flex: 1 1 auto; min-height: 0; overflow: auto; background: var(--color-fill-1); }
+.td-page { min-height: 100%; box-sizing: border-box; padding: 12px; }
+.td-page-blank {
+  height: 26px; margin: -12px -12px 12px;
+  background: var(--color-fill-2);
+}
+.td-page-body {
+  background: var(--color-bg-2);
+  border-radius: 8px; box-shadow: var(--shadow1-down);
+  padding: 24px 20px 16px;
+}
+.td-page-hero { text-align: center; }
+.td-page-h1 { font-size: var(--font-size-title-1); font-weight: 600; color: var(--color-text-1); line-height: 1.4; }
+.td-page-h2 { margin-top: 8px; font-size: var(--font-size-body-1); color: var(--color-text-3); line-height: 1.6; }
+.td-page-cta {
+  display: inline-flex; align-items: center; justify-content: center;
+  margin-top: 16px; height: calc(32px * var(--ui-fs-ratio)); padding: 0 18px;
+  border-radius: 6px; background: var(--color-primary-6); color: var(--color-white);
+  font-size: var(--font-size-body-2); cursor: default;
+}
+.td-page-cards { display: flex; gap: 10px; margin-top: 20px; }
+.td-page-card {
+  flex: 1 1 0; min-width: 0; box-sizing: border-box;
+  display: flex; flex-direction: column; gap: 4px;
+  padding: 12px; border-radius: 8px;
+  background: var(--color-fill-1); border: 1px solid var(--color-border-1);
+}
+.td-page-card i {
+  display: block; width: 20px; height: 20px; margin-bottom: 4px;
+  border-radius: 6px; background: var(--color-primary-1);
+}
+.td-page-card b { font-size: var(--font-size-body-2); color: var(--color-text-1); font-weight: 500; }
+.td-page-card span { font-size: var(--font-size-body-1); color: var(--color-text-3); line-height: 1.5; }
+.td-page-foot { margin-top: 18px; padding-top: 12px; border-top: 1px solid var(--color-border-1); font-size: var(--font-size-body-1); color: var(--color-text-4); text-align: center; }
+
+/* 标注态：整块加蓝色描边 + 元素可点选 */
+.td-brw.is-annotating .td-view { box-shadow: inset 0 0 0 1px var(--color-primary-6); }
+.td-brw.is-annotating .td-page [data-td-el] { cursor: crosshair; }
+.td-brw.is-annotating .td-page [data-td-el]:hover {
+  outline: 1px dashed var(--color-primary-6);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+.td-annot-bar {
+  position: sticky; bottom: 0; z-index: 2;
+  display: flex; align-items: center; gap: 8px;
+  box-sizing: border-box; padding: 8px 12px;
+  background: var(--color-primary-6); color: var(--color-white);
+  font-size: var(--font-size-body-1);
+}
+.td-annot-bar[hidden] { display: none; }
+.td-annot-bar span { flex: 1 1 auto; min-width: 0; }
+.td-annot-bar button {
+  flex: none; height: calc(24px * var(--ui-fs-ratio)); padding: 0 10px;
+  border: 1px solid var(--color-white); border-radius: 999px;
+  background: transparent; color: var(--color-white);
+  font-size: var(--font-size-body-1); cursor: pointer;
+}
+
+/* 元素评论气泡 */
+.td-elnote {
+  position: absolute; z-index: 3; left: 12px; right: 12px;
+  padding: 10px 12px;
+  background: var(--color-bg-popup);
+  border: 1px solid var(--color-primary-6);
+  border-radius: 8px;
+  box-shadow: var(--shadow3-down);
+}
+.td-elnote[hidden] { display: none; }
+.td-elnote-t { margin-bottom: 6px; font-size: var(--font-size-body-1); color: var(--color-text-3); }
+.td-elnote-t b { color: var(--color-primary-6); font-weight: 500; }
+.td-elnote textarea {
+  display: block; width: 100%; box-sizing: border-box; resize: none;
+  padding: 6px 8px; border: 1px solid var(--color-border-2); border-radius: 6px;
+  background: var(--color-bg-2); color: var(--color-text-1);
+  font-family: inherit; font-size: var(--font-size-body-1); line-height: 1.5;
+}
+.td-elnote textarea:focus { outline: none; border-color: var(--color-primary-6); }
+.td-elnote-f { display: flex; justify-content: flex-end; gap: 6px; margin-top: 8px; }
+.td-elnote-f button {
+  height: calc(26px * var(--ui-fs-ratio)); padding: 0 12px;
+  border: 1px solid var(--color-border-2); border-radius: 6px;
+  background: transparent; color: var(--color-text-1);
+  font-size: var(--font-size-body-1); cursor: pointer;
+}
+.td-elnote-f button.is-primary { background: var(--color-primary-6); border-color: transparent; color: var(--color-white); }
+
+/* ---------------------------------------------------------------- 6. 摘要（任务侧栏）
+   ★ 对照 Codex 26.415「计划 / 来源 / 产物 / 摘要统一进任务侧栏」补的一个模块，
+     同时填掉 `+` 菜单里空出来的第五格。
+   ⚠ 字号机制的硬约束（血泪，实测踩过）：`applyNN.py` 收尾会对整页跑
+     `apply88b.converge()`（unscale → scale 往返），它**只在规则体内出现 `var(--font-size-*)`
+     时**才把行高重新派生回去 ⇒ **凡声明了 `line-height` / `height` / `min-height` 的规则，
+     `font-size` 必须写成 `var(--font-size-*)` token**，只写 `calc(Npx * ratio)` 的会被永久
+     压平成裸 px（`--ui-fs` 杠杆静默失效）。自查脚本：`ev/scan-flatten.py <css…>`。 */
+.td-sum-tag {
+  display: inline-flex; align-items: center;
+  height: calc(22px * var(--ui-fs-ratio)); padding: 0 8px;
+  border-radius: 999px;
+  background: var(--color-primary-1); color: var(--color-primary-6);
+  font-size: var(--font-size-body-1);
+}
+.td-sum-hint {
+  flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  font-size: var(--font-size-body-1); color: var(--color-text-3);
+}
+.td-sum-body { padding: 12px; display: flex; flex-direction: column; gap: 12px; }
+/* ★★ 本轮：四块（摘要 / 计划 / 来源 / 产物）改 **卡片式** —— 每块一张卡（1px 描边 + 8 圆角
+   + `--color-bg-2` 底 + 12px 内距）。⚠ 卡内**不再**给「来源 / 产物」条目各套一层卡
+   （卡中卡会脏），条目降级为行式、只留 hover `--color-fill-1`。 */
+.td-sum-sec {
+  display: flex; flex-direction: column; gap: 8px;
+  box-sizing: border-box; padding: 12px;
+  border: 1px solid var(--color-border-1); border-radius: 8px;
+  background: var(--color-bg-2);
+}
+.td-sum-h {
+  display: flex; align-items: center; gap: 6px;
+  margin: 0; font-size: calc(15px * var(--ui-fs-ratio)); font-weight: 500; color: var(--color-text-1);
+}
+.td-sum-h svg { flex: none; color: var(--color-text-3); }
+.td-sum-p {
+  margin: 0; font-size: var(--font-size-body-2);
+  line-height: calc(22px * var(--ui-fs-ratio)); color: var(--color-text-2);
+}
+/* 计划清单：用 `::before` 画圆点 / 勾（不引图标字体） */
+.td-sum-plan { display: flex; flex-direction: column; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.td-sum-plan li {
+  position: relative; padding-left: 22px;
+  font-size: var(--font-size-body-2); line-height: calc(22px * var(--ui-fs-ratio));
+  color: var(--color-text-2);
+}
+.td-sum-plan li::before {
+  content: ''; position: absolute; left: 2px; top: 4px;
+  width: 12px; height: 12px; box-sizing: border-box;
+  border: 1.5px solid var(--color-border-3); border-radius: 50%;
+}
+.td-sum-plan li.is-done { color: var(--color-text-3); }
+.td-sum-plan li.is-done::before { background: var(--color-success-6); border-color: var(--color-success-6); }
+.td-sum-plan li.is-done::after {
+  content: ''; position: absolute; left: 5.5px; top: 8px;
+  width: 5px; height: 2.5px;
+  border-left: 1.5px solid var(--color-white);
+  border-bottom: 1.5px solid var(--color-white);
+  transform: rotate(-45deg);
+}
+.td-sum-plan li.is-doing { color: var(--color-text-1); }
+/* 三态靠「边色 + 填充」区分，**不用渐变**（`verify-design.py` 会数渐变处数，
+   多一处就进回归 diff ⇒ 这里用实心浅蓝代替「半填充」）。 */
+.td-sum-plan li.is-doing::before {
+  border-color: var(--color-primary-6);
+  background: var(--color-primary-light-2);
+}
+/* 来源列表 */
+.td-sum-srcs { display: flex; flex-direction: column; gap: 6px; }
+.td-sum-src {
+  display: flex; align-items: center; gap: 8px;
+  box-sizing: border-box; padding: 6px 8px;
+  border-radius: 6px;
+  text-decoration: none; color: inherit;
+  transition: background-color 120ms;
+}
+.td-sum-src:hover { background: var(--color-fill-1); }
+.td-sum-fav {
+  flex: none; width: 20px; height: 20px; border-radius: 4px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--color-fill-2); color: var(--color-text-2);
+  font-size: var(--font-size-body-1); font-weight: 600;
+}
+.td-sum-srct { display: flex; flex-direction: column; min-width: 0; }
+.td-sum-srct b {
+  font-size: var(--font-size-body-2); font-weight: 400; color: var(--color-text-1);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.td-sum-srct i { font-style: normal; font-size: var(--font-size-body-1); color: var(--color-text-3); }
+/* 产物卡 */
+.td-sum-arts { display: flex; flex-direction: column; gap: 6px; }
+.td-sum-art {
+  display: flex; align-items: center; gap: 8px;
+  box-sizing: border-box; padding: 6px 8px;
+  border-radius: 6px;
+  transition: background-color 120ms;
+}
+.td-sum-art:hover { background: var(--color-fill-1); }
+.td-sum-arti {
+  flex: none; width: 28px; height: 28px; border-radius: 6px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--color-primary-1); color: var(--color-primary-6);
+}
+.td-sum-artt { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; }
+.td-sum-artt b {
+  font-size: var(--font-size-body-2); font-weight: 400; color: var(--color-text-1);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.td-sum-artt i { font-style: normal; font-size: var(--font-size-body-1); color: var(--color-text-3); }
+
+/* ---------------------------------------------------------------- 7. 反馈与小态 */
+/* 轻提示：动作类菜单项（复制 / 刷新 / 暂存 / 推送…）的即时反馈，1.4s 自动收。
+   绝对定位在整条侧栏上（`.td-browse` 是包含块）⇒ 不参与文档流、不会撑高模块。 */
+.td-toast {
+  position: absolute; left: 50%; bottom: 16px; transform: translateX(-50%);
+  z-index: 50; max-width: calc(100% - 32px); box-sizing: border-box;
+  padding: 6px 12px; border-radius: 8px;
+  background: var(--color-bg-popup);
+  border: 1px solid var(--color-border-2);
+  box-shadow: var(--shadow2-down);
+  font-size: var(--font-size-body-1); color: var(--color-text-1);
+  pointer-events: none;
+}
+.td-toast[hidden] { display: none; }
+/* 「刷新 diff」：整块淡一下再回来（纯视觉，无骨架屏） */
+.td-rv-body.is-refreshing { opacity: .45; }
+.td-rv-body { transition: opacity 200ms; }
+/* 「撤销」后的文件块：整体降透明度 + 标题划掉，表示这份改动已作废（可再点一次恢复） */
+.td-diff.is-reverted .td-diff-path { text-decoration: line-through; color: var(--color-text-3); }
+.td-diff.is-reverted { opacity: .5; }
+
+/* ---------------------------------------------------------------- 8. 右键菜单
+   一份容器（`.td-ctxmenu`）承载八类目标的菜单（标签栏 / 审查文件 / 审查代码行 / 终端 /
+   浏览器元素 / 浏览器空白 / 摘要来源 / 摘要产物 / 计划条目），条目由 panel.js 按目标现场填。
+   面板 / 条目 / 分隔线**与四枚下拉共用第 1 节那套选择器组**（同源 DS Dropdown），
+   本节点只放右键菜单独有的两件事：① 跟随指针的 `fixed` 定位（坐标走自定义属性）
+   ② 顶部「目标名」行 + 危险项 / 禁用项。 */
+/* ★ 坐标走两个自定义属性（而不是直接写行内 `top/left`）：本页存在 `!important` 级的
+   页面适配层，它连行内样式也压得过 ⇒ 只能靠「自定义属性 + 同块 `!important`」这条通道落位。 */
+.td-ctxmenu.giencoder-dropdown-popup {
+  top: var(--td-ctx-y, 0px); left: var(--td-ctx-x, 0px);
+}
+html[data-r93-page='conversation'] .td-browse .td-ctxmenu.giencoder-dropdown-popup {
+  top: var(--td-ctx-y, 0px) !important;
+  left: var(--td-ctx-x, 0px) !important;
+  bottom: auto !important;
+}
+/* 顶部「目标名」行：不可点，只说明这份菜单作用于谁 */
+.td-ctx-head {
+  padding: 6px 8px 4px;
+  font-size: var(--font-size-body-1); color: var(--color-text-3);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.td-ctxmenu .giencoder-dropdown-item.is-danger { color: var(--color-danger-6); }
+.td-ctxmenu .giencoder-dropdown-item.is-disabled { color: var(--color-text-4); cursor: not-allowed; }
+
+/* ---------------------------------------------------------------- 9. 划词浮条
+   （第三拍随「侧边聊天」被整段删掉，本轮恢复 —— 侧边聊天已不在，动作改为
+   「添加到对话 / 复制」，两个都真能用。）
+   定位 = `position: fixed`，坐标由 panel.js 按选区 `getBoundingClientRect()` 给（视口坐标），
+   浮在选区上方 8px；滚动 / 重新按下 / Esc 一律收起。 */
+.td-selbar {
+  position: fixed; top: 0; left: 0; z-index: 40;
+  display: flex; align-items: center; gap: 4px;
+  box-sizing: border-box; padding: 4px;
+  background: var(--color-bg-popup);
+  border: 1px solid var(--color-border-2);
+  border-radius: 8px;
+  box-shadow: var(--shadow3-down);
+}
+.td-selbar[hidden] { display: none; }
+.td-selbar .giencoder-btn { flex: none; }
+
+/* ================================================================================
+   ★ 第六拍（2026-10-01 11:4x 邵先生三条）—— 仍是 r107 未提交期的**就地返工**。
+     三条全部走**本页适配层**（与上面 R106_CSS 同一个体位：源件与历代遗产块逐字不动，
+     只在本块用「同特异性 + 文档序在后」压过去）⇒ `apply107.py` 仍是
+     「apply106 + 12 处替换」的干净产物，不受影响。
+   ================================================================================ */
+
+/* ---------------------------------------------------------------- 10. 输入卡下方那行统计文字
+   原实现 = r97 ④ 用纯 CSS 的 `::after` 挂在 React 渲染的 `div.mt-8` 上（当年的理由：
+   React 重渲染拿不掉它）。**但生成内容不是 DOM 的一部分** ⇒ 浏览器的选区根本落不进去，
+   鼠标框选不到（实测：`caretRangeFromPoint` 落回宿主元素本身、`Selection.toString()` 为空；
+   隔离对照里用同一手法拖选一段真文本能正常选出内容）。
+   ⇒ 改成**真节点**：由 panel.js 注入 `.r107-stats`，本规则把旧伪元素关掉、并复刻原版版式。
+   ⚠ 宿主是 `flex flex-col items-center gap-2` ⇒ 真节点天然成为第 2 个居中 flex 项，
+     与输入卡的间距仍是容器的 gap = 8px，与伪元素版**逐像素同构**。 */
+html[data-r93-page='conversation'] main > div > div.flex-1.justify-center > div.mt-8::after {
+  content: none;
+}
+.r107-stats {
+  font-size: var(--font-size-body-1);
+  line-height: calc(16px * var(--ui-fs-ratio));
+  color: var(--r93-meta);
+  white-space: nowrap;
+  /* ★ 第八拍 ⑥「文字居中」。这一行是**真节点**（第六拍把 `::after` 换来的），
+     与输入卡共用同一条盒宽规则（`main > … > div.mt-8 > div`，r95 ② / r106 ④ 两版，
+     **都带 `!important`**）⇒ 盒宽恒等于输入卡：860 / 714 / 315（实测三档全等）。
+     ⚠ 所以「盒子贴合 + `margin: 0 auto`」这条路走不通（本拍第一版走过，被 `!important` 压死、
+       是死代码）：`width` / `min-width` / `max-width` 全被那两条钉住，改不动；真节点也不像
+       当年的 `::after` 那样自动 shrink-wrap ⇒ 满宽盒里文字默认靠左；而宿主的 `items-center`
+       对这个满宽子项不生效（实测输入卡自己就是齐左的），靠 `margin: auto` 会比输入卡**偏 32px**。
+     ⇒ 居中只能写 `text-align`（它没有任何 `!important` 竞争者）。
+     实测判据 = **文字盒中心 − 输入卡中心 = 0**（1440 / 右栏开）。 */
+  text-align: center;
+  /* ★ 第八拍 ①「宽度不够出省略号」：`white-space: nowrap` 本来就有，这里补 `overflow: hidden`，
+     让窄档**不再越过输入卡右边界外溢**（改前 1024 实测外溢 315px）。
+     ★ ① 与 ⑥ 在本元素上**可以共存**：Chromium 在「居中 + 溢出」时对齐行为退化为 `start`
+       （文字盒仍自盒左缘起算），省略号**照常落在行尾** —— 实测 1024 截图尾部为「首 token 平…」。 */
+  overflow: hidden; text-overflow: ellipsis;
+}
+
+/* ---------------------------------------------------------------- 11. `.r93-pre` 去掉字体族
+   原来写死等宽族（`ui-monospace, SFMono-Regular, Menlo, Consolas, monospace`），
+   邵先生要求改用**全局默认字体**。这里只覆写 `font-family` —— 盒模型 / 外距（另一条 `.r93-pre`）
+   与字号 / 行高（再一条 `.r93-pre`）一字不动，换行策略也保持不变。
+   ⚠ 用全局默认 token 而不是 `inherit`：`--font-family` 就是站点默认那一档
+     （`"Mona Sans VF", -apple-system, …`），语义直白、不依赖祖先链上有没有人另设字体。 */
+html[data-r93-page='conversation'] .r93-pre {
+  font-family: var(--font-family);
+}
+
+/* ---------------------------------------------------------------- 12. 内容列变窄时的自适应
+   ▸ 判据**不是视口分辨率**，而是**对话内容列的可用宽**（右栏开合、左导航收拢都会改它）
+     ⇒ 一律写成 `min(原值, 容器宽)`，天然跟着容器走（口径同 ④b 的 `.r93-bub`）。
+   ▸ 实测（右栏展开，读数见 `ev/f107w*.log` / 出图 `raw/f4-skill1280.png` `raw/f3-alert1100.png`）：
+       · 1440：列 714，技能浮窗写死 760 ⇒ 左右各溢 23px，正好顶到滚动口裁剪边；
+       · 1280：列 554 ⇒ 左右各溢 81px，**左侧技能名的字头被裁掉**；
+       · `.r93-alert` 写死定高 44 ⇒ 列 1280 起内容 43 > 42 就开始溢，1100 时 65 > 42、
+         1024 时 87 > 42 —— 描述文字整段**溢出圆角盒**、压到上下相邻行上。
+
+   ⚠ 技能浮窗的 760 是 **React 行内 `style`** ⇒ 只有 `!important` 压得住（本页已知的盲区：
+     行内样式优先级最高）。它的包含块是输入卡（`position: relative`）⇒ 这里的 `100%`
+     就是输入卡内宽，浮窗恒居中且不越界。 */
+html[data-r93-page='conversation'] .giencoder-select[role='listbox'][aria-label='技能选择'] {
+  width: min(760px, 100%) !important;
+}
+
+/* `.r93-alert`：由「定高 44」改成「下限 44、可随折行长高」。
+   `padding: 8px 16px` 与单行态**完全等价**：内容 22 + 上下各 8 = 38 < 44 ⇒ 仍被 `min-height`
+   顶到 44，`align-items: center` 让单行照样居中（与改前逐像素相同）；只有折到 2 行及以上时才
+   真正长高（2 行 = 60、3 行 = 82），文字不再溢出盒子。 */
+html[data-r93-page='conversation'] .r93-alert {
+  height: auto;
+  min-height: 44px;
+  padding: 8px 16px;
+}
+/* ================================================================ 13. 第七拍（2026-10-01 12:1x 邵先生七条）
+   本节承担 ② 菜单标题 / ③ 选中态底色 / ④ 快捷键提示 / ⑤ 提交卡输入框拉通 / ⑦ 全屏按钮联动；
+   ⑥「右栏字体统一」分两处：本文件里那 8 条**就地改**（写死的等宽族换成 `var(--font-family)`）；
+     「文件」模块代码区那条挂在本代不修订的移植件上（r102 代已交付）⇒ 落到本节末尾覆盖。
+   ①「竞品名 → GienCoder」是文案替换，落在 `_mods.html` 与 `apply107.py`，不在本文件。 */
+
+/* ② 去掉下拉菜单顶部的标题行。两类来源：静态 HTML 里的 `td-mm-cap`
+   （`+` 菜单的「在侧栏打开」、审查范围菜单的「对比范围」），以及右键菜单里由 panel.js
+   现场生成的「目标名」行 —— 本段一并关掉。
+   用 `display: none` 而非删节点：① 两种来源一处管；② 菜单是 `flex-direction: column`，
+   塌掉的行不参与布局 ⇒ 与真删节点视觉等价。 */
+.td-browse .td-mm-cap,
+.td-browse .td-ctx-head { display: none; }
+
+/* ④ 去掉下拉菜单里的快捷键提示 —— 同样两类：静态的、与右键菜单动态生成的。 */
+.td-browse .td-mm-key,
+.td-browse .td-ctx-key { display: none; }
+
+/* ③ 选中项「常显底色」。改前只有主色文字 + 右侧 ✓（实测 `background-color` 为 `rgba(0,0,0,0)`），
+   邵先生要求补底色。取 DS 里用于选中项的浅主色 `--color-primary-light-1`；
+   ⚠ 不补那枚 3px 左缘条 —— 本页第五拍已认定它属于 Menu 族的表达，不是 Dropdown。
+   写在 `:hover` 规则之后 ⇒ 悬停选中项时底色不翻成 hover 灰（「常显」）。 */
+.td-mod-menu .giencoder-dropdown-item.is-checked,
+.td-rv-menu .giencoder-dropdown-item.is-checked,
+.td-ctxmenu .giencoder-dropdown-item.is-checked { background: var(--color-primary-light-1); }
+
+/* ⑤ 提交卡里的「目标分支」输入框要拉通。它挂的是 DS 的 `.giencoder-input-wrapper`，
+   该编译样式为 `display: inline-flex; width: auto; min-width: 120px` ⇒ 宽度只吃内容自然宽。
+   实测：卡片内容宽 308，它只有 207（同卡片的说明文字 / 输入区 / 按钮行都是 308）。
+   block 级 flex ⇒ 一处 `display` 撑满，内部排布一字不变。 */
+.giencoder-input-wrapper.td-commit-in { display: flex; }
+
+/* ⑥ 续：「文件」模块的代码区 —— `td-browse-pre` 以及它那 `.td-code` / `-no` / `-tx` / `-k` / `-s`
+   子树（实测 153 个节点）。字体来自 r102 代已交付的移植件 `browse.css`（本代不回头改它）
+   ⇒ 在本页多一级类数覆盖；子树全靠继承，只剩这一个父级要写。 */
+.td-browse .td-browse-pre { font-family: var(--font-family); }
+
+/* ⑦ 右栏展开时页头那枚「全屏」按钮隐藏，收起后复现。
+   判据用 `.av-browse-on` —— 实测它加在 shell 的 flex 行上（`main` 与预览栏的共同父级），
+   而那枚按钮在 `main` 里 ⇒ 纯 CSS 可判，不需要 JS 联动。
+   ⚠ 只针对「全屏」那一枚；旁边那枚开关侧栏的不动。 */
+.av-browse-on .r93-baract[data-r93-fullscreen] { display: none; }
+
+/* ---------------------------------------------------------------- 14. 全局自适应省略（第八拍 ①）
+   ▸ 需求：「全局所有的对象元素或容器，当自适应宽度的横向宽度不够时，内部的文字会自动呈现省略号」。
+   ▸ 落地口径（三类分治，写死在这儿免得下轮再逐条讨论）：
+       ① 单行文本容器（名称 / 路径 / 域名 / 标题 / 计数）⇒ **省略号** —— 本节处理；
+       ② 代码与终端（`.td-dr-t` / `.td-dsc-c` / `.td-code-*` / `.td-term-*`）⇒ 保持 `pre` + 按需折行，
+          **不截断**：截断代码会丢信息，而且它们本来就是「窄了就换行」的语义；
+       ③ 多行正文（`.td-sum-p` / `.td-note-b` / `.td-sum-plan li` / `.td-page-h1`）⇒ 保持折行，
+          **不截断**：截断段落等于丢内容。
+   ▸ 三件套缺一不可：`min-width:0`（flex 子项的收缩下限默认是 min-content，不解除就永远把兄弟顶出去）
+     + `overflow:hidden` + `text-overflow:ellipsis` + `white-space:nowrap`（不换行才谈得上省略）。
+   ▸ 本节排在文档序最末 ⇒ 与移植件 browse.css 同特异性时**必胜**（跨代资产一律不回头改）。 */
+.td-browse :is(.td-browse-tree-title, .td-diff-more, .td-diff-btn, .td-commit-btn,
+               .td-commit-t, .td-commit-lb, .td-note-who, .td-note-time,
+               .td-sum-tag, .td-sum-srct i, .td-sum-artt i,
+               .td-elnote-t, .td-url-annot, .td-page-cta, .td-page-foot,
+               .td-rv-commit, .td-rv-pr) {
+  min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+/* 容器自带 `display:flex / inline-flex` 时，裸文本会变成**匿名 flex 项**，容器上的
+   `text-overflow` 对它无效 ⇒ 文字落在子 `<span>` 里的这几处要单独点。（`.td-mm-name`
+   那条已经在第 1 节覆盖了四枚下拉与右键菜单的条目文字，这里不重复。） */
+.td-browse :is(.td-rv-commit, .td-rv-pr) > span,
+.td-browse .td-commit-row > span,
+.td-browse .td-commit-ck > span {
+  min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+/* 行内评论头：让「评论人」先让位、「时间」保持原宽（时间只有几个字，被截断就读不懂了）。 */
+.td-browse .td-note-who { flex: 1 1 auto; }
+.td-browse .td-note-time { flex: none; }
+
+/* ★ 第八拍 ⑤：`.td-diff-rows` 内一律 13px。
+   `.td-dr`(12) / `.td-dsc-c`(12) / `.td-diff-more`(12) 三处各自写死了字号 ⇒ 只改容器无效，
+   逐条同值覆盖。⚠ 只**换 token 档位**（仍旧写成 `var(--font-size-*)`）⇒
+   `apply88b.converge()` 的「含 token 才重派生行高」判据不受影响，`.td-dr` 的 20px 行高照旧。 */
+.td-diff-rows .td-dr,
+.td-diff-rows .td-dsc-c,
+.td-diff-rows .td-diff-more { font-size: var(--font-size-body-2); }
+
+/* ================================================================================
+   ★ 第十一拍（2026-10-01 13:4x 邵先生四条）—— 仍是 r107 **未提交期的就地返工**。
+     ①②③ 全部落在本适配层（本文件）+ `apply107.py` 的 `wire()` 计时；
+     ④（对照 Codex 官方补缺）落在下方第 18 节与 `part107/{browse.html,panel.js}`。
+     ⚠ 体位与 R106_CSS / PANEL_CSS 一致：源件与历代遗产块逐字不动，
+       只在本块用「同特异性 + 文档序在后」压过去（`build_css()` 把 PANEL_CSS 排在最后）。
+   ================================================================================ */
+
+/* ---------------------------------------------------------------- 15. 划词浮条：图标与文字默认正文黑（第十一拍 ①）
+   实测（1440 / 真机 `getComputedStyle`）：两枚按钮的 `color` 都是 `rgb(55, 112, 247)`
+   —— 因为 DS 的 `.giencoder-btn-text` 基类把文字色定成 `--color-primary-6`（主色蓝），
+   而浮条这两枚是**普通工具动作**、不是主操作 ⇒ 邵先生要的「默认正文黑」
+   = `--color-text-1`（gray-10 = `#1F1F1F`）。图标走 `stroke="currentColor"` ⇒ 改 `color` 即同时改图标。
+   特异性 (0,2,0) > `.giencoder-btn-text` (0,1,0)，且本块文档序在后 ⇒ 必胜。
+   ⚠ 只改基态色：`:hover` / `:active` 只换背景，`color` 不会被抢走。 */
+.td-selbar .giencoder-btn { color: var(--color-text-1); }
+
+/* ---------------------------------------------------------------- 16. 浏览器地址栏「输入中激活态」（第十一拍 ②）
+   实测改前：`.td-url-pill` 只有 `background: --color-fill-2` + `input:focus { outline:none }`
+   ⇒ **聚焦后零视觉变化**（`box-shadow` 恒为 `none`、底色恒为 `rgb(242,242,242)`）。
+   口径照 DS 自己的输入框聚焦样式 `.giencoder-input-wrapper:focus-within`
+   （`border-color: --color-primary-6` + `box-shadow: 0 0 0 2px --color-primary-light-2`）：
+   本 Pill 是**无边框胶囊**（`border-radius: 999px`）⇒ 用「内描边 1px 主色 + 外 2px 浅主色环」
+   复刻同一组视觉；同时把灰底 `--color-fill-2` 提成白底 `--color-bg-2`（= DS 输入框聚焦后变白）。
+   ⚠ 用 `inset` 描边而不是 `border`（写 `border` 会让整颗胶囊高 2px、地址栏跟着抖）；
+   ⚠ 外环 2px：`.td-url` 有 `padding: 6px 12px` ⇒ 四边都有余量，不会被裁。 */
+.td-url-pill { transition: background-color 120ms ease, box-shadow 120ms ease; }
+.td-url-pill:focus-within {
+  background: var(--color-bg-2);
+  box-shadow: inset 0 0 0 1px var(--color-primary-6), 0 0 0 2px var(--color-primary-light-2);
+}
+/* 锁定图标（`.td-url-pill > svg`）跟随：聚焦时由 text-3 提到 text-2（与输入文字同族）。 */
+.td-url-pill:focus-within > svg { color: var(--color-text-2); }
+
+/* ---------------------------------------------------------------- 17. 「调用 N 个工具」数字动效提速（第十一拍 ③）
+   实测改前时间线（1440 / 真机 `performance.now()`，相对 timeOrigin）：
+     骨架屏开始淡出 2012ms → 从 DOM 移除 2326ms → **数字首次可见 2493ms**
+   ⇒ 从导航到看见数字要 **2.5 秒**，邵先生的观感是「还以为没有数字呢」。根因两层：
+     ① 数字的 `animation-delay: calc(1.5s + ni*55ms)` + `fill: both`
+        ⇒ 延迟期内停在 keyframes 的 `from`（`opacity:0` + 下移）＝**窗口里是空的**
+        （`.r93-num` 是 inline-block，宽度由内部 `<i>` 撑 ⇒ 空位一直占着，看着就是个缺口）；
+     ② 那 1.5s 的基础延迟是**为了等骨架屏退场**（骨架屏 1100ms 起淡出、+320ms 移除），
+        而骨架屏是**不透明**的（`background: --color-bg-2` + `inset:0`）⇒ 早于它退场的动效全白做。
+   ⇒ 提速必须**两边一起动**：骨架屏生命周期由 1100/320 收到 **380/320**（`apply107.py` 的
+     `wire()`，标记 `r107-l1`），数字延迟由 1.5s 收到 **0.44s**、时长 0.46s→**0.30s**、
+     错开 55ms→**26ms**。改后：骨架屏 380ms 起淡出、700ms 移除；数字 440~740ms 滑入
+     ⇒ 数字**紧贴骨架屏退场滑进来**，空窗由 167ms 降到 0，整体由 2.49s 压到 **~1.66s**。
+   ⚠ 只覆盖 `animation-duration` / `animation-delay` 两条长属性（不动 `animation-name` / `fill-mode`）
+     ⇒ 与 `CSS` 里那条 `animation:` 简写同特异性、文档序在后，必胜；
+     且 `both` 语义沿用（延迟期仍停在 `from`，不会先闪一下原位置）。
+   ⚠ 时长 0.30s 仍在舒适区（DS 弹层入场就是 0.2s 档）。 */
+.r93-num > .r93-num-i {
+  animation-duration: 0.30s;
+  animation-delay: calc(0.44s + var(--r93-ni, 0) * 26ms);
+}
+/* r107-l1 */
+
+/* ---------------------------------------------------------------- 18. 对照 Codex 官方补缺（第十一拍 ④）
+   ★ 官方现有能力（openai.com「Codex:全能型助手」）里，我们已经有的：五入口 / 摘要面板 /
+     行内评论 / 暂存·撤销 / 统一⇄并排 / 对比范围 / 提交·推送·PR / 浏览器标注 / 终端。
+     **还缺且能落地的三件**：
+       ① 多标签终端（官方「多标签终端」）—— 补标签条 + 第二块会话 + `+` 新建（见 panel.js）
+       ② 一键截图到剪贴板（官方）—— 补地址栏那枚相机按钮 + 快门白闪
+       ③ 产物查看器（官方 PDF / 表格 / 文档 / 演示预览）—— 补「预览」预览层 + 两套骨架
+     （SSH 远程连接（alpha，不在侧栏）/ 多窗口 / 系统托盘：静态演示页落不了地，不做；
+       「文件」模块不能编辑：官方亦然，不动。）
+     ⚠ 全部只作用于右栏内部；不引渐变（verify-design.py 会数渐变处数，多一处就进回归 diff）。 */
+
+/* 18-① 终端标签条 */
+.td-term-tabs {
+  flex: none; box-sizing: border-box;
+  display: flex; align-items: center; gap: 2px;
+  min-height: calc(34px * var(--ui-fs-ratio)); padding: 0 8px;
+  border-bottom: 1px solid var(--color-border-1);
+  font-size: var(--font-size-body-1);
+  overflow-x: auto;
+}
+.td-term-tab {
+  flex: none; display: inline-flex; align-items: center; gap: 6px;
+  height: calc(22px * var(--ui-fs-ratio)); padding: 0 8px;
+  border: 0; border-radius: 6px; background: transparent;
+  color: var(--color-text-3);
+  font-family: inherit; font-size: var(--font-size-body-1); cursor: pointer;
+  transition: background-color 120ms, color 120ms;
+}
+.td-term-tab:hover { background: var(--color-fill-1); color: var(--color-text-1); }
+.td-term-tab.is-active { background: var(--color-fill-2); color: var(--color-text-1); }
+.td-term-tab-ico { flex: none; display: inline-flex; color: var(--color-text-3); }
+.td-term-tab.is-active .td-term-tab-ico { color: var(--color-primary-6); }
+.td-term-tab-nm { white-space: nowrap; }
+.td-term-tabadd {
+  flex: none; display: inline-flex; align-items: center; justify-content: center;
+  width: calc(22px * var(--ui-fs-ratio)); height: calc(22px * var(--ui-fs-ratio));
+  margin-left: 2px; padding: 0;
+  border: 0; border-radius: 6px; background: transparent;
+  color: var(--color-text-3);
+  font-family: inherit; font-size: var(--font-size-body-1); cursor: pointer;
+  transition: background-color 120ms, color 120ms;
+}
+.td-term-tabadd:hover { background: var(--color-fill-1); color: var(--color-text-1); }
+
+/* 18-② 浏览器「截图」快门 —— 闪整个模块（`.td-view` 是滚动容器，覆盖层会跟着内容滚走） */
+.td-mod.td-brw { position: relative; }
+.td-brw.is-shot::after {
+  content: ''; position: absolute; inset: 0; z-index: 5;
+  background: var(--color-bg-2); opacity: 0;
+  pointer-events: none;
+  animation: td-shot-flash 260ms ease;
+}
+@keyframes td-shot-flash { 0% { opacity: .9; } 100% { opacity: 0; } }
+
+/* 18-③ 产物预览层（覆盖整块摘要；`.td-mod.td-sum` 当包含块 ⇒ 不参与文档流、不撑高） */
+.td-mod.td-sum { position: relative; }
+.td-sum-prev {
+  position: absolute; inset: 0; z-index: 6;
+  display: flex; flex-direction: column;
+  background: var(--color-bg-2);
+}
+.td-sum-prev[hidden] { display: none; }
+.td-sum-prev-h {
+  flex: none; box-sizing: border-box;
+  display: flex; align-items: center; gap: 8px;
+  min-height: calc(40px * var(--ui-fs-ratio)); padding: 6px 12px;
+  border-bottom: 1px solid var(--color-border-1);
+  font-size: var(--font-size-body-1);
+}
+.td-sum-prev-t { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; }
+.td-sum-prev-t b {
+  font-size: var(--font-size-body-3); font-weight: 500; color: var(--color-text-1);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.td-sum-prev-t i { font-style: normal; font-size: var(--font-size-body-1); color: var(--color-text-3); }
+.td-sum-prev-b { flex: 1 1 auto; min-height: 0; overflow: auto; padding: 14px 16px; }
+.td-sum-prev-f {
+  flex: none; box-sizing: border-box;
+  display: flex; align-items: center; justify-content: flex-end; gap: 8px;
+  min-height: calc(48px * var(--ui-fs-ratio)); padding: 8px 12px;
+  border-top: 1px solid var(--color-border-1);
+  font-size: var(--font-size-body-1);
+}
+.td-prev-btn {
+  flex: none; height: calc(28px * var(--ui-fs-ratio)); padding: 0 14px;
+  border: 1px solid var(--color-border-2); border-radius: 6px;
+  background: transparent; color: var(--color-text-1);
+  font-family: inherit; font-size: var(--font-size-body-2); cursor: pointer;
+  transition: background-color 120ms, border-color 120ms;
+}
+.td-prev-btn:hover { background: var(--color-fill-1); border-color: var(--color-border-3); }
+.td-prev-btn.is-primary {
+  border-color: transparent; background: var(--color-primary-6); color: var(--color-white);
+}
+.td-prev-btn.is-primary:hover { background: var(--color-primary-5); }
+/* 两套骨架互斥。⚠ 必须显式写 `[hidden]`：`.td-pv-md` 自己声明了 `display:flex`，
+   会压过 UA 的 `[hidden]{display:none}`（历代踩过的同一个坑）。 */
+.td-pv-md[hidden], .td-pv-sheet[hidden] { display: none; }
+/* 文档骨架 */
+.td-pv-md { display: flex; flex-direction: column; gap: 10px; }
+.td-pv-h1 { font-size: var(--font-size-title-1); font-weight: 600; color: var(--color-text-1); line-height: 1.4; }
+.td-pv-h2 { font-size: var(--font-size-body-3); font-weight: 500; color: var(--color-text-1); line-height: 1.5; }
+.td-pv-p { font-size: var(--font-size-body-2); line-height: calc(22px * var(--ui-fs-ratio)); color: var(--color-text-2); }
+.td-pv-bar {
+  display: block; width: 100%; height: calc(10px * var(--ui-fs-ratio));
+  border-radius: 4px; background: var(--color-fill-2);
+  font-size: var(--font-size-body-1);
+}
+.td-pv-bar.is-w80 { width: 80%; }
+.td-pv-bar.is-w60 { width: 60%; }
+.td-pv-bar.is-w40 { width: 40%; }
+/* 表格骨架 */
+.td-pv-sheet {
+  display: flex; flex-direction: column; gap: 1px;
+  border: 1px solid var(--color-border-1); border-radius: 6px;
+  background: var(--color-border-1); overflow: hidden;
+}
+.td-pv-row { display: flex; gap: 1px; }
+.td-pv-cell {
+  flex: 1 1 0; min-width: 0; box-sizing: border-box;
+  display: flex; align-items: center;
+  height: calc(26px * var(--ui-fs-ratio)); padding: 0 8px;
+  background: var(--color-bg-2); color: var(--color-text-2);
+  font-size: var(--font-size-body-1);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.td-pv-cell.is-head { background: var(--color-fill-1); color: var(--color-text-1); font-weight: 500; }
+/* r107-l2 */

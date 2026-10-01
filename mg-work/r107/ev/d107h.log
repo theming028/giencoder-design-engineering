@@ -1,0 +1,8 @@
+✓ Done
+✓ 会话 · 基础工作台
+  file:///E:/GienCoder/giencoder-design-engineering/pages/conversation.html?v=d107h
+✓ Done
+✓ Done
+✓ Done
+### p5
+"{\"menu\":{\"hidden\":false,\"cls\":\"td-mod-menu giencoder-select-popup giencoder-menu giencoder-popup-open\",\"vis\":\"visible\",\"op\":\"1\",\"transform\":\"none\",\"scale\":\"1\",\"bg\":\"rgb(255, 255, 255)\",\"border\":\"1px rgb(229, 229, 229)\",\"r\":\"8px\",\"shadow\":\"rgba(0, 0, 0, 0.1) 0px 8px 20px 0px\",\"maxH\":\"280px\",\"pad\":\"4px 4px 4px 4px\",\"w\":200,\"x\":856,\"y\":91},\"item\":{\"h\":\"36px\",\"r\":\"4px\",\"pl\":\"12px\",\"fs\":\"14px\",\"bg\":\"rgba(0, 0, 0, 0)\",\"gap\":\"10px\",\"border\":\"0px\"},\"icon\":{\"display\":\"flex\",\"flex\":\"0 0 auto\"},\"cap\":{\"cls\":\"td-mm-cap giencoder-menu-group-title\",\"fs\":\"12px\",\"pl\":\"16px\",\"pt\":\"8px\",\"color\":\"rgb(134, 134, 134)\"},\"mark\":null,\"itemCount\":5,\"opts\":{\"cls\":\"td-rv-menu giencoder-select-popup giencoder-menu td-rv-opts giencoder-popup-open\",\"hidden\":false,\"vis\":\"visible\",\"w\":192,\"items\":10},\"optsSelected\":{\"txt\":\"统一视图⌘1\",\"bg\":\"rgb(245, 248, 255)\",\"color\":\"rgb(55, 112, 247)\",\"w\":\"500\",\"r\":\"4px\"},\"scope\":{\"cls\":\"td-rv-menu giencoder-select-popup giencoder-menu td-rv-scope-menu giencoder-popup-open\",\"hidden\":false,\"items\":3,\"head\":\"对比范围\"},\"scopeSelected\":{\"txt\":\"上一轮✓\",\"bg\":\"rgb(245, 248, 255)\"},\"commit\":{\"cls\":\"td-rv-menu giencoder-select-popup giencoder-menu td-commit-menu giencoder-popup-open\",\"hidden\":false,\"items\":2},\"allClosed\":true}"

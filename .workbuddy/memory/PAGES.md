@@ -633,6 +633,174 @@ agent 行 `agentSpan` = `[420,1280]` / `[840,1981]`（**填满**）；`div.mt-8`
 
 ---
 
+### P3.11i ★★ 会话详情页「侧栏模块标签化」（r107 · 复刻 Codex 右栏 · 2026-10-01 · **共十一拍**）
+
+> 补丁 = `mg-work/r107/apply107.py`；设计依据 = `docs/codex-sidepanel-research.md` + `docs/codex-refs/`。
+> **只影响 `pages/conversation.html`**：`base.html` 与 8 个外壳页**逐字节不变**（nav 块沿用 `r106-nav-js` 不换名）。
+> **十一拍要点**：① 三段式骨架 + 五模块 · ② 浮窗关不掉 / 侧聊对齐 · ③ 删侧聊 / 并排折叠 / 折叠全部 / 补 Codex 遗漏 ·
+> ④ 摘要升默认 + 卡片式 / 补划词浮条 / 补右键菜单 / tab 14px / 下拉 DS 化 ·
+> ⑤ 下拉 hover 补齐 + 下拉改挂 DS Dropdown（从「导航菜单 Menu」族改正过来）·
+> **⑥ 底部统计行「框选不到」实为 CSS 生成内容 → 换真 DOM / `.r93-pre` 去字体族 / 内容列变窄时技能浮窗与 `.r93-alert` 自适应** ·
+> **⑦ 右栏里的竞品名全换 GienCoder / 去掉下拉菜单的标题行与快捷键提示 / 选中项补底色 / 提交卡输入框拉通 / 右栏字体统一 / 全屏按钮联动** ·
+> **⑧ 全局宽度不足出省略号（三类分治）/ 去掉「折叠此文件」/ `.td-sum-h` 15px / `.td-diff-path` 展开中粗 / `.td-diff-path` 与 `.td-diff-rows` 内 13px / `.r107-stats` 居中** ·
+> **⑨ 全屏按钮图标随态切换（四角朝外 ⇄ 朝内，切 `<path d>`、不重建节点）/ 全屏态拖拽起点改读「实际渲染宽」（先停过渡再取几何）/ 拖拽事件改挂 `window` / 全屏态按下分栏条＝放弃全屏 / 收起侧栏也退全屏**
+> **⑩ 三枚 `.td-rv-menu` 改为「按触发器现场摆位」** —— 原四枚共用一条 `top:42px`（钉在标签栏下方），
+> 而这三枚的触发器在**审查工具条**里 ⇒ 菜单跑到**按钮上方** 34~36px（实测 dy = −35.0 / −34.0 / −36.0）；
+> 新增 `placeRv()` 在打开瞬间按触发器**实际几何**摆位（垂直 +6px / 水平锚定触发器 / 右侧放不下 clamp 到面板内边），
+> `.td-mod-menu` 一字不动
+> **⑪ 对照 Codex 官方补缺（三件）+ 划词浮条正文黑 + 地址栏激活态 + 数字动效提速** ——
+> ① `.td-selbar` 两枚 DS 文字按钮 **默认正文黑**（`.td-selbar .giencoder-btn{color:var(--color-text-1)}`；
+> DS 的 `-btn-text` 基类默认是**主色蓝** `rgb(55,112,247)`）·
+> ② `.td-url-pill` 补 **`:focus-within` 激活态**（底色转白 + **`inset` 1px** 主色 + 外 **2px** 浅主色环 + `transition 120ms`；
+> ★ **用 `inset` 不用 `border`**，否则 26px 胶囊被撑高）·
+> ③ 数字动效提速（骨架屏 `1100→380` + `duration .46→.30` / `delay 1.5s→calc(.44s+ni*26ms)`，空窗 **167ms → 0**）·
+> ④ **补三件官方能力**：**终端多标签**（`.td-term-tabs` + `bindTerm()` 按块绑定 + `+` 真新建）/
+> **浏览器截图**（`[data-td-brw-act="shot"]` + `.td-brw.is-shot::after` 快门 **260ms**，闪**整模块**而非滚动容器 `.td-view`）/
+> **产物预览层**（`.td-sum-prev` 覆盖摘要 + `md`/`xlsx` 两套骨架 + **Esc 算一层**）
+> （详见 `acceptance.md` 第七 / 八 / 九 / 十 / 十一 / 十二 / **十三** / **十四** / **十五** / **十六**节）。
+
+**结构（三段式，全部挂在 `aside.td-browse` 里）**
+
+```
+td-split#av-browse-split → td-browse-slot#av-browse-slot
+  └ aside.td-browse            ← ★ 本代给它补了 position: relative（模态的包含块）
+      ├ header.td-browse-bar   ← ① 标签栏
+      │   ├ .td-browse-tabs > .td-browse-tab[data-td-mod]（图标 + 名称 + .td-tab-x）
+      │   ├ button.td-browse-add[data-td-add]  ＋
+      │   ├ .td-mod-menu[data-td-open-mod=…]   ＋ 的五选一菜单（默认 hidden）
+      │   ├ span.td-browse-sep
+      │   └ .td-browse-acts > button[data-td-max] ＋ button[data-td-browse-close]
+      ├ div.td-browse-body          ← 「文件」模块正文（**r105 原样，逐字未改**）
+      ├ section.td-mod.td-mod-term[data-td-pane="terminal"]
+      │   ├ .td-term-tabs（★ 第十一拍 ④a：zsh / npm run dev / ＋）
+      │   └ .td-term[data-td-term-pane="t1|t2|…"] ×N
+      ├ section.td-mod.td-rv      [data-td-pane="review"]
+      ├ section.td-mod.td-brw     [data-td-pane="browser"]
+      └ section.td-mod.td-sum     [data-td-pane="summary"]  ← 摘要（任务侧栏：摘要 / 计划 / 来源 / 产物）
+```
+
+> ⚠ 四枚下拉菜单（`.td-mod-menu` / `.td-rv-scope-menu` / `.td-commit-menu` / `.td-rv-opts`）**都挂在各模块自己的工具条里**，
+> 但定位参照是 `.td-browse`（有 `position: relative`）、`top: 42px` ⇒ 不会被 `.td-mod{overflow:hidden}` 裁掉。
+> ★ 第五拍起这四枚 + 右键菜单 `.td-ctxmenu` **同挂 DS 的 `giencoder-dropdown-popup`**（双类提权：`.td-mod-menu.giencoder-dropdown-popup` …）。
+
+**固定事实**
+
+| 项 | 值 |
+|---|---|
+| 模块 id | `files`（= `.td-browse-body`）/ `review` / `terminal` / `browser` / **`summary`** ← 第三拍起 `side` 已删除 |
+| **默认页签** | ★ **第四拍 ⑨ 起 = `summary`**（原 `files`）：`_head.html` 初始标签的 `data-td-mod` + `panel.js` 初始化 `activate('summary')` **两处同改**（缺一即不生效） |
+| tabindex=0 的元素 | `.td-term`（终端正文，收键盘；★ 第十一拍 ④a 起**每块一份**，N 个） |
+| 面板开关 | **不变**：`.r93-baract[data-r93-browse]` 切宿主 `.av-browse-on`（ctrl-conv.js 接管） |
+| 宽度变量 | **不变**：宿主 `--av-browse-w`（默认 641 / MIN 561）；`⤢` 写它，还原时读 `localStorage['giencoder:r105-browse:v1'].panelW` |
+| 单标签 | `.td-browse-tabs.is-single` ⇒ `×` 不显示（不许关到空） |
+| `＋` 位置 | 紧跟最后一枚标签 ⇒ `.td-browse-tabs{flex:0 1 auto}` + `.td-browse-acts{margin-left:auto}` |
+| Esc 层级 | window 捕获段：**划词浮条** → 模态 → 菜单 → 元素评论 → **产物预览层** →（再交给 ctrl-conv）关侧栏（★ 第十一拍 ④c 把预览层接进来，否则开着预览按 Esc 会**把整条侧栏关掉**）|
+| **浮窗搜索根** | ★★ `closeMenus()` 与 Esc 裁决都用 **`pane`（= `.td-browse`）**，**不是 `bar`** —— `.td-rv-opts` 挂在模块工具条 `.td-mod-bar` 里、不在标签栏内（第二拍真 bug，见 PLAYBOOK P3.39⑧） |
+| **审查工具条** | `对比范围 ⌄ +566 −228 4 个文件` + 右端 `复制 / 定位 / ⋯ / 提交⌄ / PR`（定位会真切到「文件」标签）|
+| **审查显示选项** | `.td-rv-opts` **十项** = 统一 / 并排 + Codex 八项（刷新 / 自动换行 / 折叠·展开全部 / 不加载完整文件 / 富预览 / 词级差异 / 隐藏空白 / 复制 git apply）。**复选型点了不收菜单**；`is-wrap` / `is-worddiff` / `is-hidws` 三个真生效 |
+| **折叠全部 ⇄ 展开全部** | `[data-td-rv-fold]` 单项双向：**只要还有折叠着的文件就显示「展开全部文件」**；文案 + 字形一起翻；单文件折叠后也会回同步 |
+| **并排视图折叠** | ★★ 必须是 `.td-rv-body.is-split .td-diff.is-open .td-diff-split` —— **`.is-open` 不能省**（省了就与 `.td-diff:not(.is-open) .td-diff-rows` 同特异性、靠文档顺序取胜 ⇒ 并排态折不动；PLAYBOOK P3.39⑩）|
+| **动作反馈** | `.td-toast`（绝对定位在 `.td-browse` 上，1.4s 自动收）；**动作类菜单项点了收菜单、复选开关不收** |
+| **右栏快捷键** | `⇧⌘G` 审查 · `⇧⌘E` 文件 · `` ⌃` `` 终端（`⌘T` / `⌘P` 是浏览器级、拦不住 ⇒ 不绑；输入框聚焦时不触发）|
+| diff 取色 | **加绿（`--color-success-light-1` / `-5`）/ 删红（`--color-danger-*`）** = GitHub 惯例（**不是**行情口径） |
+| 暗色 | **零硬编码**：全部走 token，`gray/green/red/giencoderblue` 色阶在暗色档整体翻转 ⇒ 不需要 `[giencoder-theme='dark']` 分支 |
+| **`.td-browse-tab` 字号** | ★ 第四拍 ⑫ = **14px**（`--font-size-body-3`，原 12px / `--font-size-body-1`）；标签高由 `min-height` 撑 ⇒ 仍是 28px |
+| **摘要四模块卡片式** | ★ 第四拍 ⑨：`.td-sum-sec`（×4：摘要/计划/来源/产物）= `1px --color-border-1` 描边 + `8px` 圆角 + `--color-bg-2` 底 + `12px` 内距；容器 `.td-sum-body { padding:12px; gap:12px }`；**卡内**来源/产物降为**行式**（`bw:0`、`padding:6px 8px`、hover `--color-fill-1`）避免「卡中卡」 |
+| **划词浮条** | ★ 第四拍 ⑩ 补回 `.td-selbar`（第三拍曾随 side chat 删）：两枚 **DS 文字按钮**（`giencoder-btn giencoder-btn-text giencoder-btn-size-small`）「添加到对话」（真写主 `textarea`）/「复制」（`execCommand('copy')`）；在 `.r93-scroll` 内 `mouseup` 选区 ⇒ 浮在选区上方；`mousedown` / `scroll` / `resize` / Esc 收起 |
+| **右键菜单** | ★ 第四拍 ⑪：**九类目标共用一份表驱动容器 `.td-ctxmenu`**（`role=menu`）—— 标签 5 / 审查文件头 7 / 审查代码行 5 / 终端 6 / 浏览器元素 6 / 浏览器空白 5 / 摘要来源 3 / 摘要产物 3 / 计划条目 4；`is-danger` 红字；能复用既有 handler 的一律 `元素.click()`；**右栏内普通空白 / 右栏外都不接管** |
+| **四枚下拉 = DS 组件** | ★ **第五拍 ⑮ 更正组件族**：`.td-mod-menu` / `.td-rv-scope-menu` / `.td-commit-menu` / `.td-rv-opts`（+ 右键 `.td-ctxmenu`）容器 = **`giencoder-dropdown-popup`**，条目 = **`giencoder-dropdown-item`**、分隔线 = **`giencoder-dropdown-divider`**、危险项 `.is-danger`；**hover = `--color-fill-2`**（`pad 5px 8px / radius 4 / h 32`）。选中态用「主色文字 + ✓」（Dropdown 无 `-selected` 类）。<br>⚠ 第四拍 ⑬ 曾挂 `giencoder-select-popup`（**Select 的弹层**）+ `giencoder-menu`（**导航菜单**，`mapsFrom: sidenav/topnav`）⇒ **串了两个族**，第五拍按 `dropdown.json` 契约改正（与**本页** r93 ⑦ `.r93-ctx` 同源）。<br>面板 `pad6 / gap2 / radius8 / bg-popup / border-2 1px / shadow3-down / min-width168`；条目 `pad 5px 8px / radius4 / lh calc(22px×ratio) / gap8 / h32 / hover --color-fill-2`；选中态 = **主色字 + `.td-mm-mark` ✓**（Dropdown **无** `-selected` 类，不虚构）；`giencoder-menu-group-title` 仅分组标题处**借用**（Dropdown 无此件）；`giencoder-menu-icon` 已撤（`.td-mm-ico` 收回自绘） |
+| **底部统计行** | ★ **第六拍 ⑯**：它是 `main > div > div.flex-1.justify-center > div.mt-8::after` 的 **CSS 生成内容**（原 **不可框选**）⇒ 现由 `panel.js` 的 `statsBoot()` 注入**真节点 `.r107-stats`**（`MutationObserver` 兜 React 重渲染）；`panel.css` 用同选择器 `content:none` 关掉旧伪元素、并复刻版式（`12px` / 行高 `16×ratio` / `--r93-meta` / nowrap）。宿主 `div.mt-8` 是 `flex-col gap-2` ⇒ 间距仍是 8px |
+| **`.r93-pre` 字体** | ★ **第六拍 ⑰**：`font-family: var(--font-family)`（= 全局默认，原为等宽族 `ui-monospace, …`）；**只覆写这一条**，字号 `14px` / 行高 `16px` / 换行策略不变 |
+| **内容列变窄时自适应** | ★ **第六拍 ⑱**：技能选择浮窗 `html[data-r93-page='conversation'] .giencoder-select[role='listbox'][aria-label='技能选择'] { width: min(760px, 100%) !important }`（React **行内**写死 760 ⇒ 必须 `!important`；包含块 = 输入卡）；`.r93-alert` 由定高 44 改 `height:auto; min-height:44px; padding:8px 16px`（单行态**零变化**，折行才长高） |
+| **下拉菜单的「标题行 / 快捷键」** | ★ **第七拍 ⑲⑳**：两者都**隐藏** —— `.td-browse .td-mm-cap, .td-browse .td-ctx-head { display:none }` 与 `.td-browse .td-mm-key, .td-browse .td-ctx-key { display:none }`。⚠ 各自都有**两类来源**（静态 HTML + `panel.js` 现场生成）⇒ 只改 HTML 治不全，一律用 CSS 关 |
+| **选中项底色** | ★ **第七拍 ㉑**：`.td-…menu .giencoder-dropdown-item.is-checked { background: var(--color-primary-light-1) }` —— 原来只有主色文字 + ✓（实测 `rgba(0,0,0,0)`）；规则写在 `:hover` **之后** ⇒ 悬停选中项不翻成 hover 灰；**不补** 3px 左缘条（那是 Menu 族的表达） |
+| **提交卡「目标分支」输入框** | ★ **第七拍 ㉑**：`.giencoder-input-wrapper.td-commit-in { display: flex }` —— DS 编译样式是 `inline-flex; width:auto; min-width:120px` ⇒ 原来只有 207（同卡 `.td-commit-h/-lb/-msg/-f` 都是 308） |
+| **右栏字体族** | ★ **第七拍 ㉒**：`panel.css` 自己那 8 条写死的等宽族就地换 `var(--font-family)`（`.td-diff-path` / `.td-diff-stat` / `.td-dr` / `.td-dsc-c` / `.td-diff-more` / `.td-commit-num` / `.td-term` / `.td-url-pill input`）；「文件」模块代码区那条在 **r102 代已交付的 `part105/browse.css`** 里 ⇒ 用 `.td-browse .td-browse-pre { font-family: var(--font-family) }` 覆盖（153 个 `.td-code*` 靠继承） |
+| **全屏按钮联动** | ★ **第七拍 ㉓**：`.av-browse-on .r93-baract[data-r93-fullscreen] { display:none }` —— 右栏展开时隐藏、收起复现。**纯 CSS 即可**（实测 `.av-browse-on` 挂在 shell flex 行 = `main` 与预览栏的共同父级上，按钮在其内）；⚠ 只针对这一枚，别用 `.r93-baracts` 整组 |
+| **右栏竞品名** | ★ **第七拍 ⑲**：右栏里**渲染成文字**的 8 处 + 两处悬停 `title` 全部换成 GienCoder；**三条 `td-sum-src` 外链 `href` 与历代设计来源注释有意保留**（URL 替换即 404、且不渲染） |
+| **全局省略号口径** | ★ **第八拍 ①**：**三类分治** —— 单行文本容器 ⇒ 三件套截断（`min-width:0` + `overflow:hidden` + `text-overflow:ellipsis` + `white-space:nowrap`）；**代码 / 终端**与**多行正文** ⇒ 保持折行、**不截断**。白名单 17 类见 `panel.css` 第 14 节 |
+| **`.td-sum-h` 字号** | ★ **第八拍 ③**：`calc(15px * var(--ui-fs-ratio))` —— 15px **无 title token**，故**不写裸 px**（裸 px 会被 `converge()` 压平、且不吃 `--ui-fs` 杠杆） |
+| **`.td-diff-path` / `.td-diff-rows`** | ★ **第八拍 ④⑤**：path 13px；`is-open` 时 path `font-weight:500`；rows 容器 13 且 `.td-dr` / `.td-dsc-c` / `.td-diff-more` **逐条覆盖**（只改容器无效） |
+| **`.r107-stats` 居中** | ★ **第八拍 ⑥**：`text-align: center` —— ⚠ `width/min-width/max-width` **全被页面级两条 `!important` 钉死**（盒宽恒等于输入卡 860/714/315），`fit-content + margin:auto` 那一版是**死代码** |
+| **全屏按钮图标** | ★ **第九拍 ①**：`browse.html` 里写死的「四角朝外」SVG 是**静态 HTML** ⇒ 光翻 `aria-pressed` / `title` 不够，必须切 `<path d>`。MAX **从 DOM 读出来缓存**、MIN 硬编码（Lucide `minimize` 四条），只改属性、不重建节点 |
+| **右栏拖拽起点** | ★ **第九拍 ②**：`ctrl-conv.js` 的拖拽起点一律读**实际几何**（先落 `.is-col-dragging` = `transition:none` 再取 rect ⇒ 拿到**终值**）。⚠ 宿主若**绕过控制器直接写 `--av-browse-w`**（「最大化」就是这样），内部缓存 `panelW` 必然脱节 ⇒ 「一按下就跳回记忆宽」。事件侧：`pointermove` / `pointerup` 挂 **`window`**（磁捕获不可靠） |
+| **`.td-rv-menu` 摆位** | ★ **第十拍 ①**：**按触发器实际几何现场摆位**（`panel.js` 的 `placeRv()`，在 `toggleMenu()` 打开分支、**摘掉 `[hidden]` 之后**调用）。⚠ 原四枚共用基类 `{ position:absolute; top:42px }`（相对 `.td-browse`）—— 该值只对**触发器在标签栏**的 `.td-mod-menu` 成立，另三枚的触发器在**审查工具条**里 ⇒ 实测 dy（菜单 top − 触发器 bottom）= **−35.0 / −34.0 / −36.0**（跑到按钮**上方**）。量宽高用 `offsetWidth`（不受入场 `scale(0.96)` 影响） |
+| **`.td-rv-menu` 的 clamp** | ★ **第十拍 ①**：`left = host.clientWidth − menu.offsetWidth − 4`（右侧放不下 ⇒ 向左收，贴住面板右内边）。★ 窄栏 315 实测三枚全部 `insideMod = true`（**没被 `.td-mod{overflow:hidden}` 裁**）。CSS 只留静态兜底 `top: 83px`；⚠ 写行内 `left` **必须同时 `right:'auto'`**，否则与基类的 `right` 一起把盒子拉宽 |
+| **终端标签条** | ★ **第十一拍 ④a**：`.td-term-tabs`（`role=tablist`）+ N 块 `.td-term[data-td-term-pane]`，切换**只切 `hidden`**。`panel.js` 里 `bindTerm(el)` **按块绑定**（`echo` 收进各自闭包）；另有 `termPanes()` / `activeTerm()` / `showTerm(id, focus)` / `newTermTab()`。⚠ 全页 `.td-term` 的**单数选择器**一律改走 `termPanes()`（`ctxForTerm()` 也改 `activeTerm()`，否则永远只操作第一块） |
+| **浏览器截图** | ★ **第十一拍 ④b**：`[data-td-brw-act="shot"]`（相机图标，插在「标注」与「缩放」之间）+ `.td-mod.td-brw{position:relative}` + `.td-brw.is-shot::after` 快门白闪 **260ms**。⚠ 闪**整模块**、不闪 `.td-view`（后者 `overflow:auto`，绝对定位子元素**跟着内容滚走**）；⚠ 动画必须 **≤300ms**（`verify-design.py` 的 `CRAFT-ANIM` 会数 >300ms 的） |
+| **产物预览层** | ★ **第十一拍 ④c**：`.td-sum-prev`（`position:absolute; inset:0; z-index:6`，包含块 = `.td-mod.td-sum`）+ 两套骨架 `[data-td-prev-kind="md"/"xlsx"]`（**按扩展名**切）。⚠ 骨架自带 `display:flex` ⇒ **必须显式写 `[hidden]{display:none}`**；⚠ **Esc 层级多了一层**（预览层 → 元素评论 → 菜单 → 模态） |
+| **地址栏激活态 / 浮条色** | ★ **第十一拍 ①②**：`.td-url-pill:focus-within`（底色转白 + `inset 0 0 0 1px` 主色 + 外 `0 0 0 2px` 浅主色环，`transition 120ms`）· `.td-selbar .giencoder-btn { color: var(--color-text-1) }`（DS `-btn-text` 默认主色蓝） |
+**⚠ 改这一块之前必看**
+
+1. **`part107/browse.html` 是组装件**：`ev/splice107.py` = 从 `part105/browse.html` **剪出 Files 正文**（逐字）
+   + 换头部（`_head.html`）+ 追加四个新模块（`_mods.html`）⇒ 改完 **必须先 `splice107.py` 再 `apply107.py`**。
+2. **新模块的 section 类名必须与内部件不重名**（`td-mod-term` / `td-rv` / `td-brw`）——
+   初版 `td-mod td-term` 与内部 `.td-term` 撞车，`querySelector('.td-term')` 取到 section（见 PLAYBOOK P3.39①）。
+3. **不要重跑 `apply106.py`**（只认四代 ⇒ 会因「基线残留 `r107-conv-css`」自检失败退出）。
+4. `.td-browse-bar` 高 **44px 是 r106 钉住的**（与 `.r93-bar` 同高）⇒ 标签高度按 `calc(28px * --ui-fs-ratio)` 派生，
+   `--ui-fs > 22` 时会被顶满（站内档位实测 18 仍宽裕）。
+5. ★★ **本代 panel.css 里带行高的规则，`font-size` 必须写 `var(--font-size-*)` token** ——
+   否则 `converge()` 会把 `line-height: calc(Npx * ratio)` 压成裸 px（15px 档用两段式写法）。
+   自查：`mg-work/r107/ev/scan-flatten.py mg-work/r107/part107/panel.css`。
+   ⚠ 只在默认 `--ui-fs=14` 下量**发现不了**（`calc(Npx × 1) = Npx`）⇒ 判据要看 **`--ui-fs=18`** 的行高。
+6. ★★ **`+` 菜单只有五项**（审查 / 终端 / 浏览器 / 文件 / 摘要）—— **没有「侧边聊天」**。
+   第三拍已把它全链路删除 ⇒ 页面里 `td-side` / `AV_SVG` / 「侧边聊天」四个字**应全为 0**。
+7. ★★ **「不该出现在右栏里的词 / 字体」三查**（第七拍）—— 改这一块之后跑一遍：
+   · `TreeWalker(SHOW_TEXT)` 走 `.td-browse`，正则 `/codex|chat\s?gpt/i` ⇒ 渲染文字应为 **0**；
+   · `panel.css` 里 `ui-monospace` 应只剩 **1 处**（第 11 节的说明注释，不是声明）；
+   · `.td-browse *` 里 `getComputedStyle(el).fontFamily !== bodyFont` 的元素数应为 **0**。
+   ⚠ 同名前缀的还有**别的页**：`grep -i codex pages/*.html` 扫一遍再决定（第七拍就在 `avatar.html` 挖到 1 处）。
+8. ★★ **下拉菜单的「标题行 / 快捷键提示」各有两类来源**（静态 HTML + `panel.js` 现场生成）⇒
+   只改 HTML 治不全 —— 一律用 CSS 的 `display:none` 关（column flex 里塌行不占位，与删节点视觉等价）。
+   ★ 同理：**联动显隐（第七拍 ⑦）先量状态类挂在哪一级**，能 CSS 就别写 JS（见 PLAYBOOK P3.43④⑤）。
+   ⚠ **但 `td-selbar` 不再是 0** —— 第四拍 ⑩ 按邵先生要求**把划词浮条补回并做成真功能**（现 4 处）。
+7. ★★ **`verify-design.py` 会数「渐变处数」** —— 别在这块新增 `linear-gradient`（`+1` 就进回归 diff）；
+   进度态用「**边色 + 实心 tint**」表达（例：计划项的进行中 = `--color-primary-6` 描边 + `--color-primary-light-2` 实心）。
+8. ★★★ **页面级通配适配层会扫到「新挂 DS 类」的弹层** —— `html[data-r93-page='conversation'] .giencoder-select-popup
+   { top:auto!important; bottom:calc(100% + 4px)!important }`（r93 ④ 给贴底 composer 写的「下拉向上弹」）
+   会把右栏里**任何**新挂 `.giencoder-select-popup` 的弹层一起翻到锚点上方（实测 `rect.y = -170`，整排看不见）。
+   ⇒ 在 `panel.css` 里用**更高特异性**（多一层 `.td-browse` ⇒ (0,3,1)）的同名适配翻回向下
+   （`top:42px!important; bottom:auto!important; transform-origin:top`）。**判据必须是量 `getBoundingClientRect()`**。
+   ★ **第五拍起本条对四枚下拉已不再触发**（它们改挂 `.giencoder-dropdown-popup`，页面里**没有**针对它的通配规则，
+   全站 `grep` 只有 r93 `.r93-ctx` 与 task-detail `.td-ctx` 两处**双类提权**的显式规则）——
+   但**下次再给右栏挂新 DS 弹层类之前，仍要先 `grep` 页面级通配**。
+9. ★★★ **`!important` 连行内 `style.top/left` 也压得过** ⇒ 靠 JS 定位的浮层（右键菜单）**别写行内坐标**，
+   改写 **`--td-ctx-x` / `--td-ctx-y` 自定义属性**，再由 `!important` 规则 `top:var(--td-ctx-y)!important` 落位。
+10. ★★ **同一份 DS 弹层要开合 ⇒ 靠 `.giencoder-popup-open` 这唯一开关**（DS 弹层默认 `visibility:hidden`）；
+    别写内联 `display`。⚠ 本页另有 r75 的 `.giencoder-select-popup{display:block!important}`（为过渡留起点）——
+    **只对 select 族生效**；第五拍换到 `.giencoder-dropdown-popup` 后不再被它压 ⇒ `[hidden]` 的 `display:none`
+    兜底**恢复可用**（实测关菜单 `afterCloseHidden:true`）。⚠ DS Dropdown 骨架还带一条
+    `animation: giencoder-popup-in`（播完把 `opacity` 打回 0 ⇒「闪一下就不见」）⇒ 适配层必须显式 `animation:none`。
+11. ★★ **`converge()` 行高压平**（第二拍坑，长期有效）：本块凡声明 `line-height`/`height`/`min-height` 的规则，
+    `font-size` 一律写 `var(--font-size-*)` token（无 token 档用两段式）。自查 `ev/scan-flatten.py`。
+12. ★★★ **同特异性 `background` 会「后者胜」，而 `!important` 之外的输赢全看文档序** ⇒ 给 DS 条目写 UA 兜底
+    （`<button>` 宿主要压 `buttonface`）时，**基态与 `:hover` 必须写在同一块、基态在前**。
+    - 第四拍踩过 **①选中底被抹**：`.td-mm-item{background:transparent}` (0,1,0) 抹掉 DS 选中态的
+      `--color-primary-light-1` ⇒ 改成 `:not(.giencoder-menu-item-selected)`；
+    - **第五拍踩过 ②hover 被抹（更隐蔽）**：改后的基态 `:not(...)` 是 (0,2,0)，与 DS 的
+      `.giencoder-menu-item:hover` (0,2,0) **打平且文档序在后** ⇒ **四枚下拉 + 右键菜单 hover 全无**
+      （真鼠标悬停 `matches(':hover')=true` 而 `bg` 仍 `rgba(0,0,0,0)`）⇒ 判据**必须用真鼠标 hover 后读
+      `getComputedStyle`**，只看「类名挂没挂上」永远发现不了。
+13. ★★★ **「框选不到」先怀疑「它是 CSS 生成内容」** —— `::before`/`::after` 的 `content:` 挂出来的字
+    **不是 DOM 的一部分** ⇒ 选区落不进去（`Selection.toString()` 恒空、`caretRangeFromPoint` 退回宿主元素）。
+    ★ 本页现存的例子：输入卡下方那行统计文字（r97 ④ 的 `div.mt-8::after`）——第六拍 ⑯ 已改成真节点。
+    **判据配方**：① 拖行后读 `Selection.toString()`；② `caretRangeFromPoint` 看 `startContainer` 是不是文本节点；
+    ③ ★ **必做隔离对照**（临时建一真一伪两块 DOM，同一次运行里同手法拖选）——否则「探针写错了」无法排除。
+    ⚠ 改真节点时宿主是 React 的地盘 ⇒ 见下条。
+14. ★★★ **往 React 渲染的容器里注入真节点 ⇒ 必须 `MutationObserver` 兜两件事**：
+    ① 重渲染会把不认识的节点**摘掉**；② 重挂时 React 把自己的子节点插到**末尾**，我们要**再挪回末尾**
+    （否则注入的节点会跑到 React 的节点**之前**，版面顺序错）。回调里只做「判存 + 不是最后一个就
+    `appendChild`」⇒ 自己造成的 mutation 再进一次回调时判存即返回，**天然收敛**。
+    实例 = `panel.js` 的 `statsBoot()` / `statsSync()`（观察 `document.body` 的 `childList + subtree`）。
+15. ★★ **React 行内 `style` 写死的尺寸，只有 `!important` 能改** —— 例：技能选择浮窗行内
+    `width:760`。⚠ 别只提特异性，行内样式优先级最高。
+    且要在**正确的包含块**下换算：该浮窗的包含块是输入卡（`position: relative`）⇒ `100%` = 输入卡内宽。
+16. ★★ **判「容器变窄要不要自适应」的判据 = 容器可用宽，不是视口分辨率**（右栏开合 / 左导航收拢都会改它）
+    ⇒ 一律写 `min(原值, 容器宽)`，天然跟着容器走（同 ④b 的 `.r93-bub`）。
+    改完必须**在窄档复量**：1440 全绿不代表 1280 / 1100 也全绿（第六拍两条都是窄档才暴露）。
+
+---
+
 ## P4 标准配方（r66 / r67 定稿）
 
 ### P4.1 蒙层（Modal / Drawer mask）—— 全站唯一口径
@@ -1107,9 +1275,10 @@ DS 的 `--shadow3-down` 是 `0 8px 20px 10%`，**不是**这一档。保留不�
 脚本由 `mg-work/r106/ev/make106.py` 从 `apply102.py` **9 处精确替换**生成（每处命中 ≠ 1 即 `sys.exit`）。
 `PART_DIRS` **双目录回退**（`r106/part106` → `r102/part105`）⇒ 三个移植件**沿用 r102 目录、不复制**。
 
-**② 产物（★★ 口径 —— 首版曾算错，此处为更正后）**：`conversation.html` **793028 → 798613 Unicode 字符（+5585）**
-（首拍 +3215、返工拍 +1090、第三拍 +1280），工作区 blob `e17d227b58bf`；`base.html` **472150（+0）**（`3436a5e7857e`）；**另 8 页字符数均 +0**。
-★ **三种数勿混用**（同一份文件）：Unicode 字符 **798613** ｜ UTF-8 字节（LF 归一）**869581** ｜ 工作区字节（CRLF）**874274**。
+**② 产物（★★ 口径 —— 首版曾算错；⚠ 2026-10-01 11:5x 二次校准）**：`conversation.html` **793028 → 799231 Unicode 字符（+6203）**
+（`4d081ba` blob `67b443ca082c`，LF 归一 `sha1 9cdb19501a81`）；`base.html` **472150（+0）**（`3436a5e7857e`）；**另 8 页字符数均 +0**。
+⚠ 本节旧记「**798613（+5585）/ blob `e17d227b58bf`**」是**提交前态**（该对象不在库中）⇒ **以 `git cat-file blob 4d081ba:pages/conversation.html` 实测为准**。
+★ **三种数勿混用**（同一份文件）★ 校准后：Unicode 字符 **799231** ｜ UTF-8 字节（LF 归一）**870627** ｜ 工作区字节（CRLF）**875328**（= 870627 + 4701 个 `\r\n`）。
 ⚠ ★★ `len(bytes) − CRLF数` **不是字符数**（本页中文多、会虚高 ~6.8 万）⇒ 判内容增减**先归一化行尾、再比同一口径**（详见 PLAYBOOK P3.38①）。
 ★ 本仓 **`core.autocrlf=true`** ⇒ 仓库 blob 存 **LF**、工作区落盘 **CRLF** ⇒ `cat-file -s` / `wc -c` **天然差「行数」字节**，**不是内容改动**。
 

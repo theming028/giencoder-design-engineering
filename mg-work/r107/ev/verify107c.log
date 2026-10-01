@@ -1,0 +1,69 @@
+############ A 侧边聊天：彻底移除 ############
+--- A1 打开 + 菜单，列出全部模块项
+"count=5 | review:审查, terminal:终端, browser:浏览器, files:文件, summary:摘要"
+--- A2 残留探测（期望全 0）
+"{\"sideMod\":0,\"sideSec\":0,\"selbar\":0,\"sideTab\":0}"
+
+--- A3 打开「摘要」模块，四段小节
+"{\"tabName\":\"摘要\",\"secs\":[\"摘要\",\"计划\",\"来源\",\"产物\"],\"planDone\":3,\"srcs\":3,\"arts\":2,\"hidden\":false}"
+
+############ B ★ 并排视图下的折叠（邵先生报的 bug） ############
+--- B1 切「并排视图」
+"{\"wrap\":false,\"hidws\":false,\"worddiff\":true,\"split\":true}"
+"{\"splitRows\":\"block\",\"unifiedRows\":\"block\"}"
+--- B2 点第 1 个文件头 → 折叠（期望 split 行 display=none）
+"{\"open\":false,\"splitRows\":\"none\",\"unifiedRows\":\"block\"}"
+--- B3 再点一次 → 展开（期望 split 行 display=block）
+"{\"open\":true,\"splitRows\":\"block\",\"unifiedRows\":\"block\"}"
+--- B4 回归：切回「统一视图」折叠仍正常
+"{\"open\":false,\"unifiedRows\":\"block\"}"
+
+############ C ★ 折叠全部文件 ⇄ 展开全部文件 ############
+--- C1 初始（2 开 2 折）文案 + 当前展开数
+"展开全部文件 | openCount=2"
+--- C2 点一次 → 全展开
+"折叠全部文件 | openCount=4"
+--- C3 再开菜单看一眼文案，点一次 → 全折叠
+"折叠全部文件"
+"展开全部文件 | openCount=0"
+--- C4 单独点开一个文件头 → 文案回到「展开全部文件」
+"展开全部文件 | openCount=1"
+
+############ D 显示选项：八项 + 真生效的三个开关 ############
+"items=10 | [x]统一视图 / [ ]并排视图 / [ ]刷新 diff / [ ]自动换行 / [ ]展开全部文件 / [ ]不加载完整文件 / [x]富预览 / [x]词级差异 / [ ]隐藏空白 / [ ]复制 git apply 命令"
+--- D1 初始开关态
+"{\"wrap\":false,\"hidws\":false,\"worddiff\":true,\"split\":false}"
+"{\"drT\":{\"fs\":\"12px\",\"lh\":\"20px\",\"color\":\"rgb(31, 31, 31)\",\"bg\":\"rgba(0, 0, 0, 0)\",\"ws\":\"pre\",\"op\":\"1\",\"d\":\"block\"},\"mark\":{\"fs\":\"12px\",\"lh\":\"20px\",\"color\":\"rgb(31, 31, 31)\",\"bg\":\"rgb(208, 240, 209)\",\"ws\":\"pre\",\"op\":\"1\",\"d\":\"inline\"},\"wsSpan\":{\"fs\":\"12px\",\"lh\":\"20px\",\"color\":\"rgb(31, 31, 31)\",\"bg\":\"rgba(0, 0, 0, 0)\",\"ws\":\"pre\",\"op\":\"1\",\"d\":\"inline\"}}"
+--- D2 开「自动换行」+「隐藏空白」，关「词级差异」
+"{\"wrap\":true,\"hidws\":true,\"worddiff\":false,\"split\":false}"
+"{\"drT\":{\"fs\":\"12px\",\"lh\":\"20px\",\"color\":\"rgb(31, 31, 31)\",\"bg\":\"rgba(0, 0, 0, 0)\",\"ws\":\"pre-wrap\",\"op\":\"1\",\"d\":\"block\"},\"mark\":{\"fs\":\"12px\",\"lh\":\"20px\",\"color\":\"rgb(31, 31, 31)\",\"bg\":\"rgba(0, 0, 0, 0)\",\"ws\":\"pre-wrap\",\"op\":\"1\",\"d\":\"inline\"},\"wsSpan\":{\"fs\":\"12px\",\"lh\":\"20px\",\"color\":\"rgb(31, 31, 31)\",\"bg\":\"rgba(0, 0, 0, 0)\",\"ws\":\"pre-wrap\",\"op\":\"0.22\",\"d\":\"inline\"}}"
+--- D3 复位（关 wrap / hidws，开 worddiff）
+"{\"wrap\":false,\"hidws\":false,\"worddiff\":true,\"split\":false}"
+--- D4 菜单是否仍开着（复选开关不自动收菜单 = 期望 true）
+true
+
+############ E 对比范围 / 提交下拉 / 暂存 · 撤销 ############
+--- E1 范围菜单
+"{\"open\":true,\"items\":[\"上一轮\",\"本分支 vs main\",\"全部未提交改动\"]}"
+"{\"btnText\":\"全部未提交改动\",\"checked\":\"true\",\"menuClosed\":true}"
+--- E2 提交下拉 → 提交模态
+"{\"menuOpen\":true,\"items\":[\"提交到本地\",\"提交并推送\"]}"
+"{\"modalOpen\":true,\"menuClosed\":true}"
+true
+--- E3 暂存 / 撤销
+"{\"txt\":\"已暂存\",\"staged\":true,\"toast\":\"已暂存该文件（视觉演示）\",\"toastShown\":false,\"foldOpen\":false}"
+"{\"reverted\":true,\"opacity\":\"0.5\"}"
+
+############ F 快捷键 ############
+--- F1 派发 Ctrl+Shift+G（期望打开「审查」标签）
+"tabs=文件,审查 | active=审查"
+--- F2 派发 Ctrl+`（期望打开「终端」标签）
+"终端"
+--- F3 终端回声回归（真键盘逐键）
+"{\"active\":\"td-term\",\"outs\":6,\"last\":\"mg-work/         assets/          vite.config.js\"}"
+
+############ G 暗色档 + 字号杠杆 ############
+"{\"addRow\":{\"fs\":\"12px\",\"lh\":\"20px\",\"color\":\"rgb(10, 10, 11)\",\"bg\":\"rgb(18, 60, 25)\",\"ws\":\"normal\",\"op\":\"1\",\"d\":\"flex\"},\"delRow\":{\"fs\":\"12px\",\"lh\":\"20px\",\"color\":\"rgb(10, 10, 11)\",\"bg\":\"rgb(77, 0, 10)\",\"ws\":\"normal\",\"op\":\"1\",\"d\":\"flex\"},\"wd\":{\"fs\":\"12px\",\"lh\":\"20px\",\"color\":\"rgb(247, 247, 247)\",\"bg\":\"rgb(28, 90, 37)\",\"ws\":\"pre\",\"op\":\"1\",\"d\":\"inline\"},\"toast\":{\"fs\":\"12px\",\"lh\":\"18px\",\"color\":\"rgb(247, 247, 247)\",\"bg\":\"rgb(95, 95, 96)\",\"ws\":\"normal\",\"op\":\"1\",\"d\":\"none\"}}"
+--- G2 --ui-fs=18：字号杠杆 + 溢出
+"{\"dr\":{\"fs\":\"15.4286px\",\"lh\":\"25.7143px\",\"color\":\"rgb(10, 10, 11)\",\"bg\":\"rgba(0, 0, 0, 0)\",\"ws\":\"normal\",\"op\":\"1\",\"d\":\"flex\"},\"path\":{\"fs\":\"15.4286px\",\"lh\":\"23.1429px\",\"color\":\"rgb(31, 31, 31)\",\"bg\":\"rgba(0, 0, 0, 0)\",\"ws\":\"nowrap\",\"op\":\"1\",\"d\":\"block\"},\"lh\":\"25.7143px\",\"modBarOverflow\":0,\"tabsOverflow\":0}"
+############ done ############

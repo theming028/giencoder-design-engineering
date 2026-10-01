@@ -1,0 +1,17 @@
+### A 关态（未展开侧栏）—— 单标签 × 应不可见
+"{\"tabs\":1,\"single\":true,\"xDisplay\":\"none\",\"panelOn\":false}"
+### B 文件模块回归：折叠目录 / 选中文件 / 隐藏文件目录
+"{\"rows\":28,\"closed\":6,\"hidden\":9}"
+"{\"snakeClosed\":true,\"visible\":4}"
+"{\"active\":\"package-lock.html\"}"
+"{\"noTree\":true}"
+"{\"noTree\":false}"
+### C 四模块全开 + 回到文件模块（标签切换）
+"{\"tabs\":[\"files\",\"review\",\"terminal\",\"browser*\"],\"rects\":[\"800~880\",\"882~962\",\"964~1044\",\"1046~1138\"],\"addBtn\":\"1142~1170\"}"
+"{\"filesVisible\":true,\"tree\":19}"
+### D 暗色档
+"{\"annotBg\":\"rgb(84, 151, 255)\",\"diffAdd\":\"rgb(18, 60, 25)\"}"
+### E 2560 视口 + 最大化
+"{\"panelW\":641,\"mainW\":1899}"
+"{\"panelW\":2160,\"mainW\":380}"
+### done

@@ -1,0 +1,31 @@
+############ A 显示选项浮窗：四条关闭路径 ############
+--- A1 初始 hidden（期望 true）
+true
+--- A2 点 ⋯ 后 hidden（期望 false）
+false
+--- A3 ★ 点浮窗外空白后 hidden（期望 true）
+true
+--- A4 ★ 打开后点菜单项「并排视图」：hidden + is-split + aria-checked
+"true | true | true"
+--- A5 ★ 打开后按 Esc：浮窗关、侧栏留
+"{\"before_hidden\":false,\"panelOn\":true}"
+"{\"after_hidden\":true,\"panelOn\":true}"
+--- A6 回归：再按一次 Esc 关整条侧栏（期望 false）
+false
+mg-work/r107/ev/verify107b.sh: line 70: +: command not found
+--- A7 回归： 模块菜单外点仍可关（期望 true）
+false
+true
+
+############ B 侧边聊天 vs 主对话（逐值） ############
+--- B1 主对话基准（对照用）
+"{\"userTxt\":{\"fs\":\"15px\",\"lh\":\"22px\",\"color\":\"rgb(31, 31, 31)\",\"bg\":\"rgba(0, 0, 0, 0)\",\"pad\":\"0px\",\"br\":\"0px\"},\"userBub\":{\"fs\":\"14px\",\"lh\":\"21px\",\"color\":\"rgb(10, 10, 11)\",\"bg\":\"rgb(229, 237, 254)\",\"pad\":\"9px 12px\",\"br\":\"8px 8px 2px\"},\"asst\":{\"fs\":\"15px\",\"lh\":\"22px\",\"color\":\"rgb(31, 31, 31)\",\"bg\":\"rgba(0, 0, 0, 0)\",\"pad\":\"0px\",\"br\":\"0px\"},\"t12l\":{\"fs\":\"13px\",\"lh\":\"22px\",\"color\":\"rgb(134, 134, 134)\",\"bg\":\"rgba(0, 0, 0, 0)\",\"pad\":\"0px\",\"br\":\"0px\"}}"
+--- B2 侧边聊天（改后）
+"{\"ai\":{\"fs\":\"15px\",\"lh\":\"22px\",\"color\":\"rgb(31, 31, 31)\",\"bg\":\"rgba(0, 0, 0, 0)\",\"pad\":\"0px\",\"br\":\"0px\"},\"user\":{\"fs\":\"15px\",\"lh\":\"22px\",\"color\":\"rgb(31, 31, 31)\",\"bg\":\"rgb(229, 237, 254)\",\"pad\":\"9px 12px\",\"br\":\"8px 8px 2px\"},\"quote\":{\"fs\":\"13px\",\"lh\":\"22px\",\"color\":\"rgb(134, 134, 134)\",\"bg\":\"rgb(247, 247, 247)\",\"pad\":\"8px 10px\",\"br\":\"0px 6px 6px 0px\"},\"ta\":{\"fs\":\"14px\",\"lh\":\"22px\",\"color\":\"rgb(31, 31, 31)\",\"bg\":\"rgb(255, 255, 255)\",\"pad\":\"7px 10px\",\"br\":\"8px\"},\"av\":{\"w\":\"24px\",\"h\":\"24px\",\"bg\":\"rgba(0, 0, 0, 0)\",\"hasSvg\":true}}"
+--- B3 头像注入 / 消息计数
+"{\"avCount\":2,\"avWithSvg\":2,\"aiMsg\":2,\"userMsg\":1,\"avTextLen\":0}"
+--- B4 暗色档（用户气泡应 = --r93-bubble 暗档 #24314C = rgb(36,49,76)）
+"{\"user\":{\"fs\":\"15px\",\"lh\":\"22px\",\"color\":\"rgb(247, 247, 247)\",\"bg\":\"rgb(36, 49, 76)\",\"pad\":\"9px 12px\",\"br\":\"8px 8px 2px\"},\"ai\":{\"fs\":\"15px\",\"lh\":\"22px\",\"color\":\"rgb(247, 247, 247)\",\"bg\":\"rgba(0, 0, 0, 0)\",\"pad\":\"0px\",\"br\":\"0px\"},\"mainUser\":{\"fs\":\"14px\",\"lh\":\"21px\",\"color\":\"rgb(10, 10, 11)\",\"bg\":\"rgb(36, 49, 76)\",\"pad\":\"9px 12px\",\"br\":\"8px 8px 2px\"}}"
+--- B5 字号杠杆 --ui-fs=18（侧聊 ✕ 主对话 ✕ 溢出）
+"{\"sideAI\":{\"fs\":\"19.2857px\",\"lh\":\"28.2857px\",\"color\":\"rgb(31, 31, 31)\",\"bg\":\"rgba(0, 0, 0, 0)\",\"pad\":\"0px\",\"br\":\"0px\"},\"sideUser\":{\"fs\":\"19.2857px\",\"lh\":\"28.2857px\",\"color\":\"rgb(31, 31, 31)\",\"bg\":\"rgb(229, 237, 254)\",\"pad\":\"9px 12px\",\"br\":\"8px 8px 2px\"},\"sideTa\":{\"fs\":\"18px\",\"lh\":\"28.2857px\",\"color\":\"rgb(31, 31, 31)\",\"bg\":\"rgb(255, 255, 255)\",\"pad\":\"7px 10px\",\"br\":\"8px\"},\"sideQuote\":{\"fs\":\"16.7143px\",\"lh\":\"28.2857px\",\"color\":\"rgb(134, 134, 134)\",\"bg\":\"rgb(247, 247, 247)\",\"pad\":\"8px 10px\",\"br\":\"0px 6px 6px 0px\"},\"mainT14\":{\"fs\":\"19.2857px\",\"lh\":\"28.2857px\",\"color\":\"rgb(31, 31, 31)\",\"bg\":\"rgba(0, 0, 0, 0)\",\"pad\":\"0px\",\"br\":\"0px\"},\"mainT12l\":{\"fs\":\"16.7143px\",\"lh\":\"28.2857px\",\"color\":\"rgb(134, 134, 134)\",\"bg\":\"rgba(0, 0, 0, 0)\",\"pad\":\"0px\",\"br\":\"0px\"},\"mainComposer\":\"18px/28.2857px\",\"av\":\"24px\",\"overflow\":0}"
+############ done ############

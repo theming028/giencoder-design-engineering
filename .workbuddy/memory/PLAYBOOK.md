@@ -3115,6 +3115,8 @@ len(ws) - len(hd)      # 真·内容增减（Unicode 字符口径）
 `git diff --numstat` 对 8 页显示 **3/3** 也自证：**只有 nav 块那 3 行**（含 1 枚巨行）在变。
 
 ★ **同一份文件的三种数（务必标清口径）**：Unicode 字符 **797333** ｜ UTF-8 字节（LF 归一）**867599** ｜ 工作区字节（CRLF）**872270**。
+⚠ ★★ **事后校准（2026-10-01 11:5x）**：本节这三行的数都是**第三拍之前的中间读数**；r106 真正交付的 `4d081ba` 实测 = **793028 → 799231 字符（+6203）**、UTF-8 **870627** 字节。
+⇒ **教训再加一条**：**「口径写对」≠「取数时机对」** —— 同一轮里每一拍都会再长 ⇒ **文档里的终态数必须在最后一次 `applyNN.py` 跑完之后、直接从 `git cat-file blob <commit>:<path>` 取**（别抄脚本中途打进日志的值；`git show <commit>:<path>` 也行，但 `cat-file` 最直白）。
 
 **推论**：
 * `git diff` / `--numstat` **走规范化、看的是内容**；`wc -c` / `cat-file -s` **看的是原始字节** —— 两套口径**别混用**。
@@ -3239,4 +3241,887 @@ Tailwind 的 `border` 按 **border-box** ⇒ **`border-right-width: 0` 只让「
 ⚠ 顺带：**同类问题常常成组存在** —— 揪出 `.r93-bub` 时顺手确认它的子盒（`.r93-bubi` / `.r93-attrow` / `.r93-umeta`）
 全都跟着变，才能保证「整个块」一起收，而不是只收外壳、内层还溢出。
 
+### P3.39 r107 定稿（会话详情页「侧栏模块标签化」· 复刻 Codex 右栏 · 2026-10-01 09:3x 起 · **第一~三拍**）—— ★ 十二条新教训
 
+> 前置：r106 六条已提交 **`4d081ba`**、Codex 调研文档 **`f13b3bf`** ⇒ 工作区转干净。
+> 本代**新建** `mg-work/r107/apply107.py`（`GENS` **五代**：r93/r101/r102/r106/r107）。
+> 构成：`part107/{_head, _mods, panel.css, panel.js}` + 组装件 `browse.html`（由 `ev/splice107.py` 拼）
+> ⇒ `apply107.py`（由 `ev/make107.py` 从 `apply106.py` 做 **11 处精确替换**生成）。
+> 完整版见 `mg-work/r107/acceptance.md`；本页固定事实见 PAGES **P3.11i**。
+> 邵先生硬约束：**不得改动其他不必涉及的模块 / 整体稳定性不被破坏 / 只做静态交互**。
+
+#### ① ★★★ 「跨代沿用的宿主标记**不换名**」⇒ 换来一次「**只改一页**」的体位
+
+`GENS` 扩成五代，但**第五代的 nav id 刻意仍写 `r106-nav-js`**：
+```python
+GENS = (('r93',…), ('r101',…), ('r102',…),
+        ('r106', 'r106-conv-css', 'r106-conv-js', 'r106-nav-js'),
+        ('r107', 'r107-conv-css', 'r107-conv-js', 'r106-nav-js'))   # ← 沿用，不是 r107-nav-js
+NAV_TAG = 'r106'      # build_nav_js / 残留自检都用它
+```
+**理由**：本代根本没碰 nav 跳转脚本。若照惯例改名，`base.html` + 8 个外壳页会**全体进 diff**
+（⚠ 且是**等长换名** ⇒ 内容零差异、`--numstat` 看着像 0/0，但 9 页全变 ` M`）——
+那直接违背「不得改动其他不必涉及的模块」。
+
+**判据（一步到位）**：`--dry` 跑完数一遍
+```
+   base.html            已是目标态（无改动）
+   conversation.html    799231 → 866988 (+67757)  应用
+```
+⇒ `git status --porcelain` 只有 ` M pages/conversation.html` + `?? mg-work/r107/`。
+
+**通用形态**：新开一代时，**先看这一代到底改了哪一类注入块**（`*-conv-css` / `*-conv-js` / `*-nav-js`），
+**没改的那个块一律沿用上一代 id**。这是「只改 X 页」的**唯一体位**，比事后 `git checkout` 补救可靠。
+
+#### ② ★★ 新模块 section 的类名**必须与内部件不重名**（撞车极隐蔽）
+
+初版写 `<section class="td-mod td-term">`，而内部正文恰好是 `<div class="td-term">`。后果两连：
+1. `document.querySelector('.td-term')` 取到的是**外层 section**（`tabIndex = -1`、`tabindex` 属性为 `null`）
+   ⇒ 「点终端 → 聚焦 → 打字」看起来**像没反应**（其实焦点根本没进输入行，也没报错）；
+2. `.td-term{...}` 那一整套样式**同时压在 section 上**（section 与内层各吃一份 `padding:12px 14px`）。
+
+**取证**：`{ti:-1, attr:null, html:'<section class="td-mod td-term"…'}` + `document.querySelectorAll('.td-term').length === 2`。
+**修法**：section 改名 **`td-mod-term`**（另两个 section 的 `td-rv` / `td-brw` 与内部件**不重名**，已核对无恙）。
+
+**通用形态**：给「容器 + 内容」写类名时，**容器侧统一加 `td-mod-` 前缀**。
+⚠ 判据不是「看着像」，而是**量 `.cls` 的匹配数**：> 1 就是撞车，哪怕当下没炸。
+
+#### ③ ★★ 绝对定位子件前，先确认源件的**包含块**在哪
+
+`.td-commit { position: absolute; inset: 0 }`，而**源件 `.td-browse` 没写 `position`** ⇒
+包含块落到**视口**：遮罩铺满整站、卡片居中在屏幕中央，而不是在侧栏里。
+
+**证据**：`modalRect = [418,211,250,246]`（250×246 ≈ 卡片本色尺寸、坐标 = 视口居中）
+→ 修后 `[792,49,639,842]`，与 `panelRect [791,48,641,844]` **几乎重合** ✓。
+
+**修法**：给源件补 **`position: relative`**（`position` 不改 flex 项的布局尺寸，对既有布局**零副作用**）。
+**判据配方**：**「子件矩形 ≈ 容器矩形」**就是包含块对了；
+若子件是**居中 + 比容器小一圈**，那 99% 是包含块跑到视口了（别去调 `inset`，去补 `position`）。
+
+#### ④ ★★ Esc 分层：**`window` 捕获段 < `document` 捕获段**（比「注册顺序」更上层）
+
+站内既有脚本（ctrl-conv）的 Esc 挂在 **`document` 捕获段**。本代若也挂 `document`，就得靠**脚本注入顺序**去抢
+（而顺序由 `applyNN.py` 的追加位置决定 —— 脆）。**更稳的一档：把本代的 Esc 挂 `window` 捕获段**：
+
+```js
+window.addEventListener('keydown', function (e) {
+  if (e.key !== 'Escape') return;
+  …
+}, true);   // window 捕获段 ⇒ 无条件比任何 document 捕获段更早
+```
+实测：一次 Esc ⇒ `menuOpen:false, panelOn:true`；再一次 ⇒ `panelOn:false` ✓（**不会一次 Esc 关两层**）。
+
+⚠ 配套：**必须自己把「层级」写进处理器**（先关菜单 / 再关模态 / 最后关面板），
+`window` 捕获段只解决「比谁早」，不解决「这一下该关哪个」。
+
+#### ⑤ ★ `agent-browser` 的单字符 `press` **能**触发 keydown，`keyboard type` **未必**
+
+终端回声这类「逐键落在输入行」的验证踩过：`AB keyboard type "ls"` / `AB focus` **都不触发** `keydown`，
+看起来像「终端没写对」。
+**取证配方（逐键 `press`）**：
+```
+AB press l ; AB press s ; AB press Enter
+⇒ echo:"ls" · outs:6 · out0:"README.md …"    ✓
+```
+⇒ **凡要验「按键 → 页面响应」，一律用 `agent-browser press <单字符/键名>`**（真实按键、`isTrusted=true`）；
+`keyboard type` 只适合验「输入框能不能收字」，**不能**用来验快捷键 / 逐键逻辑。
+⚠ 前置：目标元素**必须真的可聚焦**（`tabindex="0"` 已落盘）——
+本代 bug 1 修好前，`AB press` 同样「无反应」，所以**先量 `activeElement` 再下结论**。
+
+#### ⑥ ★ 标签栏 `+` 的位置由 `flex` 口径决定：`0 1 auto`（不 grow）
+
+初版 `.td-browse-tabs { flex: 1 1 auto }` ⇒ 标签条吃满剩余宽 ⇒ `+` 被推到**最右**（实测 addBtn `1314~1342`），
+不是 Codex 的「紧贴最后一枚标签」。
+**修法**：`flex: 0 1 auto` + 剩余空间交给 `.td-browse-acts { margin-left: auto }` 吃。
+实测（1440、四标签）：标签右缘 **1138**、「＋」左缘 **1142** ⇒ 视觉间距 = `gap` 4px ✓。
+
+**通用形态**：`1 1 auto` / `0 1 auto` 的差别**不在宽度、在「谁吃剩余空间」**——
+写「标签条 + 尾部动作区」时，**让尾部动作区 `margin-left:auto`**，别让标签条 grow。
+
+#### ⑦ ★★ 「组装件 + 生成器」双层产物：**改的顺序只能是 下→上**
+
+本代产物是**两层**：
+```
+ev/splice107.py  →  part107/browse.html（组装件：剪旧正文 + 换头 + 追加新模块）
+ev/make107.py    →  apply107.py（补丁：从 apply106.py 做 11 处精确替换）
+```
+⇒ **改任何一处都必须「先改 `part107/` 源件 → 重跑 `splice107.py` → 重跑 `make107.py` → 重跑 `apply107.py`」**。
+⚠ **绝不能直接改 `apply107.py`**（它每次都被 `make107.py` 整份覆盖，改了必丢）；
+⚠ 也不能只改 `browse.html`（`apply107.py` 里嵌的是**生成当时的** `browse.html` 文本）。
+
+**另一个坑：`--revert` 是「整代回滚」，不是「只退 r107」** ——实测它会
+删 `pages/conversation.html`、剥掉 base + 8 页的 `ROUTE` 表条目 / `r101-hdr-css` / 会话跳转脚本
+⇒ 退到 **r93 之前**。**只退本代一律用 `git checkout -- <那一页>`**；
+`--revert` 仅用于「这代整体不要了」。
+⚠ 且**不要**用「重跑上一代 `apply106.py`」来退 —— 它的 `GENS` 只有四代，
+「摘块后基线仍残留 `r107-conv-css`」自检会直接 `sys.exit`。
+
+**通用形态**：收尾永远用 **`--dry` 数一遍「改了哪些页 + 每页前后字数」**，再决定要不要正式跑。
+
+#### ⑧ ★★ 浮窗「关不掉」先查**搜索根**：菜单挂在哪一段，就用谁的祖先当根
+
+**症状（r107 第二拍）**：审查模块的「显示选项」浮窗（`.td-rv-opts`）**点开后关不掉**。
+`closeMenus()` 与 Esc 裁决的搜索根写的是**标签栏** `bar = .td-browse-bar`；
+而 `.td-rv-opts` 挂在**模块自己的工具条** `.td-mod-bar`（在 pane 里、不在标签栏里）⇒ 永远查不到它。
+
+| 关闭路径 | 改前 | 改后 |
+|---|---|---|
+| 点浮窗外的空白 | 不关 ✗ | 关 ✓ |
+| 按 Esc | 不关；且事件落到 ctrl-conv ⇒ **把整条侧栏也关了** ✗ | 关浮窗、侧栏留 ✓ |
+| 选完菜单项 | 不关 ✗ | 自动关 ✓ |
+
+**修法**：搜索根 `bar` → **`pane`**（两枚浮窗的共同祖先 `.td-browse`）。
+
+**通用形态**：同一个「浮窗关闭器」要管多个分属不同容器的浮窗时，**根必须取它们的最近共同祖先**，
+不能顺手用「当前手边那个容器」。⚠ 连带坑：**根写错时 Esc 会静默漏到下游**——
+`if (!modal && !menuOpen && …) return;` 因为查不到而当「没有浮窗」，既不 `preventDefault`
+也不 `stopPropagation` ⇒ 下一层（ctrl-conv）把**整条面板**关掉。
+⇒ 这还会伪造出「另一个功能坏了」的假象：第一拍验收里点「并排视图」得到 `split:false`，
+其实是**前一步的 Esc 已经关了整条侧栏**，按钮不可见，真鼠标点了个空。
+
+#### ⑨ ★★★ **`line-height: calc(Npx * var(--ui-fs-ratio))` 会被 `converge()` 压成裸 px**（仓库级坑，潜伏已久）
+
+**症状**：源件 `part107/panel.css` 里明明是 `line-height: calc(22px * var(--ui-fs-ratio))`，
+**跑完补丁后页面上是裸 `line-height:22px`**（`--ui-fs` 杠杆失效 ⇒ `--ui-fs=18` 时行高卡在 22px，
+而主对话 `.r93-t14` 长到 28.29px）。
+
+**根因**（`mg-work/r88/apply88b-fontsize.py`）：
+```python
+CSS_ID = 'r87-ui-css'          # ★ 硬编码 = r87 代遗留
+RE_OWN_STYLE = re.compile(r'(<style id="%s">)(.*?)(</style>)' % CSS_ID, re.S)
+def converge(css):             # 想「原样跳过本代块」，实际跳的是 r87 的块
+    css = RE_OWN_STYLE.sub(stash, css)      # ⇒ 对 r107 而言是 no-op
+    css = scale_css(unscale(css))           # ⇒ 本代块也被 unscale → scale
+```
+* `unscale()`：`line-height: calc(Npx * ratio)` → 裸 `line-height:Npx`（`height`/`min-height` 同理）；
+* `scale_block()`：**只在规则体内出现 `var(--font-size-*)` 时**才把裸 px 重新派生成 `calc(… * ratio)`。
+
+⇒ **体里只写 `calc(Npx * var(--ui-fs-ratio))` 字号的规则，行高/高度被永久压平**。
+
+**修法（仓库既有体位，别去改 apply88b —— 它对已交付各代同样生效，动它会改变历史页面的计算值）**：
+1. **凡声明 `line-height` / `height` / `min-height` 的规则，`font-size` 一律写 `var(--font-size-*)` token**；
+2. **DS 无对应 token 的档位（如 15px）用两段式**：
+   ```css
+   .x { font-size: var(--font-size-body-3); line-height: calc(22px * var(--ui-fs-ratio)); }
+   .x { font-size: calc(15px * var(--ui-fs-ratio)); }   /* 只覆盖字号，不带行高 */
+   ```
+   —— 这正是 `.r93-t14` 在页面里的真实写法（token 规则挂行高 + 后续规则只抬字号）。
+
+**自查脚本**：`mg-work/r107/ev/scan-flatten.py <css…>`（模拟 unscale→scale 往返，列出会被压平的规则）。
+**判据**：改完必须量 **`--ui-fs=18`** 下的行高 —— 只在默认 14 下量**发现不了**（calc(Npx×1)=Npx）。
+⚠ `min-height` 被压平**无害**（它只是下限，内容会撑开盒子）⇒ 不必为它硬塞一个假 token 字号。
+
+#### ⑩ ★★ 互斥态的两条 `display` 规则：**特异性必须错开**（同特异性只看文档顺序）
+
+r107 第三拍 · 邵先生报「并排视图下代码文件不能正常展开和折叠」：
+
+```css
+.td-diff:not(.is-open) .td-diff-rows { display: none; }   /* (0,3,0) 写在前面 */
+.td-rv-body.is-split .td-diff-split { display: block; }   /* (0,3,0) 写在后面 ⇒ 胜出 */
+```
+
+两条**特异性完全相同**（各 3 个类选择器）⇒ 后者靠**文档顺序**压过前者 ⇒
+「折叠」这条路径在并排态**整体失效**（统一视图正常，所以只在并排下暴露）。
+
+**修法**：给其中一条加一层约束把特异性错开（`.td-rv-body.is-split .td-diff.is-open .td-diff-split` = (0,4,0)）。
+
+**通用判据**：写「展开 / 折叠」「显示 / 隐藏」这类互斥态时，**两条规则的类选择器个数差 ≥ 1**；
+如果算出来一样，就说明**谁生效取决于哪条后写** —— 那是 bug 的温床，不是设计。
+**量法**：四象限各量一次 `getComputedStyle(el).display`（统一×展开 / 统一×折叠 / 并排×展开 / 并排×折叠），
+别只量「切过去那一下」。
+
+#### ⑪ ★★ 探针自己会骗人：三类**假失败**（r107 第三拍一次踩了三个）
+
+| 假失败 | 症状 | 判据 / 修法 |
+|---|---|---|
+| **选择器层级错** | 量 `.td-diff`（article）的 `display` 当成「行容器」的 | 取样前先确认**量的是哪一层**：`getComputedStyle(目标层的选择器)`，必要时 `>` 直连 |
+| **时序被进程开销吃掉** | 点完 toast / 提示类瞬时态再另起一次 `eval` 读 ⇒ 读到的是「已自动隐藏」 | **点与读必须在同一次 `eval` 内**（IIFE：先 `click()` 再立刻读）；跨调用一定加 wait，且 wait 要小于态时长 |
+| **点在不可见元素上** | `click` 静默失败（无报错、无变化） | 先过滤 `[...].filter(e => e.offsetParent !== null)` 再点；或先切到让目标可见的那个态 |
+
+⇒ 探针报「没生效」时，**先证伪探针**（这三条查一遍），再去改产品代码。
+
+#### ⑫ ★★ `verify-design.py` 会数**渐变处数** —— 别顺手加 `linear-gradient`
+
+「半填充圆点」这类进度态最容易写成 `linear-gradient(90deg, c 0 50%, transparent 50% 100%)`，
+但该脚本把渐变算作「过度装饰」的指标（一屏渐变处数），**多一处就进回归 diff**（r107 第三拍 63 → 64）。
+
+**替代**：用「**边色 + 实心 tint**」表达状态，三态靠颜色区分（例：未开始 = 灰描边透明底；
+进行中 = 主色描边 + `--color-primary-light-2` 实心；已完成 = `--color-success-6` 实心 + 白勾）。
+零渐变、暗色档自动翻转、回归 diff 干净。
+
+---
+
+### P3.40 r107 第四拍（摘要升默认 + 卡片式 · 补划词浮条 · 补右键菜单 · tab 14px · 下拉 DS 化 · 2026-10-01 10:5x）—— ★ 五条新教训
+
+> 邵先生五条：① 摘要作默认页签 + 四模块卡片式；② 划词功能要补；③ 右栏支持右键菜单的对象要调查后补；
+> ④ `.td-browse-tab` 字 14px；⑤ 所有下拉菜单改用 giencoder DS 组件。
+> 体位：r107 **未提交** ⇒ 仍是**就地返工**（`apply107.py` / `GENS` / 注入块 id / `NAV_TAG` 全不动）。
+> 完整版见 `mg-work/r107/acceptance.md` 第九节。
+
+#### ① ★★★ 页面级「通配适配层」会顺手扫到**新挂 DS 类**的弹层 —— 只有量 `rect` 才现形
+
+r93 ④ 为「**贴底 composer 的下拉要向上弹**」写过一条**通配**规则：
+
+```css
+html[data-r93-page='conversation'] .giencoder-select-popup { top: auto !important; bottom: calc(100% + 4px) !important; }
+```
+
+本拍右栏里四枚新下拉**都挂了 `.giencoder-select-popup`** ⇒ 被这条一起扫到、**全部翻到锚点上方**，
+实测 `open` 后 `rect.y = -170`（**顶出视口、整排看不见**）。
+
+> ★★ 最坑的地方：**除了位置，其它一切「看起来都对」** —— `[hidden]` 摘掉了、`.giencoder-popup-open` 加上了、
+> `visibility:visible` / `transform:none` / `scale:1` / `opacity:1` 全部到位。**只量「样式属性」会得出「它是好的」**，
+> 必须量 **`getBoundingClientRect()`** 才能看到它其实在屏幕外。
+
+**修法（体位：同一条规则、更高特异性，别去改 r93 那条）**：在 `panel.css` 里加一层 `.td-browse`：
+
+```css
+html[data-r93-page='conversation'] .td-browse .td-mod-menu,
+html[data-r93-page='conversation'] .td-browse .td-rv-menu {
+  top: 42px !important; bottom: auto !important; transform-origin: top;
+}
+```
+
+**通用形态**：往已有页面里**新挂一个「本来就带全局适配层」的 DS 类**（`.giencoder-select-popup` 是重灾区）之前，
+先 `grep` 该类的**页面级规则**（`html[data-*-page=…]` / 通配），确认它会不会把新弹层一起带走。
+⚠ 还有伴生问题：r75 的 `.giencoder-select-popup{display:block!important}`（为过渡留起点）会让 `[hidden]` 的
+`display:none` **也压不过** ⇒ `[hidden]` 的兜底必须靠本层的**高特异性规则**。
+
+#### ② ★★★ `!important` **连行内 `style` 也压得过** ⇒ JS 定位的浮层别写行内坐标
+
+同一条 r93 适配层里带 `top: auto !important`。本拍第一版给右键菜单写的是行内定位
+`ctxEl.style.left = x + 'px'; ctxEl.style.top = y + 'px'` —— **完全无效**（行内样式也输给 `!important`）。
+
+**修法**：坐标写进**自定义属性**，再由 `!important` 规则落位：
+
+```js
+ctxEl.style.setProperty('--td-ctx-x', x + 'px');
+ctxEl.style.setProperty('--td-ctx-y', y + 'px');
+```
+```css
+html[data-r93-page='conversation'] .td-browse .td-ctxmenu {
+  top: var(--td-ctx-y, 0px) !important; left: var(--td-ctx-x, 0px) !important;
+  bottom: auto !important; transform-origin: top left;
+}
+```
+
+**通用形态**：**页面里存在 `!important` 定位规则时，JS 一律走自定义属性 + 一条 `!important` 规则**。
+（⚠ 自定义属性本身不是「声明」，不会被 `!important` 压制 —— 这正是它能当**通道**的原因。）
+实测：`pos [980,324]` = 造的 `clientX/clientY` ✓。
+
+#### ③ ★★ 同特异性 `background` 规则「后者胜」—— 给 DS 条目做兜底**务必加 `:not()`**
+
+DS 的 `.giencoder-menu-item-selected { background: var(--color-primary-light-1) }` 是 **(0,1,0)**。
+本拍为「非选中项要透明」写了 `.td-mm-item { background: transparent }` —— 也是 **(0,1,0)**，且**写在后面** ⇒
+**选中项的浅蓝底被整片抹掉**（只剩蓝字 + 左缘 3px 条，`background` 量到 `rgba(0,0,0,0)`）。
+
+**修法**：把兜底句**提到不重叠的特异性**上：
+
+```css
+.td-mm-item:not(.giencoder-menu-item-selected) { background: transparent; }   /* (0,2,0) */
+```
+
+> ★ 这是**同样的病**在 r107 第三次犯（第一拍 `.td-mod-section` 撞车、第二拍 `.td-rv-opts` 搜索根、
+> 第三拍 `.td-diff-split` 同特异性）⇒ 写「覆盖 DS 的规则」时，**先看目标 DS 规则的类数**，
+> 再用 `:not(...)` / 多带一层祖先把特异性**明确错开**。判据 = 量**选中态**的 `background`（别只量 hover / 常态）。
+
+#### ④ ★★ 「过渡中取值」假失败（第三次踩）—— 打开与量测**拆两次 `eval`**
+
+开菜单后**同一次 `eval`** 里读 `opacity` / `width`，读到的是**过渡起始值**（`opacity:0`、`width:192`），
+很容易误读成「DS 动画没跑起来 / 尺寸没生效」。
+
+**修法**：`p107d2.js` **只负责打开**，量测放到**另一次 `eval`**（中间 `AB wait 600`）⇒
+`opacity 1 / scale 1 / transform none / padding 4px / border 1px / width 200` 全部到位。
+> ⚠ 与 P3.39⑪「时序假失败」是**同一类**的不同面：那条讲「瞬时态别跨调用读」，这条讲「**过渡态别同一次读**」。
+> 通用判据：**读到的值 ≈ 该属性的「起始值」而不是「目标值」⇒ 先怀疑量测时机**（PLAYBOOK 硬规则 15 同源）。
+
+#### ⑤ ★★ 「自绘 → DS 组件」的标准体位：删自绘视觉、只留**定位 + 槽位**，但**开合兜底留在页面级**
+
+> ⚠⚠ **本条选的组件族已被 P3.41 推翻**（`giencoder-select-popup` 是 **Select** 的弹层、`giencoder-menu` 是
+> **导航菜单**，两者串族）⇒ **体位（删自绘、只留定位+槽位）仍然成立**，但**挂哪一族要看 P3.41**。
+> 本条的「DS 组件口径实测留档」也一并作废（那是 Menu 族的：36 高 / `hover fill-1` / `max-height 280`）。
+
+本拍把四枚下拉从自绘改成 DS（`giencoder-select-popup` + `giencoder-menu` + `giencoder-menu-item`
++ `giencoder-menu-group-title` + `giencoder-menu-icon` + `giencoder-menu-item-selected`）。
+
+`panel.css` 那一节的处理：**整段删掉** `height` / `padding` / `border-radius` / hover 底 / 投影 / 字号，
+只留三件**DS 不管的**事：
+1. **定位**（`.td-mod-menu{ position:absolute; top:42px; left:64px; z-index:30 }` 等）；
+2. **槽位布局**（`.td-mm-name{flex:1 1 auto; min-width:0}` / `.td-mm-key{flex:none}` —— DS 不给条目内部分配 flex）；
+3. **开合兜底**（`.td-mod-menu[hidden]{display:none}`，因为 r75 的 `display:block!important` 会把 `[hidden]` 顶掉）。
+
+⚠ 另外留了两个**必须自己写**的：`.td-mm-item{ box-sizing:border-box; width:100%; border:0; font-family:var(--font-family); text-align:left }`
+（`<button>` 的 UA 默认）与 ③ 里的 `:not()` 兜底。
+**DS 组件口径实测留档**：菜单 `{r:8px, shadow rgba(0,0,0,.1) 0 8px 20px 0, max-height:280px, padding:4px}`、
+条目 `{h:36px, r:4px, padding-left:12px, fs:14px, gap:10px}`、选中 `background rgb(245,248,255)` + 左缘 3px 条、
+分组标题 `{fs:12px, padding-left:16px, padding-top:8px, color rgb(134,134,134)}`。
+
+---
+
+### P3.41 r107 第五拍（下拉 hover 补齐 + 下拉改挂 DS Dropdown · 2026-10-01 11:3x）—— ★ 六条新教训
+
+> 完整版见 `mg-work/r107/acceptance.md` **第十节**；本页固定事实见 PAGES **P3.11i**。
+> 邵先生原话两条：① 所有下拉菜单都少了 hover 效果，需补充；② `…giencoder-select-popup giencoder-menu td-rv-opts…`
+> 这个菜单**还没有应用设计系统的组件**，需改造。
+
+#### ① ★★★ 「**挂错组件族**」比「没挂组件」难发现得多 —— 先枚举组件族，再挑
+
+邵先生说「还没应用设计系统的组件」，而**字面核查全过**：页面里 `td-rv-opts` 只 1 处、class 串与他给的**完全一致**、
+`giencoder-select-popup` / `giencoder-menu` / `giencoder-menu-item` / `-group-title` / `-icon` **一个不缺**。
+⇒ 结论只能是**挂错族**。**枚举配方**（`giencoder-design-system/components/*.json` 共 68 份契约）：
+
+```bash
+# 1) 找出「同类语义」的候选契约，读 summary / variants / states / interaction
+python -c "import json;d=json.load(open('giencoder-design-system/components/menu.json'));print(d['summary'],d['variants'])"
+# 2) 关键判据是 giencoderSource.mapsFrom 与 variants —— 别被类名骗
+#    menu.json    → mapsFrom: sidenav/topnav   （**导航菜单**）
+#    select.json  → 「选择器」，其弹层类 = .giencoder-select-popup
+#    dropdown.json→ 「点/悬停/**右键**触发的**弹出菜单**，项可含图标与快捷键」+ variants.contextMenu  ← 正主
+# 3) 找**站内既有落地**（最硬的判据）：grep 组件类名
+```
+
+本仓的既有范例（**两套、口径不同，必须挑同页的那套**）：
+
+| 范例 | 位置 | hover 底 | 出处 |
+|---|---|---|---|
+| `.r93-ctx` | **本页** `conversation.html` 行右键菜单 | `--color-fill-2`（= DS 契约值） | r93 ⑦，设计稿实测 |
+| `.td-ctx` | `task-detail.html` 右键菜单 | `--color-fill-1`（注释：以视觉稿为准） | r69 |
+
+⇒ **取本页那套**（同页自洽优先于跨页统一）。
+★ 也顺带证实：**页面里 `giencoder-dropdown-popup` 有 53 处**（DS bundle 内联了 Dropdown 族），
+而 `giencoder-design-system/components.css` 里 **0 处** ⇒ **「DS 有没有这个组件」要查页面内联的 bundle，不是只查 DS 源目录**。
+
+#### ② ★★★ 同特异性 + 文档序 ⇒ **hover 被静默压掉**（P3.40③ 的同一种病，**第四次犯**）
+
+```css
+/* 第四拍写的（错）—— 与 DS 的 :hover / -selected **同 (0,2,0)**，但本块文档序在后 ⇒ 两态一起被压 */
+.td-mm-item:not(.giencoder-menu-item-selected) { background: transparent; }
+```
+
+**修法**：基态与 `:hover` **写在同一块、基态在前**（同 (0,3,0) 语境，顺序自洽）：
+
+```css
+.td-rv-menu .giencoder-dropdown-item { background: transparent; }          /* 压 UA buttonface */
+.td-rv-menu .giencoder-dropdown-item:hover { background: var(--color-fill-2); }
+```
+
+★ **判据必须是「真鼠标 hover 后读 `getComputedStyle`」**（`agent-browser hover <sel>` + `eval`）：
+
+```js
+its[i].matches(':hover')            // 确认鼠标真的在上面
+getComputedStyle(its[i]).backgroundColor   // 期望 rgb(242,242,242)，不是 rgba(0,0,0,0)
+```
+只查「类名挂没挂上 / 规则在不在」**永远发现不了这个 bug**。
+
+#### ③ ★★ DS 弹层骨架的 **entry 动画**会把 `opacity` 打回 0 —— 复用前必须 `animation: none`
+
+`.giencoder-dropdown-popup` 的骨架里带 `animation: 0.2s cubic-bezier(.34,.69,.1,1) giencoder-popup-in`，
+**播完 `opacity` 回落到 0** ⇒ 菜单「闪一下就不见」。这与「DS 弹层默认 `visibility:hidden`」是**两件事**，
+常常叠在一起（r93 头注释里已经踩过：`animation:none` + 开合走 `.giencoder-popup-open`）。
+⇒ 复用任何 DS 弹层类之前：**先看它的骨架里有没有 `animation`**（`grep '\.giencoder-xxx-popup{'`）。
+
+#### ④ ★★ **「换族」会让页面级的连带副作用自行消失** —— 换完要重测一遍旧坑
+
+上一拍为绕开 `html[data-r93-page='conversation'] .giencoder-select-popup{top:auto!important;bottom:…}` 与
+r75 的 `.giencoder-select-popup{display:block!important}` 写了两条适配（P3.40①②）。
+第五拍换成 `.giencoder-dropdown-popup` 后 **两条通配都不再命中** ⇒ 实测 `afterCloseHidden:true`（`[hidden]` 兜底恢复）。
+⇒ **「换族」= 把所有基于「旧族类名」的适配重新审一遍**：哪些还需要、哪些变成死代码、哪些原来被压住的兜底重新生效。
+（本拍保留了 `.td-ctxmenu` 那条 `!important` 作为兜底，并在注释里写明理由。）
+
+#### ⑤ ★★ **换族 = 一次「选中态表达」的重新协商** —— DS 没有的状态别自己造
+
+| | Menu 族 | **Dropdown 族** |
+|---|---|---|
+| 选中态 | `.giencoder-menu-item-selected`（主色字 + `--color-primary-light-1` 底 + 左缘 3px 条） | **无 `-selected` 类** ⇒ 契约 `states.selected` = 「文字 `--color-primary-6` **或勾选图标**」 |
+
+⇒ 按契约取「**主色文字 + `.td-mm-mark` ✓**」（两枚 radio 项补上 ✓ 元素）；**不虚构**浅蓝底 / 左缘条。
+★ 这正是 `dropdown.json` 的 `doNotInvent` 精神：**契约没写的状态，不做**。
+⚠ 副作用要自己兜：radio 项原来靠底色表达「选中」，现在靠 ✓ ⇒ **没 ✓ 元素的项要补 HTML**（否则只变蓝字、太弱）。
+★ 顺带：Dropdown **无 group-title 子部件** ⇒ 分组标题**借用** Menu 的 `.giencoder-menu-group-title`（仍是 DS 类、不自绘），
+但要用适配层把它的左内距 16px 压到 8px 与 Dropdown 条目对齐。
+
+#### ⑥ ★ 迁移脚本的自检：**剥掉 CSS 注释后再查旧类名残留**
+
+「改完 grep 零残留」这条硬规则，在**注释里解释了旧类名**时会**误报**。正确写法：
+
+```python
+import re
+nocmt = re.sub(r'/\*.*?\*/', '', s, flags=re.S)          # 先剥注释
+assert 'giencoder-menu-item' not in nocmt
+assert not re.findall(r'giencoder-menu(?!-group-title)', nocmt)   # 前缀类要排除有意保留的
+```
+⚠ 反向也要防：**断言写成裸 `s.count(...)` 会把注释算进去** ⇒ 只能靠「剥注释 + 精确前缀排除」。
+
+#### ⑦ 本拍门禁
+
+幂等 ✓（第二遍「已是目标态」）｜`check-syntax` **10/10**｜`verify-design` 与 `vd-r107c.txt` **逐字节相同**
+（21882 字节 / md5 `3dbf654337559509110899e48bef1b1c`）⇒ 零新增｜改动面 `M pages/conversation.html`（`+2107 / −3`）
++ 5 份记忆文档 + `?? mg-work/r107/`；`base.html` 472150 字符**逐字节不变**。
+产物 **920259 → 921730 字符（+1471；相对 HEAD +122499）**。
+
+
+### P3.42 r107 第六拍（统计行框选不到 / `.r93-pre` 去字体族 / 窄档两条自适应 · 2026-10-01 11:4x）—— ★ 六条新教训
+
+#### ① ★★★ 「这段文字选不中」= 它**不是 DOM**（`content:` 生成内容）
+
+`::before` / `::after` 的 `content:` 挂出来的字**不是 DOM 的一部分** ⇒ 浏览器的选区**落不进去**：
+拖选后 `Selection.toString()` 恒空、`caretRangeFromPoint` 退回宿主元素（`startContainer` 是元素、`offset 0`）。
+
+**为什么当年会用伪元素**：React 重渲染拿不掉它 —— 这个理由**仍然成立**，所以改真节点时必须另配兜底（见 ②）。
+
+**判据配方（三条，缺一不可）**：
+
+```js
+// ① 拖选（与浏览器内部同机制：caretRangeFromPoint ×2 → setBaseAndExtent）
+var r1 = document.caretRangeFromPoint(xa, y), r2 = document.caretRangeFromPoint(xb, y);
+sel.setBaseAndExtent(r1.startContainer, r1.startOffset, r2.startContainer, r2.startOffset);
+sel.toString().length;                       // 生成内容 ⇒ 0
+// ② 落点类型：生成内容处 startContainer 是 ELEMENT（不是 #text）
+// ③ Range.selectNodeContents(宿主).toString() 里不含那段文字
+```
+
+★ **必做隔离对照** —— 临时建一真一伪两块 DOM，**同一次运行里用同一套手法**拖选：
+
+```js
+st.textContent = '#zzA::after{content:"PSEUDO-SELECT-ME";}';
+box.innerHTML = '<div id="zzA"></div><div id="zzB">REAL-SELECT-ME</div>';
+// ⇒ A: picked:""  B: picked:"REAL-SELECT-ME"
+```
+
+没有这步，「探针写错了」永远排除不掉（本轮真出现过一个**反例对照组选错元素**导致双双为 0）。
+⚠ 陷阱：拿 `<textarea>` 做对照组会**双输**（表单控件内部不是普通文本节点，`caretRangeFromPoint`
+同样落回 `DIV`）⇒ 对照组要用**普通文本元素**。
+
+#### ② ★★★ 往 React 渲染的容器里注入真节点 = `MutationObserver` 兜两件事
+
+从伪元素换成真节点，**两个坑都会踩**：
+- **重渲染会把不认识的节点摘掉** ⇒ 要能自动补回；
+- ★ **重挂时 React 把自己的子节点 `appendChild` 到末尾**，而我们注入的节点可能已经在那儿 ⇒
+  注入节点会变成**第一个**（统计行跑到输入卡**上面**）⇒ 每次都要确认「我在最后一个」。
+
+```js
+function sync() {
+  var host = document.querySelector(SEL), el = host.querySelector(':scope > .cls');
+  if (!el) { el = document.createElement('div'); el.className = 'cls'; el.textContent = TXT; }
+  if (host.lastElementChild !== el) host.appendChild(el);   // 不在末尾就挪回末尾
+}
+new MutationObserver(sync).observe(document.body, { childList: true, subtree: true });
+```
+
+**天然收敛**：自己造成的 mutation 会再进一次回调，第二次判存即返回 ⇒ 不相打死循环。
+⚠ 观察根选 `document.body` + `subtree`（别只盯宿主：宿主自己被替换掉时观察就失效了）。
+
+#### ③ ★★ 伪元素 → 真节点：**先确认版式零差异再交付**
+
+换承载方式时**逐项复刻**原声明，并用读数对齐：本拍宿主是 `flex flex-col items-center gap-2`
+⇒ 真节点天然成为第 2 个居中 flex 项、间距仍是容器的 `gap: 8px`（不需要自己写 margin）。
+实测 `{fs:12px, lh:16px, color:rgb(169,169,169), ws:nowrap}` 与伪元素**逐项相同**，
+rect 也在同一行（卡底 859 + gap 8 = 867）。
+
+#### ④ ★★ 改字体族：只覆写 `font-family`，别连带动几何
+
+「去掉 `.r93-pre` 的字体族」= 只加一条 `font-family: var(--font-family)`。
+★ **别用 `inherit`** —— 语义不明确、要赌祖先链上没人另设字体；用**站点默认 token** 一目了然。
+⚠ 同族规则常被拆成多条（`.r93-pre` 有**三条**：盒/外距、字号+行高、`--tight`）⇒
+**改完要复量字号 / 行高 / 换行策略没被牵动**（本拍实测 `font-size 14px` / `line-height 16px` 不变、
+全页 `.r93-pre` 只剩 1 种字体族）。
+
+#### ⑤ ★★★ 判「要不要自适应」看**容器可用宽**，不看视口分辨率
+
+右栏开合、左导航收拢都会改容器宽 ⇒ 写法一律 `min(原值, 容器宽)`（同 P3.40 ④b 的 `.r93-bub`）。
+**改完必须在窄档复量**：1440 全绿**不代表** 1280 / 1100 也全绿 —— 本拍两条问题**都只在窄档暴露**：
+
+| 视口（右栏开） | 浮窗溢出 | `.r93-alert` 内容/盒 |
+|---|---|---|
+| 1440 | +23/+23 | `42/42` ✓ |
+| 1280 | +81/+81（**左侧字头被裁**） | `42/43` |
+| 1100 | 严重 | `42/65` ⇒ **溢出圆角盒** |
+| 1024 | 严重 | `42/87` |
+
+- **React 行内写死的尺寸，只有 `!important` 能改**（别只提特异性）；且要在**正确的包含块**下换算
+  （该浮窗的包含块是输入卡 ⇒ `100%` = 输入卡内宽）。
+- **定高容器改自适应 = `height:auto; min-height:原值; padding:上下值`** ——
+  ★ 竖内距取「(定高 − 单行高) / 2」可让**单行态逐像素不变**（本拍 44 − 22 = 22 ⇒ 上下各 8 + 内容 22 + 上下边框各 1 = 44，
+  且 `align-items:center` 保证居中）⇒ 只有折行时才长高，风险最小。
+- 判据读 **`clientHeight vs scrollHeight`**（相等 = 不再溢出）+ **子元素 rect 是否在父盒内**。
+
+#### ⑥ 本拍门禁 / 体位
+
+幂等 ✓（第二遍「已是目标态」）｜`check-syntax` **10/10**｜`verify-design` 与 `vd-r107c.txt` **逐字节相同**
+（md5 `3dbf654337559509110899e48bef1b1c`）⇒ 零新增｜改动面 `M pages/conversation.html`（`+2202 / −3`）
++ 5 份记忆文档 + `?? mg-work/r107/`；`base.html` 472150 字符**逐字节不变**。产物 **921730 → 925776 字符（+4046）**。
+
+★ **「三条全落在本页适配层」的体位可复用**：与 r106 ② 同款 —— 源件与历代遗产块**一字未动**，
+新声明只加在 `part107/panel.css`（文档序**最后** ⇒ 同特异性必胜）+ `panel.js`。
+⇒ `apply107.py` 是「apply106 + **11 处替换**」（第七拍增至 **13 处**）的干净产物，`_head.html` / `_mods.html` 未动
+⇒ `splice107.py` 重跑后 `browse.html` **sha1 不变**（已验）。
+⚠ `fs.converge()` 会把 `<style id="r107-conv-css">` **整块 stash 跳过**（`RE_OWN_STYLE`）
+⇒ 适配层里新增的 `min-height` / `line-height` **不会被 unscale 吃掉**（P3.39⑨ 那个坑的反面：这块是安全的）。
+⚠ 增量要**对账**：页面 `+4046` == `panel.css +2723` + `panel.js +1324`（差 1 字节 = 注入时 `.strip()` 的尾换行）
+—— 对不上就说明有别的改动混进去了。
+
+### P3.43 r107 第七拍（竞品名清除 / 菜单标题与快捷键 / 选中底色 / 输入框拉通 / 字体统一 / 全屏联动 · 2026-10-01 12:1x）—— ★ 六条新教训
+
+#### ① ★★ 「渲染出来的字」与「渲染不出来的字」要分开判
+
+用户说「全局去掉 X 这个词」时，先把页面里 X 的出现**分类**，再决定动不动：
+
+| 类别 | 动不动 | 为什么 |
+|---|---|---|
+| 渲染成页面文字（文本节点 / `title`） | **必改** | 用户看得见 |
+| 外链 `href` / `src` 里的同名词 | **不改** | 替换域名段直接 404；且不渲染成页面文字 |
+| 历史上写下的**设计来源注释** | **保留** | 是后续维护者判断「照谁做的」的唯一线索 |
+
+**判据配方**：
+
+```js
+var w = document.createTreeWalker(document.querySelector('.td-browse'), NodeFilter.SHOW_TEXT), n, c = 0;
+while ((n = w.nextNode())) if (/codex|chat\s?gpt/i.test(n.nodeValue)) c++;      // 渲染文字
+document.querySelectorAll('.td-browse *').forEach(function (e) {               // 属性（排除 href/src）
+  for (var i = 0; i < e.attributes.length; i++) {
+    var a = e.attributes[i];
+    if (a.name !== 'href' && a.name !== 'src' && /codex|chat\s?gpt/i.test(a.value)) c++;
+  }
+});
+```
+
+★ **顺手反查别的页**：本拍在 `avatar.html`（历史会话列表）里还挖出一处 ——
+`re.findall('codex', io.open(p).read(), re.I)` 扫一遍 `pages/*.html` 就能列全，别只盯着用户当前看的那一页。
+★ **自己新增的注释一律避开被清理的词**，否则「清理这件事」的文档本身又把它引入了。
+
+#### ② ★★ 同一处改动要先判「节点从哪来」：静态 HTML vs JS 现场生成
+
+本拍的下拉菜单标题行有**两类来源**：
+
+- 静态 HTML：`.td-mm-cap`（写死在 `_head.html` / `_mods.html` 里）
+- **JS 现场生成**：`.td-ctx-head`（`ctxBuild()` 里 `createElement`）
+
+⇒ **只删 HTML 治不了后者**。正解 = 一段 CSS 把两类一起关：
+
+```css
+.td-browse .td-mm-cap,
+.td-browse .td-ctx-head { display: none; }
+```
+
+**为什么 `display:none` 而不是删节点**：① 两类来源一处管；② 菜单是 `flex-direction: column`，
+塌掉的行**不参与布局** ⇒ 与真删节点**视觉完全等价**；③ 幂等友好（不依赖 HTML 片段的内容，跨代复用更安全）。
+
+#### ③ ★ DS 组件「宽度不拉通」先查它自己的 `display`
+
+本拍那条输入框挂 `.giencoder-input-wrapper`，**编译样式本身就是 `display: inline-flex; width: auto; min-width: 120px`**
+⇒ 宽度只吃内容自然宽（实测同卡别的行都是 **308**、它只有 **207**）。
+
+**修法要点**：
+- 一行 `display: flex` 就够（内部 `prefix + input` 的排布一字不用动）。
+- **写双类**（`.giencoder-input-wrapper.td-commit-in`，(0,2,0)）⇒ 不依赖「panel.css 在文档序最后」这条约定。
+- 判据读**同级兄弟的宽度** ⇒ 一眼看出谁短了（这比读自己的 `getComputedStyle().width` 更直观）。
+
+#### ④ ★★ 「统一字体族」要分清「本代自己的样式」与「跨代沿用的移植件」
+
+本拍要把整个右栏的字体统一成全局默认族，落到两处：
+
+1. `panel.css` 自己那 **8 条**写死的等宽族 ⇒ **就地改**（本拍：8 处 `ui-monospace, …` → `var(--font-family)`）。
+2. 「文件」模块代码区那条在 **r102 代已交付的 `mg-work/r102/part105/browse.css`** 里
+   （跨代沿用，**不回改已交付的代**）⇒ 只能在本页**多一级类数覆盖**：`.td-browse .td-browse-pre { font-family: var(--font-family) }`。
+
+★ **这条是「改完第一遍、量出来才补的」**：首轮只改了 panel.css 里那 8 条，量到
+「`.td-browse *` 里还有 **153 个**元素落等宽」⇒ 再往下查才定位到移植件。
+**教训：判据要覆盖「整棵子树」，不能只验「我改过的那些选择器」。**
+
+```js
+var bf = getComputedStyle(document.body).fontFamily, c = 0, g = {};
+document.querySelectorAll('.td-browse *').forEach(function (e) {
+  if (getComputedStyle(e).fontFamily !== bf) { c++; var k = e.tagName + '.' + e.className.split(' ')[0]; g[k] = (g[k] || 0) + 1; }
+});
+// c 应为 0；不为 0 时**按 tagName + className 分组** ⇒ 一眼看出剩下的都挂在哪个父级上（本拍：153 全在 .td-browse-pre 下）
+```
+
+#### ⑤ ★★ 联动显隐先找「状态类挂在哪一级」—— 能 CSS 就别 JS
+
+本拍要「右栏展开时隐藏页头那枚全屏按钮」。**先量状态类挂在哪**：
+
+```js
+document.getElementById('av-browse-slot').parentElement.className
+// ⇒ "flex min-h-0 flex-1 pb-2 pl-3 pr-2 av-browse-on"
+```
+
+它挂在 **shell 的 flex 行**上，而按钮在 `main` 里 ⇒ 是它的**后代** ⇒ **纯 CSS 可判**：
+
+```css
+.av-browse-on .r93-baract[data-r93-fullscreen] { display: none; }
+```
+
+⇒ **省掉一整个 MutationObserver / 事件联动**。
+⚠ **只写你要的那一枚**（`[data-r93-fullscreen]`），别用 `.r93-baracts` 整组 —— 组里有几枚就先数一遍
+（本拍是 2 枚：全屏 + 开关侧栏，只隐藏前者）。
+
+#### ⑥ 本拍门禁 / 体位
+
+幂等 ✓（第二遍「已是目标态」）｜`check-syntax` **10/10**｜`verify-design` 与 `vd-r107c.txt` **逐字节相同**
+（md5 `3dbf654337559509110899e48bef1b1c`）⇒ 零新增｜改动面 = `M pages/conversation.html`（`+2244 / −3`）
++ `M pages/avatar.html`（`+1 / −1`）+ `?? mg-work/r107/`；`base.html` 472150 字符**逐字节不变**。
+产物 **925776 → 927464 字符（+1688）**。
+
+★ **体位小改**：与前六拍「源件一字未动」不同，本拍**动了 `_mods.html` 的文案** ⇒
+`browse.html` 由 71538 → 71578（+40）⇒ `apply107.py` 的 EDITS 由 **11 处增至 13 处**
+（新增 `2d)` 正向 + 逆操作，改 `avatar.html` 那一处 —— 先例见 `apply106.py` 的 `2b)`）。
+⚠ **跨页文案替换的锚点用「带引号的整串」**（`'…自定义大模型方法'`）⇒ 不碰同名注释、天然幂等。
+⚠ **写回时必须 `newline=''` / 走二进制**：本仓页面是 **CRLF**，用默认 `'w'` 打开会把读到已归一化的
+`\n` 全部按平台默认写回 —— 内容没变、整页却全变 `M`（这坑与 P3.38 的「口径」是一对）。
+
+★ **一次性文档脚本也属「动手记录」**：`patch107h*.py` / `doc107h*.py` 放 `ev/`，
+并与探针、裁片一起列进 HANDOFF（下次返工顺着它们就能看清「这拍到底改了什么」）。
+---
+
+## P3.44 ★★ r107 第八拍（六条 · 2026-10-01 12:3x 邵先生返工）
+
+> 六条 = ① 全局「宽度不够 ⇒ 省略号」 ② 去掉「折叠此文件」 ③ `.td-sum-h` 15px
+> ④ `.td-diff-path` 展开中粗 500 ⑤ `.td-diff-path` / `.td-diff-rows` 内 13px ⑥ `.r107-stats` 文字居中。
+> 逐条实测见 `mg-work/r107/acceptance.md` 第十三节；本节只提炼**机制级**教训。
+
+#### ① ★★ 「全局宽度不够出省略号」先分**三类**，别一把梭
+
+邵先生原话是「**全局所有的**对象元素或容器」—— **照字面全挂 `text-overflow` 是错的**：
+
+| 类 | 处置 | 理由 |
+|---|---|---|
+| 单行文本容器（名称 / 路径 / 域名 / 标题 / 计数） | **截断出省略号** | 本来就是「一眼看个大概」的信息 |
+| 代码与终端（`.td-dr-t` / `.td-dsc-c` / `.td-code-*` / `.td-term-*`） | **保持折行、不截断** | 截断代码 = 丢信息；它们本就是「窄了换行」的语义 |
+| 多行正文（`.td-sum-p` / `.td-note-b` / `.td-sum-plan li` / `.td-page-h1`） | **保持折行、不截断** | 截断段落 = 丢内容 |
+
+**三件套缺一不可**：`min-width: 0`（flex 子项的收缩下限默认是 `min-content`，不解除就永远把兄弟顶出去）
++ `overflow: hidden` + `text-overflow: ellipsis` + `white-space: nowrap`（不换行才谈得上省略）。
+
+★ **容器自带 `display:flex / inline-flex` 时，裸文本会变成「匿名 flex 项」**
+⇒ 容器上的 `text-overflow` 对它**无效** ⇒ 文字落在子 `<span>` 里的那几处要**单独点**
+（本拍：`.td-rv-commit` / `.td-rv-pr` / `.td-commit-row` / `.td-commit-ck` 的 `> span`）。
+★ 同一行里的两个元素要**排优先级**：谁让位（`flex: 1 1 auto`）、谁保原宽（`flex: none`）——
+本拍是「评论人让位、时间保宽」（时间只有几个字，被截断就读不懂了）。
+
+#### ② ★★★ 「居中」遇上**页面级 `!important` 钉死的盒宽**：先查「谁在管这个 width」
+
+本拍要把 `.r107-stats`（输入卡下方那行统计小字）居中。**第一版是死代码**：
+
+```css
+/* 错误写法：width / min-width / max-width 全被别处 !important 钉住 */
+.r107-stats { width: fit-content; max-width: 100%; margin: 0 auto; }
+```
+
+**根因**：它的盒宽由**页面级两条 `!important`** 决定（都挂在 `main > … > div.mt-8 > div` 上，
+r95 ② 与 r106 ④ 两个版本）⇒ 盒宽**恒等于输入卡**（实测 860 / 714 / 315 三档全等），
+三条 width 属性**一条都改不动**。
+
+**诊断路径（可照抄）**：
+1. 先怀疑「`min-width: auto` 撑住了」⇒ 注入 `min-width: 0` / `width: 100%` 做**反证**；
+2. 三种状态盒宽**都不变** ⇒ 说明**有更高优先级的东西在管它**（不是你改的那几条）；
+3. 翻页面级规则 ⇒ 找到那两条 `!important` ⇒ 定性。
+
+**正解**：`text-align: center`（**它没有任何 `!important` 竞争者**）。
+★ **真节点 ≠ 伪元素**：当年的 `::after` 是 shrink-wrap 的（盒随文走），换成的真节点在**满宽盒**里
+默认靠左；而宿主的 `items-center` 对这个满宽子项**不生效**（实测输入卡自己就是齐左的）
+⇒ 靠 `margin: auto` 会比输入卡**偏 32px**。
+
+**判据**：`Range.selectNodeContents(el)` 取**文字真实盒**（不是盒子盒）与输入卡几何比
+⇒ **文字盒中心 − 输入卡中心 = 0**。
+
+#### ③ ★★ 「居中」与「溢出省略」可以共存 —— 别凭「常识」写进注释
+
+同一条规则里既要居中又要省略。**第一版注释想当然写成「Chromium 居中 + 溢出时两端对称裁切、
+不落省略号 ⇒ 省略号让位于居中」—— 是错的**。
+
+实测（1024 / 右栏开）：Chromium 在「居中 + 溢出」时对齐行为**退化为 `start`**（文字盒仍自盒左缘起算）
+⇒ **省略号照常落在行尾**（截图尾部为「首 token 平…」）⇒ **① 与 ⑥ 可以共存**（注释已整块更正）。
+
+★ 教训：**写进代码注释里的实测结论必须来自截图 / 取值，不能来自「应该是这样」** ——
+否则下一个人会照着你写反的注释做出错误的取舍。
+
+#### ④ ★ 15px 档没有 title token ⇒ 用 `calc(Npx * var(--ui-fs-ratio))`
+
+本代 `converge()`（`mg-work/r88/apply88b-fontsize.py`）的判据是「**体里含 `var(--font-size-*)`**
+才重派生 `line-height / height / min-height`」⇒ 裸 `font-size: 15px` 既**被压平**、又**不吃 `--ui-fs` 杠杆**。
+DS 字号 token 实测只有 12 / 13 / 14 / 16（**无 15**）⇒ **15px 档一律写 `calc(15px * var(--ui-fs-ratio))`**
+（该形态自动豁免压平，且仍随杠杆走）。判据：`h4.td-sum-h` 实测 `15px`、行高随之 `22.5px`。
+
+#### ⑤ ★ 「同值覆盖」要**逐条**，改容器无效
+
+`.td-diff-rows` 容器改字号**不影响子树** —— 里面 `.td-dr`(12) / `.td-dsc-c`(12) / `.td-diff-more`(12)
+**三处各自写死了字号** ⇒ 只改容器，容器自己变了、文字一点没动。
+★ 同值覆盖时**只换 token 档位**（仍旧写 `var(--font-size-*)`）⇒ `converge()` 的重派生判据不受影响，
+行高 / 块高派生链**完好**（实测 `.td-dr` 行高 20 / `.td-diff-h` 高 38 未变）。
+
+#### ⑥ ★★ 幂等补丁的 `mark` 必须是「**只有改后才存在**」的串
+
+本拍 `panel.js` 要删 `ctxForFile()` 里「折叠此文件」那一项。`mark` 一开始选了
+
+```python
+mark = "'展开全部文件' : '折叠全部文件', ico: toExpand ? 'plus' : 'close'"
+```
+
+—— **这段在改前就已存在** ⇒ 第一遍就被误判成「已应用」而**静默跳过删除**，
+而同批的另一处（删 `var isOpen`）**已经执行** ⇒ `isOpen` 变成未定义变量（**页面不报错、只是后续判断恒假**）。
+
+**修法**：`mark` 改成**只有删掉中间那项才成立的邻接关系**：
+
+```python
+mark = "'-',\n      { label: toExpand ? '展开全部文件'"
+```
+
+★ 通法：幂等 `mark` 的语义是「**目标态特征**」，不是「这段代码长什么样」。
+删中间项 ⇒ 用「**删完后才相邻**的两端」当 mark；改值 ⇒ 用「**改完后才出现的**新值」当 mark。
+
+#### ⑦ ★★ 同一选择器改多稿 ⇒ 用「**按选择器整块替换**」，别逐版字符串匹配
+
+`.r107-stats` 那条规则改了三稿（`fit-content` → `text-align` → 更正注释），
+`patch` 脚本对三个历史版本各写一份常量 ⇒ 全部匹配失败（`new 0 / mid 0 / old 0`）。
+**修法** = 换成一个通用函数：按**选择器**定位、找首个 `\n}\n` 作块尾、整块替换：
+
+```python
+def replace_block(t, sel, new_block, label):
+    i = t.find(sel)
+    if i < 0:
+        return t
+    j = t.find('\n}\n', i)
+    cur = t[i:j + 3]
+    if cur == new_block:          # 已是目标态 -> 幂等
+        return t
+    return t[:i] + new_block + t[j + 3:]
+```
+
+⇒ **对历史版本彻底解耦**（不管中间改过几稿，只要「选择器定位到的那块」不等于目标文本就重写）。
+
+#### ⑧ 本拍门禁 / 产物
+
+幂等 ✓（`应用 0 项 / 跳过 8 项`；`apply107.py` 第二遍「已是目标态」）｜`check-syntax` **10/10**｜
+`verify-design` 与 `vd-r107h.txt` **逐字节相同**（md5 `3dbf654337559509110899e48bef1b1c`）⇒ 零新增｜
+`scan-flatten` 改前改后均 **2 条**（无新增压平风险）｜改动面 = `M pages/conversation.html`（`+2299 / −3`）
++ `M pages/avatar.html`（`+1 / −1`）+ `?? mg-work/r107/`。
+产物 **927464 → 930384 字符（+2920；相对 HEAD +131153）**。
+★ **体位**：本拍**未动** `_mods.html` / `browse.html` ⇒ 不必重跑 `splice107.py` / `make107.py`，
+改序只剩 `part107/*` → `apply107.py`（part 文件是**运行时读**的，改完直接重跑即落页面）。
+
+## P3.45 ★★ r107 第九拍（两条 · 2026-10-01 13:1x 邵先生返工）
+
+**① 「宿主绕过控制器直接写布局变量」⇒ 内层缓存必然脱节**（拖拽 / 缩放类交互的通病）
+* 症状：**全屏后一按下分栏条，宽度猛跳回记忆宽**（实测 1040 → 761），用户描述成「一下就复位」。
+* 根因：内层控制器用 `startPanel = panelW`（**闭包缓存**），而外层的「最大化」**绕过控制器**
+  直接 `slot.style.setProperty('--av-browse-w', …)` ⇒ 缓存停在 641 而实际 1040。
+* 配方：**拖拽第一帧一律读「实际几何」**，并把缓存同步回来。⚠ 两步走：
+  ① 先落拖拽态类（本站 = `.is-col-dragging`，规则带 `transition: none`）**停掉过渡**；
+  ② 再 `getBoundingClientRect()` —— 此时才是**终值**，否则会读到过渡中间值。
+* 判据：`pointermove` 之后的声明值 = `实际起点 ± dx`（**不是** `缓存 ± dx`）。
+
+**② 拖拽的 `pointermove` / `pointerup` 必须挂 `window`（挂元素 = 能跑但脆）**
+* 本站 `panel.js` 的标签重排早已挂 `window`，但 `part105/ctrl-conv.js` 一直挂**元素**
+  + `setPointerCapture` ⇒ 平时看着没事，**全屏后分栏条贴住窗口左缘**时指针一下就跑出元素；
+  一旦捕获没生效（元素被 React 重挂 / `pointerId` 失配）拖动就**中途断掉**。
+* ★ **决定性判据**：合成 `PointerEvent` 时把 `pointermove` / `pointerup` **派发到 `document.body`**
+  —— 挂 `window` 的照样响应，挂元素的**静默失效**。比「按住鼠标拖」快且可复现。
+* 顺带补 `blur` 兜底（防切窗口后一直卡在 dragging）。
+
+**③ 要改跨代移植件 ⇒ 走「本代覆盖件」，别在原目录动刀**
+* `_read_part()` 按 `PART_DIRS = (part107, part105)` **顺序回退** ⇒ 在 `part107/` 放**同名文件**
+  即可**遮蔽**上游，源页 `avatar.html` 零影响（本仓历代刻意不回头改 `part105/*`）。
+* ⚠ 代价 = **副本会漂移** ⇒ 副本头部必须写明「来自哪份、差异点、日后人工同步」。
+* 适用判据：要改的代码在跨代件里、且**行为对所有消费页都是改善**（本次 = 拖拽起点更准）。
+
+**④ 别用 `MutationObserver` 盯「后插节点」的父级 —— 会绑在错的元素上**
+* 场景：想「右栏收起时退出全屏」，于是观察 `slot.parentElement` 的 class。
+* 坑：那条 flex 行与分栏条都是**另一个脚本在 `place()` 里后插**的，本脚本跑得更早
+  ⇒ 初次观察挂在**旧父级**、**永不触发**（症状：收起后 `data-td-maxw` 照旧残留、按钮仍「还原」态）。
+* 正解：**搭已有的事件流** —— 三个收起入口（页头开关 / × / Esc）最终都走 `ctrl-conv.setOpen(false)`，
+  而它**必定 `dispatchEvent(new Event('resize'))`** ⇒ 在同一条 resize handler 里判一下即可（零新监听）。
+* 通用化：**「某状态该退出」优先挂到「已有的确定性事件」上，而不是去观察 DOM 的副作用。**
+
+**⑤ 「独占态」（全屏 / 最大化 / 沉浸）必须把**退出路径**列全**
+* 本拍齐了三条：① 点按钮还原 ② **拖拽接管**（新）③ **容器收起**（新）。
+* 漏 ② = 用户拖一下宽度就与按钮状态不符；漏 ③ = 收起再打开按钮是「还原」字形、宽度却是记忆值，
+  且**下一次 resize 会突然弹回全屏宽**。
+* 配方：写这类状态前先把「谁会结束它」列成清单、逐条挂上；**退出用 silent 变体**（只改状态、不动尺寸），
+  免得「退出动作」本身又触发一次布局跳变。
+
+★ **体位**：本拍**未动** `_mods.html` / `browse.html` ⇒ 不必重跑 `splice107.py` / `make107.py`；
+改序 = `part107/panel.js`（就地）+ `part107/ctrl-conv.js`（新建覆盖件） → `apply107.py`。
+产物 `930384 → 934109` 字符；`+2373 / −8` 行；门禁全绿；**零 CSS 改动**（`scan-flatten` 仍 2 条）。
+
+## P3.46 ★★ r107 第十拍（一条 · 2026-10-01 13:2x 邵先生返工）
+
+**① 「一条定位规则服务两种锚点高度」⇒ 必然错一半（浮层摆位的通病）**
+* 症状：同一个基类里的下拉菜单，**有的位置对、有的跑到触发按钮上方**（实测上方 35px）。
+* 根因：四枚共用 `{ position: absolute; top: 42px }`（相对面板容器）。
+  `.td-mod-menu` 的触发器在**标签栏**里 ⇒ 42px 恰好是「按钮下方」；
+  另三枚的触发器在**工具条**（标签栏之下 40px）里 ⇒ 同一个 42px 就变成「按钮**上方**」。
+* ★ **配方：浮层的锚点是「触发器的实际几何」，不是「面板的某个固定偏移」。**
+  打开瞬间按 `trigger.getBoundingClientRect()` 摆位（本站既有口径：`.td-ctxmenu` 的 `ctxShow()`、
+  划词浮条的 `selShow()` 都这么写）。**同一基类里只要触发器的容器不同，就必须逐个算。**
+* ★ 判据不是「看着对」：量 **`dy = 菜单 top − 触发器 bottom`**（应恒为一个 gap）+ `coversH`
+  （菜单水平是否覆盖触发器）。
+
+**② 别用「静态 `top: calc(...)`」代替现场摆位 —— 只要算式里的两个数来自不同源，就会脱节**
+* 本站的诱惑写法：`top: calc(44px + 40px * var(--ui-fs-ratio) + 6px)`。
+* 为什么不能要：工具条高度确实是 `min-height: calc(40px * ratio)`（随字号缩放），
+  但**标签栏高度来自跨代资产 `browse.css`**（写死 `height: 40px`、**实测 44**）⇒ 两个魔法数
+  **来源不同、缩放行为不同**；一旦 `--ui-fs-ratio` ≠ 1 或那层被改，算式立刻失准。
+* 通用化：**「看起来能算」不等于「算得住」** —— 算式里出现「另一个模块的高度 / 另一个资产写死的值」
+  就要改用运行时量测。
+
+**③ 浮层摆位的三条硬规矩（本拍踩全了）**
+* **必须在摘掉 `[hidden]` 之后量 / 摆** —— 隐藏元素 `offsetWidth` / `getBoundingClientRect` 全是 0。
+* **量尺寸用 `offsetWidth` / `offsetHeight`，不要用 `getBoundingClientRect()`** ——
+  入场动画若带 `scale(0.96)`，rect 会把 0.96 **乘进去**（读数偏小 4%）。`offset*` 不受 transform 影响。
+* **写行内 `left` 必须同时 `right: 'auto'`** —— absolute 元素同时有 `left` 与 `right` 时会被**拉宽**；
+  基类里那半条 `right: 8px` 不清掉，纵向摆位对了、横向仍会变形。
+
+**④ clamp 到容器内边 = 天然的窄栏降级（顺手就做掉）**
+* 菜单固定宽（168~172），触发器靠近右缘时右缘必然溢出 ⇒
+  `left = min(left, host.clientWidth − menu.offsetWidth − 4)`。
+* ★ 判据写成**「是否仍在裁剪祖先之内」**：本站菜单挂在 `.td-mod{overflow:hidden}` 里 ⇒ 必须量
+  `insideMod`（左/右/上/下四条都在内），不能只看「在面板内」。窄栏 315 实测三枚全 `true`。
+
+★ **体位**：本拍仍**未动** `_mods.html` / `browse.html` ⇒ 不必重跑 `splice107.py` / `make107.py`；
+改序 = `part107/panel.css` + `part107/panel.js`（均就地改） → `ev/patch107k.py` → `apply107.py`。
+产物 `934109 → 936625` 字符；`+2419 / −8` 行；门禁全绿；**零字号改动**（`scan-flatten` 仍 2 条）。
+
+## P3.47 ★★ r107 第十一拍（四条 · 2026-10-01 13:4x 邵先生）
+
+**① 「动效的延迟若是等某个遮罩退场」⇒ 提速必须两边一起改**
+* 症状：数字滑入动效「快 2.5 秒才出现」、观感像「根本没有数字」。
+* 根因两层：(a) `animation-delay: calc(1.5s + ni*55ms)` **+** `fill: both` ⇒ 延迟期停在 `from`
+  （`opacity: 0`），而 `.r93-num` 是 `inline-block`、**空位一直占着** ⇒ 那段时间窗口是**空的**；
+  (b) 那个 1.5s 是**算着骨架屏的生命周期**定的（`.r93-sk` = `position:absolute; inset:0` + **不透明**
+  `--color-bg-2` ⇒ **早于它退场的任何动效都白做**）。
+* ★ **配方**：先用 `performance.now()` **量出真实时间线**（本站 = 遮罩淡出 2012 / 遮罩移除 2326 /
+  内容首见 2493），再**同时**调「遮罩生命周期」与「动效 `delay/duration`」，判据用**空窗时长**
+  （本站 167ms → **0**）。只调一边必然无效：只提前动效 ⇒ 被遮罩盖着；只提前遮罩 ⇒ 动效还在等。
+* ⚠ 探针自身也会骗人：轮询器**装得太晚**会漏掉早段（本站 `tSkOut = null` / `late = 1`）⇒
+  判据取**「遮罩移除时刻」与「内容首见时刻」**这对不受起跑影响的量。
+
+**② 量 `transition` 属性必须等过渡走完**
+* 症状：改完聚焦态样式，`focus()` 后**同步**读 `getComputedStyle` 得到 `none` / 起点值 ⇒ 误判「没生效」。
+* ★ 正解：`focus → setTimeout(…, 400) → 读数 → blur → setTimeout(…) → 读数`，把结果存 `window.__X`
+  再另一次 eval 取回（本站 `p107l_pill.js`）。**任何带 `transition` 的属性都适用。**
+
+**③ 覆盖层别放进滚动容器；给自带 `display` 的类加 `[hidden]` 必须显式写规则**
+* `.td-view` 是 `overflow:auto` ⇒ 绝对定位子元素会**跟着内容滚走**（滚过之后快门就闪不见了）
+  ⇒ 覆盖层挂到**最近的、非滚动的**祖先（`.td-brw` + `position:relative`）。
+* 另一半是同一个坑：**自带 `display` 的类会压过 UA 的 `[hidden]{display:none}`**
+  （本站 `.td-pv-md{display:flex}`）⇒ 覆盖层 / 骨架一律补 `[hidden]{display:none}`。
+
+**④ DS 的 `-text` 按钮默认是主色；DS 输入框的激活态有固定口径**
+* `.giencoder-btn-text` 把 `color` 定成 `--color-primary-6` ⇒ 要「正文黑」得显式
+  `color: var(--color-text-1)`（SVG 走 `currentColor`，自动跟）。
+* DS 输入框激活态 = `.giencoder-input-wrapper:focus-within { border-color: primary-6;
+  box-shadow: 0 0 0 2px primary-light-2 }`。**Pill / 定高形态改用 `inset` 描边**
+  （`box-shadow: inset 0 0 0 1px primary-6, 0 0 0 2px primary-light-2`）——
+  写 `border` 会把定高胶囊**撑高 2px**。
+
+**⑤ 「点了只弹 toast」= 真缺口（对照官方补缺的判据）**
+* 方法：拿**官方功能清单**逐条对照本地实现，凡「有入口但点了只有一句 toast、没有任何视觉」
+  的就是缺口（本站 = 产物「预览」、右键「新建终端标签」）。补的时候**优先补视觉/结构**，
+  不是补文案。★ 顺带一条：**给元素换视觉要挑对宿主** —— 想「闪整个面板」就挂面板，
+  挂内部滚动容器会被滚走（见 ③）。
+
+★ **体位**：本拍**首次动了 `_mods.html`** ⇒ 改序 = `part107/_mods.html` → `ev/splice107.py`
+（重组 `browse.html`）→ `apply107.py`；⚠ **`browse.html` 是 splice 的产物、不是手改对象**
+（手改会在下次 splice 时被冲掉）。`part105/*` 仍是跨代资产、零改动。
+产物 `936625 → 958568` 字符（第十一拍 +21943）；`+2806 / −12` 行；门禁全绿；
+`scan-flatten` 仍 **2 条**（新增规则一律带 `var(--font-size-*)`）；`verify-design` 与上轮**逐字节同**。

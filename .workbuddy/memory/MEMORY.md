@@ -2,9 +2,9 @@
 
 > **≤3.5K 字节**（超了会被截断注入 ⇒ 白写）。按需 grep，别整读：
 > **`HANDOFF.md`** ★开局先读（状态/待办/接手，每轮覆盖）｜ **`PLAYBOOK.md`** 铁律/自检/取证/git（P3.21=r88｜P3.22=r89~r91 小图标网格｜P3.23=r92 改压缩 React 源 + 装饰背景图｜**P3.24=r93 字号特异性反噬 / 设计稿变体叠放 / ui-component 无字号 / 独立页 + 纯 CSS 复用外壳真组件**｜**P3.25=r94 内容盒守恒 / 「用户说的容器」未必是血统所在 / 门禁会扫注释**｜**P3.26=r95 「右侧撑满」= 固定宽改流式 / 滚动条占宽会让同页多列不同轴**｜**P3.27=r96 设计稿「HTML 导出」= 样式权威源 / 改工具类默认色先枚举使用点 / 别把相邻元素宽度当线宽**｜**P3.28=r97 ★`width:N%` 的基数=父盒（窄视口测不出）/ `*` 不贡献特异性 / 「等宽」先分清 A 列宽一致 vs B 每块满宽**）
-> ｜ **`PAGES.md`** token/各页事实/配方（**P3.11b 全局字号（含 r93 反噬）**｜P3.11c DS Select｜P3.11d 已归档任务｜P3.11e 顶栏背景图｜P3.11f 设置页 r92｜**P3.11g 会话详情**（r93 ④ 后 = 独立页 `conversation.html`；**r94~r106 续改，共 ⑨~⑯ 八节**）｜**P3.11h 页面路由表 / 新开一页范式**）｜ `YYYY-MM-DD.md` 原始日志
+> ｜ **`PAGES.md`** token/各页事实/配方（**P3.11b 全局字号（含 r93 反噬）**｜P3.11c DS Select｜P3.11d 已归档任务｜P3.11e 顶栏背景图｜P3.11f 设置页 r92｜**P3.11g 会话详情**（r93 ④ 后 = 独立页 `conversation.html`；**r94~r106 续改，共 ⑨~⑯ 八节**）｜**P3.11h 页面路由表 / 新开一页范式**｜**P3.11i 会话详情「侧栏模块标签化」= 复刻 Codex 右栏（r107 · 共十拍：三段式+五模块 / 浮窗关不掉 / 删侧聊 / 摘要升默认+卡片式·划词浮条·右键菜单·tab 14px·下拉 DS 化 / **下拉 hover 补齐 + 下拉改挂 DS Dropdown（从 Menu 族改正）** / **统计行「伪元素 → 真节点」（可框选）+ `.r93-pre` 去字体族 + 技能浮窗与 `.r93-alert` 随内容列自适应** / **右栏竞品名全换 GienCoder + 菜单标题行与快捷键隐藏 + 选中项补底色 + 提交卡输入框拉通 + 右栏字体统一 + 全屏按钮随右栏联动** / **全局宽度不足出省略号（三类分治）+ 去掉「折叠此文件」+ `.td-sum-h` 15px + diff path 展开中粗 + diff path/rows 内 13px + 统计行居中** / **全屏按钮图标随态切换（MAX⇄MIN）+ 全屏态拖拽起点修正（读实际几何）+ 拖拽与收起联动退全屏 / **三枚 `.td-rv-menu` 改为按触发器现场摆位（原跑到按钮上方 34~36px）**）**）｜ `YYYY-MM-DD.md` 原始日志
 > ｜ **续**：**P3.29=r98** 门禁对注释双重标准 / `:first-child` 撞装饰件 / `font:` 重置 shorthand｜**P3.30=r99** 图标 `transform="matrix"` 雷区 / 弹层量测时机 / DS 实例图标手写｜**P3.31=r100** 设计稿 HTML 丢实例底色 / hover「逐字照做」/ 层级连接线 / `!=null` 判空｜**P3.32=r101** 上一代已提交时新一代怎么接（`GENS` 逐代摘除）｜**P3.33=r101 第二批 七条**｜**P3.34=r102** `min-height` 顶更稳 / 同帧写变量+改属性会被合并 / hover 断言要选不被遮挡的目标｜**P3.35=r103** 加 `position` 会改绘制顺序 / `animation` 移除不触发 transition｜**P3.36=r104** 正 `z-index` 封顶后代浮窗（与宿主 `z-index:0` **成对**）/ 首帧守卫写进 CSS 默认值｜**P3.37=r105** 加动效前先查「官方实现是否已内联」/ 扩块到多页用 `invert_if_absent` 保位置 / 移植到有暗色分支的页必须补暗色档 / 更晚注册的脚本走自定义事件｜**P3.38=r106（六条）** ★★ **`core.autocrlf=true` ⇒ 工作区字节 ≠ 仓库 blob 字节；且 `len(bytes)−CRLF数` 不是字符数（判内容先归一化行尾、再比同一口径）** / 改通用部件「初始态」先 grep 工厂有没有现成开关 / 移植件的几何适配走**本页适配层**（源件逐字节不动保同源校验）/ ★★ **上限型 clamp `min(可用宽, 原逻辑式)`：原式整段照抄别换算、别忘 `min-width:0`、`margin:auto` 在溢出时不对称** / `border-width:0` 在 border-box 下**只缩内容盒**（≠「元素变宽 1px」）
-> ｜ skill（用户级）：design-to-code-modular / svg-icon-pixel-grid / css-state-pixel-evidence / **compiled-bundle-jsx-patch**
+> ｜**P3.39=r107（第一~三拍 · 十二条）** ★★★ **跨代沿用的宿主标记不换名 ⇒ 换来「只改一页」** / 新模块 section 类名别与内部件撞车 / 绝对定位先查包含块 / Esc 挂 `window` 捕获段 / 组装件+生成器改序只能下→上 / 浮窗关不掉先查**搜索根** / ★★★ **`converge()` 会把 `line-height:calc(Npx*ratio)` 压成裸 px**（带行高的规则 `font-size` 必须写 token）/ 互斥态两条 `display` 特异性必须错开 / 探针三类假失败 / `verify-design.py` 会数渐变｜**P3.40=r107 第四拍（五条）** ★★★ **页面级通配适配层会扫到新挂 DS 类的弹层**（`html[data-r93-page=…] .giencoder-select-popup{top:auto!important;bottom:…!important}` 把右栏下拉全翻到锚点上方 ⇒ **只量样式属性看不出、必须量 `getBoundingClientRect()`**）/ ★★★ **`!important` 连行内 `style.top/left` 也压得过** ⇒ JS 定位浮层改走**自定义属性 + `!important` 规则** / 给 DS 条目做兜底**务必 `:not(...)` 提特异性**（否则抹掉选中态底）/ 「过渡中取值」假失败（打开与量测拆两次 `eval`）/ 「自绘→DS 组件」= 删自绘视觉、只留定位+槽位，开合兜底留页面级｜**P3.41=r107 第五拍（六条）** ★★★ **「挂错组件族」比「没挂组件」难发现**（字面核查全过、要**枚举 `components/*.json` 契约**：`menu`=导航 / `select`=选择器 / **`dropdown`=弹出菜单（含右键）才是正主**；且「DS 有没有某组件」要查**页面内联 bundle**（`giencoder-dropdown-popup` 在页面 53 处、在 DS 源 0 处））/ ★★★ **同特异性 + 文档序 ⇒ hover 被静默压掉**（P3.40③ 第四次犯；**判据必须「真鼠标 hover + 读 `getComputedStyle`」**）/ DS 骨架 **entry 动画播完把 `opacity` 打回 0** ⇒ 复用弹层前先 `grep` 它的 `animation` / **换族会让页面级连带副作用自行消失**（换完要重审旧适配）/ **换族 = 选中态表达重新协商**（Dropdown **无** `-selected` ⇒ 按契约用「主色字 + 勾选图标」，不虚构底色）/ 迁移自检要**剥掉 CSS 注释**再查残留｜**P3.42=r107 第六拍（三条）** ★★★ **「这段文字框选不到」先查它是不是 `::after` 的 `content`（CSS 生成内容不是 DOM）**（判据三条：拖选后 `Selection.toString()` 恒空 / `caretRangeFromPoint` 退回宿主 DIV 且 `offset 0` / `Range.selectNodeContents(宿主)` 少那一段；★ **隔离对照**：临时建 `#zzA::after` vs `#zzB` 真文本、同一次运行同一手法一比即定 —— 别先怀疑探针）+ 修法「同选择器关伪元素 + 注入真节点」，**宿主是 React 就得 `MutationObserver` 收敛**（回调只做「判存 + 不在 `lastElementChild` 就 append」⇒ 自收敛；⚠ 别拿 `<textarea>`/表单控件当对照） / 行内 `style` 写死的宽只有 `!important` 压得住（`width: min(760px, 100%) !important`，`100%` 基数 = 最近定位祖先进卡） / 定高容器改 `height:auto; min-height:原值; padding:原内距` 时 **竖内距要挑到「单行态完全等价」的值**（否则单行宽度也会变）｜**P3.43=r107 第七拍（六条）** ★★ **「渲染出来的字」与「渲染不出来的字」要分开判**（渲染成文字的必改 / 外链 `href` **不改**（替换域名段即 404、且不渲染）/ 历代**设计来源注释保留**；★ 顺手 `grep -i` 扫**别的页** —— 本拍在 `avatar.html` 又挖到 1 处；★ 自己新增的注释要避开被清理的词）/ ★★ **同一处改动先判「节点从哪来」：静态 HTML vs JS 现场生成**（菜单标题行 = `.td-mm-cap`（写死的）+ `.td-ctx-head`（`ctxBuild()` 里建的）⇒ 删 HTML 治不全 ⇒ **一段 `display:none` 把两类一起关**，column flex 里塌行不占位、与删节点视觉等价）/ ★ **DS 组件「宽度不拉通」先查它自己的 `display`**（`.giencoder-input-wrapper` 编译样式 = `inline-flex; width:auto` ⇒ 同卡别的行 308、它只有 207；修法 = **写双类** `.giencoder-input-wrapper.td-commit-in{display:flex}`，不赌文档序）/ ★★ **「统一字体族」要分清「本代自己的样式」与「跨代沿用的移植件」**（自己那 8 条就地改；「文件」模块代码区那条在 **r102 代已交付的 `part105/browse.css`** 里 ⇒ 页内**多一级类数覆盖**（`.td-browse .td-browse-pre`），153 个 `.td-code*` 靠继承；★ **这条是「改完第一遍量出来才补的」⇒ 判据要覆盖整棵子树，别只验自己改过的那些选择器**）/ ★★ **联动显隐先量「状态类挂在哪一级」**（`.av-browse-on` 实测挂在 shell flex 行 = `main` 与预览栏的共同父级 ⇒ **纯 CSS 可判**，省掉一整个 MutationObserver；⚠ 只写要隐藏的那一枚，别用 `.r93-baracts` 整组）/ 跨页文案替换的锚点用**带引号的整串**（不碰同名注释、天然幂等）+ **写回必须 `newline=''` / 走二进制**（本仓页面 CRLF，默认 `'w'` 会把整页翻成 CRLF ⇒ 内容没变却全变 `M`）｜**P3.44=r107 第八拍（六条）** ★★★ **「全局都要出省略号」这类「全局」需求先给对象**分三类**（单行文本⇒截断 / **代码·终端**与**多行正文**⇒保持折行、**不截断**；★ **容器自带 `display:flex / inline-flex` 时裸文本是「匿名 flex 项」** ⇒ 容器上的 `text-overflow` 对它无效） / ★★★ **「居中」改不动 ⇒ 先查「谁在管这个 `width`」**（`.r107-stats` 的 `fit-content + margin:auto` 被页面级两条 `!important` 盒宽规则**压死**；第一步用注入 `min-width:0` / `width:100%` **反证**看盒宽动不动；正解 = `text-align:center`；★ **真节点 ≠ 伪元素**：`::after` 是 shrink-wrap、真节点在满宽盒里默认靠左，`margin:auto` 会偏 32px；**判据 = `Range.selectNodeContents` 取「文字真实盒」的中心**） / ★★ **幂等补丁的「已应用」判据（mark）必须是「只有改后才存在」的串**（删列表中间一项时 mark 选了改前就有的邻接行 ⇒ **静默跳过**；**同一选择器改多稿别逐版字符串匹配** ⇒ 用「按选择器定位 + 找首个 `\n}\n` 作块尾 + 整块替换」） / ★★ **写进代码注释里的实测结论必须来自截图取值，不能凭「应该是这样」**（曾把「居中 + 溢出不落省略号」写反；实测是对齐**退化为 `start`**、省略号照落行尾） / **15px 无 token 档位 ⇒ 写 `calc(15px * var(--ui-fs-ratio))`**（裸 px 会被 `converge()` 压平） / **改字号改容器无效**（子规则各自写死了字号 ⇒ 逐条同值覆盖，且只换 token 档位以保住行高派生链）｜**P3.45=r107 第九拍（两条）** ★★ **宿主「绕过控制器直接写布局变量」⇒ 内层缓存必然脱节**（拖拽起点读缓存 ⇒ 一按下就跳回记忆宽；**第一帧读实际几何，且先停过渡再取 rect 才是终值**） / ★★ **拖拽 `pointermove`/`pointerup` 必须挂 `window`**（挂元素 + `setPointerCapture` 平时能跑、贴边/重挂即断；★ **判据配方 = 把 move 派发到 `document.body`** 看还响不响应） / **改跨代移植件走「本代同名覆盖件」**（`PART_DIRS` 顺序回退；⚠ 副本会漂移，头部写明来源与差异） / **别用 `MutationObserver` 盯「后插节点」的父级**（会绑在旧父级、永不触发；**搭已有确定性事件流** —— 如「收起必定 dispatch 一次 resize」） / **「独占态」要把退出路径列全**（按钮 / 拖拽接管 / 容器收起），退出用 **silent 变体**（只改状态不动尺寸）｜ skill（用户级）：design-to-code-modular / svg-icon-pixel-grid / css-state-pixel-evidence / **compiled-bundle-jsx-patch**
 
 ## 一、环境（Windows）
 
@@ -164,7 +164,7 @@
 > 1370 开列 708 溢 20px）⇒ 改后 **618 / 708 跟列收、溢出 0**；**≥728 的 7 档全仍 728、逐像素不变**。
 > ⚠ **1440 下不可见**（列 778/860 都 ≥728）⇒ 验它必须到 **1280 / 1370 开态**。
 > ⑤ **产物卡文件名默认不蓝、hover 才蓝**（★ 返工拍新增）：删模板里那处**内联** `style="color:var(--color-primary-6)"`，CSS 一行未动。
-> **产物（★★ 口径 —— 首版曾算错，此为更正后）**：`conversation.html` **793028 → 798613 Unicode 字符（+5585）**（blob `e17d227b58bf`）；
+> **产物（★★ 口径 —— 首版曾算错（更正一）；2026-10-01 11:5x 二次更正）**：`conversation.html` **793028 → 799231 Unicode 字符（+6203）**（`4d081ba` blob `67b443ca082c`，LF 归一后 `sha1 9cdb19501a81`）；⚠ 原记「**798613 / blob `e17d227b58bf`**」经复核是**提交前态**（该对象已不在库中，`git cat-file` 报 `Not a valid object name`）⇒ **引用 r106 数值一律以 799231 为准**；
 > `base.html` **472150（+0）**；**另 8 页字符数均 +0**（仅 nav 块 id `r102-*`→`r106-*` **等长换名**）⇒ **本代 10 页全写、没有旁观页**。
 > ⚠ ★★ **三种数勿混用**：Unicode 字符 **798613** ｜ UTF-8 字节（LF 归一）**869581** ｜ 工作区字节（CRLF）**874274**；
 > `len(bytes) − CRLF数` **不是字符数**（中文占多字节，会虚高 ~6.8 万）⇒ 判内容增减**先归一化行尾、再比同一口径**。
@@ -177,3 +177,79 @@
 > `r93-bar` 底线 `#EBEBED` 与面板底线 `#E5E5E5` **仍是两色**（本拍只对齐了高度，未统一颜色）｜
 > ④ 的「空间足够」判据是**容器可用宽**（不是视口分辨率），若要用 `@media` 断点请发话｜
 > ★ **④b 口径**：本代取 `min(100%, 728px)`（列够保持 728）；若要「用户消息块始终与内容列同宽」则是 `width: 100%`（一行改动，但 2560 下气泡会宽到 1141）。
+
+> **r107（2026-10-01 09:3x ~ 13:1x · 会话详情页「侧栏模块标签化」= 复刻 Codex 右栏 · 十一拍）—— 🚫 未提交（新一代，承接 r106 `4d081ba`）**：
+> ★ **体位**：r106 代**已交付** ⇒ **新建 `mg-work/r107/apply107.py`**（由 `ev/make107.py` 从 `apply106.py` 做 **13 处精确替换**生成，命中数不符即 `sys.exit`）。
+> `GENS` = **五代**（`r93` / `r101` / `r102` / `r106` / **`r107`**）；`PART_DIRS` = `r107/part107` → `r102/part105` 双目录回退。
+> ★★★ **本代最关键的决定 —— nav 块沿用 `r106-nav-js`（不换名）**：`GENS[-1] = ('r107','r107-conv-css','r107-conv-js','r106-nav-js')` + `NAV_TAG='r106'`
+> ⇒ `apply107.py` 跑完打印「base.html 已是目标态（无改动）」⇒ **全代只改 `conversation.html` 一页**，另 9 页逐字节不变（硬规则「跨代沿用的宿主标记不换名」的收益兑现）。
+> ★ 本代**十一拍**（同一代、`apply107.py` 就地返工十一次、**始终未提交**）：① 三段式骨架 + 五模块｜② 浮窗关不掉 / 侧聊对齐｜③ 侧聊全链路删 + 折叠修正 + 对照 Codex 补遗漏｜
+> ④ 摘要默认 + 卡片式 + 划词浮条 + 右键菜单 + tab 14px + 全右栏下拉 DS 化｜⑤ hover 补齐 + **下拉换族**（`giencoder-menu` → **DS Dropdown**）｜
+> ⑥ 统计行「伪元素 → 真节点」+ `.r93-pre` 去字体族 + 技能浮窗 / `.r93-alert` 随内容列自适应｜
+> ⑦ 右栏竞品名全换 GienCoder（含 `avatar.html` 1 处）+ 菜单标题行与快捷键隐藏 + 选中项补底色 + 提交卡输入框拉通 + 右栏字体统一 + 全屏按钮随右栏联动。
+> **第六拍三条** = ⑯ 输入卡下方统计小字「**框选不到**」根因是 **CSS 生成内容**（r97 ④ 的 `::after{content:…}`）⇒ 关伪元素 + `panel.js` 注入真节点 `.r107-stats`（+`MutationObserver` 自收敛）；
+> ⑰ `.r93-pre { font-family: var(--font-family) }`（**不用 `inherit`**）｜⑱ 技能选择浮窗 `width: min(760px,100%) !important` + `.r93-alert { height:auto; min-height:44px; padding:8px 16px }`。
+> **第七拍六条** = ⑲ 竞品名 → GienCoder（右栏**渲染成文字**的 8 处 + 2 处 `title`；三条外链 `href` 与历代注释**有意保留**；另清 `avatar.html` 1 处）；
+> ⑳ 菜单标题行（`.td-mm-cap` + JS 的 `.td-ctx-head`）与快捷键（`.td-mm-key` + JS 的 `.td-ctx-key`）**一律 `display:none`**；
+> ㉑ 选中项 `.is-checked` 补底色 `--color-primary-light-1`（原只有蓝字 + ✓）+ 提交卡 `.giencoder-input-wrapper.td-commit-in { display:flex }`（207 → 308）；
+> ㉒ 右栏字体统一：`panel.css` 8 条就地改 + `.td-browse .td-browse-pre` 覆盖跨代移植件（判据 153 → 0）；
+> ㉓ `.av-browse-on .r93-baract[data-r93-fullscreen] { display:none }`（全屏按钮随右栏显隐，纯 CSS）。
+> （第八拍产物段已并入下方「第十拍」段 —— 见 PLAYBOOK P3.39 ~ P3.46。）
+> **第八拍（六条）** = ⑦ **全局「宽度不够 ⇒ 省略号」**（新增第 14 节，17 类单行文本容器挂三件套；★ **三类分治** ——
+> 单行文本 ⇒ 截断；**代码 / 终端**与**多行正文** ⇒ 保持折行、**明确不截断**；⚠ flex / inline-flex 容器里的裸文本是
+> **匿名 flex 项** ⇒ 容器上的 `text-overflow` 无效，文字在子 `<span>` 的要单独点）｜
+> ⑧ **去掉「折叠此文件」**（`ctxForFile()` 整项删，右键文件菜单 = 6 项）｜
+> ⑨ **`.td-sum-h` = 15px**（写 `calc(15px * var(--ui-fs-ratio))`，15px 无 title token）｜
+> ⑩ **`.td-diff-path` 展开后中粗 500**｜
+> ⑪ **`.td-diff-path` / `.td-diff-rows` 内一律 13px**（只换 token 档位；子规则逐条同值覆盖；`.td-dr` 行高 20 / `.td-diff-h` 38 未变）｜
+> ⑫ **`.r107-stats` 文字居中**（★ 两处死胡同：`fit-content + margin:auto` 被页面级两条 `!important` 盒宽规则压死；
+> 真节点不像 `::after` 自动 shrink-wrap ⇒ `margin:auto` 偏 **32px** ⇒ 正解 = **`text-align: center`**；
+> ★ ① 与 ⑥ **可共存**（居中 + 溢出时 Chromium 退化为 `start`、省略号照落行尾））。
+> **第九拍（两条）** = ⑬ **全屏后按钮图标不翻**（内联 SVG 是 HTML 写死的「四角朝外」，JS 只翻 `aria-pressed`/`title`/`aria-label`
+> ⇒ 抽 `setMax(on, silent)` + 新增 `setMaxIcon(on)`；MAX **从 DOM 读出来缓存**、MIN 硬编码（Lucide `minimize` 四条），只切 `d`、不重建节点）｜
+> ⑭ **全屏后拖分栏条「一按就复位」**（两因：(a) `startPanel = panelW` 取**内部缓存**，而「最大化」绕过控制器直接写 `--av-browse-w`
+> ⇒ 缓存 641 / 实际 1040 ⇒ 一按下猛跳 761；改读**实际渲染宽**（先 `.is-col-dragging` 停过渡再取几何）；(b) `pointermove`/`pointerup`
+> 挂**元素** ⇒ 改挂 **`window`** + `blur`。★ 判据 = **把 move 派发到 `document.body` 仍能拖**（1040 → 960）。
+> 另补两条退出路径：**全屏态按下分栏条 = 放弃全屏**（`setMax(false,true)` 不动宽）· **收起侧栏也退全屏**（搭 resize，不观察 DOM））。
+> ★ **体位**：`part105/ctrl-conv.js` 是跨代资产 ⇒ 本代在 `part107/ctrl-conv.js` 放**逐字副本 + 一处修正**（`_read_part()` 双目录回退，part105 与 avatar 零影响）。
+
+> （第九拍产物段已并入下方「第十拍」段 —— 见 PLAYBOOK P3.39 ~ P3.46。）
+
+> **第十拍（一条）** = ⑮ **三枚 `.td-rv-menu`（对比范围 / 显示选项 / 提交·推送）跑到触发按钮上方** —— 四枚共用一条
+> `{ position:absolute; top:42px }`（相对 `.td-browse`，42px = 标签栏下方），但 `.td-mod-menu` 的触发器在**标签栏**里、
+> 另三枚的触发器在**审查工具条**里 ⇒ 实测 dy = **−35.0 / −34.0 / −36.0**。★ **一条 `top` 服务两种锚点高度 ⇒ 必然错一半。**
+> 修法 = 新增 `placeRv(menu, trigger)`，在 `toggleMenu()` 打开分支（**摘掉 `[hidden]` 之后**）按触发器**实际几何**摆位：
+> 垂直 = 下方 6px；水平 = 左缘对齐触发器、右侧放不下 clamp 到面板右内边；量宽高用 **`offsetWidth`**
+> （不受入场 `scale(0.96)` 影响）。CSS 只拆共用规则 + 给 `.td-rv-menu` 静态兜底 `top: 83px`；**`.td-mod-menu` 一字不动**。
+> ★ 实测三枚 dy 全 **+6.0**、dxLeft **0.0 / −0.1 / −14.1**（末者 = clamp 生效）；`.td-mod-menu` 回归不变；
+> 窄栏 315 三枚全部 `insideMod=true`（**未被 `.td-mod{overflow:hidden}` 裁**）；Esc 关 / 点空白关 / **重开位置一致** /
+> 右键菜单（`.td-ctxmenu`）不受影响 —— 全绿。
+> 「为什么否决纯 CSS」= 静态算式依赖「标签栏高度（**跨代资产** browse.css 写死 40、**实测 44**）」+
+> 「工具条高度（`calc(40px*ratio)`）」两个**来源不同**的魔法数 ⇒ 字号一缩放即脱节。
+>
+> **第十一拍（四条）** = ⑯ **划词浮条图标 / 文字应为正文黑**（DS `.giencoder-btn-text` 基类给的是**主色蓝**
+> `rgb(55,112,247)` ⇒ 加 `.td-selbar .giencoder-btn{color:var(--color-text-1)}`；SVG 走 `currentColor` 自动跟）｜
+> ⑰ **地址栏 `.td-url-pill` 补 `:focus-within` 激活态**（底色转白 + **`inset` 1px 主色** + 外 2px 浅主色环；
+> ★ 用 `inset` 不用 `border`，否则 26px 胶囊被撑高；★ 取证坑：`focus()` 后**同步** `getComputedStyle`
+> 读到的是**过渡起点**，必须等 400ms）｜
+> ⑱ **数字动效提速**（根因两层：`delay 1.5s + fill:both` ⇒ 延迟期停在 `from`、**窗口是空的**；
+> 而那 1.5s 是**为等骨架屏退场**。改前真机时间线 **2012 淡出 → 2326 移除 → 2493 首见**。
+> 修法**两边一起动**：`apply107.py` 的 `wire()` 骨架屏 `1100→380` + CSS `duration .46→.30` /
+> `delay 1.5s→calc(.44s + ni*26ms)` ⇒ 空窗 **167ms→0**）｜
+> ⑲ **对照 Codex 官方补缺，落地三件**：**终端多标签**（`bindTerm()` 按块绑定 + 标签只切 `hidden` +
+> `+` 真新建；⚠ 全页 `.td-term` 单数选择器一律改走 `termPanes()`）· **浏览器截图**（相机按钮 +
+> `.td-brw.is-shot::after` 快门 **260ms**；★ 闪**整模块**而非滚动容器 `.td-view`；⚠ 动画 ≤300ms 因
+> `verify-design` 的 `CRAFT-ANIM`）· **产物预览层**（`.td-sum-prev` 覆盖摘要 + `md`/`xlsx` 两套骨架 +
+> **Esc 算一层**，否则开着预览按 Esc 会**关掉整条侧栏**）。
+> （官方 SSH（alpha，不在侧栏）/ 多窗口 / 系统托盘 ⇒ 静态演示页落不了地，**不做**。）
+> ★ **体位**：本拍**首次动了 `_mods.html`** ⇒ 改序 = `_mods.html` → `ev/splice107.py`（重组 `browse.html`）
+> → `apply107.py`；⚠ **`browse.html` 是 splice 的产物、不是手改对象**。
+> **产物**：`conversation.html` **799231 → … → 934109 → 936625 → 958568 Unicode 字符**（十一拍合计 **+159337**）；
+> UTF-8 字节（LF 归一）**1055517** ｜ 工作区字节（CRLF）**1063012** ｜ LF `sha1 5ce6b87f5150`；`base.html` **472150 逐字节不变**。
+> **十查**：幂等 ✓（每拍连跑两遍）｜`check-syntax.py pages/*.html` **10/10**（conversation `script=9 style=16`）｜
+> `verify-design.py ./pages` 与 `vd-r107l.txt` **逐字节相同**（21882 字节 / md5 `3dbf654337559509110899e48bef1b1c`）⇒ **零新增**｜
+> `scan-flatten.py` `panel.css` 仍 **2 条**（第十一拍**新增 0 条**）｜代数残留 **0**｜
+> `git status` = `M pages/conversation.html`（`+2806 / −12` 行）+ `M pages/avatar.html`（`+1 / −1`）+ `?? mg-work/r107/`。
+> ★★ **新增定论见 PLAYBOOK P3.39 ~ P3.47**；各拍要点见 **PAGES P3.11i（共十一拍）**；逐条实测见 **`mg-work/r107/acceptance.md`（十六节）**。
+> ⚠ **本代不要重跑 `apply106.py`**（GENS 只有四代 ⇒ 会把「基线残留 `r107-conv-css`」判成错误直接退出）；退 r107 = `git checkout -- pages/conversation.html`。
+> **待拍板**：④b 用户消息块口径（`min(100%,728px)` vs `100%`）｜`r93-bar` 底线与面板底线**仍是两色**｜折叠默认范围｜官方 SSH（alpha，不在侧栏）/ 多窗口 / 系统托盘 **不在静态页范围**（本轮已拍板不做）。

@@ -1,0 +1,11 @@
+--- 工具条每个直接子元素的盒子 ---
+"td-rv-scope [804,70] d=flex\ntd-rv-stat [882,63] d=flex\ntd-rv-meta [953,46] d=block\ntd-mod-bar-acts [1183,236] d=flex\ntd-rv-menu td-rv-scope-menu [0,0] d=none\ntd-rv-menu td-commit-menu [0,0] d=none\ntd-rv-menu td-rv-opts [0,0] d=none"
+--- 动作组内每枚按钮 ---
+"copy [1183,24] visible=true\nreveal [1213,24] visible=true\n1 [1243,24] visible=true\n1 [1273,84] visible=true\npr [1363,56] visible=true\nBUTTON [0,0] visible=false"
+--- 工具条与侧栏宽度 ---
+"{\"bar\":639,\"barScroll\":639,\"panel\":639}"
+--- 折叠项图标是否在（展开态应为上下相背箭头） ---
+"{\"paths\":2,\"d\":[\"m7 9 5-5 5 5\",\"m7 15 5 5 5-5\"],\"w\":0,\"name\":\"展开全部文件\"}"
+--- 「展开全部文件」项可见性 ---
+"{\"item\":[1228,233,190,32],\"ico\":[1236,14,14],\"name\":\"展开全部文件\"}"
+############ done ############

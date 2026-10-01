@@ -1,0 +1,1 @@
+"[\n {\n  \"tag\": \"tree-T0\",\n  \"treeW\": \"240px\",\n  \"treeRectW\": 240,\n  \"splitX\": 1112\n },\n {\n  \"tag\": \"tree-T1 down\",\n  \"treeW\": \"240px\"\n },\n {\n  \"tag\": \"tree-T2 move(+40)→body\",\n  \"treeW\": \"240px\",\n  \"treeRectW\": 240\n },\n {\n  \"tag\": \"tree-T3 up→body\",\n  \"treeW\": \"240px\",\n  \"treeRectW\": 240\n }\n]"

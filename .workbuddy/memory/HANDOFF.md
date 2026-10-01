@@ -1,100 +1,203 @@
 # HANDOFF · 下一轮接手卡
 
 > **每轮覆盖重写。新会话开局先读这一页，再按需 grep `PLAYBOOK.md` / `PAGES.md`。**
-> 最后更新：2026-10-01 08:5x（**r106 六条已落地** —— 首拍 ①②③④ + 返工拍 ④ 口径更正 & ⑤ 新增 + **第三拍 ④b 用户消息块写死 728px** → 四查全绿 + 五档取证 + 改前对照裁片 → 🚫 **未提交**（等邵先生发话））
-> ⚠️ **最新一拍 = r106 六条**（会话详情页；**r102 代已于 `87e2caa` 交付 ⇒ 本代是新一代，
-> **新建 `mg-work/r106/apply106.py`**，`GENS` 摘除表扩到**四代**（r93/r101/r102/r106），
-> 注入块 id 换代 `r106-conv-css` / `r106-conv-js` / `r106-nav-js`）：
-> ① **「上下文注入」「深度思考」两块默认折叠 → 已做**：`fold()` 工厂**本来就支持** `data-r93-open='0'`
->   （`(o.open === false ? '0' : '1')`）⇒ **只给两处调用加 `open: false`**，**零 CSS / 零结构**。
->   实测：14 块里第 ①② 块 `open=0`、h=**22**（y=429 / y=467），其余 **12 块 `open=1` 逐块不变**。
->   ▲ 连带确认：`wire()` 只给「**初始就展开**」的块挂 `.is-free`（放行卡内 popover）⇒ 收起态本就不挂、**无需改**。
-> ② **`.td-browse-bar` 高 44px（与 `.r93-bar` 同高）→ 已做**：本页适配层一行 `height: 44px`。
->   实测两条栏 **h=44 / h=44**，底线**同落 y=92**（改前 browse 40 / 底线 y=88）。
->   ▲ **只覆盖 `height`、不动源件** `part105/browse.css`（那份要与源页 `avatar.html` **逐字节同源**，
->   校验脚本 `mg-work/r102/ev/extract105.py`）；且 `.r93-bar` **只存在于本页**，没理由让 avatar / task-detail 跟着变高。
-> ③ **预览栏展开时：右上角改直角 + 接缝看起来 1px → 已做**：
->   `main { border-top-right-radius: 0; border-bottom-right-radius: 0; border-right-width: 0 }`。
->   实测：`main` 半径 `10px 10px 10px 10px → **10px 0 0 10px**`、`border-width 1px 1px 1px 1px → **1px 0 1px 1px**`；
->   接缝**非白像素 2 → 1**（改前 x=790 `#ECEEF2`＝main 右框 + x=791 `#E5E5E5`＝面板左框；改后**只剩 x=791 `#E5E5E5`**）。
->   ▲ **那条线归面板**：面板左边线是设计稿**专门为接缝另取的一档**（见 `part105/browse.css`「第 52 轮第 3 项」注释）；
->   △ `border-right-width: 0` 只让 main 的**内容盒**宽 1px（Tailwind `border` 按 **border-box**）⇒ **边框盒仍 779**、面板位置与拖拽手感不变。
-> ④ **预览栏展开时内容列「空间不足才自适应、空间足够保持原逻辑」→ 已做（★ 返工拍更正口径）**：
->   首拍曾**无条件撑满**（1440/2560 都吃满）；邵先生更正为「**1440 这类不够时才自适应，空间够就保持原逻辑**」。
->   修法 = `width: min(可用宽, 原逻辑值)`：
->   `.r93-wrap { width: min(calc(100% + 20px), max(calc(50% + 10px), 860px)); min-width: 0; margin: 0 calc((100% − 宽) / 2); }`
->   （`.r93-bottom` / composer 外壳 / `.r93-sk-in` 口径 = `min(100%, max(50%, 860px))`）。
->   实测：**1440 开 = 778**（left 13、`overRight 0`，不再被裁 92px）；**2560 开 = 949**（left 488、居中，= 原逻辑）；
->   **关态 1440 仍 860 / 2560 仍 1141，逐像素不变**。
->   ▲ ⚠ **判据是「容器可用宽」而不是视口分辨率**（预览栏开/关、左导航收拢都会改它）。
->   ▲ **不能用 `margin: 0 auto`**：撑满时元素宽 > 包含块，`auto` 在溢出方向会退化成 0
->   （实测原逻辑给出 `mL 0 / mR −102` 的**不对称**结果）⇒ 必须显式写 `calc((100% − 宽) / 2)`（撑满时 = −10px）。
->   ▲ `.r93-wrap` 的 `50%` 基数比 `.r93-bottom` **少 20px**（父盒 `.r93-scroll` 带 `both-edges` gutter）
->   ⇒ 页内既有约定用 `+10px` 补偿（`.r93-sk-in` 原来也这么写）⇒ **不可省**，否则四列不同宽（r97 的「全宽块等宽」）。
->   ▲ 原逻辑实测（`ev/p106e.js` 把覆盖摘掉读真值）：1440 开 = 860（右缘 883 > main 右缘 791 ⇒ 溢 92px = 「遮挡」）；2560 开 = **949**。
-> ⑤ **产物卡文件名「默认不该是蓝、hover 才是」→ 已做（★ 返工拍新增）**：
->   模板对第 2 张卡（`spec-template.md`）写了**内联** `style="color:var(--color-primary-6)"` ⇒
->   内联优先级最高，把 CSS 里「`.r93-artname` 默认 `text-1` / `.r93-artcard:hover .r93-artname` 才 `primary-6`」整条压死。
->   **修法 = 只删那处内联**（连数据里的 `1` 一并去掉），CSS **一行未动**。
->   实测：未 hover 时 5 张卡文件名全部 `rgb(31,31,31)`（`--color-text-1`）、`inline=(none)`；
->   真鼠标 hover 第 2 张 ⇒ `hov=true`、`rgb(55,112,247)`（`--color-primary-6`）；其余 4 张仍 text-1。
-> ④b **用户消息块 `.r93-bub` 写死 `width: 728px` → `min(100%, 728px)` → 已做（★ 第三拍新增）**：
->   邵先生只给了一个数「**宽度是固定的 728px**」；做法 = **把这个数从页面里揪出来**（不先假定类）：
->   （a）先量 `r93-wrap`（他 #4 点名的类）：1440 关 860 / 1440 开 778 / 1370 开 708 / 1280 开 618 / 1920 开 860 / 2560 关 1141
->   ⇒ **没有一档是 728** ⇒ 728 **不是** `.r93-wrap` 的值；
->   （b）全页扫描「宽度 700~760」的元素 ⇒ 揪出 `.r93-bub` / `.r93-bubi` / `.r93-attrow`×2 / `.r93-umeta`，**四档情形一律 728**；
->   （c）**全仓 grep `728px`** ⇒ `pages/*.html` 里**仅此一处**：`.r93-bub { margin-left: auto; width: 728px; … }`（r93 段「用户消息」）。
->   蓝底气泡本体 `.r93-bubi` 就宽 728（`BG=rgb(229,237,254)`）。块 **右对齐** ⇒ 列窄于 728 就**向左溢出被裁**：
->   **1280 开（列 618）溢 110px** —— 气泡文字断在「…三个泳道，未」、chip 被切；**1370 开（列 708）溢 20px**。
->   修法 = `html[data-r93-page='conversation'] .r93-bub { width: min(100%, 728px) }`
->   ⇒ **≥728 的 7 档全部仍 728（逐像素不变）**，只有「列 < 728」才跟列收（618 / 708，溢出 0）。
->   ▲ **唯一不带 `.av-browse-on` 的一条**：溢出只看「列 ↔ 728」的大小关系，**窄窗口关态同样会溢**。
->   ▲ `margin-left: auto` 保留（列够时维持右对齐，列不够时 `auto` 退化成 0 ⇒ 满行）；
->     原规则**非 `!important`、特异性 (0,1,0)** ⇒ 本页适配层 (0,2,1) 压得住，无需 `!important`。
->   ▲ ⚠ **本条在 1440 下不可见**（列 778/860 都 ≥728）⇒ 用它验「改对了」必须到 **1280/1370 开态**（`raw/m106b-1280-open.png` 是改前对照）。
+> **每轮覆盖重写。新会话开局先读这一页，再按需 grep `PLAYBOOK.md` / `PAGES.md`。**
+> 最后更新：2026-10-01 14:1x（**r106 已提交 `4d081ba`** + **r107 侧栏模块标签化已落地（十一拍累积）** → 四查全绿 + 五模块实测 + 多轮真 bug / 机制坑修复 → 🚫 **未提交**（默认不自动 commit））
+> ⚠️ **最新一拍 = r107「侧栏模块标签化」**（复刻 Codex 右栏；**r106 已交付 ⇒ 本代是新一代**，
+> **新建 `mg-work/r107/apply107.py`**（由 `ev/make107.py` 从 apply106 做 **13 处精确替换**生成），
+> `GENS` 摘除表扩到**五代**（r93/r101/r102/r106/r107），注入块 id = `r107-conv-css` / `r107-conv-js`；
+> ★★★ **nav 块刻意沿用 `r106-nav-js` 不换名**（`NAV_TAG='r106'`）—— 硬规则「跨代沿用的宿主标记不换名」）：
+> ① **右栏从「单标签 + 文件树」升级成 Codex 三段式 Side Panel → 已做**：
+>   ① 标签栏 `[图标]名称 ×` + `＋` + `⤢ 最大化` + `✕ 收起`；多开 / 切换 / 关闭 / **拖拽重排**；
+>   `＋` = **五选一模块菜单**（审查 ⇧⌘G / 终端 ⌃\` / 浏览器 ⌘T / 文件 ⌘P / **摘要**）。
+>   ⚠ 第三拍起 `⇧⌘G` / `⇧⌘E` / `` ⌃\` `` 是**真绑定**（`⌘T`/`⌘P` 是浏览器级拦不住 ⇒ 不绑）。
+>   实测：四标签右缘 1138 / `＋` 左缘 **1142**（紧跟最后一枚）；把末枚拖到最前 ⇒ `[terminal,files,review]`；
+>   关 browser ⇒ 邻居 terminal 激活；**只剩一枚时不显示 `×`**（`.td-browse-tabs.is-single`）。
+> ② **新增四个模块 → 已做**：**审查**（工具条 = `对比范围 ⌄ +566 −228 4 个文件` + 右端 `复制 / 定位 / ⋯ / 提交⌄ / PR`；
+>   4 张 diff 卡 = 两列行号 + 加绿删红 + `⋯ 折叠/展开 46 行未改动` + 行内评论 + 逐文件 `暂存 / 撤销`；
+>   `⋯` 十项显示选项；**统一 ⇄ 并排**；`提交 ⌄` 下拉 ⇒ **模态**）/ **终端**（提示符 + **真按键回声**：`ls`/`pwd`/`npm run dev`/`clear`/未知命令）/
+>   **浏览器**（URL 行 + 右端 `缩放/发送/更多` + **标注态**：元素虚线描边 + 点击出评论气泡 + 底部 `标注中` 条）。
+> ③ **摘要（任务侧栏）→ 已做**：四段 = **摘要 / 计划 / 来源 / 产物**（对照 Codex 26.415）。
+>   ⚠ 原「侧边聊天」已在**第三拍被彻底删除**（含 `.td-selbar` 划词浮条）—— 这一格由「摘要」接替。
+> ④ **`⤢` 侧栏最大化 → 已做**：自算 `maxPanelW = freeW − 380` 写宿主 `--av-browse-w`；还原读回 localStorage 的 `panelW`。
+>   实测 1440：641→**1040**（main 779→380）；2560：641→**2160**（main 1899→380）。⚠ 用**两层 rAF** 落定，避开 ctrl-conv 的单层 rAF。
+> ⑤ **Esc 层级 → 已做**：`panel.js` 挂 **window 捕获段**（早于 ctrl-conv 的 document 捕获段）⇒ 一次 Esc 只关菜单，再按才关侧栏。
+> 🔧 **期间修掉两个真 bug（都是量出来才现形）**：
+>   ① 新模块 `<section class="td-mod td-term">` 与内部 `<div class="td-term">` **类名撞车** ⇒ `querySelector('.td-term')` 取到 section
+>     （`tabindex` 为 null）⇒「点终端打字没反应」；且整套 `.td-term{}` 样式压在 section 上 ⇒ **section 改名 `td-mod-term`**。
+>   ② `.td-commit{inset:0}` 的**包含块跑到视口**（源件 `.td-browse` 没写 `position`）⇒ 遮罩铺满整站、卡片居中屏幕
+>     ⇒ 给 `.td-browse` 补 **`position: relative`**（`modalRect [418,211,250,246] → [792,49,639,842]` ≈ `panelRect [791,48,641,844]`）。
+> ★★ **第二拍返工（邵先生 10:0x 反馈两条，见 `acceptance.md` 第七节 / PLAYBOOK **P3.39⑧⑨**）**：
+>   ③ **「审查」的 `⋯` 显示选项浮窗点开后关不掉** —— 根因 = `closeMenus()` / Esc 裁决的**搜索根写成了标签栏 `bar`**，
+>     而 `.td-rv-opts` 挂在**模块工具条 `.td-mod-bar`** 里 ⇒ 三条关闭路径全废（外点 ✗ / Esc ✗ / 选完不关 ✗），
+>     且 Esc 会漏到 ctrl-conv **把整条侧栏关掉**。修法：搜索根 `bar` → **`pane`**。
+>     实测：外点关 ✓ / Esc 只关浮窗、`panelOn` 仍 true ✓ / 选完自动关 + `is-split` ✓ / 再按 Esc 关侧栏 ✓。
+>   ④ **「侧边聊天」样式对齐主对话 `r93-scroll`** —— 正文 13/20.43 → **15/22**；用户气泡 `--color-primary-1` `#F5F8FF`
+>     → **`--r93-bubble` `#E5EDFE`** + 圆角 `8 8 2 8` + 内距 `9px 12px`；引用块 → **13/22**；输入框 → **14/22**；
+>     助手消息**去灰底气泡**（主对话助手正文无底）；助手标记 → **24px 同源 GienX logo**（原来是个写死的「A」）。
+>   ⚠ 顺带挖出一个**仓库级机制坑**：`apply88b.converge()` 的「跳过本代块」正则用的是**硬编码 `CSS_ID = 'r87-ui-css'`**
+>     ⇒ 本代块从未被跳过 ⇒ `line-height: calc(Npx * ratio)` 被 unscale 压成裸 px、又因体里没有 `var(--font-size-*)`
+>     而不再被重派生（**`--ui-fs` 杠杆静默失效**）。修法 = **带行高的规则，`font-size` 写 token**；15px 档用两段式写法。
+>     自查脚本 `mg-work/r107/ev/scan-flatten.py`；判据必须看 **`--ui-fs=18`**（默认 14 下看不出来）。
+> ★★ **第三拍返工（邵先生 10:2x 反馈四条，见 `acceptance.md` 第八节 / PLAYBOOK **P3.39⑩⑪⑫**）**：
+>   ⑤ **「侧边聊天」彻底删除** —— 菜单项 / section / `panel.js`（`AV_SVG`·`pushMsg`·`sendSide`·logo 注入·**`.td-selbar` 划词浮条整段**）/ `panel.css` 两节，全清；
+>     判据 = 页面里 `td-side` / `td-selbar` / `AV_SVG` / 「侧边聊天」四个字 **全部为 0**（连注释都清）。原第五格由 **「摘要」** 接替。
+>   ⑥ **并排视图下折叠失效** —— `.td-diff:not(.is-open) .td-diff-rows`(0,3,0) 与 `.td-rv-body.is-split .td-diff-split`(0,3,0)
+>     **特异性完全相同，后者写在后面 ⇒ 折叠路径整体失效**（统一视图正常，只在并排暴露）
+>     ⇒ 后者加一层 `.is-open` 提到 **(0,4,0)**。四象限实测：统一展开 `block/–/block`｜统一折叠 `none/–/none`｜并排展开 `–/block/block`｜并排折叠 `–/none/none`。
+>   ⑦ **「折叠全部文件」⇄「展开全部文件」** —— 同一枚菜单项双向切换（**文案 + 字形一起翻**）；
+>     判据 =「**只要还有折叠着的文件就显示『展开全部文件』**」；手动折单个文件后也会回来同步。实测 2 开→4 开→0 开→手动 1 开，文案全程正确。
+>   ⑧ **对照 Codex 官方补的遗漏（本轮主体）**：**对比范围下拉**（上一轮 / 本分支 vs main / 全部未提交）——原来那颗按钮带 `⌄` 却点不开 ·
+>     **`⋯` 显示选项补齐八项**（自动换行 / 词级差异 / 隐藏空白 **真生效**；刷新 / 不加载完整文件 / 富预览 / 复制 git apply 命令）·
+>     工具条**动作组**（复制 / 在文件树中定位（会真切到「文件」标签）/ `提交 ⌄` 含推送 / PR）· 逐文件 **暂存 · 撤销** ·
+>     「N 行未改动」**真展开** · **新增「摘要」模块**（摘要/计划/来源/产物，对照 26.415）· **快捷键真绑定** · 轻提示 toast。
+> ★★ **第四拍返工（邵先生 10:5x 反馈五条，见 `acceptance.md` 第九节 / PLAYBOOK **P3.40**）**：
+>   ⑨ **「摘要」升为右栏默认页签 + 四模块卡片式** —— 初始标签 `data-td-mod` `files`→`summary`（`_head.html`）
+>     + 初始化 `activate('files')`→`activate('summary')`（`panel.js`）两处同改；`.td-sum-sec` 加
+>     `1px --color-border-1` 描边 + `8px` 圆角 + `--color-bg-2` 底 + `12px` 内距（容器 `gap:12px`）；
+>     卡内来源/产物降级为**行式**（`bw:0`、`pad:6px 8px`、hover `--color-fill-1`）避免「卡中卡」。
+>   ⑩ **补回划词浮条**（第三拍 ① 连 `.td-selbar` 一起删掉的那条）——**并做成真功能**：两枚 DS 文字按钮
+>     （`giencoder-btn-text-size-small`）「添加到对话」（真把选中文本插进主 `textarea`，占位符「描述你的任务」）/
+>     「复制」（`execCommand('copy')`）；选中 `.r93-scroll` 内文本 ⇒ 浮条出现在选区上方；Esc 只收浮条、不关侧栏。
+>   ⑪ **补右栏右键菜单（先调查后落地）** —— **九类目标共用一份表驱动容器 `.td-ctxmenu`**（`role=menu`）：
+>     标签 5 / 审查文件头 7 / 审查代码行 5 / 终端 6 / 浏览器元素 6 / 浏览器空白 5 / 摘要来源 3 / 摘要产物 3 / 计划条目 4；
+>     危险项红字（`is-danger`）；能复用既有 handler 的一律 `元素.click()`。**反例**：右栏内普通空白 / 右栏外均**不接管**。
+>   ⑫ **`.td-browse-tab` 字号 12 → 14px**（`--font-size-body-1` → `--font-size-body-3`）。实测 `tabFs 14px` / `tabH 28px`。
+>   ⑬ **全右栏下拉改用 giencoder DS 组件** —— 四枚容器（`+` 菜单 / 对比范围 / 提交 / 显示选项）挂
+>     `giencoder-select-popup + giencoder-menu`，条目 `giencoder-menu-item`、分组标题 `giencoder-menu-group-title`、
+>     图标位 `giencoder-menu-icon`、选中 `giencoder-menu-item-selected`；`panel.css` **自绘那节整段删掉**、只留定位与槽位。
+>   🔧 本拍四个坑（全在 PLAYBOOK **P3.40**）：(a) `.td-mm-item{background:transparent}` (0,1,0) 与 DS 选中态底**打平 + 后写** ⇒ 选中底被抹 ⇒ 改 `:not(.giencoder-menu-item-selected)`；
+>     (b) ★★ **页面级通配适配层 `html[data-r93-page='conversation'] .giencoder-select-popup{top:auto!important;bottom:…!important}`（r93 ④）把右栏新挂的 DS 弹层一起扫到** ⇒ `rect.y=-170` 整排看不见（开合状态全对、就是位置错）⇒ 加 (0,3,1) 同名适配翻回向下；
+>     (c) ★★ **`!important` 连行内 `style.top/left` 也压得过** ⇒ 右键菜单坐标改用 `--td-ctx-x/--td-ctx-y` 自定义属性 + `!important` 规则落位；
+>     (d) 探针「过渡中取值」假失败（**第三次踩**）⇒ 打开与量测拆两次 eval（中间 `wait 600`）。
+> ★★ **第五拍返工（邵先生 11:3x 反馈两条，见 `acceptance.md` 第十节 / PLAYBOOK **P3.41**）**：
+>   ⑭ **四枚下拉 + 右键菜单 hover 全无 → 补齐**（真 bug）。根因：第四拍的基态
+>     `.td-mm-item:not(.giencoder-menu-item-selected){background:transparent}` 是 (0,2,0)，
+>     与 DS 的 `:hover` / `-selected` **同特异性但文档序在后** ⇒ 把两态一起压掉
+>     （真鼠标悬停 `matches(':hover')=true` 而底色仍 `rgba(0,0,0,0)`）。⇒ 基态与 `:hover` 写同一块、基态在前。
+>   ⑮ **下拉改挂 DS 的 Dropdown 组件**（邵先生点名 `.td-rv-opts`）—— 第四拍挂的
+>     `giencoder-select-popup`（**Select** 的弹层）+ `giencoder-menu`（**导航菜单**，`mapsFrom: sidenav/topnav`）
+>     是**串了两个族** ⇒ 换成 `giencoder-dropdown-popup` / `-item` / `-divider`（+ 契约态 `.is-danger`），
+>     与**本页** r93 ⑦ 行右键菜单 `.r93-ctx` **同源同口径**。容器的 `[hidden]` 兜底随之恢复可用
+>     （原被 r75 的 `.giencoder-select-popup{display:block !important}` 压死）。
+>     ⚠ 选中态：DS Dropdown **没有** `-selected` 类（不虚构）⇒ 按契约取「主色文字 + 勾选图标 ✓」，
+>       两枚 radio 项补 `.td-mm-mark`；原先那套浅蓝底 + 左缘 3px 条属 Menu 族，一并撤掉。
+>     ⚠ 条目几何从「36 高 / hover fill-1 / max-height 280 出滚动条」换成 DS Dropdown 契约值
+>       （`pad 5px 8px` / `radius 4` / `lh 22×ratio` / hover `--color-fill-2`）⇒ 10 项的 `.td-rv-opts`
+>       **不再出滚动条**（`h:385`、`ovfY:visible`）。
+>     ⚠ DS 骨架的 `animation: giencoder-popup-in` 播完把 `opacity` 打回 0 ⇒ 适配层显式 `animation:none`。
+> ★★ **第六拍返工（邵先生 11:4x 反馈三条，见 `acceptance.md` 第十一节 / PLAYBOOK **P3.42**）**：
+>   ⑯ ★★★ **输入卡下方那行统计小字「框选不到」= 它是 CSS 生成内容** —— 该行是 r97 ④ 用纯 CSS 的
+>     `… > div.mt-8::after { content: '2 轮 · 27 步 · …' }` 挂出来的。**生成内容不是 DOM 的一部分**
+>     ⇒ 选区落不进去（`Selection.toString()` 恒空、`caretRangeFromPoint` 退回宿主元素；
+>     ★ **隔离对照**：临时建 `#zzA::after` 与 `#zzB`（真文本），同一手法一次运行里 `""` vs `"REAL-SELECT-ME"`）。
+>     ⇒ 关掉伪元素 + `panel.js` 注入真节点 `.r107-stats`，版式逐项复刻（12px / 行高 16×ratio / `--r93-meta` / nowrap）。
+>     ⚠ 宿主是 React 的 `div.mt-8` ⇒ `MutationObserver`（body/childList+subtree）兜两件事：
+>       **重渲染摘掉要补回** + **重挂后被插到中间要挪回末尾**；回调只做「判存 + 不在末尾就 appendChild」⇒ 自收敛。
+>     实测四档：`isLast:true` / 宿主 `gap:8px` / 计算样式与旧伪元素逐项相同 / **`selLen` 0 → 103**。
+>   ⑰ **`.r93-pre` 去掉字体族** ⇒ `font-family: var(--font-family)`（= 站点默认档；**不用 `inherit`**，不赌祖先链）。
+>     只覆写这一条：盒模型 / 字号（14px）/ 行高（16px）/ 换行策略一字不动；实测 `preFont === bodyFont`、全页只剩 1 种字体族。
+>   ⑱ ★★ **内容列变窄时两条自适应**（判据 = **容器可用宽**，不是视口分辨率；写法同 ④b 的 `.r93-bub`）：
+>     · **技能选择浮窗**（React **行内**写死 `width:760`）⇒ `width: min(760px, 100%) !important`
+>       （行内样式只有 `!important` 压得住）；包含块是输入卡 ⇒ `100%` = 输入卡内宽。
+>       实测 1440/1280/1100 溢出 **+23/+81/严重 → 恒 −23**（即浮窗内缩 23px，不再顶到滚动口裁剪边）。
+>     · **`.r93-alert`** 定高 44 ⇒ `height:auto; min-height:44px; padding:8px 16px`。
+>       `8px` 竖内距与单行态**完全等价**（内容 22+16=38 < 44 ⇒ 仍顶到 44、`align-items:center` 照样居中）
+>       ⇒ 单行宽度零变化；折行时才长高（1280 `h62` / 1100 `h106`），`clientHeight === scrollHeight` ⇒ 不再溢出圆角盒。
+> ★★ **第六拍体位**：仍是 r107 **就地返工**（`apply107.py` / `GENS` / 注入块 id / `NAV_TAG` 全不动）；
+>   三条**全部落在本页适配层**（`panel.css` 第 10~12 节 + `panel.js` 的 `statsBoot`）—— 与 r106 ② 同体位，
+>   源件与历代遗产块**一字未动** ⇒ `apply107.py` 是「apply106 + **13 处替换**」（第七拍新增 `2d)` 正 + 逆）的干净产物。
+>   ⚠ `_head.html` / `_mods.html` 未动 ⇒ `splice107.py` 重跑后 `browse.html` **sha1 不变**（已验）。
+>   ⚠ `fs.converge()` 会把 `<style id="r107-conv-css">` **整块 stash 跳过** ⇒ 新增的 `min-height` 不会被 unscale 吃掉。
+>   `base.html` 仍**逐字节不变**（472150 字符）。第六拍产物 **921730 → 925776 字符（+4046；相对 HEAD +126545）**。
+> ★★ **第七拍返工（邵先生 12:1x 反馈七条，见 `acceptance.md` 第十二节 / PLAYBOOK **P3.43**）**：
+>   ⑲ ★★ **「渲染出来的字」与「渲染不出来的字」要分开判** —— 右栏里**可见**的竞品名共 8 处
+>     （diff 文件名 / 三行代码 / 摘要描述段 / 三条来源标题）+ 两处悬停 `title`，全部换成 GienCoder；
+>     **三条 `td-sum-src` 的外链 `href` 有意保留**（真实地址，替换域名段即 404，且不渲染成页面文字）；
+>     前六拍写下的 7 处**设计来源注释**（CSS 5 / JS 2）同样保留。
+>     ★ 本轮新增的注释一律避开被清理的词（我自己的第 13 节注释已改成「竞品名」中性表述）。
+>     另补一处真·全局：`pages/avatar.html` 历史会话列表里那条示例标题（含竞品名的那条）
+>     ⇒ 做法照 `apply106.py` 的 `2b)` 先例，`apply107.py` 新增 `2d)` 正 + 逆，EDITS **11 → 13 处**。
+>   ⑳ ★★ **同一处改动要先判「节点从哪来」** —— 下拉菜单的标题行有两类来源：
+>     静态 HTML（`.td-mm-cap`）与 **JS 现场生成**（`.td-ctx-head`，`ctxBuild()` 里建）⇒
+>     删 HTML 治不了后者 ⇒ **一段 `display:none` 把两类一起关**（菜单是 column flex，塌行不占位 ⇒ 与删节点视觉等价）。
+>     快捷键提示同理（静态 `.td-mm-key` ×10 + JS 的 `.td-ctx-key`）。
+>   ㉑ ★ **DS 组件「宽度不拉通」先查它自己的 display** —— 提交卡的「目标分支」输入框挂
+>     `.giencoder-input-wrapper`（编译样式 `display:inline-flex; width:auto; min-width:120px`）
+>     ⇒ 实测**同卡其它行都是 308、它只有 207**；修法 = 双类
+>     `.giencoder-input-wrapper.td-commit-in { display:flex }`（提高特异性，不赌文档序）。
+>   ㉒ ★★ **「统一字体族」要分清「本代自己的样式」与「跨代沿用的移植件」** ——
+>     `panel.css` 自己那 8 条**就地改**；「文件」模块代码区那条在 **r102 代已交付的 `part105/browse.css`** 里
+>     （不回改历史代）⇒ 只能在本页**多一级类数覆盖**（`.td-browse .td-browse-pre`），
+>     153 个 `.td-code*` 子树靠继承。⚠ 这条是**改完第一遍量出来才补的**。
+>   ㉓ ★★ **联动显隐先找「状态类挂在哪一级」** —— 右栏的 `.av-browse-on` 实测加在
+>     **shell 的 flex 行**上（`main` 与预览栏的共同父级），页头那枚按钮在 `main` 里 ⇒ 是它的后代
+>     ⇒ **纯 CSS 可判，不必写 JS**：`.av-browse-on .r93-baract[data-r93-fullscreen] { display:none }`。
+> ★★ **第七拍体位**：仍是 r107 **就地返工**（`apply107.py` / `GENS` / 注入块 id / `NAV_TAG` 全不动）；
+>   六条落在 `part107/panel.css`（新增第 13 节 + 第 1~5 节各自的 `font-family` 就地改），
+>   一条落在 `part107/_mods.html` 文案 + `apply107.py` 的 `2d)`。改序照旧（下→上）。
+>   `base.html` 仍**逐字节不变**（472150 字符）。第七拍产物 **925776 → 927464 字符（+1688；相对 HEAD +128233）**。
+> ★★ **第五拍体位**：仍是 r107 **就地返工**（`apply107.py` / `GENS` / 注入块 id / `NAV_TAG` 全不动）；
+>   改序 `part107/*` → `ev/splice107.py` → `ev/make107.py` → `apply107.py`（只能下→上）。
+>   `base.html` 仍**逐字节不变**（472150 字符）。第五拍产物 **920259 → 921730 字符（+1471；相对 HEAD +122499）**。
 > ⚠★ **两条最要紧的体位事实**：
 >   1) `core.autocrlf = true` ⇒ 仓库 blob 存 **LF**、工作区落盘 **CRLF** ⇒ 原始字节天然差「行数」字节（**不是内容改动**）。
->   2) ★★ **口径**：`len(bytes) − CRLF数` **不是字符数**（本页中文多，会虚高 ~6.8 万）⇒
->      判内容增减要**先归一化行尾、再比同一口径**。
->   本代 `conversation`：**793028 → 798613 Unicode 字符（+5585）**（首拍 +3215、返工拍 +1090、第三拍 +1280）；
->   其余 **9 页逐页 +0**（只换 nav 块 id，`r102-*` 与 `r106-*` **等长**）。
->   ▲ 因此**本代没有旁观页**：**10 页全都写**（nav 块 id 换代），与 r102 代「其余 4 页未动」不同。
-> 工作区（未提交）：`M pages/conversation.html`（798613 字符 / 工作区 blob `e17d227b58bf`）、
->   `M pages/base.html`（472150 **+0** / `3436a5e7857e`）、**另 8 页同因 nav 换代而 `M`**（字符数 +0）；`?? mg-work/r106/`。
->   `origin/main` = **`87e2caa`**（= 本地 HEAD，已推送）。
+>   2) ★★ **口径**：`len(bytes) − CRLF数` **不是字符数**（本页中文多，会虚高 ~6.8 万）⇒ 判内容增减要**先归一化行尾、再比同一口径**。
+>   本代 `conversation`：**799231 → 866988**（第一拍 +67757）→ **876008**（第二拍 +9020）→ **894916**（第三拍 +18908）
+>   → **920259**（第四拍 +25343）→ **921730**（第五拍 +1471）→ **925776**（第六拍 +4046）→ **927464 Unicode 字符**（第七拍 +1688）；
+>   **相对 HEAD 合计 +128233**。UTF-8 字节（LF 归一）870627 → 952672 → 976078 → 1004420 → 1006094 → 1012253 → **1015265**；工作区字节（CRLF）947490 → 958664 → 979610 → 1011192 → 1012899 → 1019153 → **1022207**；LF `sha1 79aa4533761b`。
+> 工作区（未提交）：**`M pages/conversation.html`（927464 字符）+ `M pages/avatar.html`（`+1 / −1`，第七拍文案）+ `?? mg-work/r107/`**
+>   —— **`base.html` 逐字节不变**；8 个外壳页里**只有 `avatar.html` 因第七拍文案动了 1 处**，其余 7 页不动
+>   （nav 块沿用 `r106-nav-js`；`apply107` 跑完打印「base.html 已是目标态」）。
+>   `origin/main` = **`87e2caa`**（本地 HEAD 已到 `f13b3bf`，**本代未推送**）。
+> ⚠ **本代不要重跑 `apply106.py`**（它只认四代 ⇒「基线残留 r107-conv-css」自检直接退出）；
+>   退 r107 只需 `git checkout -- pages/conversation.html`。
 > ⚠ **r89 / r90 / r91 / r92 对设置页的改动、r93 需求 1 对字号机制的改动，全都是 r88 的就地返工**（r88 未提交 ⇒ 按硬规则不另起代数，直接改 `mg-work/r88/apply88.py` 与 `apply88b-fontsize.py`）。
 > ⚠ **r94 ~ r100 全部是 r93 代就地返工**（落在 `mg-work/r93/apply93.py`）；**r101 起是新代**（`mg-work/r101/apply101.py`，承接 r93 代的产物）；
 > **r102 又是新代**（`mg-work/r102/apply102.py`，承接 r101 代的产物 —— `GENS` 现在有 r93 / r101 / r102 三代）；
 > **r103 是 r102 的「未提交期就地返工」**（仍改 `apply102.py`，注入块 id 不变）；
 > **r104 / r105 同样是就地返工**（仍改 `apply102.py`）⇒
 > **r102 十一条 + r103 六条 + r104 四条 + r105 三条是同一次交付**，已于 2026-09-30 23:5x 提交推送（**`87e2caa`**）。
-> ★ **r103 / r104 / r105 从未单独占代**（都是 r102 的就地返工）⇒ **不入 `GENS` 表**；`GENS` 只有 **r93 / r101 / r102 / r106** 四代。
+> ★ **r103 / r104 / r105 从未单独占代**（都是 r102 的就地返工）⇒ **不入 `GENS` 表**。
 > **r106 是新代**（`mg-work/r106/apply106.py`，承接 r102 代已交付的产物）—— 脚本由 `mg-work/r106/ev/make106.py`
 > 从 `apply102.py` **9 处精确替换**生成（每处命中 ≠ 1 次即 `sys.exit`），不手抄 169 KB。
+> ★★ **r107 又是新代**（`mg-work/r107/apply107.py`，承接 r106 代已交付 `4d081ba` 的产物）—— 同样用生成器
+> `mg-work/r107/ev/make107.py`（从 `apply106.py` **13 处精确替换**）；`GENS` 现在 **r93 / r101 / r102 / r106 / r107 五代**，
+> **但第五代的 nav id 刻意仍写 `r106-nav-js`**（见本卡开头 ★★★）⇒ base 与 8 页不换名、不改内容。
+> ⚠ `part107/browse.html` 是**组装件**（`ev/splice107.py` = 原 Files 正文逐字剪出 + 换头部 + 追加四个新模块）
+> ⇒ 改 `_head.html` / `_mods.html` 后**必须先重跑 `splice107.py` 再跑 `apply107.py`**，否则改不进页面。
+
 > ⚠ **★ `pages/` 下每个页面都是「完全自包含」的独立 html**（顶栏 + aside + 外壳各一份，**没有共享布局、没有真实路由**）⇒ 新开一页 = **由源页净底重建（不复制）**；页面间跳转靠每页内嵌 `<!-- SHELL-NAV-FIX v5 -->` 的 `ROUTE` 表 + `hashchange`（见第十节）。
 
 ---
 
 ## 一、当前工作区状态
 
-**r102 ~ r105 已全部提交推送**（**`87e2caa`**，228 文件 / +17128 −178）。
-r86 ~ r100 于 18:2x 提交推送（`6a4b0ea..d7e2151`，776 文件 / +156039 −532）；**r101 于 20:2x 提交推送**（`1d11fc9..9f252e5`，117 文件 / +10377 −123）。
+**r102 ~ r105 已全部提交推送**（**`87e2caa`**）；**r106 六条（`4d081ba`）+ Codex 右栏调研（`f13b3bf`）也已提交**（2026-10-01 09:4x，邵先生发话 commit）。
+r86 ~ r100 于 18:2x 提交推送（`6a4b0ea..d7e2151`）；**r101 于 20:2x 提交推送**（`1d11fc9..9f252e5`）。
 
-★ **r106 六条＝本代新产物，🚫 尚未提交**（等邵先生发话）。工作区 `git status`：
-`M pages/conversation.html`（**798613 字符**）、`M pages/base.html`（472150 **+0**）、**另 8 页同因 nav 块 id 换代而 `M`**（字符数均 +0）；`?? mg-work/r106/`。
-> ⚠ 工作区字节数比仓库 blob 大**「行数」个字节** = `core.autocrlf=true` 的行尾差（仓库 LF / 工作区 CRLF），**不是内容改动**。
-> ★★ 判据：**先把工作区 `\r\n` 归一成 `\n`、再比同一口径**（`len(bytes)−CRLF数` **不是**字符数！）——
-> 除 `conversation`（**+5585 字符**）外**其余 9 页逐页 +0**。
+★★ **r107（侧栏模块标签化）＝本代新产物，🚫 尚未提交**（默认不自动 commit）。工作区 `git status`：
+**`M pages/conversation.html`（927464 字符）+ `M pages/avatar.html`（`+1 / −1`）+ `?? mg-work/r107/`** —— **base.html 逐字节不变**（8 个外壳页里只有 avatar.html 因文案动 1 处，其余 7 页不动）。
+> ★★★ 这是本代刻意设计的结果：nav 块**沿用 `r106-nav-js` 不换名**（硬规则「跨代沿用的宿主标记不换名」），
+> 于是 `apply107.py` 跑完 `base.html` 打印「已是目标态（无改动）」⇒ 满足「不得改动其他不必涉及的模块」。
+> ⚠ 工作区字节数比仓库 blob 大**「行数」个字节** = `core.autocrlf=true` 的行尾差，**不是内容改动**。
+> ★★ 判据：**先把工作区 `\r\n` 归一成 `\n`、再比同一口径**（`len(bytes)−CRLF数` **不是**字符数！）。
+
+⚠ ★ **本代不要重跑 `apply106.py`**：它的 `GENS` 只有四代，会把「基线里仍残留 `r107-conv-css`」判成错误直接退出。
+  退 r107 只需 `git checkout -- pages/conversation.html`（只改了这一页）。
+
 
 | 改动 | 内容 |
 |---|---|
-| `pages/conversation.html` | **634719 → 793028 字符**（r101 两批 +38126 → r102 +10199 → r103 +2421 → r104 +6183 → **r105 ② +2173 → ③ +99207**）；LF 文本 `sha e67474395502`（r101 交付态 `98140cc4bf8f`、r102 态 `249fbc984716`、r103 态 `a340b6a9e89f`、r104 态 `05b899bd4366`）；`script=9 style=16`（**16 与 HEAD 一致，旧记录写 15 是笔误**）；注入块 id 经 `r93-conv-*` → `r101-conv-*` → `r102-conv-*` → **`r106-conv-css` / `r106-conv-js`**（历代残留 0）；r102 十一条 + r103 六条 + r104 四条 + r105 三条见 `mg-work/r102/acceptance.md`，**r106 六条见 `mg-work/r106/acceptance.md`**。★ **r106 态（未提交）：793028 → 798613 字符（+5585）**，工作区 blob `e17d227b58bf` |
-| `pages/base.html` | **471444 → 472150 字符**（r101 +706，r102 ~ r105 **+0**）；LF 文本 `sha c406a60add16`（r101 态 `2ffe5f16d5c8`）＝ nav 脚本 id 由 `r101-nav-js` 换成 **`r102-nav-js`**（注释对同步换名，**长度相同**）+ **`r101-hdr-css`（顶栏图 70%）**。★ **r106 态（未提交）：仍 489033 字符（+0）**，仅 nav id → **`r106-nav-js`**（等长），工作区 blob `3436a5e7857e` |
+| `pages/conversation.html` | **634719 → 793028 字符**（r101 两批 +38126 → r102 +10199 → r103 +2421 → r104 +6183 → **r105 ② +2173 → ③ +99207**）；LF 文本 `sha e67474395502`（r101 交付态 `98140cc4bf8f`、r102 态 `249fbc984716`、r103 态 `a340b6a9e89f`、r104 态 `05b899bd4366`）；`script=9 style=16`（**16 与 HEAD 一致，旧记录写 15 是笔误**）；注入块 id 经 `r93-conv-*` → `r101-conv-*` → `r102-conv-*` → **`r106-conv-css` / `r106-conv-js`**（历代残留 0）；r102 十一条 + r103 六条 + r104 四条 + r105 三条见 `mg-work/r102/acceptance.md`，**r106 六条见 `mg-work/r106/acceptance.md`**。★ **r106 态（未提交）：793028 → 798613 字符（+5585）**，工作区 blob `e17d227b58bf`。★★ **r107 态（未提交）**：`799231 → 866988（一 +67757）→ 876008（二 +9020）→ 894916（三 +18908）→ 920259（四 +25343）→ 921730（五 +1471）→ 925776（六 +4046）`，**相对 HEAD +126545**；工作区字节 1019153（CRLF）/ UTF-8 1012253（LF 归一），LF `sha 6655f13a1afd`；注入块 id `r107-conv-css` / `r107-conv-js`（**`r106-*` / `r102-*` / `r101-*` / `r93-conv-*` 全 0**）；r107 六拍见 `mg-work/r107/acceptance.md`（**十一节**） |
+| `pages/base.html` | **471444 → 472150 字符**（r101 +706，r102 ~ r105 **+0**）；LF 文本 `sha c406a60add16`（r101 态 `2ffe5f16d5c8`）＝ nav 脚本 id 由 `r101-nav-js` 换成 **`r102-nav-js`**（注释对同步换名，**长度相同**）+ **`r101-hdr-css`（顶栏图 70%）**。r106 态：仍 **+0**，nav id → `r106-nav-js`（等长），工作区 blob `3436a5e7857e`。★ **r107 态：仍 472150 字符 / 逐字节不变（nav id 刻意沿用 `r106-nav-js`）** |
 | `pages/{avatar,skills,automation,settings,dev,kanban,req-kanban,task-detail}.html` | **各 +714**（r105 ① 注入同一块 `r102-nav-js`；这 8 页在 r101 已各 +703）；终态 `568086 / 361583 / 361696 / 459222 / 450205 / 568052 / 513791 / 767428` |
 | `mg-work/r101/` | `apply101.py`（含 `--revert` / `--dry`）/ `acceptance.md`（**十三节**）/ `before/`（2 份前置基线）/ `ev/`（探针 + 终态取证 + `vd-r101*`）/ `raw/` —— **已提交**，仅供追溯 |
 | `mg-work/r102/` | `apply102.py`（**163605 字符 / 220815 字节**；`cp` 自 r101 后大改；**r103 六条 + r104 四条 + r105 三条也在里面**，含 `--revert` / `--dry`）/ `acceptance.md`（**六节 r102 + r103 段 + r104 段 + 新增 r105 段**，39524 字节）/ `before/`（`conversation-r102.html` 721864 / `base-r102.html` 490294）/ **`part105/`**（`browse.css` 15937 / `browse.html` 31688 / `browse.js` 47410 / `ctrl-conv.js` 15465，r105 ③ 三件套 + 控制器）/ `ev/`（`p102a~p102f` + `p103a~p103k` + `p104a~p104q` + **`p105a~p105j` + `p105e/f/g1.js` + `extract105.py` + `write_acc105.py` + `.log`** + `audit104.py/.log` + `vd-r102a/b.txt` / `vd-r103a.txt` / `vd-r104b/c.txt` / **`vd-r105a/b.txt`**）/ `raw/`（基线 / 改后 1440+2560 / 折叠 / hover / `g103-*` ~ `k103-*` / `z104-*` `a104-*`~`z2560-*` `c2560-*` / **`x105-*` `y105-*` `z2560-browse*` `z2560-dark-browse` `z1440-dark-105` r105 裁片**）—— **已提交**（`87e2caa`）|
-| `mg-work/r106/` | **本代（🚫 未提交）**：`apply106.py`（含 `--revert` / `--dry`；第三拍新增 ④b 规则）/ `acceptance.md`（**六条 · 三拍**，含「④b 定位过程」节）/ `before/`（`conversation-r106.html` 865582 / `conversation-r106a.html` 870416 / **`conversation-r106b.html` 872270 = 第三拍前态** / `base-r106.html` / `base-r106a.html`）/ `ev/`（`make106.py` + `p106a~p106m` 探针与日志 + `vd-r106a/b/c.txt`）/ `raw/`（`b106-*` / `a106-*` / `a106v2-*` / `g106-*` + **`m106-{1280,1370,1440,1920,2560}-open.png` + `m106b-1280-open.png`（④b 改前对照）**）|
-| `.workbuddy/memory/2026-09-30.md` | 当日原始日志（含 r92 / r93 / **r93 ④** / r94~**r105** 各段；**2026-10-01.md 续记 r106**） |
+| `mg-work/r106/` | **已提交（`4d081ba`）**：`apply106.py`（含 `--revert` / `--dry`；第三拍新增 ④b 规则）/ `acceptance.md`（**六条 · 三拍**，含「④b 定位过程」节）/ `before/`（`conversation-r106.html` 865582 / `conversation-r106a.html` 870416 / **`conversation-r106b.html` 872270 = 第三拍前态** / `base-r106.html` / `base-r106a.html`）/ `ev/`（`make106.py` + `p106a~p106m` 探针与日志 + `vd-r106a/b/c.txt`）/ `raw/`（`b106-*` / `a106-*` / `a106v2-*` / `g106-*` + **`m106-{1280,1370,1440,1920,2560}-open.png` + `m106b-1280-open.png`**）|
+| `mg-work/r107/` | **本代（🚫 未提交）**：`apply107.py`（**由 `ev/make107.py` 从 apply106 做 13 处精确替换生成**；GENS 五代、nav 沿用 r106；含 `--revert` / `--dry`）/ `acceptance.md`（**十二节**：口径 / nav 不换名体位 / 五模块 / **两个真 bug** / 稳定性证明 / 取舍 / 取证 / **第二拍** / **第三拍** / **第四拍五条** / **第五拍两条** / **第六拍三条** / **第七拍七条**）/ **`part107/`**（第七拍后：`_head.html` 5270 · `_mods.html` 35916 · **`browse.html` 71578 = 组装件** · `panel.css` 39686 · `panel.js` 48583）/ `ev/`（`make107.py` · **`splice107.py`** · `probe107.sh` · `debug107.sh` · `debug107b.sh` · `final107.sh` · `shots107.sh` · `shots107d.sh` · `shots107e.sh` · `shots107f.sh` + `verify107e.sh` · **`shots107g.sh` + `verify107g.sh` + `probe107f.sh`（第六拍）** · **`p107d1~p107d9.js`（第四拍探针）** · **`p107e1/e2.js` + `fix107e1.py` + `fix107e2.py`（第五拍）** · **`p107f1~p107f7.js` + `p107g1.js`（第六拍探针）** · **`p107h1~h3.js` + `probe107h{,2,3}.sh` + `patch107h{,2}.py` + `doc107h{,2}.py`（第七拍）** · `scan-flatten.py` + `.log` + `vd-r107{,b,c}.txt`）/ `raw/`（`g1~g7` 出图 · `f1~f9` 功能 · `d1~d7` 诊断 · `h1~h3` 窄档/字号 · `s1~s12` 首轮 · `d1-summary` / `d2-modmenu` / `d3-ctxmenu` / `d4-selbar` / `d5-ctx-src` / `d6-ctx-file` / `d7-ctx-el`（第四拍裁片）· `e1~e6`（第五拍）· **`f1-composer` / `f3-alert1100` / `f4-skill1280`（第六拍改前）· `g1-stats` / `g2-skill1440` / `g3-skill1280` / `g4-alert1100` / `g5-alert1100`（第六拍改后）** · **`h2-{add-menu,opts-menu,commit}`（第七拍改前）· `h3-{add-menu,opts-menu,commit,ctxmenu}`（第七拍改后）**）。**无 `before/`** —— 前置态 = HEAD 的 conversation.html，`git show` 可取 |
+| `docs/codex-refs/` + `docs/codex-sidepanel-research.md` | **已提交（`f13b3bf`）**：12 张 Codex 右栏实机截图 + 十节调研速报（r107 的设计依据） |
+| `.workbuddy/memory/2026-09-30.md` | 当日原始日志（含 r92 / r93 / **r93 ④** / r94~**r105** 各段；**2026-10-01.md 续记 r106 + r107（七拍）**） |
 
 > 历史（已提交的那批，仅供追溯）：`settings.html` 457805 字符（r88~r93①）；`{avatar,skills,automation}` = 566669 / 360166 / 360279；
 > `{dev,kanban,req-kanban,task-detail}` = 449491 / 567338 / 513077 / 766714；`assets/images/bg-img-1.png`（顶栏装饰）；`giencoder-design-system/components.css` + `.gienx-templates/_shared/components.css` + `components/select.json`（r87 select）。
@@ -602,7 +705,7 @@ python mg-work/r93/apply93.py             # 需求 2 + ④（**必须最后跑**
 
 ---
 
-## 二·f ★ r106（最新一拍 · 会话详情页六条 · 2026-10-01 08:2x 首拍 / 08:4x 返工 / 08:5x 第三拍）—— **新一代（r102 已交付 `87e2caa`），🚫 未提交**
+## 二·f ★ r106（会话详情页六条 · 2026-10-01 08:2x 首拍 / 08:4x 返工 / 08:5x 第三拍）—— **已提交 `4d081ba`**
 
 > 完整版见 `mg-work/r106/acceptance.md`；机制级教训见 PLAYBOOK **P3.38**（六条）；本页固定事实见 PAGES **P3.11g ⑯**。
 > ★ 本代**三拍**（同一代 r106、`apply106.py` **就地返工三次**，**始终未提交**）：
@@ -617,11 +720,13 @@ E4 `PART105`→`PART_DIRS`｜E5 插入 `R106_CSS`｜E6 `build_css` 拼 `R106_CSS
 每处命中 ≠ 1 次即 `sys.exit`。
 `PART_DIRS` **双目录回退**（`r106/part106` → `r102/part105`）⇒ 三个移植件**沿用 r102 目录、不复制**。
 
-**② 产物（★★ 字符口径 —— 首版曾算错，此处为更正后）**：
-`conversation.html` **793028 → 798613 Unicode 字符（+5585）**（首拍 +3215、返工拍 +1090、第三拍 +1280），工作区 blob `e17d227b58bf`；
+**② 产物（★★ 字符口径 —— 首版曾算错；⚠ 2026-10-01 11:5x 二次校准见下）**：
+`conversation.html` **793028 → 799231 Unicode 字符（+6203）**（`4d081ba` blob `67b443ca082c`，LF 归一 `sha1 9cdb19501a81`）。
+⚠ 本节旧记「**798613（+5585）/ 工作区 blob `e17d227b58bf`**」是**提交前态**（该对象已不在库中，`git cat-file` 报 `Not a valid object name`）⇒
+**一律以 `git cat-file blob 4d081ba:pages/conversation.html` 实测为准**（该 blob 内 `r106-conv-css` / `r106-conv-js` 各 **1**、`r107-*` 为 **0** ⇒ 确认为 r106 交付态）；
 `base.html` **472150（+0）**、blob `3436a5e7857e`；**另 8 页同因 nav 块 id 换代而改、字符数均 +0**
 （`r102-*` 与 `r106-*` **等长**）⇒ **本代 10 页全写，没有旁观页**。
-⚠ **三种口径勿混用**（同一份文件）：Unicode 字符 **798613** ｜ UTF-8 字节（LF 归一）**869581** ｜ 工作区字节（CRLF）**874274**。
+⚠ **三种口径勿混用**（同一份文件）★ **校准后**：Unicode 字符 **799231** ｜ UTF-8 字节（LF 归一）**870627** ｜ 工作区字节（CRLF）= UTF-8 字节 + `\r\n` 个数（**4701**）＝ **875328**。（旧记的 `798613 / 869581 / 874274` 是**提交前态**，勿再引用。）
 ⚠ ★★ `len(bytes) − CRLF数` **不是字符数**（本页中文多，会虚高 ~6.8 万）⇒ 判内容增减要**先归一化行尾、再比同一口径**。
 ⚠ 工作区字节比仓库 blob 大「行数」字节 = **`core.autocrlf=true`** 的行尾差，**不是内容改动**（详见 PLAYBOOK P3.38①）。
 
@@ -649,6 +754,342 @@ E4 `PART105`→`PART_DIRS`｜E5 插入 `R106_CSS`｜E6 `build_css` 拼 `R106_CSS
 收尾清理：`git checkout -- pages/gaps.log`（`verify-design` 会改它，必须还原）。
 
 **⑥ 待拍板 4 条**：见第六节 **44 / 45 / 46 / 47**（**47 = 第四拍待定**：④b 要不要改成 `width: 100%` 让用户消息块与内容列同宽）。
+
+---
+
+## 二·g ★★ r107（最新一拍 · 会话详情页「侧栏模块标签化」＝复刻 Codex 右栏 · 2026-10-01 09:3x 起，共**十一拍**）—— **新一代（r106 已交付 `4d081ba`），🚫 未提交**
+
+> 完整版见 `mg-work/r107/acceptance.md`（**十六节**，含第二 ~ 十一拍返工）；机制级教训见 PLAYBOOK **P3.39 ~ P3.47**；
+> 本页固定事实见 PAGES **P3.11i**；设计依据 = `docs/codex-sidepanel-research.md` + `docs/codex-refs/`（`f13b3bf`）。
+
+**① 体位**：r106 代**已交付** ⇒ **新建 `mg-work/r107/apply107.py`**（**不就地返工**），
+由 **`ev/make107.py`** 从 `apply106.py` 做 **13 处精确替换**生成（每处命中数断言，不符即 `sys.exit`、不写盘）。
+`GENS` 扩成**五代**，四条剥离正则各摘五支、注入只用 r107。
+
+**★★★ 本代最关键的决定 —— nav 块沿用 `r106-nav-js`（不换名）**：
+`GENS[-1] = ('r107','r107-conv-css','r107-conv-js','r106-nav-js')` + `NAV_TAG='r106'`
+（`build_nav_js()` 与「摘块后残留自检」都改用它）。理由 = 硬规则「**跨代沿用的宿主标记不换名**」：
+nav 跳转脚本本代一字未改 ⇒ 换名会让 base + 8 页**凭空进 diff** ⇒ 违背邵先生「不得改动其他不必涉及的模块」。
+**实测收益：`apply107.py` 跑完打印「base.html 已是目标态（无改动）」，`git status` 只有 conversation.html 一个 ` M`。**
+
+**② 产物**：`conversation.html` **799231 → 866988（第一拍 +67757）→ 876008（第二拍 +9020）→ 894916（第三拍 +18908）→ 920259（第四拍 +25343）→ 921730（第五拍 +1471）→ 925776（第六拍 +4046）→ 927464（第七拍 +1688，合计 +128233）**；
+UTF-8 字节（LF 归一）870627 → 952672 → 976078 → 1004420 → 1006094 → 1012253 → **1015265**；工作区字节（CRLF）958664 → 979610 → 1011192 → 1012899 → 1019153 → **1022207**。**另 8 页逐字节不变**（仅 avatar.html 文案动了 1 处）。
+⚠ **三种口径勿混用**（沿用 PLAYBOOK P3.38① 的教训）。
+
+**③ 落地（三段式 + 五模块）**：
+- **① 标签栏**：`[图标]名称 ×` 多标签 + `＋` + `⤢ 最大化` + `✕ 收起`；`is-active` 高亮；
+  hover/active 才显 `×`；**只剩一枚时不显示 `×`**（`is-single`）。`＋` **紧跟最后一枚标签**
+  （`.td-browse-tabs{flex:0 1 auto}` + `.td-browse-acts{margin-left:auto}`，实测标签右缘 1138 / ＋左缘 1142）。
+  **多开 / 切换 / 关闭 / 拖拽重排**：拖拽 `pointerdown` 起手、`pointermove`/`pointerup` **挂 window**、位移 >5px 才进拖动、
+  按各标签中线求插入位（实测把末枚拖到最前 ⇒ `[terminal,files,review]`）。
+  `＋` 菜单 = **五选一**（审查 ⇧⌘G / 终端 ``⌃` `` / 浏览器 ⌘T / 文件 ⌘P / **摘要**）；
+  ★ 第三拍起 `⇧⌘G` / `⇧⌘E` / `` ⌃` `` **真绑定**（`⌘T`/`⌘P` 是浏览器级快捷键，网页拦不住 ⇒ 不绑）。
+- **`⤢` 最大化**：自算 `maxPanelW = freeW − 380` 写宿主 `--av-browse-w`；还原读回 localStorage 的 `panelW`。
+  实测 1440 / 2560 = 641→**1040**（main 779→380）/ 641→**2160**（main 1899→380）。⚠ 用**两层 rAF** 落定，避开 ctrl-conv 的单层 rAF。
+- **②③ 五个模块**：**文件**（原正文**逐字未改**，由 `ev/splice107.py` 从 part105 剪出）/
+  **审查**（工具条 `对比范围 ⌄ +566 −228 4 个文件` + 右端 `复制 / 定位 / ⋯ / 提交⌄ / PR`；4 张 diff 卡含两列行号 + 加绿删红 +
+  `⋯ 折叠/展开 46 行`（**真展开出行**）+ 行内评论 + 提交模态 + 逐文件 `暂存 / 撤销`；`⋯` **十项**显示选项；**统一 ⇄ 并排**）/
+  **终端**（提示符 + 真按键回声：`ls`/`pwd`/`npm run dev`/`clear`/未知命令）/
+  **浏览器**（URL 行 + 右端 `缩放 / 发送 / 更多` + **标注态**：元素虚线描边 + 点击出评论气泡 + 底部 `标注中` 条）/
+  **摘要**（任务侧栏四段：摘要 / 计划 / 来源 / 产物）。
+- **④ 划词浮条**：~~原为「划词 → 在侧边聊天中提问」的入口~~ ⇒ **第三拍随「侧边聊天」一并删除** ⇒
+  **第四拍 ⑩ 按邵先生要求补回并做成真功能**（「添加到对话」真写主 `textarea` / 「复制」真复制；两枚 DS 文字按钮）。
+- **⑤ Esc 层级**：`panel.js` 挂 **window 捕获段**（早于 ctrl-conv 的 document 捕获段）⇒ 一次 Esc 只关菜单，再按才关侧栏（实测）。
+
+**④ 期间修掉的两个真 bug（第一拍 · 都是量出来才现形）**：
+1. ★ **新模块 section 类名与内部件撞车**：`<section class="td-mod td-term">` vs 内部 `<div class="td-term">`
+   ⇒ `querySelector('.td-term')` 取到 section（`tabindex` 为 null、`tabIndex=-1`）⇒「点终端打字没反应」；
+   且 `.td-term{}` 整套样式**同时压在 section 上**。修法：section 改名 **`td-mod-term`**。
+2. ★★ **绝对定位子件包含块跑到视口**：`.td-commit{inset:0}` 而**源件 `.td-browse` 没写 `position`**
+   ⇒ 遮罩铺满整站、卡片居中屏幕。修法：`panel.css` 给 `.td-browse` 补 **`position: relative`**。
+   实测 `modalRect [418,211,250,246] → [792,49,639,842]` ≈ `panelRect [791,48,641,844]` ✓。
+
+**④b 第二拍返工（邵先生 10:0x 反馈两条 · 就地改 `apply107.py`，不另起代数）**：
+
+> 原话：① 「审查」的 `td-rv-opts` 浮窗**点开后就不能关闭**；② 「侧边聊天」的样式与 `r93-scroll` **不一致**（字号、各种颜色等）。
+
+- **③ 浮窗关不掉 = 一个搜索根写错** —— `closeMenus()` 与 Esc 裁决的根写的是**标签栏** `bar = .td-browse-bar`，
+  而 `.td-rv-opts` 挂在**模块工具条** `.td-mod-bar` 里 ⇒ 三条关闭路径全废：
+  外点 ✗ / Esc ✗（且漏到 ctrl-conv **把整条侧栏关掉**）/ 选完不关 ✗。修法：根 `bar` → **`pane`**。
+  实测：外点 `hidden:true` ✓｜Esc 后 `hidden:true` 且 `panelOn:true` ✓｜选「并排」自动关 + `is-split:true` ✓｜再按 Esc 关侧栏 ✓。
+- **④ 侧边聊天逐值对齐主对话**：正文 **15/22**（`.r93-t14`）· 用户气泡 **`--r93-bubble` `#E5EDFE`** + `9px 12px` + `8px 8px 2px 8px`（`.r93-bubi`）
+  · 引用块 **13/22**（`.r93-t12l`）· 输入框 **14/22**（composer `text-sm leading-[22px]`）· 助手消息**去灰底气泡**（`.r93-asst` 无底）
+  · 助手标记 → **24px 同源 GienX logo**（原来是写死的「A」+ 淡蓝圆片），由 `panel.js` 的 `AV_SVG` 注入。
+  实测（`ev/verify107b.log`）：侧 ✕ 主**逐值相同**；暗色两侧同为 `rgb(36,49,76)`；`--ui-fs=18` 两侧同为 `19.2857 / 28.2857`。
+- **★★★ 顺带挖出仓库级机制坑**：`apply88b.converge()` 的「跳过本代块」正则用**硬编码 `CSS_ID='r87-ui-css'`
+  （r87 遗留）** ⇒ 本代块**从未被跳过** ⇒ `line-height: calc(Npx * ratio)` 被 `unscale()` 压成裸 px、
+  又因规则体内没有 `var(--font-size-*)` 而**不再被 `scale_block()` 重派生** ⇒ **`--ui-fs` 杠杆静默失效**。
+  修法：**带行高/高度的规则，`font-size` 写 `var(--font-size-*)` token**；15px 这种无 token 档用**两段式**
+  （token 规则挂行高 + 只覆盖 `font-size` 的第二条，正是 `.r93-t14` 的真实写法）。
+  自查脚本 `mg-work/r107/ev/scan-flatten.py <css…>`。⚠ **判据必须看 `--ui-fs=18`**（默认 14 下 `calc(Npx×1)=Npx`，看不出来）。
+  本代 5 条中招：3 条 line-height 已修，2 条 `min-height`（`.td-mod-bar` / `.td-url`）**无害**（内容会撑开盒子）。
+- 第二拍门禁复跑：幂等 ✓｜`check-syntax` **10/10**｜`verify-design` 与基线**逐字节相同**（md5 `3dbf654337559509110899e48bef1b1c`）｜
+  改动面仍只有一页、`base.html` **+0 字符**｜`r107-conv-css`/`r107-conv-js` 各 1、`r106-*`/`r102-*` 全 0。
+
+**④c 第三拍返工（邵先生 10:2x 反馈四条 · 仍就地改 `apply107.py`，不另起代数）**：
+
+> 原话：① 彻底去掉「侧边聊天」；② 「审查」的「并排视图」下代码文件不能正常展开和折叠；
+> ③ 「折叠全部文件」对应「展开全部文件」；④ 对照 Codex 官方原版右栏还有哪些功能被遗漏了，请补充。
+
+- **① 侧边聊天全链路删除**：`_head.html` 菜单项 · `_mods.html` 整个 `td-side` section ·
+  `panel.js`（`AV_SVG` / `pushMsg` / `sendSide` / `.td-side-av` logo 注入 / **`.td-selbar` 划词浮条整段** / Esc 里的 `selOpen`）·
+  `panel.css` 6. / 7. 两节。**划词浮条一并删**（它存在的前提就是 side chat；另一枚「添加到对话」在初版是空壳）。
+  判据：`td-side` / `td-selbar` / `AV_SVG` / 页面里「侧边聊天」四个字（连注释）**全 0**。原第五格由 **「摘要」** 接替。
+- **② 并排视图折叠失效 = 同特异性规则的「位置」问题**：`.td-diff:not(.is-open) .td-diff-rows`(0,3,0) 与
+  `.td-rv-body.is-split .td-diff-split`(0,3,0) **特异性完全相同、后者写在后面 ⇒ 折叠路径整体失效**
+  （统一视图正常，所以只在并排下暴露）⇒ 后者加一层 `.is-open` 提到 **(0,4,0)**。
+  四象限实测：统一展开 `block/–/block`｜统一折叠 `none/–/none`｜并排展开 `–/block/block`｜并排折叠 `–/none/none`。
+- **③ 折叠全部 ⇄ 展开全部**：同一枚菜单项双向切换（**文案 + 字形一起翻**）；
+  判据 =「**只要还有折叠着的文件，这一项就是『展开全部文件』**」；手动折单个文件后也会回来同步。实测 2 开→4 开→0 开→手动 1 开，全程正确。
+- **④ 对照 Codex 官方补的遗漏（本轮主体）**：对比范围下拉 · `⋯` 显示选项**补齐八项**（自动换行 / 词级差异 / 隐藏空白 **真生效**）·
+  工具条动作组（复制 / 在文件树中定位 / `提交 ⌄` 含推送 / PR）· 逐文件 **暂存 · 撤销** · 「N 行未改动」**真展开** ·
+  **新增「摘要」模块** · **快捷键真绑定** · 轻提示 toast。详见本卡开头 ⑧ 与 `acceptance.md` 第八节。
+  ⚠ 两条口径：**`⌘T` / `⌘P` 是浏览器级快捷键，网页 `preventDefault()` 拦不住 ⇒ 不绑**（只绑 `⇧⌘G` / `⇧⌘E` / `` ⌃` ``）；
+  **`verify-design.py` 会数「渐变处数」** —— 为「进行中」计划项画的 `linear-gradient` 半填充圆点让回归 **+1（63→64）**
+  ⇒ 改「边色 + 实心 `--color-primary-light-2`」后回到基线（PLAYBOOK P3.39⑫）。
+
+**④d 第四拍返工（邵先生 10:5x 反馈五条 · 仍就地改 `apply107.py`，不另起代数）**：
+
+> 原话：① 将「摘要」作为右栏默认页签，且摘要 / 计划 / 来源 / 产物四个模块要**卡片式**设计风格；
+> ② **划词功能没有了？要补充**；③ 新右栏里有些模块或对象是支持**对应的右键菜单**的，请调查后补充；
+> ④ `.td-browse-tab` 的字号应该是 **14px**；⑤ 整个新右栏的**所有下拉菜单**（如 `td-mod-menu`）都要用 **giencoder 设计系统已有组件**。
+
+- **⑨ 摘要升默认页签 + 四模块卡片式**：`_head.html` 初始标签 `data-td-mod` `files`→`summary`（图标换列表字形 /
+  `aria-controls` / `aria-label` 同步）+ `panel.js` 初始化 `activate('files')`→`activate('summary')` **两处同改**。
+  `.td-sum-sec` 加 `1px --color-border-1` 描边 + `8px` 圆角 + `--color-bg-2` 底 + `12px` 内距（容器 `gap:12px`）；
+  卡内来源/产物降级为**行式**（`bw:0`、`pad:6px 8px`、hover `--color-fill-1`）—— 避免「卡中卡」。
+- **⑩ 补回划词浮条（并做成真功能）**：第三拍 ① 删它是因为当时它只服务 side chat、另一枚是空壳；
+  本拍**补回并做实** —— 两枚 **DS 文字按钮**（`giencoder-btn giencoder-btn-text giencoder-btn-size-small`）：
+  「添加到对话」把选中文本追加进主 `textarea`（按 placeholder「描述你的任务」定位），「复制」走 `execCommand('copy')`。
+  实测：选区上方 `barRect[18,89,200,38]`、`above:true`；`taBefore 0 → taAfter 17`、tail `"> /awesome-desig"`；
+  两条 toast 正确；**Esc 只收浮条**（`hiddenAfterEsc:true` + `panelStillOn:true`）。
+- **⑪ 补右栏右键菜单（先调查后落地）**：**九类目标共用一份表驱动容器 `.td-ctxmenu`**（`role=menu`）——
+  标签 5 / 审查文件头 7 / 审查代码行 5 / 终端 6 / 浏览器元素 6 / 浏览器空白 5 / 摘要来源 3 / 摘要产物 3 / 计划条目 4；
+  危险项红字（`is-danger`，如「撤销此文件的改动」）；能复用既有 handler 的一律 `元素.click()`。
+  **反例**：右栏内普通空白 / 右栏外**均不接管**（证明不越界）。
+- **⑫ `.td-browse-tab` 字号 12 → 14px**（`--font-size-body-1` → `--font-size-body-3`）。实测 `tabFs 14px` / `tabH 28px`。
+- **⑬ 全右栏下拉改用 giencoder DS 组件**：四枚容器（`+` 菜单 / `.td-rv-scope-menu` / `.td-commit-menu` / `.td-rv-opts`）
+  挂 `giencoder-select-popup + giencoder-menu`，条目 `giencoder-menu-item`、分组标题 `giencoder-menu-group-title`、
+  图标位 `giencoder-menu-icon`、选中 `giencoder-menu-item-selected`；`panel.css` **自绘那节整段删掉**、只留定位与槽位。
+  实测菜单 `{r:8, shadow rgba(0,0,0,.1) 0 8px 20px, maxH:280, pad:4}`、条目 `{h:36, r:4, pl:12, fs:14, gap:10}`、
+  选中底 `rgb(245,248,255)`、分组标题 `fs:12 pl:16 pt:8 color:rgb(134,134,134)`。
+- **🔧 本拍四个坑（PLAYBOOK P3.40）**：(a) `.td-mm-item{background:transparent}` (0,1,0) 与 DS 选中态底**打平 + 后写**
+  ⇒ 选中底被抹 ⇒ 改 `:not(.giencoder-menu-item-selected)`；(b) ★★ **页面级通配适配层
+  `html[data-r93-page='conversation'] .giencoder-select-popup{top:auto!important;bottom:calc(100% + 4px)!important}`（r93 ④）
+  把右栏新挂的 DS 弹层一起扫到** ⇒ `rect.y = -170` 整排看不见（**开合状态全对、就是位置错**）⇒ 加 (0,3,1) 同名适配翻回向下；
+  (c) ★★ **`!important` 连行内 `style.top/left` 也压得过** ⇒ 右键菜单坐标改用 `--td-ctx-x/--td-ctx-y` **自定义属性** + `!important` 规则落位；
+  (d) 探针「**过渡中取值**」假失败（**第三次踩**）⇒ 打开与量测**拆两次 eval**（中间 `wait 600`）。
+- 第四拍门禁复跑：幂等 ✓｜`check-syntax` **10/10**｜`verify-design` 与 `vd-r107c.txt` **逐字节相同**（md5 `3dbf654337559509110899e48bef1b1c`）｜
+  改动面仍只有一页、`base.html` **+0 字符（472150）**｜`r107-conv-*` 各 1、`r106-*`/`r102-*`/`r101-*`/`r93-conv-*` 全 0。
+  新增件：`td-ctxmenu` **8** · `td-selbar` **4** · `activate('summary')` **1** · `giencoder-menu-item` **48** · `giencoder-select-popup` **20** · `giencoder-menu-group-title` **4**。
+  产物 **894916 → 920259 字符（+25343；相对 HEAD +121028）**。
+  裁片 `raw/d1-summary` · `d2-modmenu` · `d3-ctxmenu` · `d4-selbar` · `d5-ctx-src` · `d6-ctx-file` · `d7-ctx-el`；探针 `ev/p107d1~d9.js` + `ev/shots107d/e.sh`。
+
+**④e 第五拍返工（邵先生 11:3x 反馈两条 · 仍就地改 `apply107.py`，不另起代数）**：
+
+> 原话：① 目前新右栏的**所有下拉菜单都少了 hover 效果**，需补充；
+> ② `td-rv-menu giencoder-select-popup giencoder-menu td-rv-opts giencoder-popup-open`
+> **这个菜单还没有应用设计系统的组件**，需改造。
+
+- **⑭ hover 全无 → 补齐（真 bug）**：根因是第四拍那条基态
+  `.td-mm-item:not(.giencoder-menu-item-selected){background:transparent}`（(0,2,0)）与 DS 的
+  `.giencoder-menu-item:hover{background:--color-fill-1}`（同 (0,2,0)）**打平、但本块文档序在后** ⇒
+  把 hover 底与选中底**一起压掉**（真鼠标悬停 `matches(':hover')=true` 而 `bg` 仍 `rgba(0,0,0,0)`）。
+  修法：基态与 `:hover` 写**同一块、基态在前**（(0,3,0) 语境，顺序自洽），不再赌「DS 的 `:hover` 能不能活」。
+  实测 `+` 菜单第 2 项 `hover:true / bg:rgb(242,242,242)`（= `--color-fill-2`），其余仍透明。
+- **⑮ 下拉改挂 DS Dropdown 组件（邵先生点名 `.td-rv-opts`）**：先核字面 —— 页面里 `td-rv-opts` **只 1 处**、
+  class 串与邵先生给的**完全一致**、DS 类名一个不缺 ⇒ 问题**不在「有没有挂」而在「挂错族」**。再枚举
+  `giencoder-design-system/components/`：`menu.json` 是**导航菜单**（`mapsFrom: sidenav/topnav`）、
+  `select.json` 是**选择器**（`.giencoder-select-popup` 是它的弹层）、**`dropdown.json`** 才是
+  「点 / 悬停 / **右键**触发的**弹出菜单**，项可含图标与快捷键」（`variants.contextMenu`、
+  `states.selected` = 主色文字**或勾选图标**、`hover` = `--color-fill-2`）⇒ **正主是 Dropdown**。
+  改挂 `giencoder-dropdown-popup` / `-item` / `-divider`（+ 契约态 `.is-danger`），与**本页** r93 ⑦
+  行右键菜单 `.r93-ctx` **同源同口径**（`task-detail` 的 `.td-ctx` 用 fill-1，注释写明「以视觉稿为准」——
+  取**本页**口径保持同页自洽）。
+  - **条目几何**：`pad 5px 8px / radius 4 / lh calc(22px × --ui-fs-ratio) / gap 8 / h 32`（原 36 高 / pad 0 12 / gap 10）；
+  - **面板**：`pad 6 / gap 2 / radius 8 / bg-popup / border-2 1px / shadow3-down`，`min-width:168px`（DS 原生）；
+  - **选中态**：DS Dropdown **没有** `-selected` 类（不虚构）⇒ 按契约取「**主色文字 + 勾选图标 ✓**」，
+    两枚 radio 项补 `.td-mm-mark`；原先「浅蓝底 + 左缘 3px 条」属 Menu 族，一并撤掉；
+  - **分隔线**：`<span class="td-mm-line">` → **`td-mm-line giencoder-dropdown-divider`**（DS 子部件，`1px + --color-border-1`）；
+  - **分组标题** `td-mm-cap giencoder-menu-group-title` **保留**（Dropdown 无此件，借 Menu 的 DS 类；左内距 16→8 与条目对齐）；
+  - **图标位** `giencoder-menu-icon` 撤掉（Dropdown 无 icon 子部件）⇒ `.td-mm-ico{display:inline-flex; flex:none}` 收回自绘；
+  - **无滚动条**：原先 `max-height:280px` 把 10 项的 `.td-rv-opts` 截到 280 出滚动条 ⇒ 现在 `h:385 / ovfY:visible`；
+  - **两件附带修复**：① DS 骨架 `animation: giencoder-popup-in` 播完把 `opacity` 打回 0（菜单「闪一下就不见」）
+    ⇒ 适配层显式 `animation: none`；② r75 的 `.giencoder-select-popup{display:block !important}` 通配不再扫到本菜单
+    ⇒ **`[hidden]` 兜底恢复可用**（实测关菜单 `afterCloseHidden:true` / `afterClosePopOpen:false`）。
+- **实测（agent-browser 真机）**：`+` 菜单 `w:168 h:214 x:856 y:91`、`anim:none`；
+  条目 5 项全 `pad:5px 8px / rad:4px / lh:22px / h:32`；`.td-rv-opts` `w:172 h:385`、3 条 divider（`h:1 bg:rgb(242,242,242)`）、
+  选中项 `is-checked` + `✓ opacity:1`；`.td-rv-scope-menu` 3 项 / `.td-commit-menu` 2 项；
+  `.td-ctxmenu` `pos:fixed x:980 y:320 w:186.52 h:144` 3 项、`head.h:28`、首项「复制链接」；
+  **全页残留断言：`giencoder-select-popup` 0 · `giencoder-menu-item` 0 · `giencoder-menu-icon` 0**
+  （反面 `dropdown-popup` 5 · `dropdown-item` 23 · `dropdown-divider` 3）。
+- 第五拍门禁复跑：幂等 ✓｜`check-syntax` **10/10**｜`verify-design` 与 `vd-r107c.txt` **逐字节相同**
+  （21882 字节 / md5 `3dbf654337559509110899e48bef1b1c`）⇒ **零新增**｜改动面仍只有一页（`+2107 / −3` 行）、
+  `base.html` **472150 字符逐字节不变**。产物 **920259 → 921730 字符（+1471；相对 HEAD +122499）**。
+  裁片 `raw/e4-mod-hover` · `e5-ctx-hover` · `e6-opts-new`；探针 `ev/p107e1/e2.js` + `ev/fix107e1/e2.py` + `ev/verify107e.sh`。
+
+**★ 第六拍三条（邵先生 11:4x）—— 全部落在本页适配层，源件一字未动**：
+- **⑯ 输入卡下方那行统计小字「框选不到」= 它是 CSS 生成内容**（本轮最值钱的一条）：
+  宿主不是邵先生点名的那串 class（那是**输入卡**），而是它**下面一行** —— 由 r97 ④ 用纯 CSS
+  `… > div.mt-8::after { content: '2 轮 · 27 步 · …' }` 挂出来的。**生成内容不是 DOM 的一部分**
+  ⇒ 选区落不进去。**判据三条**：① 拖行后 `Selection.toString()` **长度 0**；
+  ② `caretRangeFromPoint` 的 `startContainer` 是 `DIV`、`offset 0`（没有可落的文本节点）；
+  ③ `Range.selectNodeContents(宿主)` 只给 131 字符（= 卡内文案），**不含那 111 字的统计行**。
+  ★ **隔离对照（决定性）**：`ev/p107f4.js` 临时建两块 DOM ——
+  `#zzA::after{content:"PSEUDO-SELECT-ME"}` vs `#zzB` 真文本，**同一次运行、同一套拖选手法**：
+  前者 `picked:""`、后者 `picked:"REAL-SELECT-ME"` ⇒ 排除「探针写错了」。
+  ⇒ **修法**：同选择器 + 文档序在后的 `content: none` 关掉伪元素 → `panel.js` 注入真节点
+  `.r107-stats`（文案逐字照搬），`panel.css` 第 10 节复刻版式（`12px` / 行高 `16×ratio` / `--r93-meta` / nowrap）。
+  ⚠ **宿主是 React 的地盘** ⇒ `MutationObserver`（`document.body` / `childList + subtree`）兜两件事：
+  ① 重渲染会把不认识的节点**摘掉**；② 重挂时 React 把输入卡插到**末尾**，我们要**再挪回末尾**
+  （否则统计行跑到输入卡上面）。回调只做「判存 + `lastElementChild !== el` 就 `appendChild`」
+  ⇒ 自己造成的 mutation 再进一次回调时判存即返回，**天然收敛**。
+  实测四档（1440 关 / 1440 开 / 1280 开 / 1100 开）：`statsFound:true` · `isLast:true` · 宿主 `gap:8px` ·
+  计算样式与旧伪元素**逐项相同** · rect `[420,867,860,16]`（卡底 859 + gap 8 = 867，与伪元素版同一行）·
+  **`selLen` 0 → 103/103/90/62**。
+- **⑰ `.r93-pre` 去掉字体族** ⇒ `font-family: var(--font-family)`（= 站点默认档，定义在页面 @332458）。
+  **不写 `inherit`** —— 语义直白、不赌祖先链上没人另设字体。只覆写这一条：
+  盒模型 / 字号（`14px`）/ 行高（`16px`）/ 换行策略一字不动。实测 `preFont === bodyFont`、全页 `.r93-pre` 只剩 **1 种**字体族。
+- **⑱ 内容列变窄时两条自适应**（判据 = **容器可用宽**，不是视口分辨率；写法同 ④b 的 `.r93-bub`）：
+  - **技能选择浮窗**（React **行内** `style` 写死 `width:760`）⇒ `width: min(760px, 100%) !important`。
+    ⚠ `!important` 是**必需**的：行内样式优先级最高，靠特异性不够（这是本页的已知盲区之一）。
+    包含块是输入卡（`position: relative`）⇒ `100%` = 输入卡内宽，浮窗恒居中、不越界。
+    实测溢出 **1440 +23/+23 → −23/−23**；**1280 +81/+81 → −23/−23**；1100 同样。
+  - **`.r93-alert`** 定高 `44` ⇒ `height:auto; min-height:44px; padding:8px 16px`。
+    `8px` 竖内距与**单行态完全等价**（内容 22+16 = 38 < 44 ⇒ 仍顶到 44，`align-items:center` 照样居中）
+    ⇒ **单行宽度零变化**；折行时才真正长高（1280 `h:62` / 1100 `h:106`），
+    且 `clientHeight === scrollHeight`（`60/60`、`104/104`）⇒ **不再把描述文字挤出圆角盒**。
+    改前读数（右栏开）：1440 `42/42` ✓｜1280 `42/43`｜1100 `42/65`｜1024 `42/87`。
+- 第六拍门禁复跑：幂等 ✓（第二遍「已是目标态」）｜`check-syntax` **10/10**｜`verify-design` 与 `vd-r107c.txt`
+  **逐字节相同**（md5 `3dbf654337559509110899e48bef1b1c`）⇒ **零新增**｜改动面仍只有一页（`+2202 / −3` 行）、
+  `base.html` **472150 字符逐字节不变**。产物 **921730 → 925776 字符（+4046；相对 HEAD +126545）**；
+  增量归属已核：**+4046 = panel.css +2723 + panel.js +1324**（差 1 字节 = 注入时 `.strip()` 去掉的尾换行）。
+  ⚠ 体位要点：`_head.html` / `_mods.html` 未动 ⇒ `splice107.py` 重跑后 `browse.html` **sha1 不变**（已验）；
+  `fs.converge()` 会把 `<style id="r107-conv-css">` **整块 stash 跳过**（`RE_OWN_STYLE`）⇒ 新增的 `min-height` 不会被 unscale 吃掉。
+  裁片 `raw/f1-composer`（改前底排）· `f3-alert1100`（改前 alert 溢出）· `f4-skill1280`（改前浮窗被裁）·
+  `g1-stats`（改后统计行**可框选**）· `g3-skill1280` · `g5-alert1100`；
+  探针 `ev/p107f1~f7.js` + `p107g1.js` + `probe107f.sh` + `verify107g.sh`。
+
+**★ 第七拍七条（邵先生 12:1x）**：
+- ① **竞品名 → GienCoder**：右栏里**渲染成文字**的 8 处（`.td-diff-path` 文件名 / `.td-dr-t` ×3 /
+  `.td-sum-p` 描述段 / `.td-sum-src b` ×3）+ 两处悬停 `title`。判据 = `TreeWalker(SHOW_TEXT)` 走 `.td-browse`，
+  `/codex|chat\s?gpt/i` **8 → 0**（四档一致）；属性扫描（排除 `href`）**2 → 0**。
+  **有意保留**：三条 `td-sum-src` 外链 `href` + 前六拍的 7 处设计来源注释。
+  **另清一处（真·全局）**：`pages/avatar.html` 历史会话列表那条示例标题 ⇒ `git diff --numstat` = `+1 / −1`；
+  `make107.py` 的 EDITS **11 → 13 处**（E12 正向 / E13 逆向，锚点用带引号的整串 ⇒ 不碰同名注释）。
+- ② **去掉下拉菜单的标题行** ⇒ `.td-browse .td-mm-cap, .td-browse .td-ctx-head { display:none }`
+  （静态 + JS 现场生成两类一并关）。实测 `capDisp:"none"`、`getBoundingClientRect()` 归零。
+- ③ **选中项常显底色** ⇒ 改前 `rgba(0,0,0,0)`、改后 `rgb(245,248,255)`（= `--color-primary-light-1`，
+  口径取自 DS Menu 的 `.giencoder-menu-item-selected`；**不补**那枚 3px 左缘条 —— 第五拍已认定那是 Menu 族的表达）。
+  规则写在 `:hover` 之后 ⇒ 悬停选中项不翻成 hover 灰。
+- ④ **去掉快捷键** ⇒ `.td-browse .td-mm-key, .td-browse .td-ctx-key { display:none }`
+  （静态实测 10 处：⇧⌘G / ⌃` / ⌘T / ⌘P / ⌘I / ⌥⌘C / ⌥⌘P / ⌘1 / ⌘2 / ⌘R）。
+- ⑤ **提交卡输入框拉通** ⇒ 改前 `207 / 可用 308`（同卡 `.td-commit-h/-lb/-msg/-f` 都是 308）⇒
+  `.giencoder-input-wrapper.td-commit-in { display:flex }` ⇒ 改后 `308 / 308`、`gap:0`。
+- ⑥ **右栏字体统一** ⇒ `panel.css` 自己那 8 条就地换 `var(--font-family)`
+  （`.td-diff-path` / `.td-diff-stat` / `.td-dr` / `.td-dsc-c` / `.td-diff-more` / `.td-commit-num` /
+  `.td-term` / `.td-url-pill input`）；「文件」模块代码区那条在 r102 代已交付的 `part105/browse.css` 里
+  ⇒ 末尾用 `.td-browse .td-browse-pre { font-family: var(--font-family) }` 覆盖（153 个 `.td-code*` 靠继承）。
+  判据：`.td-browse *`（1137→1149 个元素）里 `fontFamily !== bodyFont` 的**计数 153 → 0**。
+- ⑦ **全屏按钮联动** ⇒ `.av-browse-on .r93-baract[data-r93-fullscreen] { display:none }`（**纯 CSS**）。
+  实测右栏关 `display:flex`（`rect [1359,57,28,28]`）/ 开 `display:none`（rect 归零）。
+- 第七拍门禁：幂等 ✓（第二遍「已是目标态」）｜`check-syntax` **10/10**｜`verify-design` 与 `vd-r107c.txt`
+  **逐字节相同**（md5 `3dbf654337559509110899e48bef1b1c`）⇒ 零新增｜改动面 = `M conversation.html`（`+2244 / −3`）
+  + `M avatar.html`（`+1 / −1`）；`base.html` **472150 字符逐字节不变**。
+  产物 **925776 → 927464 字符（+1688；相对 HEAD +128233）**；
+  资产 `_mods.html 35916 · browse.html 71578 · panel.css 39686`（`panel.js 48583` / `_head.html 5270` 未动）。
+  裁片：改前 `raw/h2-{add-menu,opts-menu,commit}`、改后 `raw/h3-{add-menu,opts-menu,commit,ctxmenu}`；
+  探针 `ev/p107h1~h3.js` + `probe107h{,2,3}.sh`；动手前备份 `ev/bak7/`。
+
+**⑤ 七查（全绿 · 七拍各跑一遍）**：幂等 ✓（**每拍连跑两遍**，第二遍「已是目标态」）｜
+`check-syntax.py pages/*.html` **10/10 通过**（conversation `script=9 style=16`，七拍不变）｜
+`verify-design.py ./pages` 与 `mg-work/r101/ev/vd-r101a.txt` **逐字节相同**（md5 `3dbf654337559509110899e48bef1b1c`）⇒ **零新增**｜
+**改动面 = 只有 `pages/conversation.html`**（`git status` 实证）。另验：文件模块回归（树 28 行 / 开合 / 选中 / 隐藏目录全通）、
+暗色档（加行底 `rgb(18,60,25)`、标注条 `rgb(84,151,255)` = 纯 token 自动翻转）、
+`--ui-fs=18`（标签 28→36、字 13→16.71，栏内溢出 0）、1280 五标签（`scrollWidth 444 == clientWidth 444`，溢出 0）。
+
+**⑥ 已知取舍 7 条**见 `mg-work/r107/acceptance.md` 第五节（中文标签 / 终端标签名 / 末枚不给关 /
+`⤢` 口径 = 侧栏最大化而非窗级全屏 / diff 取加绿删红 / `--ui-fs>22` 时栏高要跟着 ratio 长 / ＋菜单无键盘导航）。
+
+**⚠ 本代不要重跑 `apply106.py`**（它的 GENS 四代 ⇒ 会把「基线残留 r107-conv-css」判成错误退出）。
+退 r107 只需 `git checkout -- pages/conversation.html`。
+
+**⑧ 第八拍（邵先生 2026-10-01 12:3x 返工 · 六条）** —— 六条全落 `part107/panel.css` + `panel.js`，
+`_mods.html` / `browse.html` 一字未动（不必重跑 splice / make）：
+1. **全局「宽度不够 ⇒ 省略号」**（新增第 14 节，17 类单行文本容器挂三件套）；★ **三类分治** ——
+   单行文本 ⇒ 截断；**代码 / 终端**与**多行正文** ⇒ 保持折行、**明确不截断**（截断即丢信息）。
+   ⚠ flex / inline-flex 容器里的裸文本是**匿名 flex 项** ⇒ 容器上的 `text-overflow` 无效，文字在子 `<span>` 的要单独点。
+2. **去掉「折叠此文件」**（`ctxForFile()` 整项删；右键文件菜单 = 6 项，尾为「展开全部文件」）。
+3. **`.td-sum-h` = 15px**（写 `calc(15px * var(--ui-fs-ratio))`，15px 无 title token；行高随 22.5）。
+4. **`.td-diff-path` 展开后中粗 500**。
+5. **`.td-diff-path` / `.td-diff-rows` 内一律 13px**（只换 token 档位；子规则逐条同值覆盖；
+   `.td-dr` 行高 20 / `.td-diff-h` 38 未变 ⇒ converge 派生链完好）。
+6. **`.r107-stats` 文字居中** ⇒ ★ **两处死胡同**：`fit-content + margin:auto` 被页面级两条 `!important`
+   盒宽规则压死（盒宽恒等于输入卡 860/714/315）；真节点不像 `::after` 自动 shrink-wrap ⇒ `margin:auto` 偏 **32px**
+   ⇒ 正解 = **`text-align: center`**。★ ① 与 ⑥ 可共存（居中 + 溢出时 Chromium 退化为 `start`、省略号照落行尾）。
+
+**第八拍门禁**：幂等 ✓（`应用 0 / 跳过 8`）｜`check-syntax` **10/10**｜`verify-design` 与 `vd-r107h.txt`
+**逐字节相同**（md5 `3dbf654337559509110899e48bef1b1c`）⇒ 零新增｜`scan-flatten` 改前改后均 2 条（无新增压平）。
+产物 **927464 → 930384 字符（+2920；相对 HEAD +131153）**；工作区字节 1026880 / UTF-8（LF 归一）1019883 / LF `sha1 c8b5e944e2de`。
+资产 `panel.css 42788`（CRLF 889 行）· `panel.js 48401`（LF 1127 行）。探针 `ev/p107i1~i5.js` + `probe107i{,2,3,4,5}.sh`；
+出图 `raw/i{1,2,3}-*.png`。动手前备份 `ev/bak8/`。
+
+**⑨ 第九拍（邵先生 2026-10-01 13:1x 返工 · 两条）** —— 两条都在右栏「全屏」这条线上：
+1. **全屏后按钮图标不翻**（真 bug）—— 内联 SVG 是 `browse.html` 写死的「四角朝外」，
+   `panel.js` 只翻了 `aria-pressed` / `title` / `aria-label`，`<path d>` 一字未动。
+   ⇒ 抽 `setMax(on, silent)` + 新增 `setMaxIcon(on)`；MAX **从 DOM 读出来缓存**、MIN 硬编码
+   （Lucide `minimize` 四条），只切 `d`、不重建节点。
+   ★ 目视复核：`raw/j3-bar-1440-{max,min}.png` 两枚字形方向相反。
+2. **全屏后拖分栏条「一按就复位」**（真 bug，两个因）——
+   (a) `ctrl-conv.js` 的 `startPanel = panelW` 取的是**内部缓存**，而「最大化」绕过控制器直接写
+       `--av-browse-w` ⇒ 缓存停在 641、实际 1040 ⇒ 一按下拖动宽度猛跳到 **761**（实测）；
+       改读**实际渲染宽**（先 `.is-col-dragging` 停过渡再取几何）并同步缓存。
+   (b) `pointermove` / `pointerup` 挂**元素**、只靠 `setPointerCapture` 兜 ⇒ 改挂 **`window`** + `blur`。
+   ★ 判据 = 把 `pointermove` **派发到 `document.body`** 仍能拖动（1040 → 960 ✓）。
+   另补两条退出路径：**全屏态下按下分栏条 = 放弃全屏**（`setMax(false, true)`，不动宽）；
+   **收起侧栏也退全屏** —— 搭 ctrl-conv `setOpen()` 必定 dispatch 的 resize，
+   **别用 MutationObserver 盯后插节点的父级**（本拍第一版就这么坏的：观察挂在旧父级、永不触发
+   ⇒ `data-td-maxw` 残留、按钮仍是「还原」态）。
+★ **体位**：`part105/ctrl-conv.js` 是**跨代资产**（源页 `avatar.html` 的移植源）⇒ 本代按
+   `_read_part()` 的双目录回退，在 `part107/ctrl-conv.js` 放**逐字副本 + 一处修正**，
+   part105 与 avatar 零影响（⚠ 副本漂移已在文件头写明）。适配层**零 CSS 改动**。
+   门禁全绿（幂等 / `check-syntax` 10/10 / `verify-design` 逐字节同 / `scan-flatten` 仍 2 条），
+   产物 **930384 → 934109 字符**（+3725），`+2373 / −8` 行。
+
+**⑩ 第十拍（邵先生 2026-10-01 13:2x 返工 · 一条）** —— **`.td-rv-menu` 菜单跑到触发按钮上方**：
+1. 四枚下拉共用一条基类规则 `{ position:absolute; top:42px }`（相对 `.td-browse`，42px = 标签栏下方）。
+   但 `.td-mod-menu` 的触发器（`+`）在**标签栏**里、另三枚（`.td-rv-scope-menu` / `.td-rv-opts` /
+   `.td-commit-menu`）的触发器在**审查模块的工具条**里 ⇒ 后者实测 dy = **−35.0 / −34.0 / −36.0**
+   （在按钮**上方** 35px 左右）。★ **一条 `top` 服务两种锚点高度 ⇒ 必然错一半。**
+2. 修法 = 新增 `placeRv(menu, trigger)`，在 `toggleMenu()` 打开分支（**摘掉 `[hidden]` 之后**）
+   按触发器的**实际几何**现场摆位：垂直 = 下方 6px；水平 = 左缘对齐触发器，右侧放不下就
+   clamp 到面板右内边。量宽高用 `offsetWidth`（不受入场 `scale(0.96)` 影响）。
+   CSS 只把共用规则拆两条 + 给 `.td-rv-menu` 一个静态兜底 `top: 83px`；**`.td-mod-menu` 一字不动**。
+3. ★ 实测三枚 dy 全 **+6.0**、dxLeft **0.0 / −0.1 / −14.1**（末者 = clamp 生效）；`.td-mod-menu`
+   回归不变；窄栏 315 三枚全部 `insideMod=true` 未被 `.td-mod{overflow:hidden}` 裁；
+   Esc 关 / 点空白关 / 重开位置一致 / 右键菜单不受影响 —— 全绿。
+   门禁：幂等 ✓ / `check-syntax` 10/10 / `verify-design` 与上轮逐字节同 / `scan-flatten` 仍 2 条。
+   产物 **934109 → 936625 字符**（+2516），`+2419 / −8` 行。适配层**零字号改动**。
+
+**⑪ 第十一拍（邵先生 2026-10-01 13:4x 返工 · 四条）**：
+1. **`.td-selbar` 图标 / 文字应为正文黑** —— DS `.giencoder-btn-text` 基类给的是**主色蓝**
+   （实测 `rgb(55,112,247)`）⇒ 加 `.td-selbar .giencoder-btn { color: var(--color-text-1) }`
+   （SVG 走 `currentColor` 跟着变）。实测两枚按钮 `color` / SVG `stroke` 全变 **`rgb(31,31,31)`**。
+2. **`.td-url-pill` 补「输入中激活态」** —— 原来 `input:focus{outline:none}` 且只有灰底 ⇒ **聚焦零变化**。
+   照 DS `.giencoder-input-wrapper:focus-within` 写「底色转白 + `inset` 1px 主色 + 外 2px 浅主色环 +
+   `transition 120ms`」；★ **用 `inset` 不用 `border`**（border 会把 26px 胶囊撑高）。
+   ★ 取证坑：`focus()` 后**同步** `getComputedStyle` 读到的是**过渡起点** ⇒ 必须等 400ms 再读。
+3. **数字动效太慢** —— 根因两层：`delay 1.5s + fill:both` ⇒ 延迟期窗口是空的；而 1.5s 是
+   **为等骨架屏退场**（`.r93-sk` 不透明 `inset:0`）。改前真机时间线 **2012 淡出 → 2326 移除 → 2493 首见**。
+   修法**两边一起动**：`apply107.py` 的 `wire()` 骨架屏 `1100→380`（保留 320）+
+   CSS 数字 `duration .46→.30` / `delay 1.5s→calc(.44s + ni*26ms)` ⇒ 空窗 **167ms → 0**。整体 ~1.66s。
+4. **对照 Codex 官方补缺，落地三件**：**终端多标签**（`.td-term-tabs` + `bindTerm()` 按块绑定 +
+   `+` 真新建；右键那条也从「只弹 toast」改成真新建）· **浏览器截图**（相机按钮 + `.td-brw.is-shot::after`
+   快门 **260ms**，闪**整模块**而非滚动容器 `.td-view`）· **产物预览层**（`.td-sum-prev` 覆盖摘要 +
+   `md`/`xlsx` 两套骨架 + **Esc 算一层**）。官方 SSH / 多窗口 / 托盘不在静态页范围 ⇒ 不做。
+   门禁：幂等 ✓ / `check-syntax` 10/10 / `verify-design` 与上轮**逐字节同** / `scan-flatten` 仍 2 条。
+   产物 **936625 → 958568 字符**（+21943），`+2806 / −12` 行。★ 本拍**首次动了 `_mods.html`**
+   ⇒ 改序 = `_mods.html → ev/splice107.py → apply107.py`（`browse.html` 是 splice 的产物）。
 
 ---
 
@@ -816,18 +1257,22 @@ r105 死代码：`r93-morebtn` 全仓 **3 处全在注释**（活规则 0 条）
 1. 读本卡 → `git status` → 复跑补丁确认幂等：
    `mg-work/r88/apply88.py` → `mg-work/r88/apply88b-fontsize.py` → `mg-work/r92/apply92.py` → `mg-work/r93/apply93.py`
    → `mg-work/r101/apply101.py` → `mg-work/r102/apply102.py`
-   → **`mg-work/r106/apply106.py`**
+   → **`mg-work/r107/apply107.py`**
    → `mg-work/r87/apply87a-select.py` → `mg-work/r86/apply86.py`（**后两个被 r88 的 PRIOR 涵盖，重复跑也是 `+0`**）。
-   ⚠ `apply102` 与 `apply106` 都作用于 `conversation.html`：**按上序跑**（r102 先、r106 后）；
-   `apply106` 的 `GENS` 已含 r102 那代 ⇒ **单跑 apply106 也能自愈到 r106 态**（r102 块会被整块剥离再重注）。
+   ⚠ ★★ **`apply102` / `apply106` / `apply107` 都作用于 `conversation.html`**：r102 与 r106 的块**已被 apply107 的 `GENS` 涵盖**，
+     所以**只需跑 `apply107` 一条即可自愈到 r107 态**（历代块会被整块剥离再重注）。
+     反过来**绝不要**跑到 r107 之后再跑 `apply106`（它只认四代 ⇒ 「基线残留 r107-conv-css」自检会直接退出）。
+   ⚠ 另：`part107/browse.html` 是**组装件** ⇒ 改 `_head.html` / `_mods.html` 后必须重跑 `ev/splice107.py` 再跑 `apply107.py`。
+
 2. 改页面**一律走 `mg-work/rNN/applyNN.py`**，体位 = 「先 `strip_all(当前页)` 取净底 → 再注入」⇒ **改完直接重跑即自愈**。
    **例外**：上一轮尚未提交时的即时返工 ⇒ **就地修订原补丁、不另起代数**（判据：`git status` 里仍是 ` M`）。
-   ★ 现状（**2026-10-01 08:5x**）：`r86 ~ r100`（`d7e2151`）、**`r101`（`9f252e5`）**、
-   **`r102` 十一条 + `r103` 六条 + `r104` 四条 + `r105` 三条（`87e2caa`）** —— **全部已提交**；
-   ★ **`r106` 六条已落地但 🚫 尚未提交**（工作区 `?? mg-work/r106/` + 10 页 `M`）⇒
-   **此刻若还要改会话详情页：就地返工 `mg-work/r106/apply106.py`**（判据 = `git status` 里 `conversation.html` 仍是 ` M`，
-   且 `r106-*` 块已存在）—— **不要新建 r107**。
-   待到 r106 交付（邵先生发话 commit）之后，**再**新建 `mg-work/r107/apply107.py`（照抄 r106 的 `GENS` 四代摘除表，扩成五代）。
+   ★ 现状（**2026-10-01 09:5x**）：`r86 ~ r100`（`d7e2151`）、**`r101`（`9f252e5`）**、
+   **`r102~r105`（`87e2caa`）**、**`r106` 六条（`4d081ba`）**、**Codex 右栏调研（`f13b3bf`）** —— **全部已提交**；
+   ★ **`r107`（侧栏模块标签化）已落地但 🚫 尚未提交**（工作区 `?? mg-work/r107/` + **只有 `conversation.html` 一个 ` M`**）⇒
+   此刻若还要改**会话详情页 / 右栏**：**就地返工 `mg-work/r107/apply107.py`**（判据 = `git status` 里 `conversation.html` 仍是 ` M`、
+   且 `r107-*` 块已存在）—— **不要新建 r108**。
+   待到 r107 交付（邵先生发话 commit）之后，**再**新建 `mg-work/r108/apply108.py`
+   （照抄 r107 的**五代** `GENS` 摘除表，扩成六代；并可继续沿用 `NAV_TAG='r106'`，只要 nav 脚本仍未改）。
    若针对**设置页 / 字号机制 / 其它页**，回到 `apply88.py` / `apply88b-fontsize.py`。
    ⚠ **r105 ① 的产物落在 8 个「独立页」上**（各 +714）⇒ 复跑补丁时这 8 页会**同样被扫到**；改动只在 `nav_patch` 一处，
    不要为它们单开补丁（`invert_if_absent` 保证第二遍一字不动、**只保位置**）。

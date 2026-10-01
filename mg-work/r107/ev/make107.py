@@ -1,0 +1,258 @@
+# -*- coding: utf-8 -*-
+"""r107 · 由 `mg-work/r106/apply106.py` 精确替换生成 `mg-work/r107/apply107.py`。
+
+为什么用「生成」而不是手抄：apply106.py 有 3365 行、内联了整份站点 CSS/JS 与移植件加载逻辑，
+手抄必漏；精确替换 + 每处命中数断言，能保证**除下表 11 处外一字不差**（先例：ev/make106.py）。
+
+★ r107 的核心体位决定：**nav 块沿用 r106 的名字（NAV_TAG='r106'）**。
+  理由 —— 本代只改会话详情页的侧栏，nav 跳转脚本一字未动；按硬规则「跨代沿用的宿主标记不换名」，
+  不换代就能让 base.html 与 8 个外壳页**既不换名也不改内容**（逐字节不变），
+  满足邵先生本轮「绝对不得改动其他不必涉及的模块」。
+
+用法： python mg-work/r107/ev/make107.py     # 写 apply107.py（先备份到 ev/apply107.prev.py）
+"""
+import io
+import os
+import shutil
+import sys
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+REPO = os.path.abspath(os.path.join(HERE, '..', '..', '..'))
+SRC = os.path.join(REPO, 'mg-work', 'r106', 'apply106.py')
+DST = os.path.join(REPO, 'mg-work', 'r107', 'apply107.py')
+
+# 表 = (说明, 旧串, 新串, 期望命中数)。命中数不符即 sys.exit（不做任何写入）。
+EDITS = [
+    (
+        'E1 顶部标题 → r107',
+        '"""r106 · 会话详情 · 四条（**新代** —— r102 代已交付 `87e2caa`，故不再就地返工）\n'
+        '（承接 r102 代产物，仍是 pages/{base,conversation}.html）\n\n体位与历代一致：',
+        '"""r107 · 会话详情 · 侧栏模块标签化（**新代** —— r106 已交付 `4d081ba`，故不再就地返工）\n'
+        '（承接 r106 代产物，仍是 pages/{base,conversation}.html）\n\n'
+        '★ **r107 本代只改 `pages/conversation.html` 一页**：\n'
+        '  右栏（`.td-browse`）由「单标签 + 文件树」升级成 Codex 那套 **标签式 Side Panel**：\n'
+        '    ① 标签栏：多标签（文件 / 审查 / 终端 / 浏览器 / 摘要）、可切换、可关闭、可拖拽重排；\n'
+        '       `+` → 五选一模块菜单（复刻 Codex 右上角那枚面板菜单的四选一）。\n'
+        '    ② 新增四个模块：**审查（diff）** / **终端** / **浏览器（含标注态）** / **摘要（任务侧栏）**。\n'
+        '    ③ 侧栏新增「最大化 / 还原」（右端 `⤢`，复用宿主 `--av-browse-w`，自算 maxPanelW）。\n'
+        '  ⚠ 「文件」模块的 DOM 与控制器（ctrl-conv.js）**一行未改** —— 见 ev/splice107.py：\n'
+        '     新的 browse.html 是「原 Files 正文逐字剪出 + 换头部 + 追加新模块」拼出来的。\n'
+        '  ⚠ nav 块沿用 r106 的名字（见 GENS 注释）⇒ base.html 与 8 个外壳页逐字节不变。\n\n'
+        '★ **第四拍（2026-10-01 10:5x 邵先生五条）** —— 仍是 r107 未提交期的**就地返工**，\n'
+        '  `GENS` / 注入块 id / `NAV_TAG` 全部不动（所以工作区照旧只有 `M conversation.html` + `?? mg-work/r107/`）：\n'
+        '    ① **「摘要」设为右栏默认页签**，且摘要 / 计划 / 来源 / 产物 四块改**卡片式**\n'
+        '       （`_head.html` 初始标签 + `panel.js` 初始化两处必须同改；卡片 = 描边 + 圆角 + `--color-bg-2` 底，\n'
+        '        卡内条目降级成行式，避免「卡中卡」）。\n'
+        '    ② **恢复「划词浮条」** —— 第三拍随「侧边聊天」被整段删掉了，但划词是通用能力、不该陪葬。\n'
+        '       动作换成两个仍然成立的：**添加到对话**（写进真 composer）· **复制**。\n'
+        '    ③ **补右栏右键菜单**（本轮新增能力）：标签栏 / 审查文件 / 审查代码行 / 终端 / 浏览器 /\n'
+        '       摘要来源 / 摘要产物 / 计划条目 —— 共七类目标，共用**一份**表驱动容器（`_mods.html` 里只加一个空盒）。\n'
+        '    ④ `.td-browse-tab` 字号 12 → **14px**（`--font-size-body-3`）。\n'
+        '    ⑤ **右栏四枚下拉改用 giencoder 设计系统现成组件**（`giencoder-select-popup` + `giencoder-menu`\n'
+        '       + `giencoder-menu-item` + `giencoder-menu-item-selected` + `giencoder-menu-group-title`\n'
+        '       + `giencoder-menu-icon`），自绘的那套 height / padding / hover / 投影 / 字号整段删除。\n'
+        '       ⚠ 连带一个必踩的坑：DS 弹层**默认 `visibility:hidden`**，必须靠 `.giencoder-popup-open` 放行。\n'
+        '       （⚠ ⑤ 的**组件选型在第五拍被推翻**，见下 —— 当时挂的那两个类串了两个族。）\n\n'
+        '★ **第五拍（2026-10-01 11:3x 邵先生两条）** —— 仍是 r107 未提交期的**就地返工**，\n'
+        '  `GENS` / 注入块 id / `NAV_TAG` 依旧一字不动（工作区照旧只有 `M conversation.html` + `?? mg-work/r107/`）：\n'
+        '    ① **四枚下拉 + 右键菜单的 hover 全无 → 补齐**（真 bug）。根因：上一版把基态写成\n'
+        '       `.td-mm-item:not(.giencoder-menu-item-selected)` (0,2,0)，与 DS 的 `:hover` / `-selected`\n'
+        '       **同特异性、但本块文档序在后** ⇒ 把「选中底」和「hover 底」一起压掉（真鼠标悬停后\n'
+        '       `matches(":hover")` 为 true 而底色仍是 `rgba(0,0,0,0)`）。本版基态与 `:hover` 写在同一块、\n'
+        '       基态在前，顺序自洽，且不再依赖「DS 的 `:hover` 能不能活下来」。\n'
+        '    ② **下拉菜单改挂 DS 的 Dropdown 组件**（邵先生点名的 `.td-rv-opts`）——\n'
+        '       第四拍挂的是 `.giencoder-select-popup`（那是 **Select 组件**的弹层）+ `.giencoder-menu`\n'
+        '       （那是**导航菜单**组件：`menu.json` 的 `mapsFrom` = `sidenav/topnav`）⇒ **串了两个族**。\n'
+        '       本类交互 =「点 / 右键触发的**弹出菜单**，项含图标与快捷键」⇒ 契约正主是 `dropdown.json`\n'
+        '       （`variants.contextMenu` = 右键展开；`states.selected` = 主色文字或勾选图标；\n'
+        '       `interaction.hover` = 背景 `--color-fill-2`）⇒ 改挂\n'
+        '       `giencoder-dropdown-popup` / `giencoder-dropdown-item` / `giencoder-dropdown-divider`\n'
+        '       （+ 契约态 `.is-danger`），与本页既有行右键菜单（r93 ⑦ `.r93-ctx`）**同源**。\n'
+        '       ⚠ 选中态：DS Dropdown **没有** `-selected` 类（不虚构）⇒ 按契约取「勾选图标 + 主色文字」，\n'
+        '         两枚 radio 项补上 `.td-mm-mark` ✓；原先那套浅蓝底 + 左缘 3px 条属于 Menu 族，一并撤掉。\n'
+        '       ⚠ 换族顺带两件事：① DS 骨架的 `animation: giencoder-popup-in` 播完会把 `opacity` 打回 0\n'
+        '         ⇒ 必须显式 `animation: none`（r93 同款处置）；② `.giencoder-select-popup` 上有一条\n'
+        '         r75 的 `display: block !important` 通配（给浮窗过渡留起点），换族后不再扫到本菜单\n'
+        '         ⇒ `[hidden]` 的 `display:none` 兜底恢复可用。\n\n'
+        '★ **第六拍（2026-10-01 11:4x 邵先生三条）** —— 仍是 r107 未提交期的**就地返工**，\n'
+        '  `GENS` / 注入块 id / `NAV_TAG` 依旧一字不动（工作区照旧只有 `M conversation.html` + `?? mg-work/r107/`）；\n'
+        '  三条全部落在**本页适配层**（`part107/panel.css` 第 10~12 节 + `panel.js` 的 `statsBoot`），\n'
+        '  源件与历代遗产块一字未动，改序仍是 part107/* → splice → make107 → apply107：\n'
+        '    ① **输入卡下方那行统计文字框选不到** —— 它是 r97 ④ 的 CSS `::after` **生成内容**\n'
+        '       （`content:` 挂出来的字），**不是 DOM 的一部分** ⇒ 选区落不进去（实测\n'
+        '       `Selection.toString()` 为空、`caretRangeFromPoint` 退回宿主元素；隔离对照里\n'
+        '       同一手法拖选真文本能正常选中）。⇒ 关掉伪元素、改由 panel.js 注入真节点\n'
+        '       `.r107-stats`，版式逐像素复刻（宿主 flex 的 gap 8px 自然接管）。\n'
+        '       ⚠ 宿主是 React 的 `div.mt-8` ⇒ 用 MutationObserver 兜两件事：重渲染摘掉后补回、\n'
+        '         重挂后被插到中间时挪回末尾。\n'
+        '    ② **`.r93-pre` 去掉字体族** —— 原写死等宽族（`ui-monospace, …`），改用\n'
+        '       `var(--font-family)`（= 站点默认那一档）。只覆写 `font-family`，盒模型 / 字号 /\n'
+        '       行高 / 换行策略一字不动。\n'
+        '    ③ **内容列变窄时两条自适应**（判据 = **容器可用宽**，不是视口分辨率）：\n'
+        '       · 技能选择浮窗（React **行内**写死 `width:760`）⇒ `width: min(760px, 100%) !important`\n'
+        '         （行内样式只有 `!important` 压得住；包含块是输入卡 ⇒ `100%` = 输入卡内宽）。\n'
+        '       · `.r93-alert` 定高 44 ⇒ `height:auto; min-height:44px; padding:8px 16px`\n'
+        '         （单行态与改前逐像素相同；折行时才长高，不再把描述文字挤出圆角盒）。\n\n'
+        '★ **第七拍（2026-10-01 12:1x 邵先生七条）** —— 仍是 r107 未提交期的**就地返工**，\n'
+        '  `GENS` / 注入块 id / `NAV_TAG` 依旧一字不动（工作区仍是 `M conversation.html` + `?? mg-work/r107/`）；\n'
+        '  六条落在 `part107/panel.css`（新增第 13 节 + 第 1~5 节各自的字体就地改），一条落在 `_mods.html` 文案：\n'
+        '    ① **竞品名 → GienCoder**：右栏里**渲染成文字**的 `Codex` 全换\n'
+        '       （diff 路径 / 三行代码 / 摘要段 / 两条来源标题 = 8 处 + 两处悬停 title）；\n'
+        '       `_mods.html` 里三条外链 href **有意保留**（真实地址，替换即 404、且不渲染成页面文字）；\n'
+        '       另在 `2d)` 里补掉 avatar.html 历史会话列表那处「Codex自定义大模型方法」。\n'
+        '    ② **去掉下拉菜单的标题行** —— 静态的 `.td-mm-cap`（`+` 菜单「在侧栏打开」、范围菜单「对比范围」）\n'
+        '       与右键菜单里现场生成的「目标名」行，一段 CSS 一并 `display:none`（塌行不占位，视觉等于删除）。\n'
+        '    ③ **选中项常显底色** —— 原来只有主色文字 + ✓（实测底色 `rgba(0,0,0,0)`）⇒ 补 DS 的\n'
+        '       `--color-primary-light-1`；规则写在 `:hover` 之后 ⇒ 悬停选中项不翻成 hover 灰。\n'
+        '    ④ **去掉快捷键提示** —— 静态的 `.td-mm-key`（10 处）与右键菜单里那类，同一段 CSS 关掉。\n'
+        '    ⑤ **提交卡「目标分支」输入框拉通** —— DS 的 `.giencoder-input-wrapper` 编译样式是\n'
+        '       `display:inline-flex; width:auto` ⇒ 实测同一张卡里别的行都是 308、它只有 207；改 block 级 flex。\n'
+        '    ⑥ **右栏字体统一** —— 8 处写死的等宽族一律换 `var(--font-family)`（终端 / diff / 分支名 / URL 槽…）。\n'
+        '    ⑦ **全屏按钮联动** —— 右栏展开（`.av-browse-on`）时页头那枚「全屏」隐藏；实测该类就挂在\n'
+        '       `main` 与预览栏的共同父级上 ⇒ 纯 CSS 可判，不需要 JS 联动。\n\n'
+        '体位与历代一致：',
+        1,
+    ),
+    (
+        'E2 用法块 → r107',
+        'mg-work/r106/apply106.py',
+        'mg-work/r107/apply107.py',
+        5,
+    ),
+    (
+        'E3 GENS 扩到五代（nav 沿用 r106）+ NAV_TAG',
+        "GENS = (\n"
+        "    ('r93',  'r93-conv-css',  'r93-conv-js',  'r93-nav-js'),\n"
+        "    ('r101', 'r101-conv-css', 'r101-conv-js', 'r101-nav-js'),\n"
+        "    ('r102', 'r102-conv-css', 'r102-conv-js', 'r102-nav-js'),\n"
+        "    ('r106', 'r106-conv-css', 'r106-conv-js', 'r106-nav-js'),\n"
+        ")\n",
+        "GENS = (\n"
+        "    ('r93',  'r93-conv-css',  'r93-conv-js',  'r93-nav-js'),\n"
+        "    ('r101', 'r101-conv-css', 'r101-conv-js', 'r101-nav-js'),\n"
+        "    ('r102', 'r102-conv-css', 'r102-conv-js', 'r102-nav-js'),\n"
+        "    ('r106', 'r106-conv-css', 'r106-conv-js', 'r106-nav-js'),\n"
+        "    ('r107', 'r107-conv-css', 'r107-conv-js', 'r106-nav-js'),\n"
+        ")\n"
+        "# ★ r107：nav 块本代**一字未改** ⇒ 按硬规则「跨代沿用的宿主标记不换名」，沿用 `r106-nav-js`。\n"
+        "#   收益：base.html 的 nav 块「摘下来再原样挂回去」⇒ 与 8 个外壳页一起**逐字节不变**，\n"
+        "#   本代只有 conversation.html 一页进 git diff。`_N_NAV` 里 r106-nav-js 出现两次，无害。\n"
+        "NAV_TAG = 'r106'\n",
+        1,
+    ),
+    (
+        'E4 摘块后残留自检用 NAV_TAG',
+        "        for tok in (GENS[-1][0] + '-nav',):",
+        "        for tok in (NAV_TAG + '-nav',):",
+        1,
+    ),
+    (
+        'E5 build_nav_js 用 NAV_TAG',
+        "            % (GENS[-1][0], NAV_ID, NAV_JS_TMPL.strip(), GENS[-1][0]))",
+        "            % (NAV_TAG, NAV_ID, NAV_JS_TMPL.strip(), NAV_TAG))",
+        1,
+    ),
+    (
+        'E6 PART_DIRS → part107',
+        "    os.path.join(HERE, 'part106'),",
+        "    os.path.join(HERE, 'part107'),",
+        1,
+    ),
+    (
+        'E7 移植件注释里的目录名',
+        '#   放进 mg-work/r106/part106/ 同名即可。',
+        '#   放进 mg-work/r107/part107/ 同名即可。',
+        1,
+    ),
+    (
+        'E8 读入 panel.css / panel.js',
+        "BROWSE_JS = _read_part('browse.js').split('\\n(function () {\\n  var KEY')[0] + '\\n' \\\n"
+        "            + _read_part('ctrl-conv.js')\n",
+        "BROWSE_JS = _read_part('browse.js').split('\\n(function () {\\n  var KEY')[0] + '\\n' \\\n"
+        "            + _read_part('ctrl-conv.js')\n"
+        "# ★ r107 新增两件（本代自己的，不复用上一代）：侧栏模块标签化的样式表与控制器。\n"
+        "PANEL_CSS = _read_part('panel.css')\n"
+        "PANEL_JS = _read_part('panel.js')\n",
+        1,
+    ),
+    (
+        'E9 守卫循环纳入 panel.*',
+        "    for _label, _blob in (('browse.html', BROWSE_HTML), ('browse.js+ctrl-conv.js', BROWSE_JS),\n"
+        "                          ('browse.css', BROWSE_CSS)):",
+        "    for _label, _blob in (('browse.html', BROWSE_HTML), ('browse.js+ctrl-conv.js', BROWSE_JS),\n"
+        "                          ('browse.css', BROWSE_CSS), ('panel.css', PANEL_CSS),\n"
+        "                          ('panel.js', PANEL_JS)):",
+        1,
+    ),
+    (
+        'E10 build_css 追加 panel.css',
+        "    return '<style id=\"%s\">\\n%s\\n\\n%s\\n\\n%s\\n\\n%s\\n</style>\\n' % (\n"
+        "        CSS_ID, CSS.strip(), BROWSE_CSS.strip(), BROWSE_DARK.strip(), R106_CSS.strip())",
+        "    # ★ r107：panel.css 排在最后 ⇒ 同特异性靠文档顺序压过 browse.css / R106_CSS。\n"
+        "    return '<style id=\"%s\">\\n%s\\n\\n%s\\n\\n%s\\n\\n%s\\n\\n%s\\n</style>\\n' % (\n"
+        "        CSS_ID, CSS.strip(), BROWSE_CSS.strip(), BROWSE_DARK.strip(), R106_CSS.strip(),\n"
+        "        PANEL_CSS.strip())",
+        1,
+    ),
+    (
+        'E11 build_js 追加 panel.js',
+        "    return '<script id=\"%s\">\\n%s\\n\\n%s\\n</script>\\n' % (JS_ID, js.strip(), BROWSE_JS.strip())",
+        "    # ★ r107：panel.js 排在 ctrl-conv.js **之后** ⇒ 它的 Esc（window 捕获）比 ctrl-conv\n"
+        "    #   的 Esc（document 捕获）更早，能先吃掉「关菜单」这一层。\n"
+        "    return '<script id=\"%s\">\\n%s\\n\\n%s\\n\\n%s\\n</script>\\n' % (\n"
+        "        JS_ID, js.strip(), BROWSE_JS.strip(), PANEL_JS.strip())",
+        1,
+    ),
+    (
+        'E12 正向 2d)：全站可见文案 Codex → GienCoder',
+        "        # ---- 2c) ★ r105 ①：其余 8 个独立页也挂上「点会话任务 → conversation.html」的捕获脚本 ----",
+        "        # ---- 2d) ★ r107 第七拍 ①：全站可见文案 Codex / ChatGPT → GienCoder ----\n"
+        "        #      conversation.html 侧栏里那几处已在 part107/_mods.html 改掉（随注入块进来）；\n"
+        "        #      本仓**剩下的最后一处可见文案**在 avatar.html 的历史会话列表里\n"
+        "        #      （示例标题「Codex自定义大模型方法」）。\n"
+        "        #      ⚠ 只替换带引号的这一个整串 ⇒ 不动该文件里的同名注释；幂等。\n"
+        "        _av = os.path.join(REPO, 'pages', 'avatar.html')\n"
+        "        if os.path.exists(_av):\n"
+        "            _t = io.open(_av, encoding='utf-8').read()\n"
+        "            _t2 = _t.replace(\"'Codex自定义大模型方法'\", \"'GienCoder自定义大模型方法'\")\n"
+        "            if _t2 != _t:\n"
+        "                if not a.dry:\n"
+        "                    io.open(_av, 'w', encoding='utf-8').write(_t2)\n"
+        "                changes.append('avatar.html 文案 Codex → GienCoder')\n"
+        "        # ---- 2c) ★ r105 ①：其余 8 个独立页也挂上「点会话任务 → conversation.html」的捕获脚本 ----",
+        1,
+    ),
+    (
+        'E13 逆向 2d)：GienCoder → Codex',
+        "        # ---- ★ r100 ① 的逆操作（与上面 2b 对称） ----",
+        "        # ---- ★ r107 第七拍 ① 的逆操作（与上面 2d 对称） ----\n"
+        "        _av = os.path.join(REPO, 'pages', 'avatar.html')\n"
+        "        if os.path.exists(_av):\n"
+        "            _t = io.open(_av, encoding='utf-8').read()\n"
+        "            _t2 = _t.replace(\"'GienCoder自定义大模型方法'\", \"'Codex自定义大模型方法'\")\n"
+        "            if _t2 != _t:\n"
+        "                if not a.dry:\n"
+        "                    io.open(_av, 'w', encoding='utf-8').write(_t2)\n"
+        "                changes.append('avatar.html 文案 GienCoder → Codex')\n"
+        "        # ---- ★ r100 ① 的逆操作（与上面 2b 对称） ----",
+        1,
+    ),
+]
+
+
+def main():
+    s = io.open(SRC, encoding='utf-8', newline='').read()
+    for label, old, new, want in EDITS:
+        n = s.count(old)
+        if n != want:
+            sys.exit('!! %s：锚点命中 %d 次（应 %d 次）' % (label, n, want))
+        s = s.replace(old, new)
+    if os.path.exists(DST):
+        shutil.copyfile(DST, os.path.join(HERE, 'apply107.prev.py'))
+    io.open(DST, 'w', encoding='utf-8', newline='').write(s)
+    print('   写出 %s（%d 行 / %d 字符，%d 处替换）'
+          % (DST, s.count('\n') + 1, len(s), len(EDITS)))
+
+
+if __name__ == '__main__':
+    main()

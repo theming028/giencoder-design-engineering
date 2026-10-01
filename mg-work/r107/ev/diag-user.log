@@ -1,0 +1,9 @@
+### 0 页面级：脚本/样式块数 + 标记存在性
+"{\"title\":\"会话 · 基础工作台\",\"scripts\":9,\"styles\":16}"
+### 1 默认态（未点任何东西）
+"{\"slotExists\":true,\"slotPlaced\":true,\"ON\":false,\"browseDisplay\":\"flex\",\"slotRect\":[1432,48,0,844],\"tabs\":1,\"tabsHTML\":\"文件\",\"toggleBtn\":true,\"toggleRect\":[1395,57,28,28]}"
+### 2 点「打开侧栏」后
+"{\"ON\":true,\"slotW\":641,\"panelRect\":[791,48,641,844],\"tabCount\":1,\"tabText\":[\"文件\"],\"addBtn\":true,\"maxBtn\":true,\"closeBtn\":true}"
+### 3 打开「+」菜单（看五选一）
+"{\"menuOpen\":true,\"items\":[\"review\",\"terminal\",\"browser\",\"files\",\"side\"]}"
+### 4 逐一开到审查/终端/浏览器/侧边聊天（各截一张）
