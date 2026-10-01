@@ -635,7 +635,7 @@ agent 行 `agentSpan` = `[420,1280]` / `[840,1981]`（**填满**）；`div.mt-8`
 
 ### P3.11i ★★ 会话详情页「侧栏模块标签化」（r107 十一拍 + **r108 十二 ~ 十九拍** · 复刻 Codex 右栏 · 2026-10-01 · **共十九拍**）
 
-> 补丁 = **`mg-work/r108/apply108.py`**（🚫 未提交 · 第十二拍；前身 `mg-work/r107/apply107.py` 已推送 `e9c9498`）；设计依据 = `docs/codex-sidepanel-research.md` + `docs/codex-refs/`。
+> 补丁 = **`mg-work/r108/apply108.py`**（✅ 已交付 `172e580` · 第十二 ~ 十九拍；前身 `mg-work/r107/apply107.py` 已推送 `e9c9498`）；设计依据 = `docs/codex-sidepanel-research.md` + `docs/codex-refs/`。
 > **只影响 `pages/conversation.html`**：`base.html` 与 8 个外壳页**逐字节不变**（nav 块沿用 `r106-nav-js` 不换名）。
 > **十一拍要点**：① 三段式骨架 + 五模块 · ② 浮窗关不掉 / 侧聊对齐 · ③ 删侧聊 / 并排折叠 / 折叠全部 / 补 Codex 遗漏 ·
 > ④ 摘要升默认 + 卡片式 / 补划词浮条 / 补右键菜单 / tab 14px / 下拉 DS 化 ·

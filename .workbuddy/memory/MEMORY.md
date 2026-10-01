@@ -254,7 +254,7 @@
 > ⚠ **本代不要重跑 `apply106.py`**（GENS 只有四代 ⇒ 会把「基线残留 `r107-conv-css`」判成错误直接退出）；退 r107 = `git checkout -- pages/conversation.html`。
 > **待拍板**：④b 用户消息块口径（`min(100%,728px)` vs `100%`）｜`r93-bar` 底线与面板底线**仍是两色**｜折叠默认范围｜官方 SSH（alpha，不在侧栏）/ 多窗口 / 系统托盘 **不在静态页范围**（本轮已拍板不做）。
 
-> **r108（2026-10-01 19:4x 起 · 会话详情页「diff 卡片化 + 文件树抽屉」+ 六条精修「含 ★ 复刻 ZCode 右上角任务信息面板」· **第十二拍 + 第十三拍补丁**）—— 🚫 未提交**（r107 已交付 `e9c9498`）：
+> **r108（2026-10-01 19:4x 起 · 会话详情页「diff 卡片化 + 文件树抽屉」+ 六条精修「含 ★ 复刻 ZCode 右上角任务信息面板」· **第十二 ~ 十九拍**）—— ✅ 已交付 `172e580`**（r107 已交付 `e9c9498`）：
 > ★ **体位**：r107 **已交付** ⇒ **新建 `mg-work/r108/apply108.py`**（`ev/make108.py` 从 apply107 做 **7 处精确替换**）；
 > `GENS` = **六代**（r93/r101/r102/r106/r107/r108）；`PART_DIRS` = `part108` → `part107` → `part105` **三级回落**
 > （本代只覆盖 `_mods.html` / `panel.css` / `panel.js` 三件）。
@@ -282,7 +282,7 @@
 > 退 r108 = `git checkout -- pages/conversation.html`。
 > 🚫 未 commit / 未 push；提交时 `git reset -q -- mg-work/r107/ev/bak{7,8,9,10}/`。
 >
-> **★ r108 第十三拍（2026-10-01 20:2x · 六条 · ★★ 就地返工、未另起代数）—— 🚫 仍未提交**：第十二拍**未提交** ⇒ 按硬规则「**未交付 ⇒ 就地返工**」，本拍 = 第十二拍的**第二层补丁**（叠加在 `r108/` 内）。
+> **★ r108 第十三拍（2026-10-01 20:2x · 六条 · ★★ 就地返工、未另起代数）—— ✅ 已随 `172e580` 交付**：第十二拍**未提交** ⇒ 按硬规则「**未交付 ⇒ 就地返工**」，本拍 = 第十二拍的**第二层补丁**（叠加在 `r108/` 内）。
 > ★ 新增脚本：`ev/patch108l2.py`（555 行，第 ①②③④⑥ 条）· `ev/patch108td.py`（85 行，第 ⑤ 条）；探针 `ev/p108n.js` + `probe108n{,2}.sh`；截图 `ev/shots108n{,2}.sh` + `raw/n-1440-*.png`（12 张）。
 > **六条** = ① `.td-sum-sec:hover { border-color: var(--color-border-2) }`（基态 border-1 `rgb(242,242,242)` → hover **`rgb(229,229,229)`** = 深一档）；② `.td-sum-h` 内 4 枚标题 `<svg>` 删净 + 清 `.td-sum-h svg` 死规则（实测 `sumHSvg:0`）；③ `.td-diff-cv { width:13px; height:13px; color: var(--color-text-1) }`（原 `text-3`；实测 `rect [813,156,13,13]` / `rgb(31,31,31)`）；④ `data-td-art` 从内部「预览」按钮**上移到卡片本体**（2 处）+ `cursor:pointer`（点图标区即开预览层、按钮入口保留）；⑤ **任务详情页** `.giencoder-badge-status-text` → 13px（★ 真源在父级 `.giencoder-badge-status` 的 14px，文字节点自己不声明字号 ⇒ **补本页一条规则即可、不动 DS 源**；落点 `<style id="r108-td-css">`）；⑥ **★★★ 复刻 ZCode 右上角任务信息面板**。
 > ★★★ **⑥ 最关键的坑 —— `.zd-host` 的 `top` 必须是 44px（不是 0）**：`<main>` 顶部有 `.r93-bar`（`position:absolute; height:44px; z-index:10`，r106 的**固定档**、不随 `--ui-fs` 变），右上角「全屏 / 打开侧栏」两枚按钮就在里面 ⇒ 面板从 `top:0` 起排会**把它盖住**（实测 `elementFromPoint` 命中的是面板自己的 `.zd-acts`，导致探针的 click 点到面板、右栏没开、下游 hover/click 全失效）。改 `top:44px` + `padding-top:12px` 后两枚按钮 `hitSelf:true`、`zdTop:93`。
@@ -292,7 +292,7 @@
 > **产物**：`conversation.html` 978614 → **995133 字符**（+16519；`git diff` **+582 / −11 行**）；`task-detail.html` 767428 → **767836 字符**（+408；**+7 / −0 行**）；`base.html` **472150 逐字节不变**。
 > ★★ **新增定论见 PLAYBOOK P3.49**（四条：固定高工具条遮挡 / 注释绊倒守卫 / 锚点 token 回填 / 截图切掉覆盖层）；逐条实测见 **`mg-work/r108/acceptance.md` 八 ~ 十二节**（共十三节）。
 >
-> **★ r108 第十四拍（2026-10-01 20:5x · 四条 · ★★ 就地返工、未另起代数）—— 🚫 仍未提交**：第十二 / 十三拍**未提交** ⇒ 同上规则，本拍 = **第三层补丁** `ev/patch108l3.py`（772 行 / **27 项**），全部围绕 **`.zd-card`**。
+> **★ r108 第十四拍（2026-10-01 20:5x · 四条 · ★★ 就地返工、未另起代数）—— ✅ 已随 `172e580` 交付**：第十二 / 十三拍**未提交** ⇒ 同上规则，本拍 = **第三层补丁** `ev/patch108l3.py`（772 行 / **27 项**），全部围绕 **`.zd-card`**。
 > **四条** = ① **Git 三行接交互**（「更改」复用右栏链路 `[data-td-open-mod="review"]` ⇒ `openTab('review')`；「分支」= `.zd-menu-branch` 5 项 + 行值 `.zd-row-v[data-zd-branch]` 更新 + `.zd-toast` 轻提示；「提交或推送」= `.zd-menu-commit` 2 项，两枚互斥；摆位 = 触发行下缘 + 6px、右对齐卡片右缘、**用 `offsetWidth`**；关闭三路径 = 外点 + **Esc（`window` 捕获段）** + 选完收起）；
 > ② **删「计划」分区**（`secKinds ["git","goal","todo"]`）；③ **「目标」按上游校准**（lucide `goal` / 绿圈序号 / `pause`(24+14) / `minimize-2` / `padding 8px` + `radius 8px` + `leading-4` + `h-8 32px` + trailing `·`；★ **圆序号宽高同比** —— 本规则含字号 token ⇒ `scale_block` 只派生 `height` ⇒ 非默认字号下会成椭圆）；
 > ④ **弹性微动效**（折展 = `grid-template-rows: 1fr ⇄ 0fr` + 内层 `opacity/translate/scale`，**替掉 `display:none`**；面板 ⇄ 胶囊 = 出场微缩上浮 + 入场 `zd-panel-in` 回弹；缓动 = `--transition-timing-function-spring`，**时长一律 ≤300ms**）。
@@ -300,7 +300,7 @@
 > **产物**：`conversation.html` → **1009968 字符**（+14835；对 `HEAD` 累计 +51400；`855 / 19` 行）、`task-detail.html` **767836（未动）**、`base.html` **逐字节不变**。
 > ⚠ **工作区 `MEMORY.md` 受 3000 字符限额** ⇒ 原 58 条铁律整表已迁入 PLAYBOOK 附录「工作区速览 69 条」（第十五拍重整为「Windows 速记 + 红线索引 + 最近拍」、**第十六拍补回被误顶掉的第 58 条并加到 69 条**，实测 **2982 字符**）。
 >
-> **★ r108 第十五拍（2026-10-01 21:1x · 六条 · ★★ 就地返工、未另起代数）—— 🚫 仍未提交**：第十二 / 十三 / 十四拍**未提交** ⇒ 同上规则，本拍 = **第四层补丁** `ev/patch108l4.py`（**8 项**），全部围绕 **`.zd-card`** 的视觉精修 + 骨架屏门控。
+> **★ r108 第十五拍（2026-10-01 21:1x · 六条 · ★★ 就地返工、未另起代数）—— ✅ 已随 `172e580` 交付**：第十二 / 十三 / 十四拍**未提交** ⇒ 同上规则，本拍 = **第四层补丁** `ev/patch108l4.py`（**8 项**），全部围绕 **`.zd-card`** 的视觉精修 + 骨架屏门控。
 > **六条** = ① **`.zd-sec-t` = 正文黑 + 中粗 500 + 14px**（去 `inherit`、显式 `font-size: var(--font-size-body-3)` + `font-weight: 500` + `color: var(--color-text-1)`；顺带删掉死规则 `.zd-sec-t:hover`）；
 > ② **`.zd-ico` 补 hover**（照本页既有 `.td-browse-ico` 的**完整契约**：`inline-flex` / `24×24` / `padding:0` / `border:0` / `radius 4` / 透明底 / `text-2` + 同块内 `:hover { background: var(--color-fill-1); color: var(--color-text-1) }`，**基态在前**）；
 > ③ **「目标」只留 1 条**（`drop_re` 删圆序号那行 ⇒ `.zd-it` 1 / `.zd-it-no` 0）；
@@ -310,7 +310,7 @@
 > **五条坑** = **P3.51**（① `mark` 撞车 ⇒ **静默跳过**（加硬断言 + `keep_anchor` 豁免位）② 持续旋转时长写进自定义属性 ③ `:has()` 纯 CSS 门控 + 探针要 `try/catch` ④ `text-decoration` 不传播伪元素 ⑤ 自检判据别用太短片段）。
 > **产物**：`conversation.html` → **1012144 字符**（+2176；对 `HEAD` 累计 `896 / 19` 行）、`task-detail.html` **767836（未动）**、`base.html` **逐字节不变**。
 
-> **★ r108 第十六拍（2026-10-01 21:5x · 三条 · ★★ 就地返工、未另起代数）—— 🚫 仍未提交**：第十二 / 十三 / 十四 / 十五拍**未提交** ⇒ 同上规则，本拍 = **第五层补丁** `ev/patch108l5.py`（**10 步**）：① 产物预览改挂侧栏**「预览」页签** ② `.zd-host` 折展动效改「收进右上角 / 从右上角展开」 ③ `.zd-host` 整容器改**毛玻璃**。
+> **★ r108 第十六拍（2026-10-01 21:5x · 三条 · ★★ 就地返工、未另起代数）—— ✅ 已随 `172e580` 交付**：第十二 / 十三 / 十四 / 十五拍**未提交** ⇒ 同上规则，本拍 = **第五层补丁** `ev/patch108l5.py`（**10 步**）：① 产物预览改挂侧栏**「预览」页签** ② `.zd-host` 折展动效改「收进右上角 / 从右上角展开」 ③ `.zd-host` 整容器改**毛玻璃**。
 > **三条** = ① **产物 `td-sum-art` 卡片点击后的预览改挂 `td-browse-bar` 新页签** —— 旧浮层 `.td-sum-prev`（`position:absolute; inset:0`）**整体拆掉**（DOM + CSS + `.td-mod.td-sum{position:relative}` + **Esc 裁决链那一层**；残留 `zd-sum-prev` **0**），
 > 新载体 `#av-browse-pane-preview[data-td-pane="preview"]`、点产物 `openTab('preview', {name, ico})`；★ 同一枚页签**复用**承载多产物（连点两个只改名换图标）+ 复用分支加 `if (opts)` 守卫；
 > ② **`.zd-host` 折展动效** —— `transform-origin: 100% 0`（computed **`320px 0px`**）；收 ⇒ `scale 1→0.62` + `translate 0px→12px -12px` + `opacity→0`（186ms 到目标 / 203ms `hidden`）；展 ⇒ `@keyframes zd-panel-in` 260ms，**过冲** `scale 1.03715` 再回 1（453ms）；
@@ -320,7 +320,7 @@
 > **产物**：`conversation.html` → **1015095 字符**（+2951；对 `HEAD` 累计 **`1047 / 107`** 行；LF `sha1_lf da1acf6a091c` / 8436 行）、`task-detail.html` **767836（未动）**、`base.html` **逐字节不变**；`acceptance.md` **二十九节**。
 > ⚠ **PLAYBOOK 附录修错**：`doc108q.py` 的「追加 59~63」把 `old` 写成**第 58 条整行** ⇒ 58 被整条顶掉（附录实为 62 条、标题却写 63）⇒ 第十六拍**已补回 58 并加到 69 条**。
 
-### 第十七拍（r108 第六层补丁 · 四条 · 2026-10-01 22:2x · 🚫 未提交）
+### 第十七拍（r108 第六层补丁 · 四条 · 2026-10-01 22:2x · ✅ 已随 `172e580` 交付）
 
 > ① **`+` 菜单纳入 `placeRv()` 现场摆位** —— 根因是那句**显式放行** `.td-mod-menu` 的单族守卫
 >（注释还写着「保持它原来的 CSS 落位不动」）⇒ 它一直吃基类写死的 `left: 64px`，而 `+` 的 x 随页签数量浮动。
@@ -343,7 +343,7 @@
 > `task-detail.html` **767836（未动）**、`base.html` **逐字节不变**；`acceptance.md` **三十四节**。
 > 🚫 未 commit / 未 push。
 
-### 第十八拍（r108 第七层补丁 · 四条 · 2026-10-01 22:4x · 🚫 未提交）
+### 第十八拍（r108 第七层补丁 · 四条 · 2026-10-01 22:4x · ✅ 已随 `172e580` 交付）
 
 > ① **预览「在系统打开」拆两枚** —— `[data-td-prev-open]` → `[data-td-prev-save]`（另存为）+ `[data-td-prev-reveal]`（打开所在文件夹），
 > `panel.js` 各挂一条轻提示；实测 `另存为` `[1223,100,69,26]` + `打开所在文件夹` `[1298,100,121,26]`、栏 `[792,93,639,40]`（**栏高仍 40**）。
@@ -364,7 +364,7 @@
 > `task-detail.html` **767836（未动）**、`base.html` **逐字节不变**；`acceptance.md` **三十九节**。
 > 🚫 未 commit / 未 push。
 
-### 第十九拍（r108 第八层补丁 · 两条 · 2026-10-01 22:5x · 🚫 未提交）
+### 第十九拍（r108 第八层补丁 · 两条 · 2026-10-01 22:5x · ✅ 已随 `172e580` 交付）
 
 > ① **整个右栏划词都弹浮条** —— 放行根由 `.r93-scroll` 扩到 **`.closest('.r93-scroll, .td-browse')`**
 >（两者是并列 flex 兄弟、互不包含 ⇒ 不误判；主对话口原能力未动）；真机 CDP **真鼠标**拖选：审查 diff 代码 / 摘要散文 / 文件代码区
@@ -379,4 +379,4 @@
 > ⑤ 判据要跟着事实走（探针选择器先核 DOM：正文是 `.td-browse-body` 而非 `.td-mod-body`）⑥ **「改前对照页」不能沿用上一轮 `bakNN/`**（混合态）⇒ 本代另立 `ev/bak19/`）。
 > **产物**：`panel.js` 69623 → **72191 字符**；`conversation.html` → **1024825 字符**（+2568；对 `HEAD` 累计 **`1234 / 242`** 行；工作区 bytes 1145785 / **8487 行** / LF `sha1_lf 2c1ed815740e`）、
 > `task-detail.html` **767836（未动）**、`base.html` **逐字节不变**；`acceptance.md` **四十四节**。
-> 🚫 未 commit / 未 push。
+> ✅ **已 commit `172e580` 并 push `origin/main`**（2026-10-01 23:1x）；工作区干净。
