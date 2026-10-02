@@ -1,0 +1,126 @@
+----- 第 1 轮 -----
+[patch109l3]
+--- ① 批注原点对齐 + 编辑态「保存」（part109/panel.js）---
+   跳过  ①-1 新增 noteAt（原点）（已应用）
+   跳过  ①-2 noteCtrl 文案收口（编辑态 ⇒ 保存）（已应用）
+   跳过  ①-3 点选监听记下点击点（已应用）
+   跳过  ①-4 气泡左边缘跟原点（已应用）
+   跳过  ①-5 预览：锚点即原点（已应用）
+   跳过  ①-6a noteDrop 加原点形参（已应用）
+   跳过  ①-6b noteDrop 按原点落位（已应用）
+   跳过  ①-7a noteCommit 把原点交给 noteDrop（已应用）
+   跳过  ①-7b noteCommit 收尾清空原点（已应用）
+--- ② 卡片两端对齐（E9）· ③-d 净底锚点（E10）（ev/make109.py 的 EDITS 表）---
+   跳过  ② E9 卡片两端对齐（已应用）
+   跳过  ③-d E10 净底 <html> 锚点属性宽容（已应用）
+--- 上一层判据同步（ev/patch109l2.py）---
+   跳过  l2 noteDrop 判据放宽（el, n[, at]）（已应用）
+   全部存活 ✓
+
+应用 0 项 / 跳过 12 项
+   跳过  ①-1 新增 noteAt（原点）
+   跳过  ①-2 noteCtrl 文案收口（编辑态 ⇒ 保存）
+   跳过  ①-3 点选监听记下点击点
+   跳过  ①-4 气泡左边缘跟原点
+   跳过  ①-5 预览：锚点即原点
+   跳过  ①-6a noteDrop 加原点形参
+   跳过  ①-6b noteDrop 按原点落位
+   跳过  ①-7a noteCommit 把原点交给 noteDrop
+   跳过  ①-7b noteCommit 收尾清空原点
+   跳过  ② E9 卡片两端对齐
+   跳过  ③-d E10 净底 <html> 锚点属性宽容
+   跳过  l2 noteDrop 判据放宽（el, n[, at]）
+[make109]
+   写出 E:\GienCoder\giencoder-design-engineering\mg-work\r109\apply109.py（3676 行 / 192105 字符，10 处替换）
+[apply109]
+   base.html            已是目标态（无改动）
+   conversation.html    已是目标态（无改动）
+[apply-theme]
+=== r109 全站主题块：注入 ===
+   =   automation.html      已是目标态
+   =   avatar.html          已是目标态
+   =   base.html            已是目标态
+   =   conversation.html    已是目标态
+   =   dev.html             已是目标态
+   =   kanban.html          已是目标态
+   =   req-kanban.html      已是目标态
+   =   settings.html        已是目标态
+   =   skills.html          已是目标态
+   =   task-detail.html     已是目标态
+
+   变更 0 页 / 已是目标态 10 页 / 失败 0 页
+[apply-dark]
+=== r109 ③-c 暗色适配层：注入（范围 base / avatar / automation / skills / settings） ===
+   =   base                 已是目标态
+   =   avatar               已是目标态
+   =   automation           已是目标态
+   =   skills               已是目标态
+   =   settings             已是目标态
+
+   ★ 越界清扫（非适配页残留的本块）：conversation（−10951 字符）
+
+   变更 0 页 / 已是目标态 5 页 / 失败 0 页
+quickhash 149403f4de5cda353026b4fe5374b830
+----- 第 2 轮 -----
+[patch109l3]
+--- ① 批注原点对齐 + 编辑态「保存」（part109/panel.js）---
+   跳过  ①-1 新增 noteAt（原点）（已应用）
+   跳过  ①-2 noteCtrl 文案收口（编辑态 ⇒ 保存）（已应用）
+   跳过  ①-3 点选监听记下点击点（已应用）
+   跳过  ①-4 气泡左边缘跟原点（已应用）
+   跳过  ①-5 预览：锚点即原点（已应用）
+   跳过  ①-6a noteDrop 加原点形参（已应用）
+   跳过  ①-6b noteDrop 按原点落位（已应用）
+   跳过  ①-7a noteCommit 把原点交给 noteDrop（已应用）
+   跳过  ①-7b noteCommit 收尾清空原点（已应用）
+--- ② 卡片两端对齐（E9）· ③-d 净底锚点（E10）（ev/make109.py 的 EDITS 表）---
+   跳过  ② E9 卡片两端对齐（已应用）
+   跳过  ③-d E10 净底 <html> 锚点属性宽容（已应用）
+--- 上一层判据同步（ev/patch109l2.py）---
+   跳过  l2 noteDrop 判据放宽（el, n[, at]）（已应用）
+   全部存活 ✓
+
+应用 0 项 / 跳过 12 项
+   跳过  ①-1 新增 noteAt（原点）
+   跳过  ①-2 noteCtrl 文案收口（编辑态 ⇒ 保存）
+   跳过  ①-3 点选监听记下点击点
+   跳过  ①-4 气泡左边缘跟原点
+   跳过  ①-5 预览：锚点即原点
+   跳过  ①-6a noteDrop 加原点形参
+   跳过  ①-6b noteDrop 按原点落位
+   跳过  ①-7a noteCommit 把原点交给 noteDrop
+   跳过  ①-7b noteCommit 收尾清空原点
+   跳过  ② E9 卡片两端对齐
+   跳过  ③-d E10 净底 <html> 锚点属性宽容
+   跳过  l2 noteDrop 判据放宽（el, n[, at]）
+[make109]
+   写出 E:\GienCoder\giencoder-design-engineering\mg-work\r109\apply109.py（3676 行 / 192105 字符，10 处替换）
+[apply109]
+   base.html            已是目标态（无改动）
+   conversation.html    1054348 → 1065299 (+10951)  应用
+[apply-theme]
+=== r109 全站主题块：注入 ===
+   =   automation.html      已是目标态
+   =   avatar.html          已是目标态
+   =   base.html            已是目标态
+   =   conversation.html    已是目标态
+   =   dev.html             已是目标态
+   =   kanban.html          已是目标态
+   =   req-kanban.html      已是目标态
+   =   settings.html        已是目标态
+   =   skills.html          已是目标态
+   =   task-detail.html     已是目标态
+
+   变更 0 页 / 已是目标态 10 页 / 失败 0 页
+[apply-dark]
+=== r109 ③-c 暗色适配层：注入（范围 base / avatar / automation / skills / settings） ===
+   =   base                 已是目标态
+   =   avatar               已是目标态
+   =   automation           已是目标态
+   =   skills               已是目标态
+   =   settings             已是目标态
+
+   ★ 越界清扫（非适配页残留的本块）：conversation（−10951 字符）
+
+   变更 0 页 / 已是目标态 5 页 / 失败 0 页
+quickhash 149403f4de5cda353026b4fe5374b830

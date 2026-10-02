@@ -1,0 +1,15 @@
+==== mgfetch 2026-10-02 08:49:24 ====
+── https://mastergo.com/goto/WwHmYJLe?page_id=1119:15374&layer_id=1409:18319&file=193158744355579&d  (node 1409:18319)
+   ✓ 0.7s → mg-work/r109/raw\node_1409-18319.json (2663 bytes)
+    ↳ asset mg-work/r109/raw\1409-18319__svg_8c76829a.svg (8080 bytes) ← blob 6f431a0b14b4
+   ✓ 通过 asset 兜底拿到 1 件素材
+── https://mastergo.com/goto/WwHpsJ9k?page_id=1119:15374&layer_id=1204:18467&file=193158744355579&d  (node 1204:18467)
+   ✓ 0.5s → mg-work/r109/raw\node_1204-18467.json (4179 bytes)
+    ↳ asset mg-work/r109/raw\1204-18467__svg_64dc6680.svg (1729 bytes) ← blob 17623343182f
+    ↳ asset mg-work/r109/raw\1204-18467__svg_8c76829a.svg (8080 bytes) ← blob 6f431a0b14b4
+   ✓ 通过 asset 兜底拿到 2 件素材
+── https://mastergo.com/goto/WwHvDveh?page_id=1119:15374&layer_id=1409:18332&file=193158744355579&d  (node 1409:18332)
+   ✓ 0.1s → mg-work/r109/raw\node_1409-18332.json (1378 bytes)
+    ↳ asset mg-work/r109/raw\1409-18332__svg_0b56813b.svg (8008 bytes) ← blob 4ab548fdcdc7
+   ✓ 通过 asset 兜底拿到 1 件素材
+结果：3/3 拿到

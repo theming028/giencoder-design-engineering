@@ -1,0 +1,63 @@
+  var prevPane = pane.querySelector('#av-browse-pane-preview');
+  function prevShow(btn) {
+    if (!prevPane) return;
+    var host = btn && btn.closest ? btn.closest('.td-sum-art') : null;
+    var nmEl = host && host.querySelector('.td-sum-artt b');
+    var mtEl = host && host.querySelector('.td-sum-artt i');
+    var ico = host && host.querySelector('.td-sum-arti svg');
+    var name = nmEl ? nmEl.textContent : '产物';
+    var kind = (/\.(xlsx|xls|csv|tsv)$/i).test(name) ? 'xlsx' : 'md';
+    var pn = prevPane.querySelector('[data-td-prev-name]');
+    var pm = prevPane.querySelector('[data-td-prev-meta]');
+    var pi = prevPane.querySelector('[data-td-prev-ico]');
+    if (pn) pn.textContent = name;
+    if (pm) pm.textContent = (mtEl ? mtEl.textContent : '') + ' · 只读预览';
+    if (pi && ico) pi.innerHTML = ico.outerHTML;
+    var bodies = prevPane.querySelectorAll('[data-td-prev-kind]');
+    for (var q = 0; q < bodies.length; q++) {
+      if (bodies[q].getAttribute('data-td-prev-kind') === kind) bodies[q].removeAttribute('hidden');
+      else bodies[q].setAttribute('hidden', '');
+    }
+    /* ⚠ 顺序：**先把内容填好再 `openTab`** —— 后者会 `activate()` 让面板显形，
+       反过来的话会闪一帧「旧文件名 / 旧骨架」。 */
+    openTab('preview', { name: name, ico: ico ? ico.outerHTML : '' });
+  }
+  /* ★ r109 第十二拍 ②：用户上传的本地文件（`.r93-att[data-r93-att-file]`）
+     —— 点卡片开右栏「预览」页签浏览内容。复用上面 `prevShow` 的**同一套**骨架切换与文案填充，
+     只是数据源换成卡片自己的 `data-r93-att-file`（文件名），不依赖 `.td-sum-art` 那棵子树。
+     ⚠ 附件卡在 `<main>` 里、右栏在 `#av-browse-slot` 里，两者不同子树 ⇒ 委托挂 document。 */
+  (function () {
+    var SIZE_BY_EXT = { xlsx: '表格 · 34 KB', xls: '表格 · 34 KB', csv: '表格 · 8 KB',
+                        md: 'Markdown · 12 KB' };
+    function attShow(el) {
+      if (!prevPane) return;
+      var name = el.getAttribute('data-r93-att-file') || '文件';
+      var ext = (name.split('.').pop() || '').toLowerCase();
+      var kind = (/^(xlsx|xls|csv|tsv)$/).test(ext) ? 'xlsx' : 'md';
+      var ico = el.querySelector('.r93-iblk svg');
+      var pn = prevPane.querySelector('[data-td-prev-name]');
+      var pm = prevPane.querySelector('[data-td-prev-meta]');
+      var pi = prevPane.querySelector('[data-td-prev-ico]');
+      if (pn) pn.textContent = name;
+      if (pm) pm.textContent = (SIZE_BY_EXT[ext] || '文件') + ' · 只读预览';
+      if (pi && ico) pi.innerHTML = ico.outerHTML;
+      var bodies = prevPane.querySelectorAll('[data-td-prev-kind]');
+      for (var q = 0; q < bodies.length; q++) {
+        if (bodies[q].getAttribute('data-td-prev-kind') === kind) bodies[q].removeAttribute('hidden');
+        else bodies[q].setAttribute('hidden', '');
+      }
+      /* ⚠ 与 `prevShow` 同序：**先填内容再 `openTab`**，否则闪一帧旧文件名。 */
+      openTab('preview', { name: name, ico: ico ? ico.outerHTML : '' });
+    }
+    document.addEventListener('click', function (ev) {
+      var el = ev.target && ev.target.closest ? ev.target.closest('[data-r93-att-file]') : null;
+      if (el) attShow(el);
+    });
+    document.addEventListener('keydown', function (ev) {
+      if (ev.key !== 'Enter' && ev.key !== ' ') return;
+      var el = ev.target && ev.target.closest ? ev.target.closest('[data-r93-att-file]') : null;
+      if (!el) return;
+      ev.preventDefault();
+      attShow(el);
+    });
+  })();

@@ -1,0 +1,12 @@
+[
+  {
+    "bg": "rgb(23, 23, 26)",
+    "bi": "linear-gradient(to right, rgb(23, 23, 26) 0px, rgb(23, 23, 26) 77%, rgba(0, 0, 0, 0) 77%), radial-gradient(circle, rgb(43, 43, 43) 2px, rgba(0, 0, 0, 0) 2px)",
+    "bsize": "100% 100%, 8px 8px",
+    "cls": "flex h-12 shrink-0 items-center justify-between px-4 bg-[var",
+    "h": 48,
+    "w": 1440,
+    "x": 0,
+    "y": 0
+  }
+]

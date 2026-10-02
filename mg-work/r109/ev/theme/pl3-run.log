@@ -1,0 +1,41 @@
+=== r109 第三拍 ①② 真机取证 ===
+【预备】目标块 = td-page-card
+        isAnnotating=True  已有锚点=0
+        targetBox={"l": 824, "t": 326.58, "w": 181.66, "h": 95.5}
+        目标块中心 = {"x": 915, "y": 374}
+        ★ 真实点击点 = {"x": 880, "y": 349}   （= 目标块左起 56 / 上起 22）
+
+【① 唯一原点（提交前 · 只有气泡）】
+        anchorCount=0  elnoteHidden=False
+        真实点击点(视口) = {"x": 880, "y": 349}
+        真实点击点(内容坐标) = {"x": 88, "y": 216}
+        气泡(内容坐标) l=88 t=297  尺寸 356x48  css left=88px
+        ★ 气泡左 − 点击点 = 0   （期望 ≈ 0：气泡**左边缘**钉在点击点上）
+        新增态按钮 = 「添加」 / 「取消」(display=none)  hint display=none  pin=(is-done=False)
+        占位符 = '输入你的注释'
+
+【① 提交】提交前 okText=「添加」  提交前锚点数=0
+        提交后锚点数=1  elnoteHidden=True  left/top=76px/204px
+        锚点中心(视口) = {"x": 880, "y": 349}
+
+【① 编辑态（真鼠标点开已存在锚点）】
+        elnoteHidden=False  按钮 = 「保存」 / cancel display=flex
+        pin=1 is-done=True okDisabled=False  taValue='第三拍①验证：在哪里点击，就在哪里落锚点、气泡也钉在那个点上。'
+        气泡顶 − 锚点底 = 8   气泡左 − 锚点左 = 0   锚点数=1
+
+【② 卡片两端对齐】
+        {"cls": "r93-card r93-card--ctx", "box": {"l": 45, "t": 421, "w": 714, "h": 150}, "parentBox": {"l": 45, "t": 421, "w": 714, "h": 0}, "parentCls": "r93-fb", "parentPad": [0, 0], "marginLeft": "0px", "marginRight": "0px", "width": "714px", "dLeft": 0, "dRight": 0, "isEdge": false}
+        r93-card 全量 dLeft/marginLeft 抽查：
+          dLeft=0        ml=0px      r93-card r93-card--ctx
+          dLeft=0        ml=0px      r93-card
+          dLeft=0        ml=0px      r93-card r93-card--edge
+          dLeft=0        ml=0px      r93-card
+          dLeft=0        ml=0px      r93-card r93-card--quiz
+          dLeft=0        ml=0px      r93-card r93-card--edge
+          dLeft=0        ml=0px      r93-card
+          dLeft=0        ml=0px      r93-card r93-card--edge
+          dLeft=0        ml=0px      r93-card
+          dLeft=0        ml=0px      r93-card r93-card--edge
+          dLeft=0        ml=0px      r93-card
+          dLeft=0        ml=0px      r93-card
+=== 完成 ===

@@ -1,0 +1,10 @@
+base         逐字节同=True  规范化后同=True   CRLF=0 LF=21
+avatar       逐字节同=True  规范化后同=True   CRLF=0 LF=21
+automation   逐字节同=True  规范化后同=True   CRLF=0 LF=21
+skills       逐字节同=True  规范化后同=True   CRLF=0 LF=21
+settings     逐字节同=True  规范化后同=True   CRLF=0 LF=21
+conversation 逐字节同=True  规范化后同=True   CRLF=0 LF=21
+dev          逐字节同=True  规范化后同=True   CRLF=0 LF=21
+kanban       逐字节同=True  规范化后同=True   CRLF=0 LF=21
+req-kanban   逐字节同=True  规范化后同=True   CRLF=0 LF=21
+task-detail  逐字节同=True  规范化后同=True   CRLF=0 LF=21

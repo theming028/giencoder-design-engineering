@@ -21,3 +21,10 @@ mg-work/r80/raw/sel_*.json
 
 # 门禁临时工作副本（页面可从 pages/ 或 git 复原；只保留 gate/*.txt 报告）
 mg-work/*/gate/*/pages/
+
+# agent-browser 运行时 Chromium 缓存（实测垃圾，每轮自动重建，勿入库）
+agent-browser-chrome-*/
+
+# 分轮中间产物（探针日志 + 逐层中间页面副本，复跑即重建，无回滚价值）
+mg-work/**/theme/tmp/
+mg-work/**/ev/tmp/

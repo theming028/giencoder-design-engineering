@@ -1,0 +1,22 @@
+{
+  "blockIdx": 6,
+  "bodyTheme": "(none)",
+  "hasBlock": true,
+  "sample": {
+    "bc": "rgb(242, 242, 242)",
+    "bw": "1px",
+    "cls": "min-w-0 flex-1 h-full overflow-hidden rounded-lg b"
+  },
+  "styleCount": 14,
+  "theme": "(none)",
+  "v": {
+    "--color-bg-1": "#fff",
+    "--color-border-1": "rgb(242, 242, 242)",
+    "--color-border-2": "rgb(229, 229, 229)",
+    "--color-border-3": "rgb(201, 201, 201)",
+    "--gray-1": "247, 247, 247",
+    "--gray-2": "242, 242, 242",
+    "--gray-3": "229, 229, 229",
+    "--gray-4": "201, 201, 201"
+  }
+}

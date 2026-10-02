@@ -1,0 +1,29 @@
+{
+  "dotBgEls": [
+    {
+      "bgColor": "rgb(255, 255, 255)",
+      "bgSize": "20px 20px",
+      "bgi": "none",
+      "cls": "min-w-0 flex-1 h-full overflow-hidden rounded-lg border bg-white dot-bg border-[var(--color-border-1)]",
+      "h": 844,
+      "tag": "MAIN",
+      "w": 1164,
+      "x": 268,
+      "y": 48
+    }
+  ],
+  "main": {
+    "bgColor": "rgb(255, 255, 255)",
+    "bgSize": "20px 20px",
+    "bgi": "none",
+    "cls": "min-w-0 flex-1 h-full overflow-hidden rounded-lg border bg-white dot-bg border-[var(--color-border-1)]",
+    "h": 844,
+    "tag": "MAIN",
+    "w": 1164,
+    "x": 268,
+    "y": 48
+  },
+  "page": "settings.html",
+  "radialEls": [],
+  "theme": "1"
+}

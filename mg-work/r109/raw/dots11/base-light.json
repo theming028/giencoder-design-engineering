@@ -1,0 +1,40 @@
+{
+  "dotBgEls": [
+    {
+      "bgColor": "rgb(255, 255, 255)",
+      "bgSize": "16px 16px",
+      "bgi": "radial-gradient(circle, rgba(107, 107, 107, 0.1) 1.5px, rgba(0, 0, 0, 0) 1.5px)",
+      "cls": "min-w-0 flex-1 h-full overflow-hidden rounded-lg border bg-white dot-bg border-[var(--color-border-1)]",
+      "h": 844,
+      "tag": "MAIN",
+      "w": 1164,
+      "x": 268,
+      "y": 48
+    }
+  ],
+  "main": {
+    "bgColor": "rgb(255, 255, 255)",
+    "bgSize": "16px 16px",
+    "bgi": "radial-gradient(circle, rgba(107, 107, 107, 0.1) 1.5px, rgba(0, 0, 0, 0) 1.5px)",
+    "cls": "min-w-0 flex-1 h-full overflow-hidden rounded-lg border bg-white dot-bg border-[var(--color-border-1)]",
+    "h": 844,
+    "tag": "MAIN",
+    "w": 1164,
+    "x": 268,
+    "y": 48
+  },
+  "page": "base.html",
+  "radialEls": [
+    {
+      "bgi": "radial-gradient(circle, rgba(107, 107, 107, 0.1) 1.5px, rgba(0, 0, 0, 0) 1.5px)",
+      "cls": "min-w-0 flex-1 h-full overflow-hidden rounded-lg border bg-white dot-bg border-[var(--color-border-1)]",
+      "h": 844,
+      "tag": "MAIN",
+      "visible": true,
+      "w": 1164,
+      "x": 268,
+      "y": 48
+    }
+  ],
+  "theme": "1"
+}

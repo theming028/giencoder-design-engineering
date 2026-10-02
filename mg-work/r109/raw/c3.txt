@@ -1,0 +1,13 @@
+=== r109 ③-c 暗色适配层：注入（范围 base / avatar / automation / skills / settings / conversation / dev / kanban / req-kanban / task-detail） ===
+   =   base                 已是目标态
+   =   avatar               已是目标态
+   =   automation           已是目标态
+   =   skills               已是目标态
+   =   settings             已是目标态
+   √ conversation         1071863 → 1071880（+17 字符）（已有旧块，先剥后插）
+   =   dev                  已是目标态
+   =   kanban               已是目标态
+   =   req-kanban           已是目标态
+   =   task-detail          已是目标态
+
+   变更 1 页 / 已是目标态 9 页 / 失败 0 页

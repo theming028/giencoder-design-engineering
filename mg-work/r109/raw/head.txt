@@ -1,0 +1,101 @@
+======================================================================
+base   </head> @ [435533, 450140]   文件长度 493342
+   @435533   注释内=True
+       "三拍曾带 `:not([data-r93-page])` 把 conversation.html 排除（那一拍只做 5 页）；\n       本拍**去掉** —— 全 10 页纳入。各页自带的页面级暗色档（见每页自己的\n       `[giencoder-theme='dark']` 规则）也从这一刻起真正生效。\n     ★ 浅色档一条都不生效 ⇒ 浅色零风险。\n     ⚠ 本块注入在 `</head>` 前，而页面自定义的几块样式、以及第 92 "
+   @450140   注释内=False
+       '     缺了它「新会话」按钮会失去 hover 底色。\n     ⚠ 本块**两档都生效**（无 theme 前缀），故紧接暗色层之后 —— 与暗色层同特异性时由后者胜。 */\n  .hover\\:\\!bg-\\[var\\(--color-fill-2\\)\\]:hover { background-color: var(--color-fill-2) !important; }\n</style>\n</head>\n  <body>\n    <div id="'
+   <body 首个位置 = 450150
+   已有块: r109-theme-css   @430251
+   已有块: r109-dark-css    @435075
+   已有块: r109-tw-css      @449643
+======================================================================
+avatar   </head> @ [336166, 350773]   文件长度 588408
+   @336166   注释内=True
+       "三拍曾带 `:not([data-r93-page])` 把 conversation.html 排除（那一拍只做 5 页）；\n       本拍**去掉** —— 全 10 页纳入。各页自带的页面级暗色档（见每页自己的\n       `[giencoder-theme='dark']` 规则）也从这一刻起真正生效。\n     ★ 浅色档一条都不生效 ⇒ 浅色零风险。\n     ⚠ 本块注入在 `</head>` 前，而页面自定义的几块样式、以及第 92 "
+   @350773   注释内=False
+       '     缺了它「新会话」按钮会失去 hover 底色。\n     ⚠ 本块**两档都生效**（无 theme 前缀），故紧接暗色层之后 —— 与暗色层同特异性时由后者胜。 */\n  .hover\\:\\!bg-\\[var\\(--color-fill-2\\)\\]:hover { background-color: var(--color-fill-2) !important; }\n</style>\n</head>\n  <body>\n    <div id="'
+   <body 首个位置 = 350783
+   已有块: r109-theme-css   @330884
+   已有块: r109-dark-css    @335708
+   已有块: r109-tw-css      @350276
+======================================================================
+automation   </head> @ [337910, 352517]   文件长度 381648
+   @337910   注释内=True
+       "三拍曾带 `:not([data-r93-page])` 把 conversation.html 排除（那一拍只做 5 页）；\n       本拍**去掉** —— 全 10 页纳入。各页自带的页面级暗色档（见每页自己的\n       `[giencoder-theme='dark']` 规则）也从这一刻起真正生效。\n     ★ 浅色档一条都不生效 ⇒ 浅色零风险。\n     ⚠ 本块注入在 `</head>` 前，而页面自定义的几块样式、以及第 92 "
+   @352517   注释内=False
+       '     缺了它「新会话」按钮会失去 hover 底色。\n     ⚠ 本块**两档都生效**（无 theme 前缀），故紧接暗色层之后 —— 与暗色层同特异性时由后者胜。 */\n  .hover\\:\\!bg-\\[var\\(--color-fill-2\\)\\]:hover { background-color: var(--color-fill-2) !important; }\n</style>\n</head>\n  <body>\n    <div id="'
+   <body 首个位置 = 352527
+   已有块: r109-theme-css   @332628
+   已有块: r109-dark-css    @337452
+   已有块: r109-tw-css      @352020
+======================================================================
+skills   </head> @ [337797, 352404]   文件长度 381535
+   @337797   注释内=True
+       "三拍曾带 `:not([data-r93-page])` 把 conversation.html 排除（那一拍只做 5 页）；\n       本拍**去掉** —— 全 10 页纳入。各页自带的页面级暗色档（见每页自己的\n       `[giencoder-theme='dark']` 规则）也从这一刻起真正生效。\n     ★ 浅色档一条都不生效 ⇒ 浅色零风险。\n     ⚠ 本块注入在 `</head>` 前，而页面自定义的几块样式、以及第 92 "
+   @352404   注释内=False
+       '     缺了它「新会话」按钮会失去 hover 底色。\n     ⚠ 本块**两档都生效**（无 theme 前缀），故紧接暗色层之后 —— 与暗色层同特异性时由后者胜。 */\n  .hover\\:\\!bg-\\[var\\(--color-fill-2\\)\\]:hover { background-color: var(--color-fill-2) !important; }\n</style>\n</head>\n  <body>\n    <div id="'
+   <body 首个位置 = 352414
+   已有块: r109-theme-css   @332515
+   已有块: r109-dark-css    @337339
+   已有块: r109-tw-css      @351907
+======================================================================
+settings   </head> @ [338046, 352653]   文件长度 479196
+   @338046   注释内=True
+       "三拍曾带 `:not([data-r93-page])` 把 conversation.html 排除（那一拍只做 5 页）；\n       本拍**去掉** —— 全 10 页纳入。各页自带的页面级暗色档（见每页自己的\n       `[giencoder-theme='dark']` 规则）也从这一刻起真正生效。\n     ★ 浅色档一条都不生效 ⇒ 浅色零风险。\n     ⚠ 本块注入在 `</head>` 前，而页面自定义的几块样式、以及第 92 "
+   @352653   注释内=False
+       '     缺了它「新会话」按钮会失去 hover 底色。\n     ⚠ 本块**两档都生效**（无 theme 前缀），故紧接暗色层之后 —— 与暗色层同特异性时由后者胜。 */\n  .hover\\:\\!bg-\\[var\\(--color-fill-2\\)\\]:hover { background-color: var(--color-fill-2) !important; }\n</style>\n</head>\n  <body>\n    <div id="'
+   <body 首个位置 = 352663
+   已有块: r109-theme-css   @332764
+   已有块: r109-dark-css    @337588
+   已有块: r109-tw-css      @352156
+======================================================================
+conversation   </head> @ [435567, 450174]   文件长度 1071618
+   @435567   注释内=True
+       "三拍曾带 `:not([data-r93-page])` 把 conversation.html 排除（那一拍只做 5 页）；\n       本拍**去掉** —— 全 10 页纳入。各页自带的页面级暗色档（见每页自己的\n       `[giencoder-theme='dark']` 规则）也从这一刻起真正生效。\n     ★ 浅色档一条都不生效 ⇒ 浅色零风险。\n     ⚠ 本块注入在 `</head>` 前，而页面自定义的几块样式、以及第 92 "
+   @450174   注释内=False
+       '     缺了它「新会话」按钮会失去 hover 底色。\n     ⚠ 本块**两档都生效**（无 theme 前缀），故紧接暗色层之后 —— 与暗色层同特异性时由后者胜。 */\n  .hover\\:\\!bg-\\[var\\(--color-fill-2\\)\\]:hover { background-color: var(--color-fill-2) !important; }\n</style>\n</head>\n  <body>\n    <div id="'
+   <body 首个位置 = 450184
+   已有块: r109-theme-css   @430285
+   已有块: r109-dark-css    @435109
+   已有块: r109-tw-css      @449677
+   已有块: r109-conv-css    @492646
+======================================================================
+dev   </head> @ [337254, 351861]   文件长度 470389
+   @337254   注释内=True
+       "三拍曾带 `:not([data-r93-page])` 把 conversation.html 排除（那一拍只做 5 页）；\n       本拍**去掉** —— 全 10 页纳入。各页自带的页面级暗色档（见每页自己的\n       `[giencoder-theme='dark']` 规则）也从这一刻起真正生效。\n     ★ 浅色档一条都不生效 ⇒ 浅色零风险。\n     ⚠ 本块注入在 `</head>` 前，而页面自定义的几块样式、以及第 92 "
+   @351861   注释内=False
+       '     缺了它「新会话」按钮会失去 hover 底色。\n     ⚠ 本块**两档都生效**（无 theme 前缀），故紧接暗色层之后 —— 与暗色层同特异性时由后者胜。 */\n  .hover\\:\\!bg-\\[var\\(--color-fill-2\\)\\]:hover { background-color: var(--color-fill-2) !important; }\n</style>\n</head>\n  <body>\n    <div id="'
+   <body 首个位置 = 351871
+   已有块: r109-theme-css   @331972
+   已有块: r109-dark-css    @336796
+   已有块: r109-tw-css      @351364
+======================================================================
+kanban   </head> @ [337620, 352227]   文件长度 588636
+   @337620   注释内=True
+       "三拍曾带 `:not([data-r93-page])` 把 conversation.html 排除（那一拍只做 5 页）；\n       本拍**去掉** —— 全 10 页纳入。各页自带的页面级暗色档（见每页自己的\n       `[giencoder-theme='dark']` 规则）也从这一刻起真正生效。\n     ★ 浅色档一条都不生效 ⇒ 浅色零风险。\n     ⚠ 本块注入在 `</head>` 前，而页面自定义的几块样式、以及第 92 "
+   @352227   注释内=False
+       '     缺了它「新会话」按钮会失去 hover 底色。\n     ⚠ 本块**两档都生效**（无 theme 前缀），故紧接暗色层之后 —— 与暗色层同特异性时由后者胜。 */\n  .hover\\:\\!bg-\\[var\\(--color-fill-2\\)\\]:hover { background-color: var(--color-fill-2) !important; }\n</style>\n</head>\n  <body>\n    <div id="'
+   <body 首个位置 = 352237
+   已有块: r109-theme-css   @332338
+   已有块: r109-dark-css    @337162
+   已有块: r109-tw-css      @351730
+======================================================================
+req-kanban   </head> @ [337671, 352278]   文件长度 534432
+   @337671   注释内=True
+       "三拍曾带 `:not([data-r93-page])` 把 conversation.html 排除（那一拍只做 5 页）；\n       本拍**去掉** —— 全 10 页纳入。各页自带的页面级暗色档（见每页自己的\n       `[giencoder-theme='dark']` 规则）也从这一刻起真正生效。\n     ★ 浅色档一条都不生效 ⇒ 浅色零风险。\n     ⚠ 本块注入在 `</head>` 前，而页面自定义的几块样式、以及第 92 "
+   @352278   注释内=False
+       '     缺了它「新会话」按钮会失去 hover 底色。\n     ⚠ 本块**两档都生效**（无 theme 前缀），故紧接暗色层之后 —— 与暗色层同特异性时由后者胜。 */\n  .hover\\:\\!bg-\\[var\\(--color-fill-2\\)\\]:hover { background-color: var(--color-fill-2) !important; }\n</style>\n</head>\n  <body>\n    <div id="'
+   <body 首个位置 = 352288
+   已有块: r109-theme-css   @332389
+   已有块: r109-dark-css    @337213
+   已有块: r109-tw-css      @351781
+======================================================================
+task-detail   </head> @ [337589, 352196]   文件长度 788436
+   @337589   注释内=True
+       "三拍曾带 `:not([data-r93-page])` 把 conversation.html 排除（那一拍只做 5 页）；\n       本拍**去掉** —— 全 10 页纳入。各页自带的页面级暗色档（见每页自己的\n       `[giencoder-theme='dark']` 规则）也从这一刻起真正生效。\n     ★ 浅色档一条都不生效 ⇒ 浅色零风险。\n     ⚠ 本块注入在 `</head>` 前，而页面自定义的几块样式、以及第 92 "
+   @352196   注释内=False
+       '     缺了它「新会话」按钮会失去 hover 底色。\n     ⚠ 本块**两档都生效**（无 theme 前缀），故紧接暗色层之后 —— 与暗色层同特异性时由后者胜。 */\n  .hover\\:\\!bg-\\[var\\(--color-fill-2\\)\\]:hover { background-color: var(--color-fill-2) !important; }\n</style>\n</head>\n  <body>\n    <div id="'
+   <body 首个位置 = 352206
+   已有块: r109-theme-css   @332307
+   已有块: r109-dark-css    @337131
+   已有块: r109-tw-css      @351699

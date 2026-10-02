@@ -1,0 +1,56 @@
+=== 波点/点阵背景普查（10 页）===
+
+  base           可疑声明 9 条
+       …d-image：点阵在最上层，其下 4 个大半径软色团互相叠合形成弥散色雾；    全部取 Token 三元组（--giencoderblue/--purple/--cyan/--pinkpurple），不硬编码色值 */ .dot-bg{background-image:radial-gradient(circle, rgba(var(--gray-7), 0.1) 1.5
+       …circle, rgba(var(--gray-7), 0.1) 1.5px, transparent 1.5px);background-size:20px 20px;} [giencoder-theme='dark'] .dot-bg{background-image:radial-gradient(circle, rgba(var(--gray-7), 0.1) 1.5
+       …深色点阵与旧版浅点阵逐点重合，只是"被照亮"。 */ .dot-bg::before {   content: '';   position: absolute;   inset: 0;   pointer-events: none;   background-image: radial-gradient(circle, rgba(var(--gray-8), 0.22) 1
+       …口 70%        ⇒ 点阵区起点 ≈ 视口 77%，左侧 77% 用同色实心层盖住（第 1 层在最上面）。 */   html[giencoder-theme='dark'] header[class*="h-12"] {     background-image:       linear-gradient(to right,         var(--color
+       …ial-value: 0px;   }   .r74-ripple {     position: absolute;     inset: 0;     z-index: 0;     pointer-events: none;     background-image: radial-gradient(circle, rgba(var(--gray-8), 0.42) 1
+       …           两分支的系数与偏移各自单调递增 ⇒ 6 个 stop 位置必单调不降，CSS 合法。 */   .r74-ripple {     z-index: 10;     --r76-rip-cap: 480px;     background-image: radial-gradient(circle, rgba(var(--gray-9), 0.62) 1
+       …x 收 1.7px（环更细一点，更像水面），环带形态         （第 76 轮那套 max(比例, 固定值) 的整流 mask）与 300ms 时长不动。 */   .r74-ripple {     z-index: 0;     background-image: radial-gradient(circle, rgba(var(--gray-9), 0.28) 1
+       … 落点必须在 </body> 前（第 77 轮块之后）：同为 .r74-ripple（特异性 0-1-0），         只能靠文档顺序取胜 —— 与第 77 轮压回第 76 轮同一机制。 */   .r74-ripple {     background-image: radial-gradient(circle, rgba(var(--gray-9), 0.14) 1
+       类名词频：dot-bg×17, dot-x×5, dot-y×5, dot×4, dotted×3, dot-wrapper×3
+  avatar         可疑声明 2 条
+       …口 70%        ⇒ 点阵区起点 ≈ 视口 77%，左侧 77% 用同色实心层盖住（第 1 层在最上面）。 */   html[giencoder-theme='dark'] header[class*="h-12"] {     background-image:       linear-gradient(to right,         var(--color
+       …：原尺寸铺满 1440 宽时图片        覆盖整条顶栏（差值不可辨）；视口比 1580 更宽时图片右对齐，左端会出现一条        Δ≈3 的接缝（近乎不可见）。 */   header[class*="h-12"] {     background-image: url("../assets/images/bg-img-1.png");     backgroun
+       类名词频：dot×4, dotted×3, dot-wrapper×3, dot-success×2, dot-warning×2, dot-gray×2
+  automation     可疑声明 2 条
+       …口 70%        ⇒ 点阵区起点 ≈ 视口 77%，左侧 77% 用同色实心层盖住（第 1 层在最上面）。 */   html[giencoder-theme='dark'] header[class*="h-12"] {     background-image:       linear-gradient(to right,         var(--color
+       …：原尺寸铺满 1440 宽时图片        覆盖整条顶栏（差值不可辨）；视口比 1580 更宽时图片右对齐，左端会出现一条        Δ≈3 的接缝（近乎不可见）。 */   header[class*="h-12"] {     background-image: url("../assets/images/bg-img-1.png");     backgroun
+       类名词频：dot×4, dotted×3, dot-wrapper×3, dot-success×2, dot-warning×2, dot-gray×2
+  skills         可疑声明 2 条
+       …口 70%        ⇒ 点阵区起点 ≈ 视口 77%，左侧 77% 用同色实心层盖住（第 1 层在最上面）。 */   html[giencoder-theme='dark'] header[class*="h-12"] {     background-image:       linear-gradient(to right,         var(--color
+       …：原尺寸铺满 1440 宽时图片        覆盖整条顶栏（差值不可辨）；视口比 1580 更宽时图片右对齐，左端会出现一条        Δ≈3 的接缝（近乎不可见）。 */   header[class*="h-12"] {     background-image: url("../assets/images/bg-img-1.png");     backgroun
+       类名词频：dot×4, dotted×3, dot-wrapper×3, dot-success×2, dot-warning×2, dot-gray×2
+  settings       可疑声明 3 条
+       …lor Emoji", "Segoe UI Emoji";color:var(--color-text-1)} .skills-popup-btn:hover{background:var(--color-fill-2)} .dot-bg{background-image:radial-gradient(circle, rgba(var(--gray-7), 0.1) 1.5
+       …口 70%        ⇒ 点阵区起点 ≈ 视口 77%，左侧 77% 用同色实心层盖住（第 1 层在最上面）。 */   html[giencoder-theme='dark'] header[class*="h-12"] {     background-image:       linear-gradient(to right,         var(--color
+       …：原尺寸铺满 1440 宽时图片        覆盖整条顶栏（差值不可辨）；视口比 1580 更宽时图片右对齐，左端会出现一条        Δ≈3 的接缝（近乎不可见）。 */   header[class*="h-12"] {     background-image: url("../assets/images/bg-img-1.png");     backgroun
+       类名词频：dot×9, dotted×3, dot-wrapper×3, dot-bg×2, dot-success×2, dot-warning×2
+  conversation   可疑声明 9 条
+       …d-image：点阵在最上层，其下 4 个大半径软色团互相叠合形成弥散色雾；    全部取 Token 三元组（--giencoderblue/--purple/--cyan/--pinkpurple），不硬编码色值 */ .dot-bg{background-image:radial-gradient(circle, rgba(var(--gray-7), 0.1) 1.5
+       …circle, rgba(var(--gray-7), 0.1) 1.5px, transparent 1.5px);background-size:20px 20px;} [giencoder-theme='dark'] .dot-bg{background-image:radial-gradient(circle, rgba(var(--gray-7), 0.1) 1.5
+       …深色点阵与旧版浅点阵逐点重合，只是"被照亮"。 */ .dot-bg::before {   content: '';   position: absolute;   inset: 0;   pointer-events: none;   background-image: radial-gradient(circle, rgba(var(--gray-8), 0.22) 1
+       …口 70%        ⇒ 点阵区起点 ≈ 视口 77%，左侧 77% 用同色实心层盖住（第 1 层在最上面）。 */   html[giencoder-theme='dark'] header[class*="h-12"] {     background-image:       linear-gradient(to right,         var(--color
+       …ial-value: 0px;   }   .r74-ripple {     position: absolute;     inset: 0;     z-index: 0;     pointer-events: none;     background-image: radial-gradient(circle, rgba(var(--gray-8), 0.42) 1
+       …           两分支的系数与偏移各自单调递增 ⇒ 6 个 stop 位置必单调不降，CSS 合法。 */   .r74-ripple {     z-index: 10;     --r76-rip-cap: 480px;     background-image: radial-gradient(circle, rgba(var(--gray-9), 0.62) 1
+       …x 收 1.7px（环更细一点，更像水面），环带形态         （第 76 轮那套 max(比例, 固定值) 的整流 mask）与 300ms 时长不动。 */   .r74-ripple {     z-index: 0;     background-image: radial-gradient(circle, rgba(var(--gray-9), 0.28) 1
+       … 落点必须在 </body> 前（第 77 轮块之后）：同为 .r74-ripple（特异性 0-1-0），         只能靠文档顺序取胜 —— 与第 77 轮压回第 76 轮同一机制。 */   .r74-ripple {     background-image: radial-gradient(circle, rgba(var(--gray-9), 0.14) 1
+       类名词频：dot-bg×23, dot×9, dot4×9, dot-x×5, dot-y×5, dot6×5
+  dev            可疑声明 2 条
+       …lor Emoji", "Segoe UI Emoji";color:var(--color-text-1)} .skills-popup-btn:hover{background:var(--color-fill-2)} .dot-bg{background-image:radial-gradient(circle, rgba(var(--gray-7), 0.1) 1.5
+       …口 70%        ⇒ 点阵区起点 ≈ 视口 77%，左侧 77% 用同色实心层盖住（第 1 层在最上面）。 */   html[giencoder-theme='dark'] header[class*="h-12"] {     background-image:       linear-gradient(to right,         var(--color
+       类名词频：dot×4, dotted×3, dot-wrapper×3, dot-bg×2, dot-success×2, dot-warning×2
+  kanban         可疑声明 2 条
+       …lor Emoji", "Segoe UI Emoji";color:var(--color-text-1)} .skills-popup-btn:hover{background:var(--color-fill-2)} .dot-bg{background-image:radial-gradient(circle, rgba(var(--gray-7), 0.1) 1.5
+       …口 70%        ⇒ 点阵区起点 ≈ 视口 77%，左侧 77% 用同色实心层盖住（第 1 层在最上面）。 */   html[giencoder-theme='dark'] header[class*="h-12"] {     background-image:       linear-gradient(to right,         var(--color
+       类名词频：dot×8, dotted×3, dot-wrapper×3, dot-bg×2, dot-success×2, dot-warning×2
+  req-kanban     可疑声明 3 条
+       …lor Emoji", "Segoe UI Emoji";color:var(--color-text-1)} .skills-popup-btn:hover{background:var(--color-fill-2)} .dot-bg{background-image:radial-gradient(circle, rgba(var(--gray-7), 0.1) 1.5
+       …口 70%        ⇒ 点阵区起点 ≈ 视口 77%，左侧 77% 用同色实心层盖住（第 1 层在最上面）。 */   html[giencoder-theme='dark'] header[class*="h-12"] {     background-image:       linear-gradient(to right,         var(--color
+       …ss=\"rq-stats\">", "          <div class=\"rq-stat rq-stat--todo\">", "            <span class=\"rq-stat-tile\" style=\"background: var(--color-fill-1)\"><svg xmlns=\"http://www.w3.org/2000
+       类名词频：dot×4, dotted×3, dot-wrapper×3, dot-bg×2, dot-success×2, dot-warning×2
+  task-detail    可疑声明 2 条
+       …lor Emoji", "Segoe UI Emoji";color:var(--color-text-1)} .skills-popup-btn:hover{background:var(--color-fill-2)} .dot-bg{background-image:radial-gradient(circle, rgba(var(--gray-7), 0.1) 1.5
+       …口 70%        ⇒ 点阵区起点 ≈ 视口 77%，左侧 77% 用同色实心层盖住（第 1 层在最上面）。 */   html[giencoder-theme='dark'] header[class*="h-12"] {     background-image:       linear-gradient(to right,         var(--color
+       类名词频：dot×8, dotted×3, dot-wrapper×3, dot-bg×2, dot-success×2, dot-warning×2

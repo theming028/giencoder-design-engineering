@@ -35,7 +35,7 @@ pages/
 | `kanban.html` | 任务看板 | 「待办 / 进行中 / 待确认 / 已完成」四泳道、卡片 hover 出现「执行 / 转派」、创建任务弹窗、看板协作弹窗、日期选择器 |
 | `req-kanban.html` | 需求看板 | 需求拆分任务卡（拆分需求项 / 条目 / 子条目三级标签）、与任务看板同一套卡片与弹窗 |
 | `task-detail.html` | 任务详情 | 左栏任务描述（可折叠）+ 任务属性 / 任务动态 / 创建者卡，右栏 AI 会话（含全屏、折叠、左右栏拖动互换、栏宽记忆），编辑任务弹窗复用看板创建弹窗 |
-| `conversation.html` | 会话详情 | 「对话 / 轨迹」双页签（切换带**滑块滑动动效**）、工具调用层级树（可逐级开合）、消息折叠、右键菜单（12 项）、标题栏右侧**全屏**与**文件预览侧栏**（文件树 + 代码预览 + 可拖分栏条）两枚按钮；顶栏毛玻璃、骨架屏、暗色全量适配 |
+| `conversation.html` | 会话详情 | 「对话 / 轨迹」双页签（切换带**滑块滑动动效**）、工具调用层级树（可逐级开合）、消息折叠、右键菜单（12 项）、标题栏右侧**全屏**与**文件预览侧栏**（文件树 + 代码预览 + 可拖分栏条）两枚按钮；顶栏毛玻璃、骨架屏、暗色全量适配；右栏**多页签浏览器**（摘要 / 终端 / 浏览器 / 预览四模块 + 批注锚点），**一个文件一枚独立页签** |
 
 ## 打开方式
 
@@ -104,6 +104,17 @@ python mg-work/kanban/r13/check-syntax.py pages/<page>.html   # 按 <script> 配
 python mg-work/r30/check-classes.py    pages/<page>.html      # 类名 × 契约 anatomy 差集 → ALL_OK
 ```
 
+## 项目铁律（standing rules · 最高优先级）
+
+> 跨轮永久有效。任何一轮开工前先读一遍；与「本轮需求」冲突时**以铁律为准**并当场确认。
+
+1. **只动该动的地方** —— 绝对不得改动其他不必涉及的模块；确保整体产品稳定性不被破坏；仅落地静态交互。
+2. **色值一律走 DS 变量** —— 除特别声明外，全局界面色值一律使用 giencoder 设计系统已有的色彩变量，**不得写死绝对色值**（前提：不影响已正确的浅色模式）。
+3. **浅 / 暗色必须彻底适配** —— 所有页面所有 UI 元素浅暗都要到位，**不得出现浅暗混杂**。
+4. **聚焦任务主线，不过度发散** —— 只做本轮明确要求的那几件事；不顺手改别的、不主动扩展范围。动手前问自己一句：「这一步是本轮需求要求的吗？」
+
+> 完整规则集（P3.1 → P3.65 共 60+ 条踩坑红线）见 `.workbuddy/memory/PLAYBOOK.md`。
+
 ## 技术栈（源工程）
 
 > 注意：本仓库仅包含**构建产物**和设计系统规范，React/Vite 源工程不在本仓库中。
@@ -135,10 +146,14 @@ giencoder-design-engineering/
 ├── mg-work/                        ← 分轮工作记录
 │   ├── r32 … r105/                 ← 每轮：生成/补丁脚本、实测脚本、截图、探针
 │   │   └── rNN/applyNN.py          ← 幂等注入补丁（改页面一律走这里，不手改产物）
-│   ├── kanban/r13/check-syntax.py  ← 产物语法自检（JS 语法 + CSS 配平）
+│   ├── r109/                       ← 现役代（10 页主题/token/交互）
+│   │   ├── part109/                ← 权威源片段（panel.js / panel.css / _mods.html）
+│   │   ├── raw/                    ← 真机取证（每拍一个子目录：截图 + JSON 读数）
+│   │   └── ev/theme/               ← r109 全部补丁层 + 探针（链序见上）
+│   ├── check-syntax.py             ← 产物语法自检（10/10）
 │   └── r30/check-classes.py        ← 组件类名合规自检
+├── verify-design.py                ← 构建后质量验证脚本（74 问题 / 0 critical）
 ├── build.sh                        ← 构建脚本（需外部源工程）
-├── verify-design.py                ← 构建后质量验证脚本
 └── README.md                       ← 本文件
 ```
 
@@ -155,20 +170,46 @@ giencoder-design-engineering/
 | 外壳顶栏页签修复（全站） | `mg-work/r25/apply-shell-tabs.py` |
 | 全局字号机制 / 设置页 | `mg-work/r88/apply88.py` · `apply88b-fontsize.py` |
 | `conversation.html` 会话详情 + 全站会话跳转 | `mg-work/r102/apply102.py`（r93 起的会话详情改动都在此脚本内就地返工） |
+| **r109 全代（10 页 · 主题 / token / 交互）** | `mg-work/r109/ev/theme/` —— 见下方「r109 链序」 |
 
 > **体位要点**：补丁是「先 `strip_all(当前页)` 取净底 → 再注入」⇒ **改完直接重跑即自愈**，
 > 不必先回滚；跑两遍 sha 不变即幂等。回滚用 `cp mg-work/rNN/before/<page>.html pages/<page>.html`。
+
+### r109 链序（14 层，**顺序不可乱、不可中途停**）
+
+```bash
+cd mg-work/r109/ev/theme
+python make109.py && python splice109.py && python apply109.py   # 整页重建（净底）
+python apply-theme.py   && python apply-dark.py                  # 主题机制 + 暗色适配
+python apply-tokens.py  && python apply-literals.py              # DS token 化
+python apply-popup.py   && python apply-border.py
+python apply-zcode.py   && python apply-menuwhite.py && python apply-dots.py
+python make12.py && python apply12.py                            # 第 13 层
+python apply14.py                                                # 第 14 层（批注模块 + 独立页签）
+```
+
+> ⚠ **`apply109.py` 是「整页重建」性质** ⇒ 它之后的每一层注入都可能被它冲掉。
+> **改完必须把整链跑到尾**；中途停 = 页面处于损坏态（实测：批注模块曾因此整段退回旧版）。
+> 整链稳定性用「**连跑两轮比 md5**」验证，判据必须**规范化换行**再比（`autocrlf` 会让逐字节比对永远为假）。
+
+改完产物必跑两个自检：
+
+```bash
+python mg-work/check-syntax.py pages/*.html   # 按 <script> 配对切块 → 期望 10/10 通过
+python verify-design.py ./pages               # Token / 类名合规 → 期望 74 问题 / 0 critical
+```
 
 实测统一走 `agent-browser`（1440×900，另跑 2560 与暗色档），脚本与落地截图都放 `mg-work/rNN/`。
 
 ## 版本
 
 - **交付日期**：2026-09-24
-- **最近更新**：2026-09-30 ——
-  - 新增 **`conversation.html` 会话详情页**（对话/轨迹双页签 + 工具调用层级树 + 全屏 + 文件预览侧栏 + 暗色全量适配）
-  - **全站左栏会话任务**点击跳转 `conversation.html`
-  - 会话详情页「对话 ⇄ 轨迹」切换改为 **DS 官方滑块滑动动效**
-  - 标题栏右侧改为**「全屏」+「打开侧栏」**两枚真实按钮
-  - 此前各轮：全局字号机制、设置页重做、顶栏背景图、数字分身文件预览侧栏等
+- **最近更新**：2026-10-02 —— **r109 全代（10 页）**
+  - **全局字号机制**（`--ui-fs` 杠杆）+ **设置页重做**
+  - **全站浅 / 暗色彻底适配**：DS 13 族 × 10 级阶梯镜像（暗色 = 浅色逐级镜像 `N ↔ 11−N`）+ 90 枚语义 token；硬编码色值统一收敛到 DS 变量
+  - **全站下拉菜单统一**：浅色档纯白、暗色档 `rgba(31,31,31,0.88)`，一律以基础工作台「默认权限」为基准
+  - **`conversation.html` 右栏多页签浏览器**：摘要 / 终端 / 浏览器 / 预览四模块，**批注锚点**（点「标注」→ 逐元素批注 → Ctrl 提交、锚点常驻可拖动）
+  - **卡片即入口**：用户上传的本地文件卡（`.r93-att`）、任务产物卡（`.r93-artcard`）、任务产物卡组（`r93-artgrid`）点击即开右栏预览；**一个文件一枚独立页签**，切换不互相覆盖
+  - 会话详情页此前各轮：对话/轨迹双页签滑块动效、工具调用层级树、全屏 + 文件预览侧栏、顶栏毛玻璃、骨架屏
 - **构建工具**：Vite 8 + viteSingleFile
 - **设计稿**：MasterGo file=193158744355579

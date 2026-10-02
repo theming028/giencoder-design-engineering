@@ -1,0 +1,47 @@
+distinct: 46 total: 206
+ 20  color: var(--color-white)
+ 12  color: #1F1F1F
+ 12  border: 1px solid #E5E5E5
+ 12  background: #FFFFFF
+ 10  color:#FFFFFF
+ 10  border:1px solid #E5E5E5
+ 10  box-shadow:0px 8px 20px 0px rgba(0,0,0,0.08),inset 0px 3px 3px 0px #FFFFFF
+ 10  background:#FFFFFF
+ 10  border-top:1px solid #F2F2F2 position:absolute
+  9  color: #6B6B6B
+  8  transition:color .15s ease color:var(--color-primary-6) transition:background-color 
+  8  background: #FFFFFF !important
+  8  background-color: #1F1F1F
+  4  -webkit-mask-image: radial-gradient(circle at var(--r74-rip-x, 50%) var(--r74-rip-y,
+  4  mask-image: radial-gradient(circle at var(--r74-rip-x, 50%) var(--r74-rip-y, 50%), t
+  4  -logo-fg: #FFFFFF
+  4  -pill-fg: #FFFFFF
+  4  -hover-bg: #DAE3ED
+  4  background: #F2F2F2
+  3  color: #fff
+  3  color:var(--color-white)
+  3  box-shadow: 0 8px 20px #0000001a
+  2  margin:0!important background:#FFFFFF!important position:fixed
+  2  -webkit-mask-image: radial-gradient(circle 420px at var(--dot-x) var(--dot-y), #000 
+  2  mask-image: radial-gradient(circle 420px at var(--dot-x) var(--dot-y), #000 0%, rgba
+  2  -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 52px), transparent 1
+  2  mask-image: linear-gradient(to bottom, #000 calc(100% - 52px), transparent 100%)
+  2  --td-ico-gray: #6B6B6B
+  2  border-left: 1.5px solid var(--color-white)
+  2  border-bottom: 1.5px solid var(--color-white)
+  2  --kb-appbar: #DAE3ED
+  2  --avatar-color: var(--color-white)
+  1  background: #6B6B6B
+  1  border: 1px solid var(--color-white)
+  1  -webkit-mask-image: linear-gradient(#000 calc(100% - 40px), transparent 100%)
+  1  mask-image: linear-gradient(#000 calc(100% - 40px), transparent 100%)
+  1  -webkit-mask-image: linear-gradient(transparent 0, #000 40px)
+  1  mask-image: linear-gradient(transparent 0, #000 40px)
+  1  -webkit-mask-image: linear-gradient(transparent 0, #000 40px, #000 calc(100% - 40px)
+  1  mask-image: linear-gradient(transparent 0, #000 40px, #000 calc(100% - 40px), transp
+  1  -webkit-mask-image: linear-gradient(#000 82%, transparent 99%)
+  1  mask-image: linear-gradient(#000 82%, transparent 99%)
+  1  --td-appbar: #DAE3ED
+  1  --td-pane-line: #DAE3ED
+  1  -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - var(--td-desc-fade))
+  1  mask-image: linear-gradient(to bottom, #000 calc(100% - var(--td-desc-fade)), transp

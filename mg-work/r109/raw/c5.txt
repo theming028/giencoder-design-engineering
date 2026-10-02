@@ -1,0 +1,22 @@
+=== r109 第八拍 · 编译包 + React bundle 字面色值 → DS 变量（落盘）===
+
+── A. 编译包内页面级规则（整条替换）──
+   （已是目标态：0 处）
+
+── C. React bundle 内联样式 / 规格字段（整条替换）──
+   （已是目标态：0 处）
+
+── B. 已死尾风任意值类规则（整条删除）──
+   （已是目标态：0 处）
+
+── 刻意保留（豁免）──
+   #0000 / #fff / #000（DS `:root` 内）            DS 本体：`--color-white/black/bg-*/menu-*-bg` 的**定义处**
+   #000（mask-image 内）                           mask 的 alpha 通道，不是颜色（.scroll-fade / .r74-ripple / .dot-bg）
+   #0000001a / rgba(0,0,0,.1) 等                 Tailwind 阴影工具类与脚本内阴影——几何对不上 DS 的 --shadowN-*
+   rgba(255,255,255,.5/.9) / #FFFFFF            inset 高光（主题中性的 scrim）
+   logoColor: 五色 + 厂商标识 fill:                   品牌 logo（邵先生：「维持豁免」）
+   l = c ? '#F4F5F6' : '#E5EDF5'                冷灰外壳双色调；后者 Δ13 掉色相 ⇒ 超阈值 + 免抹区分
+   #FF5F57 / #FEBC2E / #28C840                  macOS 交通灯系统色（三枚圆点仍由 JS 用该类名）
+
+按页改动数：base=0  avatar=0  automation=0  skills=0  settings=0  conversation=0  dev=0  kanban=0  req-kanban=0  task-detail=0
+合计 0 处

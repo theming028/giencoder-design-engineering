@@ -1,0 +1,48 @@
+==============================================================================
+A. 面板容器底（base 态，选择器含 popup / dropdown / menu 且非 item/option）
+==============================================================================
+base         .giencoder-select-popup                                    rgba(var(--gray-1),0.88)
+base         .giencoder-popup                                           var(--color-bg-white)
+conversation .r93-ctx .giencoder-dropdown-submenu.is-hover              var(--color-fill-2)
+conversation .zd-menu.giencoder-dropdown-popup                          color-mix(in srgb, var(--color-bg-popup) 82%, transparent)
+kanban       .giencoder-date-picker-popup                               var(--color-bg-popup)
+
+==============================================================================
+B. 选项 hover 底（全部）
+==============================================================================
+base         .giencoder-select-option:hover                             var(--color-fill-2)
+base         .giencoder-select-option-disabled:hover                    0 0
+base         .giencoder-menu-item:hover                                 var(--color-fill-1)
+base         .giencoder-menu-item-disabled:hover                        0 0
+base         .giencoder-menu-submenu-title:hover                        var(--color-fill-1)
+base         .model-dropdown-menu-item:hover                            var(--color-fill-2)!important
+base         .workdir-menu-item:hover                                   var(--color-fill-2)!important
+base         .perm-menu-item:hover,.session-action-item:hover           var(--color-fill-2)!important
+base         .ws-dropdown-hover:hover                                   var(--color-border-2)!important
+base         .ws-item-hover:hover                                       var(--color-fill-1)!important
+base         .add-menu-item:hover                                       var(--color-fill-2)
+base         .skills-popup-btn:hover                                    var(--color-fill-2)
+base         /* 工作目录下拉项 hover（原文 #e4e6ea!important） */   html[giencode var(--color-fill-3) !important
+base         /* 工作目录条目 hover（原文 #f7f7f7!important） */   html[giencoder var(--color-fill-2) !important
+base         /* 模型菜单项 hover（原文 #f3f4f5!important） */   html[giencoder- var(--color-fill-2) !important
+base         /* 权限菜单项 hover（原文 #f3f4f5!important） */   html[giencoder- var(--color-fill-2) !important
+conversation .r93-ctx .giencoder-dropdown-item:hover                    var(--color-fill-2)
+conversation /* ★ 第 57 轮：hover 底色由 fill-1 深一级到 fill-2（#F7F7F7 → #F2F2F2 var(--color-fill-2)
+conversation .td-ctx .giencoder-dropdown-item-disabled:hover            transparent
+conversation .td-mod-menu .giencoder-dropdown-item:hover, .td-rv-menu  var(--color-fill-2)
+task-detail  .giencoder-list-item-hoverable:hover                       var(--color-fill-1)
+
+==============================================================================
+C. 选项选中底（全部）
+==============================================================================
+base         .giencoder-select-option-selected                          var(--color-fill-1)
+base         .giencoder-menu-item-selected                              var(--color-primary-light-1)
+base         .giencoder-menu-item-selected:before                       var(--color-primary-6)
+base         .giencoder-menu-horizontal .giencoder-menu-item-selected   0 0
+
+==============================================================================
+D. ★ 违规：取值是绝对字面色（非 var）⇒ 暗色档不翻转
+==============================================================================
+（无）
+
+统计：规则取值 310 条，绝对字面 0 条

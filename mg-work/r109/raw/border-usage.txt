@@ -1,0 +1,29 @@
+page              border-1      border-2      border-3      border-4        border
+----------------------------------------------------------------------------------
+base                    25            49             8             0             0
+conversation            48            88            13             0             0
+avatar                  24            58            11             0             0
+kanban                  19            58            11             0             0
+req-kanban              18            55            14             0             0
+dev                     16            45            10             0             0
+settings                20            44            13             0             0
+automation              16            42            10             0             0
+skills                  16            42            10             0             0
+task-detail             27            71            12             0             0
+----------------------------------------------------------------------------------
+TOTAL                  229           552           112             0             0
+
+--- 灰度阶梯（浅 / 暗 镜像 N<->11-N）---
+  idx :    1    2    3    4    5    6    7    8    9   10
+  浅  :  247  242  229  201  169  134  107   78   43   31
+  暗  :   31   43   78  107  134  169  201  229  242  247
+
+--- border 令牌取值对照（bg 浅=#fff 255 / 暗=#17171a 23）---
+  令牌                 浅 idx      浅值         暗 idx(新)   暗值(新)     
+  border-1           gray-2     242        gray-1      31        
+  border-2           gray-3     229        gray-2      43        
+  border-3           gray-4     201        gray-3      78        
+  border-4           gray-6     134        gray-5      134       
+
+  （暗色旧值：border-1=43 border-2=78 border-3=107 border-4=169）
+  （浅色保持不变：border-1=242 border-2=229 border-3=201 border-4=134）

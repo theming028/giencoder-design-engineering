@@ -1,0 +1,22 @@
+{
+  "blockIdx": 6,
+  "bodyTheme": "(none)",
+  "hasBlock": true,
+  "sample": {
+    "bc": "rgb(31, 31, 31)",
+    "bw": "1px",
+    "cls": "my-2 mr-3 shrink-0 border-t border-[var(--color-bo"
+  },
+  "styleCount": 19,
+  "theme": "dark",
+  "v": {
+    "--color-bg-1": "#17171a",
+    "--color-border-1": "rgb(31, 31, 31)",
+    "--color-border-2": "rgb(43, 43, 43)",
+    "--color-border-3": "rgb(78, 78, 78)",
+    "--gray-1": "31, 31, 31",
+    "--gray-2": "43, 43, 43",
+    "--gray-3": "78, 78, 78",
+    "--gray-4": "107, 107, 107"
+  }
+}

@@ -1,0 +1,22 @@
+page                    DS 包指纹    r109-theme-css     r109-dark-css       r109-tw-css   r109-border-css      data-gi-dark        ZCode 残留=0      GienCoder 替换  select 浮层=gray-1     r93-line 已令牌化
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+base                        OK                OK                OK                OK                OK                OK                OK               0 处                OK                OK
+avatar                      OK                OK                OK                OK                OK                OK                OK               3 处                OK                OK
+automation                  OK                OK                OK                OK                OK                OK                OK               0 处                OK                OK
+skills                      OK                OK                OK                OK                OK                OK                OK               0 处                OK                OK
+settings                    OK                OK                OK                OK                OK                OK                OK               0 处                OK                OK
+conversation                OK                OK                OK                OK                OK                OK                OK              25 处                OK                OK
+dev                         OK                OK                OK                OK                OK                OK                OK               0 处                OK                OK
+kanban                      OK                OK                OK                OK                OK                OK                OK               0 处                OK                OK
+req-kanban                  OK                OK                OK                OK                OK                OK                OK               0 处                OK                OK
+task-detail                 OK                OK                OK                OK                OK                OK                OK               4 处                OK                OK
+
+异常项： 无
+
+--- conversation 专项 ---
+  --r93-line:            @494615  '--r93-line: rgb(var(--gray-2));\n  --r93-card: rgb(var(--gray'
+  --r93-card:            @494649  '--r93-card: rgb(var(--gray-1));\n  --r93-edge: rgb(var(--gray'
+  data-gi-dark           @64  'data-gi-dark="1">\n  <head>\n    <meta charset="UTF-8" />\n    '
+  id="r109-border-css"   @450181  'id="r109-border-css">\n  /* ★ r109 第十拍 ①：暗色档描边令牌各降一级。\n     起因'
+  zai-org/GienCoder      @658759  'zai-org/GienCoder`（Apache-2.0）`packages/ui/src/v4/Conversati'
+  ZCode                  无

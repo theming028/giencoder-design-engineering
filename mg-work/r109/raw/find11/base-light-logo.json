@@ -1,0 +1,140 @@
+[
+  {
+    "bg": "rgba(0, 0, 0, 0)",
+    "bi": "none",
+    "cls": "[object SVGAnimatedString]",
+    "color": "rgb(10, 10, 11)",
+    "fill": "rgb(0, 0, 0)",
+    "h": 10,
+    "parts": [
+      {
+        "fa": "rgb(var(--purple-1))",
+        "fill": "rgb(245, 232, 255)",
+        "stroke": "none",
+        "t": "path"
+      },
+      {
+        "fa": "var(--color-white)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none",
+        "t": "path"
+      }
+    ],
+    "tag": "svg",
+    "w": 11,
+    "x": 141,
+    "y": 19
+  },
+  {
+    "bg": "rgba(0, 0, 0, 0)",
+    "bi": "none",
+    "cls": "[object SVGAnimatedString]",
+    "color": "rgb(10, 10, 11)",
+    "fill": "rgb(0, 0, 0)",
+    "h": 10,
+    "parts": [
+      {
+        "fa": "rgb(var(--gray-7))",
+        "fill": "rgb(107, 107, 107)",
+        "stroke": "none",
+        "t": "path"
+      },
+      {
+        "fa": "rgb(var(--gray-7))",
+        "fill": "rgb(107, 107, 107)",
+        "stroke": "none",
+        "t": "path"
+      }
+    ],
+    "tag": "svg",
+    "w": 6,
+    "x": 282,
+    "y": 19
+  },
+  {
+    "bg": "rgba(0, 0, 0, 0)",
+    "bi": "none",
+    "cls": "[object SVGAnimatedString]",
+    "color": "rgb(10, 10, 11)",
+    "fill": "rgb(0, 0, 0)",
+    "h": 12,
+    "parts": [
+      {
+        "fa": "rgb(var(--gray-7))",
+        "fill": "rgb(107, 107, 107)",
+        "stroke": "none",
+        "t": "path"
+      },
+      {
+        "fa": "rgb(var(--gray-7))",
+        "fill": "rgb(107, 107, 107)",
+        "stroke": "none",
+        "t": "path"
+      }
+    ],
+    "tag": "svg",
+    "w": 14,
+    "x": 89,
+    "y": 18
+  },
+  {
+    "bg": "rgba(0, 0, 0, 0)",
+    "bi": "none",
+    "cls": "[object SVGAnimatedString]",
+    "color": "rgb(31, 31, 31)",
+    "fill": "none",
+    "h": 16,
+    "parts": [
+      {
+        "fa": "currentColor",
+        "fill": "rgb(31, 31, 31)",
+        "stroke": "none",
+        "t": "path"
+      }
+    ],
+    "tag": "svg",
+    "w": 16,
+    "x": 644,
+    "y": 16
+  },
+  {
+    "bg": "rgba(0, 0, 0, 0)",
+    "bi": "none",
+    "cls": "[object SVGAnimatedString]",
+    "color": "rgb(10, 10, 11)",
+    "fill": "none",
+    "h": 14,
+    "parts": [
+      {
+        "fa": "rgb(var(--gray-10))",
+        "fill": "rgb(31, 31, 31)",
+        "stroke": "none",
+        "t": "path"
+      }
+    ],
+    "tag": "svg",
+    "w": 14,
+    "x": 105,
+    "y": 57
+  },
+  {
+    "bg": "rgba(0, 0, 0, 0)",
+    "bi": "none",
+    "cls": "[object SVGAnimatedString]",
+    "color": "rgb(10, 10, 11)",
+    "fill": "none",
+    "h": 10,
+    "parts": [
+      {
+        "fa": "rgb(var(--gray-5))",
+        "fill": "rgb(169, 169, 169)",
+        "stroke": "none",
+        "t": "path"
+      }
+    ],
+    "tag": "svg",
+    "w": 10,
+    "x": 227,
+    "y": 59
+  }
+]

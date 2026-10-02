@@ -1,0 +1,8 @@
+128 24 div#root>div.flex.h-dvh>header.flex.h-12>div.flex.w-60>button.r81-ws-trigger
+658 24 div#root>div.flex.h-dvh>header.flex.h-12>div.relative.inline-flex>button.relative.z-10
+728 24 div#root>div.flex.h-dvh>header.flex.h-12>div.relative.inline-flex>button.relative.z-10
+69 73 div.kb-wrap>div.kb-panel>div.kb-topbar>div.giencoder-select.kb-proj-select>div.giencoder-select-view
+225 73 div.kb-wrap>div.kb-panel>div.kb-topbar>div.kb-radio.kb-radio--thumbed>span.kb-radio-btn
+329 73 div.kb-wrap>div.kb-panel>div.kb-topbar>div.kb-radio.kb-radio--thumbed>span.kb-radio-btn.is-on
+189 231 div.kb-wrap>div.kb-panel>div.kb-boardhead>div.giencoder-select.kb-type-select>div.giencoder-select-view
+309 231 div.kb-wrap>div.kb-panel>div.kb-boardhead>div.giencoder-date-picker.kb-date-picker>div.giencoder-input-wrapper

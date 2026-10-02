@@ -1,0 +1,15 @@
+173 24 header.flex.h-12>div.flex.w-60>div>div.relative>button.ws-trigger-hover
+668 24 div#root>div.flex.h-dvh>header.flex.h-12>div.relative.inline-flex>button.relative.z-10
+782 24 div#root>div.flex.h-dvh>header.flex.h-12>div.relative.inline-flex>button.relative.z-10
+1183 178 section.r85-card>div.r85-row>div.r85-ctl>div.giencoder-select.giencoder-select-has-value>div.giencoder-select-view
+1134 252 section.r85-card>div.r85-row>div.r85-ctl>div.giencoder-select.giencoder-select-has-value>div.giencoder-select-view
+1183 326 section.r85-card>div.r85-row>div.r85-ctl>div.giencoder-select.giencoder-select-has-value>div.giencoder-select-view
+1208 646 section.r85-card.is-mid>div.r85-row>div.r85-ctl>div.giencoder-select.giencoder-select-has-value>div.giencoder-select-view
+885 794 section.r85-card.is-mid>div.r85-row>div.r85-ctl>div.r85-seg>button.giencoder-btn.giencoder-btn-secondary
+1021 794 section.r85-card.is-mid>div.r85-row>div.r85-ctl>div.r85-seg>button.giencoder-btn.giencoder-btn-secondary
+1157 794 section.r85-card.is-mid>div.r85-row>div.r85-ctl>div.r85-seg>button.giencoder-btn.giencoder-btn-secondary
+1069 888 div.r85-page>section.r85-card.is-tail>div.r85-row>div.r85-ctl>button.r85-btn.giencoder-btn
+1181 888 div.r85-page>section.r85-card.is-tail>div.r85-row>div.r85-ctl>button.r85-btn.giencoder-btn
+96 24 header.flex.h-12>div.flex.w-60>div>div.relative>button
+52 142 div.flex-1.overflow-y-auto>div.r85-nav-host>nav.r85-nav>div.r85-group>button.r85-navi
+52 180 div.flex-1.overflow-y-auto>div.r85-nav-host>nav.r85-nav>div.r85-group>button.r85-navi

@@ -1,0 +1,74 @@
+===== base =====
+  theme=dark 触发点 22
+  悬停扫描 22 个触发点
+===== avatar =====
+  theme=dark 触发点 33
+  悬停扫描 26 个触发点
+===== automation =====
+  theme=dark 触发点 10
+  悬停扫描 10 个触发点
+===== skills =====
+  theme=dark 触发点 10
+  悬停扫描 10 个触发点
+===== settings =====
+  theme=dark 触发点 15
+  悬停扫描 15 个触发点
+===== conversation =====
+  theme=dark 触发点 33
+  悬停扫描 26 个触发点
+===== dev =====
+  theme=dark 触发点 5
+  悬停扫描 5 个触发点
+===== kanban =====
+  theme=dark 触发点 8
+  悬停扫描 8 个触发点
+===== req-kanban =====
+  theme=dark 触发点 9
+  悬停扫描 9 个触发点
+===== task-detail =====
+  theme=dark 触发点 20
+  悬停扫描 20 个触发点
+=== 产物 ===
+total 206
+drwxr-xr-x 1 Administrator 197121    0 Oct  2 18:00 .
+drwxr-xr-x 1 Administrator 197121    0 Oct  2 17:50 ..
+-rw-r--r-- 1 Administrator 197121 2449 Oct  2 17:54 automation.json
+-rw-r--r-- 1 Administrator 197121 1030 Oct  2 17:54 automation.map.txt
+-rw-r--r-- 1 Administrator 197121 1540 Oct  2 17:54 automation.pts.raw
+-rw-r--r-- 1 Administrator 197121 1000 Oct  2 17:54 automation.pts.txt
+-rw-r--r-- 1 Administrator 197121 2454 Oct  2 17:53 avatar.json
+-rw-r--r-- 1 Administrator 197121 2825 Oct  2 17:53 avatar.map.txt
+-rw-r--r-- 1 Administrator 197121 5219 Oct  2 17:52 avatar.pts.raw
+-rw-r--r-- 1 Administrator 197121 3487 Oct  2 17:52 avatar.pts.txt
+-rw-r--r-- 1 Administrator 197121 3086 Oct  2 17:52 base.json
+-rw-r--r-- 1 Administrator 197121 2584 Oct  2 17:52 base.map.txt
+-rw-r--r-- 1 Administrator 197121 3656 Oct  2 17:51 base.pts.raw
+-rw-r--r-- 1 Administrator 197121 2506 Oct  2 17:51 base.pts.txt
+-rw-r--r-- 1 Administrator 197121 2988 Oct  2 17:57 conversation.json
+-rw-r--r-- 1 Administrator 197121 2801 Oct  2 17:57 conversation.map.txt
+-rw-r--r-- 1 Administrator 197121 5123 Oct  2 17:56 conversation.pts.raw
+-rw-r--r-- 1 Administrator 197121 3466 Oct  2 17:56 conversation.pts.txt
+-rw-r--r-- 1 Administrator 197121  876 Oct  2 17:58 dev.json
+-rw-r--r-- 1 Administrator 197121  433 Oct  2 17:58 dev.map.txt
+-rw-r--r-- 1 Administrator 197121  760 Oct  2 17:58 dev.pts.raw
+-rw-r--r-- 1 Administrator 197121  418 Oct  2 17:58 dev.pts.txt
+-rw-r--r-- 1 Administrator 197121 1137 Oct  2 17:59 kanban.json
+-rw-r--r-- 1 Administrator 197121  838 Oct  2 17:58 kanban.map.txt
+-rw-r--r-- 1 Administrator 197121 1314 Oct  2 17:58 kanban.pts.raw
+-rw-r--r-- 1 Administrator 197121  814 Oct  2 17:58 kanban.pts.txt
+-rw-r--r-- 1 Administrator 197121  876 Oct  2 17:59 req-kanban.json
+-rw-r--r-- 1 Administrator 197121 1019 Oct  2 17:59 req-kanban.map.txt
+-rw-r--r-- 1 Administrator 197121 1562 Oct  2 17:59 req-kanban.pts.raw
+-rw-r--r-- 1 Administrator 197121  992 Oct  2 17:59 req-kanban.pts.txt
+-rw-r--r-- 1 Administrator 197121 1953 Oct  2 17:56 settings.json
+-rw-r--r-- 1 Administrator 197121 1623 Oct  2 17:56 settings.map.txt
+-rw-r--r-- 1 Administrator 197121 2384 Oct  2 17:55 settings.pts.raw
+-rw-r--r-- 1 Administrator 197121 1573 Oct  2 17:55 settings.pts.txt
+-rw-r--r-- 1 Administrator 197121 2125 Oct  2 17:55 skills.json
+-rw-r--r-- 1 Administrator 197121 1030 Oct  2 17:55 skills.map.txt
+-rw-r--r-- 1 Administrator 197121 1540 Oct  2 17:54 skills.pts.raw
+-rw-r--r-- 1 Administrator 197121 1000 Oct  2 17:54 skills.pts.txt
+-rw-r--r-- 1 Administrator 197121 1162 Oct  2 18:00 task-detail.json
+-rw-r--r-- 1 Administrator 197121 2387 Oct  2 18:00 task-detail.map.txt
+-rw-r--r-- 1 Administrator 197121 3380 Oct  2 17:59 task-detail.pts.raw
+-rw-r--r-- 1 Administrator 197121 2317 Oct  2 17:59 task-detail.pts.txt

@@ -1,0 +1,20 @@
+总计 ZCode 出现次数 = 6
+
+--- pages\conversation.html @657718 ---
+'art[data-td-art] { cursor: pointer; }\n\n/* ================================================================================\n   19. 任务信息面板（第十三拍 ⑥）—— 复刻 ZCode 对话界面右上角的实时任务信息卡片\n   --------------------------------------------------------------------------------\n   上游：`zai-org/ZCode`（Apache-2.0）`packages/ui/sr'
+
+--- pages\conversation.html @657840 ---
+'\n   19. 任务信息面板（第十三拍 ⑥）—— 复刻 ZCode 对话界面右上角的实时任务信息卡片\n   --------------------------------------------------------------------------------\n   上游：`zai-org/ZCode`（Apache-2.0）`packages/ui/src/v4/ConversationStatusPanel.tsx`。\n   上游体位 = `absolute top-0 right-4 pt-4 z-20` + 外壳 `rounded-2xl border shadow-md w-80`、\n'
+
+--- pages\conversation.html @668978 ---
+'条「计划」行用的 `list-checks` 图标继续由\n   「进程」分区与胶囊复用，规则无残留（图标是内联 SVG，没有配对的选择器）。 */\n\n/* ④ 分区折展：上游 `CollapsibleContent` 的机制就是 `grid-template-rows` 0fr ⇄ 1fr\n   （ZCode 产物里能直接读到 `.grid-rows-[0fr]` / `.grid-rows-[1fr]` /\n   `.transition-[grid-template-rows]` 三条工具类），外层再叠一层透明度淡入淡出。\n   本版照同一机制用**纯 CSS 过渡**表达，缓动换成 DS 的 sp'
+
+--- pages\conversation.html @769330 ---
+'10"/></svg><span class="td-tf-name">package.json</span></div>\n          </div>\n        </div>\n      </div>\n    </div>\n\n    <!-- ★ 第十三拍 ⑥：任务信息面板 —— 复刻 ZCode 对话界面右上角的实时状态面板。\n         上游 = `zai-org/ZCode`（Apache-2.0）`packages/ui/src/v4/ConversationStatusPanel.tsx`\n         + `conversationStatusPanelModel.ts'
+
+--- pages\conversation.html @769375 ---
+'son</span></div>\n          </div>\n        </div>\n      </div>\n    </div>\n\n    <!-- ★ 第十三拍 ⑥：任务信息面板 —— 复刻 ZCode 对话界面右上角的实时状态面板。\n         上游 = `zai-org/ZCode`（Apache-2.0）`packages/ui/src/v4/ConversationStatusPanel.tsx`\n         + `conversationStatusPanelModel.ts` + `packages/ui/src/i18n/locales/zh-CN.ts` 的'
+
+--- pages\conversation.html @1060993 ---
+'ummary\');\n  /* ★ 第六拍 ①：把输入卡下方那行统计文字从 CSS 伪元素换成真节点（可框选）。 */\n  statsBoot();\n})();\n\n/* ==================== 任务信息面板（第十三拍 ⑥） ==================== */\n/* 复刻 ZCode 右上角状态面板的**交互骨架**：① 每个分区标题可折/展；② 头部「收起为胶囊」；\n   ③ 点胶囊摊回面板。面板本体是 `_mods.html` 里的静态 DOM（`#av-zd-status`），初始挂在右栏\n   `<aside class="td-browse">` 内（跟随静态注入的体'
+

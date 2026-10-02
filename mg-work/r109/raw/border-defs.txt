@@ -1,0 +1,140 @@
+==============================================================================
+base
+  --color-border-1   @331830   LIGHT  --color-border-1:rgb(var(--gray-2))
+        sel: </script>     <style rel="stylesheet" crossorigin>:root
+  --color-border-1   @339748   DARK   --color-border-1:rgb(var(--gray-2))
+        sel: body[giencoder-theme=dark],[giencoder-theme=dark]
+  --color-border-2   @331866   LIGHT  --color-border-2:rgb(var(--gray-3))
+        sel: </script>     <style rel="stylesheet" crossorigin>:root
+  --color-border-2   @339784   DARK   --color-border-2:rgb(var(--gray-3))
+        sel: body[giencoder-theme=dark],[giencoder-theme=dark]
+  --color-border-3   @331902   LIGHT  --color-border-3:rgb(var(--gray-4))
+        sel: </script>     <style rel="stylesheet" crossorigin>:root
+  --color-border-3   @339820   DARK   --color-border-3:rgb(var(--gray-4))
+        sel: body[giencoder-theme=dark],[giencoder-theme=dark]
+==============================================================================
+conversation
+  --color-border-1   @331864   LIGHT  --color-border-1:rgb(var(--gray-2))
+        sel: </script>     <style rel="stylesheet" crossorigin>:root
+  --color-border-1   @339782   DARK   --color-border-1:rgb(var(--gray-2))
+        sel: body[giencoder-theme=dark],[giencoder-theme=dark]
+  --color-border-2   @331900   LIGHT  --color-border-2:rgb(var(--gray-3))
+        sel: </script>     <style rel="stylesheet" crossorigin>:root
+  --color-border-2   @339818   DARK   --color-border-2:rgb(var(--gray-3))
+        sel: body[giencoder-theme=dark],[giencoder-theme=dark]
+  --color-border-3   @331936   LIGHT  --color-border-3:rgb(var(--gray-4))
+        sel: </script>     <style rel="stylesheet" crossorigin>:root
+  --color-border-3   @339854   DARK   --color-border-3:rgb(var(--gray-4))
+        sel: body[giencoder-theme=dark],[giencoder-theme=dark]
+==============================================================================
+avatar
+  --color-border-1   @234875   LIGHT  --color-border-1:rgb(var(--gray-2))
+        sel: </script>     <style rel="stylesheet" crossorigin>:root
+  --color-border-1   @242793   DARK   --color-border-1:rgb(var(--gray-2))
+        sel: body[giencoder-theme=dark],[giencoder-theme=dark]
+  --color-border-2   @234911   LIGHT  --color-border-2:rgb(var(--gray-3))
+        sel: </script>     <style rel="stylesheet" crossorigin>:root
+  --color-border-2   @242829   DARK   --color-border-2:rgb(var(--gray-3))
+        sel: body[giencoder-theme=dark],[giencoder-theme=dark]
+  --color-border-3   @234947   LIGHT  --color-border-3:rgb(var(--gray-4))
+        sel: </script>     <style rel="stylesheet" crossorigin>:root
+  --color-border-3   @242865   DARK   --color-border-3:rgb(var(--gray-4))
+        sel: body[giencoder-theme=dark],[giencoder-theme=dark]
+==============================================================================
+kanban
+  --color-border-1   @235883   LIGHT  --color-border-1:rgb(var(--gray-2))
+        sel: </script>     <style rel="stylesheet" crossorigin>:root
+  --color-border-1   @243801   DARK   --color-border-1:rgb(var(--gray-2))
+        sel: body[giencoder-theme=dark],[giencoder-theme=dark]
+  --color-border-2   @235919   LIGHT  --color-border-2:rgb(var(--gray-3))
+        sel: </script>     <style rel="stylesheet" crossorigin>:root
+  --color-border-2   @243837   DARK   --color-border-2:rgb(var(--gray-3))
+        sel: body[giencoder-theme=dark],[giencoder-theme=dark]
+  --color-border-3   @235955   LIGHT  --color-border-3:rgb(var(--gray-4))
+        sel: </script>     <style rel="stylesheet" crossorigin>:root
+  --color-border-3   @243873   DARK   --color-border-3:rgb(var(--gray-4))
+        sel: body[giencoder-theme=dark],[giencoder-theme=dark]
+==============================================================================
+req-kanban
+  --color-border-1   @235934   LIGHT  --color-border-1:rgb(var(--gray-2))
+        sel: </script>     <style rel="stylesheet" crossorigin>:root
+  --color-border-1   @243852   DARK   --color-border-1:rgb(var(--gray-2))
+        sel: body[giencoder-theme=dark],[giencoder-theme=dark]
+  --color-border-2   @235970   LIGHT  --color-border-2:rgb(var(--gray-3))
+        sel: </script>     <style rel="stylesheet" crossorigin>:root
+  --color-border-2   @243888   DARK   --color-border-2:rgb(var(--gray-3))
+        sel: body[giencoder-theme=dark],[giencoder-theme=dark]
+  --color-border-3   @236006   LIGHT  --color-border-3:rgb(var(--gray-4))
+        sel: </script>     <style rel="stylesheet" crossorigin>:root
+  --color-border-3   @243924   DARK   --color-border-3:rgb(var(--gray-4))
+        sel: body[giencoder-theme=dark],[giencoder-theme=dark]
+==============================================================================
+dev
+  --color-border-1   @235835   LIGHT  --color-border-1:rgb(var(--gray-2))
+        sel: </script>     <style rel="stylesheet" crossorigin>:root
+  --color-border-1   @243753   DARK   --color-border-1:rgb(var(--gray-2))
+        sel: body[giencoder-theme=dark],[giencoder-theme=dark]
+  --color-border-2   @235871   LIGHT  --color-border-2:rgb(var(--gray-3))
+        sel: </script>     <style rel="stylesheet" crossorigin>:root
+  --color-border-2   @243789   DARK   --color-border-2:rgb(var(--gray-3))
+        sel: body[giencoder-theme=dark],[giencoder-theme=dark]
+  --color-border-3   @235907   LIGHT  --color-border-3:rgb(var(--gray-4))
+        sel: </script>     <style rel="stylesheet" crossorigin>:root
+  --color-border-3   @243825   DARK   --color-border-3:rgb(var(--gray-4))
+        sel: body[giencoder-theme=dark],[giencoder-theme=dark]
+==============================================================================
+settings
+  --color-border-1   @236627   LIGHT  --color-border-1:rgb(var(--gray-2))
+        sel: </script>     <style rel="stylesheet" crossorigin>:root
+  --color-border-1   @244545   DARK   --color-border-1:rgb(var(--gray-2))
+        sel: body[giencoder-theme=dark],[giencoder-theme=dark]
+  --color-border-2   @236663   LIGHT  --color-border-2:rgb(var(--gray-3))
+        sel: </script>     <style rel="stylesheet" crossorigin>:root
+  --color-border-2   @244581   DARK   --color-border-2:rgb(var(--gray-3))
+        sel: body[giencoder-theme=dark],[giencoder-theme=dark]
+  --color-border-3   @236699   LIGHT  --color-border-3:rgb(var(--gray-4))
+        sel: </script>     <style rel="stylesheet" crossorigin>:root
+  --color-border-3   @244617   DARK   --color-border-3:rgb(var(--gray-4))
+        sel: body[giencoder-theme=dark],[giencoder-theme=dark]
+==============================================================================
+automation
+  --color-border-1   @236619   LIGHT  --color-border-1:rgb(var(--gray-2))
+        sel: </script>     <style rel="stylesheet" crossorigin>:root
+  --color-border-1   @244537   DARK   --color-border-1:rgb(var(--gray-2))
+        sel: body[giencoder-theme=dark],[giencoder-theme=dark]
+  --color-border-2   @236655   LIGHT  --color-border-2:rgb(var(--gray-3))
+        sel: </script>     <style rel="stylesheet" crossorigin>:root
+  --color-border-2   @244573   DARK   --color-border-2:rgb(var(--gray-3))
+        sel: body[giencoder-theme=dark],[giencoder-theme=dark]
+  --color-border-3   @236691   LIGHT  --color-border-3:rgb(var(--gray-4))
+        sel: </script>     <style rel="stylesheet" crossorigin>:root
+  --color-border-3   @244609   DARK   --color-border-3:rgb(var(--gray-4))
+        sel: body[giencoder-theme=dark],[giencoder-theme=dark]
+==============================================================================
+skills
+  --color-border-1   @236506   LIGHT  --color-border-1:rgb(var(--gray-2))
+        sel: </script>     <style rel="stylesheet" crossorigin>:root
+  --color-border-1   @244424   DARK   --color-border-1:rgb(var(--gray-2))
+        sel: body[giencoder-theme=dark],[giencoder-theme=dark]
+  --color-border-2   @236542   LIGHT  --color-border-2:rgb(var(--gray-3))
+        sel: </script>     <style rel="stylesheet" crossorigin>:root
+  --color-border-2   @244460   DARK   --color-border-2:rgb(var(--gray-3))
+        sel: body[giencoder-theme=dark],[giencoder-theme=dark]
+  --color-border-3   @236578   LIGHT  --color-border-3:rgb(var(--gray-4))
+        sel: </script>     <style rel="stylesheet" crossorigin>:root
+  --color-border-3   @244496   DARK   --color-border-3:rgb(var(--gray-4))
+        sel: body[giencoder-theme=dark],[giencoder-theme=dark]
+==============================================================================
+task-detail
+  --color-border-1   @235852   LIGHT  --color-border-1:rgb(var(--gray-2))
+        sel: </script>     <style rel="stylesheet" crossorigin>:root
+  --color-border-1   @243770   DARK   --color-border-1:rgb(var(--gray-2))
+        sel: body[giencoder-theme=dark],[giencoder-theme=dark]
+  --color-border-2   @235888   LIGHT  --color-border-2:rgb(var(--gray-3))
+        sel: </script>     <style rel="stylesheet" crossorigin>:root
+  --color-border-2   @243806   DARK   --color-border-2:rgb(var(--gray-3))
+        sel: body[giencoder-theme=dark],[giencoder-theme=dark]
+  --color-border-3   @235924   LIGHT  --color-border-3:rgb(var(--gray-4))
+        sel: </script>     <style rel="stylesheet" crossorigin>:root
+  --color-border-3   @243842   DARK   --color-border-3:rgb(var(--gray-4))
+        sel: body[giencoder-theme=dark],[giencoder-theme=dark]

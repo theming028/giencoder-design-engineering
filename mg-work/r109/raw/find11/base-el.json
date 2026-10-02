@@ -1,0 +1,332 @@
+[
+  {
+    "bg": "rgb(247, 247, 247)",
+    "cls": "flex h-12 shrink-0 items-center justify-betwee",
+    "color": "rgb(10, 10, 11)",
+    "fill": "rgb(0, 0, 0)",
+    "h": 48,
+    "tag": "HEADER",
+    "txt": "",
+    "w": 1440,
+    "x": 0,
+    "y": 0
+  },
+  {
+    "bg": "rgb(255, 95, 87)",
+    "cls": "size-3 rounded-full bg-[#FF5F57] ring-1 ring-i",
+    "color": "rgb(10, 10, 11)",
+    "fill": "rgb(0, 0, 0)",
+    "h": 12,
+    "tag": "BUTTON",
+    "txt": "",
+    "w": 12,
+    "x": 16,
+    "y": 18
+  },
+  {
+    "bg": "rgba(0, 0, 0, 0)",
+    "cls": "flex items-center gap-2",
+    "color": "rgb(10, 10, 11)",
+    "fill": "rgb(0, 0, 0)",
+    "h": 12,
+    "tag": "DIV",
+    "txt": "",
+    "w": 52,
+    "x": 16,
+    "y": 18
+  },
+  {
+    "bg": "rgba(0, 0, 0, 0)",
+    "cls": "flex w-60 items-center gap-4",
+    "color": "rgb(10, 10, 11)",
+    "fill": "rgb(0, 0, 0)",
+    "h": 26,
+    "tag": "DIV",
+    "txt": "",
+    "w": 240,
+    "x": 16,
+    "y": 11
+  },
+  {
+    "bg": "rgb(254, 188, 46)",
+    "cls": "size-3 rounded-full bg-[#FEBC2E] ring-1 ring-i",
+    "color": "rgb(10, 10, 11)",
+    "fill": "rgb(0, 0, 0)",
+    "h": 12,
+    "tag": "BUTTON",
+    "txt": "",
+    "w": 12,
+    "x": 36,
+    "y": 18
+  },
+  {
+    "bg": "rgb(40, 200, 64)",
+    "cls": "size-3 rounded-full bg-[#28C840] ring-1 ring-i",
+    "color": "rgb(10, 10, 11)",
+    "fill": "rgb(0, 0, 0)",
+    "h": 12,
+    "tag": "BUTTON",
+    "txt": "",
+    "w": 12,
+    "x": 56,
+    "y": 18
+  },
+  {
+    "bg": "rgba(0, 0, 0, 0)",
+    "cls": "",
+    "color": "rgb(10, 10, 11)",
+    "fill": "rgb(0, 0, 0)",
+    "h": 24,
+    "tag": "BUTTON",
+    "txt": "",
+    "w": 24,
+    "x": 84,
+    "y": 12
+  },
+  {
+    "bg": "rgba(0, 0, 0, 0)",
+    "cls": "",
+    "color": "rgb(10, 10, 11)",
+    "fill": "rgb(0, 0, 0)",
+    "h": 26,
+    "tag": "DIV",
+    "txt": "",
+    "w": 213,
+    "x": 84,
+    "y": 11
+  },
+  {
+    "bg": "rgba(0, 0, 0, 0)",
+    "cls": "relative",
+    "color": "rgb(10, 10, 11)",
+    "fill": "rgb(0, 0, 0)",
+    "h": 26,
+    "tag": "DIV",
+    "txt": "",
+    "w": 213,
+    "x": 84,
+    "y": 11
+  },
+  {
+    "bg": "rgba(0, 0, 0, 0)",
+    "cls": "",
+    "color": "rgb(10, 10, 11)",
+    "fill": "rgb(0, 0, 0)",
+    "h": 12,
+    "parts": [
+      {
+        "fill": "rgb(107, 107, 107)",
+        "raw": "rgb(var(--gray-7))"
+      },
+      {
+        "fill": "rgb(107, 107, 107)",
+        "raw": "rgb(var(--gray-7))"
+      }
+    ],
+    "tag": "svg",
+    "txt": "",
+    "w": 14,
+    "x": 89,
+    "y": 18
+  },
+  {
+    "bg": "rgba(0, 0, 0, 0)",
+    "cls": "",
+    "color": "rgb(10, 10, 11)",
+    "fill": "rgb(107, 107, 107)",
+    "h": 12,
+    "tag": "path",
+    "txt": "",
+    "w": 14,
+    "x": 89,
+    "y": 18
+  },
+  {
+    "bg": "rgba(0, 0, 0, 0)",
+    "cls": "",
+    "color": "rgb(10, 10, 11)",
+    "fill": "rgb(107, 107, 107)",
+    "h": 6,
+    "tag": "path",
+    "txt": "",
+    "w": 2,
+    "x": 93,
+    "y": 21
+  },
+  {
+    "bg": "rgb(229, 229, 229)",
+    "cls": "",
+    "color": "rgb(10, 10, 11)",
+    "fill": "rgb(0, 0, 0)",
+    "h": 16,
+    "tag": "DIV",
+    "txt": "",
+    "w": 1,
+    "x": 120,
+    "y": 16
+  },
+  {
+    "bg": "rgba(0, 0, 0, 0)",
+    "cls": "ws-trigger-hover",
+    "color": "rgb(10, 10, 11)",
+    "fill": "rgb(0, 0, 0)",
+    "h": 26,
+    "tag": "BUTTON",
+    "txt": "",
+    "w": 164,
+    "x": 133,
+    "y": 11
+  },
+  {
+    "bg": "rgba(0, 0, 0, 0)",
+    "cls": "",
+    "color": "rgb(10, 10, 11)",
+    "fill": "rgb(0, 0, 0)",
+    "h": 20,
+    "tag": "DIV",
+    "txt": "",
+    "w": 20,
+    "x": 137,
+    "y": 14
+  },
+  {
+    "bg": "rgb(158, 103, 225)",
+    "cls": "absolute",
+    "color": "rgb(10, 10, 11)",
+    "fill": "rgb(0, 0, 0)",
+    "h": 20,
+    "tag": "DIV",
+    "txt": "",
+    "w": 20,
+    "x": 137,
+    "y": 14
+  },
+  {
+    "bg": "rgba(0, 0, 0, 0)",
+    "cls": "absolute",
+    "color": "rgb(10, 10, 11)",
+    "fill": "rgb(0, 0, 0)",
+    "h": 10,
+    "parts": [
+      {
+        "fill": "rgb(245, 232, 255)",
+        "raw": "rgb(var(--purple-1))"
+      },
+      {
+        "fill": "rgb(255, 255, 255)",
+        "raw": "var(--color-white)"
+      }
+    ],
+    "tag": "svg",
+    "txt": "",
+    "w": 11,
+    "x": 141,
+    "y": 19
+  },
+  {
+    "bg": "rgba(0, 0, 0, 0)",
+    "cls": "",
+    "color": "rgb(10, 10, 11)",
+    "fill": "rgb(245, 232, 255)",
+    "h": 8,
+    "tag": "path",
+    "txt": "",
+    "w": 11,
+    "x": 142,
+    "y": 19
+  },
+  {
+    "bg": "rgba(0, 0, 0, 0)",
+    "cls": "",
+    "color": "rgb(10, 10, 11)",
+    "fill": "rgb(255, 255, 255)",
+    "h": 8,
+    "tag": "path",
+    "txt": "",
+    "w": 5,
+    "x": 144,
+    "y": 20
+  },
+  {
+    "bg": "rgba(0, 0, 0, 0)",
+    "cls": "",
+    "color": "rgb(31, 31, 31)",
+    "fill": "rgb(0, 0, 0)",
+    "h": 22,
+    "tag": "SPAN",
+    "txt": "PAA团队工作空间",
+    "w": 110,
+    "x": 165,
+    "y": 13
+  },
+  {
+    "bg": "rgba(0, 0, 0, 0)",
+    "cls": "",
+    "color": "rgb(10, 10, 11)",
+    "fill": "rgb(0, 0, 0)",
+    "h": 22,
+    "tag": "DIV",
+    "txt": "",
+    "w": 126,
+    "x": 165,
+    "y": 13
+  },
+  {
+    "bg": "rgba(0, 0, 0, 0)",
+    "cls": "relative",
+    "color": "rgb(10, 10, 11)",
+    "fill": "rgb(0, 0, 0)",
+    "h": 12,
+    "tag": "DIV",
+    "txt": "",
+    "w": 12,
+    "x": 279,
+    "y": 18
+  },
+  {
+    "bg": "rgba(0, 0, 0, 0)",
+    "cls": "absolute",
+    "color": "rgb(10, 10, 11)",
+    "fill": "rgb(0, 0, 0)",
+    "h": 10,
+    "parts": [
+      {
+        "fill": "rgb(107, 107, 107)",
+        "raw": "rgb(var(--gray-7))"
+      },
+      {
+        "fill": "rgb(107, 107, 107)",
+        "raw": "rgb(var(--gray-7))"
+      }
+    ],
+    "tag": "svg",
+    "txt": "",
+    "w": 6,
+    "x": 282,
+    "y": 19
+  },
+  {
+    "bg": "rgba(0, 0, 0, 0)",
+    "cls": "",
+    "color": "rgb(10, 10, 11)",
+    "fill": "rgb(107, 107, 107)",
+    "h": 4,
+    "tag": "path",
+    "txt": "",
+    "w": 6,
+    "x": 282,
+    "y": 19
+  },
+  {
+    "bg": "rgba(0, 0, 0, 0)",
+    "cls": "",
+    "color": "rgb(10, 10, 11)",
+    "fill": "rgb(107, 107, 107)",
+    "h": 4,
+    "tag": "path",
+    "txt": "",
+    "w": 6,
+    "x": 282,
+    "y": 25
+  }
+]

@@ -1,0 +1,25 @@
+=== r109 第九拍 · 下拉菜单面板配色统一到基准（落盘）===
+
+  [CSS] ×0   select 浮层底 → 基准半透明磨砂（10 页）
+        旧底 background:var(--color-bg-5);border:1px solid var(--color-border-2);
+        新底 background:rgba(var(--gray-1),0.88);border:1px solid var(--color-border-2);
+  [JS ] ×0   添加菜单面板底 + 磨砂 → 基准（base/conversation）
+
+── 每页字符数变化（规范化 \r\n→\n 后）──
+   base         +0
+   avatar       +0
+   automation   +0
+   skills       +0
+   settings     +0
+   conversation +0
+   dev          +0
+   kanban       +0
+   req-kanban   +0
+   task-detail  +0
+
+── 刻意保留（不在本次统一范围）──
+   .zd-menu.giencoder-dropdown-popup（conversation）      ★ r108 有意设计：菜单比卡片**亮一档**是刻意层次，blur(18px) saturate(160%) 属毛玻璃方案 ⇒ 待裁决
+   .giencoder-date-picker-popup（kanban/req-kanban/task- 日期选择器面板，结构不同（需较实底色才看得清日期）⇒ 待裁决
+   .giencoder-popup{background:var(--color-bg-white)}   通用弹层；实测 DOM 实例 = 0（死规则）。⚠ 但其暗色档 #f6f6f6 近白，属隐患
+   .giencoder-date-picker-popup{background:var(--color- 日期选择器面板，独立组件，待邵先生确认
+   .zd-menu.giencoder-dropdown-popup{color-mix(...)}    ZCode 复刻菜单（conversation），待邵先生确认

@@ -1,0 +1,12 @@
+{
+ "result": {
+  "content": [
+   {
+    "type": "text",
+    "text": "✅ 成功获取节点代码\n- 节点: 容器 201 (1409:18319)\n- 根节点: 1119:20759\n- 父容器方向: row\n- Server 资源上下文: 1 个临时 Artifact。\n- 后续动作: 当前仅做“读取/同步上下文”，等待用户明确说明修改内容。\n- 充满语义提示(parentDirection=row): 宽度充满=主轴充满(优先 flex-1)；高度充满=交叉轴充满(优先 self-stretch)。\n\n代码内容：\n\n<div\n  data-node-id=\"1409:18319\"\n  data-name=\"容器 201\"\n  style=\"width: 356px; height: 48px; position: relative\">\n  <div\n    data-node-id=\"1409:18318\"\n    data-name=\"容器 200\"\n    style=\"position: absolute; left: 0px; top: 12px; z-index: 0\">\n    <img src=\"./asset/icons/svg_8c76829a.svg\" />\n  </div>\n  <div\n    data-node-id=\"1204:18799\"\n    data-name=\"容器 198\"\n    style=\"width: 320px; height: 48px; position: absolute; left: 36px; top: 0px; z-index: 1\">\n    <div\n      data-node-id=\"1119:21382\"\n      data-name=\"矩形 361\"\n      style=\"width: 320px; height: 48px; background: #FFFFFF; border-style: solid; border-color: #E5E5E5; border-width: 1px; border-radius: 8px; box-shadow: 0px 4px 12px 0px rgba(0,0,0,0.08); position: absolute; left: 0px; top: 0px; z-index: 0\"></div>\n    <ui-component\n      data-node-id=\"1204:18765\"\n      data-name=\"Button\"\n      style=\"width: 48px; height: 28px; display: flex; justify-content: center; align-items: center; gap: 4px\"\n      name=\"Button\"\n      props='{\"类型\":\"主要按钮\",\"种类\":\"标准\",\"形状\":\"长方形\",\"尺寸\":\"迷你\",\"状态\":\"禁用\"}'\n      text='{\"保存\":\"添加\"}'></ui-component>\n    <ui-component\n      data-node-id=\"1119:21399\"\n      data-name=\"text/text\"\n      style=\"width: 84px; height: 22px; display: flex; justify-content: center; align-items: flex-start; flex-direction: column\"\n      name=\"text/text\"\n      props='{\"层级\":\"主要\",\"标记\":\"False\",\"块引用\":\"False\",\"复制\":\"false\",\"编辑\":\"false\"}'\n      text='{\"中电金信\":\"输入你的注释\"}'></ui-component>\n  </div>\n</div>\n"
+   }
+  ]
+ },
+ "jsonrpc": "2.0",
+ "id": 1
+}

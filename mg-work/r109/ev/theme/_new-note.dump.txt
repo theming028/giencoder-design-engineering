@@ -1,0 +1,336 @@
+seg len 16171
+=== 浏览器模块（标注态 + 元素评论） ==================== */
+  var brw = pane.querySelector('.td-brw');
+  var elnote = null;
+  if (brw) {
+    var view = brw.querySelector('[data-td-view]');
+    var annotBar = brw.querySelector('[data-td-annot-bar]');
+    var annotBtns = brw.querySelectorAll('[data-td-annot]');
+    elnote = document.createElement('div');
+    elnote.className = 'td-elnote';
+    elnote.setAttribute('hidden', '');
+    /* ★ r109-l1 ④（邵先生的三张 MasterGo 稿，`file=193158744355579` / `page_id=1119:15374`）：
+         稿1 `1409:18319` 初始态 356×48 —— pin 24×24 + 12 缝 + 卡 320×48（占位 + 禁用「添加」）
+         稿2 `1204:18467` 输入态 356×108 —— 卡 = 输入区 + 12 缝 + 底行（提示 + 取消 + 添加）
+         稿3 `1409:18332` 已批注锚点 24×24 —— 与 pin 同形，实心主色 + 白数字
+       结构 = `pin` 与 `card` **两个兄弟**（pin 要能独立切「已批注」实心态），几何全在 panel.css。
+       ⚠ 旧版的 `.td-elnote-t`（「评论元素 xx」标题）/ `.td-elnote-f`（26 高、圆角 6、透明底）
+         整套退役：稿子里没有标题行，两枚按钮也换成了 DS 组件。 */
+    elnote.innerHTML =
+      '<span class="td-elnote-pin" aria-hidden="true"></span>'
+      + '<div class="td-elnote-card">'
+      + '<textarea class="td-elnote-input" rows="1" aria-label="元素评论" placeholder="输入你的注释"></textarea>'
+      + '<div class="td-elnote-foot">'
+      + '<span class="td-elnote-hint">Enter添加，<em>Ctrl+Enter发送</em></span>'
+      + '<span class="td-elnote-acts">'
+      + '<button type="button" class="td-elnote-cancel giencoder-btn giencoder-btn-size-small '
+      + 'giencoder-btn-secondary" data-td-elnote-cancel="1">取消</button>'
+      + '<button type="button" class="td-elnote-ok giencoder-btn giencoder-btn-size-small '
+      + 'giencoder-btn-primary" data-td-elnote-ok="1" disabled>添加</button>'
+      + '</span></div></div>';
+    if (view) view.appendChild(elnote);
+    var noteCard = elnote.querySelector('.td-elnote-card');
+    var notePin = elnote.querySelector('.td-elnote-pin');
+    var noteTa = elnote.querySelector('.td-elnote-input');
+    var noteOk = elnote.querySelector('[data-td-elnote-ok]');
+    var noteCancel = elnote.querySelector('[data-td-elnote-cancel]');
+    var noteList = [];        /* 已批注：`{ el, n, text, anchor }`，n = 下标 + 1 */
+    var noteCur = null;       /* 气泡此刻挂在哪个 `[data-td-el]` 上 */
+    var noteCtrlOn = false;
+    /* ★ r109-l3 ①：**本次批注的唯一原点**。
+       邵先生：「添加批注的点击触发点与输入批注的容器 `td-elnote` 没有在一个原点，位置漂移
+       太远，需要做到**在哪里点击就在哪里添加**，包括预览批注的也是一样」。
+       口径 = `.td-view` 的**内容坐标**（`clientX/Y − view.getBoundingClientRect() + scroll`），
+       与锚点内联 `left/top`、与气泡内联 `left/top` **同一套坐标系** ⇒ 三者可以直接加减。
+       两个写入点：
+         · 点元素发起批注（`.td-view` 的 click 监听）⇒ 写**点击点**；
+         · 点已有锚点看详情（`anchorOpen`）      ⇒ 写**锚点自己的位置**（「预览批注的也是一样」）。
+       读出点：`noteEdit()`（气泡左边缘）与 `noteDrop()`（锚点中心）。
+       ⚠ 缺省 `null` ⇒ 两条老路径都退回 r93 起的读法（被标注元素右上角），只在非点选路径下发生。 */
+    var noteAt = null;
+
+    function noteFind(el) {
+      for (var i = 0; i < noteList.length; i++) if (noteList[i].el === el) return noteList[i];
+      return null;
+    }
+    /* ★ r109-l2 ④：**反查** —— 从锚点找回它那一条批注。
+       （`noteList` 里的 `rec.el` 是单向的：被标注元素 → 批注；点锚点这一头走它。） */
+    function noteOfAnchor(a) {
+      for (var i = 0; i < noteList.length; i++) if (noteList[i].anchor === a) return noteList[i];
+      return null;
+    }
+    /* 卡高 = 12 + 输入区 + 12 + 底行 28 + 12（空态锁 48）。
+       邵先生「按行数算，1 行=86」⇒ 输入区高 = 行数 × 行高；行高从 computed 取，
+       `--ui-fs` 换档时自动跟着走。超过 200 的部分由卡片 `max-height` + 输入区自滚兜住
+       （卡片是纵列 + 输入区 `min-height:0`，触顶时它才是那个被收缩的件）。 */
+    function noteGrow() {
+      var has = noteTa.value.replace(/\s+/g, '') !== '';
+      noteCard.classList.toggle('has-text', has);
+      if (noteOk) noteOk.disabled = !has;
+      if (!has) { noteTa.style.height = ''; return; }
+      noteTa.style.height = 'auto';
+      noteTa.style.height = noteTa.scrollHeight + 'px';
+    }
+    /* ★ r109-l1 ④：Ctrl 联动 —— 邵先生「按钮 + 提示都变」+「字不变，只高亮后半句」。
+       按钮 添加 ⇄ 发送 在这里，提示后半句的高亮交给 `.is-ctrl`（panel.css）。 */
+    function noteCtrl(on) {
+      noteCtrlOn = on;
+      noteCard.classList.toggle('is-ctrl', on);
+      /* ★ r109-l3 ①（邵先生：「编辑态时原来的"添加"文案需变为"保存"」）：
+         已经是**编辑一条既有批注**（`noteCur` 查得到记录）⇒ 按钮恒为「保存」，
+         与 Ctrl 无关 —— Ctrl 那档是「把一条**新**意见发送进对话」的语义，不是「改一条老意见」。
+         ★ 文案统一在这**一个函数**里收口：`noteEdit()` 与文档级的 Ctrl keydown / keyup
+           都只调它 ⇒ 不存在「编辑态下按一下 Ctrl 就翻回『添加』」的漏洞。
+         ⚠ 调用顺序依赖：`noteEdit()` 里是「先 `noteCur = el`、后 `noteCtrl(...)`」，
+           所以这里查 `noteCur` 已经是最新的那条。 */
+      if (noteOk) {
+        noteOk.textContent = (noteCur && noteFind(noteCur)) ? '保存' : (on ? '发送' : '添加');
+      }
+    }
+    function setAnnot(on) {
+      brw.classList.toggle('is-annotating', on);
+      if (annotBar) { if (on) annotBar.removeAttribute('hidden'); else annotBar.setAttribute('hidden', ''); }
+      for (var i = 0; i < annotBtns.length; i++) {
+        annotBtns[i].setAttribute('aria-pressed', on ? 'true' : 'false');
+        /* ★ r109-l1 ③：工具条那枚「标注」进入批注态后改文案为「退出批注」。
+           ⚠ 只认 `.td-url-annot` —— 标注条里那枚「完成」也带 `data-td-annot`，不动它。 */
+        if (annotBtns[i].classList.contains('td-url-annot')) {
+          var lb = annotBtns[i].querySelector('span');
+          if (lb) lb.textContent = on ? '退出批注' : '标注';
+        }
+      }
+      if (!on) { elnote.setAttribute('hidden', ''); noteCur = null; }
+    }
+    for (var ab = 0; ab < annotBtns.length; ab++) {
+      annotBtns[ab].addEventListener('click', function () {
+        setAnnot(!brw.classList.contains('is-annotating'));
+      });
+    }
+    /* 打开气泡：该元素**已有**批注 ⇒ pin 直接是稿3 的实心态、输入框回填原文；
+       没有 ⇒ 稿1 的初始态（占位 + 禁用「添加」）。
+       ★★ 顺序是硬的：**先摘 `[hidden]` 再 `noteGrow()`**。
+       真机踩过（本拍第一版）：`noteGrow()` 里用 `ta.scrollHeight` 定高，而气泡此刻还在
+       `display: none` 下 ⇒ `scrollHeight` **恒为 0** ⇒ 回填的长文本被压成 0 高，
+       重开气泡只剩底行（卡片 48 而不是 86+）。与硬规则「摘 `[hidden]` + 挂开态类必须在
+       同一 tick 之外留一次重排」同族 —— 隐藏元素量不出几何。 */
+    function noteEdit(el, at) {
+      var prev = noteFind(el);
+      /* ★ r109-l2 ④：`at` = **定位参照物**，默认 = 被标注元素自己。
+         点锚点看详情时传的是**锚点**：气泡落在锚点下方。锚点可以拖到任意位置
+         （本层 ⑤），若还按「被标注元素」定位，拖远之后气泡会跟锚点脱开。 */
+      var ref = at || el;
+      noteCur = el;
+      noteTa.value = prev ? prev.text : '';
+      notePin.textContent = prev ? String(prev.n) : '';
+      notePin.classList.toggle('is-done', !!prev);
+      noteCtrl(noteCtrlOn);
+      /* ★ r109-l2 ⑤（配套）：锚点可以拖到任意位置（本层 ⑤）⇒ 气泡不能只顾「锚点下方」。
+         `.td-elnote` 是 `.td-view`（`overflow: auto`）的**子件** ⇒ 锚点贴到底边时，
+         `top = 锚点底缘 + 8` 会把气泡整块推出生效区、被裁得一点不剩
+         —— 真机实测（锚点拖到 `.td-view` 右下角后点开）：气泡 `top` 超出可视底 116px、
+         `visibleH = -8`、`fullyHidden = true`。需求 ⑤「锚点可任意拖动」是**因**、
+         气泡被裁是**果** ⇒ 这条夹取是 ⑤ 的必要配套，不是另开一摊。
+         夹取口径：气泡始终留在 `.td-view` 的**可视带** `[scrollTop, scrollTop + clientHeight]` 内。
+         ⚠ 先摘 `[hidden]` 再量高：隐藏态 `offsetHeight` 恒为 0 ⇒ 量不出真实高、夹取失效。
+           l1 的判据本来就是「先摘 `[hidden]` 再 `noteGrow()`」——顺序不动，只是把定位挪到其后。
+         ⚠ 写 `top` 挪到摘 `[hidden]` 之后**不会**引入位移动画：`.td-elnote` 自身没有
+           `transition`（真机实测 `transitionDuration: 0s`），只有 pin 的 `background-color`
+           与两枚按钮各自有过渡。
+         ⚠ 只在「锚点贴近底边」时生效：常规位置真机实测仍是 `气泡顶 = 锚点底 + 8`。 */
+      elnote.removeAttribute('hidden');
+      noteGrow();
+      var er = ref.getBoundingClientRect(), vr = view.getBoundingClientRect();
+      var top = er.bottom - vr.top + view.scrollTop + 8;
+      var vTop = view.scrollTop, vBot = view.scrollTop + view.clientHeight;
+      var h = elnote.offsetHeight;
+      if (h && view.clientHeight && top + h > vBot) top = vBot - h;
+      if (top < vTop) top = vTop;
+      elnote.style.top = Math.round(top) + 'px';
+      /* ★ r109-l3 ①：**水平也跟同一原点走**（邵先生：「没有在一个原点，位置漂移太远」）。
+         原状：`.td-elnote` 的 `left` 是 CSS 里写死的 `12px`（`left: 12px;`）⇒ 不论锚点在哪、
+         点的是哪儿，气泡**永远贴着 `.td-view` 的左边**，与原点能差出几百 px。
+         本拍：气泡**左边缘**对齐原点 `noteAt.x`（缺省则退回参照物 `ref` 的左边缘），
+         再夹进 `.td-view` 的可视带 —— 与上面 `top` 的夹取同一口径、同一坐标系。
+         ⚠ 只加一条内联 `left`（内联优先于 CSS 的 `12px`），CSS 那条保留为**未定位时的初值**；
+           气泡的宽度 / radius / 内距 / 三稿几何一字未动。
+         ⚠ 宽度在**摘掉 `[hidden]` 之后**量（同 `top` 那条的教训：隐藏态 `offsetWidth` 恒为 0）。 */
+      var vLeft = view.scrollLeft, vRight = view.scrollLeft + view.clientWidth;
+      var left = noteAt ? noteAt.x : (er.left - vr.left + view.scrollLeft);
+      var w = elnote.offsetWidth;
+      if (w && view.clientWidth && left + w > vRight) left = vRight - w;
+      if (left < vLeft) left = vLeft;
+      elnote.style.left = Math.round(left) + 'px';
+    }
+    /* 锚点（稿3）：初始落在被标注元素的**右上角**（−12 = 让 24×24 的锚点中心咬住那个角）。
+       ⚠ 稿子只给了锚点长相、没给落点 ⇒ 取「右上角」这个通行读法（Figma 批注同款），
+         若有偏差请邵先生指定。
+       ★ r109-l2 ④⑤：锚点从「只读标记」升级成**可交互对象** ——
+         · 点它 / 键盘 Enter·Space ⇒ 以**编辑态**打开这条批注的详情（回填原文 + pin 显示
+           编号 + 「添加」可用）= `noteEdit(rec.el, a)` 一次调用；
+         · 拖它 ⇒ 任意挪位置（pointer 事件 + `window` 上的 move/up，与标签重排同口径）。
+       ★ 拖动与点击**共用同一次 pointer 序列** ⇒ 用 4px 阈值分流：超过阈值才算「拖过」，
+         松手后那一下 `click` 被 `_tdMoved` 吃掉（否则每拖一次都顺手弹一次气泡）。
+       ⚠ 位置夹取用 `.td-view` 的**可视区**（`scrollLeft + clientWidth`）：绝对定位子件是
+         跟着内容滚的，不夹的话可以把锚点拖到视野外、再也点不到。
+       ⚠ 拖动**不写 `noteList`**：位置就在内联 `left/top` 里，是这个元素唯一的位置真身。 */
+    var ANCHOR_MIN = 4;                       /* 拖动阈值：与标签重排的 5px 同量级 */
+    /* 把 (left, top) 夹进 `.td-view` 的可视区，并直接落到 `a.style` 上。
+       ⚠ 隐藏态（模块没被激活 ⇒ `clientWidth === 0`）量不出可视区 ⇒ 原样落位、不要夹
+         （`noteDrop` 只在用户与浏览器模块交互时才跑，正常不会命中这一支，留作防御）。 */
+    function anchorPlace(a, left, top) {
+      if (!view.clientWidth || !view.clientHeight) {
+        a.style.left = Math.round(left) + 'px'; a.style.top = Math.round(top) + 'px'; return;
+      }
+      var w = a.offsetWidth || 0, h = a.offsetHeight || 0;
+      var minL = view.scrollLeft, minT = view.scrollTop;
+      var maxL = minL + view.clientWidth - w, maxT = minT + view.clientHeight - h;
+      if (maxL < minL) maxL = minL;
+      if (maxT < minT) maxT = minT;
+      a.style.left = Math.round(Math.min(Math.max(left, minL), maxL)) + 'px';
+      a.style.top = Math.round(Math.min(Math.max(top, minT), maxT)) + 'px';
+    }
+    /* 打开某个锚点对应的批注详情（编辑态）。反查不到就什么都不做 —— 锚点永远是
+       `noteCommit()` 里 `push` 之后才落盘的，理论上必能反查到。 */
+    function anchorOpen(a) {
+      var rec = noteOfAnchor(a);
+      if (!rec) return;
+      /* ★ r109-l3 ①：**「预览批注的也是一样」** —— 点锚点看详情时，原点就是**锚点自己**。
+         既有的 r109-l2 ④ 已经把「定位参照物」传成锚点（气泡落在锚点**下方**），
+         但水平那一路当时还是 CSS 的 `left: 12px` ⇒ 锚点拖到右侧时，气泡仍在左边弹出来。
+         这里把 `noteAt` 覆盖成锚点位置 ⇒ 与「点元素发起批注」共用**同一条定位路径**
+         （`noteEdit()` 里那两个夹取完全一致），不再分叉。 */
+      var ar = a.getBoundingClientRect(), vr = view.getBoundingClientRect();
+      noteAt = { x: ar.left - vr.left + view.scrollLeft,
+                 y: ar.top - vr.top + view.scrollTop };
+      noteEdit(rec.el, a);
+    }
+    function bindAnchor(a) {
+      a.addEventListener('pointerdown', function (e) {
+        if (e.button !== 0) return;
+        e.preventDefault();                 /* 别把光标下的文字拖成选区 */
+        e.stopPropagation();                /* 免得透过 `.td-view` 冒到标注态那层点击 */
+        a._tdMoved = false;
+        var sx = e.clientX, sy = e.clientY;
+        var sl = parseFloat(a.style.left) || 0, st = parseFloat(a.style.top) || 0;
+        function onMove(ev) {
+          var dx = ev.clientX - sx, dy = ev.clientY - sy;
+          if (!a._tdMoved) {
+            if (Math.abs(dx) < ANCHOR_MIN && Math.abs(dy) < ANCHOR_MIN) return;
+            a._tdMoved = true;
+            a.classList.add('is-dragging');
+          }
+          anchorPlace(a, sl + dx, st + dy);
+          ev.preventDefault();
+        }
+        /* 一次性拆净四支：`pointerup` 正常收尾；`pointercancel` / `blur` 兜「手势被系统
+           抢走」与「切走窗口」两种断线（站内其它拖拽同口径）。 */
+        function onEnd() {
+          window.removeEventListener('pointermove', onMove, true);
+          window.removeEventListener('pointerup', onEnd, true);
+          window.removeEventListener('pointercancel', onEnd, true);
+          window.removeEventListener('blur', onEnd, true);
+          a.classList.remove('is-dragging');
+        }
+        window.addEventListener('pointermove', onMove, true);
+        window.addEventListener('pointerup', onEnd, true);
+        window.addEventListener('pointercancel', onEnd, true);
+        window.addEventListener('blur', onEnd, true);
+      });
+      a.addEventListener('click', function (e) {
+        e.stopPropagation();
+        /* 刚拖过 ⇒ 这一下 `click` 是拖动的尾巴、不是「点开」。消费掉标记后返回。 */
+        if (a._tdMoved) { a._tdMoved = false; return; }
+        anchorOpen(a);
+      });
+      /* 键盘可达：给了 `role="button"` 就必须配 Enter / Space，否则读屏用户点不开。 */
+      a.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); anchorOpen(a); }
+      });
+    }
+    function noteDrop(el, n, at) {
+      var a = document.createElement('span');
+      a.className = 'td-anchor';
+      a.textContent = String(n);
+      /* ★ r109-l2 ④：锚点**不再是纯装饰** ⇒ 摘掉 r109-l1 挂的 `aria-hidden="true"`
+         （那时它确实只是个标记，挂 aria-hidden 是对的），换成真正的按钮语义。 */
+      a.setAttribute('role', 'button');
+      a.setAttribute('tabindex', '0');
+      a.setAttribute('aria-label', '查看第 ' + n + ' 条批注');
+      a.title = '点击查看批注 · 拖动可挪位置';
+      view.appendChild(a);                  /* 先入 DOM —— `anchorPlace` 要量它的几何 */
+      /* ★ r109-l3 ①：**锚点落在「本次点击点」**（`at` = 内容坐标，见 `noteAt`）。
+         锚点 24×24 ⇒ `−12` = 让它的**中心**咬住那个点（「在哪里点击就在哪里添加」）。
+         ⚠ 旧读法（r93 起）= 被标注元素的**右上角 −12**：它假设「用户点的是元素右上角」，
+           点长段落左端时锚点就飘到了段落右端 —— 正是邵先生说的「位置漂移太远」。
+         ⚠ `at` 缺省 ⇒ 退回旧读法，只在「非点选路径」下发生（防御，正常不会命中）。
+         ⚠ `anchorPlace` 的夹取照旧：拖/落到 `.td-view` 可视区边界会被夹住。 */
+      if (at) {
+        anchorPlace(a, at.x - 12, at.y - 12);
+      } else {
+        var er = el.getBoundingClientRect(), vr = view.getBoundingClientRect();
+        anchorPlace(a, er.right - vr.left + view.scrollLeft - 12,
+                    er.top - vr.top + view.scrollTop - 12);
+      }
+      bindAnchor(a);
+      return a;
+    }
+    function noteCommit() {
+      if (!noteCur) return;
+      var text = noteTa.value.replace(/\s+/g, '');
+      if (!text) return;
+      var rec = noteFind(noteCur);
+      if (rec) { rec.text = text; }
+      else {
+        rec = { el: noteCur, n: noteList.length + 1, text: text, anchor: null };
+        rec.anchor = noteDrop(noteCur, rec.n, noteAt);
+        noteList.push(rec);
+      }
+      elnote.setAttribute('hidden', '');
+      noteCur = null;
+      /* ★ r109-l3 ①：原点用完即弃 —— 下一次批注一定由「新的点击」或「新的锚点」重写它，
+         不清就会让「先点 A 处提交、再键盘触发一次编辑」这类路径误用上一处坐标。 */
+      noteAt = null;
+      /* ★ r109-l1 ④：**不再** `setAnnot(false)`。稿3 的存在说明「加完一条留在批注模式」
+         才是原意 —— 加完就退出的话，锚点根本来不及被看到。锚点常驻：它跟 Figma 批注
+         一样是「页面上已经存在的意见」，不随批注模式开合。 */
+      say('评论已带入对话（视觉演示）');
+    }
+    if (view) {
+      view.addEventListener('click', function (e) {
+        if (!brw.classList.contains('is-annotating')) return;
+        var el = e.target && e.target.closest ? e.target.closest('[data-td-el]') : null;
+        if (!el) return;
+        /* ★ r109-l3 ①：**记下点击点**（转成 `.td-view` 的内容坐标）—— 它就是本条批注的原点。
+           ⚠ `e.clientX/Y` 是**视口坐标**，锚点与气泡用的是**内容坐标** ⇒ 必须 `− viewRect + scroll`。
+           ⚠ 键盘 Enter 触发的合成 `click` 两个坐标都是 0 ⇒ 认作「没有点击点」，退回旧读法
+             （否则锚点会被扔到 `.td-view` 的左上角）。 */
+        if (e.clientX || e.clientY) {
+          var vr0 = view.getBoundingClientRect();
+          noteAt = { x: e.clientX - vr0.left + view.scrollLeft,
+                     y: e.clientY - vr0.top + view.scrollTop };
+        } else {
+          noteAt = null;
+        }
+        noteEdit(el);
+      });
+    }
+    /* ⚠ 气泡挂在 `.td-view` 里 ⇒ 它自己的点击会冒到上面那条 view 监听上，
+       点「取消」会顺手把气泡重新打开。断在气泡这一层。 */
+    elnote.addEventListener('click', function (e) { e.stopPropagation(); });
+    noteTa.addEventListener('input', noteGrow);
+    /* 稿2 的提示写的是「Enter添加，Ctrl+Enter发送」⇒ 两种回车都落到同一枚提交上
+       （本页是静态演示，两者的差别只在文案）。顺手拦掉换行，免得输入框里长出一行。 */
+    noteTa.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') { e.preventDefault(); noteCommit(); }
+    });
+    if (noteCancel) noteCancel.addEventListener('click', function () {
+      elnote.setAttribute('hidden', ''); noteCur = null;
+    });
+    if (noteOk) noteOk.addEventListener('click', noteCommit);
+    /* ★ r109-l1 ④：Ctrl 按住 / 松开。挂在 `document` 上 —— 邵先生的演示说的是「按下
+       ctrl 键」即可，不该限定焦点在输入框里。`blur` 兜底（切走窗口时归位，免得卡在
+       「发送」态）。 */
+    document.addEventListener('keydown', function (e) { if (e.key === 'Control') noteCtrl(true); });
+    document.addEventListener('keyup', function (e) { if (e.key === 'Control') noteCtrl(false); });
+    window.addEventListener('blur', function () { noteCtrl(false); });
+    

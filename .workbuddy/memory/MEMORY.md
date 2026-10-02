@@ -380,3 +380,113 @@
 > **产物**：`panel.js` 69623 → **72191 字符**；`conversation.html` → **1024825 字符**（+2568；对 `HEAD` 累计 **`1234 / 242`** 行；工作区 bytes 1145785 / **8487 行** / LF `sha1_lf 2c1ed815740e`）、
 > `task-detail.html` **767836（未动）**、`base.html` **逐字节不变**；`acceptance.md` **四十四节**。
 > ✅ **已 commit `172e580` 并 push `origin/main`**（2026-10-01 23:1x）；工作区干净。
+> ★★ **r108 已封板** —— 再改会话详情页 / 右栏 / 任务详情页须**新建 `mg-work/r109/`**（不要回头改 `apply108.py` / `apply107.py`）。
+
+### 第一拍（r109 第一层补丁 · 四条 · 2026-10-02 08:5x · **🚫 未提交**）
+
+> ★ 体位：r108 **已交付 `172e580`** ⇒ 本拍是**新一代 r109**（`GENS` **七代**、nav 仍沿用 `r106-nav-js` ⇒ 仍只改 `conversation.html` 一页）。
+> 四条 = 右栏「**批注链路**」：① 删 `td-page-blank` ② `td-annot-bar` 贴顶 ③ `td-url-annot` 批注态转红 + 文案「退出批注」 ④ `td-elnote` 按邵先生三稿**逐像素**重做。
+> **① 删 `td-page-blank`** —— DOM + `panel.css` 规则**双清零**（不留死规则）；真机 `pageBlankCount 0`。
+> **② `td-annot-bar` 贴顶** —— ★★ **只改 `bottom:0 → top:0` 不够**：`position:sticky` 的 `top` 只在元素位于「滚动容器里首个可滚动子件」**之前**才追得上，而它原是 `.td-view` 的**末位子件** ⇒ **DOM 同步挪成首个子件**才生效；真机 `barIsFirstChild:true` / `bar.top:"0px"` / **`dTop:0`**。
+> **③ 批注钮转红** —— 「浅底红 + 红字」= `--color-danger-light-1`（red-1 `#FFECE8`）+ `--color-danger-6`（red-6 `#F53F3F`）；文案由 `setAnnot(on)` 切 `标注 ⇄ 退出批注`（⚠ 只认 `.td-url-annot`）；真机 `uaBg rgb(255,236,232)` / `uaColor rgb(245,63,63)`。
+> **④ `td-elnote` 三稿** —— 稿1 `1409:18319` 356×48 / 稿2 `1204:18467` 356×108 / 稿3 `1409:18332` 24×24（PNG 均 **scale=2**、卡描边外沿在 PNG **(72,28)**）。
+>   ★ **内距 12 = 1px 描边 + 11px padding**；**卡高 `12 + 22n + 12 + 28 + 12`**（空 48 / 1 行 86 / 2 行 108）、封顶 `calc(200px * --ui-fs-ratio)`、**由输入区自滚**；
+>   ★ Ctrl ⇒ 按钮 `添加 ⇄ 发送`（宽仍 48）+ **只亮后半句**（`emColor 169,169,169 → 55,112,247`、`hintColor` 不动）；锚点落**右上角**（`dRight 12 / dTop −12`）、提交后**留在批注模式**；
+>   ★ **逐像素对照**：稿1 卡框 / 稿2 卡框 / 稿2 两枚按钮 **逐项差 0**；两处超 1px 均在**字形右沿抗锯齿**。★ 已知偏差：稿1「添加」右内距 10px vs 稿2 12px ⇒ 统一取 12（待定夺）。
+>   ★★ **真机踩到并修掉的功能 bug**：`noteEdit()` 原「先 `noteGrow()` 再摘 `[hidden]`」⇒ 隐藏态 `scrollHeight === 0` ⇒ 回填文本被压成 0 高（卡 48 而非 108）⇒ 改成「**先摘 `[hidden]` 再量**」+ 静态判据 `i_unhide < i_grow`。
+> **八条坑** = **P3.56**（① ★★★ **`sticky top` 只在滚动容器首子件之前才追得上** ② ★★★ **归零判据必须先剥三类注释**（被自己的说明注释绊倒）
+> ③ ★★ **裸前缀**（`.td-elnote-f` 被 `.td-elnote-foot` 命中 ⇒ 词边界）④ 裸词「添加评论」被三处右键菜单项命中 ⇒ 查带上下文整串 ⑤ 跨代标记判据照**实际清单**抄
+> ⑥ ★★★ **CSS 注释里写 hex 会被门禁打成 TOKEN-GAP** ⑦ ★★ **`convert('RGB')` 把设计稿透明像素变纯黑** ⇒ 先限定卡片内区 ⑧ 设计稿定标 (72,28)、元素截图 **1×**）。
+> **产物**：`conversation.html` 1024825 → **1036907 字符（+12082）**（**8733 行**；LF bytes 1154553 / 工作区 1163285；`git diff --numstat` **`300 55`**）、
+> `task-detail.html` **767836（未动）**、`base.html` **逐字节不变**；`acceptance.md` **九节**。
+> 门禁：`check-syntax` **10/10**｜`verify-design` md5 `3dbf654337559509110899e48bef1b1c`（与 r107 基线同）｜`scan-flatten part109/panel.css` **2 条**｜`patch109l1` / `apply109` 幂等。
+> 🚫 未 commit / 未 push。
+
+### r109 第二拍（五条 + 一条配套 · 同日 09:xx 邵先生 · **就地返工 `ev/patch109l2.py`**）—— 🚫 未提交
+
+> ① **右栏展开 ⇒ `zd-host` 自动折胶囊**：盯宿主状态类 **`.av-browse-on`**（`div:has(> main)`、宿主 `setOpen()` 唯一写入）⇒ `toMini()`；**反向不摊回**；
+>   别 hook 开关 `click`（三条收起路径 + `ensureOpen()` 合成 `b.click()`）。真机 `a2 on:true / card hidden / mini 103.09×32 visible`。
+> ② **终端模块全 13px**：四条 `.td-term*` 由 `--font-size-body-1`(12) 换 `--font-size-body-2`(13)；**盒模型零改动**（`lh 20` / `tabs 34` / `tab 22` / `tabadd 22×22`）。
+>    ⚠ 标签条是 `.td-term` 的**兄弟** ⇒ 追问后邵先生定「整个终端模块都改」。
+> ③ **`regen` 图标重画**：★★ 落点 = **`ev/make109.py` 的 `EDITS` 表 E8**（`apply109.py` 是生成物 ⇒ 直接改会被重跑静默冲掉）；
+>    新串 `M12.95 10.64A5.03 5.03 0 0 0 3.37 8.5` + `M2.07 11.4 5.61 9.61 1.05 7.56Z`；拟合 err **15.046 → 2.298**、坏格 **1**；真机墨迹盒 `(1,5,12,10)` 与设计一致。
+> ④ **锚点 ⇒ 编辑态详情**：`noteOfAnchor` 反查 + `noteEdit(el, at)` + `noteDrop` 按钮语义（`role/tabindex/aria-label/title`）；真机 `气泡顶 − 锚点底 = 8`、`pin "1"`、改文案**就地 update**。
+> ⑤ **锚点可任意拖**：pointer + `window` 捕获段 + **4px 阈值** + `anchorPlace()` 夹 `.td-view` 可视区；`cursor:grab`、**无 transition**、不抬 `z-index`。
+>    ★★ **配套修掉 ⑤ 引出的必现缺陷**：锚点贴底 ⇒ `.td-elnote` 被 `.td-view`（`overflow:auto`）**整块裁掉**（`visibleH −8` / `fullyHidden true`）⇒ 补**可视带夹取** + **先摘 `[hidden]` 再量高**；修后 `0 / 108 / false`，常态仍 = `锚点底 + 8`。
+> **八条坑** = **P3.57**（★★★ `applyNNN.py` 是生成物 / ★★ 追加式编辑走 `strict=False` / ★★★ 反解看**坏格数**不看总 err /
+> ★★★ 防过拟合靠**物理边界**不靠罚项 / ★★ 1× 真机与 SS=N 不可逐格比 / ★★★ 观察**宿主状态类**别 hook 交互事件 /
+> ★★★ 加可拖件必查祖先 `overflow` 裁不裁配套浮层 / ★★ 判「是 bug 还是探针 bug」先看事件序列完整否）。
+> **产物**：`conversation.html` 1036907 → **1045713 字符（+8806）**（**8918 行**；LF bytes **1167288**；md5 **`dc240794ab4ed6d262b02b739f68753f`**）；
+>   `task-detail.html` **767836（未动）**、`base.html` **逐字节不变**；`acceptance.md` **十八节**。
+> 门禁：`check-syntax` **10/10**｜`verify-design` 与 `vd-l1now.txt` / `vd-l2.txt` **双 0 diff**｜`scan-flatten part109/panel.css` **仍 2 条**｜`patch109l2` 幂等（0/12 跳过）。
+> ★★ **自愈实证**：从 `ev/bak-l2/` 干净基线**全量重放**（应用 10 / 跳过 2）⇒ 产物与就地修改产物 **`diff` 0 差异**。
+> 🚫 未 commit / 未 push。
+
+### r109 第三拍（邵先生三条：批注原点 / 卡片两端对齐 / 全站暗色 · 同日 10:2x · **就地返工 `ev/patch109l3.py` + 新建 `ev/theme/*.py`**）—— 🚫 未提交
+
+> ① **批注「在哪里点就在哪里落」**：唯一原点 = `noteAt`（本次**真实点击点**、`.td-view` 内容坐标）；锚点 **24×24 的中心**咬住它、
+>   气泡**左边缘**对齐它（水平方向也补了可视带夹取）；**预览批注**时原点 = 锚点自己；`noteCtrl()` 收口「编辑态 ⇒ **保存**」。
+>   真机（全真鼠标）：点击 `880,349` ⇒ **气泡左 − 点击点 = 0**、提交后**锚点中心 = 880,349**、编辑态按钮 =「保存」、`taValue` 原文回填。
+> ② **`.r93-card` 两端对齐**：E9（落点 = `ev/make109.py` 的 `EDITS` 表）只动宽度两项 ⇒ 真机**全量 12 张** `dLeft` / `marginLeft` **全 0**。
+> ③ **全站暗色**：底座 = DS 早写好的 `[giencoder-theme='dark']`（已内联 10 页）⇒ 切主题 = 在 `<html>` 挂/摘属性。
+>   ③-a 机制层（10 页 / 档位 `light,dark,auto` / **默认 auto 跟随系统** / 补 `color-scheme`）；③-b 设置页「外观」接线（捕获阶段 + 回填 `aria-pressed`，真机七步全过）；
+>   ③-c 适配层（**基础工作台 5 页**）收敛五类「不吃 token 的硬值」：第二套 shadcn HSL 层 / React 内联 + 尾风字面色 / 页面自定义变量（**DS 阶梯镜像**）/ 亮色 hover / 顶栏浅色位图。
+>   ★★ **护栏** `<html data-gi-dark="1">`（与适配块同进同出）⇒ 未适配页即便被请求 dark 也**一律浅色**（逐页实测 5 真 / 5 否）。
+>   ★ 页面自带的**非 DS 灰阶** `.dark{}` 块**刻意未用**（邵先生要求色值只来自 DS）。像素级：暗色亮像素 **0.9% ~ 3.6%**、残留全部落实身份。
+> ★★ **收尾排障修掉一条真缺陷**：暗色块**注释**里的 `r101-hdr-css` 字面撑破了 `apply109.py` 的净底自检 ⇒ **整条 apply 链断掉**；
+>   修好后又暴露 `<html … data-gi-dark="1">` 打断它的**逐字** `<html lang="zh-CN">` 锚点（且护栏会**外溢**给 conversation）⇒ 新增 **E10**（属性宽容 + 摘护栏）。
+> **九条坑** = **P3.58**。**门禁**：`check-syntax` 10/10｜`verify-design` **76 不变**（差异仅「5 页各 +2 渐变」）｜`scan-flatten` 仍 2 条｜
+>   `patch109l3` 0/12｜`apply-theme` 10/10 · `apply-dark` 5/5｜★★ **整链固定点**（连跑两轮 quickhash 一致）+ **往返 md5 逐字节还原**。
+> **产物**：`base` **487942** · `avatar` **583882** · `automation` **377488** · `skills` **377375** · `settings` **475014**（各 +15792）
+>   · `conversation` **1054348**（+29523）· `dev/kanban/req-kanban/task-detail` 各 +4824；`acceptance.md` **二十九节**。
+> 🚫 未 commit / 未 push。
+
+---
+
+## r109 第四拍 · 邵先生四条（2026-10-02 13:4x · 🚫 未提交）
+
+> **四条**：①DS 是什么 ②**色值铁律**（全局一律用 giencoder 设计系统变量，禁写死绝对色值；前提：绝对不得影响已正确的浅色模式）③**全站浅暗混杂彻底解决**（不确定就问）④`r93-todocard` 去左缩进。
+> **三裁决**：暗色范围 = **全部 10 页**｜DS 无等值 token ⇒ **就近映射到 DS 阶梯（允许 ≤1 级色差）**｜豁免 = **只豁免品牌 logo**（语法高亮色也收敛）。
+>
+> **★ DS 本体事实**：`giencoder-design-system/colors_and_type.css`（22204 字符）= **13 原语族 × 10 级**（RGB 三元组，`rgb(var(--族-级))` 消费）+ **90 语义 token** + 暗色档；族 = `blue / cyan / giencoderblue / gold / gray / green / lime / magenta / orange / pinkpurple / purple / red / yellow`。
+> **★★★ 阶梯镜像**：暗色档 = 浅色档**逐级镜像**（`N ↔ 11−N`）—— `--gray-1` 浅 `247` / 暗 `31`；`--gray-10` 浅 `31` / 暗 `247`。
+> ⇒ `rgb(var(--gray-N))` / `--color-text-*` / `--color-fill-*` / `--color-border-*` **随档自动翻转**（这些语义 token **大多不在暗色档重声明**，纯靠镜像生效）；只有 `--color-bg-1..5` 是**字面重声明**；`--color-white / --color-black` **两档都不重声明** = 语义锚点。
+>
+> **链序（本拍新增第 5 步）**：`make109.py` → `apply109.py` → `apply-theme.py` → `apply-dark.py` → **`apply-tokens.py`**（幂等、可 `--revert`）。
+>
+> **④ E11**：`make109.py` EDITS 表首项 —— `.r93-todocard` `width: calc(100% - 18px); margin-left: 18px` ⇒ `width: 100%; margin-left: 0`（与 `.r93-card` 同宽）。★ 锚点必须带 `.r93-todocard {` 行（裸值在 `apply108.py` 命中 **2** 次）。定高 220px / padding / 圆角 / 底色**一字未动**。
+>
+> **② token 化两批 242 处**：批次一 210 处（启发式 EXACT / NEAR ≤12）；批次二 **32 处 / 12 值 / 6 页**（显式 `OVERRIDE` 表，Δ 全 ≤11）。条目见 PLAYBOOK **P3.59**。
+> ★★ **侦察器虚高 2.6 倍**：`hard-colors.py` 原报 **454 处**；**41 处 `#000000` 全在 `mask-image`（alpha 通道，不是颜色）**；补属性感知 + 跳过暗色规则后真实 = **176 处 / 68 值**。
+>
+> **③ 全站浅暗**：`apply-dark.py` `SCOPE` 5→**10 页**、`PRE` 去 `:not([data-r93-page])`；探针亮残 **86→51→49**（49 = 交通灯 40 + 滑块 4 + 橙点 2 + 白把手 3，**全假阳性**）。修掉两处真缺陷：`--td-bubble #E5EDFE` → `rgb(var(--blue-1))`；`settings .r85-sw.giencoder-switch` 轨道（页面覆盖 DS 本体的 `var(--color-fill-3)`）暗色档改挂 `rgb(var(--gray-4))`（保亮度不保索引）。
+> ★★ 同步撤 `PAGE_VARS` 3 条（`--td-appbar` / `--td-pane-line` / `--r81-hover-bg`）—— 否则 `--td-pane-line` 被暗色档 = **242 浅灰** 盖回。
+>
+> **★ 浅色零变化取证**：噪音底 = 同态连拍 **0.00~0.13% 像素 / 最大 Δ ~196** ⇒ **大 Δ ≠ 改色**；终态 vs 基线真实改动**全部 Δ ≤ 11**（dev / settings / req-kanban-light **0.00%**）。
+> **门禁**：`check-syntax` **10/10**｜`verify-design` **75 问题 / 0 critical**（基线 76，无新增；「硬编码色值」2→1）｜两脚本幂等 0。
+> **产物**：base **489115** · avatar **585253** · automation **378717** · skills **378604** · settings **476265** · conversation **1067020** · dev **467403** · kanban **585494** · req-kanban **531246** · task-detail **785188**（合计 **5744305**）。
+> ⚠ **待裁决**：剩余 ~150 处硬编码五类（类型/状态标签前景 Δ15~56 · 语法高亮 Δ9~37 · 头像色板 · 冷灰外壳 `#E5EDF5` Δ16 · `.avatar-tooltip` 磨砂深底）—— 详见 `acceptance.md §30.6`。
+> 🚫 未 commit / 未 push。
+
+> ★ **项目铁律四条**（PLAYBOOK.md 末段）：#1 只动该动的地方｜#2 色值走 DS｜#3 浅暗彻底适配｜**#4 聚焦任务主线，不过度发散**。**P3.63**=r109 第十三拍（先手/后手同特指度 ⇒ `display` 开关被顶掉 / 卡的"已改"是记忆假象 / 时序型需求取证）。
+
+> ★ **r109 第十五拍**（邵先生四条 · 只落 `conversation.html`）：①**恢复右栏批注模块** —— 「丢失」真相 = `21:09→21:26` 一次**整页重建**（−45KB）把注入的 `panel.js` 换回旧版；权威源 `part109/panel.js`/`panel.css` 完好 ⇒ **增量精确替换**（第 16 层 `ev/theme/apply14.py`，源 `make14.py`，12 条 EDIT）。②`.r93-todocard` **归零缩进**（`width: calc(100% - 18px); margin-left: 18px` → 满宽；真机 `w:860/pw:860/ml:0px/relX:0`）。③`.td-sum-art` 任务产物卡 **整体可点**（委托从卡里按钮扩到整张卡）。④**一个文件一枚独立页签** —— `openTab` 新增 `opts.file`，页签 id 改 `(mod, file)` 二元组；`activate(mod,file)` / 新增 `tabActivate(tab)` / `prevFiles{}` + `prevShowFile()`。**l3 原点铁证 `clickContentX:30 / noteLeftPx:30`**。门禁 10/10 + 74/0；幂等 **12/0/0**，md5 `e27eb005…`。快照 `ev/bak-r109-l15/`。
+> ★ **P3.64 新增**（第十五拍）：恢复被回退的东西 = **从权威源增量精确替换**（不重跑整链、不手抄），抽取式 EDIT 锚点选**旧版独有**那一头；单例容器升多实例 ⇒ 容器 id 从「类型」换「(类型, 实例)」二元组 **并给出无实例键的回退路径**；`activate` 类函数加判别键后**必须同步加"未命中即熄灭"**；**"数字对不上"先查是不是边界夹取**（锚点 18 ≠ 点击点 30 是 `anchorPlace()` 既定口径）。
+
+### r109 第十六拍（2026-10-02 22:20 · 邵先生三条）
+
+- **① 产物卡组 `r93-artgrid` 可点开右栏**：`attShow(el)` 收敛为**三类卡片统一入口** ——
+  文件名来源 `data-r93-att-file`（附件卡）｜`data-r93-artname`（产物卡组）；
+  图标 `el.querySelector('.r93-iblk svg') || el.querySelector('.r93-artic svg')`；
+  尺寸优先读卡内 `.r93-artmeta`（`128KB`），无值回退 `SIZE_BY_EXT` 表；
+  document 委托锚点（click + keydown 两处）扩成 `[data-r93-att-file],[data-r93-artname]`。
+  `ev/theme/apply16.py` 4 处替换，两遍 **4/0/0**，md5 **`c90e66dc65313f94cfa6b1f2c570ba70`**。
+  ★ `查看所有产物 (12)` **刻意无** `data-r93-artname` ⇒ 天然不命中，**不要补属性**。
+- **② 经验教训沉淀** ⇒ PLAYBOOK **P3.65**（三条**静默失败**）：
+  A. **带中文/反引号的脚本禁塞 `python -c`** —— shell 先做命令替换，正文里反引号包裹的词**在 Python 看到前就被执行掉**，
+     `exit 0`、stdout 只一行 `written len`，正文却**语义残缺**（本次实测把 `acceptance.md` 写坏，须写 `fix-accept36.py` 重写整节）。
+  B. 生成含 `{}` 的正文**别用 `str.format`** —— CSS 块 / JS `prevFiles{}` 被当占位符 ⇒ `KeyError`/`IndexError`；**改用 token 替换 + 残留断言**。
+  C. 探针顶层 `return` 非法 ⇒ `Illegal return statement`，输出仅 60 字节（易被当成"探针没数据"）。
+  ⇒ **共同特征 = 静默失败**；判据必须落在**产物内容**上，而非"命令是否跑完"。**落盘后一律回读校验**。
+- **③ README 更新 + commit + push**（本拍首次交付）。
+- 门禁 **10/10** + **74 问题 / 0 critical**；仅 `conversation.html` 改动（其余 9 页 SAME）；快照 `ev/bak-r109-l16/`。

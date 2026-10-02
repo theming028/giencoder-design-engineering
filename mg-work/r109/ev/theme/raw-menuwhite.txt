@@ -1,0 +1,236 @@
+=== 全站下拉菜单容器 background 声明（选择器 × 值 × 档）===
+
+  [浅] kanban,req-kanban,task-detail
+        sel: .giencoder-calendar-cell-selected
+        bg : var(--color-primary-6)
+  [浅] kanban,req-kanban
+        sel: .giencoder-calendar-cell-selected:hover, .giencoder-calendar-cell-range-start:
+        bg : var(--color-primary-6)
+  [浅] kanban,req-kanban
+        sel: .giencoder-date-picker-popup
+        bg : var(--color-bg-popup)
+  [浅] avatar,conversation,task-detail
+        sel: .giencoder-dropdown-divider
+        bg : var(--color-border-2)
+  [浅] conversation
+        sel: .giencoder-dropdown-divider
+        bg : var(--color-border-1)
+  [浅] conversation
+        sel: .giencoder-dropdown-divider,
+.td-ctxmenu .giencoder-dropdown-divider,
+.zd-menu
+        bg : var(--color-border-1)
+  [浅] conversation
+        sel: .giencoder-dropdown-divider,
+.td-rv-menu .giencoder-dropdown-divider,
+.td-ctxm
+        bg : var(--color-border-1)
+  [浅] conversation
+        sel: .giencoder-dropdown-divider,
+.zd-menu .giencoder-dropdown-divider
+        bg : var(--color-border-1)
+  [浅] conversation
+        sel: .giencoder-dropdown-item
+        bg : transparent
+  [浅] conversation
+        sel: .giencoder-dropdown-item,
+.td-ctxmenu .giencoder-dropdown-item,
+.zd-menu .gien
+        bg : transparent
+  [浅] conversation
+        sel: .giencoder-dropdown-item,
+.td-rv-menu .giencoder-dropdown-item,
+.td-ctxmenu .g
+        bg : transparent
+  [浅] conversation
+        sel: .giencoder-dropdown-item,
+.zd-menu .giencoder-dropdown-item
+        bg : transparent
+  [浅] avatar,conversation,task-detail
+        sel: .giencoder-dropdown-item-disabled:hover
+        bg : transparent
+  [浅] conversation
+        sel: .giencoder-dropdown-item.is-checked
+        bg : var(--color-primary-light-1)
+  [浅] conversation
+        sel: .giencoder-dropdown-item.is-checked,
+.td-ctxmenu .giencoder-dropdown-item.is-c
+        bg : var(--color-primary-light-1)
+  [浅] conversation
+        sel: .giencoder-dropdown-item.is-checked,
+.td-rv-menu .giencoder-dropdown-item.is-c
+        bg : var(--color-primary-light-1)
+  [浅] task-detail 
+        sel: .giencoder-dropdown-item.is-danger.is-hover
+        bg : var(--color-danger-light-1)
+  [浅] task-detail 
+        sel: .giencoder-dropdown-item.is-danger:hover,
+      .td-more .giencoder-dropdown-i
+        bg : var(--color-danger-light-1)
+  [浅] avatar,conversation,task-detail
+        sel: .giencoder-dropdown-item.is-hover
+        bg : var(--color-fill-2)
+  [浅] conversation
+        sel: .giencoder-dropdown-item:hover
+        bg : var(--color-fill-2)
+  [浅] avatar,conversation,task-detail
+        sel: .giencoder-dropdown-item:hover,
+      .td-ctx .giencoder-dropdown-item.is-hove
+        bg : var(--color-fill-2)
+  [浅] task-detail 
+        sel: .giencoder-dropdown-item:hover,
+      .td-more .giencoder-dropdown-item.is-hov
+        bg : var(--color-fill-2)
+  [浅] conversation
+        sel: .giencoder-dropdown-item:hover,
+.td-ctxmenu .giencoder-dropdown-item:hover,
+.z
+        bg : var(--color-fill-2)
+  [浅] conversation
+        sel: .giencoder-dropdown-item:hover,
+.td-rv-menu .giencoder-dropdown-item:hover,
+.t
+        bg : var(--color-fill-2)
+  [浅] conversation
+        sel: .giencoder-dropdown-item:hover,
+.zd-menu .giencoder-dropdown-item:hover
+        bg : var(--color-fill-2)
+  [浅] conversation
+        sel: .giencoder-dropdown-popup
+        bg : var(--color-bg-popup)
+  [浅] conversation
+        sel: .giencoder-dropdown-popup
+        bg : color-mix(in srgb, var(--color-bg-popup) 82%, transp
+  [浅] conversation
+        sel: .giencoder-dropdown-popup,
+.td-ctxmenu.giencoder-dropdown-popup,
+.zd-menu.gien
+        bg : var(--color-bg-popup)
+  [浅] conversation
+        sel: .giencoder-dropdown-popup,
+.td-rv-menu.giencoder-dropdown-popup,
+.td-ctxmenu.g
+        bg : var(--color-bg-popup)
+  [浅] conversation
+        sel: .giencoder-dropdown-popup,
+.zd-menu.giencoder-dropdown-popup
+        bg : var(--color-bg-popup)
+  [浅] conversation
+        sel: .giencoder-dropdown-submenu.is-hover
+        bg : var(--color-fill-2)
+  [浅] automation,avatar,base,conversation,dev,kanban,req-kanban,settings,skills,task-detail
+        sel: .giencoder-menu-horizontal .giencoder-menu-item-selected
+        bg : 0 0
+  [浅] automation,avatar,base,conversation,dev,kanban,req-kanban,settings,skills,task-detail
+        sel: .giencoder-menu-item-disabled:hover
+        bg : 0 0
+  [浅] automation,avatar,base,conversation,dev,kanban,req-kanban,settings,skills,task-detail
+        sel: .giencoder-menu-item-selected
+        bg : var(--color-primary-light-1)
+  [浅] automation,avatar,base,conversation,dev,kanban,req-kanban,settings,skills,task-detail
+        sel: .giencoder-menu-item-selected
+        bg : 0 0
+  [浅] automation,avatar,base,conversation,dev,kanban,req-kanban,settings,skills,task-detail
+        sel: .giencoder-menu-item-selected:before
+        bg : var(--color-primary-6)
+  [浅] automation,avatar,base,conversation,dev,kanban,req-kanban,settings,skills,task-detail
+        sel: .giencoder-menu-item:hover
+        bg : var(--color-fill-1)
+  [浅] automation,avatar,base,conversation,dev,kanban,req-kanban,settings,skills,task-detail
+        sel: .giencoder-menu-submenu-title:hover
+        bg : var(--color-fill-1)
+  [浅] automation,avatar,base,conversation,dev,kanban,req-kanban,settings,skills,task-detail
+        sel: .giencoder-popup
+        bg : var(--color-bg-white)
+  [浅] automation,avatar,base,conversation,dev,kanban,req-kanban,settings,skills,task-detail
+        sel: .giencoder-select-clear
+        bg : 0 0
+  [浅] automation,avatar,base,conversation,dev,kanban,req-kanban,settings,skills,task-detail
+        sel: .giencoder-select-disabled .giencoder-select-view
+        bg : var(--color-fill-1)
+  [浅] automation,avatar,base,conversation,dev,kanban,req-kanban,settings,skills,task-detail
+        sel: .giencoder-select-disabled .giencoder-select-view:hover
+        bg : var(--color-fill-1)
+  [浅] automation,avatar,base,conversation,dev,kanban,req-kanban,settings,skills,task-detail
+        sel: .giencoder-select-option-disabled:hover
+        bg : 0 0
+  [浅] automation,avatar,base,conversation,dev,kanban,req-kanban,settings,skills,task-detail
+        sel: .giencoder-select-option-selected
+        bg : var(--color-fill-1)
+  [浅] settings    
+        sel: .giencoder-select-option:focus
+        bg : var(--color-fill-2)
+  [浅] automation,avatar,base,conversation,dev,kanban,req-kanban,settings,skills,task-detail
+        sel: .giencoder-select-option:hover
+        bg : var(--color-fill-2)
+  [浅] automation,avatar,base,conversation,dev,kanban,req-kanban,settings,skills,task-detail
+        sel: .giencoder-select-popup
+        bg : rgba(var(--gray-1),0.88)
+  [浅] settings    
+        sel: .giencoder-select-popup .giencoder-select-option:focus
+        bg : var(--color-fill-2)
+  [浅] task-detail 
+        sel: .giencoder-select-popup 为
+           `box-shadow: 0 8px 20px #0000001a`；compon
+        bg : var(--color-bg-popup)
+  [浅] automation,avatar,base,conversation,dev,kanban,req-kanban,settings,skills,task-detail
+        sel: .giencoder-select-view
+        bg : var(--color-bg-2)
+  [浅] automation,avatar,base,conversation,dev,kanban,req-kanban,settings,skills,task-detail
+        sel: .giencoder-select-view
+        bg : var(--color-fill-1)
+  [浅] kanban,req-kanban
+        sel: .giencoder-select-view
+        bg : var(--color-fill-2)
+  [浅] kanban      
+        sel: .giencoder-select-view
+        bg : var(--color-bg-1)
+  [浅] kanban      
+        sel: .giencoder-select-view,
+      .kb-coop-date .giencoder-input-wrapper
+        bg : var(--color-bg-1)
+  [浅] automation,avatar,base,conversation,dev,kanban,req-kanban,settings,skills,task-detail
+        sel: .giencoder-select-view:active
+        bg : var(--color-bg-2)
+  [浅] kanban,task-detail
+        sel: .giencoder-select-view:active
+        bg : var(--color-fill-2)
+  [浅] automation,avatar,base,conversation,dev,kanban,req-kanban,settings,skills,task-detail
+        sel: .giencoder-select-view:hover
+        bg : var(--color-fill-1)
+  [浅] kanban,req-kanban
+        sel: .giencoder-select-view:hover
+        bg : var(--color-fill-3)
+  [浅] kanban,task-detail
+        sel: .giencoder-select-view:hover
+        bg : var(--color-fill-2)
+  [浅] kanban,task-detail
+        sel: .giencoder-select-view[aria-expanded="true"]
+        bg : var(--color-bg-2)
+  [浅] kanban,req-kanban
+        sel: .giencoder-select-view[aria-expanded='true']
+        bg : var(--color-fill-2)
+  [浅] automation,avatar,base,conversation,dev,kanban,req-kanban,settings,skills,task-detail
+        sel: .giencoder-select-view[aria-expanded=true]
+        bg : var(--color-bg-2)
+  [浅] conversation
+        sel: .zd-menu .giencoder-dropdown-divider
+        bg : var(--color-border-1)
+  [浅] conversation
+        sel: .zd-menu .giencoder-dropdown-item
+        bg : transparent
+  [浅] conversation
+        sel: .zd-menu .giencoder-dropdown-item:hover
+        bg : var(--color-fill-2)
+  [浅] conversation
+        sel: .zd-menu.giencoder-dropdown-popup
+        bg : var(--color-bg-popup)
+  [浅] conversation
+        sel: .zd-menu.giencoder-dropdown-popup
+        bg : color-mix(in srgb, var(--color-bg-popup) 82%, transp
+  [浅] conversation
+        sel: .zd-menu` / `.zd-toast` 原本是 `--color-bg-popup`）
+     —— 一律换成 `--color-bg-2` 会让
+        bg : color-mix(in srgb, var(--color-bg-2) 78%, transparen
+
+  合计不同组合：68

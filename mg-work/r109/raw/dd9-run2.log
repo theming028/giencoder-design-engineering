@@ -1,0 +1,9 @@
+触发器总数 = 7（取前 10 个）
+--- #0  (461,513)  添加 | flex size-8 items-center justify-center rounde
+--- #1  (501,513)  技能 | flex size-8 items-center justify-center rounde
+--- #2  (649,513)  标准模式 | giencoder-select-view select-view-ghost
+--- #3  (1101,513)  DeepSeek-V4-Pro | giencoder-select-view select-view-ghost
+--- #4  (505,564)  工作目录 (可选) | giencoder-select-view ws-dropdown-hover
+--- #5  (648,564)  默认权限 | giencoder-select-view ws-dropdown-hover
+--- #6  (215,24)  PAA团队工作空间 | ws-trigger-hover
+=== done · 产物 mg-work/r109/raw/dd9 ===

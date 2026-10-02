@@ -1,0 +1,12 @@
+=== 护栏实测（10 页）===
+页                  适配     切后属性   档位     bg1        外壳底色               真暗
+automation.html    True   dark   dark   #17171a    rgb(23, 23, 26)    True
+avatar.html        True   dark   dark   #17171a    rgb(23, 23, 26)    True
+base.html          True   dark   dark   #17171a    rgb(23, 23, 26)    True
+conversation.html  False  None   dark   #fff       rgb(244, 245, 246) False
+dev.html           False  None   dark   #fff       rgb(229, 237, 245) False
+kanban.html        False  None   dark   #fff       rgb(229, 237, 245) False
+req-kanban.html    False  None   dark   #fff       rgb(229, 237, 245) False
+settings.html      True   dark   dark   #17171a    rgb(23, 23, 26)    True
+skills.html        True   dark   dark   #17171a    rgb(23, 23, 26)    True
+task-detail.html   False  None   dark   #fff       rgb(229, 237, 245) False

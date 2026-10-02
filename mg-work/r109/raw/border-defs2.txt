@@ -1,0 +1,24 @@
+--- A. base 暗色块选择器原文（@339748 前 260 字节）---
+'0;--color-bg-white:#f6f6f6;--color-text-1:rgb(var(--gray-10));--color-text-2:rgb(var(--gray-8));--color-text-3:rgb(var(--gray-6));--color-text-4:rgb(var(--gray-4));--color-fill-1:rgb(var(--gray-1));--color-fill-2:rgb(var(--gray-2));--color-fill-3:rgb(var(--gray-3));--color-fill-4:rgb(var(--gray-4));--color-border-1:rgb(var(--gray-2));--co'
+
+--- B. base 浅色块选择器原文（@331830 前 260 字节）---
+'bg-popup:var(--color-bg-5);--color-text-1:rgb(var(--gray-10));--color-text-2:rgb(var(--gray-8));--color-text-3:rgb(var(--gray-6));--color-text-4:rgb(var(--gray-4));--color-fill-1:rgb(var(--gray-1));--color-fill-2:rgb(var(--gray-2));--color-fill-3:rgb(var(--gray-3));--color-fill-4:rgb(var(--gray-4));--color-border-1:rgb(var(--gray-2));--co'
+
+--- C. 全站 --color-border* 定义名（去重，全仓）---
+  --color-border           12 处文件: ['giencoder-design-system\\colors_and_type.css', 'giencoder-design-system\\gienx-templates\\_shared\\tokens.css', 'pages\\automation.html']
+  --color-border-1         12 处文件: ['giencoder-design-system\\colors_and_type.css', 'giencoder-design-system\\gienx-templates\\_shared\\tokens.css', 'pages\\automation.html']
+  --color-border-2         12 处文件: ['giencoder-design-system\\colors_and_type.css', 'giencoder-design-system\\gienx-templates\\_shared\\tokens.css', 'pages\\automation.html']
+  --color-border-3         12 处文件: ['giencoder-design-system\\colors_and_type.css', 'giencoder-design-system\\gienx-templates\\_shared\\tokens.css', 'pages\\automation.html']
+  --color-border-4         12 处文件: ['giencoder-design-system\\colors_and_type.css', 'giencoder-design-system\\gienx-templates\\_shared\\tokens.css', 'pages\\automation.html']
+
+--- D. 页面是否引用 colors_and_type.css ---
+  base         colors_and_type.css 引用 = 1 ; <link href> 总数 = 0
+  conversation colors_and_type.css 引用 = 1 ; <link href> 总数 = 0
+  avatar       colors_and_type.css 引用 = 1 ; <link href> 总数 = 0
+  kanban       colors_and_type.css 引用 = 1 ; <link href> 总数 = 0
+  req-kanban   colors_and_type.css 引用 = 1 ; <link href> 总数 = 0
+  dev          colors_and_type.css 引用 = 1 ; <link href> 总数 = 0
+  settings     colors_and_type.css 引用 = 1 ; <link href> 总数 = 0
+  automation   colors_and_type.css 引用 = 1 ; <link href> 总数 = 0
+  skills       colors_and_type.css 引用 = 1 ; <link href> 总数 = 0
+  task-detail  colors_and_type.css 引用 = 2 ; <link href> 总数 = 0

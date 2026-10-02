@@ -1,0 +1,10 @@
+base=487942:e507cc1c
+avatar=583882:63d34eb6
+automation=377488:e7bed2ed
+skills=377375:d21c71d3
+settings=475014:c15bb285
+conversation=1054348:55a1f9a3
+dev=455029:8f3e9a44
+kanban=572876:098eebaf
+req-kanban=518615:b72b3639
+task-detail=772660:f35ab05e

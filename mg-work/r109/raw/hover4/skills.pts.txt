@@ -1,0 +1,10 @@
+173 24 header.flex.h-12>div.flex.w-60>div>div.relative>button.ws-trigger-hover
+668 24 div#root>div.flex.h-dvh>header.flex.h-12>div.relative.inline-flex>button.relative.z-10
+782 24 div#root>div.flex.h-dvh>header.flex.h-12>div.relative.inline-flex>button.relative.z-10
+52 64 div.flex.min-h-0>aside.relative.flex>div.pt-0.pr-3>div.flex.flex-col>button.giencoder-btn.giencoder-btn-size-default
+96 24 header.flex.h-12>div.flex.w-60>div>div.relative>button
+52 179 div.flex.min-h-0>aside.relative.flex>div.pt-0.pr-3>div.flex.flex-col>button.flex.items-center
+60 336 div.flex-1.overflow-y-auto>div.flex.flex-col>div.flex.flex-col>div.flex.items-center>button.flex.flex-1
+210 336 div.flex.flex-col>div.flex.items-center>div.flex.items-center>span.relative.inline-flex>button.flex.size-5
+238 336 div.flex.flex-col>div.flex.items-center>div.flex.items-center>span.relative.inline-flex>button.flex.size-5
+52 872 div.flex.h-dvh>div.flex.min-h-0>aside.relative.flex>div.shrink-0.border-t>button.flex.h-8

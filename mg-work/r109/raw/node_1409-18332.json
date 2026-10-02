@@ -1,0 +1,12 @@
+{
+ "result": {
+  "content": [
+   {
+    "type": "text",
+    "text": "✅ 成功获取节点代码\n- 节点: 容器 204 (1409:18332)\n- 根节点: 1119:20759\n- 父容器方向: row\n- Server 资源上下文: 1 个临时 Artifact。\n- 后续动作: 当前仅做“读取/同步上下文”，等待用户明确说明修改内容。\n- 充满语义提示(parentDirection=row): 宽度充满=主轴充满(优先 flex-1)；高度充满=交叉轴充满(优先 self-stretch)。\n\n代码内容：\n\n<div\n  data-node-id=\"1409:18332\"\n  data-name=\"容器 204\"\n  style=\"width: 24px; height: 24px; position: relative\">\n  <div\n    data-node-id=\"1119:22770\"\n    data-name=\"联集 18\"\n    style=\"position: absolute; left: 0px; top: 0px; z-index: 0\">\n    <img src=\"./asset/icons/svg_0b56813b.svg\" />\n  </div>\n  <span\n    data-node-id=\"1119:22776\"\n    data-name=\"1\"\n    style=\"color: #FFFFFF; font-size: 12px; font-family: MiSans; font-weight: 500; line-height: 16px; position: absolute; left: 9px; top: 4px; z-index: 1\">\n    1\n  </span>\n</div>\n"
+   }
+  ]
+ },
+ "jsonrpc": "2.0",
+ "id": 1
+}

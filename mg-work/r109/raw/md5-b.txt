@@ -1,0 +1,10 @@
+a3d72be9372c58a6a58701c044aa3846 *pages/automation.html
+16a04d5e136c704ac29edd579458d2e7 *pages/avatar.html
+fe5e5c21460c857f2c2723439220d98a *pages/base.html
+b0dae368a65d78ef3a2f251a6d2d8c95 *pages/conversation.html
+ccbfdf87dcd24d5576bb1312dcb379ee *pages/dev.html
+da1cdc5cc1c11fc9cff609e0bf904fc0 *pages/kanban.html
+428f9948634377b17f72738754425d99 *pages/req-kanban.html
+bbf6aabbdcc380dac55b8f8964f8b297 *pages/settings.html
+2167963d8c98f2d9bb421839fe20d72e *pages/skills.html
+91056fe41c4a10bb859629418146d7d7 *pages/task-detail.html

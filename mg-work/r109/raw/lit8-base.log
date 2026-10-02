@@ -1,0 +1,22 @@
+===== base =====
+  触发器 = （无需点开：菜单项在侧栏，直接可 hover）
+  菜单项   = 134 108
+
+=== 产物：mg-work/r109/raw/lit8 ===
+base.chip
+base.dark.bg
+base.dark.chip
+base.dark.peek
+base.dark.set
+base.dark.vars
+base.dd
+base.init
+base.init2
+base.items
+base.light.bg
+base.light.chip
+base.light.peek
+base.light.set
+base.light.vars
+base.open
+base.trig

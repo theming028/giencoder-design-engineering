@@ -1,0 +1,43 @@
+=== 暗色档「亮残」汇总：mg-work/r109/raw/mix4 ===
+  base           亮残 4     [上轮 4]   sanity: attr=dark gi=1 bg1=#17171a
+       shadow rgb(255, 255, 255)       ×3    div.flex.items-center.gap-2>button.size-3.rounded-full.bg-[#FF5F57] | div.flex.items-center.gap-2>button.size-3.rounded-full.bg-[#FEBC2E]
+       bg    rgb(254, 188, 46)        ×1    div.flex.items-center.gap-2>button.size-3.rounded-full.bg-[#FEBC2E]
+  avatar         亮残 4     [上轮 4]   sanity: attr=dark gi=1 bg1=#17171a
+       shadow rgb(255, 255, 255)       ×3    div.flex.items-center.gap-2>button.size-3.rounded-full.bg-[#FF5F57] | div.flex.items-center.gap-2>button.size-3.rounded-full.bg-[#FEBC2E]
+       bg    rgb(254, 188, 46)        ×1    div.flex.items-center.gap-2>button.size-3.rounded-full.bg-[#FEBC2E]
+  automation     亮残 4     [上轮 4]   sanity: attr=dark gi=1 bg1=#17171a
+       shadow rgb(255, 255, 255)       ×3    div.flex.items-center.gap-2>button.size-3.rounded-full.bg-[#FF5F57] | div.flex.items-center.gap-2>button.size-3.rounded-full.bg-[#FEBC2E]
+       bg    rgb(254, 188, 46)        ×1    div.flex.items-center.gap-2>button.size-3.rounded-full.bg-[#FEBC2E]
+  skills         亮残 4     [上轮 4]   sanity: attr=dark gi=1 bg1=#17171a
+       shadow rgb(255, 255, 255)       ×3    div.flex.items-center.gap-2>button.size-3.rounded-full.bg-[#FF5F57] | div.flex.items-center.gap-2>button.size-3.rounded-full.bg-[#FEBC2E]
+       bg    rgb(254, 188, 46)        ×1    div.flex.items-center.gap-2>button.size-3.rounded-full.bg-[#FEBC2E]
+  settings       亮残 11    [上轮 11]   sanity: attr=dark gi=1 bg1=#17171a
+       bg    rgb(247, 247, 247)       ×4    div.r85-slider>div.r85-sl-done | div.r85-slider>div.r85-sl-thumb
+       bg    rgb(255, 255, 255)       ×3    button.r85-sw.giencoder-switch.giencoder-switch-checked>span.giencoder-switch-handle | button.r85-sw.giencoder-switch>span.giencoder-switch-handle
+       shadow rgb(255, 255, 255)       ×3    button.r85-sw.giencoder-switch.giencoder-switch-checked>span.giencoder-switch-handle | button.r85-sw.giencoder-switch>span.giencoder-switch-handle
+       bg    rgb(254, 188, 46)        ×1    div.flex.items-center.gap-2>button.size-3.rounded-full.bg-[#FEBC2E]
+  conversation   亮残 6     [上轮 6]   sanity: attr=dark gi=1 bg1=#17171a
+       shadow rgb(255, 255, 255)       ×3    div.flex.items-center.gap-2>button.size-3.rounded-full.bg-[#FF5F57] | div.flex.items-center.gap-2>button.size-3.rounded-full.bg-[#FEBC2E]
+       bg    rgb(255, 182, 93)        ×2    div.r93-alert>i.r93-adot | div.r93-alert>i.r93-adot
+       bg    rgb(254, 188, 46)        ×1    div.flex.items-center.gap-2>button.size-3.rounded-full.bg-[#FEBC2E]
+  dev            亮残 4     [上轮 4]   sanity: attr=dark gi=1 bg1=#17171a
+       shadow rgb(255, 255, 255)       ×3    div.flex.items-center.gap-2>button.size-3.rounded-full.bg-[#FF5F57] | div.flex.items-center.gap-2>button.size-3.rounded-full.bg-[#FEBC2E]
+       bg    rgb(254, 188, 46)        ×1    div.flex.items-center.gap-2>button.size-3.rounded-full.bg-[#FEBC2E]
+  kanban         亮残 4     [上轮 4]   sanity: attr=dark gi=1 bg1=#17171a
+       shadow rgb(255, 255, 255)       ×3    div.flex.items-center.gap-2>button.size-3.rounded-full.bg-[#FF5F57] | div.flex.items-center.gap-2>button.size-3.rounded-full.bg-[#FEBC2E]
+       bg    rgb(254, 188, 46)        ×1    div.flex.items-center.gap-2>button.size-3.rounded-full.bg-[#FEBC2E]
+  req-kanban     亮残 4     [上轮 4]   sanity: attr=dark gi=1 bg1=#17171a
+       shadow rgb(255, 255, 255)       ×3    div.flex.items-center.gap-2>button.size-3.rounded-full.bg-[#FF5F57] | div.flex.items-center.gap-2>button.size-3.rounded-full.bg-[#FEBC2E]
+       bg    rgb(254, 188, 46)        ×1    div.flex.items-center.gap-2>button.size-3.rounded-full.bg-[#FEBC2E]
+  task-detail    亮残 4     [上轮 4]   sanity: attr=dark gi=1 bg1=#17171a
+       shadow rgb(255, 255, 255)       ×3    div.flex.items-center.gap-2>button.size-3.rounded-full.bg-[#FF5F57] | div.flex.items-center.gap-2>button.size-3.rounded-full.bg-[#FEBC2E]
+       bg    rgb(254, 188, 46)        ×1    div.flex.items-center.gap-2>button.size-3.rounded-full.bg-[#FEBC2E]
+
+   合计亮残 49
+   上轮合计 49  ⇒  变化 +0
+
+   按颜色值聚合（全站）：
+       rgb(255, 255, 255)         ×33
+       rgb(254, 188, 46)          ×10
+       rgb(247, 247, 247)         ×4
+       rgb(255, 182, 93)          ×2

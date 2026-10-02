@@ -1,0 +1,27 @@
+=== rgba(var(--gray-1),0.88) 注入点普查 ===
+
+   base           5
+   avatar         3
+   automation     2
+   skills         2
+   settings       2
+   conversation   5
+   dev            2
+   kanban         2
+   req-kanban     2
+   task-detail    3
+   ── 合计 28
+
+=== 上下文（去重）===
+  [base,conversation]
+     …sition:`absolute`,top:`calc(100% + 4px)`,left:0,zIndex:1e3,borderRadius:`8px`,background:`rgba(var(--gray-1), 0.88)`,boxSizing:`border-box`,borde…
+  [base,conversation]
+     …dd`?{position:`absolute`,left:0,bottom:`calc(100% + 4px)`,width:180,height:92,background:`rgba(var(--gray-1), 0.88)`,borderRadius:8,boxShadow:`0p…
+  [base,conversation]
+     …nslateX(-50%)`,bottom:`calc(100% + 8px)`,width:760,height:320,borderRadius:12,background:`rgba(var(--gray-1), 0.88)`,boxSizing:`border-box`,borde…
+  [automation,avatar,base,conversation,dev,kanban,req-kanban,settings,skills,task-detail]
+     …e .giencoder-select-selection{padding:2px}.giencoder-select-popup{z-index:1000;background:rgba(var(--gray-1),0.88);border:1px solid var(--color-…
+  [automation,avatar,base,conversation,dev,kanban,req-kanban,settings,skills,task-detail]
+     …50%);z-index:9999} .skills-popup-bg{width:760px;height:320px;border-radius:8px;background:rgba(var(--gray-1), 0.88);box-sizing:border-box;border:…
+  [avatar,task-detail]
+     …         border-radius: 8px; border: 1px solid var(--color-border-2);         background: rgba(var(--gray-1), 0.88);         -webkit-backdrop-fil…

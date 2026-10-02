@@ -1,0 +1,27 @@
+  快照 → mg-work/r109/ev/bak-border/（10 页）
+=== r109 第十拍 ① · 暗色档描边令牌各降一级（落盘）===
+
+  新注入 10 页 / 刷新 0 页 / 已是目标态 0 页
+
+  ── 取值对照（灰度索引 → 实际灰阶）──
+     令牌         浅（不变）        暗旧           暗新          
+     border-1   gray-2 = 242 gray-2 = 43  gray-1 = 31 
+     border-2   gray-3 = 229 gray-3 = 78  gray-2 = 43 
+     border-3   gray-4 = 201 gray-4 = 107 gray-3 = 78 
+
+  ── 每页字符数变化（规范化 \r\n→\n 后）──
+     base         +921
+     avatar       +921
+     automation   +921
+     skills       +921
+     settings     +921
+     conversation +921
+     dev          +921
+     kanban       +921
+     req-kanban   +921
+     task-detail  +921
+
+  ── 刻意不动 ──
+     --color-border-4                   全站 var() 引用 = 0（死令牌）
+     --color-border（无后缀）                全站 var() 引用 = 0（死令牌）
+     浅色档三个令牌                            本块只在 dark 下生效 ⇒ 零变化

@@ -1,0 +1,26 @@
+[
+  {
+    "bi": "url(\"file:///E:/GienCoder/giencoder-design-engineering/assets/images/bg-img-1.png\")",
+    "bsize": "70% auto",
+    "cls": "flex h-12 shrink-0 items-center justify-between px-4 bg-[var",
+    "h": 48,
+    "id": "",
+    "kind": "img",
+    "tag": "HEADER",
+    "w": 1440,
+    "x": 0,
+    "y": 0
+  },
+  {
+    "bi": "radial-gradient(circle, rgba(107, 107, 107, 0.1) 1.5px, rgba(0, 0, 0, 0) 1.5px)",
+    "bsize": "16px 16px",
+    "cls": "min-w-0 flex-1 h-full overflow-hidden rounded-lg border bg-w",
+    "h": 844,
+    "id": "",
+    "kind": "dot",
+    "tag": "MAIN",
+    "w": 1164,
+    "x": 268,
+    "y": 48
+  }
+]

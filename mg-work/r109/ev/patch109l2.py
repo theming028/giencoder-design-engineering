@@ -1,0 +1,796 @@
+# -*- coding: utf-8 -*-
+"""r109 第二拍（第二层补丁）—— 邵先生 2026-10-02 09:xx 五条：
+
+  ① **右栏展开 ⇒ `zd-host` 自动折叠为迷你胶囊**（邵先生：「当右栏展开时，"zd-host"
+     容器会自动折叠为迷你按钮状态」）。落点 = `panel.js` 的 zd IIFE **末尾**（`toMini()`
+     已定义之后）。信号源 = 宿主 `ctrl-conv.js` 打在外壳 flex 行上的 `.av-browse-on`。
+  ② **终端模块字号统一 13px**（邵先生：「"td-term"容器内的字号都调整为13px」；追问后定
+     「**整个终端模块都改**」）。`--font-size-body-1`(12px) → `--font-size-body-2`(13px)，
+     四个规则：`.td-term` / `.td-term-tabs` / `.td-term-tab` / `.td-term-tabadd`。
+  ③ **重画「重新生成」图标**（邵先生：「"r93-ib r93-bt"这个重新生产的图标异常，请修复」）。
+     ⚠ 这个图标**不在 `part109/*`**！它的真身是 `ICON_INLINE['regen']`，而 `apply109.py`
+     是由 `ev/make109.py` 从 `apply108.py` **逐字生成**的 ⇒ 落点 = `make109.py` 的 EDITS
+     表新增一条 E8（重跑自愈），见本文件 `# ==== ③` 一节。
+  ④ **点已有批注的锚点 ⇒ 以编辑态显示批注详情**（`noteEdit(el, at)` + `noteOfAnchor`）。
+  ⑤ **锚点支持任意拖动位置**（pointer 拖拽 + 夹在 `.td-view` 可视区内）。
+
+★ 体位与硬规则（与 patch109l1.py 同）：
+  · r108 已交付并封板（`172e580`）⇒ 本拍属**新代数 r109**、未交付期 ⇒ 返工**就地改**
+    本层补丁（不新建 r110）。
+  · 硬规则 22「双层产物只能下→上改」⇒ 改序：
+      1. `part109/panel.css`   ← 本补丁（②⑤）
+      2. `part109/panel.js`    ← 本补丁（①④⑤）
+      3. `ev/splice109.py`     → 重建 `part109/browse.html`
+      4. `ev/make109.py`       → 重生成 `apply109.py`（含 ③ 的 E8）
+      5. `apply109.py`         → 落 `pages/conversation.html`
+     ⚠ ③ 在**链的最上游**（`apply108.py` → `make109.py` → `apply109.py`），但它只改一个
+       Python 字面量、不碰 `part109/*`，所以放在第 4 步跑没有副作用。
+  · 「各层 mark 是后一层必须替前一层保住」的契约 —— 本层只往 `panel.css` / `panel.js`
+    里插 `r109-l2` 标记，`r107-l1` … `r109-l1` 的标记一个不碰（收尾有跨层兜底断言）。
+  · ⚠ **本层动了 `noteEdit()` 的形参**（`el` → `el, at`）⇒ `patch109l1.py` 里那条
+    `j_bare.split('function noteEdit(el) {')` 的判据会失配（命中 0 次 ⇒ 上一层复跑会
+    整块报错）。按「后一层必须替前一层保住」的口径，那条判据在本层**同步放宽**成
+    `'function noteEdit(el'`（两种签名都命中），改动记录在 `acceptance.md`。
+
+用法： python mg-work/r109/ev/patch109l2.py           # 应用（幂等）
+      python mg-work/r109/ev/patch109l2.py --check   # 只验锚点，不落盘
+      python mg-work/r109/ev/patch109l2.py --bak     # 落盘前把两个源件备份到 ev/bak-l2/
+"""
+import ast
+import io
+import os
+import re
+import shutil
+import sys
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+REPO = os.path.abspath(os.path.join(HERE, '..', '..', '..'))
+P109 = os.path.join(REPO, 'mg-work', 'r109', 'part109')
+PCS = os.path.join(P109, 'panel.css')
+PJS = os.path.join(P109, 'panel.js')
+MODS = os.path.join(P109, '_mods.html')
+BAK = os.path.join(HERE, 'bak-l2')
+MAKE = os.path.join(HERE, 'make109.py')
+L1 = os.path.join(HERE, 'patch109l1.py')
+
+APPLIED = []
+SKIPPED = []
+STRICT = True
+CHECK = False      # --check：只验锚点，不落盘
+
+
+def rd(p):
+    raw = io.open(p, 'rb').read().decode('utf-8')
+    nl = '\r\n' if '\r\n' in raw else '\n'
+    return raw.replace('\r\n', '\n'), nl
+
+
+def wr(p, t, nl):
+    if CHECK:
+        return
+    io.open(p, 'wb').write(t.replace('\n', nl).encode('utf-8'))
+
+
+def edit(p, old, new, label, mark, strict=None):
+    t, nl = rd(p)
+    strict = STRICT if strict is None else strict
+    if mark and mark in t:
+        if strict and old in t:
+            sys.exit('!! %s：mark 歧义 —— `old` 与 `mark` 同时存在 ⇒ mark 不是「改完才出现」的串\n'
+                     '   mark=%r\n   old=%r' % (label, mark, old[:200]))
+        SKIPPED.append(label)
+        print('   跳过  %s（已应用）' % label)
+        return
+    n = t.count(old)
+    if n != 1:
+        sys.exit('!! %s：锚点命中 %d 次（应 1 次）\n   old=%r' % (label, n, old[:240]))
+    wr(p, t.replace(old, new, 1), nl)
+    APPLIED.append(label)
+    print('   %s  %s（%d → %d 字符）'
+          % ('校验' if CHECK else '应用', label, len(t), len(t) - len(old) + len(new)))
+
+
+# ================================================================================
+# ② 终端模块字号 12 → 13   （panel.css）
+# ================================================================================
+CSS_TERM_OLD = """.td-term {
+  flex: 1 1 auto; min-height: 0; overflow: auto;
+  box-sizing: border-box; padding: 12px 14px;
+  background: var(--color-fill-1);
+  font-family: var(--font-family);
+  font-size: var(--font-size-body-1);
+  line-height: calc(20px * var(--ui-fs-ratio));
+  color: var(--color-text-1);
+  cursor: text;
+}
+"""
+
+CSS_TERM_NEW = """/* r109-l2 · ② 终端模块字号统一 13px */
+/* ★ r109-l2 ②（邵先生：「"td-term"容器内的字号都调整为13px」）：
+   ⚠ DOM 上那条标签条（`.td-term-tabs` / `.td-term-tab` / `.td-term-tabadd`）其实是
+     `.td-term` 的**兄弟**、严格讲不在「容器内」 ⇒ 追问后邵先生定 **整个终端模块都改**
+     （否则会出现「正文 13 / 标签 12」的参差）。四个规则一起换，见本节四条。
+   ⚠ 只换字号 token、**不动任何盒模型**：`--font-size-body-1`(12px) → `--font-size-body-2`
+     (13px)。行高 20 / 标签高 22 / 标签条高 34 一字不动 —— 13px 装得下，不会溢出。
+   ⚠ `.td-term-caret` 的 `7×13` 是 `height` **不是字号**，且 13px 恰好等于新字号的 1em
+     ⇒ 不动它（它也只有一条 `height:`，没有 `min-height`，不触 `scan-flatten.py` 的口径）。 */
+.td-term {
+  flex: 1 1 auto; min-height: 0; overflow: auto;
+  box-sizing: border-box; padding: 12px 14px;
+  background: var(--color-fill-1);
+  font-family: var(--font-family);
+  font-size: var(--font-size-body-2);
+  line-height: calc(20px * var(--ui-fs-ratio));
+  color: var(--color-text-1);
+  cursor: text;
+}
+"""
+
+CSS_TABS_OLD = """  border-bottom: 1px solid var(--color-border-1);
+  font-size: var(--font-size-body-1);
+  overflow-x: auto;
+}
+.td-term-tab {
+  flex: none; display: inline-flex; align-items: center; gap: 6px;
+  height: calc(22px * var(--ui-fs-ratio)); padding: 0 8px;
+  border: 0; border-radius: 6px; background: transparent;
+  color: var(--color-text-3);
+  font-family: inherit; font-size: var(--font-size-body-1); cursor: pointer;
+  transition: background-color 120ms, color 120ms;
+}
+"""
+
+CSS_TABS_NEW = """  border-bottom: 1px solid var(--color-border-1);
+  /* ★ r109-l2 ②：12 → 13px（标签条也在「整个终端模块」里） */
+  font-size: var(--font-size-body-2);
+  overflow-x: auto;
+}
+.td-term-tab {
+  flex: none; display: inline-flex; align-items: center; gap: 6px;
+  height: calc(22px * var(--ui-fs-ratio)); padding: 0 8px;
+  border: 0; border-radius: 6px; background: transparent;
+  color: var(--color-text-3);
+  /* ★ r109-l2 ②：12 → 13px */
+  font-family: inherit; font-size: var(--font-size-body-2); cursor: pointer;
+  transition: background-color 120ms, color 120ms;
+}
+"""
+
+CSS_TABADD_OLD = """  margin-left: 2px; padding: 0;
+  border: 0; border-radius: 6px; background: transparent;
+  color: var(--color-text-3);
+  font-family: inherit; font-size: var(--font-size-body-1); cursor: pointer;
+"""
+
+CSS_TABADD_NEW = """  margin-left: 2px; padding: 0;
+  border: 0; border-radius: 6px; background: transparent;
+  color: var(--color-text-3);
+  /* ★ r109-l2 ②：12 → 13px */
+  font-family: inherit; font-size: var(--font-size-body-2); cursor: pointer;
+"""
+
+# ================================================================================
+# ⑤ 锚点可拖动   （panel.css）
+# ================================================================================
+CSS_ANCHOR_OLD = """  font-size: var(--font-size-body-1); font-weight: 500;
+  line-height: calc(16px * var(--ui-fs-ratio));
+}
+
+/* ② 卡片：320 宽 / 白底 / 1px `--color-border-2` / 8 圆角 / `0 4px 12px rgba(0,0,0,.08)`。"""
+
+CSS_ANCHOR_NEW = """  font-size: var(--font-size-body-1); font-weight: 500;
+  line-height: calc(16px * var(--ui-fs-ratio));
+}
+/* ★ r109-l2 ⑤：锚点从「只读标记」升级成**可拖动的对象**（邵先生：「批注的锚点需要支持
+   任意拖动位置」）。四下加法，一个删改都没有：
+     · `cursor: grab` / 拖动态 `grabbing` —— 唯一的手势暗示（稿3 只给了静态长相，
+       没给拖动态 ⇒ 按通行读法取「抓取 / 抓取中」两支）；
+     · `touch-action: none` —— 触屏上把这一小块的手势**从滚动手里拿走**交给 pointer 事件；
+     · `user-select: none` —— 免得拖拽过程中把数字 `1` 拖成一段选区。
+   ⚠ **刻意不加 `transition`**：拖动要跟手，任何过渡都会变成「拖影」（站内拖拽类元素
+     —— 标签重排 / 分栏条 —— 同口径）。
+   ⚠ 拖动态**不抬 `z-index`**：锚点本来就是 z=2，上面压着气泡（z=3）；抬起来会盖住气泡的
+     「取消 / 添加」两枚按钮。
+   ⚠ `is-dragging` 只是「手势进行中」的视觉标记，**不代表位置**（位置永远由内联
+     `left/top` 表达）⇒ 不存在「类没了位置就回弹」的问题。 */
+.td-anchor { cursor: grab; touch-action: none; user-select: none; -webkit-user-select: none; }
+.td-anchor.is-dragging { cursor: grabbing; }
+
+/* ② 卡片：320 宽 / 白底 / 1px `--color-border-2` / 8 圆角 / `0 4px 12px rgba(0,0,0,.08)`。"""
+
+# ================================================================================
+# ④ 点锚点 ⇒ 编辑态详情  +  ⑤ 可拖动   （panel.js）
+# ================================================================================
+JS_FIND_OLD = """    function noteFind(el) {
+      for (var i = 0; i < noteList.length; i++) if (noteList[i].el === el) return noteList[i];
+      return null;
+    }
+"""
+
+JS_FIND_NEW = """    function noteFind(el) {
+      for (var i = 0; i < noteList.length; i++) if (noteList[i].el === el) return noteList[i];
+      return null;
+    }
+    /* ★ r109-l2 ④：**反查** —— 从锚点找回它那一条批注。
+       （`noteList` 里的 `rec.el` 是单向的：被标注元素 → 批注；点锚点这一头走它。） */
+    function noteOfAnchor(a) {
+      for (var i = 0; i < noteList.length; i++) if (noteList[i].anchor === a) return noteList[i];
+      return null;
+    }
+"""
+
+JS_EDIT_OLD = """    function noteEdit(el) {
+      var prev = noteFind(el);
+      noteCur = el;
+"""
+
+JS_EDIT_NEW = """    function noteEdit(el, at) {
+      var prev = noteFind(el);
+      /* ★ r109-l2 ④：`at` = **定位参照物**，默认 = 被标注元素自己。
+         点锚点看详情时传的是**锚点**：气泡落在锚点下方。锚点可以拖到任意位置
+         （本层 ⑤），若还按「被标注元素」定位，拖远之后气泡会跟锚点脱开。 */
+      var ref = at || el;
+      noteCur = el;
+"""
+
+JS_EDITPOS_OLD = """      var er = el.getBoundingClientRect(), vr = view.getBoundingClientRect();
+      elnote.style.top = (er.bottom - vr.top + view.scrollTop + 8) + 'px';
+"""
+
+JS_EDITPOS_NEW = """      var er = ref.getBoundingClientRect(), vr = view.getBoundingClientRect();
+      elnote.style.top = (er.bottom - vr.top + view.scrollTop + 8) + 'px';
+"""
+
+# ★ r109 第二拍 ⑤ 的**配套**（真机取证实测出来的缺陷，见 acceptance.md）：
+#   锚点可以拖到任意位置 ⇒ 气泡不能只顾「锚点下方」。`.td-elnote` 是 `.td-view`
+#   （`overflow: auto`）的**子件** ⇒ 锚点贴到底边时 `top = 锚点底缘 + 8` 会把气泡整块
+#   推出生效区、被裁得一点不剩（真机实测：锚点拖到 `.td-view` 右下角后点开 ⇒ 气泡
+#   `top` 超出可视底 116px、`visibleH = -8`、`fullyHidden = true`）。
+#   ⇒ 补一条**可视带夹取**，并把「写 top」挪到「摘 `[hidden]` + `noteGrow()`」之后
+#   （隐藏态 `offsetHeight` 恒为 0，量不出真实高）。
+JS_CLAMP_OLD = """      var er = ref.getBoundingClientRect(), vr = view.getBoundingClientRect();
+      elnote.style.top = (er.bottom - vr.top + view.scrollTop + 8) + 'px';
+      elnote.removeAttribute('hidden');
+      noteGrow();
+"""
+
+JS_CLAMP_NEW = """      /* ★ r109-l2 ⑤（配套）：锚点可以拖到任意位置（本层 ⑤）⇒ 气泡不能只顾「锚点下方」。
+         `.td-elnote` 是 `.td-view`（`overflow: auto`）的**子件** ⇒ 锚点贴到底边时，
+         `top = 锚点底缘 + 8` 会把气泡整块推出生效区、被裁得一点不剩
+         —— 真机实测（锚点拖到 `.td-view` 右下角后点开）：气泡 `top` 超出可视底 116px、
+         `visibleH = -8`、`fullyHidden = true`。需求 ⑤「锚点可任意拖动」是**因**、
+         气泡被裁是**果** ⇒ 这条夹取是 ⑤ 的必要配套，不是另开一摊。
+         夹取口径：气泡始终留在 `.td-view` 的**可视带** `[scrollTop, scrollTop + clientHeight]` 内。
+         ⚠ 先摘 `[hidden]` 再量高：隐藏态 `offsetHeight` 恒为 0 ⇒ 量不出真实高、夹取失效。
+           l1 的判据本来就是「先摘 `[hidden]` 再 `noteGrow()`」——顺序不动，只是把定位挪到其后。
+         ⚠ 写 `top` 挪到摘 `[hidden]` 之后**不会**引入位移动画：`.td-elnote` 自身没有
+           `transition`（真机实测 `transitionDuration: 0s`），只有 pin 的 `background-color`
+           与两枚按钮各自有过渡。
+         ⚠ 只在「锚点贴近底边」时生效：常规位置真机实测仍是 `气泡顶 = 锚点底 + 8`。 */
+      elnote.removeAttribute('hidden');
+      noteGrow();
+      var er = ref.getBoundingClientRect(), vr = view.getBoundingClientRect();
+      var top = er.bottom - vr.top + view.scrollTop + 8;
+      var vTop = view.scrollTop, vBot = view.scrollTop + view.clientHeight;
+      var h = elnote.offsetHeight;
+      if (h && view.clientHeight && top + h > vBot) top = vBot - h;
+      if (top < vTop) top = vTop;
+      elnote.style.top = Math.round(top) + 'px';
+"""
+
+JS_DROP_OLD = """    /* 锚点（稿3）：落在被标注元素的**右上角**（−12 = 让 24×24 的锚点中心咬住那个角）。
+       ⚠ 稿子只给了锚点长相、没给落点 ⇒ 取「右上角」这个通行读法（Figma 批注同款），
+         若有偏差请邵先生指定。 */
+    function noteDrop(el, n) {
+      var a = document.createElement('span');
+      a.className = 'td-anchor';
+      a.textContent = String(n);
+      a.setAttribute('aria-hidden', 'true');
+      var er = el.getBoundingClientRect(), vr = view.getBoundingClientRect();
+      a.style.left = (er.right - vr.left + view.scrollLeft - 12) + 'px';
+      a.style.top = (er.top - vr.top + view.scrollTop - 12) + 'px';
+      view.appendChild(a);
+      return a;
+    }
+"""
+
+JS_DROP_NEW = """    /* 锚点（稿3）：初始落在被标注元素的**右上角**（−12 = 让 24×24 的锚点中心咬住那个角）。
+       ⚠ 稿子只给了锚点长相、没给落点 ⇒ 取「右上角」这个通行读法（Figma 批注同款），
+         若有偏差请邵先生指定。
+       ★ r109-l2 ④⑤：锚点从「只读标记」升级成**可交互对象** ——
+         · 点它 / 键盘 Enter·Space ⇒ 以**编辑态**打开这条批注的详情（回填原文 + pin 显示
+           编号 + 「添加」可用）= `noteEdit(rec.el, a)` 一次调用；
+         · 拖它 ⇒ 任意挪位置（pointer 事件 + `window` 上的 move/up，与标签重排同口径）。
+       ★ 拖动与点击**共用同一次 pointer 序列** ⇒ 用 4px 阈值分流：超过阈值才算「拖过」，
+         松手后那一下 `click` 被 `_tdMoved` 吃掉（否则每拖一次都顺手弹一次气泡）。
+       ⚠ 位置夹取用 `.td-view` 的**可视区**（`scrollLeft + clientWidth`）：绝对定位子件是
+         跟着内容滚的，不夹的话可以把锚点拖到视野外、再也点不到。
+       ⚠ 拖动**不写 `noteList`**：位置就在内联 `left/top` 里，是这个元素唯一的位置真身。 */
+    var ANCHOR_MIN = 4;                       /* 拖动阈值：与标签重排的 5px 同量级 */
+    /* 把 (left, top) 夹进 `.td-view` 的可视区，并直接落到 `a.style` 上。
+       ⚠ 隐藏态（模块没被激活 ⇒ `clientWidth === 0`）量不出可视区 ⇒ 原样落位、不要夹
+         （`noteDrop` 只在用户与浏览器模块交互时才跑，正常不会命中这一支，留作防御）。 */
+    function anchorPlace(a, left, top) {
+      if (!view.clientWidth || !view.clientHeight) {
+        a.style.left = Math.round(left) + 'px'; a.style.top = Math.round(top) + 'px'; return;
+      }
+      var w = a.offsetWidth || 0, h = a.offsetHeight || 0;
+      var minL = view.scrollLeft, minT = view.scrollTop;
+      var maxL = minL + view.clientWidth - w, maxT = minT + view.clientHeight - h;
+      if (maxL < minL) maxL = minL;
+      if (maxT < minT) maxT = minT;
+      a.style.left = Math.round(Math.min(Math.max(left, minL), maxL)) + 'px';
+      a.style.top = Math.round(Math.min(Math.max(top, minT), maxT)) + 'px';
+    }
+    /* 打开某个锚点对应的批注详情（编辑态）。反查不到就什么都不做 —— 锚点永远是
+       `noteCommit()` 里 `push` 之后才落盘的，理论上必能反查到。 */
+    function anchorOpen(a) {
+      var rec = noteOfAnchor(a);
+      if (rec) noteEdit(rec.el, a);
+    }
+    function bindAnchor(a) {
+      a.addEventListener('pointerdown', function (e) {
+        if (e.button !== 0) return;
+        e.preventDefault();                 /* 别把光标下的文字拖成选区 */
+        e.stopPropagation();                /* 免得透过 `.td-view` 冒到标注态那层点击 */
+        a._tdMoved = false;
+        var sx = e.clientX, sy = e.clientY;
+        var sl = parseFloat(a.style.left) || 0, st = parseFloat(a.style.top) || 0;
+        function onMove(ev) {
+          var dx = ev.clientX - sx, dy = ev.clientY - sy;
+          if (!a._tdMoved) {
+            if (Math.abs(dx) < ANCHOR_MIN && Math.abs(dy) < ANCHOR_MIN) return;
+            a._tdMoved = true;
+            a.classList.add('is-dragging');
+          }
+          anchorPlace(a, sl + dx, st + dy);
+          ev.preventDefault();
+        }
+        /* 一次性拆净四支：`pointerup` 正常收尾；`pointercancel` / `blur` 兜「手势被系统
+           抢走」与「切走窗口」两种断线（站内其它拖拽同口径）。 */
+        function onEnd() {
+          window.removeEventListener('pointermove', onMove, true);
+          window.removeEventListener('pointerup', onEnd, true);
+          window.removeEventListener('pointercancel', onEnd, true);
+          window.removeEventListener('blur', onEnd, true);
+          a.classList.remove('is-dragging');
+        }
+        window.addEventListener('pointermove', onMove, true);
+        window.addEventListener('pointerup', onEnd, true);
+        window.addEventListener('pointercancel', onEnd, true);
+        window.addEventListener('blur', onEnd, true);
+      });
+      a.addEventListener('click', function (e) {
+        e.stopPropagation();
+        /* 刚拖过 ⇒ 这一下 `click` 是拖动的尾巴、不是「点开」。消费掉标记后返回。 */
+        if (a._tdMoved) { a._tdMoved = false; return; }
+        anchorOpen(a);
+      });
+      /* 键盘可达：给了 `role="button"` 就必须配 Enter / Space，否则读屏用户点不开。 */
+      a.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); anchorOpen(a); }
+      });
+    }
+    function noteDrop(el, n) {
+      var a = document.createElement('span');
+      a.className = 'td-anchor';
+      a.textContent = String(n);
+      /* ★ r109-l2 ④：锚点**不再是纯装饰** ⇒ 摘掉 r109-l1 挂的 `aria-hidden="true"`
+         （那时它确实只是个标记，挂 aria-hidden 是对的），换成真正的按钮语义。 */
+      a.setAttribute('role', 'button');
+      a.setAttribute('tabindex', '0');
+      a.setAttribute('aria-label', '查看第 ' + n + ' 条批注');
+      a.title = '点击查看批注 · 拖动可挪位置';
+      view.appendChild(a);                  /* 先入 DOM —— `anchorPlace` 要量它的几何 */
+      var er = el.getBoundingClientRect(), vr = view.getBoundingClientRect();
+      anchorPlace(a, er.right - vr.left + view.scrollLeft - 12,
+                  er.top - vr.top + view.scrollTop - 12);
+      bindAnchor(a);
+      return a;
+    }
+"""
+
+# ================================================================================
+# ① 右栏展开 ⇒ zd-host 自动折叠   （panel.js，zd IIFE 末尾）
+# ================================================================================
+JS_ZDFOLD_OLD = """  var minBtn = card ? card.querySelector('[data-zd-min]') : null;
+  if (minBtn) minBtn.addEventListener('click', toMini);
+  if (mini) mini.addEventListener('click', toCard);
+})();
+"""
+
+JS_ZDFOLD_NEW = """  var minBtn = card ? card.querySelector('[data-zd-min]') : null;
+  if (minBtn) minBtn.addEventListener('click', toMini);
+  if (mini) mini.addEventListener('click', toCard);
+
+  /* ==================== r109-l2 ① 右栏展开 ⇒ 自动折叠为胶囊 ====================
+     邵先生：「当右栏展开时，"zd-host"容器会自动折叠为迷你按钮状态」。
+     ▸ 信号源 = **`.av-browse-on`**：由宿主 `ctrl-conv.js` 的 `setOpen()` 唯一写入，打在
+       **外壳 flex 行**上（`div:has(> main)` = `#av-browse-slot` 的父级）。宿主自己就拿它
+       当判据（`browseOpen()` / `if (browseOpen())`）⇒ 这是该状态的**唯一真身**，
+       不是又造一个。
+     ▸ 为什么不盯「右栏标签切换（`openTab` / `activate`）」：切标签时右栏**本来就是展开的**，
+       需求是「展开**时**折叠」而不是「每切一次标签折一次」—— 盯标签会在用户手动摊回
+       卡片之后，一换标签又给折回去。
+     ▸ 为什么不 hook 那枚开关按钮的 click：收起右栏有**三条**路径（开关按钮 / Esc /
+       面板自带的 `[data-td-browse-close]`），且 `ensureOpen()` 还会合成 `b.click()`
+       ⇒ hook click 必漏。观察状态类才是收敛点。
+     ▸ **反向不自动摊回卡片**：邵先生只说了「展开时折叠」。收起右栏不该替用户改变他
+       手动选定的形态（他可能就是一直要看胶囊）。
+     ▸ 时序直接复用既有 `toMini()`（`zdSwap` 的 180ms 离场 + 260ms 入场关键帧），不另写
+       一套；`toMini()` 自带 `closeZdMenus(null)`，顺带把可能开着的 zd 下拉收掉。
+     ⚠ `#av-browse-slot` 挂进外壳 flex 行是宿主 `place()` **异步**做的（React 首帧晚于
+       本脚本）⇒ 用一个 `childList` 观察器兜到「行出现 / 被 React 重挂」那一刻；回调里
+       只做「读 parentElement + 比身份」，命中即早退，开销可忽略（宿主自己也挂着同型的
+       常驻 `moKeep`）。 */
+  var browseSlot = document.getElementById('av-browse-slot');
+  var zdRowEl = null, zdRowOn = null, zdRowMo = null;
+  function zdRowCheck() {
+    if (!zdRowEl) return;
+    var on = zdRowEl.classList.contains('av-browse-on');
+    if (on === zdRowOn) return;
+    zdRowOn = on;
+    if (on) toMini();                       /* 只在「开」这一侧动手 */
+  }
+  function zdRowSync() {
+    var row = browseSlot ? browseSlot.parentElement : null;
+    if (!row) return;
+    if (row !== zdRowEl) {                  /* 首次挂上 / React 重挂 ⇒ 换观察对象 */
+      if (zdRowMo) zdRowMo.disconnect();
+      zdRowEl = row;
+      /* 挂载这一刻就把状态记下来：**首帧已是展开态 ⇒ 直接折叠**；
+         若记成 null，下一次无关的 class 变更会被误判成「刚打开」。 */
+      zdRowOn = row.classList.contains('av-browse-on');
+      zdRowMo = new MutationObserver(zdRowCheck);
+      zdRowMo.observe(row, { attributes: true, attributeFilter: ['class'] });
+      if (zdRowOn) toMini();
+      return;
+    }
+    zdRowCheck();
+  }
+  if (browseSlot) {
+    zdRowSync();
+    var zdRowMo0 = new MutationObserver(zdRowSync);
+    zdRowMo0.observe(document.body, { childList: true, subtree: true });
+  }
+})();
+"""
+
+# ================================================================================
+# ③ make109.py 的 E8（生成 `apply109.py` 里 `ICON_INLINE['regen']`）
+# ================================================================================
+def _jsonl(text):
+    """把一段原文按行转成「Python 字符串字面量行」列表（拼起来的值里是真换行）。
+
+    为什么不用 `repr` / `unicode_escape`：那段文本里有中文、`×`、`≥`，还有大量单双引号
+    （SVG 属性用双引号、Python 字面量用单引号）⇒ 只需转义 `\\` 与 `"` 两个字符，其余原样，
+    生成的 `make109.py` 才读得下去（可读性也是资产）。
+    ⚠ 结尾那个空元素要丢掉：`'a\\n'.split('\\n')` 给 `['a', '']`，留着会多出一个 `"\\n"`。
+    """
+    lines = text.split('\n')
+    if lines and lines[-1] == '':
+        lines.pop()
+    return ['    "%s\\n"' % ln.replace('\\', '\\\\').replace('"', '\\"') for ln in lines]
+
+
+REGEN_OLD_TEXT = """    #   故重画为 **14 栅格**（与 `.r93-i14` 盒 1:1，stroke 1.3 就是设计稿的 1.3），
+    #   墨迹包络 0.5..13.9 × 4.5..10.6，与设计稿实测 0.5..14.5 × 4..10 对齐。
+    'regen': '<svg viewBox="0 0 14 14" fill="none" aria-hidden="true">'
+             '<path d="M13.9 9.4A5 5 0 0 0 4.1 8.9" stroke="currentColor" stroke-width="1.3" '
+             'stroke-linecap="round"/><path d="M1.05 7.85 4.4 7.95 2.95 10.6Z" '
+             'fill="currentColor"/></svg>',
+"""
+
+REGEN_NEW_TEXT = """    # ★ r109 第二拍 ③：**重画**。上一版（r99 ⑭）是目测读法 ——「圆心 (9,10)、半径 5 的
+    #   上半圆 + 左下小三角」，实测右端被 14 盒裁平、箭头糊成一团。本拍把 `design-rgb.png`
+    #   的 14px 盒（png x956..969 / y225..231，墨迹实测 **14×7**）逐像素读出来，再用自造的
+    #   解析光栅化器（`mg-work/r109/ev/tools/evalpath.py`，SS=8 覆盖率）+ 边界约束坐标下降
+    #   （`refiteregen.py`）重拟：
+    #     旧版 err **15.05** → 新版 **2.30**（6.5×）；墨迹包络 (1,5)-(13,11)（设计 (0,4)-(13,10)）。
+    #   全图**只有 1 个格**与设计差 ≥0.33：`(x2,y8)` 设计 0 / 本版 0.84 —— 那是设计稿里
+    #   「弧的左端」与「左下实心箭头」之间**故意留的凹口**（弧的末端其实在 x3..x4 那两格），
+    #   「圆弧 + 凸三角形」两种图元表达不了凹口 ⇒ err 的下限就在这里，不是没拟好。
+    #   ⚠ 判据口径：**别只看总 err** —— 多起点寻优能拿到 err 2.19 的解，但它有 7 个格
+    #     差 ≥0.33（箭头在 y10 整行弱 0.4~0.5、弧左端弱 0.44）⇒ 视觉上「箭头变细」。
+    #     本版是「坏格数 = 1 / max|Δ| = 0.84」的解，这才是该取的解。
+    'regen': '<svg viewBox="0 0 14 14" fill="none" aria-hidden="true">'
+             '<path d="M12.95 10.64A5.03 5.03 0 0 0 3.37 8.5" stroke="currentColor" '
+             'stroke-width="1.3" stroke-linecap="round"/>'
+             '<path d="M2.07 11.4 5.61 9.61 1.05 7.56Z" fill="currentColor"/></svg>',
+"""
+
+# 生成到 make109.py 源里的两个常量（逐行用 "…\\n" 拼接 ⇒ 值里是**真换行**）。
+MAKE_CONSTS = (
+    '# ---------------------------------------------------------------- ③ 图标\n'
+    '# ★ r109 第二拍 · ③：重新生成图标（`.r93-ib.r93-bt`）的正身是 `ICON_INLINE[\'regen\']`，\n'
+    '#   而 `apply109.py` 是本脚本从 `apply108.py` **逐字生成**的 ⇒ 修它 = 改本脚本的 EDITS 表\n'
+    '#   （重跑自愈；不存在「手改 apply109.py 被重生成冲掉」的隐患）。\n'
+    '#   判据与取证（`mg-work/r109/ev/tools/`）：\n'
+    '#     · `evalpath.py`     —— 把**真实 SVG path 串**解析后按 SS=8 覆盖率光栅化，与\n'
+    '#                            design-rgb.png 的 14px 盒逐像素比（含 SVG 弧的旗标推导）；\n'
+    '#     · `refiteregen.py`  —— 墨迹盒硬约束（(0.1,4.2)-(13.9,11.0)）下的坐标下降重拟。\n'
+    '#   ⚠ 防过拟合**不能**用「越界罚项」（设计真值在弧顶下方本来就有洞，罚项会连正确的\n'
+    '#     弧顶一起罚 ⇒ 解被推向另一侧，err 从 2.3 抬到 10.7）；正解是收紧参数的物理边界。\n'
+    'REGEN_OLD = (\n'
+    + ''.join('    %s\n' % _l for _l in _jsonl(REGEN_OLD_TEXT))
+    + ')\n'
+    'REGEN_NEW = (\n'
+    + ''.join('    %s\n' % _l for _l in _jsonl(REGEN_NEW_TEXT))
+    + ')\n'
+    '\n'
+)
+
+E8_ENTRY = (
+    '    (\n'
+    "        'E8 重新生成图标：r99 ⑭ 版 → r109-l2 重绘版',\n"
+    '        REGEN_OLD,\n'
+    '        REGEN_NEW,\n'
+    '        1,\n'
+    '    ),\n'
+)
+
+
+def do_css():
+    print('== panel.css ==')
+    edit(PCS, CSS_TERM_OLD, CSS_TERM_NEW, '② .td-term 字号 12→13',
+         mark='font-size: var(--font-size-body-2);\n  line-height: calc(20px * var(--ui-fs-ratio));')
+    edit(PCS, CSS_TABS_OLD, CSS_TABS_NEW, '② 终端标签条 / 标签 字号 12→13',
+         mark='font-size: var(--font-size-body-2);\n  overflow-x: auto;')
+    edit(PCS, CSS_TABADD_OLD, CSS_TABADD_NEW, '② 终端「+」钮 字号 12→13',
+         mark='margin-left: 2px; padding: 0;\n  border: 0; border-radius: 6px; background: transparent;\n'
+              '  color: var(--color-text-3);\n  /* ★ r109-l2 ②：12 → 13px */')
+    edit(PCS, CSS_ANCHOR_OLD, CSS_ANCHOR_NEW, '⑤ 锚点可拖动（cursor / touch-action / is-dragging）',
+         mark='.td-anchor.is-dragging { cursor: grabbing; }')
+
+
+def do_js():
+    print('== panel.js ==')
+    # ⚠ 这条是**追加式**编辑（`noteFind` 原文一字不动、只是后面接一个新函数）
+    #   ⇒ `old` 永远是 `new` 的子串 ⇒ STRICT 的「mark 与 old 同存即歧义」判据在这里
+    #   必然误报，必须显式 `strict=False`。幂等性仍由 mark 保证（重跑时 count(old) 还是 1，
+    #   没有 mark 会**再追加一遍**）。
+    edit(PJS, JS_FIND_OLD, JS_FIND_NEW, '④ noteOfAnchor 反查',
+         mark='function noteOfAnchor(a) {', strict=False)
+    edit(PJS, JS_EDIT_OLD, JS_EDIT_NEW, '④ noteEdit 加 at 形参',
+         mark='function noteEdit(el, at) {')
+    edit(PJS, JS_EDITPOS_OLD, JS_EDITPOS_NEW, '④ 气泡按参照物定位',
+         mark='var er = ref.getBoundingClientRect(), vr = view.getBoundingClientRect();')
+    edit(PJS, JS_DROP_OLD, JS_DROP_NEW, '④⑤ 锚点：可点开详情 + 可拖动',
+         mark='function bindAnchor(a) {')
+    # ⑤ 的配套：气泡可视带夹取（真机取证实测出来的缺陷）
+    edit(PJS, JS_CLAMP_OLD, JS_CLAMP_NEW, '⑤配套 气泡可视带夹取',
+         mark='★ r109-l2 ⑤（配套）')
+    edit(PJS, JS_ZDFOLD_OLD, JS_ZDFOLD_NEW, '① 右栏展开 ⇒ 自动折叠',
+         mark='function zdRowSync() {')
+
+
+def do_l1():
+    """后一层替前一层保住判据：`noteEdit` 形参变了，l1 的分割锚点要同步放宽。"""
+    print('== patch109l1.py（判据同步）==')
+    edit(L1, "    seg_edit = j_bare.split('function noteEdit(el) {')",
+         "    # ⚠ r109-l2 ④ 把形参改成 `(el, at)` ⇒ 这里按**前缀**分割，两种签名都命中\n"
+         "    #   （后一层必须替前一层保住判据；见 patch109l2.py 顶部说明）。\n"
+         "    seg_edit = j_bare.split('function noteEdit(el')",
+         'l1 判据放宽（noteEdit 形参）', mark="split('function noteEdit(el')")
+
+
+def do_make():
+    """③ 重画 regen 图标 —— 落点在上游生成器 `make109.py`。"""
+    print('== ev/make109.py（③）==')
+    mark = 'E8 重新生成图标'
+    t, nl = rd(MAKE)
+    if mark in t:
+        SKIPPED.append('③ make109.py E8')
+        print('   跳过  ③ E8（已应用）')
+        return
+    anchor = 'EDITS = [\n    (\n        \'E1 顶部标题 → r109\','
+    if t.count(anchor) != 1:
+        sys.exit('!! ③ make109.py 的 EDITS 表锚点命中 %d 次' % t.count(anchor))
+    # ⚠ 落点必须是**列表内部**：锚点整串（含 `EDITS = [`）一起替换，E8 条目接在 `[` 之后。
+    #   第一版把 E8 拼在 `EDITS = [` **之前** ⇒ 变成模块级裸元组 ⇒ IndentationError。
+    repl = MAKE_CONSTS + 'EDITS = [\n' + E8_ENTRY + "    (\n        'E1 顶部标题 → r109',"
+    wr(MAKE, t.replace(anchor, repl, 1), nl)
+    APPLIED.append('③ make109.py E8')
+    print('   %s  ③ make109.py E8' % ('校验' if CHECK else '应用'))
+
+
+def verify():
+    c, _ = rd(PCS)
+    j, _ = rd(PJS)
+    mk, _ = rd(MAKE)
+    c_bare = re.sub(r'/\*.*?\*/', '', c, flags=re.S)
+    j_bare = re.sub(r'/\*.*?\*/', '', re.sub(r'^\s*//[^\n]*', '', j, flags=re.M), flags=re.S)
+    bad = []
+
+    # ---- ② 四个规则都到 13px，且旧值一个不留 ----
+    for sel in ('.td-term {', '.td-term-tabs {', '.td-term-tab {', '.td-term-tabadd {'):
+        seg = c_bare.split(sel)
+        if len(seg) != 2:
+            bad.append('panel.css：② `%s` 命中 %d 次' % (sel, len(seg) - 1))
+            continue
+        body = seg[1].split('}')[0]
+        if 'var(--font-size-body-2)' not in body:
+            bad.append('panel.css：② `%s` 里没有 `--font-size-body-2`' % sel)
+        if 'var(--font-size-body-1)' in body:
+            bad.append('panel.css：② `%s` 里还留着 `--font-size-body-1`' % sel)
+    seg_term = c_bare.split('.td-term {')[-1].split('.td-url {')[0]
+    if re.search(r'font-size:\s*12px', seg_term):
+        bad.append('panel.css：② 终端族里还有裸 `font-size: 12px`')
+
+    # ---- ⑤ 锚点的可拖动声明 ----
+    seg_a = c_bare.split('.td-anchor { cursor: grab;')
+    if len(seg_a) != 2:
+        bad.append('panel.css：⑤ 锚点缺 `cursor: grab` 那一组声明')
+    else:
+        body = seg_a[1].split('}')[0]
+        for s in ('touch-action: none', 'user-select: none'):
+            if s not in body:
+                bad.append('panel.css：⑤ 锚点缺 `%s`' % s)
+        if 'transition' in body:
+            bad.append('panel.css：⑤ 锚点拖动态带了 `transition`（会拖影）')
+    if '.td-anchor.is-dragging { cursor: grabbing; }' not in c_bare:
+        bad.append('panel.css：⑤ 缺 `.td-anchor.is-dragging`')
+    seg_anchor = c_bare.split('.td-anchor {')
+    if len(seg_anchor) != 3:
+        bad.append('panel.css：`.td-anchor {` 命中 %d 次（应为 2：主体 + 本层那组）'
+                   % (len(seg_anchor) - 1))
+    body_anchor = seg_anchor[1].split('}')[0]
+    for s in ('width: calc(24px * var(--ui-fs-ratio));',
+              'border: 2px solid var(--color-primary-6);',
+              'font-size: var(--font-size-body-1);'):
+        if s not in body_anchor:
+            bad.append('panel.css：`.td-anchor` 主体少了 `%s`' % s)
+
+    # ---- ④⑤ JS ----
+    for s in ('function noteOfAnchor(a) {', 'function noteEdit(el, at) {',
+              'function anchorPlace(a, left, top) {', 'function anchorOpen(a) {',
+              'function bindAnchor(a) {'):
+        if s not in j_bare:
+            bad.append('panel.js：④⑤ 少 `%s`' % s)
+    seg_edit = j_bare.split('function noteEdit(el, at) {')
+    if len(seg_edit) != 2:
+        bad.append('panel.js：④ `noteEdit(el, at)` 命中 %d 次' % (len(seg_edit) - 1))
+    else:
+        body_edit = seg_edit[1].split('\n    }')[0]
+        if 'var ref = at || el;' not in body_edit:
+            bad.append('panel.js：④ `noteEdit()` 里没有 `var ref = at || el;`')
+        if 'var er = ref.getBoundingClientRect()' not in body_edit:
+            bad.append('panel.js：④ `noteEdit()` 没按 `ref` 定位')
+        i_unhide = body_edit.find("removeAttribute('hidden')")
+        i_grow = body_edit.find('noteGrow()')
+        if i_unhide < 0 or i_grow < 0 or i_grow < i_unhide:
+            bad.append('panel.js：④ `noteEdit()` 里 `noteGrow()` 不在摘 `[hidden]` 之后'
+                       '（unhide=%d grow=%d）' % (i_unhide, i_grow))
+        # ---- ⑤ 配套：气泡可视带夹取（锚点可拖到任意位置 ⇒ 气泡不能被 `.td-view` 裁掉）----
+        if 'view.scrollTop + view.clientHeight' not in body_edit:
+            bad.append('panel.js：⑤配套 `noteEdit()` 缺气泡可视带夹取')
+        if 'top = vBot - h' not in body_edit:
+            bad.append('panel.js：⑤配套 `noteEdit()` 缺 `top = vBot - h`')
+        i_h = body_edit.find('elnote.offsetHeight')
+        i_top = body_edit.find('elnote.style.top =')
+        if i_h < 0 or i_top < 0 or i_h > i_top:
+            bad.append('panel.js：⑤配套 高必须在写 `top` 之前量（h=%d top=%d）' % (i_h, i_top))
+    # ⚠ r109-l3 ① 把形参改成 `(el, n, at)` ⇒ 这里按**前缀**分割，两种签名都命中
+    #   （后一层必须替前一层保住判据；同 l2 对 l1 那条的做法）。
+    seg_drop = j_bare.split('function noteDrop(el')
+    if len(seg_drop) != 2:
+        bad.append('panel.js：④ `noteDrop` 命中 %d 次' % (len(seg_drop) - 1))
+    else:
+        body_drop = seg_drop[1].split('\n    }')[0]
+        if "a.setAttribute('aria-hidden', 'true')" in body_drop:
+            bad.append('panel.js：④ 锚点还挂着 `aria-hidden="true"`（现在它是按钮语义）')
+        for s in ("role', 'button'", "tabindex', '0'", 'bindAnchor(a)'):
+            if s not in body_drop:
+                bad.append('panel.js：④ `noteDrop` 里少 `%s`' % s)
+        i_app = body_drop.find('view.appendChild(a)')
+        i_pl = body_drop.find('anchorPlace(a,')
+        if i_app < 0 or i_pl < 0 or i_pl < i_app:
+            bad.append('panel.js：⑤ `anchorPlace` 不在 `appendChild` 之后（量不到几何）'
+                       '（app=%d place=%d）' % (i_app, i_pl))
+
+    # ---- ① zd 折叠联动 ----
+    for s in ('function zdRowSync() {', 'function zdRowCheck() {',
+              ".observe(row, { attributes: true, attributeFilter: ['class'] })",
+              'if (on) toMini();', 'if (zdRowOn) toMini();'):
+        if s not in j_bare:
+            bad.append('panel.js：① 少 `%s`' % s)
+    seg_row = j_bare.split('function zdRowCheck() {')[-1].split('function zdRowSync()')[0]
+    if 'toCard()' in seg_row:
+        bad.append('panel.js：① 折叠联动里出现了 `toCard()`（反向摊回不在需求内）')
+    i_tomini = j_bare.find('function toMini() {')
+    i_row = j_bare.find('function zdRowSync() {')
+    if i_tomini < 0 or i_row < 0 or i_row < i_tomini:
+        bad.append('panel.js：① zdRowSync 不在 `toMini()` 之后（tmini=%d row=%d）'
+                   % (i_tomini, i_row))
+
+    # ---- ③ make109 的 E8 ----
+    # ★ 生成器自己必须仍能编译 —— 第一版把 E8 拼在 `EDITS = [` **之前**，就成了模块级裸元组
+    #   （IndentationError）。这一条是「生成器语法」的守门人，比逐串查更靠前。
+    try:
+        ast.parse(mk)
+    except SyntaxError as e:
+        bad.append('make109.py：③ 生成后语法错误（%s，第 %s 行）' % (e.msg, e.lineno))
+    if mk.count('E8 重新生成图标') != 1:
+        bad.append('make109.py：③ E8 出现 %d 次' % mk.count('E8 重新生成图标'))
+    if 'EDITS = [\n    (\n        \'E8 重新生成图标' not in mk:
+        bad.append('make109.py：③ E8 不在 EDITS 列表内部（会变成模块级裸元组）')
+    if mk.count('REGEN_OLD = (') != 1 or mk.count('REGEN_NEW = (') != 1:
+        bad.append('make109.py：③ REGEN_OLD / REGEN_NEW 常量不在（或重复）')
+    if 'M12.95 10.64A5.03 5.03 0 0 0 3.37 8.5' not in mk:
+        bad.append('make109.py：③ REGEN_NEW 里没有新弧的端点')
+    if 'M13.9 9.4A5 5 0 0 0 4.1 8.9' not in mk:
+        bad.append('make109.py：③ REGEN_OLD 里没有旧弧的端点')
+
+    # ---- 跨代标记存活 ----
+    for s in ('/* r107-l1 */', '/* r107-l2 */', '/* r108-l1 */', '/* r108-l2 */',
+              '/* r108-l3 */', '/* r108-l4 */', '/* r108-l5 */', '/* r108-l6 */',
+              '/* r108-l7 */', '/* r109-l1 */'):
+        if s not in c:
+            bad.append('panel.css：跨代标记 `%s` 丢了' % s)
+    # ⚠ panel.js 里 r109-l1 的标记**没有** `/* rNN-lM */` 那一族收尾串（那是 panel.css 的
+    #   体例），它用的是 `★ r109-l1 ③/④` 这种注释正文标记 ⇒ JS 侧查裸串 `r109-l1`。
+    for s in ('★ r108-l7 ②：这里原有', 'r108-l6', 'r107-l2', 'r109-l1'):
+        if s not in j:
+            bad.append('panel.js：跨代标记 `%s` 丢了' % s)
+
+    # ---- 注释括号配平 ----
+    for p, label in ((PJS, 'panel.js'), (PCS, 'panel.css'), (MAKE, 'make109.py')):
+        s = rd(p)[0]
+        if s.count('/*') != s.count('*/'):
+            bad.append('%s：注释括号不配平（`/*` %d / `*/` %d）'
+                       % (label, s.count('/*'), s.count('*/')))
+
+    # ---- 字号机制：带 calc 高度/行高却没字号 token 的规则（不许从 2 条变多）----
+    RATIO = r'var\(--ui-fs-ratio\)'
+    rx_lh = re.compile(r'line-height:\s*calc\(\d+(?:\.\d+)?px \* ' + RATIO + r'\)')
+    rx_h = re.compile(r'min-height:\s*calc\(\d+(?:\.\d+)?px \* ' + RATIO + r'\)')
+    rx_h2 = re.compile(r'(?<![-\w])height:\s*calc\(\d+(?:\.\d+)?px \* ' + RATIO + r'\);\s*'
+                       r'min-height:\s*calc\(\d+(?:\.\d+)?px \* ' + RATIO + r'\)')
+    rx_fs = re.compile(r'var\(--font-size-[a-z0-9-]+\)')
+    flat = []
+    for one in re.finditer(r'([^{}]*)\{([^{}]*)\}', c_bare):
+        sel, body = one.group(1).strip(), one.group(2)
+        if not (rx_lh.search(body) or rx_h.search(body) or rx_h2.search(body)):
+            continue
+        if rx_fs.search(body):
+            continue
+        flat.append(sel.splitlines()[-1].strip()[:60])
+    if len(flat) != 2:
+        bad.append('panel.css：`scan-flatten.py` 口径从 2 条变成 %d 条 ⇒ %s' % (len(flat), flat))
+
+    if bad:
+        sys.exit('!! 跨层自检失败：\n   ' + '\n   '.join(bad))
+    print('   全部存活 ✓')
+    print()
+    print('应用 %d 项 / 跳过 %d 项' % (len(APPLIED), len(SKIPPED)))
+    for s in SKIPPED:
+        print('   跳过  %s' % s)
+
+
+def main():
+    global CHECK
+    if '--check' in sys.argv:
+        CHECK = True
+        print('== --check：只验锚点，不落盘 ==')
+        do_css()
+        do_js()
+        do_l1()
+        do_make()
+        print()
+        print('锚点全部命中 ✓（%d 项待改；本模式未写入）' % len(APPLIED))
+        return
+    if '--bak' in sys.argv:
+        if not os.path.isdir(BAK):
+            os.makedirs(BAK)
+        for p in (PCS, PJS, MAKE, L1):
+            shutil.copy2(p, os.path.join(BAK, os.path.basename(p) + '.before'))
+        print('== 备份 → %s ==' % BAK)
+    do_css()
+    do_js()
+    do_l1()
+    do_make()
+    verify()
+
+
+if __name__ == '__main__':
+    main()

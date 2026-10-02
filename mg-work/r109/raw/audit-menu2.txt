@@ -1,0 +1,107 @@
+======================================================================================================================
+下拉菜单项 hover · 浅/暗双档矩阵   （基准 = .perm-menu-item → --color-fill-2）
+======================================================================================================================
+页           目标选择器                                                浅色档值                           暗色档值                           判定
+----------------------------------------------------------------------------------------------------------------------
+base        .giencoder-select-option:hover                       var(--color-fill-2)            （继承基础规则）                       OK
+base        .giencoder-menu-item:hover                           var(--color-fill-1)            （继承基础规则）                       OK
+base        .giencoder-menu-submenu-title:hover                  var(--color-fill-1)            （继承基础规则）                       OK
+base        .model-dropdown-menu-item:hover                      var(--color-fill-2)!important  var(--color-fill-2) !important OK
+base        .workdir-menu-item:hover                             var(--color-fill-2)!important  （继承基础规则）                       OK
+base        .perm-menu-item:hover,.session-action-item:hover     var(--color-fill-2)!important  （继承基础规则）                       OK
+base        .add-menu-item:hover                                 var(--color-fill-2)            （继承基础规则）                       OK
+base        .skills-popup-btn:hover                              var(--color-fill-2)            （继承基础规则）                       OK
+base        .perm-menu-item:hover                                （继承基础规则）                       var(--color-fill-2) !important OK
+conversation .giencoder-select-option:hover                       var(--color-fill-2)            （继承基础规则）                       OK
+conversation .giencoder-menu-item:hover                           var(--color-fill-1)            （继承基础规则）                       OK
+conversation .giencoder-menu-submenu-title:hover                  var(--color-fill-1)            （继承基础规则）                       OK
+conversation .model-dropdown-menu-item:hover                      var(--color-fill-2)!important  var(--color-fill-2) !important OK
+conversation .workdir-menu-item:hover                             var(--color-fill-2)!important  （继承基础规则）                       OK
+conversation .perm-menu-item:hover,.session-action-item:hover     var(--color-fill-2)!important  （继承基础规则）                       OK
+conversation .add-menu-item:hover                                 var(--color-fill-2)            （继承基础规则）                       OK
+conversation .skills-popup-btn:hover                              var(--color-fill-2)            （继承基础规则）                       OK
+conversation .perm-menu-item:hover                                （继承基础规则）                       var(--color-fill-2) !important OK
+conversation .r93-ctx .giencoder-dropdown-item:hover              var(--color-fill-2)            （继承基础规则）                       OK
+conversation .td-ctx .giencoder-dropdown-item:hover, .td-ctx .gie var(--color-fill-2)            （继承基础规则）                       OK
+conversation .td-ctx .giencoder-dropdown-item-disabled:hover      transparent                    （继承基础规则）                       OK
+conversation .td-mod-menu .giencoder-dropdown-item:hover, .td-rv- var(--color-fill-2)            （继承基础规则）                       OK
+avatar      .giencoder-select-option:hover                       var(--color-fill-2)            （继承基础规则）                       OK
+avatar      .giencoder-menu-item:hover                           var(--color-fill-1)            （继承基础规则）                       OK
+avatar      .giencoder-menu-submenu-title:hover                  var(--color-fill-1)            （继承基础规则）                       OK
+avatar      .model-dropdown-menu-item:hover                      var(--color-fill-2)!important  var(--color-fill-2) !important OK
+avatar      .workdir-menu-item:hover                             var(--color-fill-2)!important  （继承基础规则）                       OK
+avatar      .perm-menu-item:hover,.session-action-item:hover     var(--color-fill-2)!important  （继承基础规则）                       OK
+avatar      .add-menu-item:hover                                 var(--color-fill-2)            （继承基础规则）                       OK
+avatar      .skills-popup-btn:hover                              var(--color-fill-2)            （继承基础规则）                       OK
+avatar      .perm-menu-item:hover                                （继承基础规则）                       var(--color-fill-2) !important OK
+avatar      .td-ctx .giencoder-dropdown-item:hover, .td-ctx .gie var(--color-fill-2)            （继承基础规则）                       OK
+avatar      .td-ctx .giencoder-dropdown-item-disabled:hover      transparent                    （继承基础规则）                       OK
+automation  .giencoder-select-option:hover                       var(--color-fill-2)            （继承基础规则）                       OK
+automation  .giencoder-menu-item:hover                           var(--color-fill-1)            （继承基础规则）                       OK
+automation  .giencoder-menu-submenu-title:hover                  var(--color-fill-1)            （继承基础规则）                       OK
+automation  .model-dropdown-menu-item:hover                      var(--color-fill-2)!important  var(--color-fill-2) !important OK
+automation  .workdir-menu-item:hover                             var(--color-fill-2)!important  （继承基础规则）                       OK
+automation  .perm-menu-item:hover,.session-action-item:hover     var(--color-fill-2)!important  （继承基础规则）                       OK
+automation  .add-menu-item:hover                                 var(--color-fill-2)            （继承基础规则）                       OK
+automation  .skills-popup-btn:hover                              var(--color-fill-2)            （继承基础规则）                       OK
+automation  .perm-menu-item:hover                                （继承基础规则）                       var(--color-fill-2) !important OK
+skills      .giencoder-select-option:hover                       var(--color-fill-2)            （继承基础规则）                       OK
+skills      .giencoder-menu-item:hover                           var(--color-fill-1)            （继承基础规则）                       OK
+skills      .giencoder-menu-submenu-title:hover                  var(--color-fill-1)            （继承基础规则）                       OK
+skills      .model-dropdown-menu-item:hover                      var(--color-fill-2)!important  var(--color-fill-2) !important OK
+skills      .workdir-menu-item:hover                             var(--color-fill-2)!important  （继承基础规则）                       OK
+skills      .perm-menu-item:hover,.session-action-item:hover     var(--color-fill-2)!important  （继承基础规则）                       OK
+skills      .add-menu-item:hover                                 var(--color-fill-2)            （继承基础规则）                       OK
+skills      .skills-popup-btn:hover                              var(--color-fill-2)            （继承基础规则）                       OK
+skills      .perm-menu-item:hover                                （继承基础规则）                       var(--color-fill-2) !important OK
+dev         .giencoder-select-option:hover                       var(--color-fill-2)            （继承基础规则）                       OK
+dev         .giencoder-menu-item:hover                           var(--color-fill-1)            （继承基础规则）                       OK
+dev         .giencoder-menu-submenu-title:hover                  var(--color-fill-1)            （继承基础规则）                       OK
+dev         .model-dropdown-menu-item:hover                      var(--color-fill-2)!important  var(--color-fill-2) !important OK
+dev         .workdir-menu-item:hover                             var(--color-fill-2)!important  （继承基础规则）                       OK
+dev         .perm-menu-item:hover,.session-action-item:hover     var(--color-fill-2)!important  （继承基础规则）                       OK
+dev         .add-menu-item:hover                                 var(--color-fill-2)            （继承基础规则）                       OK
+dev         .skills-popup-btn:hover                              var(--color-fill-2)            （继承基础规则）                       OK
+dev         .perm-menu-item:hover                                （继承基础规则）                       var(--color-fill-2) !important OK
+kanban      .giencoder-select-option:hover                       var(--color-fill-2)            （继承基础规则）                       OK
+kanban      .giencoder-menu-item:hover                           var(--color-fill-1)            （继承基础规则）                       OK
+kanban      .giencoder-menu-submenu-title:hover                  var(--color-fill-1)            （继承基础规则）                       OK
+kanban      .model-dropdown-menu-item:hover                      var(--color-fill-2)!important  var(--color-fill-2) !important OK
+kanban      .workdir-menu-item:hover                             var(--color-fill-2)!important  （继承基础规则）                       OK
+kanban      .perm-menu-item:hover,.session-action-item:hover     var(--color-fill-2)!important  （继承基础规则）                       OK
+kanban      .add-menu-item:hover                                 var(--color-fill-2)            （继承基础规则）                       OK
+kanban      .skills-popup-btn:hover                              var(--color-fill-2)            （继承基础规则）                       OK
+kanban      .perm-menu-item:hover                                （继承基础规则）                       var(--color-fill-2) !important OK
+req-kanban  .giencoder-select-option:hover                       var(--color-fill-2)            （继承基础规则）                       OK
+req-kanban  .giencoder-menu-item:hover                           var(--color-fill-1)            （继承基础规则）                       OK
+req-kanban  .giencoder-menu-submenu-title:hover                  var(--color-fill-1)            （继承基础规则）                       OK
+req-kanban  .model-dropdown-menu-item:hover                      var(--color-fill-2)!important  var(--color-fill-2) !important OK
+req-kanban  .workdir-menu-item:hover                             var(--color-fill-2)!important  （继承基础规则）                       OK
+req-kanban  .perm-menu-item:hover,.session-action-item:hover     var(--color-fill-2)!important  （继承基础规则）                       OK
+req-kanban  .add-menu-item:hover                                 var(--color-fill-2)            （继承基础规则）                       OK
+req-kanban  .skills-popup-btn:hover                              var(--color-fill-2)            （继承基础规则）                       OK
+req-kanban  .perm-menu-item:hover                                （继承基础规则）                       var(--color-fill-2) !important OK
+settings    .giencoder-select-option:hover                       var(--color-fill-2)            （继承基础规则）                       OK
+settings    .giencoder-menu-item:hover                           var(--color-fill-1)            （继承基础规则）                       OK
+settings    .giencoder-menu-submenu-title:hover                  var(--color-fill-1)            （继承基础规则）                       OK
+settings    .model-dropdown-menu-item:hover                      var(--color-fill-2)!important  var(--color-fill-2) !important OK
+settings    .workdir-menu-item:hover                             var(--color-fill-2)!important  （继承基础规则）                       OK
+settings    .perm-menu-item:hover,.session-action-item:hover     var(--color-fill-2)!important  （继承基础规则）                       OK
+settings    .add-menu-item:hover                                 var(--color-fill-2)            （继承基础规则）                       OK
+settings    .skills-popup-btn:hover                              var(--color-fill-2)            （继承基础规则）                       OK
+settings    .perm-menu-item:hover                                （继承基础规则）                       var(--color-fill-2) !important OK
+task-detail .giencoder-select-option:hover                       var(--color-fill-2)            （继承基础规则）                       OK
+task-detail .giencoder-menu-item:hover                           var(--color-fill-1)            （继承基础规则）                       OK
+task-detail .giencoder-menu-submenu-title:hover                  var(--color-fill-1)            （继承基础规则）                       OK
+task-detail .model-dropdown-menu-item:hover                      var(--color-fill-2)!important  var(--color-fill-2) !important OK
+task-detail .workdir-menu-item:hover                             var(--color-fill-2)!important  （继承基础规则）                       OK
+task-detail .perm-menu-item:hover,.session-action-item:hover     var(--color-fill-2)!important  （继承基础规则）                       OK
+task-detail .add-menu-item:hover                                 var(--color-fill-2)            （继承基础规则）                       OK
+task-detail .skills-popup-btn:hover                              var(--color-fill-2)            （继承基础规则）                       OK
+task-detail .perm-menu-item:hover                                （继承基础规则）                       var(--color-fill-2) !important OK
+task-detail .td-ctx .giencoder-dropdown-item:hover, .td-ctx .gie var(--color-fill-2)            （继承基础规则）                       OK
+task-detail .td-ctx .giencoder-dropdown-item-disabled:hover      transparent                    （继承基础规则）                       OK
+task-detail .td-more .giencoder-dropdown-item:hover, .td-more .g var(--color-fill-2)            （继承基础规则）                       OK
+task-detail .td-more .giencoder-dropdown-item.is-danger:hover, . var(--color-danger-light-1)    （继承基础规则）                       OK
+
+硬编码条数 = 0

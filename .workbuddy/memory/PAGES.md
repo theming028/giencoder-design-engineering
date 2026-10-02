@@ -4,6 +4,27 @@
 
 ---
 
+## P0 ★ r109 第十一拍新增固定事实（2026-10-02）
+
+- **下拉菜单面板底（全站 6 类）**：
+  - **浅色档 = `rgb(255,255,255)`（纯白）** —— 由 `ev/theme/apply-menuwhite.py` 把 28 处 `rgba(var(--gray-1),0.88)` 换成 `var(--color-bg-1)`（浅色档 = `#fff`）。
+  - **暗色档 = `rgba(31,31,31,0.88)`（全部统一，= 邵先生 A 指令的「默认权限」基准）** —— 由 10 页的覆盖块 `<style id="r109-menuwhite-css">` 压回。
+  - **6 类面板的容器选择器**（暗色覆盖必须全覆盖，否则会分档）：
+    | 面板 | 容器选择器 |
+    |---|---|
+    | 添加菜单 | `[role=menu][aria-label=添加内容]`（内联 style） |
+    | 技能面板 | `[role=listbox][aria-label=技能选择]`（内联 style）+ `.skills-popup-bg` + `.giencoder-select` |
+    | 默认权限 | `[role=listbox][aria-label=权限选择]`（内联 style） |
+    | 标准模式 / 大模型 / 工作目录 | `.giencoder-select-popup` |
+    | task-detail 协作弹窗 | `.td-skill-pop` |
+- **settings 页波点**：`<main class="… bg-white dot-bg">` 的 `radial-gradient` 已去掉（浅暗双档 `background-image: none`）。
+  - 载体锁作用域靠 `settings.html` 的 `<html data-r109-nodots="1">`（**页面专属属性**）。
+  - ⚠ **其它 6 页（base/conversation/dev/kanban/req-kanban/task-detail）的 `main.dot-bg` 波点仍在**（`bg-white dot-bg` 是 7 页共有）；**切勿改共享 DS 包的 `.dot-bg` 定义**（会波及 7 页）。
+- **`--color-bg-1`**：浅色档 = `#fff`、暗色档 = `#17171a`（**不透明深黑**）⇒ 凡是「浅色要白、暗色要半透明磨砂」的地方，**不能直接用 `var(--color-bg-1)`**，必须另加暗色覆盖块压回 `rgba(var(--gray-1),0.88)`。
+- **`--color-bg-white`**：浅色档 = `#fff`、暗色档 = `#f6f6f6`（近白，属隐患）。
+
+---
+
 ## P1 设计系统 token 档位速查（权威 = DS `tokens.md`）
 
 | 类别 | 档位 |
@@ -633,7 +654,7 @@ agent 行 `agentSpan` = `[420,1280]` / `[840,1981]`（**填满**）；`div.mt-8`
 
 ---
 
-### P3.11i ★★ 会话详情页「侧栏模块标签化」（r107 十一拍 + **r108 十二 ~ 十九拍** · 复刻 Codex 右栏 · 2026-10-01 · **共十九拍**）
+### P3.11i ★★ 会话详情页「侧栏模块标签化」（r107 十一拍 + **r108 十二 ~ 十九拍** + **r109 第一拍「批注链路四件重做」** + **r109 第二拍「五条 + 一条配套」** + **r109 第三拍「批注原点 / 卡片对齐 / 全站暗色」** · 复刻 Codex 右栏 · 2026-10-01 / 10-02 · **共二十二拍**）
 
 > 补丁 = **`mg-work/r108/apply108.py`**（✅ 已交付 `172e580` · 第十二 ~ 十九拍；前身 `mg-work/r107/apply107.py` 已推送 `e9c9498`）；设计依据 = `docs/codex-sidepanel-research.md` + `docs/codex-refs/`。
 > **只影响 `pages/conversation.html`**：`base.html` 与 8 个外壳页**逐字节不变**（nav 块沿用 `r106-nav-js` 不换名）。
@@ -814,7 +835,22 @@ td-split#av-browse-split → td-browse-slot#av-browse-slot
 | **产物卡整卡可点** | ★ **r108 第十三拍 ④**：`data-td-art="1"` 从内部「预览」按钮**上移到 `.td-sum-art` 本体**（2 处）+ `.td-sum-art[data-td-art] { cursor: pointer }`；内部按钮卸掉 `data`（**视觉与键盘入口保留**）。实测点「图标区」（`.td-sum-arti`）即开预览层（`pvName:"右栏复刻方案.md"`）|
 | **★★ 右上角任务信息面板** | ★★★ **r108 第十三拍 ⑥（本拍最大件）**：`.zd-host#av-zd-status`（**`position:absolute` **top:44px**（**不是 0**）+ `right:16px`、`z-index:20`、`padding-top:12px`、`pointer-events:none`、`max-width: calc(100% - 32px)`） + `.zd-card`（`pointer-events:auto`）= **四分区** `git`「Git 工具」/ `goal`「目标」/ `plan`「计划」/ `todo`「进程」。★ **`top` 必须避开 `<main>` 顶部的 `.r93-bar`**（`position:absolute; height:44px; z-index:10`，r106 的**固定档**、**不随 `--ui-fs` 变**）—— 从 `top:0` 起排会**盖住右上角「全屏 / 打开侧栏」两枚按钮**。折叠 = 分区头 `classList.toggle('is-closed')`（**不写内联 display**）；面板 ⇄ 胶囊 = `hidden` 属性互斥。实测 `hostInMain:true` / **`cardRect [455,105,320,512]`** / `panelRightGap:16` / `panelTopGap:57` / `zdTop:93`（= 48 + 44 + 1）/ 折叠后卡高 **512 → 503** / 胶囊 `[672,105,103,32]` / 两枚工具条按钮 `hitSelf:true` |
 | **任务详情页徽章字号** | ★ **r108 第十三拍 ⑤**（**另一页 / 独立血脉**）：`.giencoder-badge-status-text` 的**文字节点自己不声明字号**（继承），真源在父级 `.giencoder-badge-status{font-size:var(--font-size-body-3)}`（14px）⇒ 只补一条**本页**规则 `.giencoder-badge-status-text { font-size: var(--font-size-body-2) }`（13px）即可、**无需特异性竞争、不动 DS 源**。落点 = `<style id="r108-td-css">`（插在 `</style>` 与 `<script id="r81-ws-js">` 之间）；⚠ 替换时要保留锚点自身两个 token，否则生成 `</style></style>`（该 CSS 会被当 HTML 文本、**真 bug**）。入口 = `ev/patch108td.py`（**不进 `apply108.py`**）|
+| **`td-page-blank` 已删净** | ★ **r109 ①**：DOM（`_mods.html`）与 `panel.css` 规则**双清零** —— 不留死规则。⚠ 「归零」判据必须先剥三类注释（HTML / CSS / JS），否则会被说明注释绊倒（真踩）。 |
+| **`td-annot-bar` 贴顶** | ★★ **r109 ②**：`position: sticky; top: 0`（原 `bottom: 0`）**＋ DOM 侧把它挪成 `.td-view` 的「首个子件」**（原来在末位 ⇒ `top` 永远追不上）。判据 = `barIsFirstChild && (bar.top − view.top === 0)`。 |
+| **`td-url-annot` 批注态** | ★ **r109 ③**：`.td-url-annot[aria-pressed='true'] { background: var(--color-danger-light-1); color: var(--color-danger-6) }`（「浅底红 + 红字」= red-1 `#FFECE8` / red-6 `#F53F3F`）；文案 `标注 ⇄ 退出批注` 由 `setAnnot(on)` 切，⚠ **只认 `.td-url-annot`**（标注条那枚「完成」也带 `data-td-annot`）。 |
+| **`td-elnote` 三稿（pin / 卡 / 锚点）** | ★★★ **r109 ④（邵先生自己的设计，逐像素）**：pin 24×24 `border: 2px --color-primary-6` + `border-radius: 12px 12px 12px 0`（**左下角纯直角**）+ 中心 6px 圆点；`.is-done` / `.td-anchor` = 同形实心主色 + 白数字 12/16/500；卡 320 宽 / 1px `--color-border-2` / 8 圆角 / `--shadow2-down`、**内距 12 = 1px 描边 + 11px padding**；**卡高 `12 + 22n + 12 + 28 + 12`**（空 48 / 1 行 86 / 2 行 108）、封顶 `calc(200px * var(--ui-fs-ratio))`、**由输入区自滚**（`overflow-y:auto`，底行常驻）；空态无提示无取消（`:not(.has-text)` 关掉）；Ctrl ⇒ 按钮 `添加 ⇄ 发送`（宽不变）+ **只亮后半句**（`.is-ctrl .td-elnote-hint em`）；禁用的「添加」走 `--btn-bg: var(--color-primary-2)`（**不是** DS 的 `opacity:.4`）。⚠ 两枚按钮三处纠 DS 默认值（内距 11 / 字号 12 / `:not(:focus-visible)` 去 ring）。 |
+| **`.td-elnote` 的 JS 时序（★ 硬约束）** | ★★★ **r109**：`noteEdit()` 必须 **先 `removeAttribute('hidden')` 再 `noteGrow()`** —— 隐藏态 `ta.scrollHeight === 0` ⇒ 回填的长文本被压成 0 高（卡停在 48 而非 108）。判据 = 静态查 `i_unhide < i_grow`。**同一族的教训**：`display:none` 下量不出任何几何。 |
+| **右栏展开 ⇒ `zd-host` 折胶囊** | ★★ **r109 第二拍 ①**：盯宿主状态类 **`.av-browse-on`**（`div:has(> main)` = `#av-browse-slot.parentElement`，宿主 `setOpen()` 唯一写入）⇒ 变 `true` 即 `toMini()`；**反向不摊回**。⚠ 别 hook 开关 `click`（收起有三条路径 + `ensureOpen()` 合成 `b.click()`）；`childList` 观察器兜 React 重挂。真机：`a2 on:true card hidden / mini 103.09×32`。 |
+| **终端模块字号 = 13px** | ★ **r109 第二拍 ②**：`.td-term` / `-tabs` / `-tab` / `-tabadd` 四条由 `--font-size-body-1`(12) 换 `--font-size-body-2`(13)；**盒模型零改动**（`lh 20` / `tabs 34` / `tab 22` / `tabadd 22×22` / `caret 7×13`）。⚠ 标签条是 `.td-term` 的**兄弟**（追问后定「整个终端模块都改」）。 |
+| **`regen` 图标（`r93-ib r93-bt`）** | ★★ **r109 第二拍 ③**：★★ **落点 = `ev/make109.py` 的 `EDITS` 表 E8**（`apply109.py` 是生成物，直接改会被重跑冲掉）。新串 `M12.95 10.64A5.03 5.03 0 0 0 3.37 8.5` + `M2.07 11.4 5.61 9.61 1.05 7.56Z`（`stroke-width 1.3` / `round`）。真机墨迹盒 `(1,5,12,10)` 与设计**一致**。 |
+| **`.td-anchor` 的交互语义（★ 已不再是只读标记）** | ★★★ **r109 第二拍 ④⑤**：④ 点锚点 ⇒ **编辑态**详情（`noteOfAnchor` 反查 + `noteEdit(el, at)` 按**锚点**定位 + `noteDrop` 换 `role/tabindex/aria-label/title`）；⑤ **可任意拖动**（pointer + `window` 捕获段 + **4px 阈值**分流 + `anchorPlace()` 夹 `.td-view` 可视区；`cursor:grab`、**无 transition**）。判据：`气泡顶 − 锚点底 = 8`；拖 `+40/+30` ⇒ 内联精确 `+40/+30`。 |
+| **`.td-elnote` 必须夹在 `.td-view` 可视带内** | ★★★ **r109 第二拍 ⑤ 配套**：锚点可拖到任意位置 ⇒ `.td-elnote`（`.td-view` 的**子件**、祖先 `overflow:auto`）在锚点贴底时会被**整块裁掉**（实测 `visibleH −8` / `fullyHidden true`）⇒ `noteEdit()` 加可视带夹取、并且**先摘 `[hidden]` 再量高**（隐藏态 `offsetHeight` 恒 0）。⚠ `.td-elnote` 无 `transition` ⇒ 把写 `top` 挪到摘 `[hidden]` 之后不引位移动画。 |
+| **`.td-anchor` / `.td-elnote` 的「原点」** | ★★★ **r109 第三拍 ①**：唯一原点 = **`noteAt`**（本次**真实点击点**、`.td-view` 内容坐标）。锚点 24×24 的**中心**咬住它；气泡**左边缘**对齐它（水平方向也要做**可视带夹取**）；**「预览批注」时原点 = 锚点自己**。真机（真鼠标）：点击 `880,349` ⇒ 气泡左 − 点击点 = **0**、提交后锚点中心 = **`880,349`**。 |
+| **`.td-elnote-ok` 的文案（新增 vs 编辑）** | ★★ **r109 第三拍 ①**：`noteCtrl(on)` 里**统一收口** —— `noteCur` 查得到（= 编辑态）⇒ 恒为「**保存**」。⚠ 别只在 `noteEdit()` 里写一次，否则「编辑态下按一下 Ctrl」会翻回「添加」。真机：真鼠标点开已存在锚点 ⇒ 按钮 =「保存」、`cancel` display = `flex`。 |
+| **`.r93-card` 的宽度（★ 已两端对齐）** | ★★ **r109 第三拍 ②**：`width: 100%; margin-left: 0`（原 `calc(100% - 18px)` + `18px`）。★★ 落点 = **`ev/make109.py` 的 `EDITS` 表 E9**（`apply109.py` 是生成物）。⚠ 只动宽度两项；`.r93-card--full` 保留（显式满宽的语义声明）。真机**全量 12 张** `dLeft` / `marginLeft` **全 0**。 |
+| **全站暗色：机制层 / 适配层 / 护栏** | ★★★ **r109 第三拍 ③**：机制层 `ev/theme/apply-theme.py`（**10 页**，档位 `light/dark/auto` 存 `localStorage['gi-ui-theme']`、**默认 auto**）；适配层 `ev/theme/apply-dark.py`（**基础工作台 5 页**，作用域 `html[giencoder-theme='dark']:not([data-r93-page])`）；**护栏 = `<html data-gi-dark="1">`**（与适配块同进同出）⇒ 未适配页即便被请求 dark 也**一律浅色**。★ 页面自带的**非 DS 灰阶** `.dark{}` 块**刻意未用**。 |
 **⚠ 改这一块之前必看**
+
 
 1. **`part107/browse.html` 是组装件**：`ev/splice107.py` = 从 `part105/browse.html` **剪出 Files 正文**（逐字）
    + 换头部（`_head.html`）+ 追加四个新模块（`_mods.html`）⇒ 改完 **必须先 `splice107.py` 再 `apply107.py`**。
@@ -891,7 +927,41 @@ td-split#av-browse-split → td-browse-slot#av-browse-slot
 
 ---
 
+23. ★★★ **「归零 / 不存在」判据必须先剥三类注释**（HTML `<!-- -->` / CSS `/* */` / JS `^\s*//`）——
+    注释里引用被删元素的名字是最自然的写法，也最容易把守卫绊倒（r109：`splice109.py` 的 `class="td-page-blank"` 检查被自己那段说明注释命中）。
+24. ★★ **判据不能写「裸前缀」** —— `.td-elnote-f` 被新类名 `.td-elnote-foot` 命中 ⇒ 加词边界 `\.td-elnote-f(?![\-\w])`；
+    命中「遗留死选择器」时顺手把它摘掉（死选择器既是假报源、也是真技术债）。
+25. ★★★ **`position: sticky` 的 `top` 只在元素位于「滚动容器里首个可滚动子件」之前才追得上** ——
+    「把底部条挪到顶部」= **CSS `bottom→top` + DOM 挪首** 两处同改（只看 CSS 会以为改了一条属性。判据 = `bar.top − view.top === 0`）。
+
+27. ★★★ **改「整体状态联动」别 hook 交互事件** —— 一个状态常有多条进出路径 + 脚本还会**合成** click ⇒ hook click 必漏；
+    一律**观察宿主自己就在用的那个状态类**（r109：`.av-browse-on`），并配 `childList` 观察器兜 React 重挂。
+28. ★★★ **加可拖 / 可移动的件 ⇒ 顺手查它的配套浮层会不会被祖先 `overflow` 裁掉**（r109：`.td-elnote` 是 `.td-view` 的子件 ⇒ 锚点贴底时气泡 `visibleH −8`）。
+    修法与三条安全前提见 PLAYBOOK **P3.57⑦**。
+29. ★★ **「生成器 + 应用器」两段式里，改动的落点要问「谁生成的 apply」** —— r109 的图标重画落点是 `ev/make109.py` 的 `EDITS` 表，
+    不是 `apply109.py`（后者是生成物、会被重跑冲掉）。见 PLAYBOOK **P3.57①**。
+30. ★★ **拟合 / 反解类判据先定阈值、再数「坏格数」，最后才看总 err** —— 总 err 更小的解可能是过拟合（r109：2.192 的解有 7 个坏格，2.298 的解只有 1 个）。
+31. ★★ **真机 1× 截图与数学模型不可逐格比** —— 归一化按**各自最深像素**（r109：134 vs 78 ⇒ 混用会假失败），1× 真机只判「墨迹盒 + 观感」。
+
+
+32. ★★★ **往产物里写注释前，先想「有没有别的层拿这个 token 当判据」** —— r109 在暗色块注释里写了注入块 id 的**字面**，
+    `apply109.py` 的净底自检当场判「残留标记」并退出，**整条 apply 链断掉**。见 PLAYBOOK **P3.58①**。
+33. ★★★ **给根元素（`<html>`）加属性 ⇒ 先查下游有没有「逐字匹配 `<html …>`」的锚点** —— 有 ⇒ 那个锚点会失配，
+    且新属性会**随净底外溢**到从它重建的页面（r109：差点把「已适配」护栏外溢给 conversation = 半暗半亮）。见 **P3.58③**。
+34. ★★★ **机制层与适配层覆盖范围不同 ⇒ 必须设护栏**（未适配页切暗会「token 翻暗、外壳仍浅」）；护栏取 **`<html>` 属性**
+    （`<head>` 内同步执行时查不到后面的样式块；夹 `<meta>` 会破坏邻接剥离正则）。见 **P3.58④**。
+35. ★★ **DS 原始色阶浅暗档严格镜像**（`--gray-N` 浅 ↔ `--gray-(11−N)` 暗）⇒ 踩在阶梯步上的字面值直接写 `rgb(var(--gray-N))`。见 **P3.58⑤**。
+36. ★★ **「第二套 token 层」是最隐蔽的暗色元凶**：与 DS 的 `body{}` **同特异性**且**排在后面** ⇒ 它胜出，满屏文字都从 body 继承。见 **P3.58⑥**。
+37. ★★ **幂等的判据要给「链」不给「单步」** —— r109 的 `apply109` 单独不是固定点，但**改序整链**是（连跑两轮 quickhash 一致），
+    且末步越界清扫让「适配块只存在于被适配页」恒成立、往返 md5 逐字节还原。见 **P3.58⑨**。
+
+26. ★★ **改「`--ui-fs` 杠杆下要跟着变的尺寸」时**：`max-height: calc(200px * var(--ui-fs-ratio))` 会**按比例**放大（fs18 ⇒ 257.14）——
+    这是 DS 既定体位、**不是**写死 200；内容溢出时让**内层输入区** `overflow-y:auto` 自滚，别让卡片滚（否则底行被顶走）。
+
+---
+
 ## P4 标准配方（r66 / r67 定稿）
+
 
 ### P4.1 蒙层（Modal / Drawer mask）—— 全站唯一口径
 > **亮色罩色 `rgba(0,0,0,.4)`（= token `--color-mask-bg: #0006`）+ `backdrop-filter: blur(10px) saturate(100%)`**
@@ -1434,3 +1504,133 @@ DS 的 `--shadow3-down` 是 `0 8px 20px 10%`，**不是**这一档。保留不�
 代数核对：`r106-conv-css` / `r106-conv-js` 各 1（base 的 `r106-nav-js` 1）、**10 页历代别名零残留**。
 
 **⑤ 🚫 状态**：**未提交**（r106 属新一轮，与已交付的 `87e2caa` 分开）；等邵先生发话。
+
+---
+
+## r109 第四拍 · 各页固定事实增量（2026-10-02 13:4x · 🚫 未提交）
+
+> **本拍不引入新组件、不改版式**；改动全部落在「色值表达」层（`ev/theme/apply-tokens.py` 换字面值 + `apply-dark.py` 暗色档）。以下只记**跨页共用**的固定事实。
+
+### ① 更新任务清单卡 `.r93-todocard`（conversation 页）
+
+| 项 | 值 |
+|---|---|
+| 横向 | **`position: relative; width: 100%; margin-left: 0; box-sizing: border-box`**（原 `width: calc(100% - 18px); margin-left: 18px`） |
+| 纵向 | `height: 220px; padding: 16px 20px 12px;` —— **定高卡，绝不动高度** |
+| 外观 | `border-radius: 8px; background: var(--r93-card); border: 1px solid var(--r93-edge)` —— **一字未动** |
+| 关系 | 与 `.r93-card` **同宽同左缘**（`.r93-card` 早就是 `width: 100%; margin-left: 0`） |
+| 落点 | `mg-work/r109/ev/make109.py` 的 `EDITS` 表首项 **E11**（源 `r108/apply108.py` 命中 1 次） |
+
+### ② 页面级「颜色变量」清单（本拍核准，**99 处**，10 页合计）
+
+★ 这些**变量自己**不会随暗色档翻转（字面值写死在页面 `:root`）⇒ 是「浅暗混杂」的头号来源。分类：
+
+- **本拍已 token 化（随档自动翻转）**：`--td-bubble` / `--r93-bubble`(#E5EDFE→`rgb(var(--blue-1))`) · `--td-tree-active-bd` / `--r93-hov-bd` / `--td-dp-on-line`(#D3E2FF→`rgb(var(--giencoderblue-2))`) · `--td-crumb-line` / `--av-hs-line`(#E7EBF1→`rgb(var(--gray-2))`) · `--r93-line`(#EBEBED→`rgb(var(--gray-2))`) · `--kb-tbl-line` / `--kb-crt-divider`(#EBECED→`rgb(var(--gray-2))`) · `--kb-appbar` / `--td-appbar` / `--r81-hover-bg`(#DAE3ED→`var(--color-fill-3)`) · `--td-pane-line`(#DAE3ED→`var(--color-border-2)`) · `--r93-ioc`(#333333→`rgb(var(--gray-9))`) · `--r93-tag-bd`(#FDDDC3→`rgb(var(--orange-2))`) · `--kb-tag-blue-bg`(#E7F0FF→`rgb(var(--blue-1))`) · `--kb-st-delay`(#FF6157→`rgb(var(--red-5))`) · `--kb-st-coop`(#3686FF→`rgb(var(--blue-6))`)
+- **暗色档定向覆盖（浅色零变化）**：`--kb-surround` / `--td-surround`(#E5EDF5→暗色 `var(--color-bg-1)`)
+- **仍为字面（待裁决）**：`--kb-st-review`#E59800 · `--kb-st-cancel`/`--kb-prio-mid`/`--r93-tag-ic`#F77234/#F3881E · `--kb-tag-blue-tx`#3D6EBF · `--kb-tag-purple-tx`#7A4B9E · `--kb-tag-magenta-tx`#A74B6F · `--kb-prio-low`#575757 · `--kb-pg-active-bd`#BBD1FB · `--kb-confirm`#F36C1D · `--r93-bubble-sh`#D0D7EA · `--td-ink-2`#57626D · `--r81-pill-bg`#96ABC2 · `--r81-desc-fg`#5E5E5E · `--td-ico-web/md/md-fold/skill` · `--td-code-key/str/num` · `--avatar-bg-1..7` · `--r81-logo-bg/fg`（**品牌 logo，豁免**）
+
+### ③ 全站唯一一处「页面覆盖 DS 组件本体」的取色（settings 页）
+
+`.r85-sw.giencoder-switch { background: rgb(var(--gray-7)) }`（r85 为对齐设计稿 40×24 而写）**顶掉了** DS 组件本体的 `var(--color-fill-3)`。
+⇒ 浅色 `--gray-7` = **107**（符合设计稿）；**暗色档镜像 = 201** ⇒ 轨道发亮、语义反了。
+⇒ 修法：**暗色档**改挂 `rgb(var(--gray-4))`（暗色档 = 107）—— **保亮度不保索引**。浅色一字未动。
+
+### ④ 🚫 状态
+
+**未提交 / 未 push**（r109 全代 1~4 拍都还没交付）。门禁：`check-syntax` **10/10**、`verify-design` **0 critical**（76→75）、两脚本幂等 0。
+
+---
+
+## r109 第九 + 第十拍 · 各页固定事实增量（2026-10-02 16:xx · 🚫 未提交）
+
+| 项 | 固定事实 |
+|---|---|
+| **每页新增块** | `<style id="r109-border-css">`（暗色描边覆盖）——**锚在真正的 `</head>` 之前**，位于 `r109-theme-css` / `r109-dark-css` / `r109-tw-css` 之后 |
+| **块内容** | `body[giencoder-theme=dark],[giencoder-theme=dark]{ --color-border-1:rgb(var(--gray-1)); --color-border-2:rgb(var(--gray-2)); --color-border-3:rgb(var(--gray-3)); }` |
+| **暗色描边真值** | border-1 **31** / border-2 **43** / border-3 **78**（改前 43 / 78 / 107）；**浅色不动** = 242 / 229 / 201 |
+| **死令牌** | `--color-border-4`（= `rgb(var(--gray-6))`）与 `--color-border`（无后缀，= `rgb(var(--gray-3))`）**全站 `var()` 引用量 = 0** ⇒ 刻意未改 |
+| **border 引用量** | 全站 `var(--color-border-1)` **229** 处 / `border-2` **552** 处 / `border-3` **112** 处（conversation 最多：48 / 88 / 13） |
+| **`</head>` 陷阱** | 每页 `</head>` 字面出现 **2 次**：第 1 次在 `r109-dark-css` 注释行文里，第 2 次才是真标签 ⇒ 必须用「注释区间筛掉」再断言唯一 |
+| **下拉面板（暗色）** | `.giencoder-select-popup` 底 = `rgba(var(--gray-1),0.88)` + `backdrop-filter:blur(10px) saturate(100%)`；浅色 = `rgba(247,247,247,0.88)`（原 `var(--color-bg-5)` / 纯白） |
+| **添加菜单（暗色）** | inline 底 = `rgba(var(--gray-1), 0.88)` + `blur(10px) saturate(100%)`（原 `var(--color-bg-2)` + `blur(20px)`）；**仅 base / conversation 两页** |
+| **下拉项 hover** | 全站 10 页 **100% = `--color-fill-2`**（= 基准 `.perm-menu-item`）；**硬编码 0 条** |
+| **conversation 注释** | `ZCode` **已全部替换为 `GienCoder`（含 `zai-org/GienCoder`）** ⇒ 全站 `ZCode` 计数 = **0** |
+| **链序（10 层）** | `make109.py → splice109.py → apply109.py → apply-theme.py → apply-dark.py → apply-tokens.py → apply-literals.py → apply-popup.py → apply-border.py → apply-zcode.py` |
+| **★ `apply109.py` 行为** | 只管 **base + conversation** 两页，判据 = **整页字面相同**；conversation 每跑必被整页重建（**−702 字符 / 21 段**）⇒ **必须让第 4~10 层随后补回**，收工前确认末两层跑过 |
+| **快照目录** | `ev/bak-popup/`（第九拍）· `ev/bak-border/`（第十拍①）· `ev/bak-zcode/`（第十拍②），均支持 `--revert` |
+| **门禁** | `check-syntax` **10/10**；`verify-design` **74 / 0 critical**；第 4~10 层幂等 **0**；连跑两轮整链 md5 **0 行**差异 |
+| **⚠ 工作区污染** | `verify-design.py` 每次覆写 `pages/gaps.log`（**已跟踪文件**）⇒ 必须 `git checkout -- pages/gaps.log` 复原 |
+
+---
+
+## r109 第十二拍 · conversation.html 新增事实
+
+| 部位 | 选择器 | 固定事实（本拍后） |
+|---|---|---|
+| 标题栏 | `.r93-bar` | `background: var(--color-bg-1)`（**不透明白**，浅 #fff / 暗 #17171a）+ `backdrop-filter: none`；`height:44px` / `z-index:10` / `border-bottom: 1px solid var(--r93-line)` 不变。**`.r93-tobottom` 药丸仍走 `--r93-glass`**（该变量未动）。 |
+| 附件卡 | `.r93-att[data-r93-att-file]` | 3 枚：`部门人员名单.xlsx` / `产品初版设计方案.md` / `vscode-light-modern-color-system.xlsx`。`role=button` `tabindex=0` `cursor:pointer`，hover 边框 `--color-border-1 → --color-border-2`。点击 → `openTab('preview', {name, ico})`（**复用产物预览那一枚页签**）。 |
+| 上下文卡 | `.r93-card--ctx` | `padding: 16px`（原**无声明**、实得 `.r93-card` 的 12px）；`min-height:150px` / `max-height:240px` / `overflow-y:auto` 不变。 |
+| 状态面板分区行 | `.zd-sec-h` | `cursor:pointer`；**整行可点**（不只 `.zd-sec-t`）。行内独立按钮（`.zd-ico` 如「暂停目标」）不触发折展。3 个分区：`git` / `goal` / `todo`（`data-zd-sec`）。死区宽度实测 **234~256px**（行宽 302 − 标题 46~68）。 |
+| 状态面板分区标题 | `.zd-sec-t` | `flex:none`，宽 = 文字宽。折展只切 `.zd-sec` 的 `.is-closed` + 同步 `aria-expanded`。 |
+
+**新增驱动代码**（本页 `<script>` 尾部 IIFE 内）：附件卡 → 右栏的委托挂在 **`document`**（不是 `pane`）—— 附件卡在 `<main>` 里、右栏在 `#av-browse-slot` 里，**不同子树**。
+
+### r109 第十三拍 · conversation.html 新增事实
+
+| 对象 | 事实 |
+|---|---|
+| `.r93-card` | **r109 第十三拍归零缩进**：`width: 100%; margin-left: 0`（原 `calc(100% - 18px)` / `18px`）。⚠ 记忆里"第三拍已改"是**假象** —— 第三拍只改了 `.r93-todocard` |
+| `.r93-card--full` | 与 `.r93-card` 同值 ⇒ 已降为注释注释化，**选择器保留**（调用点不动） |
+| `.r93-card--edge` | 自身无宽度项 ⇒ 继承 `.r93-card`；本拍随之满宽（真机 `w:860 / ml:0`） |
+| `.zd-host` | **显隐改用「先手 + 后手」两段**：先手 `html:has(.r93-sk):has(.r93-sk) .zd-host { display: none; }`（骨架屏期，(0,2,0)）；后手 `html[data-r93-app='ready'] .zd-host { display: flex; }`（就绪后）。⚠ 先手**必须**叠两个 `:has()` 提特指度，否则被后手顶掉 |
+| 就绪开关 | `data-r93-app='ready'`（脚本 380ms 打上；与对话主体 `.mt-8` 的 `opacity:1` 同一开关）—— **不新造状态** |
+| 时序（真机） | `+120~+420ms`：`sk:true / disp:none`；`+500ms`：`sk:false / disp:flex` |
+| 缩进（真机） | 12 张 `.r93-card` 全 `marginLeft: 0px` / `relX: 0` |
+
+**第 13 层补丁（`ev/theme/apply12.py`，源 `make12.py`）现 11 条 EDIT**：`card-flush` / `card-full` / `zdhost-ready` / `bar-white` / `ctx-pad16` / `sec-css` / `sec-js` / `att-css` / `att-js1` / `att-js2` / `att-drive`。
+**定稿 md5（conversation.html）** = `2a7a7031be7883766093c17d1e53d8e9`。
+
+### r109 第十五拍 · conversation.html 新增事实
+
+> ★ **本拍背景**：右栏浏览器「批注模块」在 21:09→21:26 的**整页重建**中被回退成旧版 ⇒ 本拍从权威源 `part109/panel.js` / `panel.css` **增量精确恢复**（第 16 层补丁 `ev/theme/apply14.py`，源 `make14.py`，12 条 EDIT，**全部只落本页**）。
+
+| 对象 | 事实 |
+|---|---|
+| 批注 JS（新版） | **整段恢复**（old 2394 → new 16123 字符）。含 `noteList` / `noteEdit` / `noteCommit` / `noteCur` / `noteAt` / `noteOfAnchor` / `anchorOpen` / `anchorPlace` / `noteGrow` / `noteFind` / `noteCtrl` / `noteDrop` / `bindAnchor` |
+| 批注 CSS（新版） | **整段恢复**（old 1305 → new 6797 字符）。`pin` + `card` **两个兄弟**：`.td-elnote-pin`（24×24 / 2px 主色描边 / 6px 实心点 / `border-radius:12px 12px 12px 0`）/ `.td-elnote-card`（320 宽 / 48 空态 / `max-height:200`）/ `-input` / `-hint` / `-acts` / `.td-anchor`（可拖：`cursor:grab` / `touch-action:none` / `user-select:none`） |
+| 退役旧版 | `.td-elnote-t`（「评论元素 xx」标题）/ `.td-elnote-f`（26 高、圆角 6、透明底）**整套不再使用**（真机 `oldTitle:false / oldFoot:false`） |
+| `.td-annot-bar` | `position: sticky; bottom: 0;` ⇒ **`top: 0;`**（l1 ②）；DOM 侧它是 `.td-view` 的**首位子件** |
+| `.td-page-blank` | **CSS 规则 + DOM 元素两处一起删**（l1 ①）；真机 `blankInDom:false` + `blankCssRule:null` |
+| `.r93-todocard` | **本拍归零缩进**：`position: relative; box-sizing: border-box;`（原 `width: calc(100% - 18px); margin-left: 18px`）。`height:220` / `padding: 16px 20px 12px` / `radius 8` / `border` / `flex 列` / `overflow:hidden` 一字未动。真机 `w:860 / pw:860 / ml:0px / mr:0px / relX:0` |
+| 页签 id | **`(mod, file)` 二元组**：`openTab(mod, {file})` ⇒ `[data-td-mod="preview"][data-td-file="<文件名>"]`；无 `file` ⇒ `[data-td-mod="X"]:not([data-td-file])`（**五个模块页签仍各一枚**） |
+| `activate(mod, file)` | 第二参只点亮 `data-td-file` 相符的那一枚（未命中即熄灭） |
+| `tabActivate(tab)` | **新增**：从页签自身取 `(mod,file)` 后激活（`bindTab` 的 click/keydown 都走它） |
+| `prevFill()` / `prevKindOf()` | **新增**：按 kind（md/xlsx）切 `[data-td-prev-kind]` 骨架 + 填 `[data-td-prev-name]` / `-meta` / `-ico`（原来两处各复制一遍） |
+| `prevFiles{}` | **新增记忆体**：页签名 → `{meta, ico, kind}`；`prevShowFile(name)` 用它把内容装回预览面板 |
+| `.td-sum-art` 可点 | document 委托**从卡里的 `.td-diff-btn` 扩到整张卡**（卡上早有 `data-td-art="1"` + `cursor:pointer`）。⚠ `prevShow()` 用 `closest('.td-sum-art')` ⇒ 传卡/传按钮等价 |
+| `prevShow` / `attShow` | 都改传 `file: name` ⇒ **一个文件一枚独立页签** |
+
+**第 16 层补丁（`ev/theme/apply14.py`，源 `make14.py`）12 条 EDIT**：`note-css` / `note-js` / `note-bar` / `blank-css` / `blank-html` / `todocard-flush` / `tab-open` / `tab-act` / `tab-fileattr` / `tab-bind` / `tab-activate` / `prev-show`。
+**定稿 md5（conversation.html）** = `e27eb0050591f0807477dced59f7e534`（连跑三遍 12/0/0）。
+
+---
+
+## P4 ★ r109 第十六拍新增固定事实（2026-10-02）
+
+**只改 `conversation.html`**（`ev/theme/apply16.py`，4 处替换，两遍 4/0/0）。
+
+- **产物卡组 `.r93-artgrid` 的卡 = `.r93-artcard`（`<button>`）**：
+  - 几何：`width: calc(50% - 6px); height: 56px; border-radius: 8px; padding: 0 12px`，
+    容器 `.r93-artgrid { margin-top:16px; display:flex; flex-wrap:wrap; gap:12px }`。
+  - 子件：`.r93-artic`（24×24 图标盒）· `.r93-artsep`（1×24 竖线）· `.r93-arttxt` · `.r93-artname` · `.r93-artmeta`（`128KB`）· `.r93-artopen`。
+  - hover：卡底 `--r93-hov-bg` + 内描边；`.r93-artname` / `.r93-artopen` → `--color-primary-6`。
+  - **属性**：4 张文件卡各带 `data-r93-artname`；`查看所有产物 (12)` **无**该属性（**别补**）。
+- **`attShow(el)` 已是「三类卡片」的统一入口**（第十六拍收敛）：
+  - 文件名来源：`data-r93-att-file`（附件卡）｜**`data-r93-artname`（产物卡组）**。
+  - 图标：`el.querySelector('.r93-iblk svg') || el.querySelector('.r93-artic svg')`。
+  - 尺寸文案：优先读卡内 `.r93-artmeta`，无值才回退 `SIZE_BY_EXT` 表。
+  - 结尾统一 `openTab('preview', { name, ico, file: name })` ⇒ **一文件一枚独立页签**。
+- **document 委托锚点（click + keydown 两处）**：`[data-r93-att-file],[data-r93-artname]`。
+- **真机读数**（`raw/l16/light.json` / `dark.json`）：卡 5 张全 `cursor:pointer` + 有图标；
+  点 A `prd-template.html` → 新增 `preview + file="prd-template.html"` 激活、meta `128KB · 只读预览`；
+  点 B `spec-template.md` → **再多一枚**；点回 A ⇒ 面板切回 A、仅 A 激活；`artallNoNewTab:true`。

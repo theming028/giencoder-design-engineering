@@ -1,0 +1,440 @@
+    <section class="td-mod td-rv" id="av-browse-pane-review" data-td-pane="review" role="tabpanel" aria-label="审查" hidden>
+      <div class="td-mod-bar">
+        <button class="td-rv-scope" type="button" aria-haspopup="menu" aria-expanded="false" data-td-rv-scope="1"><span data-td-rv-scope-name="1">上一轮</span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+        <span class="td-rv-stat"><b class="is-add">+566</b><b class="is-del">−228</b></span>
+        <span class="td-rv-meta">4 个文件</span>
+        <div class="td-mod-bar-acts">
+          <button class="td-browse-ico" type="button" aria-label="复制 diff" title="复制 diff" data-td-rv-act="copy"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></button>
+          <button class="td-browse-ico" type="button" aria-label="在文件树中定位" title="在文件树中定位" data-td-rv-act="reveal"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="7"/><path d="M12 2v3"/><path d="M12 19v3"/><path d="M2 12h3"/><path d="M19 12h3"/></svg></button>
+          <button class="td-browse-ico" type="button" aria-label="文件树" title="文件树" aria-haspopup="dialog" aria-expanded="false" data-td-rv-act="tree"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1h-2.5a1 1 0 0 1-.8-.4l-.9-1.2A1 1 0 0 0 15 3h-2a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1Z"/><path d="M20 21a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1h-2.5a1 1 0 0 1-.8-.4l-.9-1.2A1 1 0 0 0 15 14h-2a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1Z"/><path d="M3 5a2 2 0 0 0 2 2h3"/><path d="M3 3v13a2 2 0 0 0 2 2h3"/></svg></button>
+          <button class="td-browse-ico" type="button" aria-label="显示选项" title="显示选项" aria-haspopup="menu" aria-expanded="false" data-td-rv-opts="1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></svg></button>
+          <button class="td-rv-commit" type="button" aria-haspopup="menu" aria-expanded="false" data-td-commit="1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/><path d="M6 8.5v7"/><path d="M18 6h-3a4 4 0 0 0-4 4v0"/></svg><span>提交</span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+          <button class="td-rv-pr" type="button" title="创建 Pull Request" data-td-rv-act="pr"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6"/><path d="M20 4 10 14"/><path d="M18 14v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4"/></svg><span>PR</span></button>
+        </div>
+        <div class="td-rv-menu giencoder-dropdown-popup td-rv-scope-menu" role="menu" aria-label="审查范围" hidden>
+          <div class="td-mm-cap giencoder-menu-group-title">对比范围</div>
+          <button class="td-mm-item giencoder-dropdown-item is-checked" type="button" role="menuitemradio" aria-checked="true" data-td-rv-range="last"><span class="td-mm-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg></span><span class="td-mm-name">上一轮</span><span class="td-mm-mark">✓</span></button>
+          <button class="td-mm-item giencoder-dropdown-item" type="button" role="menuitemradio" aria-checked="false" data-td-rv-range="branch"><span class="td-mm-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><path d="M6 8.5v7"/><path d="M18 8.5a6 6 0 0 1-6 6H9"/></svg></span><span class="td-mm-name">本分支 vs main</span><span class="td-mm-mark">✓</span></button>
+          <button class="td-mm-item giencoder-dropdown-item" type="button" role="menuitemradio" aria-checked="false" data-td-rv-range="all"><span class="td-mm-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 4v16"/><path d="M6 4h11l-2.5 4L17 12H6"/></svg></span><span class="td-mm-name">全部未提交改动</span><span class="td-mm-mark">✓</span></button>
+        </div>
+        <div class="td-rv-menu giencoder-dropdown-popup td-commit-menu" role="menu" aria-label="提交与推送" hidden>
+          <button class="td-mm-item giencoder-dropdown-item" type="button" role="menuitem" data-td-commit-act="commit"><span class="td-mm-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3.5"/><path d="M3 12h5.5"/><path d="M15.5 12H21"/></svg></span><span class="td-mm-name">提交到本地</span><span class="td-mm-key">⌥⌘C</span></button>
+          <button class="td-mm-item giencoder-dropdown-item" type="button" role="menuitem" data-td-commit-act="push"><span class="td-mm-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg></span><span class="td-mm-name">提交并推送</span><span class="td-mm-key">⌥⌘P</span></button>
+        </div>
+        <div class="td-rv-menu giencoder-dropdown-popup td-rv-opts" role="menu" aria-label="显示选项" hidden>
+          <button class="td-mm-item giencoder-dropdown-item is-checked" type="button" role="menuitemradio" aria-checked="true" data-td-rv-view="unified"><span class="td-mm-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M3 12h18"/><path d="M3 18h18"/></svg></span><span class="td-mm-name">统一视图</span><span class="td-mm-key">⌘1</span><span class="td-mm-mark">✓</span></button>
+          <button class="td-mm-item giencoder-dropdown-item" type="button" role="menuitemradio" aria-checked="false" data-td-rv-view="split"><span class="td-mm-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M12 4v16"/></svg></span><span class="td-mm-name">并排视图</span><span class="td-mm-key">⌘2</span><span class="td-mm-mark">✓</span></button>
+          <span class="td-mm-line giencoder-dropdown-divider"></span>
+          <button class="td-mm-item giencoder-dropdown-item" type="button" role="menuitem" data-td-rv-act="refresh"><span class="td-mm-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-2.6-6.4"/><path d="M21 3v6h-6"/></svg></span><span class="td-mm-name">刷新 diff</span><span class="td-mm-key">⌘R</span></button>
+          <button class="td-mm-item giencoder-dropdown-item" type="button" role="menuitemcheckbox" aria-checked="false" data-td-rv-tog="wrap"><span class="td-mm-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M3 12h13a3 3 0 1 1 0 6h-3"/><path d="m15 15-2 3 2 3"/><path d="M3 18h6"/></svg></span><span class="td-mm-name">自动换行</span><span class="td-mm-mark">✓</span></button>
+          <button class="td-mm-item giencoder-dropdown-item" type="button" role="menuitem" data-td-rv-fold="1"><span class="td-mm-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m7 20 5-5 5 5"/><path d="m7 4 5 5 5-5"/></svg></span><span class="td-mm-name" data-td-rv-fold-name="1">折叠全部文件</span></button>
+          <span class="td-mm-line giencoder-dropdown-divider"></span>
+          <button class="td-mm-item giencoder-dropdown-item" type="button" role="menuitemcheckbox" aria-checked="false" data-td-rv-tog="nofull"><span class="td-mm-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18"/><path d="M9 15h7"/></svg></span><span class="td-mm-name">不加载完整文件</span><span class="td-mm-mark">✓</span></button>
+          <button class="td-mm-item giencoder-dropdown-item is-checked" type="button" role="menuitemcheckbox" aria-checked="true" data-td-rv-tog="rich"><span class="td-mm-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="m3 16 5-5 4 4 3-3 6 6"/><circle cx="8.5" cy="9" r="1.5"/></svg></span><span class="td-mm-name">富预览</span><span class="td-mm-mark">✓</span></button>
+          <button class="td-mm-item giencoder-dropdown-item is-checked" type="button" role="menuitemcheckbox" aria-checked="true" data-td-rv-tog="worddiff"><span class="td-mm-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 19 4-14 4 14"/><path d="M4.5 14h5"/><path d="M14 5h3.5a3.5 3.5 0 0 1 0 7H14"/><path d="M14 12h4a3.5 3.5 0 0 1 0 7h-4Z"/></svg></span><span class="td-mm-name">词级差异</span><span class="td-mm-mark">✓</span></button>
+          <button class="td-mm-item giencoder-dropdown-item" type="button" role="menuitemcheckbox" aria-checked="false" data-td-rv-tog="hidws"><span class="td-mm-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h16"/><path d="M4 16h16"/><path d="M8 4v4"/><path d="M16 12v4"/></svg></span><span class="td-mm-name">隐藏空白</span><span class="td-mm-mark">✓</span></button>
+          <span class="td-mm-line giencoder-dropdown-divider"></span>
+          <button class="td-mm-item giencoder-dropdown-item" type="button" role="menuitem" data-td-rv-act="copyapply"><span class="td-mm-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 9-3 3 3 3"/><path d="m16 9 3 3-3 3"/><path d="M13 7l-2 10"/></svg></span><span class="td-mm-name">复制 git apply 命令</span></button>
+        </div>
+      </div>
+      <div class="td-mod-body td-rv-body">
+        <article class="td-diff is-open" data-td-diff="1">
+          <header class="td-diff-h">
+            <button class="td-diff-toggle" type="button" aria-expanded="true" data-td-diff-h="1">
+              <svg class="td-diff-cv" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+              <span class="td-diff-path">pages/conversation.html</span>
+              <span class="td-diff-stat"><b class="is-add">+412</b><i class="is-del">−196</i></span>
+            </button>
+            <span class="td-diff-acts">
+              <button class="td-diff-btn" type="button" data-td-stage="1" title="暂存 pages/conversation.html">暂存</button>
+              <button class="td-diff-btn is-danger" type="button" data-td-revert="1" title="撤销 pages/conversation.html 的改动">撤销</button>
+            </span>
+          </header>
+          <div class="td-diff-rows">
+            <div class="td-dr is-ctx"><i class="td-dr-no">88</i><i class="td-dr-nn">88</i><span class="td-dr-t">    &lt;aside class="td-browse" aria-label="文件预览"&gt;</span></div>
+            <div class="td-dr is-del"><i class="td-dr-no">89</i><i class="td-dr-nn"></i><span class="td-dr-t">−     &lt;span class="td-browse-tab"&gt;摘要&lt;/span&gt;</span></div>
+            <div class="td-dr is-del"><i class="td-dr-no">90</i><i class="td-dr-nn"></i><span class="td-dr-t">−     &lt;button class="td-browse-add"&gt;+&lt;/button&gt;</span></div>
+            <div class="td-dr is-add"><i class="td-dr-no"></i><i class="td-dr-nn">89</i><span class="td-dr-t">+     &lt;div class="td-browse-tabs" role="tablist"&gt;</span></div>
+            <div class="td-dr is-add"><i class="td-dr-no"></i><i class="td-dr-nn">90</i><span class="td-dr-t">+       &lt;div class="td-browse-tab<mark class="td-dr-wd"> is-active</mark>" data-td-mod="files"&gt;…&lt;/div&gt;</span></div>
+            <div class="td-dr is-add"><i class="td-dr-no"></i><i class="td-dr-nn">91</i><span class="td-dr-t">+     &lt;/div&gt;</span></div>
+            <button class="td-diff-more" type="button" data-td-more="1">⋯ 折叠 46 行未改动</button>
+            <div class="td-dr is-ctx" data-td-more-row="1" hidden><i class="td-dr-no">112</i><i class="td-dr-nn">111</i><span class="td-dr-t">    &lt;div class="td-browse-tabs" role="tablist" aria-label="侧栏模块"&gt;</span></div>
+            <div class="td-dr is-ctx" data-td-more-row="1" hidden><i class="td-dr-no">113</i><i class="td-dr-nn">112</i><span class="td-dr-t">      &lt;div class="td-browse-tab <mark class="td-dr-wd">is-active</mark>" role="tab"&gt;</span></div>
+            <div class="td-dr is-ctx" data-td-more-row="1" hidden><i class="td-dr-no">114</i><i class="td-dr-nn">113</i><span class="td-dr-t">        &lt;span class="td-tab-name"&gt;文件&lt;/span&gt;</span></div>
+            <div class="td-dr is-ctx" data-td-more-row="1" hidden><i class="td-dr-no">115</i><i class="td-dr-nn">114</i><span class="td-dr-t">      &lt;/div&gt;</span></div>
+            <div class="td-dr is-ctx"><i class="td-dr-no">138</i><i class="td-dr-nn">137</i><span class="td-dr-t">    &lt;section class="td-mod td-rv" data-td-pane="review"&gt;</span></div>
+          </div>
+          <div class="td-diff-rows td-diff-split">
+            <div class="td-dsc is-ctx"><span class="td-dsc-c"><i class="td-dr-no">88</i><span class="td-dr-t">    &lt;aside class="td-browse"&gt;</span></span><span class="td-dsc-c"><i class="td-dr-no">88</i><span class="td-dr-t">    &lt;aside class="td-browse"&gt;</span></span></div>
+            <div class="td-dsc is-del"><span class="td-dsc-c"><i class="td-dr-no">89</i><span class="td-dr-t">−     &lt;span class="td-browse-tab"&gt;摘要&lt;/span&gt;</span></span><span class="td-dsc-c"></span></div>
+            <div class="td-dsc is-add"><span class="td-dsc-c"></span><span class="td-dsc-c"><i class="td-dr-no">89</i><span class="td-dr-t">+     &lt;div class="td-browse-tabs"&gt;</span></span></div>
+            <div class="td-dsc is-add"><span class="td-dsc-c"></span><span class="td-dsc-c"><i class="td-dr-no">90</i><span class="td-dr-t">+       &lt;div class="td-browse-tab<mark class="td-dr-wd"> is-active</mark>"&gt;…&lt;/div&gt;</span></span></div>
+            <button class="td-diff-more" type="button" data-td-more="1">⋯ 折叠 46 行未改动</button>
+            <div class="td-dsc is-ctx" data-td-more-row="1" hidden><span class="td-dsc-c"><i class="td-dr-no">112</i><span class="td-dr-t">    &lt;div class="td-browse-tabs"&gt;</span></span><span class="td-dsc-c"><i class="td-dr-no">112</i><span class="td-dr-t">    &lt;div class="td-browse-tabs"&gt;</span></span></div>
+            <div class="td-dsc is-ctx" data-td-more-row="1" hidden><span class="td-dsc-c"><i class="td-dr-no">113</i><span class="td-dr-t">      &lt;div class="td-browse-tab"&gt;</span></span><span class="td-dsc-c"><i class="td-dr-no">113</i><span class="td-dr-t">      &lt;div class="td-browse-tab"&gt;</span></span></div>
+          </div>
+          <div class="td-note">
+            <div class="td-note-h"><span class="td-note-av">邵</span><span class="td-note-who">邵禹铭</span><span class="td-note-time">刚刚</span></div>
+            <div class="td-note-b">标签要不要支持拖到面板外、直接开成独立窗口？</div>
+          </div>
+        </article>
+        <article class="td-diff is-open" data-td-diff="1">
+          <header class="td-diff-h">
+            <button class="td-diff-toggle" type="button" aria-expanded="true" data-td-diff-h="1">
+              <svg class="td-diff-cv" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+              <span class="td-diff-path">mg-work/r107/part107/panel.css</span>
+              <span class="td-diff-stat"><b class="is-add">+128</b><i class="is-del">−12</i></span>
+            </button>
+            <span class="td-diff-acts">
+              <button class="td-diff-btn" type="button" data-td-stage="1" title="暂存 mg-work/r107/part107/panel.css">暂存</button>
+              <button class="td-diff-btn is-danger" type="button" data-td-revert="1" title="撤销 mg-work/r107/part107/panel.css 的改动">撤销</button>
+            </span>
+          </header>
+          <div class="td-diff-rows">
+            <div class="td-dr is-ctx"><i class="td-dr-no">1</i><i class="td-dr-nn">1</i><span class="td-dr-t">/* r107 · 侧栏模块标签化 */</span></div>
+            <div class="td-dr is-del"><i class="td-dr-no">2</i><i class="td-dr-nn"></i><span class="td-dr-t">−.td-browse-bar { <mark class="td-dr-wd">height: 40px;</mark> }</span></div>
+            <div class="td-dr is-add"><i class="td-dr-no"></i><i class="td-dr-nn">2</i><span class="td-dr-t">+.td-browse-tabs { <mark class="td-dr-wd">display: flex; min-width: 0;</mark> }</span></div>
+            <div class="td-dr is-add"><i class="td-dr-no"></i><i class="td-dr-nn">3</i><span class="td-dr-t">+.td-mod[hidden] { display: none; }</span></div>
+          </div>
+          <div class="td-diff-rows td-diff-split">
+            <div class="td-dsc is-ctx"><span class="td-dsc-c"><i class="td-dr-no">1</i><span class="td-dr-t">/* r107 · 侧栏模块标签化 */</span></span><span class="td-dsc-c"><i class="td-dr-no">1</i><span class="td-dr-t">/* r107 · 侧栏模块标签化 */</span></span></div>
+            <div class="td-dsc is-del"><span class="td-dsc-c"><i class="td-dr-no">2</i><span class="td-dr-t">−.td-browse-bar { <mark class="td-dr-wd">height: 40px;</mark> }</span></span><span class="td-dsc-c"></span></div>
+            <div class="td-dsc is-add"><span class="td-dsc-c"></span><span class="td-dsc-c"><i class="td-dr-no">2</i><span class="td-dr-t">+.td-browse-tabs { <mark class="td-dr-wd">min-width: 0;</mark> }</span></span></div>
+          </div>
+          <div class="td-note">
+            <div class="td-note-h"><span class="td-note-av">邵</span><span class="td-note-who">邵禹铭</span><span class="td-note-time">2 分钟前</span></div>
+            <div class="td-note-b">这一版先只改视觉顺序，别动 React 那边的真实组件。</div>
+          </div>
+        </article>
+        <article class="td-diff" data-td-diff="1">
+          <header class="td-diff-h">
+            <button class="td-diff-toggle" type="button" aria-expanded="false" data-td-diff-h="1">
+              <svg class="td-diff-cv" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+              <span class="td-diff-path">docs/giencoder-sidepanel-research.md</span>
+              <span class="td-diff-stat"><b class="is-add">+26</b><i class="is-del">−20</i></span>
+            </button>
+            <span class="td-diff-acts">
+              <button class="td-diff-btn" type="button" data-td-stage="1" title="暂存 docs/giencoder-sidepanel-research.md">暂存</button>
+              <button class="td-diff-btn is-danger" type="button" data-td-revert="1" title="撤销 docs/giencoder-sidepanel-research.md 的改动">撤销</button>
+            </span>
+          </header>
+          <div class="td-diff-rows">
+            <div class="td-dr is-ctx"><i class="td-dr-no">1</i><i class="td-dr-nn">1</i><span class="td-dr-t"># GienCoder 右栏调研</span></div>
+          </div>
+          <div class="td-diff-rows td-diff-split">
+            <div class="td-dsc is-ctx"><span class="td-dsc-c"><i class="td-dr-no">1</i><span class="td-dr-t"># GienCoder 右栏调研</span></span><span class="td-dsc-c"><i class="td-dr-no">1</i><span class="td-dr-t"># GienCoder 右栏调研</span></span></div>
+          </div>
+        </article>
+        <article class="td-diff" data-td-diff="1">
+          <header class="td-diff-h">
+            <button class="td-diff-toggle" type="button" aria-expanded="false" data-td-diff-h="1">
+              <svg class="td-diff-cv" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+              <span class="td-diff-path">.workbuddy/memory/PLAYBOOK.md</span>
+              <span class="td-diff-stat"><b class="is-add">+0</b><i class="is-del">−0</i></span>
+            </button>
+            <span class="td-diff-acts">
+              <button class="td-diff-btn" type="button" data-td-stage="1" title="暂存 .workbuddy/memory/PLAYBOOK.md">暂存</button>
+              <button class="td-diff-btn is-danger" type="button" data-td-revert="1" title="撤销 .workbuddy/memory/PLAYBOOK.md 的改动">撤销</button>
+            </span>
+          </header>
+          <div class="td-diff-rows">
+            <div class="td-dr is-ctx"><i class="td-dr-no">1</i><i class="td-dr-nn">1</i><span class="td-dr-t"># GienCoder 改页铁律</span></div>
+          </div>
+          <div class="td-diff-rows td-diff-split">
+            <div class="td-dsc is-ctx"><span class="td-dsc-c"><i class="td-dr-no">1</i><span class="td-dr-t"># GienCoder 改页铁律</span></span><span class="td-dsc-c"><i class="td-dr-no">1</i><span class="td-dr-t"># GienCoder 改页铁律</span></span></div>
+          </div>
+        </article>
+      </div>
+      <div class="td-commit" role="dialog" aria-modal="true" aria-label="提交更改" hidden>
+        <div class="td-commit-card">
+          <div class="td-commit-h">
+            <span class="td-commit-t">提交更改</span>
+            <button class="td-browse-ico" type="button" aria-label="关闭" data-td-commit-x="1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
+          </div>
+          <label class="td-commit-lb" for="td-commit-branch">目标分支</label>
+          <div class="giencoder-input-wrapper td-commit-in" data-component="input" data-variant="prefix" data-size="small" data-state="default">
+            <span class="giencoder-input-prefix"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/><path d="M6 8.5v7"/><path d="M18 6h-3a4 4 0 0 0-4 4v0"/></svg></span>
+            <input class="giencoder-input" id="td-commit-branch" type="text" value="main" aria-label="目标分支">
+          </div>
+          <div class="td-commit-row"><span>变更</span><b class="td-commit-num"><i class="is-add">+566</i><i class="is-del">−228</i></b></div>
+          <label class="td-commit-ck"><input type="checkbox" checked><span>包含未暂存的更改</span></label>
+          <textarea class="td-commit-msg" rows="3" aria-label="提交信息" placeholder="提交信息：描述这次改动…">feat(r107): 侧栏标签化 —— 审查 / 终端 / 浏览器 / 摘要</textarea>
+          <div class="td-commit-f">
+            <button class="td-commit-btn" type="button" data-td-commit-x="1">取消</button>
+            <button class="td-commit-btn is-primary" type="button" data-td-commit-ok="1">继续</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ★ 第十一拍 ④（r107-l2）：对照官方「多标签终端」补的标签条。
+         静态两枚（zsh / npm run dev），`+` 由 panel.js 现场新建（新标签 = 空提示符）。
+         切换只切 `hidden`，各块的输出与输入各自独立。 -->
+    <section class="td-mod td-mod-term" id="av-browse-pane-terminal" data-td-pane="terminal" role="tabpanel" aria-label="终端" hidden>
+      <div class="td-term-tabs" role="tablist" aria-label="终端标签">
+        <button class="td-term-tab is-active" type="button" role="tab" aria-selected="true" data-td-term-tab="t1"><span class="td-term-tab-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m7 9 3 3-3 3"/><path d="M13 15h4"/></svg></span><span class="td-term-tab-nm">zsh</span></button>
+        <button class="td-term-tab" type="button" role="tab" aria-selected="false" data-td-term-tab="t2"><span class="td-term-tab-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m7 9 3 3-3 3"/><path d="M13 15h4"/></svg></span><span class="td-term-tab-nm">npm run dev</span></button>
+        <button class="td-term-tabadd" type="button" aria-label="新建终端标签" title="新建终端标签" data-td-term-add="1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="M5 12h14"/></svg></button>
+      </div>
+      <div class="td-term" tabindex="0" data-td-term="1" data-td-term-pane="t1">
+        <div class="td-term-line"><span class="td-term-ps">giencoder-design-engineering</span><span class="td-term-pd">$</span><span class="td-term-cmd">npm run dev</span></div>
+        <div class="td-term-out">&gt; vite --host</div>
+        <div class="td-term-out is-dim">  VITE v5.4.2  ready in 214 ms</div>
+        <div class="td-term-out is-dim">  ➜  Local:   http://localhost:5173/</div>
+        <div class="td-term-out is-dim">  ➜  press h + enter to show help</div>
+        <div class="td-term-line"><span class="td-term-ps">giencoder-design-engineering</span><span class="td-term-pd">$</span><span class="td-term-echo" data-td-term-echo="1"></span><span class="td-term-caret" data-td-term-caret="1"></span></div>
+      </div>
+      <div class="td-term" tabindex="0" data-td-term="1" data-td-term-pane="t2" hidden>
+        <div class="td-term-line"><span class="td-term-ps">giencoder-design-engineering</span><span class="td-term-pd">$</span><span class="td-term-cmd">git status -sb</span></div>
+        <div class="td-term-out">## main...origin/main [ahead 2]</div>
+        <div class="td-term-out"> M pages/conversation.html</div>
+        <div class="td-term-out is-dim">?? mg-work/r107/</div>
+        <div class="td-term-line"><span class="td-term-ps">giencoder-design-engineering</span><span class="td-term-pd">$</span><span class="td-term-echo" data-td-term-echo="1"></span><span class="td-term-caret" data-td-term-caret="1"></span></div>
+      </div>
+    </section>
+
+    <section class="td-mod td-brw" id="av-browse-pane-browser" data-td-pane="browser" role="tabpanel" aria-label="浏览器" hidden>
+      <div class="td-url">
+        <button class="td-browse-ico" type="button" aria-label="后退" title="后退"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button>
+        <button class="td-browse-ico" type="button" aria-label="前进" title="前进"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
+        <button class="td-browse-ico" type="button" aria-label="刷新" title="刷新"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-2.6-6.4"/><path d="M21 3v6h-6"/></svg></button>
+        <div class="td-url-pill"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><input type="text" value="localhost:5173/" aria-label="地址"></div>
+        <button class="td-url-annot" type="button" aria-pressed="false" data-td-annot="1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 15a2 2 0 0 1-2 2H8l-4 3V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2Z"/><path d="M9 9h6"/><path d="M9 13h4"/></svg><span>标注</span></button>
+        <button class="td-browse-ico" type="button" aria-label="截图到剪贴板" title="截图到剪贴板" data-td-brw-act="shot"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8.5h3.2l1.6-2.3h8.4l1.6 2.3H21a1 1 0 0 1 1 1v8.5a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V9.5a1 1 0 0 1 1-1Z"/><circle cx="12" cy="13.5" r="3.2"/></svg></button>
+        <button class="td-browse-ico" type="button" aria-label="缩放" title="缩放" data-td-brw-act="zoom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/><path d="M11 8v6"/><path d="M8 11h6"/></svg></button>
+        <button class="td-browse-ico" type="button" aria-label="发送页面到对话" title="发送页面到对话" data-td-brw-act="send"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 19h16"/></svg></button>
+        <button class="td-browse-ico" type="button" aria-label="更多" aria-haspopup="menu" aria-expanded="false" title="更多" data-td-brw-act="more"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg></button>
+      </div>
+      <div class="td-view" data-td-view="1">
+        <div class="td-page">
+          <div class="td-page-blank">&nbsp;</div>
+          <div class="td-page-body">
+            <div class="td-page-hero">
+              <div class="td-page-h1">把需求交给 AI，把时间留给判断</div>
+              <div class="td-page-h2">从需求评审到任务拆解，一条流水线跑完</div>
+              <div class="td-page-cta" data-td-el="cta">立即开始</div>
+            </div>
+            <div class="td-page-cards">
+              <div class="td-page-card" data-td-el="card"><i></i><b>需求采访</b><span>追问到没有歧义为止</span></div>
+              <div class="td-page-card" data-td-el="card"><i></i><b>任务拆解</b><span>自动写进看板泳道</span></div>
+              <div class="td-page-card" data-td-el="card"><i></i><b>代码审查</b><span>逐行给出改动理由</span></div>
+            </div>
+            <div class="td-page-foot">© 2026 GienCoder · 静态演示页</div>
+          </div>
+        </div>
+        <div class="td-annot-bar" data-td-annot-bar="1" hidden><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 15a2 2 0 0 1-2 2H8l-4 3V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2Z"/></svg><span>标注中 · 点击页面元素添加评论</span><button type="button" data-td-annot="1">完成</button></div>
+      </div>
+    </section>
+
+    <section class="td-mod td-sum" id="av-browse-pane-summary" data-td-pane="summary" role="tabpanel" aria-label="摘要" hidden>
+      <div class="td-mod-bar">
+        <span class="td-sum-tag">本会话</span>
+        <span class="td-sum-hint">4 轮 · 12 次工具调用 · 2 分 18 秒</span>
+        <div class="td-mod-bar-acts">
+          <button class="td-browse-ico" type="button" aria-label="复制摘要" title="复制摘要" data-td-sum-act="copy"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></button>
+        </div>
+      </div>
+      <div class="td-mod-body td-sum-body">
+        <section class="td-sum-sec">
+          <h4 class="td-sum-h">摘要</h4>
+          <p class="td-sum-p">把会话详情页的右栏从「单标签 + 文件树」升级成 GienCoder 那套标签式 Side Panel：新增审查 diff、终端、浏览器（含标注态）三个模块，标签可多开、切换、关闭与拖拽重排。原「文件」模块 DOM 与控制器未改动。</p>
+        </section>
+        <section class="td-sum-sec">
+          <h4 class="td-sum-h">计划</h4>
+          <ul class="td-sum-plan">
+            <li class="is-done">拆出侧栏骨架的三段式结构（标签栏 / 模块工具条 / 正文）</li>
+            <li class="is-done">落地审查模块：diff 折叠、统一⇄并排、行内评论</li>
+            <li class="is-done">落地终端与浏览器模块（含元素标注）</li>
+            <li class="is-doing">补全审查模块的显示选项与 staging 动作</li>
+            <li>补一轮暗色档与字号杠杆的回归</li>
+          </ul>
+        </section>
+        <section class="td-sum-sec">
+          <h4 class="td-sum-h">来源</h4>
+          <div class="td-sum-srcs">
+            <a class="td-sum-src" href="https://flaviocopes.com/codex/" target="_blank" rel="noreferrer"><span class="td-sum-fav">F</span><span class="td-sum-srct"><b>The complete guide to GienCoder</b><i>flaviocopes.com</i></span></a>
+            <a class="td-sum-src" href="https://developers.openai.com/codex/changelog" target="_blank" rel="noreferrer"><span class="td-sum-fav">◆</span><span class="td-sum-srct"><b>GienCoder changelog</b><i>developers.openai.com</i></span></a>
+            <a class="td-sum-src" href="https://www.worldprogramming.org/posts/the-complete-guide-to-codex-ghdafz" target="_blank" rel="noreferrer"><span class="td-sum-fav">W</span><span class="td-sum-srct"><b>The complete guide to GienCoder</b><i>worldprogramming.org</i></span></a>
+          </div>
+        </section>
+        <section class="td-sum-sec">
+          <h4 class="td-sum-h">产物</h4>
+          <div class="td-sum-arts">
+            <div class="td-sum-art" data-td-art="1"><i class="td-sum-arti"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 2h11.5l3.5 5.5v13a1.5 1.5 0 0 1-1.5 1.5H4a1.5 1.5 0 0 1-1.5-1.5v-17A1.5 1.5 0 0 1 4 2Z"/><path d="M7.5 9.5h6.5"/><path d="M6.5 13h3.5"/></svg></i><span class="td-sum-artt"><b>右栏复刻方案.md</b><i>Markdown · 12 KB</i></span><button class="td-diff-btn" type="button">预览</button></div>
+            <div class="td-sum-art" data-td-art="1"><i class="td-sum-arti"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18"/><path d="M9 10v10"/></svg></i><span class="td-sum-artt"><b>sidepanel-metrics.xlsx</b><i>表格 · 34 KB</i></span><button class="td-diff-btn" type="button">预览</button></div>
+          </div>
+        </section>
+      </div>
+      <!-- ★ 第十一拍 ④（r107-l2）：产物预览层（对照官方「产物查看器」）。
+           点摘要「产物」里的「预览」打开；绝对定位覆盖整块摘要、不参与文档流。
+           两套骨架（文档 / 表格）由 `data-td-prev-kind` 切，JS 只做显示切换与文案填充。 -->
+      <div class="td-sum-prev" data-td-prev="1" hidden>
+        <div class="td-sum-prev-h">
+          <i class="td-sum-arti" data-td-prev-ico="1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 2h11.5l3.5 5.5v13a1.5 1.5 0 0 1-1.5 1.5H4a1.5 1.5 0 0 1-1.5-1.5v-17A1.5 1.5 0 0 1 4 2Z"/><path d="M7.5 9.5h6.5"/><path d="M6.5 13h3.5"/></svg></i>
+          <span class="td-sum-prev-t">
+            <b data-td-prev-name="1">产物</b>
+            <i data-td-prev-meta="1">—</i>
+          </span>
+          <button class="td-browse-ico" type="button" aria-label="关闭预览" title="关闭预览" data-td-prev-x="1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
+        </div>
+        <div class="td-sum-prev-b">
+          <div class="td-pv-md" data-td-prev-kind="md">
+            <div class="td-pv-h1">右栏复刻方案</div>
+            <div class="td-pv-p">把会话详情页右栏升级为标签式 Side Panel：模块可多开、切换、关闭与拖拽重排，并补齐审查 / 终端 / 浏览器 / 摘要四个面板。</div>
+            <div class="td-pv-h2">一、体位</div>
+            <span class="td-pv-bar"></span>
+            <span class="td-pv-bar is-w80"></span>
+            <span class="td-pv-bar is-w60"></span>
+            <div class="td-pv-h2">二、缺口与补齐</div>
+            <span class="td-pv-bar"></span>
+            <span class="td-pv-bar is-w40"></span>
+          </div>
+          <div class="td-pv-sheet" data-td-prev-kind="xlsx" hidden>
+            <div class="td-pv-row"><span class="td-pv-cell is-head">模块</span><span class="td-pv-cell is-head">宽 (px)</span><span class="td-pv-cell is-head">占比</span><span class="td-pv-cell is-head">状态</span></div>
+            <div class="td-pv-row"><span class="td-pv-cell">文件</span><span class="td-pv-cell">641</span><span class="td-pv-cell">44.5%</span><span class="td-pv-cell">已交付</span></div>
+            <div class="td-pv-row"><span class="td-pv-cell">审查</span><span class="td-pv-cell">641</span><span class="td-pv-cell">44.5%</span><span class="td-pv-cell">本轮新增</span></div>
+            <div class="td-pv-row"><span class="td-pv-cell">终端</span><span class="td-pv-cell">641</span><span class="td-pv-cell">44.5%</span><span class="td-pv-cell">本轮新增</span></div>
+            <div class="td-pv-row"><span class="td-pv-cell">浏览器</span><span class="td-pv-cell">641</span><span class="td-pv-cell">44.5%</span><span class="td-pv-cell">本轮新增</span></div>
+            <div class="td-pv-row"><span class="td-pv-cell">摘要</span><span class="td-pv-cell">641</span><span class="td-pv-cell">44.5%</span><span class="td-pv-cell">默认页签</span></div>
+          </div>
+        </div>
+        <div class="td-sum-prev-f">
+          <button class="td-prev-btn" type="button" data-td-prev-open="1">在系统打开</button>
+          <button class="td-prev-btn is-primary" type="button" data-td-prev-close="1">关闭</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ★ 右键菜单：一份容器承载「标签栏 / 审查文件 / 审查代码行 / 终端 / 浏览器 / 摘要条目」
+         六类目标的菜单（条目由 panel.js 按目标类型现场填充）⇒ 不写六份静态 DOM。
+         视觉底座 = DS 的弹层 + 菜单组件（与右栏四枚下拉同源），只有定位走 `position: fixed`
+         （跟随指针；避开 `.td-mod{overflow:hidden}` 的裁剪，也不必知道目标在哪个模块里）。 -->
+    <div class="td-ctxmenu giencoder-dropdown-popup" role="menu" aria-label="上下文菜单" hidden></div>
+
+    <!-- ★ 第十二拍 ②（r108-l1）：文件树抽屉 —— 挂在审查工具条「在文件树中定位」**右侧**那枚按钮上。
+         点开 = 从右栏右缘滑入一层 `min(296px, 86%)` 的文件树面板（与「文件」模块的树同宽），
+         **不打断当前正在看的模块**（不必切到「文件」标签）。
+         ★★ 树行刻意用**独立类名** `td-tf*`（**不是** `td-bf*`）：
+            ctrl-conv.js 的 `pane.querySelectorAll('.td-bf')` 作用域是整个 `.td-browse`，
+            复用同名类会把抽屉里的行一并接管（refresh / selectFile 互相打架；且它那个
+            `files` 变量只绑**第一个** `.td-browse-files` ⇒ 抽屉里的行点了没反应）。
+            抽屉树自己的展开 / 折叠 / 选中由 panel.js 新写一小段（同语义、互不干扰）。
+         三条关闭路径：点遮罩 / 点关闭按钮 / 按 Esc（panel.js 的 Esc 裁决链已接一层）。
+         ⚠ 静态标记里的 `is-hidden` 就是初始折叠态（与 ctrl-conv 的 refresh() 同一口径），
+            抽屉打开时 panel.js 会再算一遍（幂等）。 -->
+    <div class="td-tree" data-td-tree="1" role="dialog" aria-modal="true" aria-label="文件树" hidden>
+      <div class="td-tree-scrim" data-td-tree-x="1"></div>
+      <div class="td-tree-panel">
+        <div class="td-tree-h">
+          <span class="td-tree-t">文件树</span>
+          <button class="td-browse-ico" type="button" aria-label="关闭文件树" title="关闭文件树" data-td-tree-x="1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
+        </div>
+        <div class="td-tree-body">
+          <div class="giencoder-input-wrapper td-browse-search" data-component="input" data-variant="prefix" data-size="medium" data-state="default"><span class="giencoder-input-prefix"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></span><input class="giencoder-input" type="text" placeholder="搜索文件" aria-label="搜索文件"></div>
+          <div class="td-tree-files" role="tree" aria-label="文件目录">
+            <div class="td-tf is-dir" style="--d:0" role="treeitem" aria-level="1" tabindex="0" data-node="root" aria-expanded="true"><button class="td-tf-arrow" type="button" tabindex="-1" aria-label="展开/折叠 .giencoder-x"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button><svg class="td-tf-ico" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 14 1.45-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.55 6a2 2 0 0 1-1.94 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.93a2 2 0 0 1 1.66.9l.82 1.2a2 2 0 0 0 1.66.9H18a2 2 0 0 1 2 2v2"/></svg><span class="td-tf-name">.giencoder-x</span></div>
+            <div class="td-tf is-dir is-closed" style="--d:1" role="treeitem" aria-level="2" tabindex="0" data-parent="root" data-node="memory" aria-expanded="false"><button class="td-tf-arrow" type="button" tabindex="-1" aria-label="展开/折叠 memory"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button><svg class="td-tf-ico" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/><path d="M2 10h20"/></svg><span class="td-tf-name">memory</span></div>
+            <div class="td-tf is-dir" style="--d:1" role="treeitem" aria-level="2" tabindex="0" data-parent="root" data-node="games" aria-expanded="true"><button class="td-tf-arrow" type="button" tabindex="-1" aria-label="展开/折叠 games"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button><svg class="td-tf-ico" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 14 1.45-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.55 6a2 2 0 0 1-1.94 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.93a2 2 0 0 1 1.66.9l.82 1.2a2 2 0 0 0 1.66.9H18a2 2 0 0 1 2 2v2"/></svg><span class="td-tf-name">games</span></div>
+            <div class="td-tf is-dir" style="--d:2" role="treeitem" aria-level="3" tabindex="0" data-parent="games" data-node="snake" aria-expanded="true"><button class="td-tf-arrow" type="button" tabindex="-1" aria-label="展开/折叠 snake-game"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button><svg class="td-tf-ico" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 14 1.45-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.55 6a2 2 0 0 1-1.94 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.93a2 2 0 0 1 1.66.9l.82 1.2a2 2 0 0 0 1.66.9H18a2 2 0 0 1 2 2v2"/></svg><span class="td-tf-name">snake-game</span></div>
+            <div class="td-tf is-dir is-closed" style="--d:3" role="treeitem" aria-level="4" tabindex="0" data-parent="snake" data-node="dist" aria-expanded="false"><button class="td-tf-arrow" type="button" tabindex="-1" aria-label="展开/折叠 dist"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button><svg class="td-tf-ico" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/><path d="M2 10h20"/></svg><span class="td-tf-name">dist</span></div>
+            <div class="td-tf is-dir is-closed" style="--d:3" role="treeitem" aria-level="4" tabindex="0" data-parent="snake" data-node="public" aria-expanded="false"><button class="td-tf-arrow" type="button" tabindex="-1" aria-label="展开/折叠 public"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button><svg class="td-tf-ico" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/><path d="M2 10h20"/></svg><span class="td-tf-name">public</span></div>
+            <div class="td-tf is-dir" style="--d:3" role="treeitem" aria-level="4" tabindex="0" data-parent="snake" data-node="src" aria-expanded="true"><button class="td-tf-arrow" type="button" tabindex="-1" aria-label="展开/折叠 src"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button><svg class="td-tf-ico" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 14 1.45-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.55 6a2 2 0 0 1-1.94 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.93a2 2 0 0 1 1.66.9l.82 1.2a2 2 0 0 0 1.66.9H18a2 2 0 0 1 2 2v2"/></svg><span class="td-tf-name">src</span></div>
+            <div class="td-tf is-file" style="--d:4" role="treeitem" aria-level="5" tabindex="0" data-parent="src" aria-selected="false"><svg class="td-tf-ico" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M16 12H8"/><path d="M16 16H10"/></svg><span class="td-tf-name">Controls.tsx</span></div>
+            <div class="td-tf is-file is-active" style="--d:4" role="treeitem" aria-level="5" tabindex="0" data-parent="src" aria-selected="true"><svg class="td-tf-ico" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M16 12H8"/><path d="M16 16H10"/></svg><span class="td-tf-name">useSnakeGame...</span></div>
+            <div class="td-tf is-file" style="--d:3" role="treeitem" aria-level="4" tabindex="0" data-parent="snake" aria-selected="false"><svg class="td-tf-ico" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M16 12H8"/><path d="M16 16H10"/></svg><span class="td-tf-name">package.json</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ★ 第十三拍 ⑥：任务信息面板 —— 复刻 ZCode 对话界面右上角的实时状态面板。
+         上游 = `zai-org/ZCode`（Apache-2.0）`packages/ui/src/v4/ConversationStatusPanel.tsx`
+         + `conversationStatusPanelModel.ts` + `packages/ui/src/i18n/locales/zh-CN.ts` 的
+         `chat.statusPanel.*` / `chat.summaryPanel.*` 两组文案；四个分区与行结构逐条对齐上游：
+           · `environment` → 「Git 工具」（更改 / 分支 / 提交·推送）
+           · `goal`        → 「目标」（迭代行：序号圈 + 标题 + 完成比，trailing = 用时 + 暂停）
+           · `sessionPlans`→ 「计划」
+           · `plan`        → 「进程」（待办清单，trailing = 已完成/总数）
+         体位照上游：容器 `absolute top-0 right-4 pt-4`、不参与文档流、卡片自身收事件；
+         收起态 = 一枚胶囊（上游 `chat.summaryPanel.showMini`「收起为胶囊」）。
+         ⚠ 本块挂在 右栏容器 `aside.td-browse` 内只是为了跟随「静态 DOM 注入」的体位，
+           `panel.js` 初始化时会把它整体搬进 `<main>`（`<main>` 的右上角才是「对话界面右上角」）。 -->
+    <div class="zd-host" id="av-zd-status" data-zd="1">
+      <div class="zd-card" data-zd-card="1" role="region" aria-label="任务状态">
+        <div class="zd-head">
+          <span class="zd-name">状态</span>
+          <span class="zd-acts">
+            <button class="zd-ico" type="button" title="收起为胶囊" aria-label="收起为胶囊" data-zd-min="1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m14 10 7-7"/><path d="M20 10h-6V4"/><path d="m3 21 7-7"/><path d="M4 14h6v6"/></svg></button>
+          </span>
+        </div>
+        <div class="zd-body">
+
+          <section class="zd-sec" data-zd-sec="git">
+            <div class="zd-sec-h">
+              <button class="zd-sec-t" type="button" aria-expanded="true">Git 工具<svg class="zd-cv" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+              <span class="zd-sec-x"><span class="zd-add">+566</span><span class="zd-del">−228</span></span>
+            </div>
+            <div class="zd-sec-b">
+              <div class="zd-rows">
+                <button class="zd-row" type="button" data-zd-git="review"><span class="zd-row-i"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M9 10h6"/><path d="M12 13V7"/><path d="M9 17h6"/></svg></span><span class="zd-row-n">更改</span><span class="zd-row-v"><span class="zd-add">+566</span> <span class="zd-del">−228</span></span></button>
+                <button class="zd-row" type="button" data-zd-git="branch" aria-haspopup="menu" aria-expanded="false"><span class="zd-row-i"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6a9 9 0 0 0-9 9V3"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/></svg></span><span class="zd-row-n">分支</span><span class="zd-row-v" data-zd-branch="1">main</span></button>
+                <button class="zd-row" type="button" data-zd-git="commit" aria-haspopup="menu" aria-expanded="false"><span class="zd-row-i"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><line x1="3" x2="9" y1="12" y2="12"/><line x1="15" x2="21" y1="12" y2="12"/></svg></span><span class="zd-row-n">提交或推送</span></button>
+              </div>
+            </div>
+          </section>
+
+          <section class="zd-sec" data-zd-sec="goal">
+            <div class="zd-sec-h">
+              <button class="zd-sec-t" type="button" aria-expanded="true">目标<svg class="zd-cv" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+              <span class="zd-sec-x">2 分 18 秒<span class="zd-sep">·</span><button class="zd-ico" type="button" title="暂停目标" aria-label="暂停目标"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="14" y="3" width="5" height="18" rx="1"/><rect x="5" y="3" width="5" height="18" rx="1"/></svg></button></span>
+            </div>
+            <div class="zd-sec-b">
+              <div class="zd-rows">
+                <div class="zd-it"><i class="zd-it-i"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 13V2l8 4-8 4"/><path d="M20.561 10.222a9 9 0 1 1-12.55-5.29"/><path d="M8.002 9.997a5 5 0 1 0 8.9 2.02"/></svg></i><p class="zd-it-t">落地审查、终端、浏览器、摘要四个面板</p><span class="zd-it-c">3/4</span></div>
+              </div>
+            </div>
+          </section>
+
+          <section class="zd-sec" data-zd-sec="todo">
+            <div class="zd-sec-h">
+              <button class="zd-sec-t" type="button" aria-expanded="true">进程<svg class="zd-cv" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+              <span class="zd-sec-x">3/5</span>
+            </div>
+            <div class="zd-sec-b">
+              <ul class="zd-todo">
+                <li class="is-done">拆出侧栏骨架的三段式结构（标签栏 / 模块工具条 / 正文）</li>
+                <li class="is-done">落地审查模块：diff 折叠、统一⇄并排、行内评论</li>
+                <li class="is-done">落地终端与浏览器模块（含元素标注）</li>
+                <li class="is-doing">补全审查模块的显示选项与 staging 动作</li>
+                <li>补一轮暗色档与字号杠杆的回归</li>
+              </ul>
+            </div>
+          </section>
+
+        </div>
+      </div>
+      <button class="zd-mini" type="button" data-zd-mini="1" hidden aria-label="展开任务状态">
+        <span class="zd-mini-i"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 5h8"/><path d="M13 12h8"/><path d="M13 19h8"/><path d="m3 17 2 2 4-4"/><path d="m3 7 2 2 4-4"/></svg></span>
+        <span class="zd-mini-t">进程</span>
+        <span class="zd-mini-v">3/5</span>
+      </button>
+
+      <!-- ★ 第十四拍 ①：Git 工具的两枚下拉。复用 DS 的 Dropdown 族（`.giencoder-dropdown-popup`
+           + `.zd-menu`，第 1 节那几组选择器已把 `.zd-menu` 收作第四个成员）。 -->
+      <div class="zd-menu giencoder-dropdown-popup zd-menu-branch" role="menu" aria-label="分支" hidden>
+        <div class="td-mm-cap giencoder-menu-group-title">分支</div>
+        <button class="td-mm-item giencoder-dropdown-item is-checked" type="button" role="menuitemradio" aria-checked="true" data-zd-br="main"><span class="td-mm-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6a9 9 0 0 0-9 9V3"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/></svg></span><span class="td-mm-name">main</span><span class="td-mm-mark">✓</span></button>
+        <button class="td-mm-item giencoder-dropdown-item" type="button" role="menuitemradio" aria-checked="false" data-zd-br="feature/right-panel"><span class="td-mm-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6a9 9 0 0 0-9 9V3"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/></svg></span><span class="td-mm-name">feature/right-panel</span><span class="td-mm-mark">✓</span></button>
+        <button class="td-mm-item giencoder-dropdown-item" type="button" role="menuitemradio" aria-checked="false" data-zd-br="fix/zd-card"><span class="td-mm-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6a9 9 0 0 0-9 9V3"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/></svg></span><span class="td-mm-name">fix/zd-card</span><span class="td-mm-mark">✓</span></button>
+        <button class="td-mm-item giencoder-dropdown-item" type="button" role="menuitemradio" aria-checked="false" data-zd-br="release/0.9"><span class="td-mm-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6a9 9 0 0 0-9 9V3"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/></svg></span><span class="td-mm-name">release/0.9</span><span class="td-mm-mark">✓</span></button>
+        <span class="td-mm-line giencoder-dropdown-divider"></span>
+        <button class="td-mm-item giencoder-dropdown-item" type="button" role="menuitem" data-zd-br-new="1"><span class="td-mm-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5v14"/></svg></span><span class="td-mm-name">创建并检出新分支...</span></button>
+      </div>
+      <div class="zd-menu giencoder-dropdown-popup zd-menu-commit" role="menu" aria-label="提交或推送" hidden>
+        <button class="td-mm-item giencoder-dropdown-item" type="button" role="menuitem" data-zd-commit="commit"><span class="td-mm-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><line x1="3" x2="9" y1="12" y2="12"/><line x1="15" x2="21" y1="12" y2="12"/></svg></span><span class="td-mm-name">提交</span><span class="td-mm-key">⌥⌘C</span></button>
+        <button class="td-mm-item giencoder-dropdown-item" type="button" role="menuitem" data-zd-commit="push"><span class="td-mm-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m18 9-6-6-6 6"/><path d="M12 3v14"/><path d="M5 21h14"/></svg></span><span class="td-mm-name">提交并推送</span><span class="td-mm-key">⌥⌘P</span></button>
+      </div>
+      <!-- ★ 第十四拍 ①：动作类反馈的轻提示。用右栏那条 `.td-toast` 会在侧栏收起时不可见
+           （它挂在 `.td-browse` 里）⇒ 面板自带一份，样式同款（见 panel.css 19.4）。 -->
+      <div class="zd-toast" hidden></div>
+    </div>

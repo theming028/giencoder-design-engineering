@@ -1,0 +1,40 @@
+--- A. base.html 全部 --color-border* 定义 ---
+  @331830   LIGHT  --color-border-1       = rgb(var(--gray-2))
+  @331866   LIGHT  --color-border-2       = rgb(var(--gray-3))
+  @331902   LIGHT  --color-border-3       = rgb(var(--gray-4))
+  @331938   LIGHT  --color-border-4       = rgb(var(--gray-6))
+  @332695   LIGHT  --color-border         = rgb(var(--gray-3))
+  @339748   DARK   --color-border-1       = rgb(var(--gray-2))
+  @339784   DARK   --color-border-2       = rgb(var(--gray-3))
+  @339820   DARK   --color-border-3       = rgb(var(--gray-4))
+  @339856   DARK   --color-border-4       = rgb(var(--gray-6))
+
+--- B. 暗色块选择器原文 ---
+  --color-bg-1 @292535 值=--color-bg-1)] shadow-sm`,style:a?{left:
+     sel = 'e:F(`relative inline-flex h-8 items-center rounded-full p-0.5`,e===`base`?`bg-[var(--color-border-2)]`:`bg-[var(--color-border-2)]`),children:[(0,A.jsx)(`span`,'
+  --color-bg-1 @319858 值=--color-bg-1)] text-[var(--color-primary
+     sel = '),Hn.map(e=>(0,A.jsxs)(`button`,'
+  --color-bg-1 @324281 值=--color-bg-1)] text-[var(--color-primary
+     sel = 'className:`shrink-0 border-t border-black/5 pb-1 pl-0 pr-3 pt-2`,children:(0,A.jsxs)(`button`,'
+  --color-bg-1 @331410 值=--color-bg-1:#fff
+     sel = '));</script>\n    <style rel="stylesheet" crossorigin>:root'
+  --color-bg-1 @339345 值=--color-bg-1:#17171a
+     sel = 'body[giencoder-theme=dark],[giencoder-theme=dark]'
+  --color-bg-1 @341016 值=--color-bg-1)
+     sel = 'body'
+
+--- C. colors_and_type.css 在 base.html 的出现形态 ---
+  '-ui-fs\'); } catch (e) {}\n  if (v !== null && OK[v * 1] === 1) {\n    document.documentElement.style.setProperty("--ui-fs", String(v * 1));\n  }\n})();\n</script>\n<style id="r109-theme-css">\n  /* ★ r109 第三拍 ③：**全站主题开关**（浅色 / 深色 / 跟随系统）的样式半边。\n     底座是 DS 自己的暗色档 —— `colors_and_type.css` 早就写好了\n     `body[giencoder-theme=\'dark\'], [giencoder-theme=\'dark\'] { … }`（12 组色阶 × 10 级\n     + `bg/'
+
+--- D. DS 源文件自身 ---
+  大小 = 22204 字符
+  dark 选择器出现次数 = 3
+    --color-border-1       = rgb(var(--gray-2))
+    --color-border-2       = rgb(var(--gray-3))
+    --color-border-3       = rgb(var(--gray-4))
+    --color-border-4       = rgb(var(--gray-6))
+    --color-border         = rgb(var(--gray-3))
+    --color-border-1       = rgb(var(--gray-2))
+    --color-border-2       = rgb(var(--gray-3))
+    --color-border-3       = rgb(var(--gray-4))
+    --color-border-4       = rgb(var(--gray-6))

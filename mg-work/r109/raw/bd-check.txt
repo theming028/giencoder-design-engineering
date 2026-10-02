@@ -1,0 +1,11 @@
+✗ 前置校验失败，拒绝落盘：
+   base：</head> 出现 2 次（期望 1）
+   avatar：</head> 出现 2 次（期望 1）
+   automation：</head> 出现 2 次（期望 1）
+   skills：</head> 出现 2 次（期望 1）
+   settings：</head> 出现 2 次（期望 1）
+   conversation：</head> 出现 2 次（期望 1）
+   dev：</head> 出现 2 次（期望 1）
+   kanban：</head> 出现 2 次（期望 1）
+   req-kanban：</head> 出现 2 次（期望 1）
+   task-detail：</head> 出现 2 次（期望 1）

@@ -1,0 +1,10 @@
+1031 ' 而 `apply109.py` 是本脚本从 `apply108.py` **逐字生成**的 ⇒ 修它 = 改本脚本的 EDITS 表\n#   （重跑自愈；不存在「手改 apply109.py 被重生成冲掉」的隐患）。\n#   判据与取证（`mg-work/r109/ev/tools/`）：\n#     · `evalpath.py`     —— 把**真实 SVG path 串**解析后按 SS=8 覆盖率光栅化，与\n#                            design-rgb.png 的 1'
+
+3487 'py` 是本脚本从 `apply108.py` **逐字生成**的 ⇒ 与第二拍 ③（图标）同路：\n#   改本脚本的 EDITS 表（重跑自愈）。⚠ 只改宽度两项，其余声明一字未动。\nCARD_OLD = (\n        "/* 卡片 ★ r95 ①：宽度改为**流式 + 右侧撑满** —— 保留设计稿 18px 左缩进，右侧填满内容列。\\n"\n        "   （原先写死 822px 是按设计稿量死：容器恰 840 时刚好，容器一变宽右侧就留白。） */\\n"\n        ".r93-card {'
+
+7382 'ation\\">\'\\n"\n        "                + net[_j + 1:])\\n"\n)\n\nEDITS = [\n    (\n        \'E11 更新任务清单卡 .r93-todocard 取消 18px 左缩进\',\n        TODO_OLD,\n        TODO_NEW,\n        1,\n    ),\n    (\n        \'E10 net 底 `<html>` 锚点属性宽容\',\n        E10_OLD,\n        E10_NEW,\n    '
+
+11650 "utf-8', newline='').read()\n    for label, old, new, want in EDITS:\n        n = s.count(old)\n        if n != want:\n            sys.exit('!! %s：锚点命中 %d 次（应 %d 次）' % (label, n, want))\n        s = s.replace(old, new)\n    if os.path.exists(DST):\n        shutil.copy"
+
+12052 "符，%d 处替换）'\n          % (DST, s.count('\\n') + 1, len(s), len(EDITS)))\n\n\nif __name__ == '__main__':\n    main()\n"
+

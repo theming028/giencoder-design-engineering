@@ -1,0 +1,19 @@
+======================================================================
+apply-dark.py LEN= 36053
+    'iencoder-btn.giencoder-btn-secondary\'\n        \'[class*="rounded-[8px]"][class*="mb-2"]\')\n\n\ndef build_css():\n    out = [\'<style id="%s">\' % DARK_ID]\n    out.append("""  /* ★ r109 第四'
+    'RK_CSS = build_css()\n\nRE_ANCHOR = re.compile(r\'<script id="r109-theme-js">.*?</script>\\n\', re.S)\nRE_DARK = re.compile(r\'<style id="%s">.*?</style>\\n?\' % DARK_ID, re.S)\n\n# ★★ 适配护栏标记'
+    '*?</style>\\n?\' % DARK_ID, re.S)\n\n# ★★ 适配护栏标记：挂在 `<html>` 上的静态属性 `data-gi-dark="1"`。\n#   机制层在 `<head>` 里**同步执行**，此刻它后面的 `<style id="r109-dark-css">` 还没解析\n#   ⇒ 不能用「查 DOM 里的样式块」来判断，只'
+  ANCHOR@31418 'nd(\'  }\')\n\n    out.append(\'</style>\')\n    return \'\\n\'.join(out) + \'\\n\'\n\n\nDARK_CSS = build_css()\n\nRE_ANCHOR = re.compile(r\'<script id="r109-theme-js">.*?</script>\\n\', re.S)\nRE_DARK = re.compile(r\'<style id="%s">.*?</style>\\n?\' % DARK_ID, re.S)\n\n# ★★ 适配护栏标记：挂在 `'
+======================================================================
+apply-theme.py LEN= 9549
+    '.\', \'..\', \'..\'))\nPAGES = os.path.join(REPO, \'pages\')\n\nCSS_ID = \'r109-theme-css\'\nJS_ID = \'r109-theme-js\'\n\nTHEME_CSS = """<style id="r109-theme-css">\n  /* ★ r109 第三拍 ③：**全站主题开关**（浅色 '
+    'HEME_CSS + THEME_JS\n\nRE_R87JS = re.compile(r\'<script id="r87-ui-js">.*?</script>\\n\', re.S)\nRE_THEME = re.compile(\n    r\'<style id="%s">.*?</style>\\n?<script id="%s">.*?</script>\\n?'
+  ANCHOR@8352 'p)\n        t, nl = rd(p)\n        before = len(t)\n        has = bool(RE_THEME.search(t))\n        has_anchor = bool(RE_R87JS.search(t))\n\n        if a.revert:\n            if not has:\n                n_skip += 1\n                continue\n            t2 = strip(t)\n '
+======================================================================
+apply-tokens.py LEN= 45290
+    '两块的先后**来回翻转** ⇒ 每次跑都报「有变更」⇒ **破坏幂等**。\n#    锚在「暗色块之后 ⇒ 二者顺序恒为 `dark → tw`，无论哪个脚本先跑都收敛到同一形态。\nRE_DARK_BLOCK = re.compile(r\'<style id="r109-dark-css">.*?</style>\\n\', re.S)\n\n\ndef ensure'
+    '109-dark-css">.*?</style>\\n\', re.S)\n\n\ndef ensure_tw_block(t):\n    u"""幂等注入 / 刷新 `r109-tw-css` 补充块（锚点见上）。"""\n    tag = u\'<style id="%s">%s</style>\\n\' % (TW_BLOCK_ID, TW_EXTRA)\n    i'
+    ' (TW_BLOCK_ID, TW_EXTRA)\n    if tag in t:\n        return t, 0                                  # 已是目标态\n    t = re.sub(r\'<style id="%s">.*?</style>\\n?\' % TW_BLOCK_ID, u\'\', t, flags='
+  ANCHOR@40288 '点**：`<script id="r109-theme-js">…</script>`（每页唯一、\n#      由 `apply-theme.py` 注入、且在 `</head>` 之前）。\nRE_ANCHOR_TW = re.compile(r\'<script id="r109-theme-js">.*?</script>\\n\', re.S)\n# ★★ 插入点必须**锚在暗色块之后**，不能也用 `r109-theme-js` 那个锚点：\n#    两个脚本若抢同一个锚点，`apply-dark.py` 每次都'
+======================================================================
+apply-literals.py LEN= 15033

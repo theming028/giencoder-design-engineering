@@ -1,0 +1,54 @@
+{
+ "page": "automation.html",
+ "groups": 3,
+ "items": [
+  {
+   "n": 1,
+   "tag": "button",
+   "cls": "size-3 rounded-full bg-[#FEBC2E] ring-1 ring-inset ring-black/10 hover:brightness-90",
+   "inline": "",
+   "bg": "rgb(254, 188, 46)",
+   "fg": "rgb(247, 247, 247)",
+   "box": [
+    12,
+    12
+   ],
+   "needBg": true,
+   "needFg": false,
+   "ibg": "",
+   "ic": ""
+  },
+  {
+   "n": 1,
+   "tag": "span",
+   "cls": "",
+   "inline": "max-width: 240px; color: rgb(30, 30, 30); font-size: 14px; font-weight: 500; line-height: 22px; font-family: \"Mona Sans VF\", -apple-system, BlinkMacSy",
+   "bg": "rgba(0, 0, 0, 0)",
+   "fg": "rgb(30, 30, 30)",
+   "box": [
+    110,
+    22
+   ],
+   "needBg": false,
+   "needFg": true,
+   "ibg": "",
+   "ic": "rgb(30, 30, 30)"
+  },
+  {
+   "n": 1,
+   "tag": "button",
+   "cls": "giencoder-btn giencoder-btn-size-default giencoder-btn-secondary mb-2 !w-full !rounded-[8px] hover:!bg-[#E9ECEE]",
+   "inline": "",
+   "bg": "rgba(255, 255, 255, 0.5)",
+   "fg": "rgb(31, 31, 31)",
+   "box": [
+    244,
+    32
+   ],
+   "needBg": true,
+   "needFg": true,
+   "ibg": "",
+   "ic": ""
+  }
+ ]
+}

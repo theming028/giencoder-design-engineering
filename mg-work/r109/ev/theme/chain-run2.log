@@ -1,0 +1,46 @@
+=== [1] make109 ===
+   写出 E:\GienCoder\giencoder-design-engineering\mg-work\r109\apply109.py（3680 行 / 192348 字符，11 处替换）
+=== [2] splice109 ===
+   前缀 247 + 头部 4792 + Files 正文 30130 + 新模块 71501 = 总 106685 字符
+   写出 E:\GienCoder\giencoder-design-engineering\mg-work\r109\part109\browse.html
+=== [3] apply109 ===
+   base.html            已是目标态（无改动）
+   conversation.html    1073192 → 1072515 (-677)  应用
+=== [4] apply-theme ===
+   =   task-detail.html     已是目标态
+
+   变更 0 页 / 已是目标态 10 页 / 失败 0 页
+=== [5] apply-dark ===
+   √ task-detail           790729 →  790729（+0 字符）（已有旧块，先剥后插）
+
+   变更 10 页 / 已是目标态 0 页 / 失败 0 页
+=== [6] apply-tokens ===
+
+   合计 56 处（其中 <script> 24 处）/ 40 个不同值 / 触及 1 页
+   ⚠ <script> 侧多为**同一份编译 bundle 复制到 10 页**，故次数 ≈ 单页站点数 × 页数。
+=== [7] apply-literals ===
+
+按页改动数：base=0  avatar=0  automation=0  skills=0  settings=0  conversation=0  dev=0  kanban=0  req-kanban=0  task-detail=0
+合计 0 处
+=== [8] apply-popup ===
+   .giencoder-popup{background:var(--color-bg-white)}   通用弹层；实测 DOM 实例 = 0（死规则）。⚠ 但其暗色档 #f6f6f6 近白，属隐患
+   .giencoder-date-picker-popup{background:var(--color- 日期选择器面板，独立组件，待邵先生确认
+   .zd-menu.giencoder-dropdown-popup{color-mix(...)}    ZCode 复刻菜单（conversation），待邵先生确认
+=== [9] apply-border ===
+     --color-border-4                   全站 var() 引用 = 0（死令牌）
+     --color-border（无后缀）                全站 var() 引用 = 0（死令牌）
+     浅色档三个令牌                            本块只在 dark 下生效 ⇒ 零变化
+=== [10] apply-zcode ===
+     req-kanban   替换 0   处   字符数 +0
+     task-detail  替换 0   处   字符数 +0
+
+=== [11] apply-menuwhite ===
+   kanban       +1
+   req-kanban   +1
+   task-detail  +1
+=== [12] apply-dots ===
+  [属性] 添加 0 / 已存在 1
+  [覆盖块] 注入 0 / 刷新 0 / 已就绪 1
+  字符数变化（规范化）= +0
+=== 链尾 md5 ===
+c5b74cba633ea095323a7ec4ce6e831f *-

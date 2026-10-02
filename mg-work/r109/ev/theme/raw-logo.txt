@@ -1,0 +1,49 @@
+=== LOGO 线索 · 页 = base ===
+  logo 类字面命中：102
+
+  @279841  …001,6,13.6888576,6,13.6888576Z`,fill:`var(--color-white)`}],Cn=[{id:`paa-team`,name:`PAA团队工作空间`,subtitle:`团队`,logoColor:`#9E67E1`,logoIconPaths:bn,logoViewBox:`-0.06 -0.35 18.12 16.8`,logoIconPos:{x:7,y:8,w:18,h:15.75},label:`管理员`},{id:`team-a`…
+        ↳ 上色 = fill:`var(--color-white)
+
+  @279861  …3.6888576Z`,fill:`var(--color-white)`}],Cn=[{id:`paa-team`,name:`PAA团队工作空间`,subtitle:`团队`,logoColor:`#9E67E1`,logoIconPaths:bn,logoViewBox:`-0.06 -0.35 18.12 16.8`,logoIconPos:{x:7,y:8,w:18,h:15.75},label:`管理员`},{id:`team-a`,name:`团队的空间 A`,subt…
+        ↳ 上色 = fill:`var(--color-white)
+
+  @283261  …9.0627584C23.752487,19.9492531,22.559666,20.448324,21.315049000000002,20.449512Z`,fill:`var(--color-white)`}],logoViewBox:`6 9.43 20.37 12.04`,logoIconPos:{x:6,y:10,w:20,h:11.47},bg:`var(--color-bg-2)`},{id:`paa-project`,name:`PAA团队工作空间`,subtit…
+        ↳ 上色 = fill:`var(--color-white)
+
+  @283294  ….559666,20.448324,21.315049000000002,20.449512Z`,fill:`var(--color-white)`}],logoViewBox:`6 9.43 20.37 12.04`,logoIconPos:{x:6,y:10,w:20,h:11.47},bg:`var(--color-bg-2)`},{id:`paa-project`,name:`PAA团队工作空间`,subtitle:`项目`,logoColor:`#F49250`,logoI…
+        ↳ 上色 = fill:`var(--color-white)
+
+  @285501  …0000012685584,24.190811,8.2524697,23.99246,8.2524697,23.99246L8.25317,23.991767Z`,fill:`var(--color-white)`}],logoViewBox:`7 7.86 18.19 16.33`,logoIconPos:{x:7,y:8,w:18,h:16},bg:`var(--color-bg-2)`}],wn=`"Mona Sans VF", -apple-system, BlinkMacS…
+        ↳ 上色 = fill:`var(--color-white)
+
+  @285534  …,23.99246,8.2524697,23.99246L8.25317,23.991767Z`,fill:`var(--color-white)`}],logoViewBox:`7 7.86 18.19 16.33`,logoIconPos:{x:7,y:8,w:18,h:16},bg:`var(--color-bg-2)`}],wn=`"Mona Sans VF", -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans…
+        ↳ 上色 = fill:`var(--color-white)
+
+  @395856  … at 72% 76%, #f5944fb3 0%, transparent 44%), linear-gradient(145deg, #fff7eb 0%, #f7d4ad 58%, #eaa06b 100%);--brand-gradient:linear-gradient(90deg, #416ef5, #707cff)}.giencoder-popup{background:var(--color-bg-white);border-radius:var(--border-ra…
+        ↳ 上色 = background:var(--color-bg-white)
+
+  @404881  …olor-border-2)}.border-black\/5{border-color:#0000000d}.border-border{border-color:hsl(var(--border))}.border-brand-2{border-color:hsl(var(--brand-2))}.border-x-transparent{border-left-color:#0000;border-right-color:#0000}.border-y-transparent{b…
+        ↳ 上色 = color:#0000000d
+
+  @404912  …{border-color:#0000000d}.border-border{border-color:hsl(var(--border))}.border-brand-2{border-color:hsl(var(--brand-2))}.border-x-transparent{border-left-color:#0000;border-right-color:#0000}.border-y-transparent{border-top-color:#0000;border-bo…
+        ↳ 上色 = color:#0000000d
+
+  @406489  …:#0000001a}.bg-black\/\[0\.04\]{background-color:#0000000a}.bg-border{background-color:hsl(var(--border))}.bg-brand-1{background-color:hsl(var(--brand-1))}.bg-card{background-color:hsl(var(--card))}.bg-foreground{background-color:hsl(var(--foreg…
+        ↳ 上色 = color:#0000000a
+
+  @406524  …kground-color:#0000000a}.bg-border{background-color:hsl(var(--border))}.bg-brand-1{background-color:hsl(var(--brand-1))}.bg-card{background-color:hsl(var(--card))}.bg-foreground{background-color:hsl(var(--foreground))}.bg-muted{background-color:…
+        ↳ 上色 = color:#0000000a
+
+  @443575  …  html[giencoder-theme='dark'] .r85-sw.giencoder-switch { background: rgb(var(--gray-4)) !important; }   /* 品牌标识内部浅紫装饰（浅色 = --purple-1；暗色档镜像步 --purple-10 = 同一支 #F5E8FF） */   html[giencoder-theme='dark'] [fill*="var(--purple-1))"] { fill: rgb(…
+        ↳ 上色 = background: rgb(var(--gray-4)
+
+  带色命中条数：12
+
+=== --color-white / --color-text-? 在暗色档的值 ===
+  --color-white      [浅] #fff
+  --color-text-1     [浅] rgb(var(--gray-10))  |  [浅] rgb(var(--gray-10))
+  --color-text-2     [浅] rgb(var(--gray-8))  |  [浅] rgb(var(--gray-8))
+  --color-text-3     [浅] rgb(var(--gray-6))  |  [浅] rgb(var(--gray-6))
+  --gray-10          [浅] 31, 31, 31  |  [浅] 247, 247, 247
+  --gray-9           [浅] 43, 43, 43  |  [浅] 242, 242, 242
+  --gray-8           [浅] 78, 78, 78  |  [浅] 229, 229, 229

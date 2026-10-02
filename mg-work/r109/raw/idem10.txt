@@ -1,0 +1,24 @@
+  新注入 0 页 / 刷新 0 页 / 已是目标态 10 页
+  替换 0 处（ZCode → GienCoder）
+     base         替换 0   处   字符数 +0
+     avatar       替换 0   处   字符数 +0
+     automation   替换 0   处   字符数 +0
+     skills       替换 0   处   字符数 +0
+     settings     替换 0   处   字符数 +0
+     conversation 替换 0   处   字符数 +0
+     dev          替换 0   处   字符数 +0
+     kanban       替换 0   处   字符数 +0
+     req-kanban   替换 0   处   字符数 +0
+     task-detail  替换 0   处   字符数 +0
+  新注入 0 页 / 刷新 0 页 / 已是目标态 10 页
+  替换 0 处（ZCode → GienCoder）
+     base         替换 0   处   字符数 +0
+     avatar       替换 0   处   字符数 +0
+     automation   替换 0   处   字符数 +0
+     skills       替换 0   处   字符数 +0
+     settings     替换 0   处   字符数 +0
+     conversation 替换 0   处   字符数 +0
+     dev          替换 0   处   字符数 +0
+     kanban       替换 0   处   字符数 +0
+     req-kanban   替换 0   处   字符数 +0
+     task-detail  替换 0   处   字符数 +0

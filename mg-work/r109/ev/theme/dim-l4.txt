@@ -1,0 +1,32 @@
+base          深压深 4    深填充件 14     sanity: attr=dark gi=1 bg1=#17171a
+avatar        深压深 4    深填充件 5      sanity: attr=dark gi=1 bg1=#17171a
+automation    深压深 3    深填充件 4      sanity: attr=dark gi=1 bg1=#17171a
+skills        深压深 3    深填充件 4      sanity: attr=dark gi=1 bg1=#17171a
+settings      深压深 3    深填充件 4      sanity: attr=dark gi=1 bg1=#17171a
+conversation  深压深 4    深填充件 17     sanity: attr=dark gi=1 bg1=#17171a
+dev           深压深 6    深填充件 8      sanity: attr=dark gi=1 bg1=#17171a
+kanban        深压深 2    深填充件 3      sanity: attr=dark gi=1 bg1=#17171a
+req-kanban    深压深 1    深填充件 5      sanity: attr=dark gi=1 bg1=#17171a
+task-detail   深压深 14   深填充件 14     sanity: attr=dark gi=1 bg1=#17171a
+
+合计深压深 44
+
+按 (fill, 实际背板) 聚合：
+  rgb(0, 0, 0)         on rgb(23, 23, 26)      ×23  ratio=1.17  14x12 via=stack
+       fillAttr=                             sel=div.flex.w-60>div>div.relative>button>svg
+       bgBy=div#root>div.flex.h-dvh>header.flex.h-12
+  rgb(22, 0, 77)       on rgb(23, 23, 26)      ×7   ratio=1.03  11x8 via=ancestor
+       fillAttr=rgb(var(--purple-1))         sel=div.relative>button.ws-trigger-hover>div>svg>path
+       bgBy=div#root>div.flex.h-dvh>header.flex.h-12
+  rgb(0, 0, 0)         on rgb(31, 31, 31)      ×7   ratio=1.27  24x24 via=stack
+       fillAttr=                             sel=section.td-sec>div.td-files>a.td-file.td-file--lg>span.td-file-ico.is-web>svg
+       bgBy=div.td-left-body>div.td-main>section.td-sec>div.td-files>a.td-file.td-file--lg
+  rgb(0, 0, 0)         on rgb(5, 38, 112)      ×3   ratio=1.52  14x14 via=stack
+       fillAttr=                             sel=div.mt-auto.flex>div.flex.items-center>div.avatar-wrap.relative>button.flex.h-8>svg
+       bgBy=div.relative.flex>div.mt-auto.flex>div.flex.items-center>div.avatar-wrap.relative>button.flex.h-8
+  rgb(23, 23, 26)      on rgb(23, 23, 26)      ×2   ratio=1     5x5 via=ancestor
+       fillAttr=                             sel=aside.td-browse>header.td-browse-bar>span.td-browse-tab>svg>circle
+       bgBy=div#root>div.flex.h-dvh>div.flex.min-h-0>div#av-browse-slot>aside.td-browse
+  rgb(23, 23, 26)      on rgb(31, 31, 31)      ×2   ratio=1.09  15x6 via=ancestor
+       fillAttr=                             sel=div.td-files>a.td-file.td-file--lg>span.td-file-ico>svg>path
+       bgBy=div.td-left-body>div.td-main>section.td-sec>div.td-files>a.td-file.td-file--lg

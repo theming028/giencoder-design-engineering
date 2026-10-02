@@ -1,0 +1,12 @@
+ALL_OK automation.html  script=8 style=14
+ALL_OK avatar.html      script=13 style=20
+ALL_OK base.html        script=10 style=19
+ALL_OK conversation.html script=10 style=20
+ALL_OK dev.html         script=10 style=14
+ALL_OK kanban.html      script=14 style=15
+ALL_OK req-kanban.html  script=12 style=15
+ALL_OK settings.html    script=9 style=14
+ALL_OK skills.html      script=8 style=14
+ALL_OK task-detail.html script=13 style=18
+---
+结果：10/10 通过

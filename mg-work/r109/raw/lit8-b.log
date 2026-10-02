@@ -1,0 +1,97 @@
+===== dev =====
+  触发器 = 215 24 via=r81-ws-trigger（需点开）
+  菜单项   = 282 163
+===== kanban =====
+  触发器 = 215 24 via=r81-ws-trigger（需点开）
+  菜单项   = 282 163
+===== req-kanban =====
+  触发器 = 215 24 via=r81-ws-trigger（需点开）
+  菜单项   = 282 163
+===== task-detail =====
+  触发器 = 215 24 via=r81-ws-trigger（需点开）
+  菜单项   = 282 163
+===== settings =====
+  触发器 = 215 24 via=ws-trigger-hover（需点开）
+  菜单项   = 0 0
+
+=== 产物：mg-work/r109/raw/lit8 ===
+automation.dark.bg
+automation.dark.chip
+automation.dark.set
+automation.dark.vars
+automation.init
+automation.init2
+automation.light.bg
+automation.light.chip
+automation.light.set
+automation.light.vars
+automation.open
+avatar.dark.bg
+avatar.dark.chip
+avatar.dark.set
+avatar.dark.vars
+avatar.init
+avatar.init2
+avatar.light.bg
+avatar.light.chip
+avatar.light.set
+avatar.light.vars
+avatar.open
+base.chip
+base.dark.bg
+base.dark.chip
+base.dark.peek
+base.dark.set
+base.dark.vars
+base.dd
+base.init
+base.init2
+base.items
+base.light.bg
+base.light.chip
+base.light.peek
+base.light.set
+base.light.vars
+base.open
+base.trig
+conversation.dark.bg
+conversation.dark.chip
+conversation.dark.set
+conversation.dark.vars
+conversation.init
+conversation.init2
+conversation.light.bg
+conversation.light.chip
+conversation.light.set
+conversation.light.vars
+conversation.open
+dev.dark.bg
+dev.dark.chip
+dev.dark.set
+dev.dark.vars
+dev.init
+dev.init2
+dev.light.bg
+dev.light.chip
+dev.light.set
+dev.light.vars
+dev.open
+kanban.dark.bg
+kanban.dark.chip
+kanban.dark.set
+kanban.dark.vars
+kanban.init
+kanban.init2
+kanban.light.bg
+kanban.light.chip
+kanban.light.set
+kanban.light.vars
+kanban.open
+req-kanban.dark.bg
+req-kanban.dark.chip
+req-kanban.dark.set
+req-kanban.dark.vars
+req-kanban.init
+req-kanban.init2
+req-kanban.light.bg
+req-kanban.light.chip

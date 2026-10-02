@@ -1,0 +1,26 @@
+=== 解码后 SVG 长度 15074 ===
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' fill='none' version='1.1' width='298.0999755859375' height='24' viewBox='0 0 298.0999755859375 24'>
+<path d='M123.38640809374999,5.2853994C123.81753009375001,4.7202177,123.42661109375,4.0991807,123.03570909375,3.6501751C122.60507809375,3.1787999,122.12592509375,2.7542431,121.60611709375,2.3835564C116.61788409375,-1.3
+
+=== 全部色值统计 ===
+   #1E1E1E    ×2
+   #3770F7    ×2
+   #3D3D3D    ×1
+   #D0D3D6    ×1
+
+=== fill / stroke 取值 ===
+   fill   none             ×2
+   fill   #1E1E1E          ×2
+   fill   #3770F7          ×2
+   fill   #3D3D3D          ×1
+   stroke #D0D3D6          ×1
+
+=== #3D3D3D 出现位置（相对长度）===
+   @14826 (98%)  …75397L280.9593505390625,19.687698L292.9886475390625,19.687698Z' fill='#3D3D3D' fill-opacit…
+   共 1 处
+
+=== #D0D3D6（分隔线）出现位置 ===
+   @14963 (99%)  …209.0999755859375' y1='1' x2='229.0999755859375' y2='1' fill-opacity='0' stroke-opacity='1' stroke='#D0D3D6' fill='none' stroke-width='2' transform='matrix(0,1,…
+   共 1 处
+
+解码 SVG 已存 → E:\GienCoder\giencoder-design-engineering\mg-work\r109\ev\theme\..\..\raw\find11\brand-decoded.svg

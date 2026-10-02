@@ -1,0 +1,163 @@
+前 9355 行 / 后 9354 行
+
+--- replace  前[1:2] → 后[1:2] ---
+  【前】
+    <html lang="zh-CN" data-r93-page="conversation" data-gi-dark="1">
+  【后】
+    <html lang="zh-CN" data-r93-page="conversation">
+
+--- delete  前[558:559] → 后[558:558] ---
+  【前】
+    
+
+--- replace  前[1618:1628] → 后[1617:1627] ---
+  【前】
+      --r93-line: rgb(var(--gray-2));
+      --r93-card: rgb(var(--gray-1));
+      --r93-edge: rgb(var(--gray-2));
+      --r93-bubble: rgb(var(--blue-1));
+      --r93-bubble-sh: rgb(var(--giencoderblue-2));
+      --r93-tag-bg: rgb(var(--orange-1));
+      --r93-tag-bd: rgb(var(--orange-2));
+      --r93-tag-ic: rgb(var(--orange-5));
+      --r93-warn-bg: rgb(var(--orange-1));
+      --r93-warn-bd: rgb(var(--orange-2));
+  【后】
+      --r93-line: #EBEBED;
+      --r93-card: #F5F6F7;
+      --r93-edge: #ECEEF2;
+      --r93-bubble: #E5EDFE;
+      --r93-bubble-sh: #D0D7EA;
+      --r93-tag-bg: #FFF3E8;
+      --r93-tag-bd: #FDDDC3;
+      --r93-tag-ic: #F77234;
+      --r93-warn-bg: #FFF7E8;
+      --r93-warn-bd: #FFE4BA;
+
+--- replace  前[1636:1637] → 后[1635:1636] ---
+  【前】
+      --r93-ioc: rgb(var(--gray-9));
+  【后】
+      --r93-ioc: #333333;
+
+--- replace  前[1644:1647] → 后[1643:1646] ---
+  【前】
+         PNG 逐像素实测笔画色 = (169,169,169) = rgb(var(--gray-5)) = DS 原始色阶 **gray-5**
+         （不是 `--color-text-4` 的 gray-4 rgb(var(--gray-4))，也不是 text-3 的 rgb(var(--gray-6))）。
+         直接引 `--gray-5` 三元组 ⇒ 暗色档自动跟着色阶翻转（暗色 gray-5 = rgb(var(--gray-6))），
+  【后】
+         PNG 逐像素实测笔画色 = (169,169,169) = #A9A9A9 = DS 原始色阶 **gray-5**
+         （不是 `--color-text-4` 的 gray-4 #C9C9C9，也不是 text-3 的 #868686）。
+         直接引 `--gray-5` 三元组 ⇒ 暗色档自动跟着色阶翻转（暗色 gray-5 = #868686），
+
+--- replace  前[1649:1651] → 后[1648:1650] ---
+  【前】
+      --r93-dim: rgb(var(--gray-4));
+      /* ★ r104 ④：原 `--r93-blue: rgb(var(--blue-7))` 已删除 —— 全页零引用（产物卡蓝徽标后来改用
+  【后】
+      --r93-dim: #C4C7C9;
+      /* ★ r104 ④：原 `--r93-blue: #327FCB` 已删除 —— 全页零引用（产物卡蓝徽标后来改用
+
+--- replace  前[1654:1655] → 后[1653:1654] ---
+  【前】
+         颜色 PNG 实测笔画 (52,145,250) = rgb(var(--blue-6)) —— **不是** `--color-primary-6` 的 rgb(var(--giencoderblue-6))：
+  【后】
+         颜色 PNG 实测笔画 (52,145,250) = #3491FA —— **不是** `--color-primary-6` 的 #3770F7：
+
+--- replace  前[1656:1657] → 后[1655:1656] ---
+  【前】
+      --r93-pillc: rgb(var(--blue-6));
+  【后】
+      --r93-pillc: #3491FA;
+
+--- replace  前[1662:1663] → 后[1661:1662] ---
+  【前】
+      --r93-glass: rgba(var(--gray-1), 0.72);
+  【后】
+      --r93-glass: rgba(255,255,255,0.72);
+
+--- replace  前[1672:1675] → 后[1671:1674] ---
+  【前】
+      --r93-glass-pill: rgba(var(--gray-1), 0.6);
+      --r93-glass-pill-h: rgba(var(--gray-1), 0.74);
+      --r93-hov-bg: rgb(var(--blue-1)); --r93-hov-bd: rgb(var(--giencoderblue-2));
+  【后】
+      --r93-glass-pill: rgba(255,255,255,0.60);
+      --r93-glass-pill-h: rgba(255,255,255,0.74);
+      --r93-hov-bg: #ECF2FF; --r93-hov-bd: #D3E2FF;
+
+--- replace  前[2936:2937] → 后[2935:2936] ---
+  【前】
+    :root { --td-panel-line: rgb(var(--gray-2)); --td-hairline: var(--color-border-1); }
+  【后】
+    :root { --td-panel-line: #ECEEF2; --td-hairline: var(--color-border-1); }
+
+--- replace  前[2965:2966] → 后[2964:2965] ---
+  【前】
+            --td-code-key: rgb(var(--blue-8)); --td-code-str: rgb(var(--red-8)); --td-code-num: rgb(var(--green-7));
+  【后】
+            --td-code-key: #0451A5; --td-code-str: #A31515; --td-code-num: #098658;
+
+--- replace  前[2968:2970] → 后[2967:2969] ---
+  【前】
+            --td-tree-active-bg: rgb(var(--blue-1)); --td-tree-active-bd: rgb(var(--giencoderblue-2));
+            --td-crumb-line: rgb(var(--gray-2));
+  【后】
+            --td-tree-active-bg: #ECF2FF; --td-tree-active-bd: #D3E2FF;
+            --td-crumb-line: #E7EBF1;
+
+--- replace  前[5591:5592] → 后[5590:5591] ---
+  【前】
+      arthov: '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><g><path d="M3.49999991,1L15,1L21,6.9999995L21,22.499998C21,22.77614,20.776142,22.999998,20.499998,23L3.49999991,23C3.22385719,22.999
+  【后】
+      arthov: '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><g><path d="M3.49999991,1L15,1L21,6.9999995L21,22.499998C21,22.77614,20.776142,22.999998,20.499998,23L3.49999991,23C3.22385719,22.999
+
+--- replace  前[5602:5606] → 后[5601:5605] ---
+  【前】
+      fmd: '<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><g><path d="M10.4373322,0L4.7502222,0C3.6124446,0,3.0306666,0.0022222186,2.5977778000000002,0.22311109C2.22596586,0.41245738,1.921725,0.
+      fxls: '<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><g><path d="M11.11109068828125,0L14.66664498828125,3.560889L14.66664498828125,16L1.33331298828125,16L1.33331298828125,0L11.111090688281
+      gienx: '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M0,19.5L0,4.5C0,2.0147185,2.0147185,0,4.5,0L19.5,0C21.985283,0,24,2.0147185,24,4.5L24,19.5C24,21.985283,21.985283,24,19.5,24L
+      mbox: '<svg viewBox="0 0 18 18" fill="none" aria-hidden="true"><g><path d="M9.01635268359375,1.63232421875C4.93823288359375,1.63232439041136,1.63226318359375,4.93829391875,1.63226318359375,9.0164146
+  【后】
+      fmd: '<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><g><path d="M10.4373322,0L4.7502222,0C3.6124446,0,3.0306666,0.0022222186,2.5977778000000002,0.22311109C2.22596586,0.41245738,1.921725,0.
+      fxls: '<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><g><path d="M11.11109068828125,0L14.66664498828125,3.560889L14.66664498828125,16L1.33331298828125,16L1.33331298828125,0L11.111090688281
+      gienx: '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M0,19.5L0,4.5C0,2.0147185,2.0147185,0,4.5,0L19.5,0C21.985283,0,24,2.0147185,24,4.5L24,19.5C24,21.985283,21.985283,24,19.5,24L
+      mbox: '<svg viewBox="0 0 18 18" fill="none" aria-hidden="true"><g><path d="M9.01635268359375,1.63232421875C4.93823288359375,1.63232439041136,1.63226318359375,4.93829391875,1.63226318359375,9.0164146
+
+--- replace  前[5614:5615] → 后[5613:5614] ---
+  【前】
+      send: '<svg viewBox="0 0 28 28" fill="none" aria-hidden="true"><rect x="0" y="0" width="28" height="28" rx="4" fill="rgb(var(--red-1))" fill-opacity="1"/><rect x="0.5" y="0.5" width="27" height="27"
+  【后】
+      send: '<svg viewBox="0 0 28 28" fill="none" aria-hidden="true"><rect x="0" y="0" width="28" height="28" rx="4" fill="#FFECE8" fill-opacity="1"/><rect x="0.5" y="0.5" width="27" height="27" rx="3.5" 
+
+--- replace  前[5625:5626] → 后[5624:5625] ---
+  【前】
+      zip: '<svg viewBox="0 0 14 14" fill="none" aria-hidden="true"><g><path d="M7,1C10.3137989,1,13,3.6861999,13,7C13,10.3137989,10.3137999,13,7.0000005,13C3.6862006,13,1,10.3137989,1,7C1,3.6862006,3.686
+  【后】
+      zip: '<svg viewBox="0 0 14 14" fill="none" aria-hidden="true"><g><path d="M7,1C10.3137989,1,13,3.6861999,13,7C13,10.3137989,10.3137999,13,7.0000005,13C3.6862006,13,1,10.3137989,1,7C1,3.6862006,3.686
+
+--- replace  前[5645:5646] → 后[5644:5645] ---
+  【前】
+      owexplorer: '<svg viewBox="0 0 14 14" width="14" height="14" fill="currentColor" aria-hidden="true"><g><path d="M12.6054934140625,12.44825461953125L1.3945556840625,12.44825461953125C1.0951416040625,
+  【后】
+      owexplorer: '<svg viewBox="0 0 14 14" width="14" height="14" fill="currentColor" aria-hidden="true"><g><path d="M12.6054934140625,12.44825461953125L1.3945556840625,12.44825461953125C1.0951416040625,
+
+--- replace  前[5648:5649] → 后[5647:5648] ---
+  【前】
+      owvscode: '<svg viewBox="0 0 14 14" width="14" height="14" fill="currentColor" aria-hidden="true"><g><path d="M10.20231631875,1.397796630859375L5.28318331875,5.920730130859375L2.5340962187500002,3.8
+  【后】
+      owvscode: '<svg viewBox="0 0 14 14" width="14" height="14" fill="currentColor" aria-hidden="true"><g><path d="M10.20231631875,1.397796630859375L5.28318331875,5.920730130859375L2.5340962187500002,3.8
+
+--- replace  前[6767:6768] → 后[6766:6767] ---
+  【前】
+          { id: 'vscode',   label: 'VS Code',         svg: '<svg viewBox="0 0 14 14" width="14" height="14" fill="currentColor" aria-hidden="true"><g><path d="M10.20231631875,1.397796630859375L5.283183318
+  【后】
+          { id: 'vscode',   label: 'VS Code',         svg: '<svg viewBox="0 0 14 14" width="14" height="14" fill="currentColor" aria-hidden="true"><g><path d="M10.20231631875,1.397796630859375L5.283183318
+
+--- replace  前[6772:6773] → 后[6771:6772] ---
+  【前】
+          { id: 'explorer', label: '文件资源管理器',    svg: '<svg viewBox="0 0 14 14" width="14" height="14" fill="currentColor" aria-hidden="true"><g><path d="M12.6054934140625,12.44825461953125L1.394555684062
+  【后】
+          { id: 'explorer', label: '文件资源管理器',    svg: '<svg viewBox="0 0 14 14" width="14" height="14" fill="currentColor" aria-hidden="true"><g><path d="M12.6054934140625,12.44825461953125L1.394555684062
+
+变更段数 = 21

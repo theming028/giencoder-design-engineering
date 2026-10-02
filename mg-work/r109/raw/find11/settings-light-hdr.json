@@ -1,0 +1,12 @@
+[
+  {
+    "bg": "rgb(247, 247, 247)",
+    "bi": "url(\"file:///E:/GienCoder/giencoder-design-engineering/assets/images/bg-img-1.png\")",
+    "bsize": "70% auto",
+    "cls": "flex h-12 shrink-0 items-center justify-between px-4 bg-[var",
+    "h": 48,
+    "w": 1440,
+    "x": 0,
+    "y": 0
+  }
+]
